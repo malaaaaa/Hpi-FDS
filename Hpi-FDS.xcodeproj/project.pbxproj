@@ -166,8 +166,6 @@
 		14DFBD58155A6E070084E7F9 /* TmShipinfoDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DFBD57155A6E060084E7F9 /* TmShipinfoDao.m */; };
 		14E4586615622CCD0015258C /* MarketOneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E4586415622CCC0015258C /* MarketOneController.m */; };
 		14E4586715622CCD0015258C /* MarketOneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E4586515622CCC0015258C /* MarketOneController.xib */; };
-		D909F0A715AFF07E0011364A /* VBFactoryTransVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D909F0A515AFF07D0011364A /* VBFactoryTransVC.m */; };
-		D909F0A815AFF07E0011364A /* VBFactoryTransVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D909F0A615AFF07E0011364A /* VBFactoryTransVC.xib */; };
 		D90A84FE15B54224001CC03A /* TfShipCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A84FD15B54224001CC03A /* TfShipCompany.m */; };
 		D90A850215B54237001CC03A /* TfShipCompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A850115B54237001CC03A /* TfShipCompanyDao.m */; };
 		D9190F2F15AE5950003F672C /* VBFactoryTransDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D9190F2D15AE5950003F672C /* VBFactoryTransDetailVC.m */; };
@@ -182,8 +180,10 @@
 		D92960D615AA785C0042D6BD /* TfFactoryDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D92960D515AA785B0042D6BD /* TfFactoryDao.m */; };
 		D92960D915AA80EA0042D6BD /* TbFactoryState.m in Sources */ = {isa = PBXBuildFile; fileRef = D92960D815AA80E80042D6BD /* TbFactoryState.m */; };
 		D92960DC15AA810A0042D6BD /* TbFactoryStateDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D92960DB15AA81090042D6BD /* TbFactoryStateDao.m */; };
-		D936863715A43C4E00C85225 /* MultipleSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D936863515A43C4C00C85225 /* MultipleSelectView.m */; };
-		D936863815A43C4E00C85225 /* MultipleSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D936863615A43C4D00C85225 /* MultipleSelectView.xib */; };
+		D9A8381815B7EF89002D83C2 /* MultipleSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */; };
+		D9A8381915B7EF89002D83C2 /* VBFactoryTransVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8381715B7EF89002D83C2 /* VBFactoryTransVC.xib */; };
+		D9A8381E15B7EFAE002D83C2 /* MultipleSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8381B15B7EFAE002D83C2 /* MultipleSelectView.m */; };
+		D9A8381F15B7EFAE002D83C2 /* VBFactoryTransVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8381D15B7EFAE002D83C2 /* VBFactoryTransVC.m */; };
 		D9DDDDC3159060150023D88A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05933BA01524557C00EE32A2 /* libxml2.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		D9DDDDD1159063780023D88A /* gk.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DDDDC4159063780023D88A /* gk.png */; };
 		D9DDDDD3159063780023D88A /* SummaryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DDDDC7159063780023D88A /* SummaryInfoViewController.m */; };
@@ -428,9 +428,6 @@
 		14E4586315622CCC0015258C /* MarketOneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketOneController.h; sourceTree = "<group>"; };
 		14E4586415622CCC0015258C /* MarketOneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketOneController.m; sourceTree = "<group>"; };
 		14E4586515622CCC0015258C /* MarketOneController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketOneController.xib; sourceTree = "<group>"; };
-		D909F0A415AFF07D0011364A /* VBFactoryTransVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBFactoryTransVC.h; path = ../VBFactoryTransVC.h; sourceTree = "<group>"; };
-		D909F0A515AFF07D0011364A /* VBFactoryTransVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBFactoryTransVC.m; path = ../VBFactoryTransVC.m; sourceTree = "<group>"; };
-		D909F0A615AFF07E0011364A /* VBFactoryTransVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VBFactoryTransVC.xib; path = ../VBFactoryTransVC.xib; sourceTree = "<group>"; };
 		D90A84FC15B54223001CC03A /* TfShipCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfShipCompany.h; sourceTree = "<group>"; };
 		D90A84FD15B54224001CC03A /* TfShipCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TfShipCompany.m; sourceTree = "<group>"; };
 		D90A850015B54236001CC03A /* TfShipCompanyDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfShipCompanyDao.h; sourceTree = "<group>"; };
@@ -458,9 +455,12 @@
 		D92960D815AA80E80042D6BD /* TbFactoryState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TbFactoryState.m; sourceTree = "<group>"; };
 		D92960DA15AA81070042D6BD /* TbFactoryStateDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TbFactoryStateDao.h; sourceTree = "<group>"; };
 		D92960DB15AA81090042D6BD /* TbFactoryStateDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TbFactoryStateDao.m; sourceTree = "<group>"; };
-		D936863415A43C4B00C85225 /* MultipleSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultipleSelectView.h; path = ../MultipleSelectView.h; sourceTree = "<group>"; };
-		D936863515A43C4C00C85225 /* MultipleSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultipleSelectView.m; path = ../MultipleSelectView.m; sourceTree = "<group>"; };
-		D936863615A43C4D00C85225 /* MultipleSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MultipleSelectView.xib; path = ../MultipleSelectView.xib; sourceTree = "<group>"; };
+		D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultipleSelectView.xib; sourceTree = "<group>"; };
+		D9A8381715B7EF89002D83C2 /* VBFactoryTransVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBFactoryTransVC.xib; sourceTree = "<group>"; };
+		D9A8381A15B7EFAE002D83C2 /* MultipleSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleSelectView.h; sourceTree = "<group>"; };
+		D9A8381B15B7EFAE002D83C2 /* MultipleSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleSelectView.m; sourceTree = "<group>"; };
+		D9A8381C15B7EFAE002D83C2 /* VBFactoryTransVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBFactoryTransVC.h; sourceTree = "<group>"; };
+		D9A8381D15B7EFAE002D83C2 /* VBFactoryTransVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBFactoryTransVC.m; sourceTree = "<group>"; };
 		D9DDDDC4159063780023D88A /* gk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gk.png; sourceTree = "<group>"; };
 		D9DDDDC6159063780023D88A /* SummaryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryInfoViewController.h; sourceTree = "<group>"; };
 		D9DDDDC7159063780023D88A /* SummaryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryInfoViewController.m; sourceTree = "<group>"; };
@@ -571,8 +571,6 @@
 				05F43028153BFBB500CC00EB /* DateViewController.m */,
 				059A1BF31525B75100AB24C4 /* ChooseView.h */,
 				059A1BF41525B75100AB24C4 /* ChooseView.m */,
-				D936863415A43C4B00C85225 /* MultipleSelectView.h */,
-				D936863515A43C4C00C85225 /* MultipleSelectView.m */,
 				14CFDA9F154A41A300E0FF8F /* HpiGraphData.h */,
 				14CFDAA0154A41A300E0FF8F /* HpiGraphData.m */,
 				14CFDAA1154A41A300E0FF8F /* HpiGraphView.h */,
@@ -593,8 +591,8 @@
 		057F6C5C152449EA00E0E435 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
-				D909F0A615AFF07E0011364A /* VBFactoryTransVC.xib */,
-				D936863615A43C4D00C85225 /* MultipleSelectView.xib */,
+				D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */,
+				D9A8381715B7EF89002D83C2 /* VBFactoryTransVC.xib */,
 				14CB7DCD1552877A008097AE /* VBTransChVC.xib */,
 				14BE5D7C1546B7470042C562 /* DataQueryVC.xib */,
 				053A4FFA153E597A0072996E /* VBShipChVC.xib */,
@@ -826,6 +824,10 @@
 		059A1BCB1525521A00AB24C4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D9A8381A15B7EFAE002D83C2 /* MultipleSelectView.h */,
+				D9A8381B15B7EFAE002D83C2 /* MultipleSelectView.m */,
+				D9A8381C15B7EFAE002D83C2 /* VBFactoryTransVC.h */,
+				D9A8381D15B7EFAE002D83C2 /* VBFactoryTransVC.m */,
 				14BE5D7D1546B7470042C562 /* en.lproj */,
 				14CB7DCB15528779008097AE /* VBTransChVC.h */,
 				14CB7DCC1552877A008097AE /* VBTransChVC.m */,
@@ -835,8 +837,6 @@
 				14CFDACD154A9B4800E0FF8F /* UIDevice+IdentifierAddition.m */,
 				14BE5D69154688EF0042C562 /* VBShipDetailController.h */,
 				14BE5D6A154688EF0042C562 /* VBShipDetailController.m */,
-				D909F0A415AFF07D0011364A /* VBFactoryTransVC.h */,
-				D909F0A515AFF07D0011364A /* VBFactoryTransVC.m */,
 				057F6C581524496900E0E435 /* FdsAppDelegate.h */,
 				057F6C591524496900E0E435 /* FdsAppDelegate.m */,
 				14C1DFCD1553A96F0060DF17 /* PortViewController.h */,
@@ -1028,9 +1028,9 @@
 				14E4586715622CCD0015258C /* MarketOneController.xib in Resources */,
 				D9DDDDD1159063780023D88A /* gk.png in Resources */,
 				D9DDDDD4159063780023D88A /* SummaryInfoViewController.xib in Resources */,
-				D936863815A43C4E00C85225 /* MultipleSelectView.xib in Resources */,
 				D9190F3015AE5950003F672C /* VBFactoryTransDetailVC.xib in Resources */,
-				D909F0A815AFF07E0011364A /* VBFactoryTransVC.xib in Resources */,
+				D9A8381815B7EF89002D83C2 /* MultipleSelectView.xib in Resources */,
+				D9A8381915B7EF89002D83C2 /* VBFactoryTransVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,7 +1111,6 @@
 				D9DDDDD6159063780023D88A /* TbTransplanDao.m in Sources */,
 				D9DDDDD7159063780023D88A /* TiListinfo.m in Sources */,
 				D9DDDDD8159063780023D88A /* TiListinfoDao.m in Sources */,
-				D936863715A43C4E00C85225 /* MultipleSelectView.m in Sources */,
 				D9FA854F15A6B36B0092DEE1 /* VbFactoryTrans.m in Sources */,
 				D9FA855315A6BF1D0092DEE1 /* VbFactoryTransDao.m in Sources */,
 				D92960D215AA71750042D6BD /* TfFactory.m in Sources */,
@@ -1119,7 +1118,6 @@
 				D92960D915AA80EA0042D6BD /* TbFactoryState.m in Sources */,
 				D92960DC15AA810A0042D6BD /* TbFactoryStateDao.m in Sources */,
 				D9190F2F15AE5950003F672C /* VBFactoryTransDetailVC.m in Sources */,
-				D909F0A715AFF07E0011364A /* VBFactoryTransVC.m in Sources */,
 				D90A84FE15B54224001CC03A /* TfShipCompany.m in Sources */,
 				D90A850215B54237001CC03A /* TfShipCompanyDao.m in Sources */,
 				D91A487515B648A30020EEA0 /* TfSupplier.m in Sources */,
@@ -1128,6 +1126,8 @@
 				D91A487F15B65D790020EEA0 /* TfCoalTypeDao.m in Sources */,
 				D91A488215B692660020EEA0 /* TsShipStage.m in Sources */,
 				D91A488515B692810020EEA0 /* TsShipStageDao.m in Sources */,
+				D9A8381E15B7EFAE002D83C2 /* MultipleSelectView.m in Sources */,
+				D9A8381F15B7EFAE002D83C2 /* VBFactoryTransVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
