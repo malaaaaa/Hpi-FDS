@@ -1,0 +1,300 @@
+//
+//  VBFactoryTransVC.m
+//  Hpi-FDS
+//
+//  Created by 马 文培 on 12-7-3.
+//  Copyright (c) 2012年 Landscape. All rights reserved.
+//
+
+#import "VBFactoryTransVC.h"
+#import "PubInfo.h"
+#import "QueryViewController.h"
+#import "DataQueryVC.h"
+
+@interface VBFactoryTransVC ()
+
+@end
+
+@implementation VBFactoryTransVC
+
+@synthesize activity;
+@synthesize reloadButton;
+@synthesize factoryButton;
+@synthesize factoryLabel;
+@synthesize comButton;
+@synthesize comLabel;
+@synthesize shipButton;
+@synthesize shipLabel;
+@synthesize typeButton;
+@synthesize typeLabel;
+@synthesize keyValueButton;
+@synthesize keyValueLabel;
+@synthesize tradeButton;
+@synthesize tradeLabel;
+@synthesize statButton;
+@synthesize statLabel;
+@synthesize supButton;
+@synthesize supLabel;
+@synthesize dateButton;
+@synthesize dateLabel;
+@synthesize queryButton;
+@synthesize resetButton;
+@synthesize popover,chooseView,multipleSelectView,parentVC,xmlParser;
+
+static BOOL FactoryPop=NO;
+static  NSMutableArray *FactoryArray;
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    self.factoryLabel.text=All_;
+    self.shipLabel.text =All_;
+    self.comLabel.text=All_;
+    self.typeLabel.text=All_;
+    self.keyValueLabel.text=All_;
+    self.tradeLabel.text=All_;
+    self.statLabel.text=All_;
+    self.supLabel.text=All_;
+    
+    self.factoryLabel.hidden=YES;
+    self.shipLabel.hidden=YES;
+    self.comLabel.hidden=YES;
+    self.keyValueLabel.hidden=YES;
+    self.tradeLabel.hidden=YES;
+    self.statLabel.hidden=YES;
+    self.supLabel.hidden=YES;
+    self.typeLabel.hidden=YES;
+    [activity removeFromSuperview];
+    self.xmlParser=[[XMLParser alloc]init];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    self.dateLabel.text=[dateFormatter stringFromDate:[NSDate date]];
+    [dateFormatter release];
+    
+    //factoryArray= [[NSMutableArray alloc] init];
+    
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+    [self setFactoryButton:nil];
+    [self setFactoryLabel:nil];
+    [self setComButton:nil];
+    [self setComLabel:nil];
+    [self setShipButton:nil];
+    [self setShipLabel:nil];
+    [self setTypeButton:nil];
+    [self setTypeLabel:nil];
+    [self setKeyValueButton:nil];
+    [self setKeyValueLabel:nil];
+    [self setTradeButton:nil];
+    [self setTradeLabel:nil];
+    [self setStatButton:nil];
+    [self setStatLabel:nil];
+    [self setSupButton:nil];
+    [self setSupLabel:nil];
+    [self setDateButton:nil];
+    [self setDateLabel:nil];
+    [self setQueryButton:nil];
+    [self setResetButton:nil];
+    [self setReloadButton:nil];
+    [self setActivity:nil];
+    xmlParser=nil;
+    [xmlParser release];
+    
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return YES;
+}
+- (void)dealloc {
+    [factoryButton release];
+    [factoryLabel release];
+    [comButton release];
+    [comLabel release];
+    [shipButton release];
+    [shipLabel release];
+    [typeButton release];
+    [typeLabel release];
+    [keyValueButton release];
+    [keyValueLabel release];
+    [tradeButton release];
+    [tradeLabel release];
+    [statButton release];
+    [statLabel release];
+    [supButton release];
+    [supLabel release];
+    [dateButton release];
+    [dateLabel release];
+    [queryButton release];
+    [resetButton release];
+    [popover release];
+    [reloadButton release];
+    [activity release];
+    [xmlParser release];
+    [super dealloc];
+    //[factoryArray release];
+    if (FactoryPop==YES) {
+        [FactoryArray release];
+    }
+    
+}
+- (IBAction)factoryAction:(id)sender {
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    
+    //初始化多选控制器
+    multipleSelectView=[[MultipleSelectView alloc]init]; 
+    //设置待显示控制器的范围
+    [multipleSelectView.view setFrame:CGRectMake(0,0, 125, 400)];
+    //设置待显示控制器视图的尺寸
+    multipleSelectView.contentSizeForViewInPopover = CGSizeMake(125, 400);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:multipleSelectView];
+    multipleSelectView.popover = pop;
+
+
+    if ( FactoryPop==NO) { 
+        FactoryArray=[[NSMutableArray alloc]init];
+        TgFactory *allFactory =  [[TgFactory alloc] init];
+        allFactory.factoryCode = All_;
+        allFactory.factoryName =All_;
+        [FactoryArray addObject:allFactory];
+        [allFactory release];
+        NSMutableArray *array=[TgFactoryDao getTgFactory];
+        for(int i=0;i<[array count];i++){
+            TgFactory *tgFactory=[array objectAtIndex:i];
+            [FactoryArray addObject:tgFactory];
+            
+        }
+        FactoryPop=YES;
+        
+    }
+    multipleSelectView.iDArray=FactoryArray;
+  
+    multipleSelectView.parentMapView=self;
+    multipleSelectView.type=kChFACTORY;
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(125, 400);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(702, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [multipleSelectView.tableView reloadData];
+    [multipleSelectView release];
+    [pop release];
+    
+    
+    
+}
+- (IBAction)reloadAction:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
+	[alert show];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [self.view addSubview:activity];
+        [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
+        [activity startAnimating];
+        [xmlParser setISoapNum:1];
+        [xmlParser getTfFactory];
+        [xmlParser getTbFactoryState];
+        [self runActivity];
+    }
+	
+}
+
+- (IBAction)queryAction:(id)sender {
+    
+    // NSLog(@"factoryArray count=[%d]",[self.factoryArray count]);
+    
+    NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
+    DataQueryVC *dataQueryVC=self.parentVC;
+    dataQueryVC.dataArray=[VbFactoryTransDao getVbFactoryTrans:[multipleSelectView iDArray]];
+    [dataQueryVC loadViewData_factory];
+    [loopPool drain];
+}
+
+- (IBAction)resetAction:(id)sender {
+    
+    self.factoryLabel.text=All_;
+    self.shipLabel.text =All_;
+    self.comLabel.text=All_;
+    self.typeLabel.text=All_;
+    self.keyValueLabel.text=All_;
+    self.tradeLabel.text=All_;
+    self.statLabel.text=All_;
+    self.supLabel.text=All_;
+    self.factoryLabel.hidden=YES;
+    self.shipLabel.hidden=YES;
+    self.comLabel.hidden=YES;
+    self.keyValueLabel.hidden=YES;
+    self.tradeLabel.hidden=YES;
+    self.statLabel.hidden=YES;
+    self.supLabel.hidden=YES;
+    self.typeLabel.hidden=YES;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    self.dateLabel.text=[dateFormatter stringFromDate:[NSDate date]];
+    [dateFormatter release];
+    
+    [factoryButton setTitle:@"电厂" forState:UIControlStateNormal];
+    [comButton setTitle:@"航运公司" forState:UIControlStateNormal];
+    [shipButton setTitle:@"船名" forState:UIControlStateNormal];
+    [statButton setTitle:@"状态" forState:UIControlStateNormal];
+    [typeButton setTitle:@"煤种" forState:UIControlStateNormal];
+    [keyValueButton setTitle:@"性质" forState:UIControlStateNormal];
+    [tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+    [supButton setTitle:@"供货商" forState:UIControlStateNormal];
+    
+    
+    
+    
+}
+#pragma mark - popoverController
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
+    NSLog(@"popoverControllerShouldDismissPopover");
+    
+    return  YES;
+}
+
+/* Called on the delegate when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.
+ */
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
+    NSLog(@"popoverControllerDidDismissPopover");
+}
+
+#pragma mark activity
+-(void)runActivity
+{
+    if ([xmlParser iSoapNum]==0) {
+        [activity stopAnimating];
+        [activity removeFromSuperview];
+        [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
+        return;
+    }
+    else {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
+    }
+}
+@end

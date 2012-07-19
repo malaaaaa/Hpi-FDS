@@ -1,0 +1,27 @@
+//
+//  VbFactoryTrans.m
+//  Hpi-FDS
+//
+//  Created by 马 文培 on 12-7-6.
+//  Copyright (c) 2012年 Landscape. All rights reserved.
+//
+
+#import "VbFactoryTrans.h"
+
+
+@implementation VbFactoryTrans
+@synthesize FACTORYCODE,CAPACITYSUM,DISPATCHNO,SHIPID,SHIPNAME,TYPEID, TRADE,KEYVALUE,SUPID,STATECODE,elw,T_NOTE,F_NOTE,FACTORYNAME,CONSUM,STORAGE,COMPARE,AVALIABLE,MONTHIMP,YEARIMP;
+-(void)dealloc {
+    [FACTORYCODE release];
+    [CAPACITYSUM release];
+    [DISPATCHNO release];
+    [SHIPNAME release];
+    [TRADE release];
+    [KEYVALUE release];
+    [STATECODE release];
+    [T_NOTE release];
+    [F_NOTE release];
+    [FACTORYNAME release];
+    [super dealloc];
+}
+@end

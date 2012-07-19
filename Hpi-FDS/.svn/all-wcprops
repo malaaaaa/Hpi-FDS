@@ -1,0 +1,1457 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS
+END
+ASINetworkQueue.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASINetworkQueue.h
+END
+InfoPortVewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoPortVewController.m
+END
+chuanxk3@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/chuanxk3@2x.png
+END
+HpiGraphData.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/HpiGraphData.h
+END
+chuanx@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/chuanx@2x.png
+END
+chuanxk.png
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/chuanxk.png
+END
+TbFactoryState.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TbFactoryState.h
+END
+ASINetworkQueue.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASINetworkQueue.m
+END
+VBFactoryTransVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/VBFactoryTransVC.h
+END
+HpiGraphData.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/HpiGraphData.m
+END
+VbShiptrans.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VbShiptrans.h
+END
+TbFactoryState.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TbFactoryState.m
+END
+Default-Landscape~ipad.png
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/Default-Landscape~ipad.png
+END
+VBFactoryTransVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/VBFactoryTransVC.m
+END
+ChooseView.xib
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ChooseView.xib
+END
+Hpi-FDS-Prefix.pch
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/Hpi-FDS-Prefix.pch
+END
+VbShiptrans.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VbShiptrans.m
+END
+map.png
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/map.png
+END
+ASIHTTPRequestConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIHTTPRequestConfig.h
+END
+VBShipDetailController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VBShipDetailController.xib
+END
+InfoFactoryViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoFactoryViewController.xib
+END
+VBTransChVC.xib
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/VBTransChVC.xib
+END
+pdf@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/pdf@2x.png
+END
+other@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/other@2x.png
+END
+jian@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/jian@2x.png
+END
+TbTransplan.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TbTransplan.h
+END
+VbTransplan.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VbTransplan.h
+END
+VBShipChVC.xib
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/VBShipChVC.xib
+END
+xiala.png
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/xiala.png
+END
+ASICacheDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASICacheDelegate.h
+END
+setup.png
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/setup.png
+END
+TbTransplan.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TbTransplan.m
+END
+gk.png
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/gk.png
+END
+VbTransplan.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VbTransplan.m
+END
+gou@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/gou@2x.png
+END
+TsFileinfo.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TsFileinfo.h
+END
+gangkou@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/gangkou@2x.png
+END
+QueryViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/QueryViewController.h
+END
+dianchang1@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/dianchang1@2x.png
+END
+pdf.png
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/pdf.png
+END
+TsFileinfo.m
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TsFileinfo.m
+END
+QueryViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/QueryViewController.m
+END
+ann.png
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ann.png
+END
+hpiAnnotation.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/hpiAnnotation.h
+END
+XMLParser.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/XMLParser.h
+END
+ShipInfoViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ShipInfoViewController.h
+END
+InfoShipViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoShipViewController.h
+END
+jian.png
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/jian.png
+END
+other.png
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/other.png
+END
+hpiAnnotation.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/hpiAnnotation.m
+END
+InfoPortVewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoPortVewController.xib
+END
+XMLParser.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/XMLParser.m
+END
+ShipInfoViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ShipInfoViewController.m
+END
+ASIDataCompressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIDataCompressor.h
+END
+InfoShipViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoShipViewController.m
+END
+ann@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ann@2x.png
+END
+chuanx.png
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/chuanx.png
+END
+MarketOneController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MarketOneController.xib
+END
+TgFactoryDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgFactoryDao.h
+END
+UIDevice+IdentifierAddition.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/UIDevice+IdentifierAddition.h
+END
+MemoirCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MemoirCell.h
+END
+ASIDataCompressor.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIDataCompressor.m
+END
+MarketOneController.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MarketOneController.h
+END
+chuanxk1@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/chuanxk1@2x.png
+END
+InfoTextViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoTextViewController.xib
+END
+TgFactoryDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgFactoryDao.m
+END
+UIDevice+IdentifierAddition.m
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/UIDevice+IdentifierAddition.m
+END
+HpiGraphView.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/HpiGraphView.h
+END
+MemoirCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MemoirCell.m
+END
+MarketOneController.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MarketOneController.m
+END
+SetupViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/SetupViewController.h
+END
+jia.png
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/jia.png
+END
+Reachability.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/Reachability.h
+END
+HpiGraphView.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/HpiGraphView.m
+END
+ASINSStringAdditions.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASINSStringAdditions.h
+END
+SummaryInfoViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/SummaryInfoViewController.xib
+END
+download.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/download.png
+END
+NSString+MD5Addition.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/NSString+MD5Addition.h
+END
+SetupViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/SetupViewController.m
+END
+EGORefreshTableHeaderView.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/EGORefreshTableHeaderView.h
+END
+Reachability.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/Reachability.m
+END
+ASINSStringAdditions.m
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASINSStringAdditions.m
+END
+NSString+MD5Addition.m
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/NSString+MD5Addition.m
+END
+TmIndextype.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndextype.h
+END
+EGORefreshTableHeaderView.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/EGORefreshTableHeaderView.m
+END
+PortViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/PortViewController.xib
+END
+TmIndextype.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndextype.m
+END
+MarketViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MarketViewController.h
+END
+MarketViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MarketViewController.m
+END
+ASIDownloadCache.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIDownloadCache.h
+END
+market@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/market@2x.png
+END
+ASIAuthenticationDialog.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIAuthenticationDialog.h
+END
+ASIDownloadCache.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIDownloadCache.m
+END
+ASIAuthenticationDialog.m
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIAuthenticationDialog.m
+END
+excel@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/excel@2x.png
+END
+WebViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/WebViewController.xib
+END
+MapViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MapViewController.xib
+END
+MemoirListVC.xib
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MemoirListVC.xib
+END
+dianchang.png
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/dianchang.png
+END
+InfoShipViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoShipViewController.xib
+END
+ShipInfoViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ShipInfoViewController.xib
+END
+MemoirListVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MemoirListVC.h
+END
+download@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/download@2x.png
+END
+VbTransplanDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VbTransplanDao.h
+END
+word@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/word@2x.png
+END
+MemoirListVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MemoirListVC.m
+END
+TgShipDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgShipDao.h
+END
+dianchang@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/dianchang@2x.png
+END
+VbTransplanDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VbTransplanDao.m
+END
+map@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/map@2x.png
+END
+gangkou3@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/gangkou3@2x.png
+END
+ASIHTTPRequest.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIHTTPRequest.h
+END
+TsFileinfoDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TsFileinfoDao.h
+END
+Hpi-FDS-Info.plist
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/Hpi-FDS-Info.plist
+END
+TgShipDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgShipDao.m
+END
+gangkou.png
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/gangkou.png
+END
+main.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/main.m
+END
+ASIHTTPRequest.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIHTTPRequest.m
+END
+TsFileinfoDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TsFileinfoDao.m
+END
+CSLabelAnnotationView.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/CSLabelAnnotationView.h
+END
+CSLabelAnnotationView.m
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/CSLabelAnnotationView.m
+END
+query.png
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/query.png
+END
+PubInfo.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/PubInfo.h
+END
+ASIFormDataRequest.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIFormDataRequest.h
+END
+TmShipinfoDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmShipinfoDao.h
+END
+PubInfo.m
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/PubInfo.m
+END
+VbFactoryTrans.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/VbFactoryTrans.h
+END
+ASIFormDataRequest.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIFormDataRequest.m
+END
+SummaryInfoViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/SummaryInfoViewController.h
+END
+TmShipinfoDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmShipinfoDao.m
+END
+ChooseView.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ChooseView.h
+END
+VbFactoryTrans.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/VbFactoryTrans.m
+END
+MarketViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MarketViewController.xib
+END
+SummaryInfoViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/SummaryInfoViewController.m
+END
+TmCoalinfoDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmCoalinfoDao.h
+END
+ChooseView.m
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ChooseView.m
+END
+bgtopbg.png
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/bgtopbg.png
+END
+DataQueryVC.xib
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/DataQueryVC.xib
+END
+VBTransChVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VBTransChVC.h
+END
+TmIndexinfo.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndexinfo.h
+END
+TmCoalinfoDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmCoalinfoDao.m
+END
+VBTransChVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VBTransChVC.m
+END
+TmIndexinfo.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndexinfo.m
+END
+bgtopbg@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/bgtopbg@2x.png
+END
+TgShip.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgShip.h
+END
+TmIndextypeDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndextypeDao.h
+END
+VBShipChVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VBShipChVC.h
+END
+blueArrow.png
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/blueArrow.png
+END
+TgShip.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgShip.m
+END
+TmIndextypeDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndextypeDao.m
+END
+VBShipChVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VBShipChVC.m
+END
+TmIndexdefineDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndexdefineDao.h
+END
+DateViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/DateViewController.xib
+END
+setup@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/setup@2x.png
+END
+FdsAppDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/FdsAppDelegate.h
+END
+TmIndexinfoDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndexinfoDao.h
+END
+gangkou1.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/gangkou1.png
+END
+gangkou3.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/gangkou3.png
+END
+TmIndexdefineDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndexdefineDao.m
+END
+TbTransplanDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TbTransplanDao.h
+END
+MapViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MapViewController.h
+END
+WebViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/WebViewController.h
+END
+FdsAppDelegate.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/FdsAppDelegate.m
+END
+TmIndexinfoDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndexinfoDao.m
+END
+TgPort.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgPort.h
+END
+Default-Portrait~ipad.png
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/Default-Portrait~ipad.png
+END
+market.png
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/market.png
+END
+TbTransplanDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TbTransplanDao.m
+END
+MapViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MapViewController.m
+END
+WebViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/WebViewController.m
+END
+gangkou1@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/gangkou1@2x.png
+END
+TgPort.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgPort.m
+END
+TfFactoryDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TfFactoryDao.h
+END
+VbShiptransDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VbShiptransDao.h
+END
+xia@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/xia@2x.png
+END
+SetupViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/SetupViewController.xib
+END
+dianchang1.png
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/dianchang1.png
+END
+TfFactoryDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TfFactoryDao.m
+END
+VBFactoryTransVC.xib
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/VBFactoryTransVC.xib
+END
+VbFactoryTransDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/VbFactoryTransDao.h
+END
+ASIDataDecompressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIDataDecompressor.h
+END
+VbShiptransDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VbShiptransDao.m
+END
+dianchang3.png
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/dianchang3.png
+END
+InfoTextViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoTextViewController.h
+END
+VbFactoryTransDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/VbFactoryTransDao.m
+END
+ASIDataDecompressor.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIDataDecompressor.m
+END
+TfFactory.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TfFactory.h
+END
+InfoTextViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoTextViewController.m
+END
+chuanx3.png
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/chuanx3.png
+END
+TfFactory.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TfFactory.m
+END
+ASIInputStream.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIInputStream.h
+END
+qiujh.txt
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/qiujh.txt
+END
+word.png
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/word.png
+END
+ASIInputStream.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIInputStream.m
+END
+xia.png
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/xia.png
+END
+InfoFactoryViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoFactoryViewController.h
+END
+VBShipDetailController.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VBShipDetailController.h
+END
+TbFactoryStateDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TbFactoryStateDao.h
+END
+PortViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/PortViewController.h
+END
+TiListinfo.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TiListinfo.h
+END
+InfoFactoryViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoFactoryViewController.m
+END
+VBShipDetailController.m
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/VBShipDetailController.m
+END
+gou.png
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/gou.png
+END
+TbFactoryStateDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TbFactoryStateDao.m
+END
+TBShipChVC.xib
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TBShipChVC.xib
+END
+PortViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/PortViewController.m
+END
+DataQueryVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/DataQueryVC.h
+END
+TiListinfo.m
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TiListinfo.m
+END
+TmCoalinfo.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmCoalinfo.h
+END
+ASIProgressDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIProgressDelegate.h
+END
+TBShipChVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TBShipChVC.h
+END
+DataQueryVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/DataQueryVC.m
+END
+excel.png
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/excel.png
+END
+QueryViewController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/QueryViewController.xib
+END
+TmCoalinfo.m
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmCoalinfo.m
+END
+TgFactory.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TgFactory.h
+END
+TBShipChVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TBShipChVC.m
+END
+DataGridComponent.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/DataGridComponent.h
+END
+TgPortDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgPortDao.h
+END
+xiala@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/xiala@2x.png
+END
+dianchang3@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/dianchang3@2x.png
+END
+TgFactory.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/78/trunk/Hpi-FDS/Hpi-FDS/TgFactory.m
+END
+DataGridComponent.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/DataGridComponent.m
+END
+TiListinfoDao.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TiListinfoDao.h
+END
+TgPortDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TgPortDao.m
+END
+chuanxk@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/chuanxk@2x.png
+END
+blueArrow@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/blueArrow@2x.png
+END
+jia@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/jia@2x.png
+END
+DateViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/DateViewController.h
+END
+query@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/query@2x.png
+END
+TiListinfoDao.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TiListinfoDao.m
+END
+chuanx1@2x.png
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/chuanx1@2x.png
+END
+chuanxk1.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/chuanxk1.png
+END
+ASIHTTPRequestDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/ASIHTTPRequestDelegate.h
+END
+TmShipinfo.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmShipinfo.h
+END
+DateViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/DateViewController.m
+END
+hpilogo3.png
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/hpilogo3.png
+END
+TmIndexdefine.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndexdefine.h
+END
+MemoirCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/MemoirCell.xib
+END
+TmShipinfo.m
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmShipinfo.m
+END
+InfoPortVewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/InfoPortVewController.h
+END
+TmIndexdefine.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/HFDS/!svn/ver/70/trunk/Hpi-FDS/Hpi-FDS/TmIndexdefine.m
+END

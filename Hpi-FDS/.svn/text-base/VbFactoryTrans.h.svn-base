@@ -1,0 +1,57 @@
+//
+//  VbFactoryTrans.h
+//  Hpi-FDS
+//
+//  Created by 马 文培 on 12-7-6.
+//  Copyright (c) 2012年 Landscape. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+
+@interface VbFactoryTrans : NSObject
+{
+    NSString *FACTORYCODE;
+    NSString *CAPACITYSUM;//装机容量
+    NSString *DISPATCHNO;
+    NSInteger SHIPID;
+    NSString *SHIPNAME;
+    NSInteger TYPEID;
+    NSString * TRADE;
+    NSString *KEYVALUE;
+    NSInteger SUPID;
+    NSString *STATECODE;
+    NSInteger elw;
+    NSString *T_NOTE;
+    NSString *F_NOTE; 
+    NSString *FACTORYNAME;
+    NSInteger CONSUM;//日耗
+    NSInteger STORAGE; //库存
+    NSInteger   COMPARE; //较前日
+    NSInteger   AVALIABLE;//可用天数
+    NSInteger   MONTHIMP;//当月调进量
+    NSInteger   YEARIMP;//年调进量
+}
+@property (nonatomic, retain) NSString *FACTORYCODE;
+@property (nonatomic, retain) NSString *CAPACITYSUM;
+@property (nonatomic, retain) NSString *DISPATCHNO;
+@property NSInteger SHIPID;
+@property (nonatomic, retain) NSString *SHIPNAME;
+@property NSInteger TYPEID;
+@property (nonatomic, retain) NSString * TRADE;
+@property (nonatomic, retain) NSString *KEYVALUE;
+@property NSInteger SUPID;
+@property (nonatomic, retain) NSString *STATECODE;
+@property NSInteger elw;
+@property (nonatomic, retain) NSString *T_NOTE;
+@property (nonatomic, retain) NSString *F_NOTE;
+@property (nonatomic, retain) NSString *FACTORYNAME;
+@property NSInteger CONSUM;
+@property NSInteger STORAGE;
+@property NSInteger COMPARE;
+@property NSInteger AVALIABLE;
+@property NSInteger MONTHIMP;
+@property NSInteger YEARIMP;
+
+
+@end
