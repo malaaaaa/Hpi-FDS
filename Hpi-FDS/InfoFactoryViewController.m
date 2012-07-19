@@ -58,8 +58,8 @@
     int i;
     DataGridComponentDataSource *ds = [[DataGridComponentDataSource alloc] init];
 	
-	ds.columnWidth = [NSArray arrayWithObjects:@"30",@"70",@"100",@"60",@"120",@"30",@"60",@"40",@"100",nil];
-	ds.titles = [NSArray arrayWithObjects:@"序号",@"船名",@"航运公司",@"航次",@"供货方",@"热值",@"装载量",@"状态",@"预计到达时间",nil];
+	ds.columnWidth = [NSArray arrayWithObjects:@"150",@"100",@"110",@"120",@"60",@"60",@"60",@"150",nil];
+	ds.titles = [NSArray arrayWithObjects:@"序号 - 船名",@"航运公司",@"航次",@"供货方",@"热值",@"装载量",@"状态",@"预计到达时间",nil];
     
     NSMutableArray *array=[TgShipDao getTgShipZCPort:self.factoryName];
     NSLog(@"查询 %@ 在厂信息 %d条记录",self.factoryName,[array count]);
@@ -69,8 +69,8 @@
         TgShip *tgShip=[array objectAtIndex:i];
         [ds.data addObject:[NSArray arrayWithObjects:
                             kBLACK,
-                            [NSString stringWithFormat:@"%d",i+1],
-                            tgShip.shipName,
+                            [NSString stringWithFormat:@"   %d - %@",i+1,
+                            tgShip.shipName],
                             tgShip.company,
                             tgShip.tripNo,
                             tgShip.supplier,
@@ -80,7 +80,7 @@
                             tgShip.eta,nil]];
         
     }
-	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 36, 600, 175) data:ds];
+	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 35, 600, 175) data:ds];
 	[ds release];
 	[self.view addSubview:grid];
 	[grid release];

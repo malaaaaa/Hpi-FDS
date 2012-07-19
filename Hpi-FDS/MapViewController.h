@@ -13,8 +13,10 @@
 #import "InfoPortVewController.h"
 #import "InfoFactoryViewController.h"
 #import "InfoTextViewController.h"
+#import "InfoShipViewController.h"
 #import "ShipInfoViewController.h"
-#import "XMLParser.h"
+#import "SummaryInfoViewController.h"
+#import "XMLParser.h"	
 
 @interface MapViewController : UIViewController <MKMapViewDelegate,UITableViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate>{
     IBOutlet MKMapView *mapView;
@@ -25,10 +27,13 @@
     IBOutlet UIButton *shipButton;
     IBOutlet UIButton *factoryButton;
     IBOutlet UIButton *portButton;
+    IBOutlet UIButton *updateButton;
     InfoPortVewController *infoPortVewController;
     InfoFactoryViewController *infoFactoryViewController;
     InfoTextViewController *infoTextViewController;
+    InfoShipViewController *infoShipViewController;
     ShipInfoViewController *shipInfoViewController;
+    SummaryInfoViewController *summaryInfoViewController;
     
     //多选栏
     NSMutableArray *portIDArray;
@@ -46,10 +51,6 @@
     NSString *curTextViewinfo;
     NSString *curName;
     NSString *curID;
-    //
-    NSString *chooseShip;
-    NSString *chooseFactory;
-    NSString *choosePort;
     
     XMLParser *xmlParser;
 }
@@ -61,6 +62,7 @@
 @property(nonatomic, retain) UIButton *shipButton;
 @property(nonatomic, retain) UIButton *portButton;
 @property(nonatomic, retain) UIButton *factoryButton;
+@property(nonatomic, retain) UIButton *updateButton;
 
 @property(nonatomic, retain) NSMutableArray *portCoordinateArray;
 @property(nonatomic, retain) NSMutableArray *factoryCoordinateArray;
@@ -75,14 +77,12 @@
 @property (retain,nonatomic)InfoFactoryViewController *infoFactoryViewController;
 @property (retain,nonatomic)InfoTextViewController *infoTextViewController;
 @property (retain,nonatomic)ShipInfoViewController *shipInfoViewController;
+@property (retain,nonatomic)InfoShipViewController *infoShipViewController;
+@property (retain,nonatomic)SummaryInfoViewController *summaryInfoViewController;
 @property (retain,nonatomic) UIPopoverController* popover;
-@property (retain,nonatomic) NSString *curTextViewinfo;
-@property (retain,nonatomic) NSString *curName;
-@property (retain,nonatomic) NSString *curID;
-
-@property (retain,nonatomic) NSString *chooseShip;
-@property (retain,nonatomic) NSString *chooseFactory;
-@property (retain,nonatomic) NSString *choosePort;
+@property (copy,nonatomic) NSString *curTextViewinfo;
+@property (copy,nonatomic) NSString *curName;
+@property (copy,nonatomic) NSString *curID;
 
 @property (retain,nonatomic)XMLParser *xmlParser;
 

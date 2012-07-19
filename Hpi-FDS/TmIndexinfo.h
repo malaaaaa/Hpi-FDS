@@ -24,12 +24,12 @@ constraint PK_TM_INDEXINFO primary key (INFOID)
     NSInteger infoId;
     NSString *indexName;
     NSString *recordTime;
-    NSInteger infoValue;
+    NSString *infoValue;
 }
 
 @property NSInteger infoId;
 @property (nonatomic, retain) NSString *indexName;
 @property (nonatomic, retain) NSString *recordTime;
-@property NSInteger infoValue;
+@property (nonatomic, retain) NSString *infoValue;
 
 @end

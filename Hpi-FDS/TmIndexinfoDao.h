@@ -20,7 +20,7 @@
 +(void)insert:(TmIndexinfo*) tmIndexinfo;
 +(void)delete:(TmIndexinfo*) tmIndexinfo;
 +(NSMutableArray *) getTmIndexinfo:(NSInteger)infoId;
-+(NSMutableArray *) getTmIndexinfo;
++(NSMutableArray *) getTmIndexinfo:(NSString *)indexName :(NSDate*)startDay :(NSDate *)endDay;
 +(NSMutableArray *) getTmIndexinfoBySql:(NSString *)sql;
-
++(TmIndexinfo *) getTmIndexinfoOne:(NSString *)indexName :(NSDate*)day;
 @end

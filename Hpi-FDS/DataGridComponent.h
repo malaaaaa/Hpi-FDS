@@ -94,5 +94,4 @@
  * 用指定显示区域 与 数据源初始化对象
  */
 - (id)initWithFrame:(CGRect)aRect data:(DataGridComponentDataSource*)aDataSource;
-
 @end

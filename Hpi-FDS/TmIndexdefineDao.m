@@ -107,10 +107,18 @@ static sqlite3	*database;
 
 +(NSMutableArray *) getTmIndexdefine:(NSInteger)indexId
 {
-	NSString *query=[NSString stringWithFormat:@" indexId = '%d' ",indexId];
+	NSString *query=[NSString stringWithFormat:@" indexId = %d ",indexId];
 	NSMutableArray * array=[TmIndexdefineDao getTmIndexdefineBySql:query];
 	return array;
 }
+
++(NSMutableArray *) getTmIndexdefineByName:(NSString *)indexName
+{
+	NSString *query=[NSString stringWithFormat:@" indexName = '%@' ",indexName];
+	NSMutableArray * array=[TmIndexdefineDao getTmIndexdefineBySql:query];
+	return array;
+}
+
 +(NSMutableArray *) getTmIndexdefine
 {
     

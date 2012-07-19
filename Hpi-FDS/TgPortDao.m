@@ -119,6 +119,12 @@ static sqlite3	*database;
 	NSMutableArray * array=[TgPortDao getTgPortBySql:query];
 	return array;
 }
++(NSMutableArray *) getTgPortByPortName:(NSString *)portName
+{
+	NSString *query=[NSString stringWithFormat:@" portName = '%@' ",portName];
+	NSMutableArray * array=[TgPortDao getTgPortBySql:query];
+	return array;
+}
 +(NSMutableArray *) getTgPort
 {
     

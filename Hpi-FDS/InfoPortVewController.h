@@ -16,6 +16,6 @@
 
 @property(nonatomic,retain) UILabel *infoLabel;
 @property(nonatomic,retain) UIPopoverController *popover;
-@property(nonatomic,retain) NSString *portName;
+@property(nonatomic,copy) NSString *portName;
 -(void)loadViewData;
 @end

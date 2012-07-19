@@ -48,8 +48,8 @@
     int i;
     DataGridComponentDataSource *ds = [[DataGridComponentDataSource alloc] init];
 	
-	ds.columnWidth = [NSArray arrayWithObjects:@"80",@"80",@"80",@"100",@"60",nil];
-	ds.titles = [NSArray arrayWithObjects:@"装运港",@"流向",@"船名",@"供货方",@"装重(吨)",nil];
+	ds.columnWidth = [NSArray arrayWithObjects:@"100",@"150",@"130",@"150",@"70",nil];
+	ds.titles = [NSArray arrayWithObjects:@"装运港",@"流向",@"船名",@"供货方",@"载重(吨)",nil];
     
     NSLog(@"查询在途信息 %d条记录",[self.array count]);
     
@@ -61,7 +61,7 @@
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
                                 tgShip.portName,
-                                tgShip.destination,
+                                tgShip.factoryName,
                                 tgShip.shipName,
                                 tgShip.supplier,
                                 [NSString stringWithFormat:@"%d",tgShip.lw],
@@ -71,7 +71,7 @@
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kRED,
                                 tgShip.portName,
-                                tgShip.destination,
+                                tgShip.factoryName,
                                 tgShip.shipName,
                                 tgShip.supplier,
                                 [NSString stringWithFormat:@"%d",tgShip.lw],
@@ -81,7 +81,7 @@
         
         
     }
-	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 31, 400, 470) data:ds];
+	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 35, 600, 470) data:ds];
 	[ds release];
 	[self.view addSubview:grid];
 	[grid release];

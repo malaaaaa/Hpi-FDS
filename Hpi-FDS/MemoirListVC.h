@@ -13,7 +13,11 @@
 #import "XMLParser.h"
 #import "ASINetworkQueue.h"
 #import "ASIHTTPRequest.h"
-@interface MemoirListVC : UIViewController<UITableViewDataSource,UITableViewDelegate,EGORefreshTableHeaderDelegate>{
+@interface MemoirListVC : UIViewController<
+    UITableViewDataSource,
+    UITableViewDelegate,
+    EGORefreshTableHeaderDelegate>
+{
     IBOutlet UITableView *memoirTableView;
     UIPopoverController *popover;
     NSMutableArray *listArray;
@@ -25,10 +29,10 @@
     
     XMLParser *xmlParser;
     ASINetworkQueue *networkQueue;
-    //ASIHTTPRequest *request;
     UIProgressView	*processView;
     float contentLength;//大小(BIT)
     id webVC;
+    NSString *stringType;
 }
 @property (nonatomic,retain) UITableView *memoirTableView;
 @property (nonatomic,retain) UIPopoverController *popover;
@@ -41,6 +45,7 @@
 @property (nonatomic,assign) float contentLength;
 @property (nonatomic,assign) id webVC;
 @property (nonatomic,retain) NSMutableArray *cellArray;
+@property (nonatomic,copy) NSString *stringType;
 
 -(void) stratDownload:(MemoirCell *)cell;
 @end

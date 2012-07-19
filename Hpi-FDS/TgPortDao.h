@@ -20,6 +20,7 @@
 +(void)insert:(TgPort*) tgPort;
 +(void)delete:(TgPort*) tgPort;
 +(NSMutableArray *) getTgPort:(NSString *)portCode;
++(NSMutableArray *) getTgPortByPortName:(NSString *)portName;
 +(NSMutableArray *) getTgPort;
 +(NSMutableArray *) getTgPortBySql:(NSString *)sql;
 @end

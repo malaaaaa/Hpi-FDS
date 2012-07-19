@@ -9,23 +9,43 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import <CorePlot/CorePlot.h>
-#define num 20
-#define yLength 1000.0f
-#define yIntervalLength   @"200"
-#define ynum 10
+#import "DateViewController.h"
+#import "PubInfo.h"
+#import "HpiGraphData.h"
+#import "HpiGraphView.h"
+#import "XMLParser.h"
+#import "MarketOneController.h"
 
-@interface MarketViewController : UIViewController<CPPlotDataSource,UIScrollViewDelegate>{
-    UIActivityIndicatorView *indicator;
-    NSMutableArray *data;
-    CPXYGraph * graph ;
-    IBOutlet UIView *graphView;
-    UIPageControl *pageCtrl;
-    UIScrollView *scrView;
-    
-    double x  [ num ];// 散点的 x 坐标
-    double y1 [ num ];// 第 1 个散点图的 y 坐标
-    double y2 [ num ];// 第 2 个散点图的 y 坐标
+@interface MarketViewController : UIViewController<UIPopoverControllerDelegate>{
+    IBOutlet UISegmentedControl *segment;
+    UIPopoverController* popover;
+    DateViewController* startDateCV;
+    DateViewController* endDateCV;
+    NSDate *startDay;
+    NSDate *endDay;
+    IBOutlet UIButton *startButton;
+    IBOutlet UIButton *endButton;
+    IBOutlet UIButton *queryButton;
+    IBOutlet UIButton *dataButton;
+    IBOutlet UIButton *reloadButton;
+    IBOutlet UIActivityIndicatorView *activity;
+    XMLParser *xmlParser;
+    HpiGraphView *graphView;
+    MarketOneController *marketOneController;
 }
-@property(nonatomic,retain) UIPageControl *pageCtrl;
-@property(nonatomic,retain) UIScrollView *scrView;
+@property(nonatomic,retain) UISegmentedControl *segment;
+@property(nonatomic,retain) UIPopoverController *popover;
+@property(nonatomic,retain) DateViewController *startDateCV;
+@property(nonatomic,retain) DateViewController *endDateCV;
+@property(nonatomic,retain) NSDate *startDay;
+@property(nonatomic,retain) NSDate *endDay;
+@property(nonatomic,retain) UIButton *startButton;
+@property(nonatomic,retain) UIButton *endButton;
+@property(nonatomic,retain) UIButton *queryButton;
+@property(nonatomic,retain) UIButton *dataButton;
+@property(nonatomic,retain) UIButton *reloadButton;
+@property(nonatomic,retain) UIActivityIndicatorView *activity;
+@property(nonatomic,retain) XMLParser *xmlParser;
+@property(nonatomic,retain) HpiGraphView *graphView;
+@property(nonatomic,retain) MarketOneController *marketOneController;
 @end

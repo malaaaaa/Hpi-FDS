@@ -36,7 +36,7 @@ UIAlertView *alert;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"设置", @"5th");
+        self.title = NSLocalizedString(@"设置", @"6th");
         self.tabBarItem.image = [UIImage imageNamed:@"setup"];
     }
     return self;
@@ -178,7 +178,7 @@ UIAlertView *alert;
                     cell.textLabel.text=[NSString stringWithFormat:@"本地文件数量: %d",[self getFileNum]];
                     break;
                 case 3	:
-                    cell.textLabel.text=[NSString stringWithString:@"版本信息: HFDS for iPad  V1.0"];
+                    cell.textLabel.text=[NSString stringWithString:@"版本信息: HFDS for iPad  V1.2"];
                     break;
                     
             }

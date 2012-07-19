@@ -20,6 +20,6 @@
 +(void)insert:(VbShiptrans*) vbShiptrans;
 +(void)delete:(VbShiptrans*) vbShiptrans;
 +(NSMutableArray *) getVbShiptrans:(NSString *)dispatchNo;
-+(NSMutableArray *) getVbShiptrans;
++(NSMutableArray *) getVbShiptrans:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(NSString *)stateName;
 +(NSMutableArray *) getVbShiptransBySql:(NSString *)sql;
 @end

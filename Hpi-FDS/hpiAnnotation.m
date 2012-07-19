@@ -10,7 +10,8 @@
 
 @implementation hpiAnnotation
 
-@synthesize coordinate,subtitle,title,iAnnotationType,headImage,subtitle2,port,factory,stage,stateCode;
+@synthesize coordinate,subtitle,iAnnotationType,title,subtitle2,port,factory,topTitle,topImage;
+@synthesize shipStat,shipStage;
 
 - (id) initWithCoords:(CLLocationCoordinate2D) coords{
     
@@ -34,14 +35,16 @@
         [subtitle release];
     if(!subtitle2)
         [subtitle release];
-    if(!headImage)
-        [headImage release];
     if(!port)
         [port release];
     if(!factory)
         [factory release];
-    if(!stage)
-        [stage release];
+    if(!topTitle)
+        [topTitle release];
+    if(!shipStat)
+        [shipStat release];
+    if(!shipStage)
+        [shipStage release];
 	[super dealloc];
 }
 @end

@@ -8,7 +8,7 @@
 
 #import "VbShiptransDao.h"
 #import "VbShiptrans.h"
-
+#import "PubInfo.h"
 @implementation VbShiptransDao
 static sqlite3	*database;
 
@@ -229,12 +229,22 @@ static sqlite3	*database;
 	NSMutableArray * array=[VbShiptransDao getVbShiptransBySql:query];
 	return array;
 }
-+(NSMutableArray *) getVbShiptrans
++(NSMutableArray *) getVbShiptrans:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(NSString *)stageName
 {
+    NSString *query=[NSString stringWithString:@" 1=1  "];
     
-	NSString *query=[NSString stringWithString:@" lon <> 0 "];
+    if(![shipCompany isEqualToString:All_])
+        query=[query stringByAppendingFormat:@" AND shipCompany ='%@' ",shipCompany];
+    if(![shipName isEqualToString:All_])
+        query=[query stringByAppendingFormat:@" AND shipName ='%@' ",shipName];
+    if(![portName isEqualToString:All_])
+        query=[query stringByAppendingFormat:@" AND portName ='%@' ",portName];
+    if(![factoryName isEqualToString:All_])
+        query=[query stringByAppendingFormat:@" AND factoryName ='%@' ",factoryName];
+    if(![stageName isEqualToString:All_])
+        query=[query stringByAppendingFormat:@" AND stageName ='%@' ",stageName];
 	NSMutableArray * array=[VbShiptransDao getVbShiptransBySql:query];
-    NSLog(@"执行 getVbShiptrans 数量[%d] ",[array count]);
+    NSLog(@"执行 getVbShiptransBySql 数量[%d] ",[array count]);
 	return array;
 }
 +(NSMutableArray *) getVbShiptransBySql:(NSString *)sql1

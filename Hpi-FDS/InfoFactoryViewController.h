@@ -15,6 +15,6 @@
 }
 @property(nonatomic,retain) UILabel *infoLabel;
 @property(nonatomic,retain) UIPopoverController *popover;
-@property(nonatomic,retain) NSString *factoryName;
+@property(copy,nonatomic) NSString *factoryName;
 -(void)loadViewData;
 @end

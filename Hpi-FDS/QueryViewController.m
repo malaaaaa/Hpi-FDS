@@ -7,19 +7,20 @@
 //
 
 #import "QueryViewController.h"
-
 @interface QueryViewController ()
 
 @end
 
 @implementation QueryViewController
-@synthesize pageCtrl,scrView;
+@synthesize segment,chooseView,listView,dataArray;
+@synthesize tbShipChVC;
+@synthesize vbShipChVC;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"动态查询", @"4th");
+        self.title = NSLocalizedString(@"动态查询", @"5th");
         self.tabBarItem.image = [UIImage imageNamed:@"query"];
     }
     return self;
@@ -27,74 +28,54 @@
 
 - (void)viewDidLoad
 {
+    //self.segment.tintColor= [UIColor colorWithRed:116.0/255 green:67.0/255 blue:167.0/255 alpha:1];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.vbShipChVC =[[ VBShipChVC alloc ]initWithNibName:@"VBShipChVC" bundle:nil];
+    vbShipChVC.parentVC=self;
+    vbShipChVC.view.center = CGPointMake(512, 60);
+    [self.chooseView addSubview:vbShipChVC.view];
     
-    CGRect bounds = self.view.frame;  //获取界面区域
-    NSLog(@"self.view.frame [%@]",NSStringFromCGRect(self.view.frame));
-    //加载蒙板图片，限于篇幅，这里仅显示一张图片的加载方法
-    UIImageView* imageView1 = [[[UIImageView alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, 30, 30)] autorelease];  //创建UIImageView，位置大小与主界面一样。
-    [imageView1 setImage:[UIImage imageNamed:@"map.png"]];
-    imageView1.alpha = 0.5f;//将透明度设为50%
-    NSLog(@"imageView1.frame [%@]",NSStringFromCGRect(imageView1.frame));
+    self.tbShipChVC =[[ TBShipChVC alloc ]initWithNibName:@"TBShipChVC" bundle:nil];
+    tbShipChVC.parentVC=self;
+    tbShipChVC.view.center = CGPointMake(512, 60);
+    [self.chooseView addSubview:tbShipChVC.view];
     
-    //加载蒙板图片，限于篇幅，这里仅显示一张图片的加载方法
-    UIImageView* imageView2 = [[[UIImageView alloc] initWithFrame:CGRectMake(bounds.size.width, bounds.origin.y, 30,30)] autorelease];  //创建UIImageView，位置大小与主界面一样。
-    [imageView2 setImage:[UIImage imageNamed:@"market.png"]];
-    imageView2.alpha = 0.5f;//将透明度设为50%
+    [self.chooseView bringSubviewToFront:vbShipChVC.view];
+    //为视图增加边框      
+    //    chooseView.layer.masksToBounds=YES;      
+    //    chooseView.layer.cornerRadius=10.0;      
+    //    chooseView.layer.borderWidth=10.0;      
+    //    chooseView.layer.borderColor=[[UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1]CGColor];  
+    chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
     
-    //加载蒙板图片，限于篇幅，这里仅显示一张图片的加载方法
-    UIImageView* imageView3 = [[[UIImageView alloc] initWithFrame:CGRectMake(bounds.size.width*2, bounds.origin.y, 30,30)] autorelease];  //创建UIImageView，位置大小与主界面一样。
-    [imageView3 setImage:[UIImage imageNamed:@"setup.png"]];
-    imageView3.alpha = 0.5f;//将透明度设为50%
+    //为视图增加边框      
+    listView.layer.masksToBounds=YES;      
+    listView.layer.cornerRadius=10.0;      
+    listView.layer.borderWidth=10.0;      
+    listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     
-    
-    //创建UIScrollView，位置大小与主界面一样
-    scrView = [[UIScrollView alloc] initWithFrame:CGRectMake(30, 60, 1024-30*2, 60)];
-    //设置全部内容的尺寸，这里帮助图片是3张，所以宽度设为界面宽度*3，高度和界面一致
-    [scrView setContentSize:CGSizeMake(bounds.size.width * 3, bounds.size.height)];
-    
-    //设为YES时，会按页滑动
-    scrView.pagingEnabled = YES;
-    //取消UIScrollView的弹性属性，这个可以按个人喜好来定
-    scrView.bounces = NO;
-    //UIScrollView的delegate函数在本类中定义
-    [scrView setDelegate:self];
-    
-    //因为我们使用UIPageControl表示页面进度，所以取消UIScrollView自己的进度条。
-    scrView.showsHorizontalScrollIndicator = NO;
-    [scrView addSubview:imageView1];
-    [scrView addSubview:imageView2];
-    [scrView addSubview:imageView3];
-    [self.view addSubview:scrView];
-    scrView.layer.borderColor = [[UIColor colorWithRed:1 green:0.8 blue:0.02 alpha:1] CGColor];
-    scrView.layer.borderWidth = 1.0f;
-    scrView.layer.shadowRadius =0.5;
-    scrView.layer.shadowColor =[UIColor blackColor].CGColor;
-    NSLog(@"scrView.frame [%@]",NSStringFromCGRect(scrView.frame));
-    
-    //创建UIPageControl，位置在屏幕最下方。
-    pageCtrl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 30, bounds.size.width, 30)];
-    pageCtrl.numberOfPages = 3;
-    //当前页
-    pageCtrl.currentPage = 0;
-    //用户点击UIPageControl的响应函数
-    [pageCtrl addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:pageCtrl];
-    NSLog(@"pageCtrl.frame [%@]",NSStringFromCGRect(pageCtrl.frame));
+    [segment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewDidUnload
 {
-    [graphView release];
-    graphView = nil;
+    [segment release];
+    segment = nil;
+    [chooseView release];
+    chooseView = nil;
+    [listView release];
+    listView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void)dealloc {
-    [graphView release];
+    [segment release];
+    [chooseView release];
+    [listView release];
     [super dealloc];
 }
 
@@ -106,175 +87,262 @@
 
 -( void )viewDidAppear:( BOOL )animated
 {
-    // 为 CPGraph 指定主题
-    graph = [[ CPXYGraph alloc ] initWithFrame : CGRectZero ];
-    CPTheme *theme = [ CPTheme themeNamed : kCPDarkGradientTheme ];
-    [ graph applyTheme :theme];
     
-    // 把 self.view 由 UIView 转变为 CPGraphHostingView ，因为 UIView 无法加载 CPGraph
-    graphView =[[ CPGraphHostingView alloc ] initWithFrame:CGRectMake(100, 100, 1024-100*2, 400)]; 
-    [self.view addSubview:graphView];
-    CPGraphHostingView *hostingView = ( CPGraphHostingView *) graphView ;
-    [hostingView setHostedGraph : graph ];
-    // CPGraph 边框：无
-    graph.plotAreaFrame.borderLineStyle = nil ;
-    graph.plotAreaFrame.cornerRadius = 0.5f ;
-    
-    
-    // 绘图空间 plot space
-    CPXYPlotSpace *plotSpace = ( CPXYPlotSpace *) graph.defaultPlotSpace ;
-    // 绘图空间大小： Y ： 0-300 ， x ： 0-16
-    plotSpace. yRange = [ CPPlotRange plotRangeWithLocation : CPDecimalFromFloat ( 0.0f ) length : CPDecimalFromFloat ( yLength )];
-    plotSpace. xRange = [ CPPlotRange plotRangeWithLocation : CPDecimalFromFloat ( 0.0f ) length : CPDecimalFromInt ( num )];
-    // CPGraph 四边不留白
-    graph.paddingLeft =0.0f ;
-    graph.paddingRight = 0.0f ;
-    graph.paddingTop = 0.0f ;
-    graph.paddingBottom = 0.0f ;
-    // 绘图区 4 边留白
-    graph.plotAreaFrame.paddingLeft = 80.0 ;
-    graph.plotAreaFrame.paddingTop = 40.0 ;
-    graph.plotAreaFrame.paddingRight = 45.0 ;
-    graph.plotAreaFrame.paddingBottom = 40.0 ;
-    
-    // 坐标系
-    CPXYAxisSet *axisSet = ( CPXYAxisSet *) graph.axisSet ;
-    //x 轴：为坐标系的 x 轴
-    CPXYAxis *X = axisSet. xAxis ;
-    // 清除默认的轴标签 , 使用自定义的轴标签
-    X. labelingPolicy = CPAxisLabelingPolicyNone ;
-    
-    // 构造 MutableArray ，用于存放自定义的轴标签
-    NSMutableArray *customLabels = [ NSMutableArray arrayWithCapacity : num ];
-    // 构造一个 TextStyle
-    static CPTextStyle * labelTextStyle= nil ;
-    labelTextStyle=[[ CPTextStyle alloc ] init ];
-    labelTextStyle. color =[ CPColor whiteColor ];
-    labelTextStyle. fontSize = 10.0f ;
-    // 每个数据点一个轴标签
-    for ( int i= 0 ;i< num ;i++) {
-        CPAxisLabel *newLabel = [[ CPAxisLabel alloc ] initWithText : [ NSString stringWithFormat : @"%d" ,(i+ 1 )] textStyle :labelTextStyle];
-        newLabel. tickLocation = CPDecimalFromInt (i);
-        newLabel. offset = X. labelOffset + X. majorTickLength;
-        //旋转90度
-        //newLabel. rotation = M_PI / 2 ;
-        [customLabels addObject :newLabel];
-        [newLabel release ];
-    }
-    X. axisLabels =  [ NSSet setWithArray :customLabels];
-    
-    //y 轴
-    CPXYAxis *y = axisSet. yAxis ;
-    //y 轴：不显示小刻度线
-    y. minorTickLineStyle = nil ;
-    // 大刻度线间距： 50 单位
-    y. majorIntervalLength = CPDecimalFromString ( yIntervalLength );
-    // 坐标原点： 0
-    y. orthogonalCoordinateDecimal = CPDecimalFromString ( @"0" );
-    y. titleOffset = 45.0f ;
-    y. titleLocation = CPDecimalFromFloat ( 150.0f );
-    
-    
-    // 第 2 个散点图：绿色
-    
-    CPScatterPlot *dataSourceLinePlot = [[[ CPScatterPlot alloc ] init ] autorelease ];
-    dataSourceLinePlot. identifier = @"Green Plot" ;
-    // 线型设置
-    CPLineStyle *lineStyle = [[[ CPLineStyle alloc ] init ] autorelease ];
-    lineStyle. lineWidth = 3.0f ;
-    lineStyle. lineColor = [ CPColor greenColor ];
-    dataSourceLinePlot. dataLineStyle = lineStyle;
-    // 设置数据源 , 必须实现 CPPlotDataSource 协议
-    dataSourceLinePlot. dataSource = self ;
-    [ graph addPlot :dataSourceLinePlot] ;
-    
-    
-    CPScatterPlot *dataSourceLinePlot1 = [[[ CPScatterPlot alloc ] init ] autorelease ];
-    dataSourceLinePlot1. identifier = @"Blue Plot" ;
-    // 线型设置
-    CPLineStyle *lineStyle1 = [[[ CPLineStyle alloc ] init ] autorelease ];
-    lineStyle1. lineWidth = 1.0f ;
-    lineStyle1. lineColor = [ CPColor redColor ];
-    dataSourceLinePlot1. dataLineStyle = lineStyle1;
-    // 设置数据源 , 必须实现 CPPlotDataSource 协议
-    dataSourceLinePlot1. dataSource = self ;
-    [ graph addPlot :dataSourceLinePlot1] ;
-    
-    // 随机产生散点数据
-    NSUInteger i;
-    for ( i = 0 ; i < num ; i++ ) {
-        x [i] = i ;
-        y1 [i] = ( num * 10 )*( rand ()/( float ) RAND_MAX )+200;
-        y2 [i] = ( num * 10 )*( rand ()/( float ) RAND_MAX )+300;
-    }   
-}
-#pragma mark -
-#pragma mark Plot Data Source Methods
-// 返回散点数
--( NSUInteger )numberOfRecordsForPlot:( CPPlot *)plot
-{
-    return num ;
-}
-// 根据参数返回数据（一个 C 数组）
-- ( double *)doublesForPlot:( CPPlot *)plot field:( NSUInteger )fieldEnum recordIndexRange:( NSRange )indexRange
-{
-    // 返回类型：一个 double 指针（数组）
-    double *values;
-    NSString * identifier=( NSString *)[plot identifier];
-    
-    switch (fieldEnum) {
-            // 如果请求的数据是散点 x 坐标 , 直接返回 x 坐标（两个图形是一样的），否则还要进一步判断是那个图形
-        case CPScatterPlotFieldX :
-            values= x ;
-            break ;
-        case CPScatterPlotFieldY :
-            // 如果请求的数据是散点 y 坐标，则对于图形 1 ，使用 y1 数组，对于图形 2 ，使用 y2 数组
-            if ([identifier isEqualToString : @"Blue Plot" ]) {
-                values= y1;
-            } else
-                values= y2;
-            break ;
-    }
-    // 数组指针右移个 indexRage.location 单位，则数组截去 indexRage.location 个元素
-    return values + indexRange. location ;
-}
-// 添加数据标签
--( CPLayer *)dataLabelForPlot:( CPPlot *)plot recordIndex:( NSUInteger )index
-{
-    // 定义一个白色的 TextStyle
-    static CPTextStyle *whiteText = nil ;
-    if ( !whiteText ) {
-        whiteText = [[ CPTextStyle alloc ] init ];
-        whiteText. color = [ CPColor whiteColor ];
-    }
-    // 定义一个 TextLayer
-    CPTextLayer *newLayer = nil ;
-    NSString * identifier=( NSString *)[plot identifier];
-    if ([identifier isEqualToString : @"Blue Plot" ]) {
-        newLayer = [[[ CPTextLayer alloc ] initWithText :[ NSString stringWithFormat : @"%.0f" , y1 [index]] style :whiteText] autorelease ];
-    }
-    if ([identifier isEqualToString : @"Green Plot" ]) {
-        newLayer = [[[ CPTextLayer alloc ] initWithText :[ NSString stringWithFormat : @"%.0f" , y2 [index]] style :whiteText] autorelease ];
-    }
-    return newLayer;
 }
 
-#pragma mark -
-#pragma scrollview delegate
-- (void)pageTurn:(UIPageControl*)sender
+#pragma mark - 刷新各个查询页面
+-(void)loadViewData_tb
 {
-    //令UIScrollView做出相应的滑动显示
-    CGSize viewSize = scrView.frame.size;
-    CGRect rect = CGRectMake(sender.currentPage * viewSize.width, 0, viewSize.width, viewSize.height);
-    [scrView scrollRectToVisible:rect animated:YES];
+    for (UIView *v in listView.subviews)
+    {
+        [v  removeFromSuperview];
+    }
+    int i;
+    DataGridComponentDataSource *ds = [[DataGridComponentDataSource alloc] init];
+	
+	ds.columnWidth = [NSArray arrayWithObjects:@"180",@"80",@"60",@"80",@"130",@"60",@"50",@"80",@"60",@"60",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",nil];
+	ds.titles = [NSArray arrayWithObjects:@"航运公司--船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",@"装港-锚地时间",@"装港-手续办理",@"装港-靠泊时间",@"装港-载重",@"装港-离港时间",@"装港-时间",@"卸港-锚地时间",@"卸港-靠卸时间",@"卸港-离港时间",@"卸港-卸港时间",@"卸港-预估滞期费",@"卸港-效率",nil];
+    
+    NSLog(@"查询 %d条记录",[self.dataArray count]);
+    
+    ds.data=[[NSMutableArray alloc]init];
+    for (i=0;i<[dataArray count];i++) {
+        VbShiptrans *vbShiptrans=[dataArray objectAtIndex:i];
+        if ([vbShiptrans.stage isEqualToString:@"0"]) {
+            [ds.data addObject:[NSArray arrayWithObjects:
+                                kGREEN,
+                                [NSString stringWithFormat:@"   %@ -%@",vbShiptrans.shipCompany,vbShiptrans.shipName],
+                                vbShiptrans.tripNo,
+                                vbShiptrans.factoryName,
+                                vbShiptrans.portName,
+                                vbShiptrans.supplier,
+                                vbShiptrans.keyName,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
+                                vbShiptrans.tradeName,
+                                vbShiptrans.coalType,
+                                vbShiptrans.stateName,
+                                vbShiptrans.p_AnchorageTime,
+                                vbShiptrans.p_Handle,
+                                vbShiptrans.p_ArrivalTime,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lw],
+                                vbShiptrans.p_DepartTime,
+                                vbShiptrans.p_Note,
+                                vbShiptrans.f_AnchorageTime,
+                                vbShiptrans.f_ArrivalTime,
+                                vbShiptrans.f_DepartTime,
+                                vbShiptrans.f_Note,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lateFee],
+                                [NSString stringWithFormat:@"%d",vbShiptrans.offEfficiency],
+                                nil]];
+        }
+        else if ([vbShiptrans.stage isEqualToString:@"2"]) {
+            [ds.data addObject:[NSArray arrayWithObjects:
+                                kRED,
+                                [NSString stringWithFormat:@"   %@ -%@",vbShiptrans.shipCompany,vbShiptrans.shipName],
+                                vbShiptrans.tripNo,
+                                vbShiptrans.factoryName,
+                                vbShiptrans.portName,
+                                vbShiptrans.supplier,
+                                vbShiptrans.keyName,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
+                                vbShiptrans.tradeName,
+                                vbShiptrans.coalType,
+                                vbShiptrans.stateName,
+                                vbShiptrans.p_AnchorageTime,
+                                vbShiptrans.p_Handle,
+                                vbShiptrans.p_ArrivalTime,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lw],
+                                vbShiptrans.p_DepartTime,
+                                vbShiptrans.p_Note,
+                                vbShiptrans.f_AnchorageTime,
+                                vbShiptrans.f_ArrivalTime,
+                                vbShiptrans.f_DepartTime,
+                                vbShiptrans.f_Note,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lateFee],
+                                [NSString stringWithFormat:@"%d",vbShiptrans.offEfficiency],
+                                nil]];
+        }
+        else {
+            [ds.data addObject:[NSArray arrayWithObjects:
+                                kBLACK,
+                                [NSString stringWithFormat:@"   %@ -%@",vbShiptrans.shipCompany,vbShiptrans.shipName],
+                                vbShiptrans.tripNo,
+                                vbShiptrans.factoryName,
+                                vbShiptrans.portName,
+                                vbShiptrans.supplier,
+                                vbShiptrans.keyName,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
+                                vbShiptrans.tradeName,
+                                vbShiptrans.coalType,
+                                vbShiptrans.stateName,
+                                vbShiptrans.p_AnchorageTime,
+                                vbShiptrans.p_Handle,
+                                vbShiptrans.p_ArrivalTime,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lw],
+                                vbShiptrans.p_DepartTime,
+                                vbShiptrans.p_Note,
+                                vbShiptrans.f_AnchorageTime,
+                                vbShiptrans.f_ArrivalTime,
+                                vbShiptrans.f_DepartTime,
+                                vbShiptrans.f_Note,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lateFee],
+                                [NSString stringWithFormat:@"%d",vbShiptrans.offEfficiency],
+                                nil]];
+        }
+        
+    }
+	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(20, 20, 984,480) data:ds ];
+	[ds release];
+	[self.listView addSubview:grid];
+	[grid release];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+-(void)loadViewData_vb
 {
-    //更新UIPageControl的当前页
-    CGPoint offset = scrollView.contentOffset;
-    CGRect bounds = scrollView.frame;
-    [pageCtrl setCurrentPage:offset.x / bounds.size.width];
+    for (UIView *v in listView.subviews)
+    {
+        [v  removeFromSuperview];
+    }
+    int i;
+    DataGridComponentDataSource *ds = [[DataGridComponentDataSource alloc] init];
+	
+	ds.columnWidth = [NSArray arrayWithObjects:@"80",@"120",@"80",@"100",@"100",@"150",@"70",@"70",@"70",@"70",@"80",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",@"140",nil];
+	ds.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",@"装港-锚地时间",@"装港-手续办理",@"装港-靠泊时间",@"装港-载重",@"装港-离港时间",@"装港-时间",@"卸港-锚地时间",@"卸港-靠卸时间",@"卸港-离港时间",@"卸港-卸港时间",@"卸港-预估滞期费",@"卸港-效率",nil];
+    
+    NSLog(@"查询 %d条记录",[self.dataArray count]);
+    
+    ds.data=[[NSMutableArray alloc]init];
+    for (i=0;i<[dataArray count];i++) {
+        VbShiptrans *vbShiptrans=[dataArray objectAtIndex:i];
+        if ([vbShiptrans.stage isEqualToString:@"0"]) {
+            [ds.data addObject:[NSArray arrayWithObjects:
+                                kGREEN,
+                                vbShiptrans.shipCompany,
+                                vbShiptrans.shipName,
+                                vbShiptrans.tripNo,
+                                vbShiptrans.factoryName,
+                                vbShiptrans.portName,
+                                vbShiptrans.supplier,
+                                vbShiptrans.keyName,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
+                                vbShiptrans.tradeName,
+                                vbShiptrans.coalType,
+                                vbShiptrans.stateName,
+                                vbShiptrans.p_AnchorageTime,
+                                vbShiptrans.p_Handle,
+                                vbShiptrans.p_ArrivalTime,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lw],
+                                vbShiptrans.p_DepartTime,
+                                vbShiptrans.p_Note,
+                                vbShiptrans.f_AnchorageTime,
+                                vbShiptrans.f_ArrivalTime,
+                                vbShiptrans.f_DepartTime,
+                                vbShiptrans.f_Note,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lateFee],
+                                [NSString stringWithFormat:@"%d",vbShiptrans.offEfficiency],
+                                nil]];
+        }
+        else if ([vbShiptrans.stage isEqualToString:@"2"]) {
+            [ds.data addObject:[NSArray arrayWithObjects:
+                                kRED,
+                                vbShiptrans.shipCompany,
+                                vbShiptrans.shipName,
+                                vbShiptrans.tripNo,
+                                vbShiptrans.factoryName,
+                                vbShiptrans.portName,
+                                vbShiptrans.supplier,
+                                vbShiptrans.keyName,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
+                                vbShiptrans.tradeName,
+                                vbShiptrans.coalType,
+                                vbShiptrans.stateName,
+                                vbShiptrans.p_AnchorageTime,
+                                vbShiptrans.p_Handle,
+                                vbShiptrans.p_ArrivalTime,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lw],
+                                vbShiptrans.p_DepartTime,
+                                vbShiptrans.p_Note,
+                                vbShiptrans.f_AnchorageTime,
+                                vbShiptrans.f_ArrivalTime,
+                                vbShiptrans.f_DepartTime,
+                                vbShiptrans.f_Note,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lateFee],
+                                [NSString stringWithFormat:@"%d",vbShiptrans.offEfficiency],
+                                nil]];
+        }
+        else {
+            [ds.data addObject:[NSArray arrayWithObjects:
+                                kBLACK,
+                                vbShiptrans.shipCompany,
+                                vbShiptrans.shipName,
+                                vbShiptrans.tripNo,
+                                vbShiptrans.factoryName,
+                                vbShiptrans.portName,
+                                vbShiptrans.supplier,
+                                vbShiptrans.keyName,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
+                                vbShiptrans.tradeName,
+                                vbShiptrans.coalType,
+                                vbShiptrans.stateName,
+                                vbShiptrans.p_AnchorageTime,
+                                vbShiptrans.p_Handle,
+                                vbShiptrans.p_ArrivalTime,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lw],
+                                vbShiptrans.p_DepartTime,
+                                vbShiptrans.p_Note,
+                                vbShiptrans.f_AnchorageTime,
+                                vbShiptrans.f_ArrivalTime,
+                                vbShiptrans.f_DepartTime,
+                                vbShiptrans.f_Note,
+                                [NSString stringWithFormat:@"%d",vbShiptrans.lateFee],
+                                [NSString stringWithFormat:@"%d",vbShiptrans.offEfficiency],
+                                nil]];
+        }
+        
+    }
+	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(20, 20, 984,480) data:ds ];
+	[ds release];
+	[self.listView addSubview:grid];
+	[grid release];
+}
+
+#pragma mark - segment
+//根据选择，显示不同类型的坐标点
+-(void)segmentChanged:(id) sender
+{
+    for (UIView *v in listView.subviews)
+    {
+        [v  removeFromSuperview];
+    }
+
+    if(segment.selectedSegmentIndex==0)
+    {
+        NSLog(@"实时船舶查询");
+        CATransition *animation = [CATransition animation];
+        animation.delegate = self;
+        animation.duration = 0.5f;
+        animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        animation.fillMode = kCAFillModeForwards;
+        animation.endProgress = 1;
+        animation.removedOnCompletion = NO;
+        animation.type = @"cube";
+        [self.chooseView.layer addAnimation:animation forKey:@"animation"];
+        [self.chooseView bringSubviewToFront:vbShipChVC.view];
+    }
+    else if (segment.selectedSegmentIndex==6)
+    {
+        NSLog(@"船舶动态查询");
+        CATransition *animation = [CATransition animation];
+        animation.delegate = self;
+        animation.duration = 0.5f;
+        animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        animation.fillMode = kCAFillModeForwards;
+        animation.endProgress = 1;
+        animation.removedOnCompletion = NO;
+        animation.type = @"cube";
+        [self.chooseView.layer addAnimation:animation forKey:@"animation"];
+        [self.chooseView bringSubviewToFront:tbShipChVC.view];
+    }
 }
 
 @end

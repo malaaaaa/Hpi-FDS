@@ -28,4 +28,6 @@
 +(void) updatezbz;
 +(BOOL)tsFileHasDownload;
 +(void) updateDown;
++(NSMutableArray *) getTsFileinfoByType:(NSString *)type;
++(void) deleteAll;
 @end

@@ -37,6 +37,7 @@
     NSInteger conYear;
     NSString *lon;
     NSString *lat;
+    BOOL    didSelected;//是否选中
 }
 @property (nonatomic,retain) NSString *factoryCode;
 @property (nonatomic,retain) NSString *factoryName;
@@ -51,5 +52,6 @@
 @property NSInteger conSum;
 @property NSInteger conMonth;
 @property NSInteger conYear;
+@property (assign) BOOL didSelected;
 
 @end

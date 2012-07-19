@@ -3,23 +3,28 @@
 //  Hpi-FDS
 //
 //  Created by zcx on 12-4-7.
-//  Copyright (c) 2012年 Landscape. All rights reserved.
+//  Copyright (c) 2012年 Landscape.All rights reserved.
 //
 
 #import "MarketViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "HpiGraphView.h"
 @interface MarketViewController ()
 
 @end
 
 @implementation MarketViewController
-@synthesize pageCtrl,scrView;
+@synthesize segment,popover,endDateCV,startDateCV;
+@synthesize endDay,startDay,endButton,startButton,dataButton;
+@synthesize reloadButton,queryButton,activity,xmlParser,graphView,marketOneController;
+
+static NSString *stringType=@"BSPI";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"市场信息", @"3th");
+        self.title = NSLocalizedString(@"市场指数", @"3th");
         self.tabBarItem.image = [UIImage imageNamed:@"market"];
     }
     return self;
@@ -29,66 +34,42 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.    
+	// Do any additional setup after loading the view.
+    [segment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
     
-    CGRect bounds = self.view.frame;  //获取界面区域
-    NSLog(@"self.view.frame [%@]",NSStringFromCGRect(self.view.frame));
-    //加载蒙板图片，限于篇幅，这里仅显示一张图片的加载方法
-    UIImageView* imageView1 = [[[UIImageView alloc] initWithFrame:CGRectMake(bounds.origin.x, bounds.origin.y, 30, 30)] autorelease];  //创建UIImageView，位置大小与主界面一样。
-    [imageView1 setImage:[UIImage imageNamed:@"map.png"]];
-    imageView1.alpha = 0.5f;//将透明度设为50%
-    NSLog(@"imageView1.frame [%@]",NSStringFromCGRect(imageView1.frame));
-
-    //加载蒙板图片，限于篇幅，这里仅显示一张图片的加载方法
-    UIImageView* imageView2 = [[[UIImageView alloc] initWithFrame:CGRectMake(bounds.size.width, bounds.origin.y, 30,30)] autorelease];  //创建UIImageView，位置大小与主界面一样。
-    [imageView2 setImage:[UIImage imageNamed:@"market.png"]];
-    imageView2.alpha = 0.5f;//将透明度设为50%
+    self.endDay = [[NSDate alloc] init];
+    //self.startDay = [[NSDate alloc] init];
+    self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [endButton setTitle:[dateFormatter stringFromDate:endDay] forState:UIControlStateNormal];
+    [startButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
+    [dateFormatter release];
     
-    //加载蒙板图片，限于篇幅，这里仅显示一张图片的加载方法
-    UIImageView* imageView3 = [[[UIImageView alloc] initWithFrame:CGRectMake(bounds.size.width*2, bounds.origin.y, 30,30)] autorelease];  //创建UIImageView，位置大小与主界面一样。
-    [imageView3 setImage:[UIImage imageNamed:@"setup.png"]];
-    imageView3.alpha = 0.5f;//将透明度设为50%
-    
-    
-    //创建UIScrollView，位置大小与主界面一样
-    scrView = [[UIScrollView alloc] initWithFrame:CGRectMake(30, 60, 1024-30*2, 60)];
-    //设置全部内容的尺寸，这里帮助图片是3张，所以宽度设为界面宽度*3，高度和界面一致
-    [scrView setContentSize:CGSizeMake(bounds.size.width * 3, bounds.size.height)];
-    
-    //设为YES时，会按页滑动
-    scrView.pagingEnabled = YES;
-    //取消UIScrollView的弹性属性，这个可以按个人喜好来定
-    scrView.bounces = NO;
-    //UIScrollView的delegate函数在本类中定义
-    [scrView setDelegate:self];
-    
-    //因为我们使用UIPageControl表示页面进度，所以取消UIScrollView自己的进度条。
-    scrView.showsHorizontalScrollIndicator = NO;
-    [scrView addSubview:imageView1];
-    [scrView addSubview:imageView2];
-    [scrView addSubview:imageView3];
-    [self.view addSubview:scrView];
-    scrView.layer.borderColor = [[UIColor colorWithRed:1 green:0.8 blue:0.02 alpha:1] CGColor];
-    scrView.layer.borderWidth = 1.0f;
-    scrView.layer.shadowRadius =0.5;
-    scrView.layer.shadowColor =[UIColor blackColor].CGColor;
-    NSLog(@"scrView.frame [%@]",NSStringFromCGRect(scrView.frame));
-    
-    //创建UIPageControl，位置在屏幕最下方。
-    pageCtrl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 30, bounds.size.width, 30)];
-    pageCtrl.numberOfPages = 3;
-    //当前页
-    pageCtrl.currentPage = 0;
-    //用户点击UIPageControl的响应函数
-    [pageCtrl addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:pageCtrl];
-    NSLog(@"pageCtrl.frame [%@]",NSStringFromCGRect(pageCtrl.frame));
-    
-    [self reloadGraphView];    
+    [activity removeFromSuperview];
+    self.xmlParser=[[XMLParser alloc]init];
 }
 
 - (void)viewDidUnload
 {
+    [segment release];
+    segment = nil;
+    [endButton release];
+    endButton = nil;
+    [startButton release];
+    startButton = nil;
+    [reloadButton release];
+    reloadButton = nil;
+    [queryButton release];
+    queryButton = nil;
+    [dataButton release];
+    dataButton = nil;
+    [activity release];
+    activity = nil;
+    [xmlParser release];
+    xmlParser=nil;
+    [graphView release];
+    graphView=nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     
@@ -107,184 +88,398 @@
 }
 
 - (void)dealloc {
-    [data release];
-    [indicator release];
+    [activity release];
+    [segment release];
+    [startButton release];
+    [endButton release];
+    [startDay release];
+    [endDay release];
+    [reloadButton release];
+    [queryButton release];
+    [dataButton release];
+    [xmlParser release];
     [graphView release];
+    [marketOneController release];
     [super dealloc];
 }
+-(void)loadHpiGraphView{
+    TmIndexdefine *tmdefine;
+    NSDate *maxDate=[endDay laterDate:startDay];
+    NSDate *minDate=[endDay earlierDate:startDay];
+    HpiGraphData *graphData=[[HpiGraphData alloc] init];
+    graphData.pointArray = [[NSMutableArray alloc]init];
+    graphData.pointArray2 = [[NSMutableArray alloc]init];
+    graphData.pointArray3 = [[NSMutableArray alloc]init];
+    graphData.xtitles = [[NSMutableArray alloc]init];
+    graphData.ytitles = [[NSMutableArray alloc]init];
+    NSDate *date=minDate;
+    NSMutableArray *array=[TmIndexdefineDao getTmIndexdefineByName:stringType];
+    NSLog(@"查询[%d]",[array count]);
+    if ([array count]>0) {
+        tmdefine=(TmIndexdefine *)[array objectAtIndex:0];
+        NSLog(@"max=[%d] min=[%d]",tmdefine.maxiMum,tmdefine.miniMum);
+        if(tmdefine.maxiMum==0)
+            tmdefine.maxiMum=tmdefine.miniMum*2.5;
+        
+        NSLog(@"max=[%d] min=[%d]",tmdefine.maxiMum,tmdefine.miniMum);
+        graphData.yNum=tmdefine.maxiMum-tmdefine.miniMum;
+        for(int i=0;i<6;i++)
+        {
+            NSLog(@"tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*(i+1)/6) [%d]",tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5);
+            if (i==0) {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",tmdefine.miniMum]];
+            }
+            else {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5]];
+            }
+        }
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        unsigned int unitFlags = NSDayCalendarUnit;
+        NSDateComponents *comps = [gregorian components:unitFlags fromDate:minDate  toDate:maxDate  options:0];
+        graphData.xNum = [comps day]+1;
+        
+        int a,b,c;
+        a=graphData.xNum/9;
+        b=graphData.xNum%9;
+        NSLog(@"graphData.xNum/9 [%d] graphData.xNum 求余 9  [%d]",a,b);
+        if (a==0) {
+            c=1;
+            graphData.xNum=b;
+        }
+        else if (a>0 && b>0){
+            c=a+1;
+            graphData.xNum=(a+1)*9;
+        }
+        else {
+            c=a;
+            graphData.xNum=a*9;
+        }
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy/MM/dd"];   
+        
+        for(int i=1;i<=graphData.xNum;i++)
+        {   
+            if (i==1) {
+                [graphData.xtitles addObject:[dateFormatter stringFromDate:date]];
+            }
+            if(i%c==0)
+            {
+                [graphData.xtitles addObject:[dateFormatter stringFromDate:date]];
+            }
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
+        }
+        [dateFormatter release];    
+    }
+    else 
+        return;
 
--(void)reloadGraphView{
-    // 为 CPGraph 指定主题
-    graph = [[ CPXYGraph alloc ] initWithFrame : CGRectZero ];
-    CPTheme *theme = [ CPTheme themeNamed : kCPDarkGradientTheme ];
-    [ graph applyTheme :theme];
+    //NSLog(@"BSPI 统计共%d天",graphData.xNum);
+    date=minDate;
+    for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+        //NSLog(@"date %@",date);
+        TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:stringType:date];
+        if(tminfo == nil){
+        }
+        else{
+            HpiPoint *point=[[HpiPoint alloc]init];
+            point.x=i;
+            point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+            [graphData.pointArray  addObject:point];
+        }
+        date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+    }
+    date=minDate;
+    if([stringType isEqualToString: @"BJ_PRICE"])
+    {
+        for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+            NSLog(@"date %@",date);
+            TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:@"BJ_INDEX":date];
+            if(tminfo == nil){
+            }
+            else{
+                HpiPoint *point=[[HpiPoint alloc]init];
+                point.x=i;
+                point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+                [graphData.pointArray2  addObject:point];
+            }
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+        }
+    }
+    date=minDate;
+    if([stringType isEqualToString: @"QHD_GZ"])
+    {
+        for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+            //NSLog(@"date %@",date);
+            TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:@"QHD_SH":date];
+            if(tminfo == nil){
+            }
+            else{
+                HpiPoint *point=[[HpiPoint alloc]init];
+                point.x=i;
+                point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+                [graphData.pointArray2  addObject:point];
+            }
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+        }
+    }
+    date=minDate;
+    if([stringType isEqualToString: @"HPI4500"]){
+        for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+            //NSLog(@"date %@",date);
+            TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:@"HPI5000":date];
+            if(tminfo == nil){
+            }
+            else{
+                HpiPoint *point=[[HpiPoint alloc]init];
+                point.x=i;
+                point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+                [graphData.pointArray2  addObject:point];
+            }
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+        }
+    }
+    date=minDate;
+    if([stringType isEqualToString: @"HPI4500"]){
+        for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+            //NSLog(@"date %@",date);
+            TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:@"HPI5500":date];
+            if(tminfo == nil){
+            }
+            else{
+                HpiPoint *point=[[HpiPoint alloc]init];
+                point.x=i;
+                point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+                [graphData.pointArray3  addObject:point];
+            }
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+        }
+    }
+    if (graphView) {
+        [graphView removeFromSuperview];
+        [graphView release];
+        graphView =nil;
+    }
+    //NSLog(@"graphView $$$$$$$$ %d",[graphView retainCount]);
+    self.graphView=[[HpiGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData];
+    if([stringType isEqualToString:@"BSPI"]){
+        graphView.titleLabel.text=@"环渤海价格指数";
+    }
+    else if([stringType isEqualToString:@"BDI"]){
+        graphView.titleLabel.text=@"国际波罗的海综合运费指数";
+    }
+    else if([stringType isEqualToString:@"BJ_PRICE"]){
+        graphView.titleLabel.text=@"国际煤价指数 [ 红:价格 绿:指数 ]";
+    }
+    else if([stringType isEqualToString:@"QHD_GZ"]){
+        graphView.titleLabel.text=@"国内沿海煤炭运价指数 [ 红:秦皇岛-广州 绿:秦皇岛-上海 ]";
+    }
+    else if([stringType isEqualToString:@"WTI"]){
+        graphView.titleLabel.text=@"原油价格指数";
+    }
+    else if([stringType isEqualToString:@"HPI4500"]){
+        graphView.titleLabel.text=@"华能采购指导价 [ 红:4500大卡 绿:5000大卡 蓝:5500大卡 ]";
+    }
+    else if([stringType isEqualToString:@"NEWC"]){
+        graphView.titleLabel.text=@"纽卡斯尔港煤炭指数";
+    }
+    else if([stringType isEqualToString:@"RB"]){
+        graphView.titleLabel.text=@"南非理查德港指数";
+    }
+    else if([stringType isEqualToString:@"DESARA"]){
+        graphView.titleLabel.text=@"欧洲ARA煤炭市场指数";
+    }
     
-    // 把 self.view 由 UIView 转变为 CPGraphHostingView ，因为 UIView 无法加载 CPGraph
-    graphView =[[ CPGraphHostingView alloc ] initWithFrame:CGRectMake(100, 100, 1024-100*2, 400)]; 
+//    graphView.titleLabel.text=stringType;
+    graphView.marginRight=60;
+    graphView.marginBottom=60;
+    graphView.marginLeft=60;
+    graphView.marginTop=80;
+    [graphView setNeedsDisplay];
     [self.view addSubview:graphView];
-    CPGraphHostingView *hostingView = ( CPGraphHostingView *) graphView ;
-    [hostingView setHostedGraph : graph ];
-    // CPGraph 边框：无
-    graph.plotAreaFrame.borderLineStyle = nil ;
-    graph.plotAreaFrame.cornerRadius = 0.5f ;
-    
-    
-    // 绘图空间 plot space
-    CPXYPlotSpace *plotSpace = ( CPXYPlotSpace *) graph.defaultPlotSpace ;
-    // 绘图空间大小： Y ： 0-300 ， x ： 0-16
-    plotSpace. yRange = [ CPPlotRange plotRangeWithLocation : CPDecimalFromFloat ( 0.0f ) length : CPDecimalFromFloat ( yLength )];
-    plotSpace. xRange = [ CPPlotRange plotRangeWithLocation : CPDecimalFromFloat ( 0.0f ) length : CPDecimalFromInt ( num )];
-    // CPGraph 四边不留白
-    graph.paddingLeft =0.0f ;
-    graph.paddingRight = 0.0f ;
-    graph.paddingTop = 0.0f ;
-    graph.paddingBottom = 0.0f ;
-    // 绘图区 4 边留白
-    graph.plotAreaFrame.paddingLeft = 80.0 ;
-    graph.plotAreaFrame.paddingTop = 40.0 ;
-    graph.plotAreaFrame.paddingRight = 45.0 ;
-    graph.plotAreaFrame.paddingBottom = 40.0 ;
-    
-    // 坐标系
-    CPXYAxisSet *axisSet = ( CPXYAxisSet *) graph.axisSet ;
-    //x 轴：为坐标系的 x 轴
-    CPXYAxis *X = axisSet. xAxis ;
-    // 清除默认的轴标签 , 使用自定义的轴标签
-    X. labelingPolicy = CPAxisLabelingPolicyNone ;
-    
-    // 构造 MutableArray ，用于存放自定义的轴标签
-    NSMutableArray *customLabels = [ NSMutableArray arrayWithCapacity : num ];
-    // 构造一个 TextStyle
-    static CPTextStyle * labelTextStyle= nil ;
-    labelTextStyle=[[ CPTextStyle alloc ] init ];
-    labelTextStyle. color =[ CPColor whiteColor ];
-    labelTextStyle. fontSize = 10.0f ;
-    // 每个数据点一个轴标签
-    for ( int i= 0 ;i< num ;i++) {
-        CPAxisLabel *newLabel = [[ CPAxisLabel alloc ] initWithText : [ NSString stringWithFormat : @"%d" ,(i+ 1 )] textStyle :labelTextStyle];
-        newLabel. tickLocation = CPDecimalFromInt (i);
-        newLabel. offset = X. labelOffset + X. majorTickLength;
-        //旋转90度
-        //newLabel. rotation = M_PI / 2 ;
-        [customLabels addObject :newLabel];
-        [newLabel release ];
-    }
-    X. axisLabels =  [ NSSet setWithArray :customLabels];
-    
-    //y 轴
-    CPXYAxis *y = axisSet. yAxis ;
-    //y 轴：不显示小刻度线
-    y. minorTickLineStyle = nil ;
-    // 大刻度线间距： 50 单位
-    y. majorIntervalLength = CPDecimalFromString ( yIntervalLength );
-    // 坐标原点： 0
-    y. orthogonalCoordinateDecimal = CPDecimalFromString ( @"0" );
-    y. titleOffset = 45.0f ;
-    y. titleLocation = CPDecimalFromFloat ( 150.0f );
-    
-    
-    // 第 2 个散点图：绿色
-    
-    CPScatterPlot *dataSourceLinePlot = [[[ CPScatterPlot alloc ] init ] autorelease ];
-    dataSourceLinePlot. identifier = @"Green Plot" ;
-    // 线型设置
-    CPLineStyle *lineStyle = [[[ CPLineStyle alloc ] init ] autorelease ];
-    lineStyle. lineWidth = 3.0f ;
-    lineStyle. lineColor = [ CPColor greenColor ];
-    dataSourceLinePlot. dataLineStyle = lineStyle;
-    // 设置数据源 , 必须实现 CPPlotDataSource 协议
-    dataSourceLinePlot. dataSource = self ;
-    [ graph addPlot :dataSourceLinePlot] ;
-    
-    
-    CPScatterPlot *dataSourceLinePlot1 = [[[ CPScatterPlot alloc ] init ] autorelease ];
-    dataSourceLinePlot1. identifier = @"Blue Plot" ;
-    // 线型设置
-    CPLineStyle *lineStyle1 = [[[ CPLineStyle alloc ] init ] autorelease ];
-    lineStyle1. lineWidth = 1.0f ;
-    lineStyle1. lineColor = [ CPColor redColor ];
-    dataSourceLinePlot1. dataLineStyle = lineStyle1;
-    // 设置数据源 , 必须实现 CPPlotDataSource 协议
-    dataSourceLinePlot1. dataSource = self ;
-    [ graph addPlot :dataSourceLinePlot1] ;
-    
-    // 随机产生散点数据
-    NSUInteger i;
-    for ( i = 0 ; i < num ; i++ ) {
-        x [i] = i ;
-        y1 [i] = ( num * 10 )*( rand ()/( float ) RAND_MAX )+200;
-        y2 [i] = ( num * 10 )*( rand ()/( float ) RAND_MAX )+300;
-    }  
-}
-
-
-#pragma mark -
-#pragma scrollview delegate
-- (void)pageTurn:(UIPageControl*)sender
-{
-    //令UIScrollView做出相应的滑动显示
-    CGSize viewSize = scrView.frame.size;
-    CGRect rect = CGRectMake(sender.currentPage * viewSize.width, 0, viewSize.width, viewSize.height);
-    [scrView scrollRectToVisible:rect animated:YES];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    //更新UIPageControl的当前页
-    CGPoint offset = scrollView.contentOffset;
-    CGRect bounds = scrollView.frame;
-    [pageCtrl setCurrentPage:offset.x / bounds.size.width];
+    [graphData release];    
 }
 #pragma mark -
-#pragma mark Plot Data Source Methods
-// 返回散点数
--( NSUInteger )numberOfRecordsForPlot:( CPPlot *)plot
+#pragma mark buttion action
+-(IBAction)startDate:(id)sender
 {
-    return num ;
-}
-// 根据参数返回数据（一个 C 数组）
-- ( double *)doublesForPlot:( CPPlot *)plot field:( NSUInteger )fieldEnum recordIndexRange:( NSRange )indexRange
-{
-    // 返回类型：一个 double 指针（数组）
-    double *values;
-    NSString * identifier=( NSString *)[plot identifier];
+    NSLog(@"startDate");
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
     
-    switch (fieldEnum) {
-            // 如果请求的数据是散点 x 坐标 , 直接返回 x 坐标（两个图形是一样的），否则还要进一步判断是那个图形
-        case CPScatterPlotFieldX :
-            values= x ;
-            break ;
-        case CPScatterPlotFieldY :
-            // 如果请求的数据是散点 y 坐标，则对于图形 1 ，使用 y1 数组，对于图形 2 ，使用 y2 数组
-            if ([identifier isEqualToString : @"Blue Plot" ]) {
-                values= y1;
-            } else
-                values= y2;
-            break ;
-    }
-    // 数组指针右移个 indexRage.location 单位，则数组截去 indexRage.location 个元素
-    return values + indexRange. location ;
+    if(!startDateCV)//初始化待显示控制器
+        startDateCV=[[DateViewController alloc]init]; 
+    //设置待显示控制器的范围
+    [startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    //设置待显示控制器视图的尺寸
+    startDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:startDateCV];
+    startDateCV.popover = pop;
+    startDateCV.selectedDate=self.startDay;
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(240, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];    [pop release];
 }
-// 添加数据标签
--( CPLayer *)dataLabelForPlot:( CPPlot *)plot recordIndex:( NSUInteger )index
+-(IBAction)endDate:(id)sender
 {
-    // 定义一个白色的 TextStyle
-    static CPTextStyle *whiteText = nil ;
-    if ( !whiteText ) {
-        whiteText = [[ CPTextStyle alloc ] init ];
-        whiteText. color = [ CPColor whiteColor ];
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
     }
-    // 定义一个 TextLayer
-    CPTextLayer *newLayer = nil ;
-    NSString * identifier=( NSString *)[plot identifier];
-    if ([identifier isEqualToString : @"Blue Plot" ]) {
-        newLayer = [[[ CPTextLayer alloc ] initWithText :[ NSString stringWithFormat : @"%.0f" , y1 [index]] style :whiteText] autorelease ];
+    
+    //初始化待显示控制器
+    if(!endDateCV){
+        endDateCV=[[DateViewController alloc]init];
     }
-    if ([identifier isEqualToString : @"Green Plot" ]) {
-        newLayer = [[[ CPTextLayer alloc ] initWithText :[ NSString stringWithFormat : @"%.0f" , y2 [index]] style :whiteText] autorelease ];
+    else {
+         endDateCV.selectedDate=self.endDay;
     }
-    return newLayer;
+    //设置待显示控制器的范围
+    [endDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    //设置待显示控制器视图的尺寸
+    endDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:endDateCV];
+    endDateCV.popover = pop;
+    endDateCV.selectedDate=self.endDay;
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(560, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [pop release];
+}
+-(IBAction)queryData:(id)sender
+{
+    [self loadHpiGraphView];
+}
+-(IBAction)dataTable:(id)sender
+{
+    //初始化待显示控制器
+    marketOneController=[[MarketOneController alloc]init];
+    //设置待显示控制器的范围
+    [marketOneController.view setFrame:CGRectMake(0,0, 600, 350)];
+    //设置待显示控制器视图的尺寸
+    marketOneController.contentSizeForViewInPopover = CGSizeMake(600, 350);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:marketOneController];
+    marketOneController.popover = pop;
+    [marketOneController loadViewData :stringType :startDay :endDay :NULL];
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(600, 350);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(512, 410, 0, 0) inView:self.view permittedArrowDirections:0 animated:YES];
+    [marketOneController release];
+    [pop release];			
+    
+    
+}
+-(IBAction)reloadData:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
+	[alert show];
+    
 }
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [self.view addSubview:activity];
+        [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
+        [activity startAnimating];
+        [xmlParser setISoapNum:1];
+        [xmlParser getTmIndexinfo];
+        [self runActivity];
+    }
+	
+}
 
+#pragma mark - popoverController
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
+    if (startDateCV)
+        self.startDay=startDateCV.selectedDate;
+    if (endDateCV)
+        self.endDay=endDateCV.selectedDate;
+    return  YES;
+}
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [endButton setTitle:[dateFormatter stringFromDate:endDay] forState:UIControlStateNormal];
+    [startButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
+    [dateFormatter release];
+}
+
+#pragma mark - segment
+//根据选择，显示不同类型的坐标点
+-(void)segmentChanged:(id) sender
+{
+    //BSPI
+    if(segment.selectedSegmentIndex==0)
+    {
+        NSLog(@"BSPI");
+        stringType=@"BSPI";
+    }
+    else if (segment.selectedSegmentIndex==1)
+    {
+        NSLog(@"BDI");
+        stringType=@"BDI";
+    }
+    else if (segment.selectedSegmentIndex==2)
+    {
+        NSLog(@"BJ");
+        stringType=@"BJ_PRICE";
+    }
+    else if (segment.selectedSegmentIndex==3)
+    {
+        NSLog(@"CCBFI");
+        stringType=@"QHD_GZ";
+    }
+    else if (segment.selectedSegmentIndex==4)
+    {
+        NSLog(@"WTI");
+        stringType=@"WTI";
+    }
+    else if (segment.selectedSegmentIndex==5)
+    {
+        NSLog(@"华能指导价");
+        stringType=@"HPI4500";
+    }
+    else if (segment.selectedSegmentIndex==6)
+    {
+        NSLog(@"NEWC");
+        stringType=@"NEWC";
+    }
+    else if (segment.selectedSegmentIndex==7)
+    {
+        NSLog(@"RB");
+        stringType=@"RB";
+    }
+    else if (segment.selectedSegmentIndex==8)
+    {
+        NSLog(@"DESARA");
+        stringType=@"DESARA";
+    }
+    
+    [self loadHpiGraphView];
+}
+
+#pragma mark activity
+-(void)runActivity
+{
+    if ([xmlParser iSoapNum]==0) {
+        [activity stopAnimating];
+        [activity removeFromSuperview];
+        [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
+        return;
+    }
+    else {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
+    }
+}
 @end

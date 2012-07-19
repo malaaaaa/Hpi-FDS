@@ -8,7 +8,7 @@
 
 #import "WebViewController.h"
 @implementation WebViewController
-@synthesize webView,popover,listButton,memoirListVC,navigationItem;
+@synthesize webView,popover,titleLable,memoirListVC,segment;
 
 static NSString *fileName;
 +(void)setFileName:(NSString*) theName
@@ -39,10 +39,10 @@ static NSString *fileName;
 #pragma mark - View lifecycle
 
 - (void)dealloc {
-    [navigationItem release];
+    [segment release];
     [webView release];
     [popover release];
-    [listButton release];
+    [titleLable release];
     [memoirListVC release];
     [super dealloc];
 }
@@ -60,19 +60,19 @@ static NSString *fileName;
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [webView loadRequest:request];
     webView.alpha=0.3;
-    
-    
+    webView.scalesPageToFit =  YES;
+    segment.momentary = YES;	
 }
 
 - (void)viewDidUnload
 {
-    [navigationItem release];
-    navigationItem = nil;
+    [segment release];
+    segment = nil;
     [webView release];
     webView = nil;
     [popover release];
     popover = nil;
-    [listButton release];
+    [titleLable release];
     memoirListVC = nil;
     [memoirListVC release];
     memoirListVC = nil;
@@ -91,18 +91,48 @@ static NSString *fileName;
     NSURL *url = [NSURL fileURLWithPath:docPath];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [webView loadRequest:request];
-    navigationItem.title=fileName;
+    self.titleLable.text=fileName;
     webView.alpha=1;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-	return YES;
+    return YES;
 }
+//#pragma mark -
+//#pragma mark Actions
+//- (IBAction)listDocView:(id)sender
+//{
+//    if (self.popover.popoverVisible) {
+//        [self.popover dismissPopoverAnimated:YES];
+//    }
+//    if (!memoirListVC) {
+//        //初始化待显示控制器
+//        memoirListVC=[[MemoirListVC alloc]init]; 
+//        //设置待显示控制器的范围
+//        [memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
+//        //设置待显示控制器视图的尺寸
+//        memoirListVC.contentSizeForViewInPopover = CGSizeMake(320, 484);
+//    }
+//    //初始化弹出窗口
+//    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:memoirListVC];
+//    memoirListVC.popover = pop;
+//    memoirListVC.webVC=self;
+//    self.popover = pop;
+//    self.popover.delegate = self;
+//    //设置弹出窗口尺寸
+//    self.popover.popoverContentSize = CGSizeMake(320, 484);
+//    //显示，其中坐标为箭头的坐标以及尺寸
+//    [self.popover presentPopoverFromRect:CGRectMake(1000, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+//    //[memoirListVC.memoirTableView reloadData];
+//    
+//    [pop release];
+//    
+//}
 #pragma mark -
-#pragma mark Actions
-- (IBAction)listDocView:(id)sender
+#pragma mark - segment
+//根据选择，显示不同文件类型
+-(IBAction)segmentChanged:(id) sender
 {
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
@@ -123,10 +153,22 @@ static NSString *fileName;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 484);
-    //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(1000, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    //[memoirListVC.memoirTableView reloadData];
     
+    if(segment.selectedSegmentIndex==0)
+    {
+        memoirListVC.stringType=@"QHD";
+        [self.popover presentPopoverFromRect:CGRectMake(710, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+    if(segment.selectedSegmentIndex==1)
+    {
+        memoirListVC.stringType=@"COALSITE"; 
+        [self.popover presentPopoverFromRect:CGRectMake(830, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+    if(segment.selectedSegmentIndex==2)
+    {
+        memoirListVC.stringType=@"NOTICE"; 
+        [self.popover presentPopoverFromRect:CGRectMake(950, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
     [pop release];
     
 }

@@ -109,12 +109,36 @@ static sqlite3	*database;
 	return;
 }
 
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithString:@"DELETE FROM  TsFileinfo"];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete TsFileinfo error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");		
+	}
+	return;
+}
+
 +(NSMutableArray *) getTsFileinfo:(NSInteger)fileId
 {
 	NSString *query=[NSString stringWithFormat:@" fileId = '%d' ",fileId];
 	NSMutableArray * array=[TsFileinfoDao getTsFileinfoBySql:query];
 	return array;
 }
+
++(NSMutableArray *) getTsFileinfoByType:(NSString *)type
+{
+	NSString *query=[NSString stringWithFormat:@" fileType = '%@' ",type];
+	NSMutableArray * array=[TsFileinfoDao getTsFileinfoBySql:query];
+	return array;
+}
+
 +(NSMutableArray *) getTsFileinfo
 {
     [self updatezbz];
@@ -190,7 +214,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTsFileinfoBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"SELECT fileId,fileType,title,filePath,fileName,userName,recordTime,xzbz FROM  TsFileinfo WHERE %@ ",sql1];
+    NSString *sql=[NSString stringWithFormat:@"SELECT fileId,fileType,title,filePath,fileName,userName,recordTime,xzbz FROM  TsFileinfo WHERE %@ ORDER BY recordTime DESC",sql1];
     NSLog(@"执行 getTsFileinfoBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];

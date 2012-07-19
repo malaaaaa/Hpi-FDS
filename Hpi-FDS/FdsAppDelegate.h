@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface FdsAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
     UIWindow *window;
     UITabBarController *tabBarController;

@@ -105,7 +105,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTmIndextype
 {
     
-	NSString *query=[NSString stringWithString:@" lon <> 0 "];
+	NSString *query=[NSString stringWithString:@" 1=1 "];
 	NSMutableArray * array=[TmIndextypeDao getTmIndextypeBySql:query];
     NSLog(@"执行 getTmIndextype 数量[%d] ",[array count]);
 	return array;

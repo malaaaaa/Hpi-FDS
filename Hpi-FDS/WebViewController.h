@@ -11,15 +11,15 @@
 @interface WebViewController : UIViewController<UIWebViewDelegate,UIPopoverControllerDelegate>{
     IBOutlet UIWebView *webView;
     UIPopoverController *popover;
-    IBOutlet UIButton *listButton;
+    IBOutlet UILabel *titleLable;
+    IBOutlet UISegmentedControl *segment;
     MemoirListVC *memoirListVC;
-    IBOutlet UINavigationItem *navigationItem;
 }
 @property (nonatomic,retain) UIWebView *webView;
 @property (nonatomic,retain) UIPopoverController *popover;
-@property (nonatomic,retain) UIButton *listButton;
+@property (nonatomic,retain) UILabel *titleLable;
 @property (nonatomic,retain) MemoirListVC *memoirListVC;
-@property (nonatomic,retain) UINavigationItem *navigationItem;
+@property (nonatomic,retain) UISegmentedControl *segment;
 +(void)setFileName:(NSString*) theName;
 - (void)viewloadRequest;
 @end

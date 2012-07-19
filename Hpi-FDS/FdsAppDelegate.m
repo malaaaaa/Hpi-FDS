@@ -10,10 +10,12 @@
 #import "MapViewController.h"
 #import "WebViewController.h"
 #import "MarketViewController.h"
+#import "PortViewController.h"
 #import "QueryViewController.h"
 #import "SetupViewController.h"
+#import "DataQueryVC.h"
 #import "PubInfo.h"
-
+#import "UIDevice+IdentifierAddition.h"
 @implementation FdsAppDelegate
 
 @synthesize window;
@@ -37,16 +39,25 @@
     [PubInfo initdata];
     [self customizeAppearance];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    
     // Override point for customization after application launch.
     UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
     UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
     UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
-    UIViewController *viewController4 = [[[QueryViewController alloc] initWithNibName:@"QueryViewController" bundle:nil] autorelease];
-    UIViewController *viewController5 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
+    UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
+    UIViewController *viewController5 = [[[DataQueryVC alloc] initWithNibName:@"DataQueryVC" bundle:nil] autorelease];
+    UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
+    //UIViewController *viewController4 = [[[QueryViewController alloc] initWithNibName:@"QueryViewController" bundle:nil] autorelease];
+    //NSString *deviceUDID = [[UIDevice currentDevice] uniqueIdentifier];
+    NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
+    NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
     
+    //获取设备id号
+    NSString *deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]];
+    NSLog(@"%@",deviceUID); // 输出设备id
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
     
     [window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];

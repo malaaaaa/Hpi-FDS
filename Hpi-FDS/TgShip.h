@@ -55,7 +55,7 @@
     NSInteger supID;        //供货方ID
     NSString *supplier;
     NSInteger heatValue;    //热值
-    NSInteger lw;           //载媒量weight
+    NSInteger lw;           //载煤量weight
     NSString *length;
     NSString *width;
     NSString *draft;        //吃水
@@ -71,6 +71,7 @@
     NSString *stageName;    //阶段说明
     NSString *statCode;     //状态编码
     NSString *statName;     //状态说明
+    BOOL    didSelected;
 }
 @property (nonatomic,retain) NSString *shipName;
 @property (nonatomic,retain) NSString *company;
@@ -101,5 +102,6 @@
 @property NSInteger supID;
 @property NSInteger heatValue;
 @property NSInteger lw;
+@property (assign)  BOOL didSelected;
 
 @end

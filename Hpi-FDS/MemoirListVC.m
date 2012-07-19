@@ -15,7 +15,7 @@
 @implementation MemoirListVC
 
 @synthesize memoirTableView,popover,listArray,downLoadArray;
-@synthesize xmlParser,networkQueue,processView;
+@synthesize xmlParser,networkQueue,processView,stringType;
 @synthesize contentLength,webVC,cellArray;
 
 static int cellNum =0;
@@ -97,20 +97,36 @@ static int cellNum =0;
     [super dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"viewWillAppear");
+    [self.listArray removeAllObjects];
+    [self.cellArray removeAllObjects];
+    cellNum=0;
+    self.listArray =[TsFileinfoDao getTsFileinfoByType:self.stringType];
+    for(int i=0;i<[listArray count];i++)
+	{
+		TsFileinfo *tsFile=(TsFileinfo *)[listArray objectAtIndex:i];
+		[self.cellArray addObject:[self CreateDownCell:tsFile]];
+	}
+    [memoirTableView reloadData];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.listArray =[TsFileinfoDao getTsFileinfo];
+    //self.listArray =[TsFileinfoDao getTsFileinfo];
     //开始初始化下载数组
 	self.cellArray=[[NSMutableArray alloc]init];
     cellNum=0;
-    for(int i=0;i<[listArray count];i++)
-	{
-		//TsFileinfo *tsFile=[[TsFileinfo alloc]init];
-		TsFileinfo *tsFile=(TsFileinfo *)[listArray objectAtIndex:i];
-		[self.cellArray addObject:[self CreateDownCell:tsFile]];
-	}
+    [memoirTableView setSeparatorColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];
+//    for(int i=0;i<[listArray count];i++)
+//	{
+//		//TsFileinfo *tsFile=[[TsFileinfo alloc]init];
+//		TsFileinfo *tsFile=(TsFileinfo *)[listArray objectAtIndex:i];
+//		[self.cellArray addObject:[self CreateDownCell:tsFile]];
+//	}
 
     //定义下拉刷新历史记录
 	{
@@ -243,7 +259,7 @@ static int cellNum =0;
         if ([xmlParser iSoapTsFileinfoDone]==2) {
             [listArray removeAllObjects];
             listArray=nil;
-            listArray =[TsFileinfoDao getTsFileinfo];
+            listArray =[TsFileinfoDao getTsFileinfoByType:self.stringType];
             [self.cellArray removeAllObjects];
             cellNum=0;
             for(int i=0;i<[listArray count];i++)

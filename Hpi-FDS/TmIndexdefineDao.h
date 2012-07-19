@@ -22,5 +22,5 @@
 +(NSMutableArray *) getTmIndexdefine:(NSInteger)indexId;
 +(NSMutableArray *) getTmIndexdefine;
 +(NSMutableArray *) getTmIndexdefineBySql:(NSString *)sql;
-
++(NSMutableArray *) getTmIndexdefineByName:(NSString *)indexName;
 @end

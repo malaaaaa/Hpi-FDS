@@ -68,13 +68,14 @@
 	if(self != nil){
         
 		self.clipsToBounds = YES;
-		self.backgroundColor = [UIColor grayColor];
+		//self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
 		self.dataSource = aDataSource;
         
 		//初始显示视图及Cell的长宽高
 		contentWidth = .0;
-		cellHeight = 30.0;
-		cellWidth = [[dataSource.columnWidth objectAtIndex:0] intValue];
+		cellHeight = 40.0;
+        cellWidth = [[dataSource.columnWidth objectAtIndex:0] intValue];
 		for(int i=1;i<[dataSource.columnWidth count];i++)
 			contentWidth += [[dataSource.columnWidth objectAtIndex:i] intValue];
 		contentHeight = [dataSource.data count] * cellHeight;		
@@ -90,6 +91,7 @@
 	}
 	return self;
 }
+
 -(void)layoutSubView:(CGRect)aRect{
 	vLeftContent = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, contentHeight)];
 	vRightContent = [[UIView alloc] initWithFrame:CGRectMake(0, 0, aRect.size.width - cellWidth, contentHeight)];
@@ -99,10 +101,10 @@
 	
 	
 	//初始化各视图
-	vTopLeft = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cellWidth, cellHeight)];
-	vLeft = [[DataGridScrollView alloc] initWithFrame:CGRectMake(0, cellHeight, aRect.size.width, aRect.size.height - cellHeight)];
+	vTopLeft = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cellWidth, cellHeight+2)];
+	vLeft = [[DataGridScrollView alloc] initWithFrame:CGRectMake(0, cellHeight+2, aRect.size.width, aRect.size.height - cellHeight-2)];
 	vRight = [[DataGridScrollView alloc] initWithFrame:CGRectMake(cellWidth, 0, aRect.size.width - cellWidth, contentHeight)];
-	vTopRight = [[UIView alloc] initWithFrame:CGRectMake(cellWidth, 0, aRect.size.width - cellWidth, cellHeight)];
+	vTopRight = [[UIView alloc] initWithFrame:CGRectMake(cellWidth, 0, aRect.size.width - cellWidth, cellHeight+2)];
 	
 	vLeft.dataGridComponent = self;
 	vRight.dataGridComponent = self;
@@ -119,9 +121,12 @@
 	//设置ScrollView参数
 	vRight.delegate = self;
 	
-	vTopRight.backgroundColor = [UIColor grayColor];		
-	vRight.backgroundColor = [UIColor grayColor];
-	vTopLeft.backgroundColor = [UIColor colorWithRed:.7 green:.7 blue:.7 alpha:1];
+    vTopRight.backgroundColor=[UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
+    vRight.backgroundColor=[UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
+    vTopLeft.backgroundColor=[UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
+    //vTopRight.backgroundColor = [UIColor blackColor];		
+	//vRight.backgroundColor = [UIColor blackColor];
+	//vTopLeft.backgroundColor = [UIColor colorWithRed:.7 green:.7 blue:.7 alpha:1];
 	
 	//添加各视图
 	[vRight addSubview:vRightContent];
@@ -143,20 +148,25 @@
 	//填冲标题数据
 	for(int column = 0;column < [dataSource.titles count];column++){
 		float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
-		UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, cellHeight )];
-		l.font = [UIFont systemFontOfSize:14.0f];
+		UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, cellHeight+2 )];
+		l.font = [UIFont systemFontOfSize:16.0f];
 		l.text = [dataSource.titles objectAtIndex:column];
-		l.backgroundColor = [UIColor blueColor];
+		//l.backgroundColor = [UIColor colorWithRed:0.0/255 green:105.0/255 blue:186.0/255 alpha:1];
+        l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
 		l.textColor = [UIColor whiteColor];
+        l.shadowColor = [UIColor blackColor];
+        l.shadowOffset = CGSizeMake(0, -0.5);
 		l.textAlignment = UITextAlignmentCenter;
         
-		if( 0 == column){
-			[vTopLeft addSubview:l];
-		}
-		else{	
-			[vTopRight addSubview:l];
-			columnOffset += columnWidth;
-		}
+
+        if( 0 == column){
+            [vTopLeft addSubview:l];
+        }
+        else{	
+            [vTopRight addSubview:l];
+            columnOffset += columnWidth;
+        }
+        
 		[l release];
 	}	
     
@@ -185,24 +195,35 @@
             else
             {
                 float columnWidth = [[dataSource.columnWidth objectAtIndex:column-1] floatValue];;
-                UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth, cellHeight -1 )];
-                l.font = [UIFont systemFontOfSize:12.0f];
+                UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
+                l.font = [UIFont systemFontOfSize:14.0f];
                 l.text = [rowData objectAtIndex:column];
+//                if(column==1)
+//                { 
+//                    l.textAlignment = UITextAlignmentLeft;
+//                }
+//                else {
+//                    l.textAlignment = UITextAlignmentCenter;
+//                }
                 l.textAlignment = UITextAlignmentCenter;
                 l.tag = i * cellHeight + column + 1000;
                 if(i % 2 == 0)
-                    l.backgroundColor = [UIColor whiteColor];
+                    l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
+                else
+                    l.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+                
+                
                 if (iColorRed==1) 
                 {
                     l.textColor=[UIColor redColor];
                 }
                 if (iColorRed==2) 
                 {
-                    l.textColor=[UIColor greenColor];
+                    l.textColor=[UIColor colorWithRed:0.0/255 green:180.0/255 blue:90.0/255 alpha:1];
                 }
                 if (iColorRed==0) 
                 {
-                    l.textColor=[UIColor blackColor];
+                    l.textColor=[UIColor whiteColor];
                 }
                 if( 1 == column){
                     l.frame = CGRectMake(columnOffset,  i * cellHeight , columnWidth -1 , cellHeight -1 );

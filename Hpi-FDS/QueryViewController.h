@@ -7,22 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CorePlot/CorePlot.h>
-#define num 20
-#define yLength 1000.0f
-#define yIntervalLength   @"200"
-#define ynum 10
-
-@interface QueryViewController : UIViewController<CPPlotDataSource,UIScrollViewDelegate>{
-//@private
-    CPXYGraph * graph ;
-    double x  [ num ];// 散点的 x 坐标
-    double y1 [ num ];// 第 1 个散点图的 y 坐标
-    double y2 [ num ];// 第 2 个散点图的 y 坐标
-    IBOutlet UIView *graphView;
-    UIPageControl *pageCtrl;
-    UIScrollView *scrView;
+#import "VBShipChVC.h"
+#import "TBShipChVC.h"
+#import "DataGridComponent.h"
+@interface QueryViewController : UIViewController
+{
+    IBOutlet UISegmentedControl *segment;
+    IBOutlet UIView *chooseView;
+    IBOutlet UIView *listView;
+    NSMutableArray *dataArray;
+    TBShipChVC *tbShipChVC;
+    VBShipChVC *vbShipChVC;
+    DataGridComponent *grid_vb;
+    DataGridComponent *grid_tb;
 }
-@property(nonatomic,retain) UIPageControl *pageCtrl;
-@property(nonatomic,retain) UIScrollView *scrView;
+
+@property (nonatomic,retain) UISegmentedControl *segment;
+@property (nonatomic,retain) UIView *chooseView;
+@property (nonatomic,retain) UIView *listView;
+@property (nonatomic,retain) NSMutableArray *dataArray;
+@property (nonatomic,retain) TBShipChVC *tbShipChVC;
+@property (nonatomic,retain) VBShipChVC *vbShipChVC;
+
+-(void)loadViewData_vb;
+-(void)loadViewData_tb;
 @end

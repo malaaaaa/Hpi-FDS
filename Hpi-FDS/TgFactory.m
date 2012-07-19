@@ -11,6 +11,7 @@
 @implementation TgFactory
 @synthesize factoryCode,factoryName,description,lon,lat;
 @synthesize capacitySum,impOrt,impMonth,impYear,storage,conMonth,conSum,conYear;
+@synthesize didSelected;
 
 -(void)dealloc {
     [factoryCode release];

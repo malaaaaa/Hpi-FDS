@@ -17,6 +17,7 @@
 -(void)dealloc {
     [indexName release];
     [recordTime release];
+    [infoValue release];
     [super dealloc];
 }
 

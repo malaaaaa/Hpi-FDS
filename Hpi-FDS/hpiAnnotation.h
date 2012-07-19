@@ -15,23 +15,25 @@
     NSString* title; 
     NSString* subtitle;
     int iAnnotationType;
-    UIImage *headImage;
     NSString* subtitle2;
     NSString* port;//转运港
     NSString* factory;//流向电厂
-    NSString* stage;//状态
-    NSString* stateCode;//状态
-
+    NSString* topTitle;
+    UIImage*  topImage;
+    NSString* shipStat;
+    NSString* shipStage;
 } 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic) int iAnnotationType;
-@property (nonatomic, copy) UIImage *headImage;
-@property (nonatomic, retain) NSString *subtitle2;
-@property (nonatomic, retain) NSString *port;
-@property (nonatomic, retain) NSString *factory;
-@property (nonatomic, retain) NSString *stage;
-@property (nonatomic, retain) NSString *stateCode;
+@property (nonatomic, copy) NSString *subtitle2;
+@property (nonatomic, copy) NSString *port;
+@property (nonatomic, copy) NSString *factory;
+@property (nonatomic, copy) NSString *topTitle;
+@property (nonatomic, retain) UIImage *topImage;
+@property (nonatomic, copy) NSString *shipStat;
+@property (nonatomic, copy) NSString *shipStage;
+
 -(id) initWithCoords:(CLLocationCoordinate2D) coords;
 @end
