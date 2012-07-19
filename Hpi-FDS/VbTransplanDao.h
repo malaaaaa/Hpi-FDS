@@ -19,6 +19,6 @@
 +(void)delete:(VbTransplan*) vbTransplan;
 +(NSMutableArray *) getVbTransplan:(NSString *)planCode;
 +(NSMutableArray *) getVbTransplan;
-+(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName;
++(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)coalType:(NSString *)factoryName:(NSString *)dateTime:(NSString *)planCode;
 +(NSMutableArray *) getVbTransplanBySql:(NSString *)sql;
 @end

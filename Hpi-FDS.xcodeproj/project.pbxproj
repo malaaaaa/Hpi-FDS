@@ -166,6 +166,7 @@
 		14DFBD58155A6E070084E7F9 /* TmShipinfoDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DFBD57155A6E060084E7F9 /* TmShipinfoDao.m */; };
 		14E4586615622CCD0015258C /* MarketOneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E4586415622CCC0015258C /* MarketOneController.m */; };
 		14E4586715622CCD0015258C /* MarketOneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E4586515622CCC0015258C /* MarketOneController.xib */; };
+		2A7B338515B7EE73006B7994 /* TH_ShipTrans.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B338415B7EE73006B7994 /* TH_ShipTrans.m */; };
 		D909F0A715AFF07E0011364A /* VBFactoryTransVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D909F0A515AFF07D0011364A /* VBFactoryTransVC.m */; };
 		D909F0A815AFF07E0011364A /* VBFactoryTransVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D909F0A615AFF07E0011364A /* VBFactoryTransVC.xib */; };
 		D90A84FE15B54224001CC03A /* TfShipCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A84FD15B54224001CC03A /* TfShipCompany.m */; };
@@ -428,6 +429,8 @@
 		14E4586315622CCC0015258C /* MarketOneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketOneController.h; sourceTree = "<group>"; };
 		14E4586415622CCC0015258C /* MarketOneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketOneController.m; sourceTree = "<group>"; };
 		14E4586515622CCC0015258C /* MarketOneController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketOneController.xib; sourceTree = "<group>"; };
+		2A7B338315B7EE73006B7994 /* TH_ShipTrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTrans.h; sourceTree = "<group>"; };
+		2A7B338415B7EE73006B7994 /* TH_ShipTrans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTrans.m; sourceTree = "<group>"; };
 		D909F0A415AFF07D0011364A /* VBFactoryTransVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBFactoryTransVC.h; path = ../VBFactoryTransVC.h; sourceTree = "<group>"; };
 		D909F0A515AFF07D0011364A /* VBFactoryTransVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBFactoryTransVC.m; path = ../VBFactoryTransVC.m; sourceTree = "<group>"; };
 		D909F0A615AFF07E0011364A /* VBFactoryTransVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VBFactoryTransVC.xib; path = ../VBFactoryTransVC.xib; sourceTree = "<group>"; };
@@ -788,6 +791,8 @@
 				D91A487B15B65D5F0020EEA0 /* TfCoalType.m */,
 				D91A487D15B65D720020EEA0 /* TfCoalTypeDao.h */,
 				D91A487E15B65D740020EEA0 /* TfCoalTypeDao.m */,
+				2A7B338315B7EE73006B7994 /* TH_ShipTrans.h */,
+				2A7B338415B7EE73006B7994 /* TH_ShipTrans.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -1128,6 +1133,7 @@
 				D91A487F15B65D790020EEA0 /* TfCoalTypeDao.m in Sources */,
 				D91A488215B692660020EEA0 /* TsShipStage.m in Sources */,
 				D91A488515B692810020EEA0 /* TsShipStageDao.m in Sources */,
+				2A7B338515B7EE73006B7994 /* TH_ShipTrans.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,10 @@
 #import "PubInfo.h"
 #import "QueryViewController.h"
 #import "DataQueryVC.h"
+#import "TfCoalTypeDao.h"
+
+
+
 @interface VBTransChVC ()
 
 @end
@@ -53,6 +57,9 @@
     self.factoryLabel.text=All_;
     self.monthLabel.text=All_;
     [activity removeFromSuperview];
+    //初始化  xmlparser
+    self.xmlParser=[[XMLParser   alloc] init];
+    
     self.shipLabel.hidden=YES;
     self.comLabel.hidden=YES;
     self.portLabel.hidden=YES;
@@ -233,13 +240,25 @@
     NSMutableArray *Array=[[NSMutableArray alloc]init];
     chooseView.iDArray=Array;
     [chooseView.iDArray addObject:All_];
-    NSMutableArray *array=[VbTransplanDao getVbTransplan];
+    
+    
+    
+    
+    
+    //获得煤种数据源
+    NSMutableArray *array=[TfCoalTypeDao getTfCoalType];
     for(int i=0;i<[array count];i++){
-        VbTransplan *vbTransplan=[array objectAtIndex:i];
-        [chooseView.iDArray addObject:vbTransplan.coalType];
+        TfCoalType *tfcoal=[array objectAtIndex:i];
+        
+        [chooseView.iDArray addObject:tfcoal.COALTYPE];
     }
+    
+    
+    
+    
+    
     chooseView.parentMapView=self;
-    chooseView.type=kChPORT;
+    chooseView.type=kCOALTYPE;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -323,9 +342,14 @@
     if (buttonIndex == 1) {
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
+        
         [activity startAnimating];
+        
         [xmlParser setISoapNum:1];
         [xmlParser getVbTransplan];
+        //同步煤种
+        [xmlParser getTfCoalType];
+        
         [self runActivity];
     }
 	
@@ -333,19 +357,47 @@
 
 - (IBAction)queryAction:(id)sender {
     
+    
     NSLog(@"comLabel=[%@]",comLabel.text);
     NSLog(@"shipLabel=[%@]",shipLabel.text);
     NSLog(@"portLabel=[%@]",portLabel.text);
     NSLog(@"typeLabel=[%@]",typeLabel.text);
     NSLog(@"factoryLabel=[%@]",factoryLabel.text);
-    NSLog(@"monthLabel=[%@]",monthLabel.text);
-    NSLog(@"codeTextField=[%@]",codeTextField.text);
     
-//    NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
-//    DataQueryVC *dataQueryVC=self.parentVC;
-//    dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :typeLabel.text :factoryLabel.text :monthLabel.text :codeTextField.text];
-//    [dataQueryVC loadViewData_vb];
-//    [loopPool drain];
+    
+    
+    NSDateFormatter *f=[[NSDateFormatter alloc] init];
+    [f setDateFormat:@"yyyyMM"];
+    
+    if (![monthButton.titleLabel.text isEqualToString:@"月份"]) {
+        monthLabel.text=monthButton.titleLabel.text;
+    }
+    
+    
+    
+    NSLog(@"monthLabel.text=[%@]",monthLabel.text);
+    NSLog(@"monthButton=[%@]",monthButton.titleLabel.text);
+    NSLog(@"取时间用month=[%@]",[f stringFromDate:self.month]);
+    
+    
+    
+    NSLog(@"codeTextField=[%@]",codeTextField.text);
+    if (monthLabel.text!=All_) {
+        monthLabel.text=[f stringFromDate:self.month];
+        [f release];
+    }
+    
+    
+    
+    NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
+    DataQueryVC *dataQueryVC=self.parentVC;
+    dataQueryVC.dataArray=[VbTransplanDao getVbTransplan:comLabel.text :shipLabel.text :portLabel.text :typeLabel.text :factoryLabel.text :monthLabel.text:codeTextField.text];
+    
+    
+    
+    [dataQueryVC loadViewData_tb];
+    [loopPool drain];
+
 }
 
 - (IBAction)resetAction:(id)sender {

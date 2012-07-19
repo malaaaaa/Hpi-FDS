@@ -43,6 +43,8 @@ static NSString *deviceID;
     [TiListinfoDao initDb];
     [TmCoalinfoDao openDataBase];
     [TmCoalinfoDao initDb];
+     
+    
     [TmShipinfoDao openDataBase];
     [TmShipinfoDao initDb];
   

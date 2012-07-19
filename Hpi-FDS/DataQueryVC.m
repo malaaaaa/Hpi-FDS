@@ -134,64 +134,39 @@ static DataGridComponentDataSource *dataSource;
 #pragma mark - 刷新各个查询页面
 -(void)loadViewData_tb
 {
+    /*   使用表  VBTRANSCHVC   */
     dataSource.data=[[NSMutableArray alloc]init];
+    
+    NSLog(@"获得transPlan：%d",dataArray.count  );
+    
+    
     for (int i=0;i<[dataArray count];i++) {
-        VbShiptrans *vbShiptrans=[dataArray objectAtIndex:i];
-        NSLog(@"vbShiptrans.schedule %@",vbShiptrans.schedule);
-        if ([vbShiptrans.stage isEqualToString:@"0"]) {
-            [dataSource.data addObject:[NSArray arrayWithObjects:
-                                        kGREEN,
-                                        vbShiptrans.shipCompany,
-                                        ([vbShiptrans.schedule isEqualToString:@"1"])?vbShiptrans.shipName:[NSString stringWithFormat:@"*%@",vbShiptrans.shipName],
-                                        vbShiptrans.tripNo,
-                                        vbShiptrans.factoryName,
-                                        vbShiptrans.portName,
-                                        vbShiptrans.supplier,
-                                        vbShiptrans.keyName,
-                                        [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
-                                        vbShiptrans.tradeName,
-                                        vbShiptrans.coalType,
-                                        vbShiptrans.stateName,
-                                        nil]];
-        }
-        else if ([vbShiptrans.stage isEqualToString:@"2"]) {
-            [dataSource.data addObject:[NSArray arrayWithObjects:
-                                        kRED,
-                                        vbShiptrans.shipCompany,
-                                        ([vbShiptrans.schedule isEqualToString:@"1"])?vbShiptrans.shipName:[NSString stringWithFormat:@"*%@",vbShiptrans.shipName],
-                                        vbShiptrans.tripNo,
-                                        vbShiptrans.factoryName,
-                                        vbShiptrans.portName,
-                                        vbShiptrans.supplier,
-                                        vbShiptrans.keyName,
-                                        [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
-                                        vbShiptrans.tradeName,
-                                        vbShiptrans.coalType,
-                                        vbShiptrans.stateName,
-                                        nil]];
-        }
-        else {
-            [dataSource.data addObject:[NSArray arrayWithObjects:
-                                        kBLACK,
-                                        vbShiptrans.shipCompany,
-                                        ([vbShiptrans.schedule isEqualToString:@"1"])?vbShiptrans.shipName:[NSString stringWithFormat:@"*%@",vbShiptrans.shipName],
-                                        vbShiptrans.tripNo,
-                                        vbShiptrans.factoryName,
-                                        vbShiptrans.portName,
-                                        vbShiptrans.supplier,
-                                        vbShiptrans.keyName,
-                                        [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
-                                        vbShiptrans.tradeName,
-                                        vbShiptrans.coalType,
-                                        vbShiptrans.stateName,
-                                        nil]];
-        }
+        VbTransplan *transplan=[dataArray objectAtIndex:i];
+        //船运计划和 电厂动态  没有 状态  stage
+        [dataSource.data addObject:[NSArray arrayWithObjects:
+                                    @"3",
+                                    
+                                    transplan.planCode,
+                                    transplan.planMonth,
+                                    transplan.shipName,
+                                    transplan.factoryName,
+                                    transplan.tripNo,
+                                    transplan.portName,
+                                    transplan.eTap,
+                                    transplan.eTaf,
+                                    [NSString stringWithFormat:@"%d",transplan.eLw],
+                                    transplan.coalType,
+                                    transplan.supplier,
+                                    transplan.keyName,
+                                    nil ]];
+        
+        
+        
         
     }
     [listTableview reloadData];
     
 }
-
 -(void)loadViewData_vb
 {
     dataSource.data=[[NSMutableArray alloc]init];
@@ -294,7 +269,7 @@ static DataGridComponentDataSource *dataSource;
         NSLog(@"查询 %d条记录",[dataArray count]);
         dataSource = [[DataGridComponentDataSource alloc] init];
         //(20.20.985.42)
-        dataSource.columnWidth = [NSArray arrayWithObjects:@"80",@"105",@"80",@"100",@"95",@"150",@"70",@"70",@"90",@"70",@"75",@"75",nil];
+        dataSource.columnWidth = [NSArray arrayWithObjects:@"90",@"80",@"80",@"85",@"80",@"95",@"85",@"85",@"85",@"70",@"75",@"75",nil];
         dataSource.titles = [NSArray arrayWithObjects:@"计划号",@"计划月份",@"船名",@"流向",@"航次",@"装运港",@"预抵装港",@"预抵卸港",@"预计载煤量",@"煤种",@"供货方",@"类别",nil];
         NSLog(@"查询 %d条记录",[dataArray count]);
         

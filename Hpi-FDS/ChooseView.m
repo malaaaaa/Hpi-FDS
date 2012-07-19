@@ -12,6 +12,9 @@
 #import "VBShipChVC.h"
 #import "PortViewController.h"
 #import "VBFactoryTransVC.h"
+#import "VBTransChVC.h"
+
+
 @implementation ChooseView
 @synthesize tableView,iDArray,popover;
 @synthesize parentMapView,type;
@@ -192,6 +195,31 @@
             [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
         }
     }
+    //新添 VBTransChVC   视图下的  煤种 信息   kCOALTYPE
+    else if (self.type==kCOALTYPE) {
+        
+        VBTransChVC *view1=(VBTransChVC *)self.parentMapView;
+        view1.typeLabel.text=[self.iDArray objectAtIndex:[indexPath row  ]];
+        if (![view1.typeLabel.text isEqualToString:All_]) {
+            view1.typeLabel.hidden=NO;
+            [view1.typeButton setTitle:@"" forState:UIControlStateNormal];
+            
+            
+        }else {
+            view1.typeLabel.hidden=YES;
+            [view1.typeButton   setTitle:@"煤种" forState:UIControlStateNormal];
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
     [self.popover dismissPopoverAnimated:YES];
 }
 

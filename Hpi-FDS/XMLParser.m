@@ -615,6 +615,8 @@ NSString* alertMsg;
 }
 - (void)getTfCoalType
 {
+    NSLog(@"开始执行煤种同步..............");
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfSupplier) userInfo:NULL repeats:NO];
         return;
