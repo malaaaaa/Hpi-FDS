@@ -14,7 +14,6 @@
     UIPopoverController *popover;
     id parentMapView;
     NSInteger type;
-//test
 }
 
 @property(nonatomic,retain) UITableView *tableView;
