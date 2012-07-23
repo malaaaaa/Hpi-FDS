@@ -61,6 +61,9 @@ static NSString *deviceID;
     [TsShipStageDao openDataBase];
     [TsShipStageDao initDb];
     
+    [NTShipCompanyTranShareDao openDataBase];
+    [NTShipCompanyTranShareDao initDb];
+    
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
 	NSString *fileName=[[NSString alloc]initWithFormat:@"%@/data.plist",doc]; 
@@ -164,5 +167,32 @@ static NSString *deviceID;
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     //用[NSDate date]可以获取系统当前时间
     return [dateFormatter stringFromDate:[NSDate date]];
+}
+
++(NSInteger)getMonthDifference:(NSString *)startDate :(NSString *)endDate
+{
+    if (![startDate isPureInt]||
+        ![endDate isPureInt]) {
+        return -1;
+    }
+    if ([startDate integerValue]<[endDate integerValue] 
+        || ([startDate integerValue]<1||[startDate integerValue]>12)
+        || ([endDate integerValue]<1||[endDate integerValue]>12)){
+        return  -2;
+        
+    }
+    NSInteger monthNum =0;
+    NSInteger startYear= [[startDate substringToIndex:4] integerValue];
+    NSInteger startMonth= [[startDate substringFromIndex:5] integerValue];
+    NSInteger endYear= [[endDate substringToIndex:4] integerValue];
+    NSInteger endMonth= [[endDate substringFromIndex:5] integerValue];
+ 
+    if (startYear==endYear) {
+        monthNum= endMonth-startMonth+1;
+    }
+    else {
+        monthNum= ((endYear-startYear)-1)*12+(12-startMonth)+endMonth+1;
+    }
+    return monthNum;
 }
 @end

@@ -10,6 +10,7 @@
 @implementation TgPort
 @synthesize portCode,portName,lon,lat;
 @synthesize shipNum,handleShip,loadShip,transactShip,waitShip;
+@synthesize didSelected;
 
 - (void)dealloc {
     [portCode release];

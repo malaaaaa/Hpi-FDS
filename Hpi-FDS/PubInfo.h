@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSString+Verify.h"
 #import "TgPort.h"
 #import "TgFactory.h"
 #import "TgShip.h"
@@ -47,6 +48,8 @@
 #import "TfCoalTypeDao.h"
 #import "TsShipStage.h"
 #import "TsShipStageDao.h"
+#import "NTShipCompanyTranShare.h"
+#import "NTShipCompanyTranShareDao.h"
 
 typedef enum{
     kPORT=0,
@@ -89,4 +92,8 @@ typedef enum{
 +(void)setUpdateTime:(NSString*) time;
 +(NSString *)deviceID;
 +(NSString *)currTime;
+
+//计算两个YYYYMM格式字符串之间月份之差
++(NSInteger)getMonthDifference:(NSString *)startDate :(NSString *)endDate;
+
 @end

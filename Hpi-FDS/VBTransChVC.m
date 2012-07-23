@@ -60,7 +60,13 @@
     self.factoryLabel.hidden=YES;
     self.monthLabel.hidden=YES;
     
-    self.month = [[NSDate alloc] init];
+    NSDate *date=[[NSDate alloc]init];
+    self.month=date;
+    [date release];
+    
+    
+    //[self setMonth:[[NSDate alloc] init]];
+    month=[[NSDate alloc]init];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy年MM月"];
     [dateFormatter stringFromDate:month];
