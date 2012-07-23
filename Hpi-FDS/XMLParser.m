@@ -35,12 +35,13 @@ static int iSoapTfShipCompanyDone=0;
 static int iSoapTfSupplierDone=0;
 static int iSoapTfCoalTypeDone=0;
 static int iSoapTsShipStageDone=0;
+static int iSoapNTShipCompanyTranShareDone=0;
 
 
 UIAlertView *alert;
 NSString* alertMsg;
 
-@synthesize tgFactory,tgPort,tgShip,tsFileinfo,tmIndexinfo,tmIndexdefine,tmIndextype,vbShiptrans,vbTransplan,tmCoalinfo,tmShipinfo,vbFactoryTrans,tfFactory,tbFactoryState,tfShipCompany,tfSupplier,tfCoalType,tsShipStage;
+@synthesize tgFactory,tgPort,tgShip,tsFileinfo,tmIndexinfo,tmIndexdefine,tmIndextype,vbShiptrans,vbTransplan,tmCoalinfo,tmShipinfo,vbFactoryTrans,tfFactory,tbFactoryState,tfShipCompany,tfSupplier,tfCoalType,tsShipStage,ntShipCompanyTranShare;
 @synthesize soapResults,webData,xmlParser,webVC,tiListinfo;
 
 #pragma Soap alert
@@ -108,6 +109,9 @@ NSString* alertMsg;
     }
     if (tsShipStage) {
         [tsShipStage release];
+    }
+    if (ntShipCompanyTranShare) {
+        [ntShipCompanyTranShare release];
     }
     [super dealloc];
 }
@@ -616,7 +620,7 @@ NSString* alertMsg;
 - (void)getTfCoalType
 {
     if (iSoapDone==0) {
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfSupplier) userInfo:NULL repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfCoalType) userInfo:NULL repeats:NO];
         return;
     }
     //出错
@@ -671,7 +675,7 @@ NSString* alertMsg;
 - (void)getTsShipStage
 {
     if (iSoapDone==0) {
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfSupplier) userInfo:NULL repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTsShipStage) userInfo:NULL repeats:NO];
         return;
     }
     //出错
@@ -723,6 +727,62 @@ NSString* alertMsg;
         NSLog(@"theConnection is NULL");
     }
 }
+- (void)getNtShipCompanyTranShare
+{
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getNtShipCompanyTranShare) userInfo:NULL repeats:NO];
+        return;
+    }
+    //出错
+    if (iSoapDone==3) {
+        iSoapNum--;
+        if (iSoapNum<1) {
+            iSoapDone=1;
+        }
+        return;
+    }
+    iSoapDone=0;
+    iSoapNTShipCompanyTranShareDone=1;
+    NSLog(@"开始 getNtShipCompanyTranShare");
+    recordResults = NO;
+    iSoap=20;
+    NSString *soapMessage = [NSString stringWithFormat:
+                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                             "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                             "<soap12:Body>\n"
+                             "<GetTransPortsInfo xmlns=\"http://tempuri.org/\">\n"
+                             "<req>\n"
+                             "<deviceid>%@</deviceid>\n"
+                             "<version>%@</version>\n"
+                             "<updatetime>%@</updatetime>\n"
+                             "</req>\n"
+                             "</GetTransPortsInfo>\n"
+                             "</soap12:Body>\n"
+                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+    NSLog(@"soapMessage[%@]",soapMessage);
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    
+    NSURL *url = [NSURL URLWithString:PubInfo.baseUrl];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 请求
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    
+    // 如果连接已经建好，则初始化data
+    if( theConnection )
+    {
+        webData = [[NSMutableData data] retain];
+    }
+    else
+    {
+        NSLog(@"theConnection is NULL");
+    }
+}
+
 - (void)getTmIndexdefine
 {
     NSLog(@"开始 getTmIndexdefine  iSoapDone=%d   iSoapNum=%d",iSoapDone,iSoapNum);
@@ -3075,6 +3135,68 @@ NSString* alertMsg;
             recordResults = YES;
         }
     }
+    //解析VBTANSPORTS
+    if(iSoap==20)
+    {
+
+        if( [elementName isEqualToString:@"COMID"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"COMPANY"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"TRADEYEAR"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"TRADEWEEK"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"PORTCODE"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"PORTNAME"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"LWSUM"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+
+    }
 
 
 }
@@ -4832,6 +4954,76 @@ NSString* alertMsg;
 
         }
     }
+//    <COMID>decimal</COMID>
+//    <COMPANY>string</COMPANY>
+//    <TRADEYEAR>string</TRADEYEAR>
+//    <TRADEWEEK>string</TRADEWEEK>
+//    <PORTCODE>string</PORTCODE>
+//    <PORTNAME>string</PORTNAME>
+//    <LWSUM>decimal</LWSUM>
+    //解析vb_transports
+    if(iSoap==20)
+    {
+        if( [elementName isEqualToString:@"COMID"])
+        {
+            if(!ntShipCompanyTranShare)
+                ntShipCompanyTranShare = [[NTShipCompanyTranShare alloc]init];
+            
+            ntShipCompanyTranShare.COMID=[soapResults integerValue];
+
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"COMPANY"])
+        {
+            ntShipCompanyTranShare.COMPANY = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"TRADEYEAR"])
+        {
+            ntShipCompanyTranShare.TRADEYEAR = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"TRADEWEEK"])
+        {
+            ntShipCompanyTranShare.TRADEMONTH = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"PORTCODE"])
+        {
+            ntShipCompanyTranShare.PORTCODE = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"PORTNAME"])
+        {
+            ntShipCompanyTranShare.PORTNAME = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"LWSUM"])
+        {
+            ntShipCompanyTranShare.LW = [soapResults integerValue];
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+            
+            [NTShipCompanyTranShareDao insert:ntShipCompanyTranShare];
+            [ntShipCompanyTranShare release];
+            ntShipCompanyTranShare=nil;
+
+        }
+    }
+
 
 
 }
@@ -4949,6 +5141,11 @@ NSString* alertMsg;
         
         iSoapNum--;
     }
+    if (iSoapNTShipCompanyTranShareDone==1) {
+        iSoapNTShipCompanyTranShareDone=2;
+        
+        iSoapNum--;
+    }
 
     
 }
@@ -5041,4 +5238,9 @@ NSString* alertMsg;
 {
     return iSoapTsShipStageDone;
 }
+-(NSInteger)iSoapNTShipCompanyTranShareDone
+{
+    return iSoapNTShipCompanyTranShareDone;
+}
+
 @end
