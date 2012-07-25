@@ -10,10 +10,13 @@
 #import "VBShipChVC.h"
 #import "TBShipChVC.h"
 #import "VBTransChVC.h"
-#import "VBFactoryTransVC.h"
+#import "TH_ShipTransChVC.h"
 
 #import "DataGridComponent.h"
 #import "VBShipDetailController.h"
+
+@class VBFactoryTransVC;
+
 @interface DataQueryVC : UIViewController<UITableViewDataSource,UITabBarDelegate,UIPopoverControllerDelegate>
 {
     IBOutlet UISegmentedControl *segment;
@@ -23,7 +26,13 @@
     TBShipChVC *tbShipChVC;
     VBShipChVC *vbShipChVC;
     VBTransChVC *vbTransChVC;
-    VBFactoryTransVC *vbFactoryTransVC;
+    
+    VBFactoryTransVC  *vbFactoryTransVC;
+    TH_ShipTransChVC  *thShipTransVC;
+    
+    DataGridComponentDataSource *dataSource;
+    
+    
     DataGridComponent *grid_vb;
     DataGridComponent *grid_tb;
     IBOutlet UITableView *listTableview;
@@ -37,13 +46,24 @@
 @property (nonatomic,retain) UIView *listView;
 @property (nonatomic,retain) NSMutableArray *dataArray;
 @property (nonatomic,retain) TBShipChVC *tbShipChVC;
-@property (nonatomic,retain) VBShipChVC *vbShipChVC;
+@property (nonatomic,retain) VBShipChVC  *vbShipChVC;
 @property (nonatomic,retain) VBTransChVC *vbTransChVC;
+
 @property (nonatomic,retain) VBFactoryTransVC *vbFactoryTransVC;
+@property (nonatomic,retain) TH_ShipTransChVC  *thShipTransVC;
+
+
+
 @property (nonatomic,retain) UITableView *listTableview;
 @property (nonatomic,retain) UIPopoverController* popover;
 @property (nonatomic,retain) UIView *labelView;
 @property (nonatomic,retain) NSMutableArray *detailArray;
+
+
+@property (nonatomic,retain) DataGridComponentDataSource *dataSource;
+
+
+
 
 -(void)loadViewData_vb;
 -(void)loadViewData_tb;

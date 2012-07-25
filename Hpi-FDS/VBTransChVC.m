@@ -363,7 +363,8 @@
     NSLog(@"portLabel=[%@]",portLabel.text);
     NSLog(@"typeLabel=[%@]",typeLabel.text);
     NSLog(@"factoryLabel=[%@]",factoryLabel.text);
-    
+  
+
     
     
     NSDateFormatter *f=[[NSDateFormatter alloc] init];
@@ -387,10 +388,9 @@
         [f release];
     }
     
+      NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
     
-    
-    NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
-    DataQueryVC *dataQueryVC=self.parentVC;
+      DataQueryVC *dataQueryVC=self.parentVC;
     dataQueryVC.dataArray=[VbTransplanDao getVbTransplan:comLabel.text :shipLabel.text :portLabel.text :typeLabel.text :factoryLabel.text :monthLabel.text:codeTextField.text];
     
     

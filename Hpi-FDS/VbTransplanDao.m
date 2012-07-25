@@ -17,6 +17,8 @@ static sqlite3	*database;
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
 	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"VbTransplan.db"];
+    
+    NSLog(@"VbTransplan:path========%@",path);
 	return	 path;
 }
 

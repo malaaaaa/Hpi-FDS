@@ -13,7 +13,7 @@
 #import "PortViewController.h"
 #import "VBFactoryTransVC.h"
 #import "VBTransChVC.h"
-
+#import "TH_ShipTransChVC.h"
 
 @implementation ChooseView
 @synthesize tableView,iDArray,popover;
@@ -69,6 +69,8 @@
 #pragma mark - tableView
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    NSLog(@"状态 【%d】",[self.iDArray count]);
 	return [self.iDArray count];
 }
 
@@ -214,6 +216,23 @@
         
     }
     
+    //新添  TH_SHIPTRANS    STAGE
+    else if (self.type=kshiptransStage) {
+        TH_ShipTransChVC *view1=(TH_ShipTransChVC *)self.parentMapView;
+        view1.stageLabel.text=[self.iDArray objectAtIndex:[indexPath row    ]];
+        if (![view1.stageLabel.text isEqualToString:All_]) {
+            view1.stageLabel.hidden=NO;
+            [view1.stageButton setTitle:@"" forState:UIControlStateNormal   ];
+        }else {
+            view1.stageLabel.hidden=YES;
+            [view1.stageButton setTitle:@"状态" forState:UIControlStateNormal ];
+        }
+        
+        
+    }
+    
+    
+    
     
     
     
@@ -231,7 +250,11 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
+    
+    
+    
     cell.textLabel.text=[iDArray objectAtIndex:[indexPath row]];
+       
     //cell.textLabel.textColor =[UIColor colorWithRed:38.0/255.0 green:150.0/255.0 blue:200.0/255.0 alpha:1];
     cell.textLabel.textColor =[UIColor whiteColor];
     cell.textLabel.font = [UIFont systemFontOfSize:16.0f];

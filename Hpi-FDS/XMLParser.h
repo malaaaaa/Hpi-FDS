@@ -32,6 +32,8 @@
 #import "TfCoalTypeDao.h"
 #import "TsShipStage.h"
 #import "TsShipStageDao.h"
+#import "TH_ShipTrans.h"
+#import "TH_ShipTransDao.h"
 
 @interface XMLParser : NSObject<NSXMLParserDelegate>{
     NSMutableData *webData;
@@ -58,6 +60,9 @@
     TfSupplier *tfSupplier;
     TfCoalType *tfCoalType;
     TsShipStage *tsShipStage;
+    
+    //新添 调度日志
+    TH_ShipTrans *thshiptrans;
 }
 
 @property(nonatomic, retain) NSMutableData *webData;
@@ -83,6 +88,12 @@
 @property(nonatomic, retain) TfSupplier *tfSupplier;
 @property(nonatomic, retain) TfCoalType *tfCoalType;
 @property(nonatomic,retain) TsShipStage *tsShipStage;
+
+//新添 调度日志
+@property(nonatomic,retain) TH_ShipTrans *thshiptrans;
+
+
+
 - (void)getTgPort;
 - (void)getTgFactory;
 - (void)getTgShip;
@@ -102,6 +113,10 @@
 - (void)getTfSupplier;
 - (void)getTfCoalType;
 - (void)getTsShipStage;
+//新添  thshiptrans  调度日志
+-(void)getTHShipTrans;
+
+
 
 
 -(NSInteger)iSoapTmIndextypeDone;
@@ -126,7 +141,7 @@
 -(NSInteger)iSoapTfSupplierDone;
 -(NSInteger)iSoapTfCoalTypeDone;
 -(NSInteger)iSoapTsShipStageDone;
-
-
+//新添调度日志
+-(NSInteger)iSoapThShipTransDone;
 
 @end

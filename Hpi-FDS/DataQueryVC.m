@@ -7,6 +7,11 @@
 //
 
 #import "DataQueryVC.h"
+#import "VBFactoryTransVC.h"
+#import "TH_ShipTrans.h"
+#import "TH_ShipTransChVC.h"
+#import "TH_ShipTransDao.h"
+#import "TH_ShipTransDetailCV.h"
 
 @interface DataQueryVC ()
 
@@ -22,9 +27,14 @@
 @synthesize labelView;
 @synthesize popover;
 @synthesize detailArray;
+@synthesize thShipTransVC;
 
 
-static DataGridComponentDataSource *dataSource;
+
+
+@synthesize dataSource;
+
+//static DataGridComponentDataSource *dataSource;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -117,6 +127,11 @@ static DataGridComponentDataSource *dataSource;
     [chooseView release];
     [listView release];
     [listTableview release];
+       
+    [thShipTransVC  release];
+    
+    //
+    [dataSource  release];
     [super dealloc];
 }
 
@@ -159,7 +174,6 @@ static DataGridComponentDataSource *dataSource;
                                     transplan.supplier,
                                     transplan.keyName,
                                     nil ]];
-        
         
         
         
@@ -263,6 +277,7 @@ static DataGridComponentDataSource *dataSource;
         animation.removedOnCompletion = NO;
         animation.type = @"cube";
         [self.chooseView.layer addAnimation:animation forKey:@"animation"];
+        
         [self.chooseView bringSubviewToFront:vbTransChVC.view];
         
         float columnOffset = 0.0;
@@ -305,6 +320,30 @@ static DataGridComponentDataSource *dataSource;
                
         NSLog(@"电厂动态");
 
+    }else if (segment.selectedSegmentIndex==3) { 
+        
+        //在下一个   视图显示时   移除上一个   视图
+      
+        [self.vbFactoryTransVC.view removeFromSuperview ];
+        [self.vbShipChVC.view removeFromSuperview];
+        [self.vbTransChVC.view removeFromSuperview  ];
+               //新添  调度日志查询
+        self.thShipTransVC=[[TH_ShipTransChVC alloc] initWithNibName:@"TH_ShipTransChVC" bundle:nil];
+        thShipTransVC.parentVC=self;
+        thShipTransVC.view.center=CGPointMake(512, 120);
+        thShipTransVC.view.frame=CGRectMake(0, 0, 1024, 180);
+        [self.chooseView addSubview:thShipTransVC.view];
+        
+        chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+        
+        
+        
+        //[self.view addSubview:thShipTransVC.view];
+        //[self.view bringSubviewToFront:thShipTransVC.view];
+        
+        NSLog(@"调度日志.............");
+        
+        
     }
     
 
@@ -314,6 +353,9 @@ static DataGridComponentDataSource *dataSource;
 #pragma mark tableview
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"listTableview  row[%d]",dataSource.data .count);
+    
+    
 	return [dataSource.data count];
 }
 
@@ -323,7 +365,7 @@ static DataGridComponentDataSource *dataSource;
     {
         VbShiptrans *vbShiptrans=[dataArray objectAtIndex:indexPath.row];
         //初始化待显示控制器
-        VBShipDetailController *vbShipDetailController =[[VBShipDetailController alloc]init];
+        VBShipDetailController *vbShipDetailController=[[VBShipDetailController alloc]init];
         //设置待显示控制器的范围
         [vbShipDetailController.view setFrame:CGRectMake(0,0, 600, 280 )];
         //设置待显示控制器视图的尺寸
@@ -353,7 +395,43 @@ static DataGridComponentDataSource *dataSource;
         [VBShipDetailController release];
         [pop release];
     }
-
+    
+    //新添   调度日志
+  if (segment.selectedSegmentIndex==3){
+      TH_ShipTrans *thshiptrans=[dataArray objectAtIndex:indexPath.row];
+      NSLog(@"%@",thshiptrans.P_ANCHORAGETIME );
+      NSLog(@"%@",thshiptrans.P_ARRIVALTIME );
+      NSLog(@"%@",thshiptrans.P_HANDLE );
+      NSLog(@"%@",thshiptrans.NOTE );
+      
+      
+      TH_ShipTransDetailCV *thShipTransDetail=[[TH_ShipTransDetailCV alloc] init];
+      //初始化大小
+      
+      [thShipTransDetail.view setFrame:CGRectMake(0, 0, 600, 280)];
+      
+      thShipTransDetail.contentSizeForViewInPopover=CGSizeMake(600, 280);
+      
+      
+      UIPopoverController *pop=[[UIPopoverController  alloc] initWithContentViewController:thShipTransDetail];
+      
+      
+      thShipTransDetail.pop=pop;//没什么用
+       
+    
+      [thShipTransDetail setLable:thshiptrans];
+      self.popover=pop;
+      self.popover.delegate=self;
+      self.popover.popoverContentSize=CGSizeMake(600, 280);
+      
+      [self.popover presentPopoverFromRect:CGRectMake(512,430 , 0.5,0.5) inView:self.view   permittedArrowDirections:0 animated:YES];
+      [TH_ShipTransDetailCV release];
+      [pop release];
+       //不能释放  thshiptrans
+      
+      //[thshiptrans release];
+    }
+    
 }
 
 - (NSString *)formatInfoDate:(NSString *)string1 :(NSString *)string2 {
@@ -406,6 +484,8 @@ static DataGridComponentDataSource *dataSource;
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *MyIdentifier = [NSString stringWithString:@"UITableViewCell"];
+    
+    
     UITableViewCell *cell=(UITableViewCell*)[listTableview dequeueReusableCellWithIdentifier:MyIdentifier];
     if(cell==nil)
     {

@@ -8,6 +8,7 @@
 #import "PubInfo.h"
 #import "NSString+MD5Addition.h"
 #import "UIDevice+IdentifierAddition.h"
+#import "TH_ShipTransDao.h"
 @implementation PubInfo
 static NSString *hostName = @"http://10.2.17.121";     //http://172.16.1.16:84
 static NSString *port = @":82";                  //:82
@@ -62,6 +63,12 @@ static NSString *deviceID;
     [TfCoalTypeDao initDb];
     [TsShipStageDao openDataBase];
     [TsShipStageDao initDb];
+    
+    //新添  thshiptrans 调度日志  
+    [TH_ShipTransDao openDataBase];
+    [TH_ShipTransDao initDb];
+    
+    
     
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
