@@ -30,6 +30,7 @@
     NSString *portName;
     NSString *lon;
     NSString *lat;
+    BOOL didSelected;
 }
 
 @property (nonatomic,retain) NSString *portCode;
@@ -41,4 +42,5 @@
 @property NSInteger waitShip;
 @property NSInteger transactShip;
 @property NSInteger loadShip;
+@property (assign) BOOL didSelected;
 @end
