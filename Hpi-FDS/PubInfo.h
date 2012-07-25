@@ -47,6 +47,8 @@
 #import "TfCoalTypeDao.h"
 #import "TsShipStage.h"
 #import "TsShipStageDao.h"
+#import "NTShipCompanyTranShare.h"
+#import "NTShipCompanyTranShareDao.h"
 
 typedef enum{
     kPORT=0,

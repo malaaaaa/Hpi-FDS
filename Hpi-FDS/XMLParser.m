@@ -35,6 +35,9 @@ static int iSoapTfShipCompanyDone=0;
 static int iSoapTfSupplierDone=0;
 static int iSoapTfCoalTypeDone=0;
 static int iSoapTsShipStageDone=0;
+static int iSoapNTShipCompanyTranShareDone=0;
+
+
 
 //新添调度日志
 static int iSoapThShipTransDone=0;
@@ -42,7 +45,7 @@ static int iSoapThShipTransDone=0;
 UIAlertView *alert;
 NSString* alertMsg;
 
-@synthesize tgFactory,tgPort,tgShip,tsFileinfo,tmIndexinfo,tmIndexdefine,tmIndextype,vbShiptrans,vbTransplan,tmCoalinfo,tmShipinfo,vbFactoryTrans,tfFactory,tbFactoryState,tfShipCompany,tfSupplier,tfCoalType,tsShipStage,thshiptrans;
+@synthesize tgFactory,tgPort,tgShip,tsFileinfo,tmIndexinfo,tmIndexdefine,tmIndextype,vbShiptrans,vbTransplan,tmCoalinfo,tmShipinfo,vbFactoryTrans,tfFactory,tbFactoryState,tfShipCompany,tfSupplier,tfCoalType,tsShipStage,thshiptrans,  ntShipCompanyTranShare ;
 @synthesize soapResults,webData,xmlParser,webVC,tiListinfo;
 
 #pragma Soap alert
@@ -115,7 +118,9 @@ NSString* alertMsg;
         [thshiptrans release];
     }
     
-    
+    if (ntShipCompanyTranShare) {
+        [ntShipCompanyTranShare release];
+    }
     
     [super dealloc];
 }
@@ -3182,7 +3187,69 @@ NSString* alertMsg;
             recordResults = YES;
         }
     }
-    //解析 thshiptrans   调度日志
+    //解析VBTANSPORTS
+    if(iSoap==20)
+    {
+        
+        if( [elementName isEqualToString:@"COMID"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"COMPANY"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"TRADEYEAR"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"TRADEWEEK"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"PORTCODE"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"PORTNAME"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"LWSUM"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        
+    }
+      //解析 thshiptrans   调度日志
     if (iSoap==21) {
         if ([elementName isEqualToString:@"RECID"]) {
             
@@ -5078,7 +5145,70 @@ NSString* alertMsg;
 
         }
     }
-    //解析  Thshiptrans   调度日志
+    //解析vb_transports
+    if(iSoap==20)
+    {
+        if( [elementName isEqualToString:@"COMID"])
+        {
+            if(!ntShipCompanyTranShare)
+                ntShipCompanyTranShare = [[NTShipCompanyTranShare alloc]init];
+            
+            ntShipCompanyTranShare.COMID=[soapResults integerValue];
+            
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"COMPANY"])
+        {
+            ntShipCompanyTranShare.COMPANY = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"TRADEYEAR"])
+        {
+            ntShipCompanyTranShare.TRADEYEAR = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"TRADEWEEK"])
+        {
+            ntShipCompanyTranShare.TRADEMONTH = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"PORTCODE"])
+        {
+            ntShipCompanyTranShare.PORTCODE = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"PORTNAME"])
+        {
+            ntShipCompanyTranShare.PORTNAME = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"LWSUM"])
+        {
+            ntShipCompanyTranShare.LW = [soapResults integerValue];
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+            
+            [NTShipCompanyTranShareDao insert:ntShipCompanyTranShare];
+            [ntShipCompanyTranShare release];
+            ntShipCompanyTranShare=nil;
+            
+        }
+    }
+
+       //解析  Thshiptrans   调度日志
     if (iSoap==21) {
         if ([elementName isEqualToString:@"RECID"]) {
             if (!thshiptrans) {
@@ -5343,6 +5473,16 @@ NSString* alertMsg;
         
         iSoapNum--;
     }
+    if (iSoapNTShipCompanyTranShareDone==1) {
+        iSoapNTShipCompanyTranShareDone=2;
+        
+        iSoapNum--;
+    }
+    
+    
+    
+    
+    
     
     //新添  调度日志
     if (iSoapThShipTransDone==1) {
@@ -5441,6 +5581,14 @@ NSString* alertMsg;
 {
     return iSoapTsShipStageDone;
 }
+
+
+-(NSInteger)iSoapNTShipCompanyTranShareDone
+{
+    return iSoapNTShipCompanyTranShareDone;
+}
+
+
 
 //新添  调度日志
 -(NSInteger)iSoapThShipTransDone

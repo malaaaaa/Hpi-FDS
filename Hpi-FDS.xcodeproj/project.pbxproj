@@ -168,6 +168,11 @@
 		14E4586715622CCD0015258C /* MarketOneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E4586515622CCC0015258C /* MarketOneController.xib */; };
 		2A16D20C15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A16D20A15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m */; };
 		2A16D20D15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */; };
+		2A2FA33415BFF74400B71C7D /* NSString+Verify.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA32C15BFF74400B71C7D /* NSString+Verify.m */; };
+		2A2FA33515BFF74400B71C7D /* NTShipCompanyTranShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA32E15BFF74400B71C7D /* NTShipCompanyTranShare.m */; };
+		2A2FA33615BFF74400B71C7D /* NTShipCompanyTranShareDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */; };
+		2A2FA33715BFF74400B71C7D /* ShipCompanyTransShareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA33215BFF74400B71C7D /* ShipCompanyTransShareVC.m */; };
+		2A2FA33815BFF74400B71C7D /* ShipCompanyTransShareVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */; };
 		2A7B338515B7EE73006B7994 /* TH_ShipTrans.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B338415B7EE73006B7994 /* TH_ShipTrans.m */; };
 		2A7B338B15B7F431006B7994 /* TfSupplier.m in Sources */ = {isa = PBXBuildFile; fileRef = D91A487415B648A20020EEA0 /* TfSupplier.m */; };
 		2A7B338C15B7F431006B7994 /* TfShipCompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A850115B54237001CC03A /* TfShipCompanyDao.m */; };
@@ -437,6 +442,15 @@
 		2A16D20915BE9F0900FFF1B5 /* TH_ShipTransDetailCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransDetailCV.h; sourceTree = "<group>"; };
 		2A16D20A15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransDetailCV.m; sourceTree = "<group>"; };
 		2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TH_ShipTransDetailCV.xib; sourceTree = "<group>"; };
+		2A2FA32B15BFF74400B71C7D /* NSString+Verify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Verify.h"; sourceTree = "<group>"; };
+		2A2FA32C15BFF74400B71C7D /* NSString+Verify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Verify.m"; sourceTree = "<group>"; };
+		2A2FA32D15BFF74400B71C7D /* NTShipCompanyTranShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTShipCompanyTranShare.h; sourceTree = "<group>"; };
+		2A2FA32E15BFF74400B71C7D /* NTShipCompanyTranShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTShipCompanyTranShare.m; sourceTree = "<group>"; };
+		2A2FA32F15BFF74400B71C7D /* NTShipCompanyTranShareDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTShipCompanyTranShareDao.h; sourceTree = "<group>"; };
+		2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTShipCompanyTranShareDao.m; sourceTree = "<group>"; };
+		2A2FA33115BFF74400B71C7D /* ShipCompanyTransShareVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipCompanyTransShareVC.h; sourceTree = "<group>"; };
+		2A2FA33215BFF74400B71C7D /* ShipCompanyTransShareVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipCompanyTransShareVC.m; sourceTree = "<group>"; };
+		2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShipCompanyTransShareVC.xib; sourceTree = "<group>"; };
 		2A7B338315B7EE73006B7994 /* TH_ShipTrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTrans.h; sourceTree = "<group>"; };
 		2A7B338415B7EE73006B7994 /* TH_ShipTrans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTrans.m; sourceTree = "<group>"; };
 		2A7B338E15B80CD2006B7994 /* VBFactoryTransVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBFactoryTransVC.h; sourceTree = "<group>"; };
@@ -846,6 +860,15 @@
 		059A1BCB1525521A00AB24C4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2A2FA32B15BFF74400B71C7D /* NSString+Verify.h */,
+				2A2FA32C15BFF74400B71C7D /* NSString+Verify.m */,
+				2A2FA32D15BFF74400B71C7D /* NTShipCompanyTranShare.h */,
+				2A2FA32E15BFF74400B71C7D /* NTShipCompanyTranShare.m */,
+				2A2FA32F15BFF74400B71C7D /* NTShipCompanyTranShareDao.h */,
+				2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */,
+				2A2FA33115BFF74400B71C7D /* ShipCompanyTransShareVC.h */,
+				2A2FA33215BFF74400B71C7D /* ShipCompanyTransShareVC.m */,
+				2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */,
 				2A7B339115B80D1E006B7994 /* MultipleSelectView.h */,
 				2A7B339215B80D1E006B7994 /* MultipleSelectView.m */,
 				2A7B338E15B80CD2006B7994 /* VBFactoryTransVC.h */,
@@ -1059,6 +1082,7 @@
 				D9A8381915B7EF89002D83C2 /* VBFactoryTransVC.xib in Resources */,
 				2AD84EA215B91B2B00D91111 /* TH_ShipTransChVC.xib in Resources */,
 				2A16D20D15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib in Resources */,
+				2A2FA33815BFF74400B71C7D /* ShipCompanyTransShareVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1160,6 +1184,10 @@
 				2A7B339615B80DD5006B7994 /* TH_ShipTransDao.m in Sources */,
 				2AD84EA115B91B2B00D91111 /* TH_ShipTransChVC.m in Sources */,
 				2A16D20C15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m in Sources */,
+				2A2FA33415BFF74400B71C7D /* NSString+Verify.m in Sources */,
+				2A2FA33515BFF74400B71C7D /* NTShipCompanyTranShare.m in Sources */,
+				2A2FA33615BFF74400B71C7D /* NTShipCompanyTranShareDao.m in Sources */,
+				2A2FA33715BFF74400B71C7D /* ShipCompanyTransShareVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

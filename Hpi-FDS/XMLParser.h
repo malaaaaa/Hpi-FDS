@@ -35,6 +35,10 @@
 #import "TH_ShipTrans.h"
 #import "TH_ShipTransDao.h"
 
+
+#import "NTShipCompanyTranShare.h"
+#import "NTShipCompanyTranShareDao.h"
+
 @interface XMLParser : NSObject<NSXMLParserDelegate>{
     NSMutableData *webData;
     NSMutableString *soapResults;
@@ -63,6 +67,9 @@
     
     //新添 调度日志
     TH_ShipTrans *thshiptrans;
+    
+      NTShipCompanyTranShare *ntShipCompanyTranShare;
+    
 }
 
 @property(nonatomic, retain) NSMutableData *webData;
@@ -92,7 +99,7 @@
 //新添 调度日志
 @property(nonatomic,retain) TH_ShipTrans *thshiptrans;
 
-
+@property(nonatomic,retain) NTShipCompanyTranShare *ntShipCompanyTranShare;
 
 - (void)getTgPort;
 - (void)getTgFactory;
@@ -116,7 +123,7 @@
 //新添  thshiptrans  调度日志
 -(void)getTHShipTrans;
 
-
+- (void)getNtShipCompanyTranShare;
 
 
 -(NSInteger)iSoapTmIndextypeDone;
@@ -143,5 +150,5 @@
 -(NSInteger)iSoapTsShipStageDone;
 //新添调度日志
 -(NSInteger)iSoapThShipTransDone;
-
+-(NSInteger)iSoapNTShipCompanyTranShareDone;
 @end

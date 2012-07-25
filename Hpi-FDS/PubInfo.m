@@ -68,6 +68,8 @@ static NSString *deviceID;
     [TH_ShipTransDao openDataBase];
     [TH_ShipTransDao initDb];
     
+    [NTShipCompanyTranShareDao openDataBase];
+    [NTShipCompanyTranShareDao initDb];
     
     
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -160,6 +162,9 @@ static NSString *deviceID;
 	updateTime=time;
 	[updateTime retain];
 }
+
+
+
 +(NSString *)deviceID
 {
     deviceID = [[UIDevice currentDevice] uniqueDeviceIdentifier];
