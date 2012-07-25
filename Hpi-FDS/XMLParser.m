@@ -35,7 +35,7 @@ static int iSoapTfShipCompanyDone=0;
 static int iSoapTfSupplierDone=0;
 static int iSoapTfCoalTypeDone=0;
 static int iSoapTsShipStageDone=0;
-static int iSoapNTShipCompanyTranShareDone=0;
+static  int iSoapNTShipCompanyTranShareDone=0;
 
 
 

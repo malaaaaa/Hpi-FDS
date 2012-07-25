@@ -162,9 +162,6 @@ static NSString *deviceID;
 	updateTime=time;
 	[updateTime retain];
 }
-
-
-
 +(NSString *)deviceID
 {
     deviceID = [[UIDevice currentDevice] uniqueDeviceIdentifier];
