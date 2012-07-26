@@ -9,5 +9,34 @@
 #import "BrokenLineGraphData.h"
 
 @implementation BrokenLineGraphData
+@synthesize xtitles,ytitles,pointArray;
+@synthesize yNum,xNum;
 
+- (void) dealloc
+{
+    [xtitles release];
+    [ytitles release];
+    [pointArray release];
+	[super dealloc];
+}
+@end
+
+
+
+@implementation LineArray
+@synthesize red,green,blue,pointArray;
+- (void) dealloc
+{
+    [pointArray release];
+	[super dealloc];
+}
+@end
+
+@implementation BrokenLineGraphPoint
+@synthesize title,x,y;
+- (void) dealloc
+{
+    [title release];
+	[super dealloc];
+}
 @end

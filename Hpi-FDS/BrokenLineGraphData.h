@@ -8,6 +8,46 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BrokenLineGraphData : NSObject
+@interface BrokenLineGraphData : NSObject{
+    //x坐标标题列表
+	NSMutableArray *xtitles;
+    //y坐标标题列表
+	NSMutableArray *ytitles;
+    //数据点
+	NSMutableArray *pointArray;
+    
+    NSInteger yNum;
+    NSInteger xNum;
+}
+@property(nonatomic,retain)NSMutableArray *xtitles;
+@property(nonatomic,retain)NSMutableArray *ytitles;
+@property(nonatomic,retain)NSMutableArray *pointArray;
+@property NSInteger yNum;
+@property NSInteger xNum;
+@end
+
+
+@interface LineArray : NSObject{
+    CGFloat red;
+    CGFloat green;
+    CGFloat blue;
+    NSMutableArray  *pointArray;
+}
+@property CGFloat red;
+@property CGFloat green;
+@property CGFloat blue;
+
+@property(nonatomic,retain) NSMutableArray *pointArray;
+
+@end
+
+@interface BrokenLineGraphPoint : NSObject{
+    NSInteger x; //point
+    NSInteger y;
+    NSString *title;
+}
+@property NSInteger x;
+@property NSInteger y;
+@property (nonatomic,copy)NSString *title;
 
 @end

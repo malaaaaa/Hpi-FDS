@@ -93,7 +93,7 @@
     BOOL start=NO;
     CGContextSetRGBStrokeColor(context, 220./255, 11./255, 11./255, 1);//线条颜色
 	CGContextSetAllowsAntialiasing(context, YES);
-    CGContextSaveGState(context);
+    CGContextSaveGState(context); //将当前图形状态推入堆栈。之后，您对图形状态所做的修改会影响随后的描画操作，但不影响存储在堆栈中的拷贝
     CGLineCap lineCap = kCGLineCapButt;
     CGContextSetLineCap(context, lineCap);
     CGContextSetLineWidth(context, 2.0f);
@@ -119,7 +119,9 @@
         }
     }
     CGContextStrokePath(context);
+
     CGContextRestoreGState(context);
+
     
     CGContextSetRGBStrokeColor(context, 11.0/255, 220./255, 11./255, 1);//线条颜色
 	CGContextSetAllowsAntialiasing(context, YES);
@@ -167,7 +169,7 @@
         }
     }
 	CGContextStrokePath(context);
-    CGContextRestoreGState(context);
+   CGContextRestoreGState(context);
 }
 
 - (void) dealloc {

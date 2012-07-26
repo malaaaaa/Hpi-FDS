@@ -45,11 +45,11 @@ static  NSMutableArray *PortArray;
 - (void)viewDidLoad
 {
     
-    self.portLabel.hidden=YES;
+    self.portLabel.hidden=NO;
     [_activity removeFromSuperview];
     self.xmlParser=[[XMLParser alloc]init];
     
-    self.portLabel.text=@"全部";
+    self.portLabel.text=@"港口";
     
     self.endDay = [[NSDate alloc] init];
     self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
@@ -67,8 +67,17 @@ static  NSMutableArray *PortArray;
 {
     [super viewDidUnload];
     [self setActivity:nil];
-    _xmlParser=nil;
-    [_xmlParser release];
+    self.startDay=nil;
+    self.endDay=nil;
+    self.startDateCV=nil;
+    self.endDateCV=nil;
+    self.startButton=nil;
+    self.endButton=nil;
+    self.portButton=nil;
+    self.reloadButton=nil;
+    self.xmlParser=nil;
+//    _xmlParser=nil;
+//    [_xmlParser release];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -127,7 +136,7 @@ static  NSMutableArray *PortArray;
     _multipleSelectView.iDArray=PortArray;
     
     _multipleSelectView.parentMapView=self;
-    _multipleSelectView.type=kChFACTORY;
+    _multipleSelectView.type=kPORT;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -215,6 +224,21 @@ static  NSMutableArray *PortArray;
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
     NSLog(@"popoverControllerShouldDismissPopover");
+    if (_startDateCV){
+        self.startDay=_startDateCV.selectedDate;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM"];
+        NSLog(@"startDay=%@",[dateFormatter stringFromDate:self.startDay]);
+        [dateFormatter release];
+    }
+    if (_endDateCV){
+        self.endDay=_endDateCV.selectedDate;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM"];
+        NSLog(@"endDay=%@",[dateFormatter stringFromDate:self.endDay]);
+        [dateFormatter release];
+    }
+
     return  YES;
 }
 
@@ -222,6 +246,11 @@ static  NSMutableArray *PortArray;
  */
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
     NSLog(@"popoverControllerDidDismissPopover");
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM"];
+    [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
+      [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
+    [dateFormatter release];
 }
 
 #pragma mark activity
@@ -238,130 +267,119 @@ static  NSMutableArray *PortArray;
     }
 }
 -(IBAction)queryData:(id)sender
-{
+{    
+    [self generateGraphDate];
     [self loadHpiGraphView];
 }
 
 -(void)generateGraphDate{
-    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMM"];
+    [NTShipCompanyTranShareDao InsertByPortCode:PortArray :[dateFormatter stringFromDate:_startDay] :[dateFormatter stringFromDate:_endDay]];
+    [dateFormatter release];  
 }
 -(void)loadHpiGraphView{
-//    NSDate *maxDate=_startDay;
-//    NSDate *minDate=_endDay;
-//    HpiGraphData *graphData=[[HpiGraphData alloc] init];
-//    graphData.pointArray = [[NSMutableArray alloc]init];
-//    graphData.xtitles = [[NSMutableArray alloc]init];
-//    graphData.ytitles = [[NSMutableArray alloc]init];
-//    NSDate *date=minDate;
-//    int minY = 0;
-//    int maxY = 100;
-//    
-//    if([stringType isEqualToString: @"GKDJL"])
-//    {
-//        minY = 0;
-//        maxY = 180;
-//        NSLog(@"max=[%d] min=[%d]",maxY,minY);
-//        graphData.yNum=maxY-minY;
-//        for(int i=0;i<6;i++)
-//        {
-//            NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
-//            if (i==0) {
-//                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
-//            }
-//            else {
-//                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
-//            }
-//        }
-//    }
-//      
-//
-//    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-//    unsigned int unitFlags = NSDayCalendarUnit;
-//    NSDateComponents *comps = [gregorian components:unitFlags fromDate:minDate  toDate:maxDate  options:0];
-//    graphData.xNum = [comps day]+1;
-//    
-//    int a,b,c;
-//    a=graphData.xNum/9;
-//    b=graphData.xNum%9;
-//    NSLog(@"graphData.xNum/9 [%d] graphData.xNum 求余 9  [%d]",a,b);
-//    if (a==0) {
-//        c=1;
-//        graphData.xNum=b;
-//    }
-//    else if (a>0 && b>0){
-//        c=a+1;
-//        graphData.xNum=(a+1)*9;
-//    }
-//    else {
-//        c=a;
-//        graphData.xNum=a*9;
-//    }
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateFormat:@"yyyy/MM/dd"];   
-//    
-//    for(int i=1;i<=graphData.xNum;i++)
-//    {   
-//        if (i==1) {
-//            [graphData.xtitles addObject:[dateFormatter stringFromDate:date]];
-//        }
-//        if(i%c==0)
-//        {
-//            [graphData.xtitles addObject:[dateFormatter stringFromDate:date]];
-//        }
-//        date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
-//    }
-//    [dateFormatter release];    
-//    
-//    NSMutableArray *array=[TgPortDao getTgPortByPortName:portLabel.text];
-//    NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
-//    TgPort *tgPort=(TgPort *)[array objectAtIndex:0];
-//    date=minDate;
-//    if([stringType isEqualToString: @"GKDJL"])
-//    {
-//        for ( int i = 0 ; i < graphData.xNum ; i++ ) {
-//            //NSLog(@"date %@",date);
-//            TmCoalinfo *tmCoalinfo=[TmCoalinfoDao getTmCoalinfoOne :tgPort.portCode:date];
-//            if(tmCoalinfo == nil){
-//            }
-//            else{
-//                HpiPoint *point=[[HpiPoint alloc]init];
-//                point.x=i;
-//                point.y=tmCoalinfo.import/10000-minY;
-//                [graphData.pointArray  addObject:point];
-//            }
-//            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
-//        }
-//    }
-//    
-//      
-//    if (graphView) {
-//        [graphView removeFromSuperview];
-//        [graphView release];
-//        graphView =nil;
-//    }
-//    //NSLog(@"graphView $$$$$$$$ %d",[graphView retainCount]);
-//    self.graphView=[[HpiGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData];
-//    if([stringType isEqualToString:@"GKDJL"]){
-//        graphView.titleLabel.text=@"港口调进量(万吨)";
-//    }
-//    else if([stringType isEqualToString:@"GKDCL"]){
-//        graphView.titleLabel.text=@"港口调出量(万吨)";
-//    }
-//    else if([stringType isEqualToString:@"GKCML"]){
-//        graphView.titleLabel.text=@"港口存煤量(万吨)";
-//    }
-//    else if([stringType isEqualToString:@"ZGCS"]){
-//        graphView.titleLabel.text=@"在港船数";
-//    }
-//    
-//    //    graphView.titleLabel.text=stringType;
-//    graphView.marginRight=60;
-//    graphView.marginBottom=60;
-//    graphView.marginLeft=60;
-//    graphView.marginTop=80;
-//    [graphView setNeedsDisplay];
-//    [self.view addSubview:graphView];
-//    [graphData release];    
+    NSDate *maxDate=_endDay;
+    NSDate *minDate=_startDay;
+    BrokenLineGraphData *graphData=[[BrokenLineGraphData alloc] init];
+    graphData.pointArray = [[NSMutableArray alloc]init];
+    graphData.xtitles = [[NSMutableArray alloc]init];
+    graphData.ytitles = [[NSMutableArray alloc]init];
+    int minY = 0;
+    int maxY = 100;
+    
+    graphData.yNum=(maxY-minY)*10;
+    for(int i=0;i<6;i++)
+    {
+        NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
+        if (i==0) {
+            [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
+        }
+        else {
+            [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
+        }
+    }
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    unsigned int unitFlags = NSMonthCalendarUnit;
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:minDate  toDate:maxDate  options:0];
+    graphData.xNum = [comps month]+1;
+    NSLog(@"xnum=%d",graphData.xNum);
+    
+    
+    NSDate *nextMonth=_startDay;
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+
+    
+    LineArray   *line =[[LineArray alloc]init];
+    line.pointArray = [[NSMutableArray alloc] init ];
+    for(int i=1;i<=graphData.xNum;i++)
+    {   
+        [dateFormatter setDateFormat:@"yyyy/MM"];   
+        [graphData.xtitles addObject:[dateFormatter stringFromDate:nextMonth]];
+        
+        //计算坐标值
+        [dateFormatter setDateFormat:@"yyyy"];
+        NSString *year = [dateFormatter stringFromDate:nextMonth];
+        [dateFormatter setDateFormat:@"MM"];
+        NSString *month = [dateFormatter stringFromDate:nextMonth];
+        
+        
+        NTShipCompanyTranShare *TransShare=[NTShipCompanyTranShareDao getTransShareByComid:4 Year:year Month:month];
+        if (TransShare==nil) {
+            
+        }
+        else {
+            BrokenLineGraphPoint *point=[[BrokenLineGraphPoint alloc]init] ;
+            point.x=i-1;
+            NSLog(@"TransShare%@",TransShare.PERCENT);
+            point.y=([TransShare.PERCENT floatValue]-minY)*10;
+            NSLog(@"point.x%d",point.x);
+            NSLog(@"point.y%d",point.y);
+            [line.pointArray  addObject:point];
+            [point release];
+        }
+        
+        //计算下一个月
+        NSDateComponents *offsetComponents= [[NSDateComponents alloc] init];
+        [offsetComponents setMonth:1];
+        nextMonth= [gregorian dateByAddingComponents:offsetComponents toDate:nextMonth options:0];
+        [offsetComponents release];
+        
+    }
+    NSLog(@"graphData.pointArray000.count=%d",[line.pointArray count]);
+    
+    line.red=10.0;
+    line.green=11.0;
+    line.blue=220.0;
+    [graphData.pointArray addObject:line];
+    [line release];
+
+    [dateFormatter release]; 
+    
+    NSLog(@"graphData.pointArray111.count=%d",[graphData.pointArray count]);
+    
+    if (_graphView) {
+        [_graphView removeFromSuperview];
+        [_graphView release];
+        _graphView =nil;
+    }
+    //NSLog(@"graphView $$$$$$$$ %d",[graphView retainCount]);
+    self.graphView=[[BrokenLineGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData];
+    _graphView.titleLabel.text=@"航运公司份额统计";
+    
+    _graphView.marginRight=60;
+    _graphView.marginBottom=60;
+    _graphView.marginLeft=60;
+    _graphView.marginTop=80;
+    [_graphView setNeedsDisplay];
+    [self.view addSubview:_graphView];
+    [graphData release];   
+    
 }
+//-(BOOL) checkDatePicker{
+//
+//}
 
 @end

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PubInfo.h"
-#import "HpiGraphData.h"
-#import "HpiGraphView.h"
+//#import "HpiGraphData.h"
+#import "BrokenLineGraphData.h"
+#import "BrokenLineGraphView.h"
 #import "DateViewController.h"
 #import "XMLParser.h"
 #import "MultipleSelectView.h"
@@ -29,7 +30,7 @@
     IBOutlet UIButton *_reloadButton;
     IBOutlet UIActivityIndicatorView *_activity;
     XMLParser *_xmlParser;
-    HpiGraphView *_graphView;
+    BrokenLineGraphView *_graphView;
     MultipleSelectView *_multipleSelectView;
     id parentVC;
 
@@ -47,12 +48,19 @@
 @property(nonatomic,retain) UIButton *reloadButton;
 @property(nonatomic,retain) UIActivityIndicatorView *activity;
 @property(nonatomic,retain) XMLParser *xmlParser;
-@property(nonatomic,retain) HpiGraphView *graphView;
+@property(nonatomic,retain) BrokenLineGraphView *graphView;
 @property(nonatomic,retain) MultipleSelectView *multipleSelectView;
 @property (retain, nonatomic) id parentVC;
 
 
-
-- (IBAction)queryAction:(id)sender;
+- (IBAction)portAction:(id)sender;
+- (IBAction)queryData:(id)sender;
 - (IBAction)reloadAction:(id)sender;
+-(IBAction)startDate:(id)sender;
+-(IBAction)endDate:(id)sender;
+//生成临时表数据
+-(void)generateGraphDate;
+//折线图
+-(void)loadHpiGraphView;
+
 @end

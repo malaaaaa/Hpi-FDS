@@ -198,7 +198,7 @@ static sqlite3 *database;
     NSString *sql=[NSString stringWithFormat:@"SELECT f.FACTORYCODE,f.FACTORYNAME,F.CAPACITYSUM, S.CONSUM,S.AVALIABLE,S.MONTHIMP,S.YEARIMP,f.description FROM  TfFactory f,TbFactoryState s WHERE f.factorycode=s.factorycode  %@ ",tmpString];
     NSLog(@"执行 getVbFactoryTransState OuterSql[%@] ",sql);
     
-	NSMutableArray *array=[[NSMutableArray alloc]init];
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			
@@ -394,7 +394,7 @@ static sqlite3 *database;
     NSString *sql=[NSString stringWithFormat:@"select dispatchno,statename,shipname,elw,t_note from VbFactoryTrans where  %@ ",querySql];
     NSLog(@"执行 getVbFactoryTransBySql [%@] ",sql);
     
-	NSMutableArray *array=[[NSMutableArray alloc]init];
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			
@@ -582,6 +582,7 @@ static sqlite3 *database;
     
 	NSMutableArray * array=[VbFactoryTransDao getVbFactoryTransBySql:query];
     NSLog(@"执行 getVbFactoryTransDetail 数量[%d] ",[array count]);
+    [query release];
 	return array;
 }
 

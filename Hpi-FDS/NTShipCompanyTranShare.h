@@ -16,7 +16,7 @@
     NSString *_TRADEYEAR;
     NSString *_TRADEMONTH;
     NSInteger _LW;
-    NSInteger _PERCENT;
+    NSString *_PERCENT;
 }
 @property NSInteger COMID;
 @property(nonatomic,retain) NSString *COMPANY;
@@ -25,7 +25,7 @@
 @property(nonatomic,retain) NSString *TRADEYEAR;
 @property(nonatomic,retain) NSString *TRADEMONTH;
 @property NSInteger LW;
-@property NSInteger PERCENT;
+@property(nonatomic,retain) NSString *PERCENT;
 
 
 @end

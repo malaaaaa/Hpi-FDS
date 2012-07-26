@@ -11,6 +11,7 @@
 #import "PubInfo.h"
 #import "PortViewController.h"
 #import "VBFactoryTransVC.h"
+#import "ShipCompanyTransShareVC.h"
 
 
 @interface MultipleSelectView ()
@@ -64,9 +65,52 @@
     //MapViewController *mapView=(MapViewController*) self.parentMapView;
     if(self.type==kPORT)
     {
-        MapViewController *mapView=(MapViewController*) self.parentMapView;
-        [mapView.portButton setTitle:(NSString *)[self.iDArray objectAtIndex:[indexPath row]] forState:UIControlStateNormal];
-        [mapView chooseUpdateView];
+        ShipCompanyTransShareVC *shipCompanyTransShareVC=(ShipCompanyTransShareVC*) self.parentMapView;
+        
+        shipCompanyTransShareVC.portLabel.text =((TgPort *)[self.iDArray objectAtIndex:[indexPath row]]).portName;
+        shipCompanyTransShareVC.portLabel.hidden=YES;
+        
+        if ([((TgPort *)[self.iDArray objectAtIndex:[indexPath row]]).portName isEqualToString:All_]) {
+            shipCompanyTransShareVC.portLabel.hidden=YES;
+            [shipCompanyTransShareVC.portButton setTitle:@"港口" forState:UIControlStateNormal];
+            if(((TgPort *)[self.iDArray objectAtIndex:0]).didSelected){
+                for (int i=0; i<[self.iDArray count]; i++) {
+                    ((TgPort *)[self.iDArray objectAtIndex:i]).didSelected=NO;
+                }
+                
+            }
+            else {
+                for (int i=0; i<[self.iDArray count]; i++) {
+                    ((TgPort *)[self.iDArray objectAtIndex:i]).didSelected=YES;
+                }
+            }
+            
+        }
+        
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+		if (cell.accessoryType == UITableViewCellAccessoryNone){
+			[cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+            ((TgPort *)[self.iDArray objectAtIndex:[indexPath row]]).didSelected=YES;                        
+        }
+		else{
+			[cell setAccessoryType:UITableViewCellAccessoryNone];
+            ((TgPort *)[self.iDArray objectAtIndex:[indexPath row]]).didSelected=NO;
+            ((TgPort *)[self.iDArray objectAtIndex:0]).didSelected=NO;
+            
+		}
+        
+        //只要有条件选中，附加星号标示
+        for (int i=0; i<[self.iDArray count]; i++) {
+            if(((TgPort *)[self.iDArray objectAtIndex:i]).didSelected==YES)
+            {
+                shipCompanyTransShareVC.portLabel.hidden=YES;
+                [shipCompanyTransShareVC.portButton setTitle:@"港口(*)" forState:UIControlStateNormal];   
+            }
+        }
+        
+		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
+        [self.tableView reloadData];
+
     }
     else if(self.type==kChFACTORY)
     {
@@ -458,6 +502,20 @@
         
         
         cell.textLabel.text=((TsShipStage *)[iDArray objectAtIndex:[indexPath row]]).STAGENAME; 
+        if (((TsShipStage *)[self.iDArray objectAtIndex:[indexPath row]]).didSelected==YES) {
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+            
+        }
+        else {
+            
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+        
+    }
+    else if (self.type==kPORT){
+        
+        
+        cell.textLabel.text=((TgPort *)[iDArray objectAtIndex:[indexPath row]]).portName; 
         if (((TsShipStage *)[self.iDArray objectAtIndex:[indexPath row]]).didSelected==YES) {
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
             
