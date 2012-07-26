@@ -168,6 +168,8 @@
 		14E4586715622CCD0015258C /* MarketOneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E4586515622CCC0015258C /* MarketOneController.xib */; };
 		D90A84FE15B54224001CC03A /* TfShipCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A84FD15B54224001CC03A /* TfShipCompany.m */; };
 		D90A850215B54237001CC03A /* TfShipCompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A850115B54237001CC03A /* TfShipCompanyDao.m */; };
+		D90C8EC015BF9DD90009626B /* BrokenLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C8EBF15BF9DD80009626B /* BrokenLineGraphView.m */; };
+		D90C8EC415BFD03F0009626B /* BrokenLineGraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C8EC315BFD03F0009626B /* BrokenLineGraphData.m */; };
 		D9190F2F15AE5950003F672C /* VBFactoryTransDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D9190F2D15AE5950003F672C /* VBFactoryTransDetailVC.m */; };
 		D9190F3015AE5950003F672C /* VBFactoryTransDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9190F2E15AE5950003F672C /* VBFactoryTransDetailVC.xib */; };
 		D91A487515B648A30020EEA0 /* TfSupplier.m in Sources */ = {isa = PBXBuildFile; fileRef = D91A487415B648A20020EEA0 /* TfSupplier.m */; };
@@ -437,6 +439,10 @@
 		D90A84FD15B54224001CC03A /* TfShipCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TfShipCompany.m; sourceTree = "<group>"; };
 		D90A850015B54236001CC03A /* TfShipCompanyDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfShipCompanyDao.h; sourceTree = "<group>"; };
 		D90A850115B54237001CC03A /* TfShipCompanyDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TfShipCompanyDao.m; sourceTree = "<group>"; };
+		D90C8EBE15BF9DD80009626B /* BrokenLineGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrokenLineGraphView.h; sourceTree = "<group>"; };
+		D90C8EBF15BF9DD80009626B /* BrokenLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrokenLineGraphView.m; sourceTree = "<group>"; };
+		D90C8EC215BFD03E0009626B /* BrokenLineGraphData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrokenLineGraphData.h; sourceTree = "<group>"; };
+		D90C8EC315BFD03F0009626B /* BrokenLineGraphData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrokenLineGraphData.m; sourceTree = "<group>"; };
 		D9190F2C15AE5950003F672C /* VBFactoryTransDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBFactoryTransDetailVC.h; sourceTree = "<group>"; };
 		D9190F2D15AE5950003F672C /* VBFactoryTransDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBFactoryTransDetailVC.m; sourceTree = "<group>"; };
 		D9190F2E15AE5950003F672C /* VBFactoryTransDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBFactoryTransDetailVC.xib; sourceTree = "<group>"; };
@@ -599,6 +605,10 @@
 				05D02A57152DD12600BBA0F6 /* MemoirListVC.h */,
 				05687DAA152E8AA500ABC7EC /* XMLParser.h */,
 				05687DAB152E8AA500ABC7EC /* XMLParser.m */,
+				D90C8EBE15BF9DD80009626B /* BrokenLineGraphView.h */,
+				D90C8EBF15BF9DD80009626B /* BrokenLineGraphView.m */,
+				D90C8EC215BFD03E0009626B /* BrokenLineGraphData.h */,
+				D90C8EC315BFD03F0009626B /* BrokenLineGraphData.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -1158,6 +1168,8 @@
 				D93C154315BCFA68000C43B4 /* NTShipCompanyTranShare.m in Sources */,
 				D93C154615BCFA7F000C43B4 /* NTShipCompanyTranShareDao.m in Sources */,
 				D93C154915BD38EA000C43B4 /* NSString+Verify.m in Sources */,
+				D90C8EC015BF9DD90009626B /* BrokenLineGraphView.m in Sources */,
+				D90C8EC415BFD03F0009626B /* BrokenLineGraphData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
