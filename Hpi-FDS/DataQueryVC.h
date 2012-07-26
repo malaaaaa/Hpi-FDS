@@ -13,6 +13,7 @@
 #import "VBFactoryTransVC.h"
 #import "DataGridComponent.h"
 #import "VBShipDetailController.h"
+#import "ShipCompanyTransShareVC.h"
 @interface DataQueryVC : UIViewController<UITableViewDataSource,UITabBarDelegate,UIPopoverControllerDelegate>
 {
     IBOutlet UISegmentedControl *segment;
@@ -29,6 +30,8 @@
     IBOutlet UIView *labelView;
     UIPopoverController* popover;
     NSMutableArray  *detailArray;
+    ShipCompanyTransShareVC *shipCompanyTrnasShareVC;
+    
 }
 
 @property (nonatomic,retain) UISegmentedControl *segment;
@@ -43,6 +46,7 @@
 @property (nonatomic,retain) UIPopoverController* popover;
 @property (nonatomic,retain) UIView *labelView;
 @property (nonatomic,retain) NSMutableArray *detailArray;
+@property (nonatomic,retain) ShipCompanyTransShareVC *shipCompanyTrnasShareVC;
 
 -(void)loadViewData_vb;
 -(void)loadViewData_tb;
