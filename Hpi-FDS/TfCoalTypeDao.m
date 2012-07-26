@@ -78,6 +78,13 @@ static sqlite3	*database;
 		return;
     }
 	sqlite3_finalize(statement);
+    NSLog(@"%@",tfCoalType.COALTYPE);
+    NSLog(@"%@",tfCoalType.SULFUR);
+    NSLog(@"%@",@"插入成功！！！！！！");
+    
+    
+    
+    
 	return;
 }
 
@@ -108,6 +115,8 @@ static sqlite3	*database;
     
 	NSString *query=[NSString stringWithString:@" 1=1 "];
 	NSMutableArray * array=[TfCoalTypeDao getTfCoalTypeBySql:query];
+    
+    
     NSLog(@"执行 TfCoalType 数量[%d] ",[array count]);
 	return array;
 }
@@ -116,6 +125,7 @@ static sqlite3	*database;
     
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT TYPEID,COALTYPE,SORT,HEATVALUE,SULFUR FROM  TfCoalType WHERE %@ ",sql1];
+    
     NSLog(@"执行 getTfCoalTypeBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];

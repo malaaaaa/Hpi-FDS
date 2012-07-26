@@ -66,7 +66,11 @@ typedef enum{
     kCOALTYPE,
     kKEYVALUE,
     kTRADE,
-    kSHIPSTAGE
+    kSHIPSTAGE,
+    
+    
+    
+    kshiptransStage
 } CoordinateType;
 
 #define All_PORT    @"全部港口"

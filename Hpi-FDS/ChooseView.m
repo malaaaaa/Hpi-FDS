@@ -12,6 +12,9 @@
 #import "VBShipChVC.h"
 #import "PortViewController.h"
 #import "VBFactoryTransVC.h"
+#import "VBTransChVC.h"
+#import "TH_ShipTransChVC.h"
+
 @implementation ChooseView
 @synthesize tableView,iDArray,popover;
 @synthesize parentMapView,type;
@@ -66,6 +69,8 @@
 #pragma mark - tableView
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    NSLog(@"状态 【%d】",[self.iDArray count]);
 	return [self.iDArray count];
 }
 
@@ -192,6 +197,48 @@
             [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
         }
     }
+    //新添 VBTransChVC   视图下的  煤种 信息   kCOALTYPE
+    else if (self.type==kCOALTYPE) {
+        
+        VBTransChVC *view1=(VBTransChVC *)self.parentMapView;
+        view1.typeLabel.text=[self.iDArray objectAtIndex:[indexPath row  ]];
+        if (![view1.typeLabel.text isEqualToString:All_]) {
+            view1.typeLabel.hidden=NO;
+            [view1.typeButton setTitle:@"" forState:UIControlStateNormal];
+            
+            
+        }else {
+            view1.typeLabel.hidden=YES;
+            [view1.typeButton   setTitle:@"煤种" forState:UIControlStateNormal];
+        }
+        
+        
+        
+    }
+    
+    //新添  TH_SHIPTRANS    STAGE
+    else if (self.type=kshiptransStage) {
+        TH_ShipTransChVC *view1=(TH_ShipTransChVC *)self.parentMapView;
+        view1.stageLabel.text=[self.iDArray objectAtIndex:[indexPath row    ]];
+        if (![view1.stageLabel.text isEqualToString:All_]) {
+            view1.stageLabel.hidden=NO;
+            [view1.stageButton setTitle:@"" forState:UIControlStateNormal   ];
+        }else {
+            view1.stageLabel.hidden=YES;
+            [view1.stageButton setTitle:@"状态" forState:UIControlStateNormal ];
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     [self.popover dismissPopoverAnimated:YES];
 }
 
@@ -203,7 +250,11 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
+    
+    
+    
     cell.textLabel.text=[iDArray objectAtIndex:[indexPath row]];
+       
     //cell.textLabel.textColor =[UIColor colorWithRed:38.0/255.0 green:150.0/255.0 blue:200.0/255.0 alpha:1];
     cell.textLabel.textColor =[UIColor whiteColor];
     cell.textLabel.font = [UIFont systemFontOfSize:16.0f];

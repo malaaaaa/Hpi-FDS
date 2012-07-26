@@ -17,6 +17,8 @@ static sqlite3	*database;
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
 	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"VbTransplan.db"];
+    
+    NSLog(@"VbTransplan:path========%@",path);
 	return	 path;
 }
 
@@ -167,7 +169,7 @@ static sqlite3	*database;
     NSLog(@"执行 getVbTransplan 数量[%d] ",[array count]);
 	return array;
 }
-+(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName
++(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)coalType:(NSString *)factoryName:(NSString *)dateTime:(NSString *)planCode
 {
     NSString *query=[NSString stringWithString:@" 1=1  "];
     
@@ -177,10 +179,34 @@ static sqlite3	*database;
         query=[query stringByAppendingFormat:@" AND shipName ='%@' ",shipName];
     if(![portName isEqualToString:All_])
         query=[query stringByAppendingFormat:@" AND portName ='%@' ",portName];
+    
+    if (![coalType isEqualToString:All_]) {
+        query=[query stringByAppendingFormat:@"AND coalType='%@' ",coalType];
+    }
+    
     if(![factoryName isEqualToString:All_])
         query=[query stringByAppendingFormat:@" AND factoryName ='%@' ",factoryName];
+    
+    
+    //201207
+    if (![dateTime isEqualToString:All_])        
+        //计划月份
+        query=[query stringByAppendingFormat:@"AND planMonth='%@' ",dateTime];
+    
+    
+    
+    if ([planCode length]!=0||planCode==nil) {
+        query=[query stringByAppendingFormat:@"AND planCode='%@' ",planCode];
+        
+    }
+    
+    
+    
+    
+    
+    
 	NSMutableArray * array=[VbTransplanDao getVbTransplanBySql:query];
-    NSLog(@"执行 getVbShiptransBySql 数量[%d] ",[array count]);
+    NSLog(@"执行  getVbShiptransBySql 数量[%d] ",[array count]);
 	return array;
 }
 
@@ -245,17 +271,30 @@ static sqlite3	*database;
             else
                 vbTransplan.tripNo = [NSString stringWithUTF8String: rowData8];
             
+            
+            //处理显示时间
             char * rowData9=(char *)sqlite3_column_text(statement,9);
             if (rowData9 == NULL)
                 vbTransplan.eTap = nil;
             else
                 vbTransplan.eTap = [NSString stringWithUTF8String: rowData9];
             
+            NSLog(@"--------读取时间为%@",vbTransplan.eTap);
+            
             char * rowData10=(char *)sqlite3_column_text(statement,10);
             if (rowData10 == NULL)
                 vbTransplan.eTaf = nil;
             else
                 vbTransplan.eTaf = [NSString stringWithUTF8String: rowData10];
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             vbTransplan.eLw = sqlite3_column_int(statement,11);
             

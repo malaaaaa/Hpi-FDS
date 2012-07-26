@@ -35,6 +35,9 @@
     XMLParser *xmlParser;
     NSDate *month;
     DateViewController *monthCV;
+    
+    
+
 }
 
 @property (retain, nonatomic) IBOutlet UIButton *comButton;

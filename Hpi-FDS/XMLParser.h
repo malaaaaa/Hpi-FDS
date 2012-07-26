@@ -32,6 +32,10 @@
 #import "TfCoalTypeDao.h"
 #import "TsShipStage.h"
 #import "TsShipStageDao.h"
+#import "TH_ShipTrans.h"
+#import "TH_ShipTransDao.h"
+
+
 #import "NTShipCompanyTranShare.h"
 #import "NTShipCompanyTranShareDao.h"
 
@@ -60,7 +64,12 @@
     TfSupplier *tfSupplier;
     TfCoalType *tfCoalType;
     TsShipStage *tsShipStage;
-    NTShipCompanyTranShare *ntShipCompanyTranShare;
+    
+    //新添 调度日志
+    TH_ShipTrans *thshiptrans;
+    
+      NTShipCompanyTranShare *ntShipCompanyTranShare;
+    
 }
 
 @property(nonatomic, retain) NSMutableData *webData;
@@ -86,7 +95,12 @@
 @property(nonatomic, retain) TfSupplier *tfSupplier;
 @property(nonatomic, retain) TfCoalType *tfCoalType;
 @property(nonatomic,retain) TsShipStage *tsShipStage;
+
+//新添 调度日志
+@property(nonatomic,retain) TH_ShipTrans *thshiptrans;
+
 @property(nonatomic,retain) NTShipCompanyTranShare *ntShipCompanyTranShare;
+
 - (void)getTgPort;
 - (void)getTgFactory;
 - (void)getTgShip;
@@ -106,6 +120,9 @@
 - (void)getTfSupplier;
 - (void)getTfCoalType;
 - (void)getTsShipStage;
+//新添  thshiptrans  调度日志
+-(void)getTHShipTrans;
+
 - (void)getNtShipCompanyTranShare;
 
 
@@ -131,8 +148,7 @@
 -(NSInteger)iSoapTfSupplierDone;
 -(NSInteger)iSoapTfCoalTypeDone;
 -(NSInteger)iSoapTsShipStageDone;
+//新添调度日志
+-(NSInteger)iSoapThShipTransDone;
 -(NSInteger)iSoapNTShipCompanyTranShareDone;
-
-
-
 @end
