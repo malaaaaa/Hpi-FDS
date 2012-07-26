@@ -63,6 +63,8 @@ static NSString *deviceID;
     
     [NTShipCompanyTranShareDao openDataBase];
     [NTShipCompanyTranShareDao initDb];
+    [NTShipCompanyTranShareDao initDb_tmpTable];
+    [NTShipCompanyTranShareDao initDb_ColorConfig];
     
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
@@ -175,18 +177,20 @@ static NSString *deviceID;
         ![endDate isPureInt]) {
         return -1;
     }
-    if ([startDate integerValue]<[endDate integerValue] 
-        || ([startDate integerValue]<1||[startDate integerValue]>12)
-        || ([endDate integerValue]<1||[endDate integerValue]>12)){
-        return  -2;
-        
-    }
+ 
     NSInteger monthNum =0;
     NSInteger startYear= [[startDate substringToIndex:4] integerValue];
     NSInteger startMonth= [[startDate substringFromIndex:5] integerValue];
     NSInteger endYear= [[endDate substringToIndex:4] integerValue];
     NSInteger endMonth= [[endDate substringFromIndex:5] integerValue];
  
+    if ([startDate integerValue]>[endDate integerValue] 
+        || (startMonth<1||startMonth>12)
+        || (endMonth<1||endMonth>12)){
+        return  -2;
+        
+    }
+    
     if (startYear==endYear) {
         monthNum= endMonth-startMonth+1;
     }
