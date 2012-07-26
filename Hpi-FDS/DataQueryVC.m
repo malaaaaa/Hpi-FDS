@@ -22,6 +22,7 @@
 @synthesize labelView;
 @synthesize popover;
 @synthesize detailArray;
+@synthesize shipCompanyTrnasShareVC;
 
 
 static DataGridComponentDataSource *dataSource;
@@ -320,15 +321,25 @@ static DataGridComponentDataSource *dataSource;
     }
     else if (segment.selectedSegmentIndex==2)
     {
-        self.vbFactoryTransVC =[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil];
-        vbFactoryTransVC.parentVC=self;
+//        self.vbFactoryTransVC =[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil];
+//        vbFactoryTransVC.parentVC=self;
+//        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
+//        vbFactoryTransVC.view.frame=CGRectMake(0, 30, 1024, 661);
+//        [self.view addSubview:vbFactoryTransVC.view];
+//        [self.view bringSubviewToFront:vbFactoryTransVC.view];
+//        
+//               
+//        NSLog(@"电厂动态");
+
+        self.shipCompanyTrnasShareVC =[[ ShipCompanyTransShareVC alloc ]initWithNibName:@"ShipCompanyTransShareVC" bundle:nil];
+        shipCompanyTrnasShareVC.parentVC=self;
         //vbFactoryTransVC.view.center = CGPointMake(512, 320);
-        vbFactoryTransVC.view.frame=CGRectMake(0, 30, 1024, 661);
-        [self.view addSubview:vbFactoryTransVC.view];
-        [self.view bringSubviewToFront:vbFactoryTransVC.view];
+        shipCompanyTrnasShareVC.view.frame=CGRectMake(0, 30, 1024, 661);
+        [self.view addSubview:shipCompanyTrnasShareVC.view];
+        [self.view bringSubviewToFront:shipCompanyTrnasShareVC.view];
         
-               
-        NSLog(@"电厂动态");
+        
+        NSLog(@"船运公司份额统计");
 
     }
     
