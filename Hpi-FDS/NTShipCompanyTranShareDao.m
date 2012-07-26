@@ -75,7 +75,7 @@ static sqlite3 *database;
 +(void) initDb_ColorConfig
 {	
 	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@",
+	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS NTColorConfig  (TYPE TEXT   ",
 						 @",ID TEXT ",
                          @",RED TEXT ",
