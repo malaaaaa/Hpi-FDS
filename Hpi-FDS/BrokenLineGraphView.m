@@ -21,7 +21,7 @@
     self.layer.borderWidth=10.0;      
     self.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
     self.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-    
+
 	titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, frame.size.width-40, 30)];
 	titleLabel.backgroundColor = [UIColor colorWithRed:15./255 green:43./255 blue:64./255 alpha:1.0];
 	titleLabel.opaque = YES;
@@ -31,15 +31,17 @@
     titleLabel.shadowOffset= CGSizeMake(-1, -1);
 	titleLabel.textAlignment = UITextAlignmentCenter;
 	[self addSubview:titleLabel];
+
     return self;
 }
 
 - (void) reload{
-    
 	[self setNeedsDisplay];
+
 }
 
 - (void) drawRect:(CGRect)rect {
+
     CGContextRef context = UIGraphicsGetCurrentContext();
 	//画刻度
     [self drawScale:context rect:rect];
@@ -51,6 +53,7 @@
     if([data.ytitles count] < 1 || [data.xtitles count] < 1)
         return;
     
+
     CGContextSetRGBStrokeColor(context, 71./255, 71./255, 71./255, 1);//线条颜色
 	CGContextSetAllowsAntialiasing(context, NO);
     //画橫坐标和竖线
@@ -61,7 +64,6 @@
     else {
         favg= (_rect.size.width-marginLeft-marginRight);
     }
- 
     NSLog(@"HpiGraphView drawScale  %d条横线 %d条竖线  %f",[data.ytitles count],[data.xtitles count],favg);
 	for(int i=0;i<[data.xtitles count]; i++){
         CGContextMoveToPoint(context, marginLeft+favg*i, marginTop);
@@ -142,57 +144,11 @@
         }
     }
     CGContextStrokePath(context);
-    
+
     CGContextRestoreGState(context);
     
    }   
-//    CGContextSetRGBStrokeColor(context, 11.0/255, 220./255, 11./255, 1);//线条颜色
-//	CGContextSetAllowsAntialiasing(context, YES);
-//    CGContextSaveGState(context);
-//    CGContextSetLineCap(context, lineCap);
-//    CGContextSetLineWidth(context, 2.0f);
-//	CGContextSetLineJoin(context, kCGLineJoinMiter);
-//    CGContextSetRGBStrokeColor(context, 11./255, 220./255, 11./255, 1);//线条颜色
-//    start = NO;
-//    for(int i=0;i<[data.pointArray2 count]; i++){
-//        HpiPoint *point=[data.pointArray2 objectAtIndex:i];
-//        NSLog(@"HpiGraphView drawPoints2  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
-//        if (start == NO) {
-//            CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//            start = YES;
-//            NSLog(@"HpiGraphView drawPoints2  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-//        }
-//        else {
-//            CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//            NSLog(@"HpiGraphView drawPoints2  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-//        }
-//    }
-//	CGContextStrokePath(context);
-//    CGContextRestoreGState(context);
-//    
-//    CGContextSetRGBStrokeColor(context, 11.0/255, 11./255, 220./255, 1);//线条颜色
-//	CGContextSetAllowsAntialiasing(context, YES);
-//    CGContextSaveGState(context);
-//    CGContextSetLineCap(context, lineCap);
-//    CGContextSetLineWidth(context, 2.0f);
-//	CGContextSetLineJoin(context, kCGLineJoinMiter);
-//    CGContextSetRGBStrokeColor(context, 11./255, 11./255, 220./255, 1);//线条颜色
-//    start = NO;
-//    for(int i=0;i<[data.pointArray3 count]; i++){
-//        HpiPoint *point=[data.pointArray3 objectAtIndex:i];
-//        NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
-//        if (start == NO) {
-//            CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//            start = YES;
-//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-//        }
-//        else {
-//            CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-//        }
-//    }
-//	CGContextStrokePath(context);
-//    CGContextRestoreGState(context);
+
 }
 
 - (void) dealloc {

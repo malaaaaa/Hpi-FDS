@@ -738,6 +738,61 @@ NSString* alertMsg;
         NSLog(@"theConnection is NULL");
     }
 }
+- (void)getNtShipCompanyTranShare
+{
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getNtShipCompanyTranShare) userInfo:NULL repeats:NO];
+        return;
+    }
+    //出错
+    if (iSoapDone==3) {
+        iSoapNum--;
+        if (iSoapNum<1) {
+            iSoapDone=1;
+        }
+        return;
+    }
+    iSoapDone=0;
+    iSoapNTShipCompanyTranShareDone=1;
+    NSLog(@"开始 getNtShipCompanyTranShare");
+    recordResults = NO;
+    iSoap=20;
+    NSString *soapMessage = [NSString stringWithFormat:
+                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                             "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                             "<soap12:Body>\n"
+                             "<GetTransPortsInfo xmlns=\"http://tempuri.org/\">\n"
+                             "<req>\n"
+                             "<deviceid>%@</deviceid>\n"
+                             "<version>%@</version>\n"
+                             "<updatetime>%@</updatetime>\n"
+                             "</req>\n"
+                             "</GetTransPortsInfo>\n"
+                             "</soap12:Body>\n"
+                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+    NSLog(@"soapMessage[%@]",soapMessage);
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    
+    NSURL *url = [NSURL URLWithString:PubInfo.baseUrl];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 请求
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    
+    // 如果连接已经建好，则初始化data
+    if( theConnection )
+    {
+        webData = [[NSMutableData data] retain];
+    }
+    else
+    {
+        NSLog(@"theConnection is NULL");
+    }
+}
 - (void)getTmIndexdefine
 {
     NSLog(@"开始 getTmIndexdefine  iSoapDone=%d   iSoapNum=%d",iSoapDone,iSoapNum);

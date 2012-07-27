@@ -25,7 +25,5 @@
 +(void) deleteAll_tmpTable;
 //根据航运公司ID，年份，月份得到唯一的市场份额对象
 +(NTShipCompanyTranShare *) getTransShareByComid:(NSInteger)comid Year:(NSString *)year Month:(NSString *)month;
-//初始化颜色信息配置表
-+(void) initDb_ColorConfig;
 
 @end

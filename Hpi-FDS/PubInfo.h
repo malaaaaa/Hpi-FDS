@@ -50,6 +50,8 @@
 #import "TsShipStageDao.h"
 #import "NTShipCompanyTranShare.h"
 #import "NTShipCompanyTranShareDao.h"
+#import "NTColorConfig.h"
+#import "NTColorConfigDao.h"
 
 typedef enum{
     kPORT=0,

@@ -72,49 +72,6 @@ static sqlite3 *database;
 		
 	}
 }
-+(void) initDb_ColorConfig
-{	
-	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@",
-						 @"CREATE TABLE IF NOT EXISTS NTColorConfig  (TYPE TEXT   ",
-						 @",ID TEXT ",
-                         @",RED TEXT ",
-                         @",GREEN TEXT ",
-                         @",BLUE TEXT )"];
-	
-	if(sqlite3_exec(database,[createSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
-	{
-		sqlite3_close(database);
-		NSLog(@"create table NTColorConfig error");
-		printf("%s",errorMsg);
-		return;
-	}
-    NSString *deleteSql=[NSString  stringWithFormat:@"delete from NTColorConfig"];
-    if(sqlite3_exec(database,[deleteSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
-	{
-		sqlite3_close(database);
-		NSLog(@"delete NTColorConfig error");
-		printf("%s",errorMsg);
-		return;
-	}
-    NSString *insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"4",@"220.0",@"11.0",@"11.0"];
-    if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
-	{
-		sqlite3_close(database);
-		NSLog(@"insert into table NTColorConfig error");
-		printf("%s",errorMsg);
-		return;
-	}
-    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"5",@"11.0",@"220.0",@"11.0"];
-    if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
-	{
-		sqlite3_close(database);
-		NSLog(@"insert into table NTColorConfig error");
-		printf("%s",errorMsg);
-		return;
-	}
-			
-}
 
 
 +(void)insert:(NTShipCompanyTranShare*) NTShipCompanyTranShare
