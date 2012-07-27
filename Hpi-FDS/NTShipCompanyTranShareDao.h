@@ -25,5 +25,6 @@
 +(void) deleteAll_tmpTable;
 //根据航运公司ID，年份，月份得到唯一的市场份额对象
 +(NTShipCompanyTranShare *) getTransShareByComid:(NSInteger)comid Year:(NSString *)year Month:(NSString *)month;
++(NTShipCompanyTranShare *) getTransShareByTag:(NSInteger)tag;
 
 @end

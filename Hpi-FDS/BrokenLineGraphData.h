@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NTShipCompanyTranShare.h"
 
 @interface BrokenLineGraphData : NSObject{
     //x坐标标题列表
@@ -44,10 +45,10 @@
 @interface BrokenLineGraphPoint : NSObject{
     NSInteger x; //point
     NSInteger y;
-    NSString *title;
+    NTShipCompanyTranShare *companyShare;
 }
 @property NSInteger x;
 @property NSInteger y;
-@property (nonatomic,copy)NSString *title;
+@property(nonatomic,retain) NTShipCompanyTranShare *companyShare;
 
 @end

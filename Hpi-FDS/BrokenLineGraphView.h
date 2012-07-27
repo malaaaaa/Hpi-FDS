@@ -7,10 +7,12 @@
 //
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
+#import "PubInfo.h"
 #import "BrokenLineGraphData.h"
+#import "ShipCompanyShareDetailVC.h"
 
 
-@interface BrokenLineGraphView : UIView{
+@interface BrokenLineGraphView : UIView<UIPopoverControllerDelegate>{
     // DATA
 	BrokenLineGraphData *data;
 	// BASE ELEMENTS
@@ -19,6 +21,7 @@
 	NSInteger marginLeft,marginTop,marginRight,marginBottom;
   
 }
+
 @property (nonatomic,retain) UILabel *titleLabel;
 @property (nonatomic,retain) BrokenLineGraphData *data;
 @property NSInteger marginLeft;
@@ -27,5 +30,7 @@
 @property NSInteger marginBottom;
 
 - (id) initWithFrame:(CGRect)frame :(BrokenLineGraphData *) graphData ;
+//画触发点
+- (void)drawTriggerPoint:(CGContextRef)context rect:(CGRect)_rect;
 
 @end

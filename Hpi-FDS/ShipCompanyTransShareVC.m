@@ -337,21 +337,25 @@ static  NSMutableArray *PortArray;
             NSString *month = [dateFormatter stringFromDate:nextMonth];
             
             NSInteger comid= [colorConfig.ID integerValue];
-            NTShipCompanyTranShare *TransShare=[NTShipCompanyTranShareDao getTransShareByComid:comid  Year:year Month:month];
-            if (TransShare==nil) {
+//            NTShipCompanyTranShare *TransShare=[NTShipCompanyTranShareDao getTransShareByComid:comid  Year:year Month:month];
+             BrokenLineGraphPoint *point=[[BrokenLineGraphPoint alloc]init] ;
+                point.companyShare=[NTShipCompanyTranShareDao getTransShareByComid:comid  Year:year Month:month];
+            
+            if (point.companyShare==nil) {
                 
             }
             else {
-                BrokenLineGraphPoint *point=[[BrokenLineGraphPoint alloc]init] ;
+               
                 point.x=i-1;
-                NSLog(@"TransShare%@",TransShare.PERCENT);
-                point.y=([TransShare.PERCENT floatValue]-minY)*10;
+                NSLog(@"TransShare%@",point.companyShare.PERCENT);
+                point.y=([point.companyShare.PERCENT floatValue]-minY)*10;
                 NSLog(@"point.x%d",point.x);
                 NSLog(@"point.y%d",point.y);
+                
                 [line.pointArray  addObject:point];
-                [point release];
+                
             }
-            
+            [point release];
             //计算下一个月
             NSDateComponents *offsetComponents= [[NSDateComponents alloc] init];
             [offsetComponents setMonth:1];

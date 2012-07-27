@@ -9,6 +9,7 @@
 #import "NTShipCompanyTranShare.h"
 
 @implementation NTShipCompanyTranShare
+@synthesize TAG=_TAG;
 @synthesize COMID=_COMID;
 @synthesize COMPANY=_COMPANY;
 @synthesize PORTCODE=_PORTCODE;

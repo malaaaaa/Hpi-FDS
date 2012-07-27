@@ -70,6 +70,7 @@ static NSString *deviceID;
     
     [NTShipCompanyTranShareDao openDataBase];
     [NTShipCompanyTranShareDao initDb];
+    [NTShipCompanyTranShareDao initDb_tmpTable];
     [NTColorConfigDao openDataBase];
     [NTColorConfigDao initDb];
     

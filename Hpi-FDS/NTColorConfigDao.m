@@ -73,6 +73,40 @@ static sqlite3 *database;
 		printf("%s",errorMsg);
 		return;
 	}
+    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"6",@"195.0",@"73.0",@"156.0"];
+    if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		sqlite3_close(database);
+		NSLog(@"insert into table NTColorConfig error");
+		printf("%s",errorMsg);
+		return;
+	}
+    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"7",@"58.0",@"82.0",@"62.0"];
+    if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		sqlite3_close(database);
+		NSLog(@"insert into table NTColorConfig error");
+		printf("%s",errorMsg);
+		return;
+	}
+    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"9",@"112.0",@"166.0",@"184.0"];
+    if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		sqlite3_close(database);
+		NSLog(@"insert into table NTColorConfig error");
+		printf("%s",errorMsg);
+		return;
+	}
+    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"12",@"192.0",@"111.0",@"54.0"];
+    if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		sqlite3_close(database);
+		NSLog(@"insert into table NTColorConfig error");
+		printf("%s",errorMsg);
+		return;
+	}
+
+
     
 }
 
