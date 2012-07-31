@@ -110,7 +110,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTfSupplier
 {
     
-	NSString *query=[NSString stringWithString:@" 1=1 "];
+	NSString *query=@" 1=1 ";
 	NSMutableArray * array=[TfSupplierDao getTfSupplierBySql:query];
     NSLog(@"执行 TfSupplier 数量[%d] ",[array count]);
 	return array;

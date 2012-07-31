@@ -35,9 +35,10 @@ static sqlite3 *database;
 +(void) initDb
 {	
 	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@",
+	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS NTColorConfig  (TYPE TEXT   ",
 						 @",ID TEXT ",
+                         @",DESCRIPTION TEXT ",
                          @",RED TEXT ",
                          @",GREEN TEXT ",
                          @",BLUE TEXT )"];
@@ -57,7 +58,7 @@ static sqlite3 *database;
 		printf("%s",errorMsg);
 		return;
 	}
-    NSString *insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"4",@"220.0",@"11.0",@"11.0"];
+    NSString *insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,DESCRIPTION,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@','%@');",@"COMID",@"4",@"时代",@"220.0",@"11.0",@"11.0"];
     if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
@@ -65,7 +66,7 @@ static sqlite3 *database;
 		printf("%s",errorMsg);
 		return;
 	}
-    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"5",@"11.0",@"220.0",@"11.0"];
+    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,DESCRIPTION,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@','%@');",@"COMID",@"5",@"瑞宁",@"11.0",@"220.0",@"11.0"];
     if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
@@ -73,7 +74,7 @@ static sqlite3 *database;
 		printf("%s",errorMsg);
 		return;
 	}
-    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"6",@"195.0",@"73.0",@"156.0"];
+    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,DESCRIPTION,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@','%@');",@"COMID",@"6",@"华鲁",@"195.0",@"73.0",@"156.0"];
     if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
@@ -81,7 +82,7 @@ static sqlite3 *database;
 		printf("%s",errorMsg);
 		return;
 	}
-    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"7",@"58.0",@"82.0",@"62.0"];
+    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,DESCRIPTION,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@','%@');",@"COMID",@"7",@"其它",@"58.0",@"82.0",@"62.0"];
     if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
@@ -89,7 +90,7 @@ static sqlite3 *database;
 		printf("%s",errorMsg);
 		return;
 	}
-    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"9",@"112.0",@"166.0",@"184.0"];
+    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,DESCRIPTION,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@','%@');",@"COMID",@"9",@"福轮总",@"112.0",@"166.0",@"184.0"];
     if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
@@ -97,7 +98,7 @@ static sqlite3 *database;
 		printf("%s",errorMsg);
 		return;
 	}
-    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"12",@"192.0",@"111.0",@"54.0"];
+    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,DESCRIPTION,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@','%@');",@"COMID",@"12",@"中海",@"192.0",@"111.0",@"54.0"];
     if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
@@ -114,7 +115,7 @@ static sqlite3 *database;
 {
     
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"SELECT ID,RED,GREEN,BLUE FROM  NTColorConfig WHERE TYPE='%@' ",typeid];
+    NSString *sql=[NSString stringWithFormat:@"SELECT ID,RED,GREEN,BLUE,DESCRIPTION FROM  NTColorConfig WHERE TYPE='%@' ",typeid];
     
     NSLog(@"执行 getNTColorConfigByType [%@] ",sql);
     
@@ -147,6 +148,12 @@ static sqlite3 *database;
                 ntColorConfig.BLUE = nil;
             else
                 ntColorConfig.BLUE = [NSString stringWithUTF8String: rowData3];
+            
+            char * rowData4=(char *)sqlite3_column_text(statement,4);
+            if (rowData4 == NULL)
+                ntColorConfig.DESCRIPTION = nil;
+            else
+                ntColorConfig.DESCRIPTION = [NSString stringWithUTF8String: rowData4];
             
 
             

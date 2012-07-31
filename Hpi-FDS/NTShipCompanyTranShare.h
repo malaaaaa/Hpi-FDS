@@ -18,6 +18,8 @@
     NSString *_TRADEMONTH;
     NSInteger _LW;
     NSString *_PERCENT;
+    NSInteger _X;
+    NSInteger _Y;
 }
 @property NSInteger TAG;
 @property NSInteger COMID;
@@ -28,6 +30,8 @@
 @property(nonatomic,retain) NSString *TRADEMONTH;
 @property NSInteger LW;
 @property(nonatomic,retain) NSString *PERCENT;
+@property NSInteger X;
+@property NSInteger Y;
 
 
 @end

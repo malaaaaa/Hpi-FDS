@@ -26,5 +26,7 @@
 //根据航运公司ID，年份，月份得到唯一的市场份额对象
 +(NTShipCompanyTranShare *) getTransShareByComid:(NSInteger)comid Year:(NSString *)year Month:(NSString *)month;
 +(NTShipCompanyTranShare *) getTransShareByTag:(NSInteger)tag;
+//更新点坐标
++(void) updateTransShareCoordinate:(NSInteger) tag setX:(NSInteger)x setY:(NSInteger)y;
 
 @end

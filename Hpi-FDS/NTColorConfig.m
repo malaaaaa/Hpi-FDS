@@ -17,5 +17,5 @@
 @synthesize RED=_RED;
 @synthesize GREEN=_GREEN;
 @synthesize BLUE=_BLUE;
-
+@synthesize DESCRIPTION=_DESCRIPTION;
 @end

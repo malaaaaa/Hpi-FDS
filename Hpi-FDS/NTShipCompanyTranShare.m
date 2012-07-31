@@ -18,4 +18,6 @@
 @synthesize TRADEYEAR=_TRADEYEAR;
 @synthesize TRADEMONTH=_TRADEMONTH;
 @synthesize PERCENT=_PERCENT;
+@synthesize X=_X;
+@synthesize Y=_Y;
 @end

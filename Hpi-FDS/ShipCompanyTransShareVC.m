@@ -24,14 +24,18 @@
 @synthesize startButton=_startButton;
 @synthesize endButton=_endButton;
 @synthesize reloadButton=_reloadButton;
+@synthesize legendButton=_legendButton;
 @synthesize activity=_activity;
 @synthesize xmlParser=_xmlParser;
 @synthesize graphView=_graphView;
 @synthesize multipleSelectView=_multipleSelectView;
 @synthesize parentVC;
+@synthesize legendView=_legendView;
 
 static BOOL PortPop=NO;
 static  NSMutableArray *PortArray;
+static  NSMutableArray *LegendArray;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,6 +80,7 @@ static  NSMutableArray *PortArray;
     self.portButton=nil;
     self.reloadButton=nil;
     self.xmlParser=nil;
+    self.legendButton=nil;
     //    _xmlParser=nil;
     //    [_xmlParser release];
     // Release any retained subviews of the main view.
@@ -200,6 +205,37 @@ static  NSMutableArray *PortArray;
     self.popover.popoverContentSize = CGSizeMake(320, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(610, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [pop release];
+}
+- (IBAction)legendAction:(id)sender {
+
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    
+    //初始化多选控制器
+    _legendView=[[BrokenLineLegendVC alloc]init];
+    //设置待显示控制器的范围
+    [_legendView.view setFrame:CGRectMake(0,0, 125, 400)];
+    //设置待显示控制器视图的尺寸
+    _legendView.contentSizeForViewInPopover = CGSizeMake(125, 400);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_legendView];
+    _legendView.popover = pop;
+    LegendArray = [NTColorConfigDao getNTColorConfigByType:@"COMID"]
+    ;
+
+    _legendView.iDArray=LegendArray;
+    
+    _legendView.parentMapView=self;
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(125, 120);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(850, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [_legendView.tableView reloadData];
+    [_legendView release];
     [pop release];
 }
 - (IBAction)reloadAction:(id)sender {

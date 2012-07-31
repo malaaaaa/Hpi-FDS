@@ -55,14 +55,17 @@ static sqlite3 *database;
 +(void) initDb_tmpTable
 {	
 	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@",
+	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS TMP_NTShipCompanyTranShare  (TAG INTEGER PRIMARY KEY  ",
 						 @",COMID TEXT ",
                          @",COMPANY TEXT ",
                          @",TRADEYEAR TEXT ",
                          @",TRADEMONTH TEXT ",
 						 @",LW INTEGER ",
+                         @",X INTEGER ",
+                         @",Y INTEGER ",
                          @",PERCENT TEXT )" ];
+    
 	
 	if(sqlite3_exec(database,[createSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
@@ -297,8 +300,6 @@ static sqlite3 *database;
                 transShare.PERCENT = [NSString stringWithUTF8String: rowData1];
             
             transShare.TAG=sqlite3_column_int(statement, 2);
-
-                      
         }
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
@@ -309,7 +310,7 @@ static sqlite3 *database;
 	sqlite3_stmt *statement;
     NTShipCompanyTranShare *transShare=[[[NTShipCompanyTranShare alloc] init] autorelease];
     
-    NSString *sql=[NSString stringWithFormat:@"SELECT company,percent,lw FROM  TMP_NTShipCompanyTranShare WHERE tag=%d  ",tag];
+    NSString *sql=[NSString stringWithFormat:@"SELECT company,percent,lw,x,y FROM  TMP_NTShipCompanyTranShare WHERE tag=%d  ",tag];
     //NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -327,6 +328,8 @@ static sqlite3 *database;
                 transShare.PERCENT = [NSString stringWithUTF8String: rowData1];
             
             transShare.LW=sqlite3_column_int(statement, 2);
+            transShare.X=sqlite3_column_int(statement, 3);
+            transShare.Y=sqlite3_column_int(statement, 4);
             
             
         }
@@ -334,5 +337,19 @@ static sqlite3 *database;
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
 	return transShare;
+}
++(void) updateTransShareCoordinate:(NSInteger) tag setX:(NSInteger)x setY:(NSInteger)y
+{
+	NSString *updateSql=[NSString stringWithFormat:@"update  TMP_NTShipCompanyTranShare  set x=%d, y=%d where TAG=%d ",x,y,tag];
+	if(sqlite3_exec(database,[updateSql UTF8String],NULL,NULL,NULL)!=SQLITE_OK)
+	{
+		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);
+	}
+	else
+	{
+		NSLog(@"update success");
+		
+	}
+	return;
 }
 @end

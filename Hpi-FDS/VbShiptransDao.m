@@ -231,7 +231,7 @@ static sqlite3	*database;
 }
 +(NSMutableArray *) getVbShiptrans:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(NSString *)stageName
 {
-    NSString *query=[NSString stringWithString:@" 1=1  "];
+    NSString *query=@" 1=1  ";
     
     if(![shipCompany isEqualToString:All_])
         query=[query stringByAppendingFormat:@" AND shipCompany ='%@' ",shipCompany];

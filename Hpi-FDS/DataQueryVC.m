@@ -494,7 +494,7 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *MyIdentifier = [NSString stringWithString:@"UITableViewCell"];
+    NSString *MyIdentifier = @"UITableViewCell";
     
     
     UITableViewCell *cell=(UITableViewCell*)[listTableview dequeueReusableCellWithIdentifier:MyIdentifier];

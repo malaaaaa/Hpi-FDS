@@ -135,7 +135,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTgFactory
 {
     
-	NSString *query=[NSString stringWithString:@" lon<>0 "];
+	NSString *query=@" lon<>0 ";
 	NSMutableArray * array=[TgFactoryDao getTgFactoryBySql:query];
     NSLog(@"执行 getTgFactory 数量[%d] ",[array count]);
 	return array;

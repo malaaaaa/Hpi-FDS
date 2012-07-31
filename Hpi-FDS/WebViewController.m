@@ -53,7 +53,7 @@ static NSString *fileName;
     // Do any additional setup after loading the view from its nib.
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *docPath = [documentsDirectory stringByAppendingString:[NSString stringWithString: @"/1.png"]];
+    NSString *docPath = [documentsDirectory stringByAppendingString:@"/1.png"];
     NSLog(@"####docPath# [%@]",docPath);
     
     NSURL *url = [NSURL fileURLWithPath:docPath];
