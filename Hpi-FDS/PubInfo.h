@@ -4,7 +4,7 @@
 //
 //  Created by zcx on 12-3-30.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
-//mawp testa test
+//mawp 周二
 
 #import <Foundation/Foundation.h>
 #import "NSString+Verify.h"
