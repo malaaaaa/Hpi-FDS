@@ -181,8 +181,12 @@
 		2A7B339615B80DD5006B7994 /* TH_ShipTransDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B339515B80DD3006B7994 /* TH_ShipTransDao.m */; };
 		2AD84EA115B91B2B00D91111 /* TH_ShipTransChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */; };
 		2AD84EA215B91B2B00D91111 /* TH_ShipTransChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */; };
+		D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */; };
+		D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */; };
 		D378812C15C65B3E0033FB88 /* BrokenLineLegendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D378812A15C65B3D0033FB88 /* BrokenLineLegendVC.m */; };
 		D378812D15C65B3E0033FB88 /* BrokenLineLegendVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D378812B15C65B3D0033FB88 /* BrokenLineLegendVC.xib */; };
+		D37A3E1215C902E7002B48F8 /* NTFactoryFreightVolume.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A3E1115C902E7002B48F8 /* NTFactoryFreightVolume.m */; };
+		D37A3E1615C90318002B48F8 /* NTFactoryFreightVolumeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */; };
 		D9063A7A15C13D27002FE1CE /* NTColorConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D9063A7915C13D27002FE1CE /* NTColorConfig.m */; };
 		D9063A7E15C14032002FE1CE /* NTColorConfigDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D9063A7D15C14031002FE1CE /* NTColorConfigDao.m */; };
 		D90A84FE15B54224001CC03A /* TfShipCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A84FD15B54224001CC03A /* TfShipCompany.m */; };
@@ -470,9 +474,16 @@
 		2AD84E9E15B91B2B00D91111 /* TH_ShipTransChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransChVC.h; sourceTree = "<group>"; };
 		2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransChVC.m; sourceTree = "<group>"; };
 		2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TH_ShipTransChVC.xib; sourceTree = "<group>"; };
+		D35ACFE215C7D84100F53AAD /* FactoryFreightVolumeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryFreightVolumeVC.h; sourceTree = "<group>"; };
+		D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryFreightVolumeVC.m; sourceTree = "<group>"; };
+		D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FactoryFreightVolumeVC.xib; sourceTree = "<group>"; };
 		D378812915C65B3C0033FB88 /* BrokenLineLegendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrokenLineLegendVC.h; sourceTree = "<group>"; };
 		D378812A15C65B3D0033FB88 /* BrokenLineLegendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrokenLineLegendVC.m; sourceTree = "<group>"; };
 		D378812B15C65B3D0033FB88 /* BrokenLineLegendVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrokenLineLegendVC.xib; sourceTree = "<group>"; };
+		D37A3E1015C902E7002B48F8 /* NTFactoryFreightVolume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTFactoryFreightVolume.h; sourceTree = "<group>"; };
+		D37A3E1115C902E7002B48F8 /* NTFactoryFreightVolume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTFactoryFreightVolume.m; sourceTree = "<group>"; };
+		D37A3E1415C90318002B48F8 /* NTFactoryFreightVolumeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTFactoryFreightVolumeDao.h; sourceTree = "<group>"; };
+		D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTFactoryFreightVolumeDao.m; sourceTree = "<group>"; };
 		D9063A7815C13D27002FE1CE /* NTColorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTColorConfig.h; sourceTree = "<group>"; };
 		D9063A7915C13D27002FE1CE /* NTColorConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTColorConfig.m; sourceTree = "<group>"; };
 		D9063A7C15C14031002FE1CE /* NTColorConfigDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTColorConfigDao.h; sourceTree = "<group>"; };
@@ -563,8 +574,8 @@
 		057F6C1E1524490600E0E435 = {
 			isa = PBXGroup;
 			children = (
-				057F6C331524490600E0E435 /* Hpi-FDS */,
 				057F6C2C1524490600E0E435 /* Frameworks */,
+				057F6C331524490600E0E435 /* Hpi-FDS */,
 				057F6C2A1524490600E0E435 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -652,36 +663,37 @@
 		057F6C5C152449EA00E0E435 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */,
 				D378812B15C65B3D0033FB88 /* BrokenLineLegendVC.xib */,
-				D9DDDDC8159063780023D88A /* SummaryInfoViewController.xib */,
-				2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */,
-				2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */,
-				D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */,
-				D926248315C22EED007AB0B9 /* ShipCompanyShareDetailVC.xib */,
-				2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */,
-				D9A8381715B7EF89002D83C2 /* VBFactoryTransVC.xib */,
-				14CB7DCD1552877A008097AE /* VBTransChVC.xib */,
+				059A1BF51525B75100AB24C4 /* ChooseView.xib */,
 				14BE5D7C1546B7470042C562 /* DataQueryVC.xib */,
-				053A4FFA153E597A0072996E /* VBShipChVC.xib */,
-				14BE5D6B154688EF0042C562 /* VBShipDetailController.xib */,
-				05BE9A4A1540589000FC306A /* TBShipChVC.xib */,
 				05F43029153BFBB500CC00EB /* DateViewController.xib */,
-				0588C2A3152D3CA900FFC0B9 /* ShipInfoViewController.xib */,
-				058A69D1152B66A100854C45 /* InfoShipViewController.xib */,
-				058A69CB152B534A00854C45 /* InfoTextViewController.xib */,
 				059A272415270D410068CFDA /* InfoFactoryViewController.xib */,
 				059A271E1526F8610068CFDA /* InfoPortVewController.xib */,
+				058A69D1152B66A100854C45 /* InfoShipViewController.xib */,
+				058A69CB152B534A00854C45 /* InfoTextViewController.xib */,
 				059A1B6D152539DC00AB24C4 /* MapViewController.xib */,
-				051B248F153FA2230036557C /* WebViewController.xib */,
-				05F57B0515308F6E00DBFFAC /* MarketViewController.xib */,
-				D9190F2E15AE5950003F672C /* VBFactoryTransDetailVC.xib */,
 				14E4586515622CCC0015258C /* MarketOneController.xib */,
+				05F57B0515308F6E00DBFFAC /* MarketViewController.xib */,
+				05D02A65152DD65600BBA0F6 /* MemoirCell.xib */,
+				05D02A59152DD12600BBA0F6 /* MemoirListVC.xib */,
+				D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */,
 				14C1DFCF1553A96F0060DF17 /* PortViewController.xib */,
 				05FC0E7215326CD6007B9D82 /* QueryViewController.xib */,
 				05FC0E7815326D0D007B9D82 /* SetupViewController.xib */,
-				059A1BF51525B75100AB24C4 /* ChooseView.xib */,
-				05D02A59152DD12600BBA0F6 /* MemoirListVC.xib */,
-				05D02A65152DD65600BBA0F6 /* MemoirCell.xib */,
+				D926248315C22EED007AB0B9 /* ShipCompanyShareDetailVC.xib */,
+				2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */,
+				0588C2A3152D3CA900FFC0B9 /* ShipInfoViewController.xib */,
+				D9DDDDC8159063780023D88A /* SummaryInfoViewController.xib */,
+				05BE9A4A1540589000FC306A /* TBShipChVC.xib */,
+				2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */,
+				2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */,
+				D9190F2E15AE5950003F672C /* VBFactoryTransDetailVC.xib */,
+				D9A8381715B7EF89002D83C2 /* VBFactoryTransVC.xib */,
+				053A4FFA153E597A0072996E /* VBShipChVC.xib */,
+				14BE5D6B154688EF0042C562 /* VBShipDetailController.xib */,
+				14CB7DCD1552877A008097AE /* VBTransChVC.xib */,
+				051B248F153FA2230036557C /* WebViewController.xib */,
 			);
 			name = Xib;
 			sourceTree = "<group>";
@@ -868,6 +880,10 @@
 				D9063A7D15C14031002FE1CE /* NTColorConfigDao.m */,
 				D9063A7815C13D27002FE1CE /* NTColorConfig.h */,
 				D9063A7915C13D27002FE1CE /* NTColorConfig.m */,
+				D37A3E1015C902E7002B48F8 /* NTFactoryFreightVolume.h */,
+				D37A3E1115C902E7002B48F8 /* NTFactoryFreightVolume.m */,
+				D37A3E1415C90318002B48F8 /* NTFactoryFreightVolumeDao.h */,
+				D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -970,6 +986,8 @@
 				14CB7DCC1552877A008097AE /* VBTransChVC.m */,
 				05CCEA821526C9930045C150 /* WebViewController.h */,
 				05CCEA831526C9930045C150 /* WebViewController.m */,
+				D35ACFE215C7D84100F53AAD /* FactoryFreightVolumeVC.h */,
+				D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1135,6 +1153,7 @@
 				2A2FA33815BFF74400B71C7D /* ShipCompanyTransShareVC.xib in Resources */,
 				D926248515C22EED007AB0B9 /* ShipCompanyShareDetailVC.xib in Resources */,
 				D378812D15C65B3E0033FB88 /* BrokenLineLegendVC.xib in Resources */,
+				D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1246,6 +1265,9 @@
 				D9063A7E15C14032002FE1CE /* NTColorConfigDao.m in Sources */,
 				D926248415C22EED007AB0B9 /* ShipCompanyShareDetailVC.m in Sources */,
 				D378812C15C65B3E0033FB88 /* BrokenLineLegendVC.m in Sources */,
+				D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */,
+				D37A3E1215C902E7002B48F8 /* NTFactoryFreightVolume.m in Sources */,
+				D37A3E1615C90318002B48F8 /* NTFactoryFreightVolumeDao.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

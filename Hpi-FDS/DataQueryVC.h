@@ -15,6 +15,8 @@
 #import "DataGridComponent.h"
 #import "VBShipDetailController.h"
 #import "ShipCompanyTransShareVC.h"
+#import "FactoryFreightVolumeVC.h"
+
 
 @class VBFactoryTransVC;
 
@@ -41,6 +43,7 @@
     UIPopoverController* popover;
     NSMutableArray  *detailArray;
     ShipCompanyTransShareVC *shipCompanyTrnasShareVC;
+    FactoryFreightVolumeVC *factoryFreightVolumeVC;
     
 }
 
@@ -65,6 +68,7 @@
 
 
 @property (nonatomic,retain) DataGridComponentDataSource *dataSource;
+@property(nonatomic,retain) FactoryFreightVolumeVC *factoryFreightVolumeVC;
 
 
 

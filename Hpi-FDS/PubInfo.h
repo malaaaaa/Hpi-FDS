@@ -52,6 +52,8 @@
 #import "NTShipCompanyTranShareDao.h"
 #import "NTColorConfig.h"
 #import "NTColorConfigDao.h"
+#import "NTFactoryFreightVolume.h"
+#import "NTFactoryFreightVolumeDao.h"
 
 typedef enum{
     kPORT=0,
@@ -69,7 +71,8 @@ typedef enum{
     kKEYVALUE,
     kTRADE,
     kSHIPSTAGE,
-    
+    kTYPE_FFV, //电厂运量－电厂类型
+    kTRADE_FFV, //电厂运量-贸易性质
     
     
     kshiptransStage

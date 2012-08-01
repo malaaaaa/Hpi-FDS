@@ -73,6 +73,9 @@ static NSString *deviceID;
     [NTShipCompanyTranShareDao initDb_tmpTable];
     [NTColorConfigDao openDataBase];
     [NTColorConfigDao initDb];
+    [NTFactoryFreightVolumeDao openDataBase];
+    [NTFactoryFreightVolumeDao initDb];
+    [NTFactoryFreightVolumeDao initDb_tmpTable];
     
     
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

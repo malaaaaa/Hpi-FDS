@@ -36,6 +36,7 @@ static int iSoapTfSupplierDone=0;
 static int iSoapTfCoalTypeDone=0;
 static int iSoapTsShipStageDone=0;
 static  int iSoapNTShipCompanyTranShareDone=0;
+static int iSoapNTFactoryFreightVolumeDone=0;
 
 
 
@@ -121,7 +122,9 @@ NSString* alertMsg;
     if (ntShipCompanyTranShare) {
         [ntShipCompanyTranShare release];
     }
-    
+    if (factoryFreightVolume) {
+        [factoryFreightVolume release];
+    }
     [super dealloc];
 }
 
@@ -793,6 +796,62 @@ NSString* alertMsg;
         NSLog(@"theConnection is NULL");
     }
 }
+- (void)getNTFactoryFreightVolume
+{
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getNTFactoryFreightVolume) userInfo:NULL repeats:NO];
+        return;
+    }
+    //出错
+    if (iSoapDone==3) {
+        iSoapNum--;
+        if (iSoapNum<1) {
+            iSoapDone=1;
+        }
+        return;
+    }
+    iSoapDone=0;
+    iSoapNTFactoryFreightVolumeDone=1;
+    NSLog(@"开始 getNTFactoryFreightVolume");
+    recordResults = NO;
+    iSoap=30;
+    NSString *soapMessage = [NSString stringWithFormat:
+                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                             "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                             "<soap12:Body>\n"
+                             "<GetYunLiInfo xmlns=\"http://tempuri.org/\">\n"
+                             "<req>\n"
+                             "<deviceid>%@</deviceid>\n"
+                             "<version>%@</version>\n"
+                             "<updatetime>%@</updatetime>\n"
+                             "</req>\n"
+                             "</GetYunLiInfo>\n"
+                             "</soap12:Body>\n"
+                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+    NSLog(@"soapMessage[%@]",soapMessage);
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    
+    NSURL *url = [NSURL URLWithString:PubInfo.baseUrl];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 请求
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    
+    // 如果连接已经建好，则初始化data
+    if( theConnection )
+    {
+        webData = [[NSMutableData data] retain];
+    }
+    else
+    {
+        NSLog(@"theConnection is NULL");
+    }
+}
+
 - (void)getTmIndexdefine
 {
     NSLog(@"开始 getTmIndexdefine  iSoapDone=%d   iSoapNum=%d",iSoapDone,iSoapNum);
@@ -1393,9 +1452,9 @@ NSString* alertMsg;
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"3 DONE. Received Bytes: %d", [webData length]);
+//    NSLog(@"3 DONE. Received Bytes: %d", [webData length]);
     NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
-    NSLog(@"theXML[%@]",theXML);
+//    NSLog(@"theXML[%@]",theXML);
     [theXML release];
     
     //重新加載xmlParser
@@ -3295,6 +3354,59 @@ NSString* alertMsg;
             recordResults = YES;
         }
         else if( [elementName isEqualToString:@"LWSUM"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        
+    }
+    //解析NTFactoryFreightVolume
+    if(iSoap==30)
+    {
+        if( [elementName isEqualToString:@"TRADETIME"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"TRADE"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"TRADENAME"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"CATEGORY"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"FACTORYNAME"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"LW"])
         {
             if(!soapResults)
             {
@@ -5262,7 +5374,65 @@ NSString* alertMsg;
             
         }
     }
+      
+    //解析NTFactoryFreightVolume
+    if(iSoap==30)
+    {
+        if( [elementName isEqualToString:@"TRADETIME"])
+        {
+            if(!factoryFreightVolume)
+                factoryFreightVolume = [[NTFactoryFreightVolume alloc]init];
+            
+            factoryFreightVolume.TRACETIME=soapResults;
+            
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"TRADE"])
+        {
+            factoryFreightVolume.TRADE = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"TRADENAME"])
+        {
+            factoryFreightVolume.TRADENAME = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"CATEGORY"])
+        {
+            factoryFreightVolume.CATEGORY = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"FACTORYNAME"])
+        {
+            factoryFreightVolume.FACTORYNAME = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"LW"])
+        {
+            factoryFreightVolume.LW = [soapResults integerValue];
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+            
+            [NTFactoryFreightVolumeDao insert:factoryFreightVolume];
+            [factoryFreightVolume release];
+            factoryFreightVolume=nil;
 
+        }
+
+    }
+    
+    
        //解析  Thshiptrans   调度日志
     if (iSoap==21) {
         if ([elementName isEqualToString:@"RECID"]) {
@@ -5533,7 +5703,11 @@ NSString* alertMsg;
         
         iSoapNum--;
     }
-    
+    if (iSoapNTFactoryFreightVolumeDone==1) {
+        iSoapNTFactoryFreightVolumeDone=2;
+        
+        iSoapNum--;
+    }
     
     
     
@@ -5641,6 +5815,10 @@ NSString* alertMsg;
 -(NSInteger)iSoapNTShipCompanyTranShareDone
 {
     return iSoapNTShipCompanyTranShareDone;
+}
+-(NSInteger)iSoapNTFactoryFreightVolumeDone
+{
+    return iSoapNTFactoryFreightVolumeDone;
 }
 
 

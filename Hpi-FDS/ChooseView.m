@@ -14,6 +14,7 @@
 #import "VBFactoryTransVC.h"
 #import "VBTransChVC.h"
 #import "TH_ShipTransChVC.h"
+#import "FactoryFreightVolumeVC.h"
 
 @implementation ChooseView
 @synthesize tableView,iDArray,popover;
@@ -212,12 +213,10 @@
             [view1.typeButton   setTitle:@"煤种" forState:UIControlStateNormal];
         }
         
-        
-        
     }
     
     //新添  TH_SHIPTRANS    STAGE
-    else if (self.type=kshiptransStage) {
+    else if (self.type==kshiptransStage) {
         TH_ShipTransChVC *view1=(TH_ShipTransChVC *)self.parentMapView;
         view1.stageLabel.text=[self.iDArray objectAtIndex:[indexPath row    ]];
         if (![view1.stageLabel.text isEqualToString:All_]) {
@@ -230,7 +229,35 @@
         
         
     }
-    
+    //电厂类型
+    else if(kTYPE_FFV==self.type)
+    {
+        FactoryFreightVolumeVC *view1=(FactoryFreightVolumeVC*) self.parentMapView;
+        view1.typeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
+        if (![view1.typeLabel.text isEqualToString:All_]) {
+            view1.typeLabel.hidden=NO;
+            [view1.typeButton setTitle:@"" forState:UIControlStateNormal];
+        }
+        else {
+            view1.typeLabel.hidden=YES;
+            [view1.typeButton setTitle:@"电厂类型" forState:UIControlStateNormal];
+        }
+    }
+    //贸易性质
+    else if(kTRADE_FFV==self.type)
+    {
+        FactoryFreightVolumeVC *view1=(FactoryFreightVolumeVC*) self.parentMapView;
+        view1.tradeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
+        if (![view1.tradeLabel.text isEqualToString:All_]) {
+            view1.tradeLabel.hidden=NO;
+            [view1.tradeButton setTitle:@"" forState:UIControlStateNormal];
+        }
+        else {
+            view1.tradeLabel.hidden=YES;
+            [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+        }
+    }
+
     
     
     
