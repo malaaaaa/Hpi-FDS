@@ -42,10 +42,17 @@ static  int iSoapNTShipCompanyTranShareDone=0;
 //新添调度日志
 static int iSoapThShipTransDone=0;
 
+static int iSoapTbLateFeeDone=0;
+
+
+
+
+
+
 UIAlertView *alert;
 NSString* alertMsg;
 
-@synthesize tgFactory,tgPort,tgShip,tsFileinfo,tmIndexinfo,tmIndexdefine,tmIndextype,vbShiptrans,vbTransplan,tmCoalinfo,tmShipinfo,vbFactoryTrans,tfFactory,tbFactoryState,tfShipCompany,tfSupplier,tfCoalType,tsShipStage,thshiptrans,  ntShipCompanyTranShare ;
+@synthesize tgFactory,tgPort,tgShip,tsFileinfo,tmIndexinfo,tmIndexdefine,tmIndextype,vbShiptrans,vbTransplan,tmCoalinfo,tmShipinfo,vbFactoryTrans,tfFactory,tbFactoryState,tfShipCompany,tfSupplier,tfCoalType,tsShipStage,thshiptrans, tblateFee ,  ntShipCompanyTranShare ;
 @synthesize soapResults,webData,xmlParser,webVC,tiListinfo;
 
 #pragma Soap alert
@@ -114,9 +121,18 @@ NSString* alertMsg;
     if (tsShipStage) {
         [tsShipStage release];
     }
+    //新添调度日志
+    
     if (thshiptrans) {
         [thshiptrans release];
     }
+    if (tblateFee) {
+        [tblateFee release];
+    }
+    
+    
+    
+    
     
     if (ntShipCompanyTranShare) {
         [ntShipCompanyTranShare release];
@@ -125,9 +141,87 @@ NSString* alertMsg;
     [super dealloc];
 }
 
-#pragma Soap connection
+#pragma mark  PubRequestMethod  调用时将iSoap_tableName_Done  变量设为1
+
+//请求  公共方法     调用时将iSoap_tableName_Done  变量设为1
+-(void)getTableDete:(NSString *)CurrentMethodName:(NSInteger)Set_iSoapValue :(NSString *)RequestXMLMethodName
+{
+
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(CurrentMethodName) userInfo:NULL repeats:NO];
+        return;
+    }
+    //出错
+    if (iSoapDone==3) {
+        iSoapNum--;
+        if (iSoapNum<1) {
+            iSoapDone=1;
+        }
+        return;
+    }
+  iSoapDone=0;
+
+    NSLog(@"开始  %@",CurrentMethodName);
+
+    recordResults = NO;
+    iSoap=Set_iSoapValue;
+    NSString *soapMessage = [NSString stringWithFormat:
+                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                             "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                             "<soap12:Body>\n"
+                             "<%@  xmlns=\"http://tempuri.org/\">\n"
+                             "<req>\n"
+                             "<deviceid>%@</deviceid>\n"
+                             "<version>%@</version>\n"
+                             "<updatetime>%@</updatetime>\n"
+                             "</req>\n"
+                             "</%@>\n"
+                             "</soap12:Body>\n"
+                             "</soap12:Envelope>\n",RequestXMLMethodName,PubInfo.deviceID,version,PubInfo.currTime,RequestXMLMethodName];
+
+    NSLog(@"soapMessage[%@]",soapMessage);
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    
+    NSURL *url = [NSURL URLWithString:PubInfo.baseUrl];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 请求
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    
+    // 如果连接已经建好，则初始化data
+    if( theConnection )
+    {
+        webData = [[NSMutableData data] retain];
+    }
+    else
+    {
+        NSLog(@"theConnection is NULL");
+    }
+    
+}
+
+
+-(void)getNtShipCompanyTranShare
+{
+
+
+}
+
+
+
+#pragma mark  connection  
+
 - (void)getTgPort
 {
+      NSLog(@"开始 getTgPort");
+    iSoapTgPortDone=1;
+    [self getTableDete:@"getTgPort" :0:@"GetTgPort"];
+    
+    /*
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTgPort) userInfo:NULL repeats:NO];
         return;
@@ -142,7 +236,7 @@ NSString* alertMsg;
     }
     iSoapDone=0;
     iSoapTgPortDone=1;
-    NSLog(@"开始 getTgPort");
+  
     recordResults = NO;
     iSoap=0;
     NSString *soapMessage = [NSString stringWithFormat:
@@ -179,9 +273,19 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
+     */
+     
 }
 - (void)getTgFactory
 {
+     NSLog(@"开始 getTgShip");
+    
+    iSoapTgFactoryDone=1;
+    
+    [self getTableDete:@"getTgFactory" :1:@"GetTgFactory"];
+    
+    /*
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTgFactory) userInfo:NULL repeats:NO];
         return;
@@ -234,10 +338,17 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
+     */
 }
 
 - (void)getTgShip
 {
+    
+    NSLog(@"开始 getTgShip");
+    iSoapTgShipDone=1;
+    [self getTableDete:@"getTgShip" :2 :@"GetTgShip"];
+    
+    /*
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTgShip) userInfo:NULL repeats:NO];
         return;
@@ -293,10 +404,17 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
+     */
 }
 
 - (void)getVbShiptrans
 {
+    
+     NSLog(@"开始 getTmIndexdefine");
+     iSoapVbShiptransDone=1;
+    [self getTableDete:@"getVbShiptrans" :7 :@"GetShipTrans"];
+    /*
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getVbShiptrans) userInfo:NULL repeats:NO];
         return;
@@ -349,10 +467,17 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
+     */
+     
 }
 
 - (void)getTfFactory
 {
+     NSLog(@"开始 getTfFactory");
+     iSoapTfFactoryDone=1;
+    [self getTableDete:@"getTfFactory" :13 :@"GetFactoryInfo"];
+    /*
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfFactory) userInfo:NULL repeats:NO];
         return;
@@ -405,9 +530,18 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
+     */
+     
 }
 - (void)getTbFactoryState
 {
+    
+    NSLog(@"开始 GetFactoryStateInfo");
+     iSoapTbFactoryStateDone=1;
+    [self getTableDete:@"getTbFactoryState" :14 :@"GetFactoryStateInfo"];
+    
+    /*
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTbFactoryState) userInfo:NULL repeats:NO];
         return;
@@ -460,9 +594,20 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
+     */
+     
+     
 }
 - (void)getVbFactoryTrans
 {
+    
+    NSLog(@"开始 getTmIndexdefine");
+    
+    iSoapVbFactoryTransDone=1;
+    
+    [self getTableDete:@"getVbFactoryTrans" :15:@"GetFactoryTransInfo"];
+    /*
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getVbFactoryTrans) userInfo:NULL repeats:NO];
         return;
@@ -515,9 +660,18 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
+     */
+     
+     
 }
 - (void)getTfShipCompany
 {
+    
+  NSLog(@"开始 getTfShipCompany"); 
+     iSoapTfShipCompanyDone=1;
+    
+    [self getTableDete:@"getTfShipCompany" :16:@"GetShipCompanyInfo"];
+    /*
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfShipCompany) userInfo:NULL repeats:NO];
         return;
@@ -569,10 +723,17 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
+     
+     
 }
 - (void)getTfSupplier
 {
+    
+     NSLog(@"开始 getTfSupplier"); 
+     iSoapTfSupplierDone=1;
+    [self getTableDete:@"getTfSupplier" :17 :@"GetSupplierInfo"];
+    /*
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfSupplier) userInfo:NULL repeats:NO];
         return;
@@ -624,11 +785,18 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
+     
+     
 }
 - (void)getTfCoalType
 {
     NSLog(@"开始执行煤种同步..............");
+      iSoapTfCoalTypeDone=1;
+    [self getTableDete:@"getTfCoalType" :18:@"GetCoalTypeInfo"];
+    /*
+    
+    
     
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfSupplier) userInfo:NULL repeats:NO];
@@ -681,10 +849,19 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
+     
+     
 }
 - (void)getTsShipStage
 {
+     NSLog(@"开始 getTsShipStage");
+     iSoapTsShipStageDone=1;
+    [self getTableDete:@"getTsShipStage" :19 :@"GetShipStageInfo"];
+    
+    /*
+    
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfSupplier) userInfo:NULL repeats:NO];
         return;
@@ -736,11 +913,19 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
+     
+     
 }
 - (void)getTmIndexdefine
 {
     NSLog(@"开始 getTmIndexdefine  iSoapDone=%d   iSoapNum=%d",iSoapDone,iSoapNum);
+    
+      iSoapTmIndexdefineDone=1;
+    [self getTableDete:@"getTmIndexdefine": 5 :@"GetTmIndexDefine"];
+    
+    /*
+    
     //等待上一个请求结束后在开始
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmIndexdefine) userInfo:NULL repeats:NO];
@@ -794,11 +979,16 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
 }
 
 - (void)getTmIndexinfo
 {
+    
+        NSLog(@"开始 getTmIndexinfo");
+      iSoapTmIndexinfoDone=1;
+    [self getTableDete:@"getTmIndexinfo" :4 :@"GetTmIndexInfo"];
+    /*    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmIndexinfo) userInfo:NULL repeats:NO];
         return;
@@ -850,11 +1040,17 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+     }*/
+
 }
 
 - (void)getTmIndextype
 {
+   NSLog(@"开始 getTmIndextype"); 
+        iSoapTmIndextypeDone=1;
+    
+    [self getTableDete:@"getTmIndextype" :6 :@"GetTmIndexType"];
+    /*    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmIndextype) userInfo:NULL repeats:NO];
         return;
@@ -906,11 +1102,18 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+     }*/
+
 }
 
 - (void)getTsFileinfo
 {
+        NSLog(@"开始 getTsFileinfo");
+    
+        iSoapTsFileinfoDone=1;
+    
+    [self getTableDete:@"getTsFileinfo" :3 :@"GetTsFileInfo"];
+    /*
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTsFileinfo) userInfo:NULL repeats:NO];
         return;
@@ -963,10 +1166,16 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
 }
 - (void)getVbTransplan
 {
+        NSLog(@"开始 getVbtransplan");
+    iSoapVbShiptransDone=1;
+    [self getTableDete:@"getVbTransplan" :9 :@"GetTransPlan"];
+    
+    
+    /*
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getVbTransplan) userInfo:NULL repeats:NO];
         return;
@@ -1018,10 +1227,19 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
 }
 - (void)getTmCoalinfo
 {
+    
+     NSLog(@"开始 getTmCoalinfo");
+    iSoapTmCoalinfoDone=1;
+    
+    [self getTableDete:@"getTmCoalinfo" :10 :@"GetCoalInfo"];
+    
+    
+    /*
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmCoalinfo) userInfo:NULL repeats:NO];
         return;
@@ -1073,7 +1291,7 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
 }
 //- (void)getTmtest
 //{
@@ -1105,6 +1323,12 @@ NSString* alertMsg;
 //}
 - (void)getTmShipinfo
 {    
+     NSLog(@"开始 getTmShipinfo");
+    
+        iSoapTmShipinfoDone=1;
+    [self getTableDete:@"getTmShipinfo" :11 :@"GetShipInfo"];
+    /*
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmShipinfo) userInfo:NULL repeats:NO];
         return;
@@ -1156,10 +1380,19 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
 }
 - (void)getTiListinfo
 {
+    
+    iSoapTiListinfoDone=1;
+    NSLog(@"开始 getTiListinfo");
+    [self getTableDete:@"getTiListinfo" :12:@"GetListInfo"];
+    
+    /*
+    
+    
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTiListinfo) userInfo:NULL repeats:NO];
         return;
@@ -1212,12 +1445,23 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
+     */
+     
 }
 
 //新添  解析调度日志表   TH_SHIPTRANS
 -(void)getTHShipTrans
 {
 
+    iSoapThShipTransDone=1;
+    NSLog(@"开始 getTHShipTrans");
+    
+    [self getTableDete:@"getTHShipTrans" :21 :@"GetThShipTransInfo"];
+    
+    
+    
+    /*
+    
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTHShipTrans) userInfo:NULL repeats:NO];
         return;
@@ -1273,11 +1517,82 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
+    }*/
 
 }
+//  滞期费
 
+-(void)getTBLateFee
+{
+    NSLog(@"滞期费........");
+    iSoapTbLateFeeDone=1;
+[self getTableDete:@"getTBLateFee" :23 :@"GetLateFeeInfo"];
+    
+    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTBLateFee) userInfo:NULL repeats:NO];
+        return;
+    }
+    //出错
+    if (iSoapDone==3) {
+        iSoapNum--;
+        if (iSoapNum<1) {
+            iSoapDone=1;
+        }
+        return;
+    }
+    iSoapDone=0;
 
+    iSoapTbLateFeeDone=1;
+    NSLog(@"开始 getTBLateFee");
+    recordResults = NO;
+    iSoap=23;
+    
+    NSString *soapMessage = [NSString stringWithFormat:
+                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                             "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                             "<soap12:Body>\n"
+                             
+                             "<GetThShipTransInfo     xmlns=\"http://tempuri.org/\">\n"
+                             
+                             "<req>\n"
+                             "<deviceid>%@</deviceid>\n"
+                             "<version>%@</version>\n"
+                             "<updatetime>%@</updatetime>\n"
+                             "</req>\n"
+                             
+                             "</GetThShipTransInfo>\n"
+                             
+                             "</soap12:Body>\n"
+                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+    NSLog(@"soapMessage[%@]",soapMessage);
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    
+    NSURL *url = [NSURL URLWithString:PubInfo.baseUrl];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 请求
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    
+    // 如果连接已经建好，则初始化data
+    if( theConnection )
+    {
+        webData = [[NSMutableData data] retain];
+    }
+    else
+    {
+        NSLog(@"theConnection is NULL");
+    }
+
+    */
+    
+    
+    
+}
 
 
 
@@ -3281,11 +3596,7 @@ NSString* alertMsg;
             }
             recordResults = YES;
         }
-        
-        
-        
-        
-              
+       
         else  if ([elementName isEqualToString:@"SHIPNAME"]){
             if(!soapResults)
             {
@@ -3387,9 +3698,309 @@ NSString* alertMsg;
         
     }
     
+    //解析 滞期费  
+    if (iSoap==23) {
+        
+        if ([elementName isEqualToString:@"DISPATCHNO"]) {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+            
+            
+        }
+        else  if ([elementName isEqualToString:@"PORTCODE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"PORTNAME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+
+        else  if ([elementName isEqualToString:@"FACTORYCODE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"FACTORYNAME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"COMID"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"COMPANY"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"SHIPID"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"SHIPNAME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"FEERATE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"ALLOWPERIOD"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"SUPID"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"SUPPLIER"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+
+        else  if ([elementName isEqualToString:@"TYPEID"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"COALTYPE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"TRADE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        
+        else  if ([elementName isEqualToString:@"KEYVALUE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"TRIPNO"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        
+        else  if ([elementName isEqualToString:@"LW"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else  if ([elementName isEqualToString:@"TRADETIME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }        
+        else  if ([elementName isEqualToString:@"P_ANCHORAGETIME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }   
+        else  if ([elementName isEqualToString:@"P_DEPARTTIME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        
+        else  if ([elementName isEqualToString:@"P_CONFIRM"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"P_CONTIME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"P_CONUSER"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"F_ANCHORAGETIME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        
+        else  if ([elementName isEqualToString:@"F_DEPARTTIME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+
+        else  if ([elementName isEqualToString:@"F_CONFIRM"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"F_CONTIME"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"F_CONUSER"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"LATEFEE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"P_CORRECT"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        
+        else  if ([elementName isEqualToString:@"P_NOTE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"F_CORRECT"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"F_NOTE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"ISCAL"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"CURRENCY"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        else  if ([elementName isEqualToString:@"EXCHANGERATE"]){
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }  
+        
+    }
     
-
-
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
@@ -5264,29 +5875,18 @@ NSString* alertMsg;
             [soapResults release];
             soapResults=nil;
         }
-
-        
-        
-        
-        
-        
         else  if ([elementName isEqualToString:@"PORTNAME"]){
             thshiptrans.PORTNAME=soapResults;
             recordResults=FALSE;
             [soapResults release];
             soapResults=nil;
         }
-
-       
-             
-                                                else  if ([elementName isEqualToString:@"SUPPLIER"]){
+       else  if ([elementName isEqualToString:@"SUPPLIER"]){
             thshiptrans.SUPPLIER=soapResults;
             recordResults=FALSE;
             [soapResults release];
             soapResults=nil;
         }
-      
-        
         else  if ([elementName isEqualToString:@"COALTYPE"]){
             thshiptrans.COALTYPE=soapResults;
             recordResults=FALSE;
@@ -5345,17 +5945,323 @@ NSString* alertMsg;
             [thshiptrans release];
             thshiptrans=nil;
 
+        }   
+   }
+
+    //解析 滞期费  
+    if (iSoap==23) {
+        
+        if ([elementName isEqualToString:@"DISPATCHNO"]) {
+            if(!tblateFee)
+            {
+                tblateFee=[[TB_Latefee alloc] init];
+            }
+            
+            tblateFee.DISPATCHNO=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+            
         }
-                          
-                       
-              
+        else  if ([elementName isEqualToString:@"PORTCODE"]){
+            tblateFee.PORTCODE=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }
+        else  if ([elementName isEqualToString:@"PORTNAME"]){
+            tblateFee.PORTNAME=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }
+        else  if ([elementName isEqualToString:@"FACTORYCODE"]){
+            tblateFee.FACTORYCODE=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+
+        }
+        else  if ([elementName isEqualToString:@"FACTORYNAME"]){
+            tblateFee.FACTORYNAME=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+            
+        }
+        else  if ([elementName isEqualToString:@"COMID"]){
+            tblateFee.COMID=[soapResults intValue];
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+
+        }
+        else  if ([elementName isEqualToString:@"COMPANY"]){
+            tblateFee.COMPANY=soapResults ;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+            
+        }
+        else  if ([elementName isEqualToString:@"SHIPID"]){
+            tblateFee.SHIPID=[soapResults intValue];
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }
+        else  if ([elementName isEqualToString:@"SHIPNAME"]){
+            tblateFee.SHIPNAME=soapResults ;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }
+        else  if ([elementName isEqualToString:@"FEERATE"]){
+            tblateFee.FEERATE=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+
+        }
+        else  if ([elementName isEqualToString:@"ALLOWPERIOD"]){
+            tblateFee.ALLOWPERIOD=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }
+        else  if ([elementName isEqualToString:@"SUPID"]){
+            tblateFee.SUPID=[soapResults intValue];
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+
+        }
+        else  if ([elementName isEqualToString:@"SUPPLIER"]){
+            tblateFee.SUPPLIER=soapResults ;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+            
+        }
+        else  if ([elementName isEqualToString:@"TYPEID"]){
+            tblateFee.TYPEID=[soapResults intValue];
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }
+        else  if ([elementName isEqualToString:@"COALTYPE"]){
+            tblateFee.COALTYPE=soapResults ;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }
+        else  if ([elementName isEqualToString:@"TRADE"]){
+            tblateFee.TRADE=soapResults; 
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+
+        }
         
+        else  if ([elementName isEqualToString:@"KEYVALUE"]){
+            tblateFee.KEYVALUE=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+
+        }
+        else  if ([elementName isEqualToString:@"TRIPNO"]){
+            tblateFee.TRIPNO=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+
+        }
         
+        else  if ([elementName isEqualToString:@"LW"]){
+            tblateFee.LW=[soapResults intValue];
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;        }
+        else  if ([elementName isEqualToString:@"TRADETIME"]){
+            tblateFee.TRADETIME=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;        }        
+        else  if ([elementName isEqualToString:@"P_ANCHORAGETIME"]){
+            tblateFee.P_ANCHORAGETIME=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;       
+        }   
+        else  if ([elementName isEqualToString:@"P_DEPARTTIME"]){
+            tblateFee.P_DEPARTTIME=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;        }  
         
+        else  if ([elementName isEqualToString:@"P_CONFIRM"]){
+            tblateFee.P_CONFIRM=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"P_CONTIME"]){
+            tblateFee.P_CONTIME=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"P_CONUSER"]){
+            tblateFee.P_CONUSER=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"F_ANCHORAGETIME"]){
+            tblateFee.F_ANCHORAGETIME=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
         
+        else  if ([elementName isEqualToString:@"F_DEPARTTIME"]){
+            tblateFee.F_DEPARTTIME=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        
+        else  if ([elementName isEqualToString:@"F_CONFIRM"]){
+            tblateFee.F_CONFIRM=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"F_CONTIME"]){
+            tblateFee.F_CONTIME=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"F_CONUSER"]){
+            tblateFee.F_CONUSER=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"LATEFEE"]){
+            tblateFee.LATEFEE=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"P_CORRECT"]){
+            tblateFee.P_CORRECT=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        
+        else  if ([elementName isEqualToString:@"P_NOTE"]){
+            tblateFee.P_NOTE=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"F_CORRECT"]){
+            tblateFee.F_CORRECT=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"F_NOTE"]){
+            tblateFee.F_NOTE=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"ISCAL"]){
+            tblateFee.ISCAL=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"CURRENCY"]){
+            tblateFee.CURRENCY=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+        }  
+        else  if ([elementName isEqualToString:@"EXCHANGERATE"]){
+            tblateFee.EXCHANGERATE=soapResults;
+            
+            recordResults =FALSE;
+            [soapResults    release];
+            soapResults=nil;
+            
+            [TB_LatefeeDao delete:tblateFee];
+            [TB_LatefeeDao insert:tblateFee];
+            [tblateFee release];
+            
+            tblateFee=nil;
+            
+            
+            
+
+        }  
         
     }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
@@ -5489,6 +6395,17 @@ NSString* alertMsg;
         iSoapThShipTransDone=2;
         iSoapNum--;
     }
+//滞期费
+if (iSoapTbLateFeeDone==1) {
+    iSoapTbLateFeeDone=2;
+    iSoapNum--;
+}
+    
+    
+    
+    
+    
+    
 
     
 }
@@ -5594,13 +6511,15 @@ NSString* alertMsg;
 -(NSInteger)iSoapThShipTransDone
 {
 
-
     return iSoapThShipTransDone;
 
+}
+//滞期费  
+-(NSInteger)iSoapTbLateFeeDone
+{
+    return iSoapTbLateFeeDone;
 
 }
-
-
 
 
 

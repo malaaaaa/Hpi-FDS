@@ -15,7 +15,7 @@
 #import "DataGridComponent.h"
 #import "VBShipDetailController.h"
 #import "ShipCompanyTransShareVC.h"
-
+#import "TB_LatefeeChVC.h"
 @class VBFactoryTransVC;
 
 @interface DataQueryVC : UIViewController<UITableViewDataSource,UITabBarDelegate,UIPopoverControllerDelegate>
@@ -30,6 +30,11 @@
     
     VBFactoryTransVC  *vbFactoryTransVC;
     TH_ShipTransChVC  *thShipTransVC;
+    //新添 滞期费
+    TB_LatefeeChVC  *tblatefeeVC;
+    
+    
+    
     
     DataGridComponentDataSource *dataSource;
     
@@ -54,6 +59,9 @@
 
 @property (nonatomic,retain) VBFactoryTransVC *vbFactoryTransVC;
 @property (nonatomic,retain) TH_ShipTransChVC  *thShipTransVC;
+//新添滞期费
+ @property (nonatomic,retain)  TB_LatefeeChVC  *tblatefeeVC;
+
 
 
 

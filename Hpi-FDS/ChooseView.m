@@ -14,6 +14,7 @@
 #import "VBFactoryTransVC.h"
 #import "VBTransChVC.h"
 #import "TH_ShipTransChVC.h"
+#import "TB_LatefeeChVC.h"
 
 @implementation ChooseView
 @synthesize tableView,iDArray,popover;
@@ -75,6 +76,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+   
+    
     //MapViewController *mapView=(MapViewController*) self.parentMapView;
     if(self.type==kPORT)
     {
@@ -215,9 +219,10 @@
         
         
     }
-    
+   
     //新添  TH_SHIPTRANS    STAGE
-    else if (self.type=kshiptransStage) {
+    else if (self.type==kshiptransStage) {
+        
         TH_ShipTransChVC *view1=(TH_ShipTransChVC *)self.parentMapView;
         view1.stageLabel.text=[self.iDArray objectAtIndex:[indexPath row    ]];
         if (![view1.stageLabel.text isEqualToString:All_]) {
@@ -230,9 +235,25 @@
         
         
     }
+
+      
     
-    
-    
+    //滞期费     供货方
+    else if (self.type==kSUPPLIER) {
+       
+        TB_LatefeeChVC *view1=(TB_LatefeeChVC *)self.parentMapView  ;
+     
+        view1.supLable.text=[self.iDArray objectAtIndex:indexPath.row];
+        if (![view1.supLable.text isEqualToString:All_]) {
+            view1.supLable.hidden=NO;
+            [view1.supButton     setTitle:@"" forState:UIControlStateNormal];
+        }else {
+            view1.supLable  .hidden=YES;
+            [view1.supButton setTitle:@"供货方" forState:UIControlStateNormal  ];
+        }
+        
+        
+    }
     
     
     

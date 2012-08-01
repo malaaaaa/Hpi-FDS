@@ -9,6 +9,9 @@
 #import "NSString+MD5Addition.h"
 #import "UIDevice+IdentifierAddition.h"
 #import "TH_ShipTransDao.h"
+#import "TB_LatefeeDao.h"
+
+
 @implementation PubInfo
 static NSString *hostName = @"http://10.2.17.121";     //http://172.16.1.16:84
 static NSString *port = @":82";                  //:82
@@ -67,6 +70,11 @@ static NSString *deviceID;
     //新添  thshiptrans 调度日志  
     [TH_ShipTransDao openDataBase];
     [TH_ShipTransDao initDb];
+    //新添  tblatefee  
+    [TB_LatefeeDao openDataBase ];
+    [TB_LatefeeDao initDb];
+    
+    
     
     [NTShipCompanyTranShareDao openDataBase];
     [NTShipCompanyTranShareDao initDb];
@@ -178,6 +186,7 @@ static NSString *deviceID;
     //用[NSDate date]可以获取系统当前时间
     return [dateFormatter stringFromDate:[NSDate date]];
 }
+#pragma mark   时间处理函数
 
 +(NSInteger)getMonthDifference:(NSString *)startDate :(NSString *)endDate
 {
@@ -207,4 +216,222 @@ static NSString *deviceID;
     }
     return monthNum;
 }
+
+
+#pragma mark  计算两个时间段的和    [%d天%d小时%d分钟]  [%d天%d小时%d分钟]     string1/string2  [days,@"days",hours,@"hours",minutes,@"minutes"]
++(NSString *)getTotalTime:(NSMutableDictionary *)string1:(NSMutableDictionary *)string2 
+{
+    int hadd=0;
+    int dadd=0;
+    int m=0;
+    int h =0;
+    int d=0;
+    NSString *str;  
+    if (string1&&string2) {
+        NSLog(@"都不为空.........");
+        NSLog(@"string1[%d]",string1.count    );
+        NSLog(@"days:%@",[string1 objectForKey:@"days"]);
+        NSLog(@"hours:%@",[string1 objectForKey:@"hours"]);
+        NSLog(@"minutes:%@",[string1 objectForKey:@"minutes"]);
+        
+        
+        NSLog(@"string2[%d]",string2.count   );
+        NSLog(@"days:%@",[string2 objectForKey:@"days"]);
+        NSLog(@"hours:%@",[string2 objectForKey:@"hours"]);
+        NSLog(@"minutes:%@",[string2 objectForKey:@"minutes"]);
+        NSInteger mintues=[[string1 objectForKey:@"minutes"] intValue]+[[string2 objectForKey:@"minutes"] intValue];
+        if (mintues>60) {
+            hadd=mintues/60;
+            
+            m=mintues%60;
+            
+        }else {
+            m=mintues;
+        }
+        NSInteger hours=[[string1 objectForKey:@"hours"] intValue]+[[string2 objectForKey:@"hours"] intValue]+hadd;
+        hadd=0;
+        if (hours>24) {
+            dadd=hours/24;
+            h=hours%24;
+        }else {
+            h=hours;
+        }
+        NSInteger days=[[string1 objectForKey:@"days"] intValue]+[[string2 objectForKey:@"days"] intValue]+dadd;
+        dadd=0;
+        d=days;
+        //可以不判断   先不改
+        if(d!=0)
+        {
+            str=[NSString stringWithFormat:@"%d天%d小时%d分钟",d,h,m];
+            return  str;
+        }
+        else if(d==0&&h!=0)
+        {
+            str=[NSString stringWithFormat:@"%d小时%d分钟",h,m];
+            return str;
+        }
+        else if(d==0&&h==0&&m!=0)
+        {
+            str=[NSString stringWithFormat:@"%d分钟",m];
+            return str;
+        }else
+        {
+            
+            str=@"0天0小时0分钟";
+            return str;
+            
+        } 
+        
+    }else {
+        str=@"0天0小时0分钟";
+        
+        return str;
+    }
+    
+    
+}
+
+#pragma mark  指定格式formateStr @"yyyy/MM/dd"  格式化数据库里的字符串时间返回指定格式字符串 或 “未知”
+
++(NSString *)formaDateTime:(NSString *)string   FormateString:(NSString *)formateStr
+{
+    NSString *str;
+    NSDateFormatter *formater=[[NSDateFormatter alloc] init];
+    [formater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    NSDateFormatter *formater1=[[NSDateFormatter alloc] init];
+    [formater1 setDateFormat:@"yyyy/MM/dd"];
+    NSDateFormatter *formater2=[[NSDateFormatter alloc] init];
+    [formater2 setDateFormat:[NSString stringWithFormat:@"%@",formateStr]];
+    NSString *date=[NSString  stringWithFormat:@"%@",[formater1 stringFromDate:[formater dateFromString:string]]];
+    NSString *date1=[NSString  stringWithFormat:@"%@",[formater2 stringFromDate:[formater dateFromString:string]]];
+    NSLog(@"formaDateTime---date--yyyy-MM-dd--:%@",date);
+    if (![date isEqualToString:@"2000/01/01"]&&![date isEqualToString:@"1900/01/01"]&&![date isEqualToString:@"0001/01/01"]) {
+        str=[NSString stringWithFormat:@"%@",date1]; 
+        return str;
+    }else {
+        str=[NSString stringWithFormat:@"%@",@"未知"];
+        NSLog(@"未知：%@",date);
+        return  str;
+    }
+    [date release];
+    [formater2 release];
+    [formater release];
+    [formater1 release];
+}
+
+#pragma mark 计算两个时间之间的时间段返回字典            [days,@"days",hours,@"hours",minutes,@"minutes"]     string1(yyyy-MM-dd HH:mm:ss) 和string2(yyyy-MM-dd HH:mm:ss)    
+
+ +(NSMutableDictionary *)formatInfoDate1:(NSString *)string1 :(NSString *)string2 {
+    
+    NSMutableDictionary *d;
+    if ([[PubInfo formaDateTime:string1   FormateString:@"yyyy/MM/dd"] isEqualToString:@"未知"]||[[PubInfo formaDateTime:string2  FormateString:@"yyyy/MM/dd"] isEqualToString:@"未知"]      ) {
+        d=[[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",0],@"days",[NSString stringWithFormat:@"%d",0],@"hours",[NSString stringWithFormat:@"%d",0],@"minutes", nil];
+        
+    }else {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        NSDate *date1 = [formatter dateFromString:string1];
+        NSDate *date2 = [formatter dateFromString:string2];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        unsigned int unitFlag = NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit;
+        
+        NSDateComponents *components = [calendar components:unitFlag fromDate:date1 toDate:date2 options:0];
+        int days    =fabs([components day]) ;
+        int hours   = fabs([components hour]);
+        int minutes =fabs([components minute]) ;
+        
+        NSLog(@"days :%d", days);
+        NSLog(@" hours :%d",hours);
+        NSLog(@" minutes :%d",minutes);
+        
+        
+        d=[[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",days],@"days",[NSString stringWithFormat:@"%d",hours],@"hours",[NSString stringWithFormat:@"%d",minutes],@"minutes", nil];
+        [formatter release];
+        
+    }
+    
+    return d;
+    
+}
+
+
+#pragma  mark  计算两个时间之间的时间段 返回 %d天%d小时%d分钟         string1(yyyy-MM-dd HH:mm:ss) 和string2(yyyy-MM-dd HH:mm:ss)    
++(NSString *)formatInfoDate:(NSString *)string1 :(NSString *)string2{
+    
+    NSString * str;
+    NSLog(@"formatInfoDate-string1:【%@】",[self formaDateTime:string1   FormateString:@"yyyy/MM/dd"]);
+    NSLog(@"formatInfoDate-string2:【%@】",[self formaDateTime:string2   FormateString:@"yyyy/MM/dd"]);
+    
+    if ([[self formaDateTime:string1   FormateString:@"yyyy/MM/dd"] isEqualToString:@"未知"]||[[self formaDateTime:string2   FormateString:@"yyyy/MM/dd"] isEqualToString:@"未知"]      ) {
+        str=[NSString stringWithFormat:@"%@",@"0天0小时0分钟"];
+        
+        return  str;
+        
+    }else {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        NSDate *date1 = [formatter dateFromString:string1];
+        NSDate *date2 = [formatter dateFromString:string2];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        unsigned int unitFlag = NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit;
+        
+        NSDateComponents *components = [calendar components:unitFlag fromDate:date1 toDate:date2 options:0];
+        int days    =fabs([components day]) ;
+        int hours   = fabs([components hour]);
+        int minutes =fabs([components minute]) ;
+        
+        NSLog(@"days :%d", days);
+        NSLog(@" hours :%d",hours);
+        NSLog(@" minutes :%d",minutes);
+        [formatter release];
+        
+        if(days>=0&&hours>=0&&minutes>=0)
+        {
+            //先不改
+            if(days!=0)
+            {
+                
+                str=[NSString stringWithFormat:@"%d天%d小时%d分钟",days,hours,minutes];
+                
+                return str;
+            }
+            else if(days==0&&hours!=0)
+            {
+                str=[NSString stringWithFormat:@"0天%d小时%d分钟",hours,minutes];
+                return str;
+            }
+            else if(days==0&&hours==0&&minutes!=0)
+            {
+                
+                str=[NSString stringWithFormat:@"0天0小时%d分钟",minutes];
+                
+                return str;
+            }
+            else
+            {
+                
+                
+                str=@"0天0小时0分钟";
+                return str;
+            }
+        }
+        else
+        {
+            
+            
+            str=@"0天0小时0分钟";
+            return str;
+        }
+        
+    }
+    
+    
+}
+
+
+
+
+
+
+
 @end

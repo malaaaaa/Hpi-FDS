@@ -168,21 +168,26 @@
 		14E4586715622CCD0015258C /* MarketOneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E4586515622CCC0015258C /* MarketOneController.xib */; };
 		2A16D20C15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A16D20A15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m */; };
 		2A16D20D15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */; };
+		2A25AB1515C67CD3008500B5 /* TB_LatefeeChDial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A25AB1315C67CD3008500B5 /* TB_LatefeeChDial.m */; };
+		2A25AB1615C67CD3008500B5 /* TB_LatefeeChDial.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A25AB1415C67CD3008500B5 /* TB_LatefeeChDial.xib */; };
 		2A2FA33415BFF74400B71C7D /* NSString+Verify.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA32C15BFF74400B71C7D /* NSString+Verify.m */; };
 		2A2FA33515BFF74400B71C7D /* NTShipCompanyTranShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA32E15BFF74400B71C7D /* NTShipCompanyTranShare.m */; };
 		2A2FA33615BFF74400B71C7D /* NTShipCompanyTranShareDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */; };
 		2A2FA33715BFF74400B71C7D /* ShipCompanyTransShareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA33215BFF74400B71C7D /* ShipCompanyTransShareVC.m */; };
 		2A2FA33815BFF74400B71C7D /* ShipCompanyTransShareVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */; };
+		2A692C8E15C134D8007A1BE7 /* TB_Latefee.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A692C8B15C134D8007A1BE7 /* TB_Latefee.m */; };
+		2A692C8F15C134D8007A1BE7 /* TB_LatefeeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A692C8D15C134D8007A1BE7 /* TB_LatefeeDao.m */; };
 		2A7B338515B7EE73006B7994 /* TH_ShipTrans.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B338415B7EE73006B7994 /* TH_ShipTrans.m */; };
 		2A7B338B15B7F431006B7994 /* TfSupplier.m in Sources */ = {isa = PBXBuildFile; fileRef = D91A487415B648A20020EEA0 /* TfSupplier.m */; };
 		2A7B338C15B7F431006B7994 /* TfShipCompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A850115B54237001CC03A /* TfShipCompanyDao.m */; };
 		2A7B339015B80CD2006B7994 /* VBFactoryTransVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B338F15B80CD2006B7994 /* VBFactoryTransVC.m */; };
 		2A7B339315B80D1E006B7994 /* MultipleSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B339215B80D1E006B7994 /* MultipleSelectView.m */; };
 		2A7B339615B80DD5006B7994 /* TH_ShipTransDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B339515B80DD3006B7994 /* TH_ShipTransDao.m */; };
+		2A8154D915C2645700D4AE2C /* TB_LatefeeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8154D815C2645700D4AE2C /* TB_LatefeeChVC.m */; };
+		2A8154DB15C2664D00D4AE2C /* TB_LatefeeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8154DA15C2664D00D4AE2C /* TB_LatefeeChVC.xib */; };
 		2AD84EA115B91B2B00D91111 /* TH_ShipTransChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */; };
 		2AD84EA215B91B2B00D91111 /* TH_ShipTransChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */; };
 		D90A84FE15B54224001CC03A /* TfShipCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A84FD15B54224001CC03A /* TfShipCompany.m */; };
-		D90A850215B54237001CC03A /* TfShipCompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A850115B54237001CC03A /* TfShipCompanyDao.m */; };
 		D90C8EC015BF9DD90009626B /* BrokenLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C8EBF15BF9DD80009626B /* BrokenLineGraphView.m */; };
 		D90C8EC415BFD03F0009626B /* BrokenLineGraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C8EC315BFD03F0009626B /* BrokenLineGraphData.m */; };
 		D9190F2F15AE5950003F672C /* VBFactoryTransDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D9190F2D15AE5950003F672C /* VBFactoryTransDetailVC.m */; };
@@ -196,11 +201,6 @@
 		D92960D615AA785C0042D6BD /* TfFactoryDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D92960D515AA785B0042D6BD /* TfFactoryDao.m */; };
 		D92960D915AA80EA0042D6BD /* TbFactoryState.m in Sources */ = {isa = PBXBuildFile; fileRef = D92960D815AA80E80042D6BD /* TbFactoryState.m */; };
 		D92960DC15AA810A0042D6BD /* TbFactoryStateDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D92960DB15AA81090042D6BD /* TbFactoryStateDao.m */; };
-		D93C154315BCFA68000C43B4 /* NTShipCompanyTranShare.m in Sources */ = {isa = PBXBuildFile; fileRef = D93C154215BCFA67000C43B4 /* NTShipCompanyTranShare.m */; };
-		D93C154615BCFA7F000C43B4 /* NTShipCompanyTranShareDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D93C154515BCFA7E000C43B4 /* NTShipCompanyTranShareDao.m */; };
-		D93C154915BD38EA000C43B4 /* NSString+Verify.m in Sources */ = {isa = PBXBuildFile; fileRef = D93C154815BD38EA000C43B4 /* NSString+Verify.m */; };
-		D9454D3815B92D9C000AD63E /* ShipCompanyTransShareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D9454D3615B92D9B000AD63E /* ShipCompanyTransShareVC.m */; };
-		D9454D3915B92D9C000AD63E /* ShipCompanyTransShareVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9454D3715B92D9B000AD63E /* ShipCompanyTransShareVC.xib */; };
 		D9A8381815B7EF89002D83C2 /* MultipleSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */; };
 		D9A8381915B7EF89002D83C2 /* VBFactoryTransVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8381715B7EF89002D83C2 /* VBFactoryTransVC.xib */; };
 		D9DDDDC3159060150023D88A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05933BA01524557C00EE32A2 /* libxml2.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -450,6 +450,9 @@
 		2A16D20915BE9F0900FFF1B5 /* TH_ShipTransDetailCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransDetailCV.h; sourceTree = "<group>"; };
 		2A16D20A15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransDetailCV.m; sourceTree = "<group>"; };
 		2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TH_ShipTransDetailCV.xib; sourceTree = "<group>"; };
+		2A25AB1215C67CD2008500B5 /* TB_LatefeeChDial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TB_LatefeeChDial.h; sourceTree = "<group>"; };
+		2A25AB1315C67CD3008500B5 /* TB_LatefeeChDial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TB_LatefeeChDial.m; sourceTree = "<group>"; };
+		2A25AB1415C67CD3008500B5 /* TB_LatefeeChDial.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TB_LatefeeChDial.xib; sourceTree = "<group>"; };
 		2A2FA32B15BFF74400B71C7D /* NSString+Verify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Verify.h"; sourceTree = "<group>"; };
 		2A2FA32C15BFF74400B71C7D /* NSString+Verify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Verify.m"; sourceTree = "<group>"; };
 		2A2FA32D15BFF74400B71C7D /* NTShipCompanyTranShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTShipCompanyTranShare.h; sourceTree = "<group>"; };
@@ -459,6 +462,10 @@
 		2A2FA33115BFF74400B71C7D /* ShipCompanyTransShareVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipCompanyTransShareVC.h; sourceTree = "<group>"; };
 		2A2FA33215BFF74400B71C7D /* ShipCompanyTransShareVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipCompanyTransShareVC.m; sourceTree = "<group>"; };
 		2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShipCompanyTransShareVC.xib; sourceTree = "<group>"; };
+		2A692C8A15C134D8007A1BE7 /* TB_Latefee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TB_Latefee.h; sourceTree = "<group>"; };
+		2A692C8B15C134D8007A1BE7 /* TB_Latefee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TB_Latefee.m; sourceTree = "<group>"; };
+		2A692C8C15C134D8007A1BE7 /* TB_LatefeeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TB_LatefeeDao.h; sourceTree = "<group>"; };
+		2A692C8D15C134D8007A1BE7 /* TB_LatefeeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TB_LatefeeDao.m; sourceTree = "<group>"; };
 		2A7B338315B7EE73006B7994 /* TH_ShipTrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTrans.h; sourceTree = "<group>"; };
 		2A7B338415B7EE73006B7994 /* TH_ShipTrans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTrans.m; sourceTree = "<group>"; };
 		2A7B338E15B80CD2006B7994 /* VBFactoryTransVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBFactoryTransVC.h; sourceTree = "<group>"; };
@@ -467,6 +474,9 @@
 		2A7B339215B80D1E006B7994 /* MultipleSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleSelectView.m; sourceTree = "<group>"; };
 		2A7B339415B80DD2006B7994 /* TH_ShipTransDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransDao.h; sourceTree = "<group>"; };
 		2A7B339515B80DD3006B7994 /* TH_ShipTransDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransDao.m; sourceTree = "<group>"; };
+		2A8154D715C2645700D4AE2C /* TB_LatefeeChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TB_LatefeeChVC.h; sourceTree = "<group>"; };
+		2A8154D815C2645700D4AE2C /* TB_LatefeeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TB_LatefeeChVC.m; sourceTree = "<group>"; };
+		2A8154DA15C2664D00D4AE2C /* TB_LatefeeChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TB_LatefeeChVC.xib; sourceTree = "<group>"; };
 		2AD84E9E15B91B2B00D91111 /* TH_ShipTransChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransChVC.h; sourceTree = "<group>"; };
 		2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransChVC.m; sourceTree = "<group>"; };
 		2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TH_ShipTransChVC.xib; sourceTree = "<group>"; };
@@ -507,15 +517,8 @@
 		D93C154515BCFA7E000C43B4 /* NTShipCompanyTranShareDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTShipCompanyTranShareDao.m; sourceTree = "<group>"; };
 		D93C154715BD38E9000C43B4 /* NSString+Verify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Verify.h"; sourceTree = "<group>"; };
 		D93C154815BD38EA000C43B4 /* NSString+Verify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Verify.m"; sourceTree = "<group>"; };
-		D9454D3515B92D9B000AD63E /* ShipCompanyTransShareVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipCompanyTransShareVC.h; sourceTree = "<group>"; };
-		D9454D3615B92D9B000AD63E /* ShipCompanyTransShareVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipCompanyTransShareVC.m; sourceTree = "<group>"; };
-		D9454D3715B92D9B000AD63E /* ShipCompanyTransShareVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShipCompanyTransShareVC.xib; sourceTree = "<group>"; };
 		D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultipleSelectView.xib; sourceTree = "<group>"; };
 		D9A8381715B7EF89002D83C2 /* VBFactoryTransVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBFactoryTransVC.xib; sourceTree = "<group>"; };
-		D9A8381A15B7EFAE002D83C2 /* MultipleSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleSelectView.h; sourceTree = "<group>"; };
-		D9A8381B15B7EFAE002D83C2 /* MultipleSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleSelectView.m; sourceTree = "<group>"; };
-		D9A8381C15B7EFAE002D83C2 /* VBFactoryTransVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBFactoryTransVC.h; sourceTree = "<group>"; };
-		D9A8381D15B7EFAE002D83C2 /* VBFactoryTransVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBFactoryTransVC.m; sourceTree = "<group>"; };
 		D9A8382015B8138F002D83C2 /* ASIDataDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataDecompressor.h; sourceTree = "<group>"; };
 		D9DDDDC4159063780023D88A /* gk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gk.png; sourceTree = "<group>"; };
 		D9DDDDC6159063780023D88A /* SummaryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryInfoViewController.h; sourceTree = "<group>"; };
@@ -651,6 +654,8 @@
 		057F6C5C152449EA00E0E435 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				2A25AB1415C67CD3008500B5 /* TB_LatefeeChDial.xib */,
+				2A8154DA15C2664D00D4AE2C /* TB_LatefeeChVC.xib */,
 				2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */,
 				2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */,
 				D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */,
@@ -770,6 +775,10 @@
 		059A1B95152551A100AB24C4 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
+				2A692C8A15C134D8007A1BE7 /* TB_Latefee.h */,
+				2A692C8B15C134D8007A1BE7 /* TB_Latefee.m */,
+				2A692C8C15C134D8007A1BE7 /* TB_LatefeeDao.h */,
+				2A692C8D15C134D8007A1BE7 /* TB_LatefeeDao.m */,
 				D9DDDDC9159063780023D88A /* TbTransplan.h */,
 				D91A488015B692600020EEA0 /* TsShipStage.h */,
 				D91A488115B692620020EEA0 /* TsShipStage.m */,
@@ -897,6 +906,8 @@
 		059A1BCB1525521A00AB24C4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2A8154D715C2645700D4AE2C /* TB_LatefeeChVC.h */,
+				2A8154D815C2645700D4AE2C /* TB_LatefeeChVC.m */,
 				2A2FA32B15BFF74400B71C7D /* NSString+Verify.h */,
 				2A2FA32C15BFF74400B71C7D /* NSString+Verify.m */,
 				2A2FA32D15BFF74400B71C7D /* NTShipCompanyTranShare.h */,
@@ -957,6 +968,8 @@
 				2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */,
 				2A16D20915BE9F0900FFF1B5 /* TH_ShipTransDetailCV.h */,
 				2A16D20A15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m */,
+				2A25AB1215C67CD2008500B5 /* TB_LatefeeChDial.h */,
+				2A25AB1315C67CD3008500B5 /* TB_LatefeeChDial.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1120,6 +1133,8 @@
 				2AD84EA215B91B2B00D91111 /* TH_ShipTransChVC.xib in Resources */,
 				2A16D20D15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib in Resources */,
 				2A2FA33815BFF74400B71C7D /* ShipCompanyTransShareVC.xib in Resources */,
+				2A8154DB15C2664D00D4AE2C /* TB_LatefeeChVC.xib in Resources */,
+				2A25AB1615C67CD3008500B5 /* TB_LatefeeChDial.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1227,6 +1242,10 @@
 				2A2FA33715BFF74400B71C7D /* ShipCompanyTransShareVC.m in Sources */,
 				D90C8EC015BF9DD90009626B /* BrokenLineGraphView.m in Sources */,
 				D90C8EC415BFD03F0009626B /* BrokenLineGraphData.m in Sources */,
+				2A692C8E15C134D8007A1BE7 /* TB_Latefee.m in Sources */,
+				2A692C8F15C134D8007A1BE7 /* TB_LatefeeDao.m in Sources */,
+				2A8154D915C2645700D4AE2C /* TB_LatefeeChVC.m in Sources */,
+				2A25AB1515C67CD3008500B5 /* TB_LatefeeChDial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

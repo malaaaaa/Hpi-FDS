@@ -13,6 +13,10 @@
 #import "TH_ShipTransDao.h"
 #import "TH_ShipTransDetailCV.h"
 
+
+#import "TB_Latefee.h"
+#import "TB_LatefeeChDial.h"
+#import "TB_LatefeeDao.h"
 @interface DataQueryVC ()
 
 @end
@@ -29,7 +33,7 @@
 @synthesize detailArray;
 @synthesize shipCompanyTrnasShareVC;
 @synthesize thShipTransVC;
-
+@synthesize tblatefeeVC;
 
 
 
@@ -211,7 +215,8 @@
 //根据选择，显示不同类型的坐标点
 -(void)segmentChanged:(id) sender
 {
-    if (!dataSource) {
+    if (dataSource) {
+        NSLog(@"dataSource不为空 ，清空。。。。。。。。。。。。。。。");
         [dataSource release];
         dataSource=nil;
     }
@@ -222,7 +227,7 @@
     if(segment.selectedSegmentIndex==0)
     {
         NSLog(@"实时船舶查询");
-        [self.vbFactoryTransVC.view removeFromSuperview];
+         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
         
         CATransition *animation = [CATransition animation];
         animation.delegate = self;
@@ -267,7 +272,7 @@
     else if (segment.selectedSegmentIndex==1)
     {
         NSLog(@"船运计划");
-        [self.vbFactoryTransVC.view removeFromSuperview];
+        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
 
         CATransition *animation = [CATransition animation];
         animation.delegate = self;
@@ -335,9 +340,9 @@
         
         //在下一个   视图显示时   移除上一个   视图
       
-        [self.vbFactoryTransVC.view removeFromSuperview ];
-        [self.vbShipChVC.view removeFromSuperview];
-        [self.vbTransChVC.view removeFromSuperview  ];
+        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        //[self.vbShipChVC.view removeFromSuperview];
+        //[self.vbTransChVC.view removeFromSuperview  ];
                //新添  调度日志查询
         self.thShipTransVC=[[TH_ShipTransChVC alloc] initWithNibName:@"TH_ShipTransChVC" bundle:nil];
         thShipTransVC.parentVC=self;
@@ -356,6 +361,34 @@
         
         
     }
+    //新添 滞期费查询
+    else if (segment.selectedSegmentIndex==4) {
+         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        
+       // [self.vbFactoryTransVC.view removeFromSuperview ];
+        //[self.vbShipChVC.view removeFromSuperview];
+        //[self.vbTransChVC.view removeFromSuperview  ];
+        
+        self.tblatefeeVC=[[TB_LatefeeChVC alloc] init];
+        tblatefeeVC.parentVC=self;
+        tblatefeeVC.view.center=CGPointMake(512, 120);
+        tblatefeeVC.view.frame=CGRectMake(0, 0, 1024, 180);
+        
+        [self.chooseView addSubview:tblatefeeVC.view];
+        
+        self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+        
+         NSLog(@"滞期费查询.............");
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
     
 
 }
@@ -372,6 +405,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"选中行：【%d】----------------------",indexPath.row);
+    
     if(segment.selectedSegmentIndex==0)
     {
         VbShiptrans *vbShiptrans=[dataArray objectAtIndex:indexPath.row];
@@ -443,6 +478,38 @@
       //[thshiptrans release];
     }
     
+    //滞期费
+    if (segment.selectedSegmentIndex==4) {
+          NSLog(@"滞期费详细...............");
+        double  t=0;
+        //滞期费合计
+        for (int i=0; i<dataArray.count; i++) {
+            t=t+[[(TB_Latefee *)[dataArray  objectAtIndex:i]  LATEFEE] doubleValue];
+        }        
+        NSLog(@"------------------滞期费合计----------------：【%.2f】",(double)t);
+        
+        
+        
+        
+        TB_Latefee *tblatefee=[dataArray objectAtIndex:indexPath.row];
+        TB_LatefeeChDial *tblatefeeDial=[[TB_LatefeeChDial alloc] init];
+        
+        tblatefeeDial.totalLatefee= [NSString stringWithFormat:@"%.2f",t];
+        
+         tblatefeeDial.tblatefee=tblatefee;
+        
+        [tblatefeeDial.view setFrame:CGRectMake(0,0,600,280)];
+        tblatefeeDial.contentSizeForViewInPopover=CGSizeMake(600, 280);
+        UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:tblatefeeDial];
+        tblatefeeDial.pop=pop;
+        self.popover=pop;
+        self.popover.delegate=self;
+        self.popover.popoverContentSize=CGSizeMake(600, 280);
+        //设置箭头方向
+        [self.popover presentPopoverFromRect:CGRectMake(512,430 , 1,1) inView:self.view   permittedArrowDirections:0 animated:YES];
+        [TB_LatefeeChDial release];
+        [pop release];
+    }
 }
 
 - (NSString *)formatInfoDate:(NSString *)string1 :(NSString *)string2 {
