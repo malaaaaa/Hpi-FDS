@@ -187,16 +187,36 @@
     }
     else if(self.type==kTRADE)
     {
-        VBFactoryTransVC *view1=(VBFactoryTransVC*) self.parentMapView;
-        view1.tradeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
-        if (![view1.tradeLabel.text isEqualToString:All_]) {
-            view1.tradeLabel.hidden=NO;
-            [view1.tradeButton setTitle:@"" forState:UIControlStateNormal];
+      
+        if ([self.parentMapView isKindOfClass:[VBFactoryTransVC class]])
+        {
+            VBFactoryTransVC *view1=(VBFactoryTransVC*) self.parentMapView;
+            view1.tradeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
+            if (![view1.tradeLabel.text isEqualToString:All_]) {
+                view1.tradeLabel.hidden=NO;
+                [view1.tradeButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                view1.tradeLabel.hidden=YES;
+                [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+            }
         }
-        else {
-            view1.tradeLabel.hidden=YES;
-            [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+        //电厂运力用量统计
+        else if ([self.parentMapView isKindOfClass:[FactoryFreightVolumeVC class]])
+        {
+            FactoryFreightVolumeVC *view1=(FactoryFreightVolumeVC*) self.parentMapView;
+            view1.tradeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
+            if (![view1.tradeLabel.text isEqualToString:All_]) {
+                view1.tradeLabel.hidden=NO;
+                [view1.tradeButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                view1.tradeLabel.hidden=YES;
+                [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+            }
+
         }
+        
     }
     //新添 VBTransChVC   视图下的  煤种 信息   kCOALTYPE
     else if (self.type==kCOALTYPE) {
@@ -226,11 +246,11 @@
             view1.stageLabel.hidden=YES;
             [view1.stageButton setTitle:@"状态" forState:UIControlStateNormal ];
         }
-        
-        
+
+
     }
     //电厂类型
-    else if(kTYPE_FFV==self.type)
+    else if(kTYPE==self.type)
     {
         FactoryFreightVolumeVC *view1=(FactoryFreightVolumeVC*) self.parentMapView;
         view1.typeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
@@ -243,20 +263,14 @@
             [view1.typeButton setTitle:@"电厂类型" forState:UIControlStateNormal];
         }
     }
-    //贸易性质
-    else if(kTRADE_FFV==self.type)
-    {
-        FactoryFreightVolumeVC *view1=(FactoryFreightVolumeVC*) self.parentMapView;
-        view1.tradeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
-        if (![view1.tradeLabel.text isEqualToString:All_]) {
-            view1.tradeLabel.hidden=NO;
-            [view1.tradeButton setTitle:@"" forState:UIControlStateNormal];
-        }
-        else {
-            view1.tradeLabel.hidden=YES;
-            [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
-        }
-    }
+//    //贸易性质
+//    else if(kTRADE_FFV==self.type)
+//    {
+//        NSLog(@"mmmmmmmm%@", [self.parentMapView class]);
+//        id view2= self.parentMapView;
+//        view2
+//        
+//          }
 
     
     

@@ -10,6 +10,7 @@
 #import "PubInfo.h"
 #import <sqlite3.h>
 #import "NTFactoryFreightVolume.h"
+#import "DataGridComponent.h"
 @interface NTFactoryFreightVolumeDao : NSObject
 +(NSString  *) dataFilePath;
 +(void) openDataBase;

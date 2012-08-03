@@ -173,7 +173,7 @@
     chooseView.popover = pop;
     chooseView.iDArray=[NSArray arrayWithObjects:All_,@"内贸",@"进口",nil];
     chooseView.parentMapView=self;
-    chooseView.type=kTRADE_FFV;
+    chooseView.type=kTRADE;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -200,7 +200,7 @@
     chooseView.popover = pop;
     chooseView.iDArray=[NSArray arrayWithObjects:All_,@"直供",@"海进江",@"山东",@"海南",nil];
     chooseView.parentMapView=self;
-    chooseView.type=kTYPE_FFV;
+    chooseView.type=kTYPE;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -239,6 +239,8 @@
     NSLog(@"trade=%@",tradeLabel.text);
     [NTFactoryFreightVolumeDao InsertByTrade:tradeLabel.text Type:typeLabel.text StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
     [dateFormatter release];
+    
+    [self loadViewData];
     
     
 }
@@ -303,34 +305,65 @@
 }
 -(void)loadViewData
 {
-//    int i;
-//    DataGridComponentDataSource *ds = [[DataGridComponentDataSource alloc] init];
-//	
-//	ds.columnWidth = [NSArray arrayWithObjects:@"150",@"100",@"110",@"120",@"60",@"60",@"60",@"150",nil];
+    int i;
+    DataGridComponentDataSource *ds = [[DataGridComponentDataSource alloc] init];
+   
+    NSMutableArray *factoryArray = [NTFactoryFreightVolumeDao getFactoryFromTmpNTFactoryFreightVolume];
+    NSMutableArray *tradetimeArray = [NTFactoryFreightVolumeDao getTradeTimeFromTmpNTFactoryFreightVolume];
+    ds.titles = factoryArray;
+    
+    ds.columnWidth = [[NSMutableArray alloc] init];
+    [ds.columnWidth addObject:@"120"];
+    for (i=0; i<[ds.titles count]*2; i++) {
+        [ds.columnWidth addObject:@"60"];
+    }
+    ds.data = [NTFactoryFreightVolumeDao getAllDataByTradeTime:tradetimeArray Factory:factoryArray];
+    ds.splitTitle = [NSArray arrayWithObjects:@"运量",@"航次",nil];
+    
+    
+//    ds.columnWidth = [NSArray arrayWithObjects:@"150",@"100",@"110",@"120",@"60",@"60",@"60",@"150",nil];
 //	ds.titles = [NSArray arrayWithObjects:@"序号 - 船名",@"航运公司",@"航次",@"供货方",@"热值",@"装载量",@"状态",@"预计到达时间",nil];
 //    
-//    NSMutableArray *array=[TgShipDao getTgShipZCPort:self.factoryName];
-//    NSLog(@"查询 %@ 在厂信息 %d条记录",self.factoryName,[array count]);
 //    
 //    ds.data=[[NSMutableArray alloc]init];
-//    for (i=0;i<[array count];i++) {
-//        TgShip *tgShip=[array objectAtIndex:i];
+//    for (i=0;i<10;i++) {
 //        [ds.data addObject:[NSArray arrayWithObjects:
 //                            kBLACK,
 //                            [NSString stringWithFormat:@"   %d - %@",i+1,
-//                             tgShip.shipName],
-//                            tgShip.company,
-//                            tgShip.tripNo,
-//                            tgShip.supplier,
-//                            [NSString stringWithFormat:@"%d",tgShip.heatValue],
-//                            [NSString stringWithFormat:@"%d",tgShip.lw],
-//                            tgShip.statName,
-//                            tgShip.eta,nil]];
+//                             @"aaa"],
+//                            @"bbbb",
+//                            @"bbbb",
+//                            @"bbbb",
+//                            @"bbbb",
+//                            @"bbbb",
+//                            @"bbbb",
+//                            @"bbbb",nil]];
 //        
 //    }
-//	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 35, 600, 175) data:ds];
-//	[ds release];
-//	[self.view addSubview:grid];
-//	[grid release];
+
+    
+//
+//    NSLog(@" %d+++%d",[ds.data count],[factoryArray count]);
+//
+//    for (int j=0; j<[ds.titles count]; j++) {
+//        NSLog(@"ds.title=%@",[ds.titles objectAtIndex:j]);
+//    }
+//    for (int j=0; j<[ds.columnWidth count]; j++) {
+//        NSLog(@"ds.columnWidth=%@",[ds.columnWidth objectAtIndex:j]);
+//    }
+//    for (int j=0; j<[ds.data count]; j++) {
+//        for (int m=0; m<[[ds.data objectAtIndex:j] count]; m++) {
+//            NSLog(@"ds.data=%@",[[ds.data objectAtIndex:j] objectAtIndex:m]);
+//
+//        }
+//    }
+    
+    
+//	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(10, 100, 600, 475) data:ds];
+    MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(20, 50, 900, 200) data:ds];
+    [ds.columnWidth release];
+	[ds release];
+	[self.listView addSubview:grid];
+	[grid release];
 }
 @end

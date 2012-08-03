@@ -3,7 +3,7 @@
 //
 //  Created by lee jory on 09-10-22.
 //  Copyright 2009 Netgen. All rights reserved.
-//
+//  mawp 增加splitTitle,用于实现二层标题
 
 #import <Foundation/Foundation.h>
 #define kRED  @"1"
@@ -29,11 +29,19 @@
 	 * 列宽
 	 */
 	NSMutableArray *columnWidth;
+    
+    /**
+	 * 二层标题名称
+	 */
+	NSMutableArray *splitTitle;
+    
 }
 
 @property(retain) NSMutableArray *titles;
 @property(retain) NSMutableArray *data;
 @property(retain) NSMutableArray *columnWidth;
+@property(retain) NSMutableArray *splitTitle;
+
 
 @end
 

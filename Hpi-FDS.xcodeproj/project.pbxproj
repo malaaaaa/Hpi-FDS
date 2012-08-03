@@ -181,6 +181,7 @@
 		2A7B339615B80DD5006B7994 /* TH_ShipTransDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B339515B80DD3006B7994 /* TH_ShipTransDao.m */; };
 		2AD84EA115B91B2B00D91111 /* TH_ShipTransChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */; };
 		2AD84EA215B91B2B00D91111 /* TH_ShipTransChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */; };
+		D32C48E715CA5F720034B454 /* MultiTitleDataGridComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = D32C48E615CA5F720034B454 /* MultiTitleDataGridComponent.m */; };
 		D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */; };
 		D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */; };
 		D378812C15C65B3E0033FB88 /* BrokenLineLegendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D378812A15C65B3D0033FB88 /* BrokenLineLegendVC.m */; };
@@ -474,6 +475,8 @@
 		2AD84E9E15B91B2B00D91111 /* TH_ShipTransChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransChVC.h; sourceTree = "<group>"; };
 		2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransChVC.m; sourceTree = "<group>"; };
 		2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TH_ShipTransChVC.xib; sourceTree = "<group>"; };
+		D32C48E515CA5F710034B454 /* MultiTitleDataGridComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTitleDataGridComponent.h; sourceTree = "<group>"; };
+		D32C48E615CA5F720034B454 /* MultiTitleDataGridComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiTitleDataGridComponent.m; sourceTree = "<group>"; };
 		D35ACFE215C7D84100F53AAD /* FactoryFreightVolumeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryFreightVolumeVC.h; sourceTree = "<group>"; };
 		D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryFreightVolumeVC.m; sourceTree = "<group>"; };
 		D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FactoryFreightVolumeVC.xib; sourceTree = "<group>"; };
@@ -770,6 +773,8 @@
 		059A1B911525510500AB24C4 /* Pub */ = {
 			isa = PBXGroup;
 			children = (
+				D32C48E515CA5F710034B454 /* MultiTitleDataGridComponent.h */,
+				D32C48E615CA5F720034B454 /* MultiTitleDataGridComponent.m */,
 				059A1BA8152551D600AB24C4 /* Http */,
 				059A1BD7152556A500AB24C4 /* PubInfo.h */,
 				059A1BD8152556A500AB24C4 /* PubInfo.m */,
@@ -1268,6 +1273,7 @@
 				D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */,
 				D37A3E1215C902E7002B48F8 /* NTFactoryFreightVolume.m in Sources */,
 				D37A3E1615C90318002B48F8 /* NTFactoryFreightVolumeDao.m in Sources */,
+				D32C48E715CA5F720034B454 /* MultiTitleDataGridComponent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

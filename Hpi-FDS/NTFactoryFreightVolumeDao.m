@@ -150,7 +150,6 @@ static sqlite3 *database;
 }
 +(void)insert_tmpTable:(NTFactoryFreightVolume *) factoryFreightVolume
 {
-	NSLog(@"Insert begin TMP_NTFactoryFreightVolume");
 	const char *insert="INSERT INTO TMP_NTFactoryFreightVolume (TRADETIME,FACTORYNAME,COUNT,LW) values(?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -212,6 +211,9 @@ static sqlite3 *database;
     NSLog(@"执行 getFactoryFromTmpNTFactoryFreightVolume [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
+    //填充标题
+    [array addObject:@"月份"];
+
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			
@@ -261,21 +263,41 @@ static sqlite3 *database;
     for (int i=0; i< [tradetime count]; i++) {
         
         NSMutableArray *coloumArray=[[[NSMutableArray alloc]init] autorelease];
-        for (int j=0; j<[factory count]; j++) {
+        [coloumArray addObject:kBLACK];
+        [coloumArray addObject:[tradetime objectAtIndex:i] ];
+        //j从1开始，因为工厂数组中为填充标题第一项是"月份"
+        for (int j=1; j<[factory count]; j++) {
             sqlite3_stmt *statement;
             NSString *sql= [NSString stringWithFormat:@"select lw,count from tmp_ntfactoryfreightvolume where tradetime='%@' and factoryname='%@'",[tradetime objectAtIndex:i],[factory objectAtIndex:j]];
             if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
-                while (sqlite3_step(statement)==SQLITE_ROW) {
-                    NTFactoryFreightVolume *factoryFreightVolume = [[NTFactoryFreightVolume alloc] init];
-                    
+//                while (sqlite3_step(statement)==SQLITE_ROW) {
+                         NTFactoryFreightVolume *factoryFreightVolume = [[NTFactoryFreightVolume alloc] init];
+                if (sqlite3_step(statement)==SQLITE_ROW) {
+       
                     factoryFreightVolume.LW=sqlite3_column_int(statement, 0);
                     factoryFreightVolume.COUNT=sqlite3_column_int(statement, 1);
-                    [coloumArray addObject:factoryFreightVolume];
-                    [factoryFreightVolume release];
+                   // [coloumArray addObject:factoryFreightVolume.LW];
+                    NSLog(@"lw======%d===",factoryFreightVolume.LW);
+                   
                 }
+                else{
+                    factoryFreightVolume.LW=0;
+                    factoryFreightVolume.COUNT=0;
+
+                }
+                
+                NSLog(@"lw======%d===",factoryFreightVolume.LW);
+
+                [coloumArray addObject:[NSString stringWithFormat:@"%d",factoryFreightVolume.LW]];
+                 [coloumArray addObject:[NSString stringWithFormat:@"%d",factoryFreightVolume.COUNT]];
+
+                 [factoryFreightVolume release];
             }else {
                 NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
             }
+//                    NSLog(@"lw======%d===",1122);
+//
+//                    [coloumArray addObject:[NSString stringWithFormat:@"%d",1122]];
         }
         [rowArray addObject:coloumArray];
     }

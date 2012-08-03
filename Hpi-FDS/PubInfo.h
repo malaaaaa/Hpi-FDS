@@ -71,10 +71,7 @@ typedef enum{
     kKEYVALUE,
     kTRADE,
     kSHIPSTAGE,
-    kTYPE_FFV, //电厂运量－电厂类型
-    kTRADE_FFV, //电厂运量-贸易性质
-    
-    
+    kTYPE, //电厂类型
     kshiptransStage
 } CoordinateType;
 
