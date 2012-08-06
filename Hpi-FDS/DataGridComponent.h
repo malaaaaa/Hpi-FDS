@@ -3,7 +3,7 @@
 //
 //  Created by lee jory on 09-10-22.
 //  Copyright 2009 Netgen. All rights reserved.
-//  mawp 增加splitTitle,用于实现二层标题
+//  Modified By Mawp on 2012-08 增加splitTitle,用于实现二层标题 ,用法参考MultiTitleDataGridComponent. 
 
 #import <Foundation/Foundation.h>
 #define kRED  @"1"

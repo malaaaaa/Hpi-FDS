@@ -319,51 +319,21 @@
     }
     ds.data = [NTFactoryFreightVolumeDao getAllDataByTradeTime:tradetimeArray Factory:factoryArray];
     ds.splitTitle = [NSArray arrayWithObjects:@"运量",@"航次",nil];
-    
-    
-//    ds.columnWidth = [NSArray arrayWithObjects:@"150",@"100",@"110",@"120",@"60",@"60",@"60",@"150",nil];
-//	ds.titles = [NSArray arrayWithObjects:@"序号 - 船名",@"航运公司",@"航次",@"供货方",@"热值",@"装载量",@"状态",@"预计到达时间",nil];
-//    
-//    
-//    ds.data=[[NSMutableArray alloc]init];
-//    for (i=0;i<10;i++) {
-//        [ds.data addObject:[NSArray arrayWithObjects:
-//                            kBLACK,
-//                            [NSString stringWithFormat:@"   %d - %@",i+1,
-//                             @"aaa"],
-//                            @"bbbb",
-//                            @"bbbb",
-//                            @"bbbb",
-//                            @"bbbb",
-//                            @"bbbb",
-//                            @"bbbb",
-//                            @"bbbb",nil]];
-//        
-//    }
 
-    
-//
-//    NSLog(@" %d+++%d",[ds.data count],[factoryArray count]);
-//
-//    for (int j=0; j<[ds.titles count]; j++) {
-//        NSLog(@"ds.title=%@",[ds.titles objectAtIndex:j]);
-//    }
-//    for (int j=0; j<[ds.columnWidth count]; j++) {
-//        NSLog(@"ds.columnWidth=%@",[ds.columnWidth objectAtIndex:j]);
-//    }
-//    for (int j=0; j<[ds.data count]; j++) {
-//        for (int m=0; m<[[ds.data objectAtIndex:j] count]; m++) {
-//            NSLog(@"ds.data=%@",[[ds.data objectAtIndex:j] objectAtIndex:m]);
-//
-//        }
-//    }
-    
-    
-//	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(10, 100, 600, 475) data:ds];
-    MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(20, 50, 900, 200) data:ds];
+    MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(30, 50, 960, 200) data:ds];
     [ds.columnWidth release];
 	[ds release];
 	[self.listView addSubview:grid];
 	[grid release];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    titleLabel.center=CGPointMake(480, 20);
+    titleLabel.text=@"电厂运量运力查询";
+    titleLabel.textColor=[UIColor whiteColor];
+    titleLabel.textAlignment=UITextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    titleLabel.backgroundColor=[UIColor blackColor];
+    [self.listView addSubview:titleLabel];
+    [titleLabel release];
 }
 @end
