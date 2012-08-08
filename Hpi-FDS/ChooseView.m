@@ -15,6 +15,7 @@
 #import "VBTransChVC.h"
 #import "TH_ShipTransChVC.h"
 #import "FactoryFreightVolumeVC.h"
+#import "PortEfficiencyVC.h"
 
 @implementation ChooseView
 @synthesize tableView,iDArray,popover;
@@ -261,6 +262,20 @@
         else {
             view1.typeLabel.hidden=YES;
             [view1.typeButton setTitle:@"电厂类型" forState:UIControlStateNormal];
+        }
+    }
+    //班轮
+    else if(kSCHEDULE==self.type)
+    {
+        PortEfficiencyVC *view1=(PortEfficiencyVC*) self.parentMapView;
+        view1.scheduleLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
+        if (![view1.scheduleLabel.text isEqualToString:All_]) {
+            view1.scheduleLabel.hidden=NO;
+            [view1.scheduleButton setTitle:@"" forState:UIControlStateNormal];
+        }
+        else {
+            view1.scheduleLabel.hidden=YES;
+            [view1.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
         }
     }
 //    //贸易性质

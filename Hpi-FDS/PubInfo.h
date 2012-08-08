@@ -54,6 +54,7 @@
 #import "NTColorConfigDao.h"
 #import "NTFactoryFreightVolume.h"
 #import "NTFactoryFreightVolumeDao.h"
+#import "PortEfficiency.h"
 
 typedef enum{
     kPORT=0,
@@ -72,6 +73,7 @@ typedef enum{
     kTRADE,
     kSHIPSTAGE,
     kTYPE, //电厂类型
+    kSCHEDULE, //班轮
     kshiptransStage
 } CoordinateType;
 

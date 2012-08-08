@@ -16,6 +16,7 @@
 #import "VBShipDetailController.h"
 #import "ShipCompanyTransShareVC.h"
 #import "FactoryFreightVolumeVC.h"
+#import "PortEfficiencyVC.h"
 
 
 @class VBFactoryTransVC;
@@ -44,6 +45,7 @@
     NSMutableArray  *detailArray;
     ShipCompanyTransShareVC *shipCompanyTrnasShareVC;
     FactoryFreightVolumeVC *factoryFreightVolumeVC;
+    PortEfficiencyVC *portEfficiencyVC;
     
 }
 
@@ -69,8 +71,7 @@
 
 @property (nonatomic,retain) DataGridComponentDataSource *dataSource;
 @property(nonatomic,retain) FactoryFreightVolumeVC *factoryFreightVolumeVC;
-
-
+@property(nonatomic,retain) PortEfficiencyVC *portEfficiencyVC;
 
 
 -(void)loadViewData_vb;
