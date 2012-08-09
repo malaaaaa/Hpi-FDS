@@ -16,8 +16,9 @@
 #import "XMLParser.h"
 #import "ChooseView.h"
 #import "MarketOneController.h"
+#import "ChooseViewDelegate.h"
 
-@interface PortViewController : UIViewController<UIPopoverControllerDelegate>{
+@interface PortViewController : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     IBOutlet UISegmentedControl *segment;
     UIPopoverController* popover;
     DateViewController* startDateCV;

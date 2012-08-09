@@ -672,4 +672,97 @@ static int  whichButton=0;
     
     
   }
+
+#pragma mark SetSelectValue  Method
+-(void)setLableValue:(NSString *)currentSelectValue
+{
+    if (chooseView) {
+        
+        if (chooseView.type==kChCOM) {
+            self.comLabel.text=currentSelectValue;  
+            
+            
+            if (![self.comLabel.text isEqualToString:All_]) {
+                self.comLabel.hidden=NO;
+                [self.comButton setTitle:@"" forState:UIControlStateNormal];
+                
+            }else {
+                self.comLabel.hidden=YES;
+                [self.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
+            }
+            
+            
+        }
+        if (chooseView.type==kChSHIP) {
+            self.shipLabel.text=currentSelectValue;
+            if (![self.shipLabel.text isEqualToString:All_]) {
+                self.shipLabel.hidden=NO;
+                [self.shipButton setTitle:@"" forState:UIControlStateNormal];
+                
+                
+                
+            }else {
+                self.shipLabel.hidden=YES;
+                [self.shipButton setTitle:@"船名" forState:UIControlStateNormal];
+            }
+          
+        }
+        
+        
+        
+    if (chooseView.type==kChFACTORY) {
+        self.factoryLabel.text=currentSelectValue;
+        if (![self.factoryLabel.text isEqualToString:All_]) {
+            self.factoryLabel.hidden=NO;
+            [self.factoryButton setTitle:@"" forState:UIControlStateNormal];
+        }else {
+            self.factoryLabel.hidden=YES;
+            [self.factoryButton setTitle:@"流向电厂" forState:UIControlStateNormal];
+        }
+       
+     }
+        
+    if (chooseView.type==kCOALTYPE) {
+        self.typeLabel.text=currentSelectValue;
+        if (![self.typeLabel.text isEqualToString:All_]) {
+            self.typeLabel.hidden=NO;
+            [self.typeButton setTitle:@"" forState:UIControlStateNormal];
+            
+            
+        }else {
+            self.typeLabel.hidden=YES;
+            [self.typeButton   setTitle:@"煤种" forState:UIControlStateNormal];
+        }
+
+    }
+    
+    
+    if (chooseView.type==kSUPPLIER) {
+        self.supLable.text=currentSelectValue;
+        if (![self.supLable.text isEqualToString:All_]) {
+            self.supLable.hidden=NO;
+            [self.supButton     setTitle:@"" forState:UIControlStateNormal];
+        }else {
+            self.supLable  .hidden=YES;
+            [self.supButton setTitle:@"供货方" forState:UIControlStateNormal  ];
+        }
+
+    }
+ 
+    
+    
+  
+   }
+    
+    
+    NSLog(@"chooseView 为空");
+    
+  }
+
+
+
+
+
+
+
 @end

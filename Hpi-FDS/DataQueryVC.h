@@ -16,6 +16,13 @@
 #import "VBShipDetailController.h"
 #import "ShipCompanyTransShareVC.h"
 #import "TB_LatefeeChVC.h"
+#import "TfPort.h"
+#import "TfPortDao.h"
+#import "AvgPortPTimeChVC.h"
+
+#import "NT_LatefeeTongj.h"
+#import "NT_LatefeeTongjChVC.h"
+#import "NT_LatefeeTongjDao.h"
 @class VBFactoryTransVC;
 
 @interface DataQueryVC : UIViewController<UITableViewDataSource,UITabBarDelegate,UIPopoverControllerDelegate>
@@ -33,6 +40,9 @@
     //新添 滞期费
     TB_LatefeeChVC  *tblatefeeVC;
     
+    NT_LatefeeTongjChVC *latefeeTj;
+    
+    AvgPortPTimeChVC *avgTimePort;
     
     
     
@@ -62,8 +72,8 @@
 //新添滞期费
  @property (nonatomic,retain)  TB_LatefeeChVC  *tblatefeeVC;
 
-
-
+ @property (nonatomic,retain)NT_LatefeeTongjChVC *latefeeTj;
+   @property (nonatomic,retain) AvgPortPTimeChVC *avgTimePort;
 
 @property (nonatomic,retain) UITableView *listTableview;
 @property (nonatomic,retain) UIPopoverController* popover;

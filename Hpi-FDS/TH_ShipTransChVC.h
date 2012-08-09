@@ -11,8 +11,9 @@
 #import "ChooseView.h"
 #import "PubInfo.h"
 #import "XMLParser.h"
+#import "ChooseViewDelegate.h"
 
-@interface TH_ShipTransChVC : UIViewController<UIPopoverControllerDelegate>
+@interface TH_ShipTransChVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>
 
 {
     UIPopoverController *popover;

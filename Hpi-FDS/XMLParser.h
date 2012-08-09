@@ -38,7 +38,8 @@
 
 #import "TB_Latefee.h"
 #import "TB_LatefeeDao.h"
-
+#import "TfPort.h"
+#import "TfPortDao.h"
 
 
 #import "NTShipCompanyTranShare.h"
@@ -73,6 +74,9 @@
     //新添 调度日志
     TH_ShipTrans *thshiptrans;
     TB_Latefee *tblateFee;
+    
+    //tfport
+    TfPort *tfport;
     
     
    NTShipCompanyTranShare *ntShipCompanyTranShare;
@@ -114,16 +118,14 @@
 //新添 调度日志
 @property(nonatomic,retain) TH_ShipTrans *thshiptrans;
 @property(nonatomic,retain)TB_Latefee *tblateFee;
-
-
+@property(nonatomic,retain) TfPort *tfport;
 
 
 
 
 @property(nonatomic,retain) NTShipCompanyTranShare *ntShipCompanyTranShare;
 
-//请求的公共方法
--(void)getTableDete:(NSString *)CurrentMethodName:(NSInteger)Set_iSoapValue :(NSString *)RequestXMLMethodName;
+
 
 
 
@@ -153,8 +155,11 @@
 
 -(void)getTBLateFee;
 
+-(void)getTfPort;
 
 
+
+-(void)getTableDete:(NSInteger)Set_iSoapValue :(NSString *)RequestXMLMethodName;
 
 - (void)getNtShipCompanyTranShare;
 
@@ -184,7 +189,7 @@
 //新添调度日志
 -(NSInteger)iSoapThShipTransDone;
 -(NSInteger)iSoapTbLateFeeDone;
-
+-(NSInteger)iSoapTfPortDone;
 
 
 

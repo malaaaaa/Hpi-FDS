@@ -13,9 +13,11 @@
 #import "ChooseView.h"
 #import "XMLParser.h"
 #import "DateViewController.h"
+#import "ChooseViewDelegate.h"
+
 @class ChooseView;
 
-@interface TB_LatefeeChVC : UIViewController<UIPopoverControllerDelegate>
+@interface TB_LatefeeChVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>
 {
     UIPopoverController *poper;
     UILabel *comLabel;

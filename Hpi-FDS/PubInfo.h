@@ -71,7 +71,11 @@ typedef enum{
     kSUPPLIER,//14
    
     
-    kshiptransStage//15
+    kshiptransStage,//15
+    
+    
+    kfactoryCate
+    
 } CoordinateType;
 
 #define All_PORT    @"全部港口"

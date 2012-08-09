@@ -17,6 +17,10 @@
 #import "TB_Latefee.h"
 #import "TB_LatefeeChDial.h"
 #import "TB_LatefeeDao.h"
+
+
+#import "DataGridComponent.h"
+
 @interface DataQueryVC ()
 
 @end
@@ -34,9 +38,9 @@
 @synthesize shipCompanyTrnasShareVC;
 @synthesize thShipTransVC;
 @synthesize tblatefeeVC;
+@synthesize latefeeTj;
 
-
-
+@synthesize avgTimePort;
 @synthesize dataSource;
 
 //static DataGridComponentDataSource *dataSource;
@@ -134,6 +138,21 @@
     [listTableview release];
        
     [thShipTransVC  release];
+    
+    
+    
+    //新添  子视图释放
+    [ shipCompanyTrnasShareVC release];
+    [vbShipChVC release];
+    [tbShipChVC release];
+    [vbTransChVC release];
+    [tblatefeeVC release];
+    [vbFactoryTransVC release];
+    [latefeeTj release];
+    [avgTimePort release];
+    
+    
+    
     
     //
     [dataSource  release];
@@ -341,6 +360,10 @@
         //在下一个   视图显示时   移除上一个   视图
       
         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+         [self.avgTimePort.view removeFromSuperview  ];
+        
+        
+        
         //[self.vbShipChVC.view removeFromSuperview];
         //[self.vbTransChVC.view removeFromSuperview  ];
                //新添  调度日志查询
@@ -364,6 +387,10 @@
     //新添 滞期费查询
     else if (segment.selectedSegmentIndex==4) {
          [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+         [self.avgTimePort.view removeFromSuperview  ];
+        
+        
+        
         
        // [self.vbFactoryTransVC.view removeFromSuperview ];
         //[self.vbShipChVC.view removeFromSuperview];
@@ -386,6 +413,68 @@
         
     }
     
+    //滞期费  统计
+    else if (segment.selectedSegmentIndex==5) {
+        
+        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        
+        [self.avgTimePort.view removeFromSuperview  ];
+        
+        
+        
+        
+        
+        self.latefeeTj=[[NT_LatefeeTongjChVC alloc] init];
+        latefeeTj.parentVC=self;
+        
+        latefeeTj.view.center=CGPointMake(512, 120);
+        latefeeTj.view.frame=CGRectMake(0, 0, 1024, 180);
+        
+        [self.chooseView addSubview:latefeeTj.view];
+        
+        self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+        
+        NSLog(@"滞期费统计查询.............");
+        
+        
+        
+        
+        
+        
+    }
+    //港口平均装港时间统计
+    
+     else if (segment.selectedSegmentIndex==6) {
+         
+         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+        
+         
+                  
+         
+         self.avgTimePort=[[AvgPortPTimeChVC alloc] init];
+         avgTimePort.parentVC=self;
+         avgTimePort.view.center=CGPointMake(512, 120);
+         avgTimePort.view.frame=CGRectMake(0, 0, 1024, 180);
+
+         [self.chooseView addSubview:avgTimePort.view];
+         self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+         
+         NSLog(@"港口平均装港时间统计查询.............");
+                 
+     }
     
     
     
@@ -576,6 +665,7 @@
     int iColorRed=0;
     //NSLog(@"rowData  count %d  at %d",[dataSource.data count],indexPath.row);
     NSArray *rowData = [dataSource.data objectAtIndex:indexPath.row];
+    NSLog(@"--------------rowData。count【%d】indexPath.row[%d]",[rowData count],indexPath.row);
     for(int column=0;column<[rowData count];column++){
         //第1个字段表示是否显示红色字体
         if(column==0)
@@ -597,7 +687,9 @@
             float columnWidth = [[dataSource.columnWidth objectAtIndex:column-1] floatValue];;
             UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1, 40 -1 )];
             l.font = [UIFont systemFontOfSize:14.0f];
+            NSLog(@"---------[rowData objectAtIndex:column]:[%@]",[rowData objectAtIndex:column]);
             l.text = [rowData objectAtIndex:column];
+            
             l.textAlignment = UITextAlignmentCenter;
             l.tag = 40 + column + 1000;
             if(indexPath.row % 2 == 0)

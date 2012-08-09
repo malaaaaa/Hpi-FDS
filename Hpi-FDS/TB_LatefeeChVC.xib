@@ -368,7 +368,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{252, 64}, {120, 35}}</string>
 						<reference key="NSSuperview" ref="811617858"/>
-						<reference key="NSNextKeyView" ref="917610093"/>
+						<reference key="NSNextKeyView" ref="1002214822"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -393,6 +393,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{672, 66}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="811617858"/>
+						<reference key="NSNextKeyView" ref="1048351199"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -417,6 +418,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{531, 66}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="811617858"/>
+						<reference key="NSNextKeyView" ref="917610093"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -435,6 +437,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{818, 66}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="811617858"/>
+						<reference key="NSNextKeyView" ref="130818121"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -740,11 +743,11 @@
 							<reference ref="162096746"/>
 							<reference ref="448473"/>
 							<reference ref="72556449"/>
-							<reference ref="1002214822"/>
 							<reference ref="917610093"/>
 							<reference ref="1048351199"/>
 							<reference ref="130818121"/>
 							<reference ref="1031403288"/>
+							<reference ref="1002214822"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>

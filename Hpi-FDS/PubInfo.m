@@ -10,7 +10,8 @@
 #import "UIDevice+IdentifierAddition.h"
 #import "TH_ShipTransDao.h"
 #import "TB_LatefeeDao.h"
-
+#import "NT_LatefeeTongjDao.h"
+#import "TfPortDao.h"
 
 @implementation PubInfo
 static NSString *hostName = @"http://10.2.17.121";     //http://172.16.1.16:84
@@ -73,6 +74,19 @@ static NSString *deviceID;
     //新添  tblatefee  
     [TB_LatefeeDao openDataBase ];
     [TB_LatefeeDao initDb];
+    
+    
+    [NT_LatefeeTongjDao openDataBase];
+     
+    [TfPortDao openDataBase];
+    [TfPortDao initDb];
+    
+    
+    
+    
+    
+    
+    
     
     
     

@@ -13,4 +13,7 @@
 @synthesize STAGENAME=_STAGENAME;
 @synthesize SORT=_SORT;
 @synthesize didSelected;
+
+
+
 @end

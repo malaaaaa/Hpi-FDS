@@ -967,4 +967,46 @@ static int iDisplay=0;
     }
 }
 
+
+
+
+
+#pragma mark SetSelectValue  Method
+-(void)setLableValue:(NSString *)currentSelectValue
+{
+    
+    if (chooseView) {
+          
+        if (chooseView.type==kPORT) {
+            [self.portButton setTitle:currentSelectValue  forState:UIControlStateNormal];
+            [self chooseUpdateView];
+        }
+        
+        if (chooseView.type==kFACTORY) {
+            [self.factoryButton setTitle:currentSelectValue   forState:UIControlStateNormal];
+            [self chooseUpdateView];
+            
+        }
+         if (chooseView.type==kSHIP) {
+             [self.shipButton setTitle:currentSelectValue   forState:UIControlStateNormal];
+             [self chooseUpdateView];
+             
+             
+         }
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+}
+
+
+
 @end

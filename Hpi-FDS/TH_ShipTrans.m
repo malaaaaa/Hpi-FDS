@@ -49,7 +49,27 @@
 @synthesize NOTE=_NOTE;
 
 
-
+-(void)dealloc
+{
+    [_PORTCODE release];
+    [_STATENAME release];
+    [_RECORDDATE release];
+    [_PORTNAME  release];
+    [_SUPPLIER release];
+    [_COALTYPE release];
+    [_P_ANCHORAGETIME release];
+    [_P_ARRIVALTIME release];
+    
+    [_P_DEPARTTIME release];
+    [_P_HANDLE release];
+    [_NOTE release];
+    [_FACTORYNAME release];
+    [_TRIPNO release];
+    [_SHIPNAME release];
+    
+    
+    [super dealloc];
+}
 
 
 

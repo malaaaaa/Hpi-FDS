@@ -491,4 +491,42 @@ NSAutoreleasePool *looPool=[[NSAutoreleasePool   alloc] init];
 	return YES;
 }
 
+#pragma mark setSelectValue  Method
+-(void)setLableValue:(NSString *)currentSelectValue
+{
+
+    if (chooseView) {
+        if (chooseView.type==kChPORT) {
+            
+            self.portLabel.text =currentSelectValue;
+            if (![self.portLabel.text isEqualToString:All_]) {
+               self.portLabel.hidden=NO;
+                [self.portButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.portLabel.hidden=YES;
+                [self.portButton setTitle:@"装运港" forState:UIControlStateNormal];
+            }
+
+           }
+        if (chooseView.type==kshiptransStage) {
+            self.stageLabel.text=currentSelectValue;
+            if (![self.stageLabel.text isEqualToString:All_]) {
+               self.stageLabel.hidden=NO;
+                [self.stageButton setTitle:@"" forState:UIControlStateNormal   ];
+            }else {
+                self.stageLabel.hidden=YES;
+                [self.stageButton setTitle:@"状态" forState:UIControlStateNormal ];
+            }
+
+        }
+        
+        
+     
+    }
+NSLog(@"chooseView为空");
+
+
+
+}
 @end

@@ -15,4 +15,49 @@ F_ANCHORAGETIME,F_DEPARTTIME,F_CONFIRM,F_CONTIME,F_CONUSER,LATEFEE,P_CORRECT,P_N
 @synthesize COMID,SHIPID,LW ,SUPID,TYPEID;
 
 
+-(void)dealloc
+{
+
+
+
+    [DISPATCHNO release];
+    [PORTCODE release];
+    [PORTNAME release];
+    [FACTORYCODE release];
+    [FACTORYNAME     release];
+    [COMPANY release];
+    [SHIPNAME release];
+    [FEERATE release];
+    [ALLOWPERIOD release];
+    [SUPPLIER    release];
+    [COALTYPE release];
+    [TRADE release];
+    [KEYVALUE release];
+    [TRIPNO release];
+    [TRADETIME release];
+    
+    [P_ANCHORAGETIME release];
+    [P_CONFIRM release];
+    [P_DEPARTTIME release];
+    [P_CONTIME  release];
+    [P_CONUSER release];
+    [P_NOTE release];
+    [F_ANCHORAGETIME     release];
+    [F_CONFIRM   release];
+    [F_CONTIME release];
+    [F_CONUSER release];
+    [F_CORRECT release];
+    [F_DEPARTTIME release];
+    
+    
+    [F_NOTE release];
+    [LATEFEE release];
+    [P_CORRECT release];
+    [ISCAL release];
+    
+    [CURRENCY release];
+    [EXCHANGERATE release];
+    
+    [super dealloc];}
+
 @end

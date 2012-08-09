@@ -29,7 +29,13 @@ static int iSoapTiListinfoDone=0;
 static int iSoapDone=1; //1未开始 0进行中 3出错
 static int iSoapNum=0;
 static int iSoapVbFactoryTransDone=0;
+
+
+
 static int iSoapTfFactoryDone=0;
+
+
+
 static int iSoapTbFactoryStateDone=0;
 static int iSoapTfShipCompanyDone=0;
 static int iSoapTfSupplierDone=0;
@@ -41,6 +47,9 @@ static  int iSoapNTShipCompanyTranShareDone=0;
 
 //新添调度日志
 static int iSoapThShipTransDone=0;
+static  int iSoapTfPortDone=0;
+
+
 
 static int iSoapTbLateFeeDone=0;
 
@@ -52,7 +61,7 @@ static int iSoapTbLateFeeDone=0;
 UIAlertView *alert;
 NSString* alertMsg;
 
-@synthesize tgFactory,tgPort,tgShip,tsFileinfo,tmIndexinfo,tmIndexdefine,tmIndextype,vbShiptrans,vbTransplan,tmCoalinfo,tmShipinfo,vbFactoryTrans,tfFactory,tbFactoryState,tfShipCompany,tfSupplier,tfCoalType,tsShipStage,thshiptrans, tblateFee ,  ntShipCompanyTranShare ;
+@synthesize tgFactory,tgPort,tgShip,tsFileinfo,tmIndexinfo,tmIndexdefine,tmIndextype,vbShiptrans,vbTransplan,tmCoalinfo,tmShipinfo,vbFactoryTrans,tfFactory,tbFactoryState,tfShipCompany,tfSupplier,tfCoalType,tsShipStage,thshiptrans, tblateFee ,  ntShipCompanyTranShare ,tfport;
 @synthesize soapResults,webData,xmlParser,webVC,tiListinfo;
 
 #pragma Soap alert
@@ -130,7 +139,9 @@ NSString* alertMsg;
         [tblateFee release];
     }
     
-    
+    if (tfport) {
+        [tfport release];
+    }
     
     
     
@@ -144,14 +155,10 @@ NSString* alertMsg;
 #pragma mark  PubRequestMethod  调用时将iSoap_tableName_Done  变量设为1
 
 //请求  公共方法     调用时将iSoap_tableName_Done  变量设为1
--(void)getTableDete:(NSString *)CurrentMethodName:(NSInteger)Set_iSoapValue :(NSString *)RequestXMLMethodName
+-(void)getTableDete:(NSInteger)Set_iSoapValue :(NSString *)RequestXMLMethodName
 {
-
-    if (iSoapDone==0) {
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(CurrentMethodName) userInfo:NULL repeats:NO];
-        return;
-    }
-    //出错
+  
+       //出错
     if (iSoapDone==3) {
         iSoapNum--;
         if (iSoapNum<1) {
@@ -159,9 +166,8 @@ NSString* alertMsg;
         }
         return;
     }
-  iSoapDone=0;
+    iSoapDone=0;
 
-    NSLog(@"开始  %@",CurrentMethodName);
 
     recordResults = NO;
     iSoap=Set_iSoapValue;
@@ -202,6 +208,8 @@ NSString* alertMsg;
         NSLog(@"theConnection is NULL");
     }
     
+   
+    
 }
 
 
@@ -215,13 +223,20 @@ NSString* alertMsg;
 
 #pragma mark  connection  
 
+
+
 - (void)getTgPort
-{
+{ /*
       NSLog(@"开始 getTgPort");
     iSoapTgPortDone=1;
-    [self getTableDete:@"getTgPort" :0:@"GetTgPort"];
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTgPort) userInfo:NULL repeats:NO];
+        return;
+    }
     
-    /*
+    [self getTableDete:0:@"GetTgPort"];
+    
+   */
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTgPort) userInfo:NULL repeats:NO];
         return;
@@ -273,18 +288,22 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
-     */
+     
      
 }
 - (void)getTgFactory
 {
-     NSLog(@"开始 getTgShip");
+    /*     NSLog(@"开始 getTgFactory");
     
     iSoapTgFactoryDone=1;
-    
-    [self getTableDete:@"getTgFactory" :1:@"GetTgFactory"];
-    
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTgFactory) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:1:@"GetTgFactory"];
+     */
+
+  
     
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTgFactory) userInfo:NULL repeats:NO];
@@ -338,17 +357,24 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
-     */
+     
 }
 
 - (void)getTgShip
 {
-    
+     /*
     NSLog(@"开始 getTgShip");
     iSoapTgShipDone=1;
-    [self getTableDete:@"getTgShip" :2 :@"GetTgShip"];
     
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTgShip) userInfo:NULL repeats:NO];
+        return;
+    }
+    
+    
+    [self getTableDete:2 :@"GetTgShip"];
+      */
+   
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTgShip) userInfo:NULL repeats:NO];
         return;
@@ -404,16 +430,25 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
-     */
+   
 }
 
 - (void)getVbShiptrans
-{
+{ /*
     
      NSLog(@"开始 getTmIndexdefine");
      iSoapVbShiptransDone=1;
-    [self getTableDete:@"getVbShiptrans" :7 :@"GetShipTrans"];
-    /*
+    
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getVbShiptrans) userInfo:NULL repeats:NO];
+        return;
+    }
+
+    
+    
+    
+    [self getTableDete:7 :@"GetShipTrans"];
+   */
     
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getVbShiptrans) userInfo:NULL repeats:NO];
@@ -467,17 +502,25 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
-     */
+     
      
 }
 
 - (void)getTfFactory
-{
+{  /*
      NSLog(@"开始 getTfFactory");
      iSoapTfFactoryDone=1;
-    [self getTableDete:@"getTfFactory" :13 :@"GetFactoryInfo"];
-    /*
+     
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfFactory) userInfo:NULL repeats:NO];
+        return;
+    }
+
     
+    
+    [self getTableDete:13 :@"GetFactoryInfo"];
+ */
+      NSLog(@"=======================================iSoapDone:%d   iSoapNum:%d",iSoapDone,iSoapNum);
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfFactory) userInfo:NULL repeats:NO];
         return;
@@ -529,18 +572,24 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }
-     */
+    } 
+     
      
 }
 - (void)getTbFactoryState
 {
-    
+    /* 
     NSLog(@"开始 GetFactoryStateInfo");
      iSoapTbFactoryStateDone=1;
-    [self getTableDete:@"getTbFactoryState" :14 :@"GetFactoryStateInfo"];
     
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTbFactoryState) userInfo:NULL repeats:NO];
+        return;
+    }
+    
+    [self getTableDete:14 :@"GetFactoryStateInfo"];
+    
+    */
     
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTbFactoryState) userInfo:NULL repeats:NO];
@@ -594,20 +643,23 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
-     */
+    
      
      
 }
 - (void)getVbFactoryTrans
 {
-    
-    NSLog(@"开始 getTmIndexdefine");
+     /*
+    NSLog(@"开始getVbFactoryTrans");
     
     iSoapVbFactoryTransDone=1;
-    
-    [self getTableDete:@"getVbFactoryTrans" :15:@"GetFactoryTransInfo"];
-    /*
-    
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getVbFactoryTrans) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:15:@"GetFactoryTransInfo"];
+   
+    */
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getVbFactoryTrans) userInfo:NULL repeats:NO];
         return;
@@ -660,18 +712,22 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
-     */
+     
      
      
 }
 - (void)getTfShipCompany
-{
+{/*
     
   NSLog(@"开始 getTfShipCompany"); 
      iSoapTfShipCompanyDone=1;
-    
-    [self getTableDete:@"getTfShipCompany" :16:@"GetShipCompanyInfo"];
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfShipCompany) userInfo:NULL repeats:NO];
+        return;
+    }
+
+    [self getTableDete:16:@"GetShipCompanyInfo"];
+    */
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfShipCompany) userInfo:NULL repeats:NO];
         return;
@@ -723,17 +779,21 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
+    }
      
      
 }
 - (void)getTfSupplier
 {
-    
+    /*
      NSLog(@"开始 getTfSupplier"); 
      iSoapTfSupplierDone=1;
-    [self getTableDete:@"getTfSupplier" :17 :@"GetSupplierInfo"];
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfSupplier) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:17 :@"GetSupplierInfo"];
+    */
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfSupplier) userInfo:NULL repeats:NO];
         return;
@@ -785,17 +845,23 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
+    }
      
      
 }
 - (void)getTfCoalType
-{
+{  /*
     NSLog(@"开始执行煤种同步..............");
       iSoapTfCoalTypeDone=1;
-    [self getTableDete:@"getTfCoalType" :18:@"GetCoalTypeInfo"];
-    /*
     
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfCoalType) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:18:@"GetCoalTypeInfo"];
+  
+    */
+
     
     
     if (iSoapDone==0) {
@@ -849,17 +915,21 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
-     
+    }     
      
 }
 - (void)getTsShipStage
-{
+{ /*
      NSLog(@"开始 getTsShipStage");
      iSoapTsShipStageDone=1;
-    [self getTableDete:@"getTsShipStage" :19 :@"GetShipStageInfo"];
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTsShipStage) userInfo:NULL repeats:NO];
+        return;
+    }
+
+    [self getTableDete:19 :@"GetShipStageInfo"];
     
-    /*
+   */
     
     
     if (iSoapDone==0) {
@@ -913,18 +983,24 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
+    }
      
      
 }
 - (void)getTmIndexdefine
-{
+{ /*
     NSLog(@"开始 getTmIndexdefine  iSoapDone=%d   iSoapNum=%d",iSoapDone,iSoapNum);
     
       iSoapTmIndexdefineDone=1;
-    [self getTableDete:@"getTmIndexdefine": 5 :@"GetTmIndexDefine"];
     
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmIndexdefine) userInfo:NULL repeats:NO];
+        return;
+    }
+
+    [self getTableDete:5 :@"GetTmIndexDefine"];
+    */
+   
     
     //等待上一个请求结束后在开始
     if (iSoapDone==0) {
@@ -979,16 +1055,21 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
+    }
 }
 
 - (void)getTmIndexinfo
 {
-    
+     /*
         NSLog(@"开始 getTmIndexinfo");
       iSoapTmIndexinfoDone=1;
-    [self getTableDete:@"getTmIndexinfo" :4 :@"GetTmIndexInfo"];
-    /*    
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmIndexinfo) userInfo:NULL repeats:NO];
+        return;
+    }
+
+    [self getTableDete:4 :@"GetTmIndexInfo"];
+       */
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmIndexinfo) userInfo:NULL repeats:NO];
         return;
@@ -1040,17 +1121,20 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-     }*/
+     }
 
 }
 
 - (void)getTmIndextype
-{
+{/*  
    NSLog(@"开始 getTmIndextype"); 
         iSoapTmIndextypeDone=1;
-    
-    [self getTableDete:@"getTmIndextype" :6 :@"GetTmIndexType"];
-    /*    
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmIndextype) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:6 :@"GetTmIndexType"];
+      */
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmIndextype) userInfo:NULL repeats:NO];
         return;
@@ -1102,18 +1186,23 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-     }*/
+     }
 
 }
 
 - (void)getTsFileinfo
-{
+{ /*
         NSLog(@"开始 getTsFileinfo");
     
         iSoapTsFileinfoDone=1;
-    
-    [self getTableDete:@"getTsFileinfo" :3 :@"GetTsFileInfo"];
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTsFileinfo) userInfo:NULL repeats:NO];
+        return;
+    }
+
+    [self getTableDete:3 :@"GetTsFileInfo"];
+   */
+
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTsFileinfo) userInfo:NULL repeats:NO];
         return;
@@ -1166,16 +1255,22 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
-}
+    }
+   
+   }
 - (void)getVbTransplan
-{
+{ /*
         NSLog(@"开始 getVbtransplan");
     iSoapVbShiptransDone=1;
-    [self getTableDete:@"getVbTransplan" :9 :@"GetTransPlan"];
     
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getVbTransplan) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:9 :@"GetTransPlan"];
+    */
     
-    /*
+   
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getVbTransplan) userInfo:NULL repeats:NO];
         return;
@@ -1227,18 +1322,21 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
+    }
 }
 - (void)getTmCoalinfo
 {
-    
+    /*
      NSLog(@"开始 getTmCoalinfo");
     iSoapTmCoalinfoDone=1;
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmCoalinfo) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:10 :@"GetCoalInfo"];
     
-    [self getTableDete:@"getTmCoalinfo" :10 :@"GetCoalInfo"];
+    */
     
-    
-    /*
     
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmCoalinfo) userInfo:NULL repeats:NO];
@@ -1291,7 +1389,7 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
+    }
 }
 //- (void)getTmtest
 //{
@@ -1323,11 +1421,15 @@ NSString* alertMsg;
 //}
 - (void)getTmShipinfo
 {    
-     NSLog(@"开始 getTmShipinfo");
+    /* NSLog(@"开始 getTmShipinfo");
     
         iSoapTmShipinfoDone=1;
-    [self getTableDete:@"getTmShipinfo" :11 :@"GetShipInfo"];
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmShipinfo) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:11 :@"GetShipInfo"];
+    */
     
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTmShipinfo) userInfo:NULL repeats:NO];
@@ -1380,16 +1482,20 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
+    }
 }
 - (void)getTiListinfo
 {
-    
+       /*
     iSoapTiListinfoDone=1;
     NSLog(@"开始 getTiListinfo");
-    [self getTableDete:@"getTiListinfo" :12:@"GetListInfo"];
-    
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTiListinfo) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:12:@"GetListInfo"];
+    */
+ 
     
     
     
@@ -1445,22 +1551,25 @@ NSString* alertMsg;
     {
         NSLog(@"theConnection is NULL");
     }
-     */
+     
      
 }
 
 //新添  解析调度日志表   TH_SHIPTRANS
 -(void)getTHShipTrans
 {
-
+/*
     iSoapThShipTransDone=1;
     NSLog(@"开始 getTHShipTrans");
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTHShipTrans) userInfo:NULL repeats:NO];
+        return;
+    }
+    [self getTableDete:21 :@"GetThShipTransInfo"];
     
-    [self getTableDete:@"getTHShipTrans" :21 :@"GetThShipTransInfo"];
+    */
     
     
-    
-    /*
     
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTHShipTrans) userInfo:NULL repeats:NO];
@@ -1517,18 +1626,27 @@ NSString* alertMsg;
     else
     {
         NSLog(@"theConnection is NULL");
-    }*/
+    }
 
 }
 //  滞期费
 
 -(void)getTBLateFee
 {
+     /* 
     NSLog(@"滞期费........");
     iSoapTbLateFeeDone=1;
-[self getTableDete:@"getTBLateFee" :23 :@"GetLateFeeInfo"];
     
-    /*
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTBLateFee) userInfo:NULL repeats:NO];
+        return;
+    }
+[self getTableDete:23 :@"GetLateFeeInfo"];
+   */ 
+    NSLog(@"=======================================iSoapDone:%d   iSoapNum:%d",iSoapDone,iSoapNum);
+    
+  
+   
     if (iSoapDone==0) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTBLateFee) userInfo:NULL repeats:NO];
         return;
@@ -1553,7 +1671,7 @@ NSString* alertMsg;
                              "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
                              "<soap12:Body>\n"
                              
-                             "<GetThShipTransInfo     xmlns=\"http://tempuri.org/\">\n"
+                             "<GetLateFeeInfo     xmlns=\"http://tempuri.org/\">\n"
                              
                              "<req>\n"
                              "<deviceid>%@</deviceid>\n"
@@ -1561,7 +1679,7 @@ NSString* alertMsg;
                              "<updatetime>%@</updatetime>\n"
                              "</req>\n"
                              
-                             "</GetThShipTransInfo>\n"
+                             "</GetLateFeeInfo>\n"
                              
                              "</soap12:Body>\n"
                              "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
@@ -1588,13 +1706,82 @@ NSString* alertMsg;
         NSLog(@"theConnection is NULL");
     }
 
-    */
+    
     
     
     
 }
 
+//tfport
+-(void)getTfPort
+{
+ NSLog(@"=======================================iSoapDone:%d   iSoapNum:%d",iSoapDone,iSoapNum);
+    if (iSoapDone==0) {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfPort) userInfo:NULL repeats:NO];
+        return;
+    } 
+    
+    //出错
+    if (iSoapDone==3) {
+        iSoapNum--;
+        if (iSoapNum<1) {
+            iSoapDone=1;
+        }
+        return;
+    }
+    iSoapDone=0;
+    
+    iSoapTfPortDone=1;
+    
+    NSLog(@"开始 getTfPort");
+    recordResults = NO;
+    iSoap=24;
+    NSString *soapMessage = [NSString stringWithFormat:
+                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                             "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                             "<soap12:Body>\n"
+                             
+                             "<GetPortInfo   xmlns=\"http://tempuri.org/\">\n"
+                             
+                             "<req>\n"
+                             "<deviceid>%@</deviceid>\n"
+                             "<version>%@</version>\n"
+                             "<updatetime>%@</updatetime>\n"
+                             "</req>\n"
+                             
+                             "</GetPortInfo>\n"
+                             
+                             "</soap12:Body>\n"
+                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+    
+    
 
+    
+    NSLog(@"soapMessage[%@]",soapMessage);
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    
+    NSURL *url = [NSURL URLWithString:PubInfo.baseUrl];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 请求
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    
+    // 如果连接已经建好，则初始化data
+    if( theConnection )
+    {
+        webData = [[NSMutableData data] retain];
+    }
+    else
+    {
+        NSLog(@"theConnection is NULL");
+    }
+    
+
+}
 
 
 
@@ -1639,7 +1826,7 @@ NSString* alertMsg;
 //如果没有连接网络，则出现此信息（不是网络服务器不通）
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"ERROR with theConenction");
+    NSLog(@"--------------------------------------------ERROR with theConenction");
     [connection release];
     [webData release];
     iSoapDone=3;
@@ -2628,6 +2815,14 @@ NSString* alertMsg;
             recordResults = YES;
         }
         else if( [elementName isEqualToString:@"TRADETIME"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+        else if( [elementName isEqualToString:@"ISCAL"])
         {
             if(!soapResults)
             {
@@ -3694,8 +3889,6 @@ NSString* alertMsg;
             }
             recordResults = YES;
         }
-              
-        
     }
     
     //解析 滞期费  
@@ -3707,8 +3900,7 @@ NSString* alertMsg;
                 soapResults = [[NSMutableString alloc] init];
             }
             recordResults = YES;
-            
-            
+
         }
         else  if ([elementName isEqualToString:@"PORTCODE"]){
             if(!soapResults)
@@ -3981,7 +4173,64 @@ NSString* alertMsg;
     }
     
    
+    //tfport
+    if (iSoap==24) {
+        if ([elementName isEqualToString:@"PORTCODE"]) {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+            
+            
+        }
+        if ([elementName isEqualToString:@"PORTNAME"]) {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+            
+            
+        }
+        if ([elementName isEqualToString:@"SORT"]) {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+            
+            
+        }
+        if ([elementName isEqualToString:@"UPLOAD"]) {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+            
+            
+        }
+        if ([elementName isEqualToString:@"DOWNLOAD"]) {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+            
+            
+        }
+        if ([elementName isEqualToString:@"NATIONALTYPE"]) {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+            
+            
+        }
     
+    }
     
     
     
@@ -4907,6 +5156,16 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
+            
+        }
+
+        else if( [elementName isEqualToString:@"ISCAL"])
+        {
+            vbShiptrans.iscal = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+            NSLog(@"-----------------------新添字段iscal：【%@】",vbShiptrans.iscal);
             [VbShiptransDao delete:vbShiptrans];
             [VbShiptransDao insert:vbShiptrans];
             [vbShiptrans release];
@@ -6249,6 +6508,67 @@ NSString* alertMsg;
         
     }
 
+    //tfport
+    if (iSoap==24) {
+        if ([elementName isEqualToString:@"PORTCODE"]) {
+            if(!tfport)
+            {
+                tfport = [[TfPort alloc] init];
+            }
+        tfport.PORTCODE=soapResults;
+        recordResults=FALSE ;
+        [soapResults    release];
+        soapResults=nil;  
+            
+        }
+        if ([elementName isEqualToString:@"PORTNAME"]) {
+            tfport.PORTNAME=soapResults;
+            recordResults=FALSE ;
+            [soapResults    release];
+            soapResults=nil;  
+            
+        }
+        if ([elementName isEqualToString:@"SORT"]) {
+            tfport.SORT=soapResults;
+            recordResults=FALSE ;
+            [soapResults    release];
+            soapResults=nil;
+            
+            
+        }
+        if ([elementName isEqualToString:@"UPLOAD"]) {
+            tfport.UPLOAD=soapResults;
+            recordResults=FALSE ;
+            [soapResults    release];
+            soapResults=nil;
+            
+            
+        }
+        if ([elementName isEqualToString:@"DOWNLOAD"]) {
+            tfport.DOWNLOAD=soapResults;
+            recordResults=FALSE ;
+            [soapResults    release];
+            soapResults=nil;
+            
+            
+        }
+        if ([elementName isEqualToString:@"NATIONALTYPE"]) {
+            tfport.NATIONALTYPE=soapResults;
+            recordResults=FALSE ;
+            [soapResults    release];
+            soapResults=nil;
+            
+            
+            
+            [TfPortDao delete:tfport];
+            [TfPortDao insert:tfport];
+            [tfport release];
+            tfport=nil;
+            
+        }
+        
+    }
+    
 
 
 
@@ -6396,10 +6716,13 @@ NSString* alertMsg;
         iSoapNum--;
     }
 //滞期费
-if (iSoapTbLateFeeDone==1) {
+  if (iSoapTbLateFeeDone==1) {
     iSoapTbLateFeeDone=2;
     iSoapNum--;
-}
+    NSLog(@"------------------------------iSoapNum:%d",iSoapNum);
+  }else {
+      NSLog(@"isoapNum 为0");
+  }
     
     
     
@@ -6521,7 +6844,11 @@ if (iSoapTbLateFeeDone==1) {
 
 }
 
+-(NSInteger)iSoapTfPortDone
+{
 
+    return  iSoapTfPortDone;
+}
 
 
 @end

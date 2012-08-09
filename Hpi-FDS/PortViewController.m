@@ -537,4 +537,28 @@ static NSString *stringType=@"GKDJL";
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
     }
 }
+
+#pragma mark SetSelectValue  Method
+-(void)setLableValue:(NSString *)currentSelectValue
+{
+    
+    if (chooseView) {
+        if (chooseView.type==kPORTBUTTON) {
+            self.portLabel.text =currentSelectValue;
+            if (![self.portLabel.text isEqualToString:NULL]) {
+                self.portLabel.hidden=NO;
+                [self.portButton setTitle:@"" forState:UIControlStateNormal];
+            }
+
+        }
+    }
+    
+    
+    
+    
+    
+}
+
+
+
 @end

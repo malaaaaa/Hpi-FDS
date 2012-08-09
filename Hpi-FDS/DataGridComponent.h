@@ -87,6 +87,9 @@
 
 @property(readonly) DataGridScrollView *vRight;
 @property(readonly) DataGridScrollView *vLeft;
+
+
+
 @property(readonly) float cellHeight;
 @property(retain) 	DataGridComponentDataSource *dataSource;
 

@@ -19,10 +19,10 @@ static sqlite3  *database;
     
     NSString  *documentsDirectory=[paths objectAtIndex:0];
     
-    NSString *path=[documentsDirectory  stringByAppendingPathComponent: @"TB_Latefee.db"  ];
+    NSString *path=[documentsDirectory  stringByAppendingPathComponent: @"database.db"  ];
     
     
-    NSLog(@"TB_Latefee:path=== %@",path);
+    NSLog(@"database.db:path=== %@",path);
     return  path;
 }
 
@@ -32,10 +32,10 @@ static sqlite3  *database;
 	if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
-		NSLog(@"open  TB_Latefee error");
+		NSLog(@"open  database error");
 		return;
 	}
-	NSLog(@"open TB_Latefee database succes ....");
+	NSLog(@"open  database succes ....");
 }
 
 +(void)initDb

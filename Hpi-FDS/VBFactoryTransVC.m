@@ -927,5 +927,120 @@ static  NSMutableArray *ShipStageArray;
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { 
     return 40;
 } 
+#pragma mark SetSelectValue  Method
+-(void)setLableValue:(NSString *)currentSelectValue
+{
+    
+    if (chooseView) {
+    
+        if (chooseView.type==kChFACTORY) {
+            self.factoryLabel.text =currentSelectValue;
+            if (![self.factoryLabel.text isEqualToString:All_]) {
+               self.factoryLabel.hidden=NO;
+                [self.factoryButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.factoryLabel.hidden=YES;
+                [self.factoryButton setTitle:@"电厂" forState:UIControlStateNormal];
+            }
+
+        }
+        if (chooseView.type==kSHIPCOMPANY) {
+            
+            
+            
+            
+            
+        }
+        if (chooseView.type==kSHIP) {
+            
+            
+            
+            
+            
+        }
+        if (chooseView.type==kSUPPLIER) {
+            
+            self.supLabel.text=currentSelectValue;
+            if (![ self.supLabel.text isEqualToString:All_]) {
+                 self.supLabel.hidden=NO;
+                [ self.supButton     setTitle:@"" forState:UIControlStateNormal];
+            }else {
+                 self.supLabel  .hidden=YES;
+                [ self.supButton setTitle:@"供货方" forState:UIControlStateNormal  ];
+            }
+            
+            
+            
+        }
+        if (chooseView.type==kCOALTYPE) {
+            
+            self.typeLabel.text=currentSelectValue;
+            if (![self.typeLabel.text isEqualToString:All_]) {
+                self.typeLabel.hidden=NO;
+                [self.typeButton setTitle:@"" forState:UIControlStateNormal];
+                
+                
+            }else {
+                self.typeLabel.hidden=YES;
+                [self.typeButton   setTitle:@"煤种" forState:UIControlStateNormal];
+            }
+            
+
+            
+            
+            
+        }
+        if (chooseView.type==kKEYVALUE) {
+            
+           self.keyValueLabel.text =currentSelectValue;
+           if (![self.keyValueLabel.text isEqualToString:All_]) {
+                self.keyValueLabel.hidden=NO;
+                [self.keyValueButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.keyValueLabel.hidden=YES;
+                [self.keyValueButton setTitle:@"性质" forState:UIControlStateNormal];
+            }
+
+            
+            
+        }
+        if (chooseView.type==kTRADE) {
+            
+            self.tradeLabel.text =currentSelectValue;
+            if (![self.tradeLabel.text isEqualToString:All_]) {
+                self.tradeLabel.hidden=NO;
+                [self.tradeButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.tradeLabel.hidden=YES;
+                [self.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+            }
+
+            
+            
+            
+        }
+        if (chooseView.type==kSHIPSTAGE) {
+            
+            
+            
+
+            
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+}
+
+
 
 @end

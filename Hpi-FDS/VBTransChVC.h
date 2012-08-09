@@ -11,7 +11,11 @@
 #import "ChooseView.h"
 #import "PubInfo.h"
 #import "XMLParser.h"
-@interface VBTransChVC :  UIViewController<UIPopoverControllerDelegate>{
+#import "ChooseViewDelegate.h"
+
+
+
+@interface VBTransChVC :  UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIButton *comButton;
     UILabel *comLabel;
     UIButton *shipButton;
