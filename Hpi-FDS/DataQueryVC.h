@@ -19,10 +19,13 @@
 #import "TfPort.h"
 #import "TfPortDao.h"
 #import "AvgPortPTimeChVC.h"
-
 #import "NT_LatefeeTongj.h"
 #import "NT_LatefeeTongjChVC.h"
 #import "NT_LatefeeTongjDao.h"
+#import "FactoryFreightVolumeVC.h"
+#import "PortEfficiencyVC.h"
+
+
 @class VBFactoryTransVC;
 
 @interface DataQueryVC : UIViewController<UITableViewDataSource,UITabBarDelegate,UIPopoverControllerDelegate>
@@ -56,6 +59,8 @@
     UIPopoverController* popover;
     NSMutableArray  *detailArray;
     ShipCompanyTransShareVC *shipCompanyTrnasShareVC;
+    FactoryFreightVolumeVC *factoryFreightVolumeVC;
+    PortEfficiencyVC *portEfficiencyVC;
     
 }
 
@@ -83,8 +88,8 @@
 
 
 @property (nonatomic,retain) DataGridComponentDataSource *dataSource;
-
-
+@property(nonatomic,retain) FactoryFreightVolumeVC *factoryFreightVolumeVC;
+@property(nonatomic,retain) PortEfficiencyVC *portEfficiencyVC;
 
 
 -(void)loadViewData_vb;

@@ -164,14 +164,14 @@ static sqlite3	*database;
 +(NSMutableArray *) getVbTransplan
 {
     
-	NSString *query=[NSString stringWithString:@" lon <> 0 "];
+	NSString *query=@" lon <> 0 ";
 	NSMutableArray * array=[VbTransplanDao getVbTransplanBySql:query];
     NSLog(@"执行 getVbTransplan 数量[%d] ",[array count]);
 	return array;
 }
 +(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)coalType:(NSString *)factoryName:(NSString *)dateTime:(NSString *)planCode
 {
-    NSString *query=[NSString stringWithString:@" 1=1  "];
+    NSString *query=@" 1=1  ";
     
     if(![shipCompany isEqualToString:All_])
         query=[query stringByAppendingFormat:@" AND shipCompany ='%@' ",shipCompany];

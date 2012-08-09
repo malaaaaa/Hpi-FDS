@@ -112,7 +112,7 @@ static sqlite3	*database;
 +(void) deleteAll
 {
 	char * errorMsg;
-	NSString *deletesql=[NSString stringWithString:@"DELETE FROM  TsFileinfo"];
+	NSString *deletesql=@"DELETE FROM  TsFileinfo";
 	
 	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
@@ -142,7 +142,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTsFileinfo
 {
     [self updatezbz];
-	NSString *query=[NSString stringWithString:@" 1 = 1 ORDER BY fileId DESC;  "];
+	NSString *query=@" 1 = 1 ORDER BY fileId DESC;  ";
 	NSMutableArray * array=[TsFileinfoDao getTsFileinfoBySql:query];
     NSLog(@"执行 getTsFileinfo 数量[%d] ",[array count]);
 	return array;
@@ -172,7 +172,7 @@ static sqlite3	*database;
 
 +(BOOL)tsFileHasDownload
 {
-    NSString *query=[NSString stringWithString:@"SELECT  count(fileId)  FROM  TsFileinfo WHERE xzbz='2' "];
+    NSString *query=@"SELECT  count(fileId)  FROM  TsFileinfo WHERE xzbz='2' ";
 	NSLog(@"isExist [%@]",query);
 	sqlite3_stmt	*statement;
 	if(sqlite3_prepare_v2(database,[query UTF8String],-1,&statement,nil)==SQLITE_OK){
@@ -295,7 +295,7 @@ static sqlite3	*database;
 //zhangcx add
 +(void) updatezbz
 {
-	NSString *updateSql=[NSString stringWithString:@"update TsFileinfo  set xzbz='0' where xzbz='2' "];
+	NSString *updateSql=@"update TsFileinfo  set xzbz='0' where xzbz='2' ";
 	if(sqlite3_exec(database,[updateSql UTF8String],NULL,NULL,NULL)!=SQLITE_OK)
 	{
 		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);		
@@ -309,7 +309,7 @@ static sqlite3	*database;
 }
 +(void) updateDown
 {
-	NSString *updateSql=[NSString stringWithString:@"update TsFileinfo  set xzbz='0' where xzbz='1' "];
+	NSString *updateSql=@"update TsFileinfo  set xzbz='0' where xzbz='1' ";
 	if(sqlite3_exec(database,[updateSql UTF8String],NULL,NULL,NULL)!=SQLITE_OK)
 	{
 		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);		

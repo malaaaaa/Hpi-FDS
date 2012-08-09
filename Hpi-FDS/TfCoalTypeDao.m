@@ -79,7 +79,7 @@ static sqlite3	*database;
     }
 	sqlite3_finalize(statement);
     NSLog(@"%@",tfCoalType.COALTYPE);
-    NSLog(@"%@",tfCoalType.SULFUR);
+    NSLog(@"%d",tfCoalType.SULFUR);
     NSLog(@"%@",@"插入成功！！！！！！");
     
     
@@ -113,7 +113,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTfCoalType
 {
     
-	NSString *query=[NSString stringWithString:@" 1=1 "];
+	NSString *query=@" 1=1 ";
 	NSMutableArray * array=[TfCoalTypeDao getTfCoalTypeBySql:query];
     
     

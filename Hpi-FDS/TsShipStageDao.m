@@ -99,7 +99,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTsShipStage
 {
     
-	NSString *query=[NSString stringWithString:@" 1=1 "];
+	NSString *query=@" 1=1 ";
 	NSMutableArray * array=[TsShipStageDao getTsShipStageBySql:query];
     NSLog(@"执行 TsShipStage 数量[%d] ",[array count]);
 	return array;

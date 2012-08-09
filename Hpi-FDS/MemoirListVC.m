@@ -190,7 +190,7 @@ static int cellNum =0;
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *MyIdentifier = [NSString stringWithString:@"MemoirCell"];
+    NSString *MyIdentifier = @"MemoirCell";
 	MemoirCell *cell=(MemoirCell *)[tableView dequeueReusableCellWithIdentifier:MyIdentifier];
 	if(cell==nil)
 	{

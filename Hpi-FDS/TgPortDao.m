@@ -128,7 +128,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTgPort
 {
     
-	NSString *query=[NSString stringWithString:@" lon <> 0 "];
+	NSString *query=@" lon <> 0 ";
 	NSMutableArray * array=[TgPortDao getTgPortBySql:query];
     NSLog(@"执行 getTgPort 数量[%d] ",[array count]);
 	return array;

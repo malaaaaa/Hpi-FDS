@@ -44,6 +44,8 @@
 
 #import "NTShipCompanyTranShare.h"
 #import "NTShipCompanyTranShareDao.h"
+#import "NTFactoryFreightVolume.h"
+#import "NTFactoryFreightVolumeDao.h"
 
 @interface XMLParser : NSObject<NSXMLParserDelegate>{
     NSMutableData *webData;
@@ -78,16 +80,8 @@
     //tfport
     TfPort *tfport;
     
-    
    NTShipCompanyTranShare *ntShipCompanyTranShare;
-    
-    
-    
-    
-    
-    
-    
-    
+    NTFactoryFreightVolume *factoryFreightVolume;
     
 }
 
@@ -124,6 +118,7 @@
 
 
 @property(nonatomic,retain) NTShipCompanyTranShare *ntShipCompanyTranShare;
+@property(nonatomic,retain) NTFactoryFreightVolume *factoryFreightVolume;
 
 
 
@@ -162,6 +157,8 @@
 -(void)getTableDete:(NSInteger)Set_iSoapValue :(NSString *)RequestXMLMethodName;
 
 - (void)getNtShipCompanyTranShare;
+- (void)getNTFactoryFreightVolume;
+
 
 
 -(NSInteger)iSoapTmIndextypeDone;
@@ -194,4 +191,6 @@
 
 
 -(NSInteger)iSoapNTShipCompanyTranShareDone;
+-(NSInteger)iSoapNTFactoryFreightVolumeDone;
+
 @end

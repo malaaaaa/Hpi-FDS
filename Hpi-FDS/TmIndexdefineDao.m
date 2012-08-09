@@ -122,7 +122,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTmIndexdefine
 {
     
-	NSString *query=[NSString stringWithString:@" lon <> 0 "];
+	NSString *query=@" lon <> 0 ";
 	NSMutableArray * array=[TmIndexdefineDao getTmIndexdefineBySql:query];
     NSLog(@"执行 getTmIndexdefine 数量[%d] ",[array count]);
 	return array;

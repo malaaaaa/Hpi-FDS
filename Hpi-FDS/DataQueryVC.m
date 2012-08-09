@@ -41,6 +41,11 @@
 @synthesize latefeeTj;
 
 @synthesize avgTimePort;
+@synthesize factoryFreightVolumeVC;
+@synthesize portEfficiencyVC;
+
+
+
 @synthesize dataSource;
 
 //static DataGridComponentDataSource *dataSource;
@@ -345,17 +350,34 @@
 //               
 //        NSLog(@"电厂动态");
 
-        self.shipCompanyTrnasShareVC =[[ ShipCompanyTransShareVC alloc ]initWithNibName:@"ShipCompanyTransShareVC" bundle:nil];
-        shipCompanyTrnasShareVC.parentVC=self;
-        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
-        shipCompanyTrnasShareVC.view.frame=CGRectMake(0, 30, 1024, 661);
-        [self.view addSubview:shipCompanyTrnasShareVC.view];
-        [self.view bringSubviewToFront:shipCompanyTrnasShareVC.view];
+//        self.shipCompanyTrnasShareVC =[[ ShipCompanyTransShareVC alloc ]initWithNibName:@"ShipCompanyTransShareVC" bundle:nil];
+//        shipCompanyTrnasShareVC.parentVC=self;
+//        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
+//        shipCompanyTrnasShareVC.view.frame=CGRectMake(0, 30, 1024, 661);
+//        [self.view addSubview:shipCompanyTrnasShareVC.view];
+//        [self.view bringSubviewToFront:shipCompanyTrnasShareVC.view];
+//        
+//        
+//        NSLog(@"船运公司份额统计");
+//
+        
+//        self.factoryFreightVolumeVC =[[ FactoryFreightVolumeVC alloc ]initWithNibName:@"FactoryFreightVolumeVC" bundle:nil];
+//        factoryFreightVolumeVC.parentVC=self;
+//        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
+//        factoryFreightVolumeVC.view.frame=CGRectMake(0, 30, 1024, 661);
+//        [self.view addSubview:factoryFreightVolumeVC.view];
+//        [self.view bringSubviewToFront:factoryFreightVolumeVC.view];
+//        NSLog(@"电厂运力运量统计");
+        
+        self.portEfficiencyVC =[[ PortEfficiencyVC alloc ]initWithNibName:@"PortEfficiencyVC" bundle:nil];
+        portEfficiencyVC.parentVC=self;
+        portEfficiencyVC.view.frame=CGRectMake(0, 30, 1024, 661);
+        [self.view addSubview:portEfficiencyVC.view];
+        [self.view bringSubviewToFront:portEfficiencyVC.view];
+        NSLog(@"装卸港效率统计");
         
         
-        NSLog(@"船运公司份额统计");
-
-    }else if (segment.selectedSegmentIndex==3) { 
+    }else if (segment.selectedSegmentIndex==3) {
         
         //在下一个   视图显示时   移除上一个   视图
       
@@ -650,7 +672,7 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *MyIdentifier = [NSString stringWithString:@"UITableViewCell"];
+    NSString *MyIdentifier = @"UITableViewCell";
     
     
     UITableViewCell *cell=(UITableViewCell*)[listTableview dequeueReusableCellWithIdentifier:MyIdentifier];

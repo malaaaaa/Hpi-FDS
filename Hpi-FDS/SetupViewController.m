@@ -133,7 +133,7 @@ UIAlertView *alert;
 			switch(row)
 			{
 				case 0	:
-					cell.textLabel.text=[NSString stringWithString: @"启动自动更新数据"];
+					cell.textLabel.text=@"启动自动更新数据";
 					UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(310, 8.5, 500.0, 0.0)];
 					if([PubInfo.autoUpdate isEqualToString:kYES])
 						switchView.on = YES;//设置初始为ON的一边
@@ -157,7 +157,7 @@ UIAlertView *alert;
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 					break;
                 case 2	:
-                    cell.textLabel.text=[NSString stringWithString:@"删除本地文件"];
+                    cell.textLabel.text=@"删除本地文件";
                     cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -178,7 +178,7 @@ UIAlertView *alert;
                     cell.textLabel.text=[NSString stringWithFormat:@"本地文件数量: %d",[self getFileNum]];
                     break;
                 case 3	:
-                    cell.textLabel.text=[NSString stringWithString:@"版本信息: HFDS for iPad  V1.2"];
+                    cell.textLabel.text=@"版本信息: HFDS for iPad  V1.2";
                     break;
                     
             }

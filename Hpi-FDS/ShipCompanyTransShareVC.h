@@ -11,10 +11,11 @@
 //#import "HpiGraphData.h"
 #import "BrokenLineGraphData.h"
 #import "BrokenLineGraphView.h"
+#import "BrokenLineLegendVC.h"
 #import "DateViewController.h"
 #import "XMLParser.h"
 #import "MultipleSelectView.h"
-
+#import "NTColorConfigDao.h"
 
 @interface ShipCompanyTransShareVC : UIViewController<UIPopoverControllerDelegate>{
     UIPopoverController *_popover;
@@ -28,10 +29,12 @@
     IBOutlet UIButton *_endButton;
     IBOutlet UIButton *_queryButton;
     IBOutlet UIButton *_reloadButton;
+    IBOutlet UIButton *_legendButton;
     IBOutlet UIActivityIndicatorView *_activity;
     XMLParser *_xmlParser;
     BrokenLineGraphView *_graphView;
     MultipleSelectView *_multipleSelectView;
+    BrokenLineLegendVC *_legendView;
     id parentVC;
 
 }
@@ -46,16 +49,19 @@
 @property(nonatomic,retain) UIButton *endButton;
 @property(nonatomic,retain) UIButton *queryButton;
 @property(nonatomic,retain) UIButton *reloadButton;
+@property(nonatomic,retain) UIButton *legendButton;
 @property(nonatomic,retain) UIActivityIndicatorView *activity;
 @property(nonatomic,retain) XMLParser *xmlParser;
 @property(nonatomic,retain) BrokenLineGraphView *graphView;
 @property(nonatomic,retain) MultipleSelectView *multipleSelectView;
 @property (retain, nonatomic) id parentVC;
+@property(nonatomic,retain) BrokenLineLegendVC *legendView;
 
 
 - (IBAction)portAction:(id)sender;
 - (IBAction)queryData:(id)sender;
 - (IBAction)reloadAction:(id)sender;
+- (IBAction)legendAction:(id)sender;
 -(IBAction)startDate:(id)sender;
 -(IBAction)endDate:(id)sender;
 //生成临时表数据

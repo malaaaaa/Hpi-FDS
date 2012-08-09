@@ -93,7 +93,14 @@ static NSString *deviceID;
     [NTShipCompanyTranShareDao openDataBase];
     [NTShipCompanyTranShareDao initDb];
     [NTShipCompanyTranShareDao initDb_tmpTable];
-    [NTShipCompanyTranShareDao initDb_ColorConfig];
+    [NTColorConfigDao openDataBase];
+    [NTColorConfigDao initDb];
+    [NTFactoryFreightVolumeDao openDataBase];
+    [NTFactoryFreightVolumeDao initDb];
+    [NTFactoryFreightVolumeDao initDb_tmpTable];    
+    [PortEfficiencyDao openDataBase];
+    [PortEfficiencyDao initDb];
+
     
     
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

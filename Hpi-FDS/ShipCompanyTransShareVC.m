@@ -24,14 +24,18 @@
 @synthesize startButton=_startButton;
 @synthesize endButton=_endButton;
 @synthesize reloadButton=_reloadButton;
+@synthesize legendButton=_legendButton;
 @synthesize activity=_activity;
 @synthesize xmlParser=_xmlParser;
 @synthesize graphView=_graphView;
 @synthesize multipleSelectView=_multipleSelectView;
 @synthesize parentVC;
+@synthesize legendView=_legendView;
 
 static BOOL PortPop=NO;
 static  NSMutableArray *PortArray;
+static  NSMutableArray *LegendArray;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,13 +80,14 @@ static  NSMutableArray *PortArray;
     self.portButton=nil;
     self.reloadButton=nil;
     self.xmlParser=nil;
-//    _xmlParser=nil;
-//    [_xmlParser release];
+    self.legendButton=nil;
+    //    _xmlParser=nil;
+    //    [_xmlParser release];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 - (void)dealloc {
-  
+    
     [_popover release];
     [_reloadButton release];
     [_activity release];
@@ -100,7 +105,7 @@ static  NSMutableArray *PortArray;
 #pragma mark -
 #pragma mark buttion action
 - (IBAction)portAction:(id)sender {
-   
+    
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -121,7 +126,7 @@ static  NSMutableArray *PortArray;
         TgPort *allPort =  [[TgPort alloc] init];
         allPort.portCode=All_;
         allPort.portName=All_;
-
+        
         [PortArray addObject:allPort];
         [allPort release];
         NSMutableArray *array=[TgPortDao getTgPort];
@@ -146,7 +151,7 @@ static  NSMutableArray *PortArray;
     [_multipleSelectView.tableView reloadData];
     [_multipleSelectView release];
     [pop release];
-        
+    
 }
 -(IBAction)startDate:(id)sender
 {
@@ -202,6 +207,37 @@ static  NSMutableArray *PortArray;
     [self.popover presentPopoverFromRect:CGRectMake(610, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
+- (IBAction)legendAction:(id)sender {
+
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    
+    //初始化多选控制器
+    _legendView=[[BrokenLineLegendVC alloc]init];
+    //设置待显示控制器的范围
+    [_legendView.view setFrame:CGRectMake(0,0, 125, 400)];
+    //设置待显示控制器视图的尺寸
+    _legendView.contentSizeForViewInPopover = CGSizeMake(125, 400);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_legendView];
+    _legendView.popover = pop;
+    LegendArray = [NTColorConfigDao getNTColorConfigByType:@"COMID"]
+    ;
+
+    _legendView.iDArray=LegendArray;
+    
+    _legendView.parentMapView=self;
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(125, 120);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(850, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [_legendView.tableView reloadData];
+    [_legendView release];
+    [pop release];
+}
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
@@ -213,10 +249,10 @@ static  NSMutableArray *PortArray;
         [self.view addSubview:_activity];
         [_reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [_activity startAnimating];
-         [_xmlParser setISoapNum:1];
+        [_xmlParser setISoapNum:1];
         [NTShipCompanyTranShareDao deleteAll];
         [_xmlParser getNtShipCompanyTranShare];
-
+        
         [self runActivity];
     }
 	
@@ -238,7 +274,7 @@ static  NSMutableArray *PortArray;
         NSLog(@"endDay=%@",[dateFormatter stringFromDate:self.endDay]);
         [dateFormatter release];
     }
-
+    
     return  YES;
 }
 
@@ -249,7 +285,7 @@ static  NSMutableArray *PortArray;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM"];
     [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
-      [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
+    [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
     [dateFormatter release];
 }
 
@@ -306,40 +342,11 @@ static  NSMutableArray *PortArray;
     graphData.xNum = [comps month]+1;
     NSLog(@"xnum=%d",graphData.xNum);
     
-    
-    NSDate *nextMonth=_startDay;
-
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-
-    
-    LineArray   *line =[[LineArray alloc]init];
-    line.pointArray = [[NSMutableArray alloc] init ];
-    for(int i=1;i<=graphData.xNum;i++)
-    {   
+    NSDate *nextMonth=_startDay;
+    for(int i=1;i<=graphData.xNum;i++){
         [dateFormatter setDateFormat:@"yyyy/MM"];   
         [graphData.xtitles addObject:[dateFormatter stringFromDate:nextMonth]];
-        
-        //计算坐标值
-        [dateFormatter setDateFormat:@"yyyy"];
-        NSString *year = [dateFormatter stringFromDate:nextMonth];
-        [dateFormatter setDateFormat:@"MM"];
-        NSString *month = [dateFormatter stringFromDate:nextMonth];
-        
-        
-        NTShipCompanyTranShare *TransShare=[NTShipCompanyTranShareDao getTransShareByComid:4 Year:year Month:month];
-        if (TransShare==nil) {
-            
-        }
-        else {
-            BrokenLineGraphPoint *point=[[BrokenLineGraphPoint alloc]init] ;
-            point.x=i-1;
-            NSLog(@"TransShare%@",TransShare.PERCENT);
-            point.y=([TransShare.PERCENT floatValue]-minY)*10;
-            NSLog(@"point.x%d",point.x);
-            NSLog(@"point.y%d",point.y);
-            [line.pointArray  addObject:point];
-            [point release];
-        }
         
         //计算下一个月
         NSDateComponents *offsetComponents= [[NSDateComponents alloc] init];
@@ -348,24 +355,72 @@ static  NSMutableArray *PortArray;
         [offsetComponents release];
         
     }
-    NSLog(@"graphData.pointArray000.count=%d",[line.pointArray count]);
     
-    line.red=10.0;
-    line.green=11.0;
-    line.blue=220.0;
-    [graphData.pointArray addObject:line];
-    [line release];
-
+    NSMutableArray *CompanyColorArray = [NTColorConfigDao getNTColorConfigByType:@"COMID"];
+    for (int i =0; i< [CompanyColorArray count]; i++) {
+        NTColorConfig *colorConfig= [CompanyColorArray objectAtIndex:i];
+        NSDate *nextMonth=_startDay;
+        
+        LineArray   *line =[[LineArray alloc]init];
+        line.pointArray = [[NSMutableArray alloc] init ];
+        for(int i=1;i<=graphData.xNum;i++)
+        {   
+            
+            //计算坐标值
+            [dateFormatter setDateFormat:@"yyyy"];
+            NSString *year = [dateFormatter stringFromDate:nextMonth];
+            [dateFormatter setDateFormat:@"MM"];
+            NSString *month = [dateFormatter stringFromDate:nextMonth];
+            
+            NSInteger comid= [colorConfig.ID integerValue];
+//            NTShipCompanyTranShare *TransShare=[NTShipCompanyTranShareDao getTransShareByComid:comid  Year:year Month:month];
+             BrokenLineGraphPoint *point=[[BrokenLineGraphPoint alloc]init] ;
+                point.companyShare=[NTShipCompanyTranShareDao getTransShareByComid:comid  Year:year Month:month];
+            
+            if (point.companyShare==nil) {
+                
+            }
+            else {
+               
+                point.x=i-1;
+                NSLog(@"TransShare%@",point.companyShare.PERCENT);
+                point.y=([point.companyShare.PERCENT floatValue]-minY)*10;
+                NSLog(@"point.x%d",point.x);
+                NSLog(@"point.y%d",point.y);
+                
+                [line.pointArray  addObject:point];
+                
+            }
+            [point release];
+            //计算下一个月
+            NSDateComponents *offsetComponents= [[NSDateComponents alloc] init];
+            [offsetComponents setMonth:1];
+            nextMonth= [gregorian dateByAddingComponents:offsetComponents toDate:nextMonth options:0];
+            [offsetComponents release];
+            
+        }
+        NSLog(@"graphData.pointArray000.count=%d",[line.pointArray count]);
+        
+        line.red=[colorConfig.RED floatValue];
+        line.green=[colorConfig.GREEN floatValue];
+        line.blue=[colorConfig.BLUE floatValue];
+        NSLog(@"blue%f",line.blue);
+        [graphData.pointArray addObject:line];
+        
+        [line.pointArray release];
+        [line release];
+        
+    }    
+    
     [dateFormatter release]; 
     
     NSLog(@"graphData.pointArray111.count=%d",[graphData.pointArray count]);
     
     if (_graphView) {
         [_graphView removeFromSuperview];
-        [_graphView release];
-        _graphView =nil;
+        self.graphView=nil;
+
     }
-    //NSLog(@"graphView $$$$$$$$ %d",[graphView retainCount]);
     self.graphView=[[BrokenLineGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData];
     _graphView.titleLabel.text=@"航运公司份额统计";
     
@@ -373,9 +428,16 @@ static  NSMutableArray *PortArray;
     _graphView.marginBottom=60;
     _graphView.marginLeft=60;
     _graphView.marginTop=80;
+    
     [_graphView setNeedsDisplay];
+    
     [self.view addSubview:_graphView];
-    [graphData release];   
+    
+    [graphData.pointArray  release];
+    [graphData.xtitles release];
+    [graphData.ytitles release];
+    [graphData release];  
+    NSLog(@"HHHHH");
     
 }
 //-(BOOL) checkDatePicker{

@@ -4,7 +4,6 @@
 //
 //  Created by zcx on 12-3-30.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
-//tangaaaaab
 
 #import <Foundation/Foundation.h>
 #import "NSString+Verify.h"
@@ -50,6 +49,11 @@
 #import "TsShipStageDao.h"
 #import "NTShipCompanyTranShare.h"
 #import "NTShipCompanyTranShareDao.h"
+#import "NTColorConfig.h"
+#import "NTColorConfigDao.h"
+#import "NTFactoryFreightVolume.h"
+#import "NTFactoryFreightVolumeDao.h"
+#import "PortEfficiency.h"
 
 typedef enum{
     kPORT=0,
@@ -67,15 +71,11 @@ typedef enum{
     kKEYVALUE,
     kTRADE,
     kSHIPSTAGE,
-    
     kSUPPLIER,//14
-   
-    
     kshiptransStage,//15
-    
-    
-    kfactoryCate
-    
+    kfactoryCate,
+    kTYPE, //电厂类型
+    kSCHEDULE, //班轮
 } CoordinateType;
 
 #define All_PORT    @"全部港口"

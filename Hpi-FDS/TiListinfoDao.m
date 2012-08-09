@@ -110,7 +110,7 @@ static sqlite3	*database;
 
 +(NSMutableArray *) getTiListinfo:(NSInteger)infoId
 {
-	NSString *query=[NSString stringWithFormat:@" infoId = '%@' ",infoId];
+	NSString *query=[NSString stringWithFormat:@" infoId = '%d' ",infoId];
 	NSMutableArray * array=[TiListinfoDao getTiListinfoBySql:query];
 	return array;
 }

@@ -196,6 +196,62 @@
 		2AA44B3C15D11985007B499B /* AvgPortPTimeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */; };
 		2AD84EA115B91B2B00D91111 /* TH_ShipTransChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */; };
 		2AD84EA215B91B2B00D91111 /* TH_ShipTransChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */; };
+		D32C48E715CA5F720034B454 /* MultiTitleDataGridComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = D32C48E615CA5F720034B454 /* MultiTitleDataGridComponent.m */; };
+		D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */; };
+		D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */; };
+		D35CFE4715D1EB13005FAA17 /* PortEfficiency.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */; };
+		D378812C15C65B3E0033FB88 /* BrokenLineLegendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D378812A15C65B3D0033FB88 /* BrokenLineLegendVC.m */; };
+		D378812D15C65B3E0033FB88 /* BrokenLineLegendVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D378812B15C65B3D0033FB88 /* BrokenLineLegendVC.xib */; };
+		D37A3E1215C902E7002B48F8 /* NTFactoryFreightVolume.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A3E1115C902E7002B48F8 /* NTFactoryFreightVolume.m */; };
+		D37A3E1615C90318002B48F8 /* NTFactoryFreightVolumeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */; };
+		D3A06E4615D0E74C00963BA2 /* NAArrow.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DDF15D0E74C00963BA2 /* NAArrow.c */; };
+		D3A06E4715D0E74C00963BA2 /* NABezierControlPoints.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DE215D0E74C00963BA2 /* NABezierControlPoints.c */; };
+		D3A06E4815D0E74C00963BA2 /* NADashing.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DE415D0E74C00963BA2 /* NADashing.c */; };
+		D3A06E4915D0E74C00963BA2 /* NALineIntersection.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DE615D0E74C00963BA2 /* NALineIntersection.c */; };
+		D3A06E4A15D0E74C00963BA2 /* NALineRectangleIntersection.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DE815D0E74C00963BA2 /* NALineRectangleIntersection.c */; };
+		D3A06E4B15D0E74C00963BA2 /* NASymbol.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DEB15D0E74C00963BA2 /* NASymbol.c */; };
+		D3A06E4C15D0E74C00963BA2 /* WSAxisLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DF015D0E74C00963BA2 /* WSAxisLocation.m */; };
+		D3A06E4D15D0E74C00963BA2 /* WSAxisProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DF315D0E74C00963BA2 /* WSAxisProperties.m */; };
+		D3A06E4E15D0E74C00963BA2 /* WSBarPlotFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DF515D0E74C00963BA2 /* WSBarPlotFactory.m */; };
+		D3A06E4F15D0E74C00963BA2 /* WSBarProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DF715D0E74C00963BA2 /* WSBarProperties.m */; };
+		D3A06E5015D0E74C00963BA2 /* WSBinning.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DF915D0E74C00963BA2 /* WSBinning.m */; };
+		D3A06E5115D0E74C00963BA2 /* WSChart.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DFB15D0E74C00963BA2 /* WSChart.m */; };
+		D3A06E5215D0E74C00963BA2 /* WSChartAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DFD15D0E74C00963BA2 /* WSChartAnimation.m */; };
+		D3A06E5315D0E74C00963BA2 /* WSColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E0015D0E74C00963BA2 /* WSColor.m */; };
+		D3A06E5415D0E74C00963BA2 /* WSColorScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E0215D0E74C00963BA2 /* WSColorScheme.m */; };
+		D3A06E5515D0E74C00963BA2 /* WSConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E0415D0E74C00963BA2 /* WSConnection.m */; };
+		D3A06E5615D0E74C00963BA2 /* WSContour.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E0715D0E74C00963BA2 /* WSContour.m */; };
+		D3A06E5715D0E74C00963BA2 /* WSCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E0A15D0E74C00963BA2 /* WSCoordinate.m */; };
+		D3A06E5815D0E74C00963BA2 /* WSCustomProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E0F15D0E74C00963BA2 /* WSCustomProperties.m */; };
+		D3A06E5915D0E74C00963BA2 /* WSData.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E1115D0E74C00963BA2 /* WSData.m */; };
+		D3A06E5A15D0E74C00963BA2 /* WSDataOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E1415D0E74C00963BA2 /* WSDataOperations.m */; };
+		D3A06E5B15D0E74C00963BA2 /* WSDataPointProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E1615D0E74C00963BA2 /* WSDataPointProperties.m */; };
+		D3A06E5C15D0E74C00963BA2 /* WSDatum.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E1815D0E74C00963BA2 /* WSDatum.m */; };
+		D3A06E5D15D0E74C00963BA2 /* WSDiscProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E1B15D0E74C00963BA2 /* WSDiscProperties.m */; };
+		D3A06E5E15D0E74C00963BA2 /* WSFont.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E1D15D0E74C00963BA2 /* WSFont.m */; };
+		D3A06E5F15D0E74C00963BA2 /* WSGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E1F15D0E74C00963BA2 /* WSGraph.m */; };
+		D3A06E6015D0E74C00963BA2 /* WSGraphConnections.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E2115D0E74C00963BA2 /* WSGraphConnections.m */; };
+		D3A06E6115D0E74C00963BA2 /* WSGraphPlotFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E2315D0E74C00963BA2 /* WSGraphPlotFactory.m */; };
+		D3A06E6215D0E74C00963BA2 /* WSLinePlotFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E2515D0E74C00963BA2 /* WSLinePlotFactory.m */; };
+		D3A06E6315D0E74C00963BA2 /* WSNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E2715D0E74C00963BA2 /* WSNode.m */; };
+		D3A06E6415D0E74C00963BA2 /* WSNodeProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E2915D0E74C00963BA2 /* WSNodeProperties.m */; };
+		D3A06E6515D0E74C00963BA2 /* WSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E2B15D0E74C00963BA2 /* WSObject.m */; };
+		D3A06E6615D0E74C00963BA2 /* WSPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E2D15D0E74C00963BA2 /* WSPlot.m */; };
+		D3A06E6715D0E74C00963BA2 /* WSPlotAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E2F15D0E74C00963BA2 /* WSPlotAxis.m */; };
+		D3A06E6815D0E74C00963BA2 /* WSPlotBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E3115D0E74C00963BA2 /* WSPlotBar.m */; };
+		D3A06E6915D0E74C00963BA2 /* WSPlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E3315D0E74C00963BA2 /* WSPlotController.m */; };
+		D3A06E6A15D0E74C00963BA2 /* WSPlotData.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E3515D0E74C00963BA2 /* WSPlotData.m */; };
+		D3A06E6B15D0E74C00963BA2 /* WSPlotDisc.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E3715D0E74C00963BA2 /* WSPlotDisc.m */; };
+		D3A06E6C15D0E74C00963BA2 /* WSPlotGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E3A15D0E74C00963BA2 /* WSPlotGraph.m */; };
+		D3A06E6D15D0E74C00963BA2 /* WSPlotRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E3C15D0E74C00963BA2 /* WSPlotRegion.m */; };
+		D3A06E6E15D0E74C00963BA2 /* WSPlotTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E3E15D0E74C00963BA2 /* WSPlotTemplate.m */; };
+		D3A06E6F15D0E74C00963BA2 /* WSTicks.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E4015D0E74C00963BA2 /* WSTicks.m */; };
+		D3A06E7015D0E74C00963BA2 /* WSVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E4215D0E74C00963BA2 /* WSVersion.m */; };
+		D3A06E7115D0E74C00963BA2 /* WSView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E4515D0E74C00963BA2 /* WSView.m */; };
+		D3A06E7515D0E93500963BA2 /* PortEfficiencyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */; };
+		D3A06E7615D0E93500963BA2 /* PortEfficiencyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */; };
+		D9063A7A15C13D27002FE1CE /* NTColorConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D9063A7915C13D27002FE1CE /* NTColorConfig.m */; };
+		D9063A7E15C14032002FE1CE /* NTColorConfigDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D9063A7D15C14031002FE1CE /* NTColorConfigDao.m */; };
 		D90A84FE15B54224001CC03A /* TfShipCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A84FD15B54224001CC03A /* TfShipCompany.m */; };
 		D90C8EC015BF9DD90009626B /* BrokenLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C8EBF15BF9DD80009626B /* BrokenLineGraphView.m */; };
 		D90C8EC415BFD03F0009626B /* BrokenLineGraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C8EC315BFD03F0009626B /* BrokenLineGraphData.m */; };
@@ -206,6 +262,8 @@
 		D91A487F15B65D790020EEA0 /* TfCoalTypeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D91A487E15B65D740020EEA0 /* TfCoalTypeDao.m */; };
 		D91A488215B692660020EEA0 /* TsShipStage.m in Sources */ = {isa = PBXBuildFile; fileRef = D91A488115B692620020EEA0 /* TsShipStage.m */; };
 		D91A488515B692810020EEA0 /* TsShipStageDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D91A488415B6927D0020EEA0 /* TsShipStageDao.m */; };
+		D926248415C22EED007AB0B9 /* ShipCompanyShareDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D926248215C22EED007AB0B9 /* ShipCompanyShareDetailVC.m */; };
+		D926248515C22EED007AB0B9 /* ShipCompanyShareDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D926248315C22EED007AB0B9 /* ShipCompanyShareDetailVC.xib */; };
 		D92960D215AA71750042D6BD /* TfFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D92960D115AA71750042D6BD /* TfFactory.m */; };
 		D92960D615AA785C0042D6BD /* TfFactoryDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D92960D515AA785B0042D6BD /* TfFactoryDao.m */; };
 		D92960D915AA80EA0042D6BD /* TbFactoryState.m in Sources */ = {isa = PBXBuildFile; fileRef = D92960D815AA80E80042D6BD /* TbFactoryState.m */; };
@@ -506,6 +564,131 @@
 		2AD84E9E15B91B2B00D91111 /* TH_ShipTransChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransChVC.h; sourceTree = "<group>"; };
 		2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransChVC.m; sourceTree = "<group>"; };
 		2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TH_ShipTransChVC.xib; sourceTree = "<group>"; };
+		D32C48E515CA5F710034B454 /* MultiTitleDataGridComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTitleDataGridComponent.h; sourceTree = "<group>"; };
+		D32C48E615CA5F720034B454 /* MultiTitleDataGridComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiTitleDataGridComponent.m; sourceTree = "<group>"; };
+		D35ACFE215C7D84100F53AAD /* FactoryFreightVolumeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryFreightVolumeVC.h; sourceTree = "<group>"; };
+		D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryFreightVolumeVC.m; sourceTree = "<group>"; };
+		D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FactoryFreightVolumeVC.xib; sourceTree = "<group>"; };
+		D35CFE4515D1EB13005FAA17 /* PortEfficiency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortEfficiency.h; sourceTree = "<group>"; };
+		D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortEfficiency.m; sourceTree = "<group>"; };
+		D378812915C65B3C0033FB88 /* BrokenLineLegendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrokenLineLegendVC.h; sourceTree = "<group>"; };
+		D378812A15C65B3D0033FB88 /* BrokenLineLegendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrokenLineLegendVC.m; sourceTree = "<group>"; };
+		D378812B15C65B3D0033FB88 /* BrokenLineLegendVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrokenLineLegendVC.xib; sourceTree = "<group>"; };
+		D37A3E1015C902E7002B48F8 /* NTFactoryFreightVolume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTFactoryFreightVolume.h; sourceTree = "<group>"; };
+		D37A3E1115C902E7002B48F8 /* NTFactoryFreightVolume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTFactoryFreightVolume.m; sourceTree = "<group>"; };
+		D37A3E1415C90318002B48F8 /* NTFactoryFreightVolumeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTFactoryFreightVolumeDao.h; sourceTree = "<group>"; };
+		D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTFactoryFreightVolumeDao.m; sourceTree = "<group>"; };
+		D3A06DDE15D0E74C00963BA2 /* NAAmethyst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NAAmethyst.h; sourceTree = "<group>"; };
+		D3A06DDF15D0E74C00963BA2 /* NAArrow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NAArrow.c; sourceTree = "<group>"; };
+		D3A06DE015D0E74C00963BA2 /* NAArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NAArrow.h; sourceTree = "<group>"; };
+		D3A06DE115D0E74C00963BA2 /* NABase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NABase.h; sourceTree = "<group>"; };
+		D3A06DE215D0E74C00963BA2 /* NABezierControlPoints.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NABezierControlPoints.c; sourceTree = "<group>"; };
+		D3A06DE315D0E74C00963BA2 /* NABezierControlPoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NABezierControlPoints.h; sourceTree = "<group>"; };
+		D3A06DE415D0E74C00963BA2 /* NADashing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NADashing.c; sourceTree = "<group>"; };
+		D3A06DE515D0E74C00963BA2 /* NADashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NADashing.h; sourceTree = "<group>"; };
+		D3A06DE615D0E74C00963BA2 /* NALineIntersection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NALineIntersection.c; sourceTree = "<group>"; };
+		D3A06DE715D0E74C00963BA2 /* NALineIntersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NALineIntersection.h; sourceTree = "<group>"; };
+		D3A06DE815D0E74C00963BA2 /* NALineRectangleIntersection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NALineRectangleIntersection.c; sourceTree = "<group>"; };
+		D3A06DE915D0E74C00963BA2 /* NALineRectangleIntersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NALineRectangleIntersection.h; sourceTree = "<group>"; };
+		D3A06DEA15D0E74C00963BA2 /* NARange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NARange.h; sourceTree = "<group>"; };
+		D3A06DEB15D0E74C00963BA2 /* NASymbol.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NASymbol.c; sourceTree = "<group>"; };
+		D3A06DEC15D0E74C00963BA2 /* NASymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NASymbol.h; sourceTree = "<group>"; };
+		D3A06DED15D0E74C00963BA2 /* PowerPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerPlot.h; sourceTree = "<group>"; };
+		D3A06DEE15D0E74C00963BA2 /* WSAuxiliary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAuxiliary.h; sourceTree = "<group>"; };
+		D3A06DEF15D0E74C00963BA2 /* WSAxisLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAxisLocation.h; sourceTree = "<group>"; };
+		D3A06DF015D0E74C00963BA2 /* WSAxisLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAxisLocation.m; sourceTree = "<group>"; };
+		D3A06DF115D0E74C00963BA2 /* WSAxisLocationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAxisLocationDelegate.h; sourceTree = "<group>"; };
+		D3A06DF215D0E74C00963BA2 /* WSAxisProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAxisProperties.h; sourceTree = "<group>"; };
+		D3A06DF315D0E74C00963BA2 /* WSAxisProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAxisProperties.m; sourceTree = "<group>"; };
+		D3A06DF415D0E74C00963BA2 /* WSBarPlotFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBarPlotFactory.h; sourceTree = "<group>"; };
+		D3A06DF515D0E74C00963BA2 /* WSBarPlotFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBarPlotFactory.m; sourceTree = "<group>"; };
+		D3A06DF615D0E74C00963BA2 /* WSBarProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBarProperties.h; sourceTree = "<group>"; };
+		D3A06DF715D0E74C00963BA2 /* WSBarProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBarProperties.m; sourceTree = "<group>"; };
+		D3A06DF815D0E74C00963BA2 /* WSBinning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBinning.h; sourceTree = "<group>"; };
+		D3A06DF915D0E74C00963BA2 /* WSBinning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBinning.m; sourceTree = "<group>"; };
+		D3A06DFA15D0E74C00963BA2 /* WSChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSChart.h; sourceTree = "<group>"; };
+		D3A06DFB15D0E74C00963BA2 /* WSChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSChart.m; sourceTree = "<group>"; };
+		D3A06DFC15D0E74C00963BA2 /* WSChartAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSChartAnimation.h; sourceTree = "<group>"; };
+		D3A06DFD15D0E74C00963BA2 /* WSChartAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSChartAnimation.m; sourceTree = "<group>"; };
+		D3A06DFE15D0E74C00963BA2 /* WSChartAnimationKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSChartAnimationKeys.h; sourceTree = "<group>"; };
+		D3A06DFF15D0E74C00963BA2 /* WSColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSColor.h; sourceTree = "<group>"; };
+		D3A06E0015D0E74C00963BA2 /* WSColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSColor.m; sourceTree = "<group>"; };
+		D3A06E0115D0E74C00963BA2 /* WSColorScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSColorScheme.h; sourceTree = "<group>"; };
+		D3A06E0215D0E74C00963BA2 /* WSColorScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSColorScheme.m; sourceTree = "<group>"; };
+		D3A06E0315D0E74C00963BA2 /* WSConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSConnection.h; sourceTree = "<group>"; };
+		D3A06E0415D0E74C00963BA2 /* WSConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSConnection.m; sourceTree = "<group>"; };
+		D3A06E0515D0E74C00963BA2 /* WSConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSConnectionDelegate.h; sourceTree = "<group>"; };
+		D3A06E0615D0E74C00963BA2 /* WSContour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSContour.h; sourceTree = "<group>"; };
+		D3A06E0715D0E74C00963BA2 /* WSContour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSContour.m; sourceTree = "<group>"; };
+		D3A06E0815D0E74C00963BA2 /* WSControllerGestureDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSControllerGestureDelegate.h; sourceTree = "<group>"; };
+		D3A06E0915D0E74C00963BA2 /* WSCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCoordinate.h; sourceTree = "<group>"; };
+		D3A06E0A15D0E74C00963BA2 /* WSCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCoordinate.m; sourceTree = "<group>"; };
+		D3A06E0B15D0E74C00963BA2 /* WSCoordinateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCoordinateDelegate.h; sourceTree = "<group>"; };
+		D3A06E0C15D0E74C00963BA2 /* WSCoordinateDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCoordinateDirection.h; sourceTree = "<group>"; };
+		D3A06E0D15D0E74C00963BA2 /* WSCoordinateTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCoordinateTransform.h; sourceTree = "<group>"; };
+		D3A06E0E15D0E74C00963BA2 /* WSCustomProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCustomProperties.h; sourceTree = "<group>"; };
+		D3A06E0F15D0E74C00963BA2 /* WSCustomProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCustomProperties.m; sourceTree = "<group>"; };
+		D3A06E1015D0E74C00963BA2 /* WSData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSData.h; sourceTree = "<group>"; };
+		D3A06E1115D0E74C00963BA2 /* WSData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSData.m; sourceTree = "<group>"; };
+		D3A06E1215D0E74C00963BA2 /* WSDataDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDataDelegate.h; sourceTree = "<group>"; };
+		D3A06E1315D0E74C00963BA2 /* WSDataOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDataOperations.h; sourceTree = "<group>"; };
+		D3A06E1415D0E74C00963BA2 /* WSDataOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDataOperations.m; sourceTree = "<group>"; };
+		D3A06E1515D0E74C00963BA2 /* WSDataPointProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDataPointProperties.h; sourceTree = "<group>"; };
+		D3A06E1615D0E74C00963BA2 /* WSDataPointProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDataPointProperties.m; sourceTree = "<group>"; };
+		D3A06E1715D0E74C00963BA2 /* WSDatum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatum.h; sourceTree = "<group>"; };
+		D3A06E1815D0E74C00963BA2 /* WSDatum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDatum.m; sourceTree = "<group>"; };
+		D3A06E1915D0E74C00963BA2 /* WSDatumCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatumCustomization.h; sourceTree = "<group>"; };
+		D3A06E1A15D0E74C00963BA2 /* WSDiscProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDiscProperties.h; sourceTree = "<group>"; };
+		D3A06E1B15D0E74C00963BA2 /* WSDiscProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDiscProperties.m; sourceTree = "<group>"; };
+		D3A06E1C15D0E74C00963BA2 /* WSFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSFont.h; sourceTree = "<group>"; };
+		D3A06E1D15D0E74C00963BA2 /* WSFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSFont.m; sourceTree = "<group>"; };
+		D3A06E1E15D0E74C00963BA2 /* WSGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSGraph.h; sourceTree = "<group>"; };
+		D3A06E1F15D0E74C00963BA2 /* WSGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSGraph.m; sourceTree = "<group>"; };
+		D3A06E2015D0E74C00963BA2 /* WSGraphConnections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSGraphConnections.h; sourceTree = "<group>"; };
+		D3A06E2115D0E74C00963BA2 /* WSGraphConnections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSGraphConnections.m; sourceTree = "<group>"; };
+		D3A06E2215D0E74C00963BA2 /* WSGraphPlotFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSGraphPlotFactory.h; sourceTree = "<group>"; };
+		D3A06E2315D0E74C00963BA2 /* WSGraphPlotFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSGraphPlotFactory.m; sourceTree = "<group>"; };
+		D3A06E2415D0E74C00963BA2 /* WSLinePlotFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSLinePlotFactory.h; sourceTree = "<group>"; };
+		D3A06E2515D0E74C00963BA2 /* WSLinePlotFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLinePlotFactory.m; sourceTree = "<group>"; };
+		D3A06E2615D0E74C00963BA2 /* WSNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNode.h; sourceTree = "<group>"; };
+		D3A06E2715D0E74C00963BA2 /* WSNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNode.m; sourceTree = "<group>"; };
+		D3A06E2815D0E74C00963BA2 /* WSNodeProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNodeProperties.h; sourceTree = "<group>"; };
+		D3A06E2915D0E74C00963BA2 /* WSNodeProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNodeProperties.m; sourceTree = "<group>"; };
+		D3A06E2A15D0E74C00963BA2 /* WSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSObject.h; sourceTree = "<group>"; };
+		D3A06E2B15D0E74C00963BA2 /* WSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSObject.m; sourceTree = "<group>"; };
+		D3A06E2C15D0E74C00963BA2 /* WSPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlot.h; sourceTree = "<group>"; };
+		D3A06E2D15D0E74C00963BA2 /* WSPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPlot.m; sourceTree = "<group>"; };
+		D3A06E2E15D0E74C00963BA2 /* WSPlotAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlotAxis.h; sourceTree = "<group>"; };
+		D3A06E2F15D0E74C00963BA2 /* WSPlotAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPlotAxis.m; sourceTree = "<group>"; };
+		D3A06E3015D0E74C00963BA2 /* WSPlotBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlotBar.h; sourceTree = "<group>"; };
+		D3A06E3115D0E74C00963BA2 /* WSPlotBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPlotBar.m; sourceTree = "<group>"; };
+		D3A06E3215D0E74C00963BA2 /* WSPlotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlotController.h; sourceTree = "<group>"; };
+		D3A06E3315D0E74C00963BA2 /* WSPlotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPlotController.m; sourceTree = "<group>"; };
+		D3A06E3415D0E74C00963BA2 /* WSPlotData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlotData.h; sourceTree = "<group>"; };
+		D3A06E3515D0E74C00963BA2 /* WSPlotData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPlotData.m; sourceTree = "<group>"; };
+		D3A06E3615D0E74C00963BA2 /* WSPlotDisc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlotDisc.h; sourceTree = "<group>"; };
+		D3A06E3715D0E74C00963BA2 /* WSPlotDisc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPlotDisc.m; sourceTree = "<group>"; };
+		D3A06E3815D0E74C00963BA2 /* WSPlotFactoryDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlotFactoryDefaults.h; sourceTree = "<group>"; };
+		D3A06E3915D0E74C00963BA2 /* WSPlotGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlotGraph.h; sourceTree = "<group>"; };
+		D3A06E3A15D0E74C00963BA2 /* WSPlotGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPlotGraph.m; sourceTree = "<group>"; };
+		D3A06E3B15D0E74C00963BA2 /* WSPlotRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlotRegion.h; sourceTree = "<group>"; };
+		D3A06E3C15D0E74C00963BA2 /* WSPlotRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPlotRegion.m; sourceTree = "<group>"; };
+		D3A06E3D15D0E74C00963BA2 /* WSPlotTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSPlotTemplate.h; sourceTree = "<group>"; };
+		D3A06E3E15D0E74C00963BA2 /* WSPlotTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPlotTemplate.m; sourceTree = "<group>"; };
+		D3A06E3F15D0E74C00963BA2 /* WSTicks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTicks.h; sourceTree = "<group>"; };
+		D3A06E4015D0E74C00963BA2 /* WSTicks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSTicks.m; sourceTree = "<group>"; };
+		D3A06E4115D0E74C00963BA2 /* WSVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSVersion.h; sourceTree = "<group>"; };
+		D3A06E4215D0E74C00963BA2 /* WSVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSVersion.m; sourceTree = "<group>"; };
+		D3A06E4315D0E74C00963BA2 /* WSVersionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSVersionDelegate.h; sourceTree = "<group>"; };
+		D3A06E4415D0E74C00963BA2 /* WSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSView.h; sourceTree = "<group>"; };
+		D3A06E4515D0E74C00963BA2 /* WSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSView.m; sourceTree = "<group>"; };
+		D3A06E7215D0E93300963BA2 /* PortEfficiencyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortEfficiencyVC.h; sourceTree = "<group>"; };
+		D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortEfficiencyVC.m; sourceTree = "<group>"; };
+		D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortEfficiencyVC.xib; sourceTree = "<group>"; };
+		D9063A7815C13D27002FE1CE /* NTColorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTColorConfig.h; sourceTree = "<group>"; };
+		D9063A7915C13D27002FE1CE /* NTColorConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTColorConfig.m; sourceTree = "<group>"; };
+		D9063A7C15C14031002FE1CE /* NTColorConfigDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTColorConfigDao.h; sourceTree = "<group>"; };
+		D9063A7D15C14031002FE1CE /* NTColorConfigDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTColorConfigDao.m; sourceTree = "<group>"; };
 		D90A84FC15B54223001CC03A /* TfShipCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfShipCompany.h; sourceTree = "<group>"; };
 		D90A84FD15B54224001CC03A /* TfShipCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TfShipCompany.m; sourceTree = "<group>"; };
 		D90A850015B54236001CC03A /* TfShipCompanyDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfShipCompanyDao.h; sourceTree = "<group>"; };
@@ -529,6 +712,9 @@
 		D91A488115B692620020EEA0 /* TsShipStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TsShipStage.m; sourceTree = "<group>"; };
 		D91A488315B6927A0020EEA0 /* TsShipStageDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TsShipStageDao.h; sourceTree = "<group>"; };
 		D91A488415B6927D0020EEA0 /* TsShipStageDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TsShipStageDao.m; sourceTree = "<group>"; };
+		D926248115C22EEC007AB0B9 /* ShipCompanyShareDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipCompanyShareDetailVC.h; sourceTree = "<group>"; };
+		D926248215C22EED007AB0B9 /* ShipCompanyShareDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipCompanyShareDetailVC.m; sourceTree = "<group>"; };
+		D926248315C22EED007AB0B9 /* ShipCompanyShareDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShipCompanyShareDetailVC.xib; sourceTree = "<group>"; };
 		D92960D015AA71750042D6BD /* TfFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfFactory.h; sourceTree = "<group>"; };
 		D92960D115AA71750042D6BD /* TfFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TfFactory.m; sourceTree = "<group>"; };
 		D92960D415AA785A0042D6BD /* TfFactoryDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfFactoryDao.h; sourceTree = "<group>"; };
@@ -589,8 +775,8 @@
 		057F6C1E1524490600E0E435 = {
 			isa = PBXGroup;
 			children = (
-				057F6C331524490600E0E435 /* Hpi-FDS */,
 				057F6C2C1524490600E0E435 /* Frameworks */,
+				057F6C331524490600E0E435 /* Hpi-FDS */,
 				057F6C2A1524490600E0E435 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -624,10 +810,6 @@
 		057F6C331524490600E0E435 /* Hpi-FDS */ = {
 			isa = PBXGroup;
 			children = (
-				D9DDDDC4159063780023D88A /* gk.png */,
-				D9DDDDC6159063780023D88A /* SummaryInfoViewController.h */,
-				D9DDDDC7159063780023D88A /* SummaryInfoViewController.m */,
-				D9DDDDC8159063780023D88A /* SummaryInfoViewController.xib */,
 				059A1BCB1525521A00AB24C4 /* Classes */,
 				059A1B911525510500AB24C4 /* Pub */,
 				057F6C5B152449D100E0E435 /* Base */,
@@ -652,27 +834,29 @@
 		057F6C5B152449D100E0E435 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				05F43027153BFBB500CC00EB /* DateViewController.h */,
-				05F43028153BFBB500CC00EB /* DateViewController.m */,
+				D90C8EC215BFD03E0009626B /* BrokenLineGraphData.h */,
+				D90C8EC315BFD03F0009626B /* BrokenLineGraphData.m */,
+				D90C8EBE15BF9DD80009626B /* BrokenLineGraphView.h */,
+				D90C8EBF15BF9DD80009626B /* BrokenLineGraphView.m */,
+				D378812915C65B3C0033FB88 /* BrokenLineLegendVC.h */,
+				D378812A15C65B3D0033FB88 /* BrokenLineLegendVC.m */,
 				059A1BF31525B75100AB24C4 /* ChooseView.h */,
 				059A1BF41525B75100AB24C4 /* ChooseView.m */,
+				059A1B95152551A100AB24C4 /* DataBase */,
+				05F43027153BFBB500CC00EB /* DateViewController.h */,
+				05F43028153BFBB500CC00EB /* DateViewController.m */,
+				059A1BCE152552F100AB24C4 /* hpiAnnotation.h */,
+				059A1BCF152552F100AB24C4 /* hpiAnnotation.m */,
 				14CFDA9F154A41A300E0FF8F /* HpiGraphData.h */,
 				14CFDAA0154A41A300E0FF8F /* HpiGraphData.m */,
 				14CFDAA1154A41A300E0FF8F /* HpiGraphView.h */,
 				14CFDAA2154A41A300E0FF8F /* HpiGraphView.m */,
-				059A1B95152551A100AB24C4 /* DataBase */,
-				059A1BCE152552F100AB24C4 /* hpiAnnotation.h */,
-				059A1BCF152552F100AB24C4 /* hpiAnnotation.m */,
 				05D02A60152DD61600BBA0F6 /* MemoirCell.h */,
-				05D02A58152DD12600BBA0F6 /* MemoirListVC.m */,
 				05D02A67152DD9E100BBA0F6 /* MemoirCell.m */,
 				05D02A57152DD12600BBA0F6 /* MemoirListVC.h */,
+				05D02A58152DD12600BBA0F6 /* MemoirListVC.m */,
 				05687DAA152E8AA500ABC7EC /* XMLParser.h */,
 				05687DAB152E8AA500ABC7EC /* XMLParser.m */,
-				D90C8EBE15BF9DD80009626B /* BrokenLineGraphView.h */,
-				D90C8EBF15BF9DD80009626B /* BrokenLineGraphView.m */,
-				D90C8EC215BFD03E0009626B /* BrokenLineGraphData.h */,
-				D90C8EC315BFD03F0009626B /* BrokenLineGraphData.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -689,27 +873,38 @@
 				D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */,
 				D9A8381715B7EF89002D83C2 /* VBFactoryTransVC.xib */,
 				14CB7DCD1552877A008097AE /* VBTransChVC.xib */,
+				D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */,
+				D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */,
+				D378812B15C65B3D0033FB88 /* BrokenLineLegendVC.xib */,
+				059A1BF51525B75100AB24C4 /* ChooseView.xib */,
 				14BE5D7C1546B7470042C562 /* DataQueryVC.xib */,
-				053A4FFA153E597A0072996E /* VBShipChVC.xib */,
-				14BE5D6B154688EF0042C562 /* VBShipDetailController.xib */,
-				05BE9A4A1540589000FC306A /* TBShipChVC.xib */,
 				05F43029153BFBB500CC00EB /* DateViewController.xib */,
-				0588C2A3152D3CA900FFC0B9 /* ShipInfoViewController.xib */,
-				058A69D1152B66A100854C45 /* InfoShipViewController.xib */,
-				058A69CB152B534A00854C45 /* InfoTextViewController.xib */,
 				059A272415270D410068CFDA /* InfoFactoryViewController.xib */,
 				059A271E1526F8610068CFDA /* InfoPortVewController.xib */,
+				058A69D1152B66A100854C45 /* InfoShipViewController.xib */,
+				058A69CB152B534A00854C45 /* InfoTextViewController.xib */,
 				059A1B6D152539DC00AB24C4 /* MapViewController.xib */,
-				051B248F153FA2230036557C /* WebViewController.xib */,
-				05F57B0515308F6E00DBFFAC /* MarketViewController.xib */,
-				D9190F2E15AE5950003F672C /* VBFactoryTransDetailVC.xib */,
 				14E4586515622CCC0015258C /* MarketOneController.xib */,
+				05F57B0515308F6E00DBFFAC /* MarketViewController.xib */,
+				05D02A65152DD65600BBA0F6 /* MemoirCell.xib */,
+				05D02A59152DD12600BBA0F6 /* MemoirListVC.xib */,
+				D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */,
 				14C1DFCF1553A96F0060DF17 /* PortViewController.xib */,
 				05FC0E7215326CD6007B9D82 /* QueryViewController.xib */,
 				05FC0E7815326D0D007B9D82 /* SetupViewController.xib */,
-				059A1BF51525B75100AB24C4 /* ChooseView.xib */,
-				05D02A59152DD12600BBA0F6 /* MemoirListVC.xib */,
-				05D02A65152DD65600BBA0F6 /* MemoirCell.xib */,
+				D926248315C22EED007AB0B9 /* ShipCompanyShareDetailVC.xib */,
+				2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */,
+				0588C2A3152D3CA900FFC0B9 /* ShipInfoViewController.xib */,
+				D9DDDDC8159063780023D88A /* SummaryInfoViewController.xib */,
+				05BE9A4A1540589000FC306A /* TBShipChVC.xib */,
+				2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */,
+				2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */,
+				D9190F2E15AE5950003F672C /* VBFactoryTransDetailVC.xib */,
+				D9A8381715B7EF89002D83C2 /* VBFactoryTransVC.xib */,
+				053A4FFA153E597A0072996E /* VBShipChVC.xib */,
+				14BE5D6B154688EF0042C562 /* VBShipDetailController.xib */,
+				14CB7DCD1552877A008097AE /* VBTransChVC.xib */,
+				051B248F153FA2230036557C /* WebViewController.xib */,
 			);
 			name = Xib;
 			sourceTree = "<group>";
@@ -717,6 +912,7 @@
 		057F6C5D152449F800E0E435 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				D9DDDDC4159063780023D88A /* gk.png */,
 				14BE5D43154650E40042C562 /* chuanx1@2x.png */,
 				14BE5D44154650E40042C562 /* chuanx3.png */,
 				14BE5D45154650E40042C562 /* chuanxk1.png */,
@@ -785,6 +981,9 @@
 		059A1B911525510500AB24C4 /* Pub */ = {
 			isa = PBXGroup;
 			children = (
+				D3A06DDD15D0E74C00963BA2 /* PowerPlot_lib */,
+				D32C48E515CA5F710034B454 /* MultiTitleDataGridComponent.h */,
+				D32C48E615CA5F720034B454 /* MultiTitleDataGridComponent.m */,
 				059A1BA8152551D600AB24C4 /* Http */,
 				059A1BD7152556A500AB24C4 /* PubInfo.h */,
 				059A1BD8152556A500AB24C4 /* PubInfo.m */,
@@ -906,6 +1105,16 @@
 				2AA44B3115D10D03007B499B /* TfPortDao.m */,
 				2A8E37B615D1F1FA00BD6B41 /* AvgPortPTimeDao.h */,
 				2A8E37B715D1F1FA00BD6B41 /* AvgPortPTimeDao.m */,
+				D9063A7C15C14031002FE1CE /* NTColorConfigDao.h */,
+				D9063A7D15C14031002FE1CE /* NTColorConfigDao.m */,
+				D9063A7815C13D27002FE1CE /* NTColorConfig.h */,
+				D9063A7915C13D27002FE1CE /* NTColorConfig.m */,
+				D37A3E1015C902E7002B48F8 /* NTFactoryFreightVolume.h */,
+				D37A3E1115C902E7002B48F8 /* NTFactoryFreightVolume.m */,
+				D37A3E1415C90318002B48F8 /* NTFactoryFreightVolumeDao.h */,
+				D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */,
+				D35CFE4515D1EB13005FAA17 /* PortEfficiency.h */,
+				D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -947,50 +1156,11 @@
 			children = (
 				2A8154D715C2645700D4AE2C /* TB_LatefeeChVC.h */,
 				2A8154D815C2645700D4AE2C /* TB_LatefeeChVC.m */,
-				2A2FA32B15BFF74400B71C7D /* NSString+Verify.h */,
-				2A2FA32C15BFF74400B71C7D /* NSString+Verify.m */,
-				2A2FA32D15BFF74400B71C7D /* NTShipCompanyTranShare.h */,
-				2A2FA32E15BFF74400B71C7D /* NTShipCompanyTranShare.m */,
-				2A2FA32F15BFF74400B71C7D /* NTShipCompanyTranShareDao.h */,
-				2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */,
-				2A2FA33115BFF74400B71C7D /* ShipCompanyTransShareVC.h */,
-				2A2FA33215BFF74400B71C7D /* ShipCompanyTransShareVC.m */,
-				2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */,
-				2A7B339115B80D1E006B7994 /* MultipleSelectView.h */,
-				2A7B339215B80D1E006B7994 /* MultipleSelectView.m */,
-				2A7B338E15B80CD2006B7994 /* VBFactoryTransVC.h */,
-				2A7B338F15B80CD2006B7994 /* VBFactoryTransVC.m */,
-				14BE5D7D1546B7470042C562 /* en.lproj */,
-				14CB7DCB15528779008097AE /* VBTransChVC.h */,
-				14CB7DCC1552877A008097AE /* VBTransChVC.m */,
-				14CFDACA154A9B4800E0FF8F /* NSString+MD5Addition.h */,
-				14CFDACB154A9B4800E0FF8F /* NSString+MD5Addition.m */,
-				14CFDACC154A9B4800E0FF8F /* UIDevice+IdentifierAddition.h */,
-				14CFDACD154A9B4800E0FF8F /* UIDevice+IdentifierAddition.m */,
-				14BE5D69154688EF0042C562 /* VBShipDetailController.h */,
-				14BE5D6A154688EF0042C562 /* VBShipDetailController.m */,
-				057F6C581524496900E0E435 /* FdsAppDelegate.h */,
-				057F6C591524496900E0E435 /* FdsAppDelegate.m */,
-				14C1DFCD1553A96F0060DF17 /* PortViewController.h */,
-				14C1DFCE1553A96F0060DF17 /* PortViewController.m */,
-				059A1B6B152539DC00AB24C4 /* MapViewController.h */,
-				059A1B6C152539DC00AB24C4 /* MapViewController.m */,
-				05CCEA821526C9930045C150 /* WebViewController.h */,
-				05CCEA831526C9930045C150 /* WebViewController.m */,
-				05F57B071530923100DBFFAC /* MarketViewController.h */,
-				05F57B081530923100DBFFAC /* MarketViewController.m */,
-				14E4586315622CCC0015258C /* MarketOneController.h */,
-				14E4586415622CCC0015258C /* MarketOneController.m */,
-				05FC0E7015326CD6007B9D82 /* QueryViewController.h */,
-				05FC0E7115326CD6007B9D82 /* QueryViewController.m */,
-				05FC0E7615326D0D007B9D82 /* SetupViewController.h */,
-				05FC0E7715326D0D007B9D82 /* SetupViewController.m */,
 				14BE5D7A1546B7470042C562 /* DataQueryVC.h */,
 				14BE5D7B1546B7470042C562 /* DataQueryVC.m */,
-				053A4FF8153E597A0072996E /* VBShipChVC.h */,
-				053A4FF9153E597A0072996E /* VBShipChVC.m */,
-				05BE9A461540579A00FC306A /* TBShipChVC.h */,
-				05BE9A471540579A00FC306A /* TBShipChVC.m */,
+				14BE5D7D1546B7470042C562 /* en.lproj */,
+				057F6C581524496900E0E435 /* FdsAppDelegate.h */,
+				057F6C591524496900E0E435 /* FdsAppDelegate.m */,
 				059A272215270D400068CFDA /* InfoFactoryViewController.h */,
 				059A272315270D400068CFDA /* InfoFactoryViewController.m */,
 				059A271C1526F8610068CFDA /* InfoPortVewController.h */,
@@ -999,10 +1169,38 @@
 				058A69D0152B66A000854C45 /* InfoShipViewController.m */,
 				058A69C9152B534A00854C45 /* InfoTextViewController.h */,
 				058A69CA152B534A00854C45 /* InfoTextViewController.m */,
+				059A1B6B152539DC00AB24C4 /* MapViewController.h */,
+				059A1B6C152539DC00AB24C4 /* MapViewController.m */,
+				14E4586315622CCC0015258C /* MarketOneController.h */,
+				14E4586415622CCC0015258C /* MarketOneController.m */,
+				05F57B071530923100DBFFAC /* MarketViewController.h */,
+				05F57B081530923100DBFFAC /* MarketViewController.m */,
+				2A7B339115B80D1E006B7994 /* MultipleSelectView.h */,
+				2A7B339215B80D1E006B7994 /* MultipleSelectView.m */,
+				14CFDACA154A9B4800E0FF8F /* NSString+MD5Addition.h */,
+				14CFDACB154A9B4800E0FF8F /* NSString+MD5Addition.m */,
+				2A2FA32B15BFF74400B71C7D /* NSString+Verify.h */,
+				2A2FA32C15BFF74400B71C7D /* NSString+Verify.m */,
+				2A2FA32D15BFF74400B71C7D /* NTShipCompanyTranShare.h */,
+				2A2FA32E15BFF74400B71C7D /* NTShipCompanyTranShare.m */,
+				2A2FA32F15BFF74400B71C7D /* NTShipCompanyTranShareDao.h */,
+				2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */,
+				14C1DFCD1553A96F0060DF17 /* PortViewController.h */,
+				14C1DFCE1553A96F0060DF17 /* PortViewController.m */,
+				05FC0E7015326CD6007B9D82 /* QueryViewController.h */,
+				05FC0E7115326CD6007B9D82 /* QueryViewController.m */,
+				05FC0E7615326D0D007B9D82 /* SetupViewController.h */,
+				05FC0E7715326D0D007B9D82 /* SetupViewController.m */,
+				D926248115C22EEC007AB0B9 /* ShipCompanyShareDetailVC.h */,
+				D926248215C22EED007AB0B9 /* ShipCompanyShareDetailVC.m */,
+				2A2FA33115BFF74400B71C7D /* ShipCompanyTransShareVC.h */,
+				2A2FA33215BFF74400B71C7D /* ShipCompanyTransShareVC.m */,
 				0588C2A1152D3CA900FFC0B9 /* ShipInfoViewController.h */,
 				0588C2A2152D3CA900FFC0B9 /* ShipInfoViewController.m */,
-				D9190F2C15AE5950003F672C /* VBFactoryTransDetailVC.h */,
-				D9190F2D15AE5950003F672C /* VBFactoryTransDetailVC.m */,
+				D9DDDDC6159063780023D88A /* SummaryInfoViewController.h */,
+				D9DDDDC7159063780023D88A /* SummaryInfoViewController.m */,
+				05BE9A461540579A00FC306A /* TBShipChVC.h */,
+				05BE9A471540579A00FC306A /* TBShipChVC.m */,
 				2AD84E9E15B91B2B00D91111 /* TH_ShipTransChVC.h */,
 				2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */,
 				2A16D20915BE9F0900FFF1B5 /* TH_ShipTransDetailCV.h */,
@@ -1013,6 +1211,24 @@
 				2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */,
 				2AA44B3815D11985007B499B /* AvgPortPTimeChVC.h */,
 				2AA44B3915D11985007B499B /* AvgPortPTimeChVC.m */,
+				14CFDACC154A9B4800E0FF8F /* UIDevice+IdentifierAddition.h */,
+				14CFDACD154A9B4800E0FF8F /* UIDevice+IdentifierAddition.m */,
+				D9190F2C15AE5950003F672C /* VBFactoryTransDetailVC.h */,
+				D9190F2D15AE5950003F672C /* VBFactoryTransDetailVC.m */,
+				2A7B338E15B80CD2006B7994 /* VBFactoryTransVC.h */,
+				2A7B338F15B80CD2006B7994 /* VBFactoryTransVC.m */,
+				053A4FF8153E597A0072996E /* VBShipChVC.h */,
+				053A4FF9153E597A0072996E /* VBShipChVC.m */,
+				14BE5D69154688EF0042C562 /* VBShipDetailController.h */,
+				14BE5D6A154688EF0042C562 /* VBShipDetailController.m */,
+				14CB7DCB15528779008097AE /* VBTransChVC.h */,
+				14CB7DCC1552877A008097AE /* VBTransChVC.m */,
+				05CCEA821526C9930045C150 /* WebViewController.h */,
+				05CCEA831526C9930045C150 /* WebViewController.m */,
+				D35ACFE215C7D84100F53AAD /* FactoryFreightVolumeVC.h */,
+				D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */,
+				D3A06E7215D0E93300963BA2 /* PortEfficiencyVC.h */,
+				D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1031,6 +1247,117 @@
 				14BE5D7E1546B7470042C562 /* InfoPlist.strings */,
 			);
 			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		D3A06DDD15D0E74C00963BA2 /* PowerPlot_lib */ = {
+			isa = PBXGroup;
+			children = (
+				D3A06DDE15D0E74C00963BA2 /* NAAmethyst.h */,
+				D3A06DDF15D0E74C00963BA2 /* NAArrow.c */,
+				D3A06DE015D0E74C00963BA2 /* NAArrow.h */,
+				D3A06DE115D0E74C00963BA2 /* NABase.h */,
+				D3A06DE215D0E74C00963BA2 /* NABezierControlPoints.c */,
+				D3A06DE315D0E74C00963BA2 /* NABezierControlPoints.h */,
+				D3A06DE415D0E74C00963BA2 /* NADashing.c */,
+				D3A06DE515D0E74C00963BA2 /* NADashing.h */,
+				D3A06DE615D0E74C00963BA2 /* NALineIntersection.c */,
+				D3A06DE715D0E74C00963BA2 /* NALineIntersection.h */,
+				D3A06DE815D0E74C00963BA2 /* NALineRectangleIntersection.c */,
+				D3A06DE915D0E74C00963BA2 /* NALineRectangleIntersection.h */,
+				D3A06DEA15D0E74C00963BA2 /* NARange.h */,
+				D3A06DEB15D0E74C00963BA2 /* NASymbol.c */,
+				D3A06DEC15D0E74C00963BA2 /* NASymbol.h */,
+				D3A06DED15D0E74C00963BA2 /* PowerPlot.h */,
+				D3A06DEE15D0E74C00963BA2 /* WSAuxiliary.h */,
+				D3A06DEF15D0E74C00963BA2 /* WSAxisLocation.h */,
+				D3A06DF015D0E74C00963BA2 /* WSAxisLocation.m */,
+				D3A06DF115D0E74C00963BA2 /* WSAxisLocationDelegate.h */,
+				D3A06DF215D0E74C00963BA2 /* WSAxisProperties.h */,
+				D3A06DF315D0E74C00963BA2 /* WSAxisProperties.m */,
+				D3A06DF415D0E74C00963BA2 /* WSBarPlotFactory.h */,
+				D3A06DF515D0E74C00963BA2 /* WSBarPlotFactory.m */,
+				D3A06DF615D0E74C00963BA2 /* WSBarProperties.h */,
+				D3A06DF715D0E74C00963BA2 /* WSBarProperties.m */,
+				D3A06DF815D0E74C00963BA2 /* WSBinning.h */,
+				D3A06DF915D0E74C00963BA2 /* WSBinning.m */,
+				D3A06DFA15D0E74C00963BA2 /* WSChart.h */,
+				D3A06DFB15D0E74C00963BA2 /* WSChart.m */,
+				D3A06DFC15D0E74C00963BA2 /* WSChartAnimation.h */,
+				D3A06DFD15D0E74C00963BA2 /* WSChartAnimation.m */,
+				D3A06DFE15D0E74C00963BA2 /* WSChartAnimationKeys.h */,
+				D3A06DFF15D0E74C00963BA2 /* WSColor.h */,
+				D3A06E0015D0E74C00963BA2 /* WSColor.m */,
+				D3A06E0115D0E74C00963BA2 /* WSColorScheme.h */,
+				D3A06E0215D0E74C00963BA2 /* WSColorScheme.m */,
+				D3A06E0315D0E74C00963BA2 /* WSConnection.h */,
+				D3A06E0415D0E74C00963BA2 /* WSConnection.m */,
+				D3A06E0515D0E74C00963BA2 /* WSConnectionDelegate.h */,
+				D3A06E0615D0E74C00963BA2 /* WSContour.h */,
+				D3A06E0715D0E74C00963BA2 /* WSContour.m */,
+				D3A06E0815D0E74C00963BA2 /* WSControllerGestureDelegate.h */,
+				D3A06E0915D0E74C00963BA2 /* WSCoordinate.h */,
+				D3A06E0A15D0E74C00963BA2 /* WSCoordinate.m */,
+				D3A06E0B15D0E74C00963BA2 /* WSCoordinateDelegate.h */,
+				D3A06E0C15D0E74C00963BA2 /* WSCoordinateDirection.h */,
+				D3A06E0D15D0E74C00963BA2 /* WSCoordinateTransform.h */,
+				D3A06E0E15D0E74C00963BA2 /* WSCustomProperties.h */,
+				D3A06E0F15D0E74C00963BA2 /* WSCustomProperties.m */,
+				D3A06E1015D0E74C00963BA2 /* WSData.h */,
+				D3A06E1115D0E74C00963BA2 /* WSData.m */,
+				D3A06E1215D0E74C00963BA2 /* WSDataDelegate.h */,
+				D3A06E1315D0E74C00963BA2 /* WSDataOperations.h */,
+				D3A06E1415D0E74C00963BA2 /* WSDataOperations.m */,
+				D3A06E1515D0E74C00963BA2 /* WSDataPointProperties.h */,
+				D3A06E1615D0E74C00963BA2 /* WSDataPointProperties.m */,
+				D3A06E1715D0E74C00963BA2 /* WSDatum.h */,
+				D3A06E1815D0E74C00963BA2 /* WSDatum.m */,
+				D3A06E1915D0E74C00963BA2 /* WSDatumCustomization.h */,
+				D3A06E1A15D0E74C00963BA2 /* WSDiscProperties.h */,
+				D3A06E1B15D0E74C00963BA2 /* WSDiscProperties.m */,
+				D3A06E1C15D0E74C00963BA2 /* WSFont.h */,
+				D3A06E1D15D0E74C00963BA2 /* WSFont.m */,
+				D3A06E1E15D0E74C00963BA2 /* WSGraph.h */,
+				D3A06E1F15D0E74C00963BA2 /* WSGraph.m */,
+				D3A06E2015D0E74C00963BA2 /* WSGraphConnections.h */,
+				D3A06E2115D0E74C00963BA2 /* WSGraphConnections.m */,
+				D3A06E2215D0E74C00963BA2 /* WSGraphPlotFactory.h */,
+				D3A06E2315D0E74C00963BA2 /* WSGraphPlotFactory.m */,
+				D3A06E2415D0E74C00963BA2 /* WSLinePlotFactory.h */,
+				D3A06E2515D0E74C00963BA2 /* WSLinePlotFactory.m */,
+				D3A06E2615D0E74C00963BA2 /* WSNode.h */,
+				D3A06E2715D0E74C00963BA2 /* WSNode.m */,
+				D3A06E2815D0E74C00963BA2 /* WSNodeProperties.h */,
+				D3A06E2915D0E74C00963BA2 /* WSNodeProperties.m */,
+				D3A06E2A15D0E74C00963BA2 /* WSObject.h */,
+				D3A06E2B15D0E74C00963BA2 /* WSObject.m */,
+				D3A06E2C15D0E74C00963BA2 /* WSPlot.h */,
+				D3A06E2D15D0E74C00963BA2 /* WSPlot.m */,
+				D3A06E2E15D0E74C00963BA2 /* WSPlotAxis.h */,
+				D3A06E2F15D0E74C00963BA2 /* WSPlotAxis.m */,
+				D3A06E3015D0E74C00963BA2 /* WSPlotBar.h */,
+				D3A06E3115D0E74C00963BA2 /* WSPlotBar.m */,
+				D3A06E3215D0E74C00963BA2 /* WSPlotController.h */,
+				D3A06E3315D0E74C00963BA2 /* WSPlotController.m */,
+				D3A06E3415D0E74C00963BA2 /* WSPlotData.h */,
+				D3A06E3515D0E74C00963BA2 /* WSPlotData.m */,
+				D3A06E3615D0E74C00963BA2 /* WSPlotDisc.h */,
+				D3A06E3715D0E74C00963BA2 /* WSPlotDisc.m */,
+				D3A06E3815D0E74C00963BA2 /* WSPlotFactoryDefaults.h */,
+				D3A06E3915D0E74C00963BA2 /* WSPlotGraph.h */,
+				D3A06E3A15D0E74C00963BA2 /* WSPlotGraph.m */,
+				D3A06E3B15D0E74C00963BA2 /* WSPlotRegion.h */,
+				D3A06E3C15D0E74C00963BA2 /* WSPlotRegion.m */,
+				D3A06E3D15D0E74C00963BA2 /* WSPlotTemplate.h */,
+				D3A06E3E15D0E74C00963BA2 /* WSPlotTemplate.m */,
+				D3A06E3F15D0E74C00963BA2 /* WSTicks.h */,
+				D3A06E4015D0E74C00963BA2 /* WSTicks.m */,
+				D3A06E4115D0E74C00963BA2 /* WSVersion.h */,
+				D3A06E4215D0E74C00963BA2 /* WSVersion.m */,
+				D3A06E4315D0E74C00963BA2 /* WSVersionDelegate.h */,
+				D3A06E4415D0E74C00963BA2 /* WSView.h */,
+				D3A06E4515D0E74C00963BA2 /* WSView.m */,
+			);
+			path = PowerPlot_lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1180,6 +1507,10 @@
 				2A25AB1615C67CD3008500B5 /* TB_LatefeeChDial.xib in Resources */,
 				2A8F1F5315CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib in Resources */,
 				2AA44B3C15D11985007B499B /* AvgPortPTimeChVC.xib in Resources */,
+				D926248515C22EED007AB0B9 /* ShipCompanyShareDetailVC.xib in Resources */,
+				D378812D15C65B3E0033FB88 /* BrokenLineLegendVC.xib in Resources */,
+				D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */,
+				D3A06E7615D0E93500963BA2 /* PortEfficiencyVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1298,6 +1629,60 @@
 				2AA44B3215D10D05007B499B /* TfPortDao.m in Sources */,
 				2AA44B3B15D11985007B499B /* AvgPortPTimeChVC.m in Sources */,
 				2A8E37B815D1F1FA00BD6B41 /* AvgPortPTimeDao.m in Sources */,
+				D9063A7A15C13D27002FE1CE /* NTColorConfig.m in Sources */,
+				D9063A7E15C14032002FE1CE /* NTColorConfigDao.m in Sources */,
+				D926248415C22EED007AB0B9 /* ShipCompanyShareDetailVC.m in Sources */,
+				D378812C15C65B3E0033FB88 /* BrokenLineLegendVC.m in Sources */,
+				D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */,
+				D37A3E1215C902E7002B48F8 /* NTFactoryFreightVolume.m in Sources */,
+				D37A3E1615C90318002B48F8 /* NTFactoryFreightVolumeDao.m in Sources */,
+				D32C48E715CA5F720034B454 /* MultiTitleDataGridComponent.m in Sources */,
+				D3A06E4615D0E74C00963BA2 /* NAArrow.c in Sources */,
+				D3A06E4715D0E74C00963BA2 /* NABezierControlPoints.c in Sources */,
+				D3A06E4815D0E74C00963BA2 /* NADashing.c in Sources */,
+				D3A06E4915D0E74C00963BA2 /* NALineIntersection.c in Sources */,
+				D3A06E4A15D0E74C00963BA2 /* NALineRectangleIntersection.c in Sources */,
+				D3A06E4B15D0E74C00963BA2 /* NASymbol.c in Sources */,
+				D3A06E4C15D0E74C00963BA2 /* WSAxisLocation.m in Sources */,
+				D3A06E4D15D0E74C00963BA2 /* WSAxisProperties.m in Sources */,
+				D3A06E4E15D0E74C00963BA2 /* WSBarPlotFactory.m in Sources */,
+				D3A06E4F15D0E74C00963BA2 /* WSBarProperties.m in Sources */,
+				D3A06E5015D0E74C00963BA2 /* WSBinning.m in Sources */,
+				D3A06E5115D0E74C00963BA2 /* WSChart.m in Sources */,
+				D3A06E5215D0E74C00963BA2 /* WSChartAnimation.m in Sources */,
+				D3A06E5315D0E74C00963BA2 /* WSColor.m in Sources */,
+				D3A06E5415D0E74C00963BA2 /* WSColorScheme.m in Sources */,
+				D3A06E5515D0E74C00963BA2 /* WSConnection.m in Sources */,
+				D3A06E5615D0E74C00963BA2 /* WSContour.m in Sources */,
+				D3A06E5715D0E74C00963BA2 /* WSCoordinate.m in Sources */,
+				D3A06E5815D0E74C00963BA2 /* WSCustomProperties.m in Sources */,
+				D3A06E5915D0E74C00963BA2 /* WSData.m in Sources */,
+				D3A06E5A15D0E74C00963BA2 /* WSDataOperations.m in Sources */,
+				D3A06E5B15D0E74C00963BA2 /* WSDataPointProperties.m in Sources */,
+				D3A06E5C15D0E74C00963BA2 /* WSDatum.m in Sources */,
+				D3A06E5D15D0E74C00963BA2 /* WSDiscProperties.m in Sources */,
+				D3A06E5E15D0E74C00963BA2 /* WSFont.m in Sources */,
+				D3A06E5F15D0E74C00963BA2 /* WSGraph.m in Sources */,
+				D3A06E6015D0E74C00963BA2 /* WSGraphConnections.m in Sources */,
+				D3A06E6115D0E74C00963BA2 /* WSGraphPlotFactory.m in Sources */,
+				D3A06E6215D0E74C00963BA2 /* WSLinePlotFactory.m in Sources */,
+				D3A06E6315D0E74C00963BA2 /* WSNode.m in Sources */,
+				D3A06E6415D0E74C00963BA2 /* WSNodeProperties.m in Sources */,
+				D3A06E6515D0E74C00963BA2 /* WSObject.m in Sources */,
+				D3A06E6615D0E74C00963BA2 /* WSPlot.m in Sources */,
+				D3A06E6715D0E74C00963BA2 /* WSPlotAxis.m in Sources */,
+				D3A06E6815D0E74C00963BA2 /* WSPlotBar.m in Sources */,
+				D3A06E6915D0E74C00963BA2 /* WSPlotController.m in Sources */,
+				D3A06E6A15D0E74C00963BA2 /* WSPlotData.m in Sources */,
+				D3A06E6B15D0E74C00963BA2 /* WSPlotDisc.m in Sources */,
+				D3A06E6C15D0E74C00963BA2 /* WSPlotGraph.m in Sources */,
+				D3A06E6D15D0E74C00963BA2 /* WSPlotRegion.m in Sources */,
+				D3A06E6E15D0E74C00963BA2 /* WSPlotTemplate.m in Sources */,
+				D3A06E6F15D0E74C00963BA2 /* WSTicks.m in Sources */,
+				D3A06E7015D0E74C00963BA2 /* WSVersion.m in Sources */,
+				D3A06E7115D0E74C00963BA2 /* WSView.m in Sources */,
+				D3A06E7515D0E93500963BA2 /* PortEfficiencyVC.m in Sources */,
+				D35CFE4715D1EB13005FAA17 /* PortEfficiency.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

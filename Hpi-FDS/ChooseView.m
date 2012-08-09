@@ -16,8 +16,9 @@
 #import "TH_ShipTransChVC.h"
 #import "TB_LatefeeChVC.h"
 #import "NT_LatefeeTongjChVC.h"
-
 #import "DataQueryVC.h"
+#import "FactoryFreightVolumeVC.h"
+#import "PortEfficiencyVC.h"
 
 @implementation ChooseView
 @synthesize tableView,iDArray,popover;
@@ -220,16 +221,36 @@
     }
     else if(self.type==kTRADE)
     {
-        VBFactoryTransVC *view1=(VBFactoryTransVC*) self.parentMapView;
-        view1.tradeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
-        if (![view1.tradeLabel.text isEqualToString:All_]) {
-            view1.tradeLabel.hidden=NO;
-            [view1.tradeButton setTitle:@"" forState:UIControlStateNormal];
+      
+        if ([self.parentMapView isKindOfClass:[VBFactoryTransVC class]])
+        {
+            VBFactoryTransVC *view1=(VBFactoryTransVC*) self.parentMapView;
+            view1.tradeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
+            if (![view1.tradeLabel.text isEqualToString:All_]) {
+                view1.tradeLabel.hidden=NO;
+                [view1.tradeButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                view1.tradeLabel.hidden=YES;
+                [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+            }
         }
-        else {
-            view1.tradeLabel.hidden=YES;
-            [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+        //电厂运力用量统计
+        else if ([self.parentMapView isKindOfClass:[FactoryFreightVolumeVC class]])
+        {
+            FactoryFreightVolumeVC *view1=(FactoryFreightVolumeVC*) self.parentMapView;
+            view1.tradeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
+            if (![view1.tradeLabel.text isEqualToString:All_]) {
+                view1.tradeLabel.hidden=NO;
+                [view1.tradeButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                view1.tradeLabel.hidden=YES;
+                [view1.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+            }
+
         }
+        
     }
     //新添 VBTransChVC   视图下的  煤种 信息   kCOALTYPE
     else if (self.type==kCOALTYPE) {
@@ -246,13 +267,10 @@
             [view1.typeButton   setTitle:@"煤种" forState:UIControlStateNormal];
         }
         
-        
-        
     }
    
     //新添  TH_SHIPTRANS    STAGE
     else if (self.type==kshiptransStage) {
-        
         TH_ShipTransChVC *view1=(TH_ShipTransChVC *)self.parentMapView;
         view1.stageLabel.text=[self.iDArray objectAtIndex:[indexPath row    ]];
         if (![view1.stageLabel.text isEqualToString:All_]) {
@@ -262,8 +280,8 @@
             view1.stageLabel.hidden=YES;
             [view1.stageButton setTitle:@"状态" forState:UIControlStateNormal ];
         }
-        
-        
+
+
     }
 
       
@@ -300,6 +318,43 @@
         
         
     }
+    //电厂类型
+    else if(kTYPE==self.type)
+    {
+        FactoryFreightVolumeVC *view1=(FactoryFreightVolumeVC*) self.parentMapView;
+        view1.typeLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
+        if (![view1.typeLabel.text isEqualToString:All_]) {
+            view1.typeLabel.hidden=NO;
+            [view1.typeButton setTitle:@"" forState:UIControlStateNormal];
+        }
+        else {
+            view1.typeLabel.hidden=YES;
+            [view1.typeButton setTitle:@"电厂类型" forState:UIControlStateNormal];
+        }
+    }
+    //班轮
+    else if(kSCHEDULE==self.type)
+    {
+        PortEfficiencyVC *view1=(PortEfficiencyVC*) self.parentMapView;
+        view1.scheduleLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
+        if (![view1.scheduleLabel.text isEqualToString:All_]) {
+            view1.scheduleLabel.hidden=NO;
+            [view1.scheduleButton setTitle:@"" forState:UIControlStateNormal];
+        }
+        else {
+            view1.scheduleLabel.hidden=YES;
+            [view1.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
+        }
+    }
+//    //贸易性质
+//    else if(kTRADE_FFV==self.type)
+//    {
+//        NSLog(@"mmmmmmmm%@", [self.parentMapView class]);
+//        id view2= self.parentMapView;
+//        view2
+//        
+//          }
+
     
  */
 

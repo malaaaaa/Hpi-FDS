@@ -33,10 +33,10 @@
 @end
 
 @implementation BrokenLineGraphPoint
-@synthesize title,x,y;
+@synthesize companyShare,x,y;
 - (void) dealloc
 {
-    [title release];
+    [companyShare release];
 	[super dealloc];
 }
 @end

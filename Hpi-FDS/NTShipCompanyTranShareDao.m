@@ -55,13 +55,17 @@ static sqlite3 *database;
 +(void) initDb_tmpTable
 {	
 	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@",
-						 @"CREATE TABLE IF NOT EXISTS TMP_NTShipCompanyTranShare  (COMID INTEGER   ",
-						 @",COMPANY TEXT ",
+	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@",
+						 @"CREATE TABLE IF NOT EXISTS TMP_NTShipCompanyTranShare  (TAG INTEGER PRIMARY KEY  ",
+						 @",COMID TEXT ",
+                         @",COMPANY TEXT ",
                          @",TRADEYEAR TEXT ",
                          @",TRADEMONTH TEXT ",
 						 @",LW INTEGER ",
+                         @",X INTEGER ",
+                         @",Y INTEGER ",
                          @",PERCENT TEXT )" ];
+    
 	
 	if(sqlite3_exec(database,[createSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
@@ -71,49 +75,6 @@ static sqlite3 *database;
 		return;
 		
 	}
-}
-+(void) initDb_ColorConfig
-{	
-	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@",
-						 @"CREATE TABLE IF NOT EXISTS NTColorConfig  (TYPE TEXT   ",
-						 @",ID TEXT ",
-                         @",RED TEXT ",
-                         @",GREEN TEXT ",
-                         @",BLUE TEXT )"];
-	
-	if(sqlite3_exec(database,[createSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
-	{
-		sqlite3_close(database);
-		NSLog(@"create table NTColorConfig error");
-		printf("%s",errorMsg);
-		return;
-	}
-    NSString *deleteSql=[NSString  stringWithFormat:@"delete from NTColorConfig"];
-    if(sqlite3_exec(database,[deleteSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
-	{
-		sqlite3_close(database);
-		NSLog(@"delete NTColorConfig error");
-		printf("%s",errorMsg);
-		return;
-	}
-    NSString *insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"4",@"220.0",@"11.0",@"11.0"];
-    if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
-	{
-		sqlite3_close(database);
-		NSLog(@"insert into table NTColorConfig error");
-		printf("%s",errorMsg);
-		return;
-	}
-    insertSql=[NSString  stringWithFormat:@"insert into NTColorConfig (TYPE,ID,RED,GREEN,BLUE) values ('%@','%@','%@','%@','%@');",@"COMID",@"5",@"11.0",@"220.0",@"11.0"];
-    if(sqlite3_exec(database,[insertSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
-	{
-		sqlite3_close(database);
-		NSLog(@"insert into table NTColorConfig error");
-		printf("%s",errorMsg);
-		return;
-	}
-			
 }
 
 
@@ -321,7 +282,7 @@ static sqlite3 *database;
 	sqlite3_stmt *statement;
     NTShipCompanyTranShare *transShare=[[[NTShipCompanyTranShare alloc] init] autorelease];
     
-    NSString *sql=[NSString stringWithFormat:@"SELECT company,percent FROM  TMP_NTShipCompanyTranShare WHERE comid=%d and tradeyear='%@' and trademonth='%@' ",comid,year,month];
+    NSString *sql=[NSString stringWithFormat:@"SELECT company,percent,tag FROM  TMP_NTShipCompanyTranShare WHERE comid=%d and tradeyear='%@' and trademonth='%@' ",comid,year,month];
     //NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -338,10 +299,57 @@ static sqlite3 *database;
             else
                 transShare.PERCENT = [NSString stringWithUTF8String: rowData1];
             
+            transShare.TAG=sqlite3_column_int(statement, 2);
         }
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
 	return transShare;
+}
++(NTShipCompanyTranShare *) getTransShareByTag:(NSInteger)tag {
+	sqlite3_stmt *statement;
+    NTShipCompanyTranShare *transShare=[[[NTShipCompanyTranShare alloc] init] autorelease];
+    
+    NSString *sql=[NSString stringWithFormat:@"SELECT company,percent,lw,x,y FROM  TMP_NTShipCompanyTranShare WHERE tag=%d  ",tag];
+    //NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+			
+            char * rowData0=(char *)sqlite3_column_text(statement,0);
+            if (rowData0 == NULL)
+                transShare.COMPANY = nil;
+            else
+                transShare.COMPANY = [NSString stringWithUTF8String: rowData0];
+            
+            char * rowData1=(char *)sqlite3_column_text(statement,1);
+            if (rowData1 == NULL)
+                transShare.PERCENT = nil;
+            else
+                transShare.PERCENT = [NSString stringWithUTF8String: rowData1];
+            
+            transShare.LW=sqlite3_column_int(statement, 2);
+            transShare.X=sqlite3_column_int(statement, 3);
+            transShare.Y=sqlite3_column_int(statement, 4);
+            
+            
+        }
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+	return transShare;
+}
++(void) updateTransShareCoordinate:(NSInteger) tag setX:(NSInteger)x setY:(NSInteger)y
+{
+	NSString *updateSql=[NSString stringWithFormat:@"update  TMP_NTShipCompanyTranShare  set x=%d, y=%d where TAG=%d ",x,y,tag];
+	if(sqlite3_exec(database,[updateSql UTF8String],NULL,NULL,NULL)!=SQLITE_OK)
+	{
+		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);
+	}
+	else
+	{
+		NSLog(@"update success");
+		
+	}
+	return;
 }
 @end

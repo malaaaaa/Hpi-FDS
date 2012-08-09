@@ -16,9 +16,9 @@
 	if(![super initWithFrame:frame]) return nil;
 	
     self.data=graphData;
-    self.layer.masksToBounds=YES;      
-    self.layer.cornerRadius=10.0;      
-    self.layer.borderWidth=10.0;      
+    self.layer.masksToBounds=YES;
+    self.layer.cornerRadius=10.0;
+    self.layer.borderWidth=10.0;
     self.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
     self.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     
@@ -31,37 +31,43 @@
     titleLabel.shadowOffset= CGSizeMake(-1, -1);
 	titleLabel.textAlignment = UITextAlignmentCenter;
 	[self addSubview:titleLabel];
+    
     return self;
 }
 
 - (void) reload{
-    
 	[self setNeedsDisplay];
+    
 }
 
 - (void) drawRect:(CGRect)rect {
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
 	//画刻度
     [self drawScale:context rect:rect];
     //填充点阵
     [self drawPoints:context rect:rect];
+    
+    [self drawTriggerPoint:context rect:rect];
+    
+    
 }
 
 - (void)drawScale:(CGContextRef)context rect:(CGRect)_rect{
     if([data.ytitles count] < 1 || [data.xtitles count] < 1)
         return;
     
+    
     CGContextSetRGBStrokeColor(context, 71./255, 71./255, 71./255, 1);//线条颜色
 	CGContextSetAllowsAntialiasing(context, NO);
     //画橫坐标和竖线
     float favg;
     if ([data.xtitles count]>1) {
-          favg= (_rect.size.width-marginLeft-marginRight)/([data.xtitles count]-1); 
+        favg= (_rect.size.width-marginLeft-marginRight)/([data.xtitles count]-1);
     }
     else {
         favg= (_rect.size.width-marginLeft-marginRight);
     }
- 
     NSLog(@"HpiGraphView drawScale  %d条横线 %d条竖线  %f",[data.ytitles count],[data.xtitles count],favg);
 	for(int i=0;i<[data.xtitles count]; i++){
         CGContextMoveToPoint(context, marginLeft+favg*i, marginTop);
@@ -104,95 +110,127 @@
     BOOL start=NO;
     
     NSLog(@"graphData.pointArray222.count=%d",[self.data.pointArray count]);
-
+    
     for (int i=0; i<[self.data.pointArray count]; i++) {
         
         LineArray *line=[self.data.pointArray objectAtIndex:i];
-    
-    //CGContextSetRGBStrokeColor(context, 220./255, 11./255, 11./255, 1);//线条颜色
+        
+        //CGContextSetRGBStrokeColor(context, 220./255, 11./255, 11./255, 1);//线条颜色
         CGContextSetRGBStrokeColor(context, line.red/255, line.green/255, line.blue/255, 1);//线条颜色
-
-	CGContextSetAllowsAntialiasing(context, YES);
-    CGContextSaveGState(context); //将当前图形状态推入堆栈。之后，您对图形状态所做的修改会影响随后的描画操作，但不影响存储在堆栈中的拷贝
-    CGLineCap lineCap = kCGLineCapButt;
-    CGContextSetLineCap(context, lineCap);
-    CGContextSetLineWidth(context, 3.0f);
-	CGContextSetLineJoin(context, kCGLineJoinMiter);
-    
-    float wlength,hlength;
-    hlength=(_rect.size.height-marginTop-marginBottom)/data.yNum;
-    wlength=(_rect.size.width-marginRight-marginLeft)/(data.xNum-1);
-    NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
-    //将数据转化成坐标系
-    CGContextMoveToPoint(context, marginLeft, _rect.size.height-marginBottom);
+        
+        CGContextSetAllowsAntialiasing(context, YES);
+        CGContextSaveGState(context); //将当前图形状态推入堆栈。之后，您对图形状态所做的修改会影响随后的描画操作，但不影响存储在堆栈中的拷贝
+        CGLineCap lineCap = kCGLineCapButt;
+        CGContextSetLineCap(context, lineCap);
+        CGContextSetLineWidth(context, 3.0f);
+        CGContextSetLineJoin(context, kCGLineJoinMiter);
+        
+        float wlength,hlength;
+        hlength=(_rect.size.height-marginTop-marginBottom)/data.yNum;
+        wlength=(_rect.size.width-marginRight-marginLeft)/(data.xNum-1);
+        NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
+        //将数据转化成坐标系
+        CGContextMoveToPoint(context, marginLeft, _rect.size.height-marginBottom);
         NSLog(@"graphData.pointArray333.count=%d",[line.pointArray count]);
-
-
-    for(int i=0;i<[line.pointArray count]; i++){
-        BrokenLineGraphPoint *point=[line.pointArray objectAtIndex:i];
-        NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
-        if (start == NO) {
-            CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-            start = YES;
-            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+        
+        
+        for(int i=0;i<[line.pointArray count]; i++){
+            BrokenLineGraphPoint *point=[line.pointArray objectAtIndex:i];
+            NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
+            if (start == NO) {
+                CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
+                start = YES;
+                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+            }
+            else {
+                CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
+                NSLog(@"HpiGraphView drawPoints Line 第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+            }
         }
-        else {
-            CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-            NSLog(@"HpiGraphView drawPoints Line 第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-        }
+        CGContextStrokePath(context);
+        
+        CGContextRestoreGState(context);
+        
     }
-    CGContextStrokePath(context);
     
-    CGContextRestoreGState(context);
+}
+
+- (void)drawTriggerPoint:(CGContextRef)context rect:(CGRect)_rect{
+    //NSLog(@"HpiGraphView drawPoints  %d个点需描绘",[data.pointArray count]);
+    //    if([data.pointArray count] < 1)
+    //        return;
+    BOOL start=NO;
     
-   }   
-//    CGContextSetRGBStrokeColor(context, 11.0/255, 220./255, 11./255, 1);//线条颜色
-//	CGContextSetAllowsAntialiasing(context, YES);
-//    CGContextSaveGState(context);
-//    CGContextSetLineCap(context, lineCap);
-//    CGContextSetLineWidth(context, 2.0f);
-//	CGContextSetLineJoin(context, kCGLineJoinMiter);
-//    CGContextSetRGBStrokeColor(context, 11./255, 220./255, 11./255, 1);//线条颜色
-//    start = NO;
-//    for(int i=0;i<[data.pointArray2 count]; i++){
-//        HpiPoint *point=[data.pointArray2 objectAtIndex:i];
-//        NSLog(@"HpiGraphView drawPoints2  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
-//        if (start == NO) {
-//            CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//            start = YES;
-//            NSLog(@"HpiGraphView drawPoints2  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-//        }
-//        else {
-//            CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//            NSLog(@"HpiGraphView drawPoints2  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-//        }
-//    }
-//	CGContextStrokePath(context);
-//    CGContextRestoreGState(context);
-//    
-//    CGContextSetRGBStrokeColor(context, 11.0/255, 11./255, 220./255, 1);//线条颜色
-//	CGContextSetAllowsAntialiasing(context, YES);
-//    CGContextSaveGState(context);
-//    CGContextSetLineCap(context, lineCap);
-//    CGContextSetLineWidth(context, 2.0f);
-//	CGContextSetLineJoin(context, kCGLineJoinMiter);
-//    CGContextSetRGBStrokeColor(context, 11./255, 11./255, 220./255, 1);//线条颜色
-//    start = NO;
-//    for(int i=0;i<[data.pointArray3 count]; i++){
-//        HpiPoint *point=[data.pointArray3 objectAtIndex:i];
-//        NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
-//        if (start == NO) {
-//            CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//            start = YES;
-//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-//        }
-//        else {
-//            CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-//        }
-//    }
-//	CGContextStrokePath(context);
-//    CGContextRestoreGState(context);
+    NSLog(@"graphData.pointArray222.count=%d",[self.data.pointArray count]);
+    
+    for (int i=0; i<[self.data.pointArray count]; i++) {
+        
+        LineArray *line=[self.data.pointArray objectAtIndex:i];
+        
+        
+        float wlength,hlength;
+        hlength=(_rect.size.height-marginTop-marginBottom)/data.yNum;
+        wlength=(_rect.size.width-marginRight-marginLeft)/(data.xNum-1);
+        NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
+        //将数据转化成坐标系
+        NSLog(@"graphData.pointArray333.count=%d",[line.pointArray count]);
+        
+        
+        for(int i=0;i<[line.pointArray count]; i++){
+            BrokenLineGraphPoint *point=[line.pointArray objectAtIndex:i];
+            
+            NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
+            if (start == NO) {
+                start = YES;
+                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+            }
+            else {
+                NTShipCompanyTranShare *companyShare = point.companyShare;
+                NSInteger x=marginLeft+(point.x)*wlength;
+                NSInteger y=_rect.size.height-marginBottom-point.y*hlength;
+                UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 7, 7)];
+                button.center=CGPointMake(x, y);
+//                button.backgroundColor=[UIColor blueColor];
+                button.backgroundColor= [UIColor colorWithRed:line.red/255 green:line.green/255 blue:line.blue/255 alpha:1];
+                [NTShipCompanyTranShareDao updateTransShareCoordinate:companyShare.TAG setX:x setY:y];
+                button.tag=companyShare.TAG;
+                button.layer.cornerRadius=4.0;
+                [button addTarget:self action:@selector(showDetail:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [self addSubview:button];
+                [button release];
+                
+            }
+        }
+        
+    }
+    
+}
+
+-(void)showDetail:(id)sender{
+    UIButton *buttonTag= sender;
+    NSLog(@"tag=%d",buttonTag.tag);
+    //以此判断该点是否在横坐标上，是的话不显示Pop
+    if (buttonTag.tag!=0) {
+        NTShipCompanyTranShare *companyShare=[NTShipCompanyTranShareDao getTransShareByTag:buttonTag.tag];
+        
+        ShipCompanyShareDetailVC *detailVC = [[ShipCompanyShareDetailVC alloc]init];
+        UIPopoverController *pop= [[UIPopoverController alloc] initWithContentViewController:detailVC];
+        detailVC.popover=pop;
+        pop.popoverContentSize=CGSizeMake(150, 150);
+        
+        [pop  presentPopoverFromRect:CGRectMake(companyShare.X, companyShare.Y, 5, 5) inView:self permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+        detailVC.company.text=[NSString stringWithFormat:@"船厂：%@",companyShare.COMPANY];
+        detailVC.lw.text=[NSString stringWithFormat:@"载煤量：%d",companyShare.LW];
+        detailVC.percent.text=[NSString stringWithFormat:@"份额：%@%%",companyShare.PERCENT];
+        detailVC.company.textColor= [UIColor whiteColor];
+        detailVC.lw.textColor= [UIColor whiteColor];
+        detailVC.percent.textColor= [UIColor whiteColor];
+        
+        [pop release];
+        [detailVC release];
+    }
+    
 }
 
 - (void) dealloc {
@@ -204,12 +242,12 @@
 
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

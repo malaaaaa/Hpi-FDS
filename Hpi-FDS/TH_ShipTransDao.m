@@ -166,7 +166,7 @@ static sqlite3  *database;
     
     
     char *errorMsg;
-    NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  Th_ShipTrans where recid  =%d ", [NSNumber  numberWithInt:th_Shiptrans.RECID] ];
+    NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  Th_ShipTrans where recid  =%d ", th_Shiptrans.RECID ];
     
     
     if (sqlite3_exec(database, [deletesql UTF8String], NULL, NULL, &errorMsg)!=SQLITE_OK) {
@@ -186,7 +186,7 @@ return;
 +(NSMutableArray *)getTH_ShipTrans:(NSInteger)recid
 {
 
-    NSString *query=[NSString stringWithFormat:@" recid =%d  ",[NSNumber numberWithInt:recid] ];
+    NSString *query=[NSString stringWithFormat:@" recid =%d  ",recid ];
 
     NSMutableArray *array=[TH_ShipTransDao getTH_ShipTransBySql:query];
     return array;

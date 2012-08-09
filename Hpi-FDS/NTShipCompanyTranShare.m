@@ -9,6 +9,7 @@
 #import "NTShipCompanyTranShare.h"
 
 @implementation NTShipCompanyTranShare
+@synthesize TAG=_TAG;
 @synthesize COMID=_COMID;
 @synthesize COMPANY=_COMPANY;
 @synthesize PORTCODE=_PORTCODE;
@@ -17,4 +18,6 @@
 @synthesize TRADEYEAR=_TRADEYEAR;
 @synthesize TRADEMONTH=_TRADEMONTH;
 @synthesize PERCENT=_PERCENT;
+@synthesize X=_X;
+@synthesize Y=_Y;
 @end
