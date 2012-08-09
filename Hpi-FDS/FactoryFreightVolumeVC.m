@@ -336,4 +336,35 @@
     [self.listView addSubview:titleLabel];
     [titleLabel release];
 }
+#pragma mark SetSelectValue  Method
+-(void)setLableValue:(NSString *)currentSelectValue
+{
+    if (chooseView) {
+        if (chooseView.type==kTRADE) {
+            NSLog(@"choosedele");
+            
+            self.tradeLabel.text =currentSelectValue;
+            if (![self.tradeLabel.text isEqualToString:All_]) {
+                self.tradeLabel.hidden=NO;
+                [self.tradeButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.tradeLabel.hidden=YES;
+                [self.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
+            }
+        }
+        if (chooseView.type==kTYPE) {
+            
+            self.typeLabel.text =currentSelectValue;
+            if (![self.typeLabel.text isEqualToString:All_]) {
+                self.typeLabel.hidden=NO;
+                [self.typeButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.typeLabel.hidden=YES;
+                [self.typeButton setTitle:@"电厂类型" forState:UIControlStateNormal];
+            }
+        }
+    }
+}
 @end

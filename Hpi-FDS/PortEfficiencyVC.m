@@ -348,5 +348,23 @@ static  NSMutableArray *ShipCompanyArray;
     return [WSData dataWithValues:arrayY
                       annotations:arrayX];
 }
-
+#pragma mark SetSelectValue  Method
+-(void)setLableValue:(NSString *)currentSelectValue
+{
+    if (chooseView) {
+        if (chooseView.type==kSCHEDULE) {
+            NSLog(@"choosedele");
+            
+            self.scheduleLabel.text =currentSelectValue;
+            if (![self.scheduleLabel.text isEqualToString:All_]) {
+                self.scheduleLabel.hidden=NO;
+                [self.scheduleButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.scheduleLabel.hidden=YES;
+                [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
+            }
+        }
+    }
+}
 @end

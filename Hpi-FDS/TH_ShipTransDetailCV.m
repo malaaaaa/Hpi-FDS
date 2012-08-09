@@ -8,6 +8,7 @@
 
 #import "TH_ShipTransDetailCV.h"
 #import "TH_ShipTrans.h"
+#import "PubInfo.h"
 @interface TH_ShipTransDetailCV ()
 
 @end
@@ -53,15 +54,18 @@
         NSLog(@"%@",thShipTrans.NOTE );
         
         
-        self. p_ANCHORAGETIME.text=  [self formaDateTime:  thShipTrans.P_ANCHORAGETIME   ];
+        self. p_ANCHORAGETIME.text=  [PubInfo formaDateTime:thShipTrans.P_ANCHORAGETIME FormateString:@"yyyy/MM/dd"];
         
-        self.p_ARRIVALTIME.text=[  self formaDateTime:thShipTrans.P_ARRIVALTIME       ]   ;
         
-        self.p_DEPARTTIME.text=   [ self formaDateTime:thShipTrans.P_DEPARTTIME    ] ;
+        self.p_ARRIVALTIME.text=[PubInfo formaDateTime:thShipTrans.P_ARRIVALTIME FormateString:@"yyyy/MM/dd"] ;
         
-        self.p_HANDLE.text=  [self formaDateTime:thShipTrans.P_HANDLE     ];
+        self.p_DEPARTTIME.text=  [PubInfo formaDateTime:thShipTrans.P_DEPARTTIME FormateString:@"yyyy/MM/dd"] ;
         
-        self.waitTimeLable.text=[self formatInfoDate:thShipTrans.P_ARRIVALTIME :thShipTrans.P_ANCHORAGETIME];
+        
+        
+        self.p_HANDLE.text=  [PubInfo formaDateTime:thShipTrans.P_HANDLE FormateString:@"yyyy/MM/dd"] ;
+        
+        self.waitTimeLable.text=[PubInfo formatInfoDate:thShipTrans.P_ARRIVALTIME :thShipTrans.P_ANCHORAGETIME];
         
         
         self.note.text=   thShipTrans.NOTE ;
@@ -76,8 +80,7 @@
 
 
 }
-
-
+/*
 -(NSString *)formaDateTime:(NSString *)string
 {
     NSString *str;
@@ -179,6 +182,7 @@
     
     
     }
+ */
 
 - (void)viewDidUnload
 {
@@ -201,8 +205,6 @@
 -(void)dealloc
 {
 
-    
-    
     [super dealloc];
 
 }

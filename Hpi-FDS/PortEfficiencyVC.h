@@ -13,9 +13,10 @@
 #import "DateViewController.h"
 #import "PowerPlot_lib/PowerPlot.h"
 #import "ChooseView.h"
+#import "ChooseViewDelegate.h"
 
 
-@interface PortEfficiencyVC : UIViewController<UIPopoverControllerDelegate>{
+@interface PortEfficiencyVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIPopoverController *_popover;
     DateViewController *_startDateCV;
     DateViewController *_endDateCV;

@@ -14,6 +14,9 @@
 #import "VBFactoryTransVC.h"
 #import "VBTransChVC.h"
 #import "TH_ShipTransChVC.h"
+#import "TB_LatefeeChVC.h"
+#import "NT_LatefeeTongjChVC.h"
+#import "DataQueryVC.h"
 #import "FactoryFreightVolumeVC.h"
 #import "PortEfficiencyVC.h"
 
@@ -77,7 +80,28 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //MapViewController *mapView=(MapViewController*) self.parentMapView;
+     
+
+    
+    [self.parentMapView setLableValue:(NSString *)[self.iDArray objectAtIndex:[indexPath row]]];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    
+    
+    
+            //MapViewController *mapView=(MapViewController*) self.parentMapView;
     if(self.type==kPORT)
     {
         MapViewController *mapView=(MapViewController*) self.parentMapView;
@@ -96,9 +120,14 @@
         [mapView.shipButton setTitle:(NSString *)[self.iDArray objectAtIndex:[indexPath row]] forState:UIControlStateNormal];
         [mapView chooseUpdateView];
     }
-    else if(self.type==kChCOM)
+      
+     else if(self.type==kChCOM)
     {
-        VBShipChVC *view1=(VBShipChVC*) self.parentMapView;
+           
+       VBShipChVC *view1=(VBShipChVC*) self.parentMapView;
+       // DataQueryVC *view1=(DataQueryVC *)self.parentMapView;
+    
+        
         view1.comLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
         if (![view1.comLabel.text isEqualToString:All_]) {
             view1.comLabel.hidden=NO;
@@ -108,8 +137,9 @@
             view1.comLabel.hidden=YES;
             [view1.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
         }
-    }
-    else if(self.type==kChSTAT)
+     }
+
+     else if(self.type==kChSTAT)
     {
         VBShipChVC *view1=(VBShipChVC*) self.parentMapView;
         view1.statLabel.text =[self.iDArray objectAtIndex:[indexPath row]];
@@ -122,6 +152,7 @@
             [view1.statButton setTitle:@"状态" forState:UIControlStateNormal];
         }
     }
+   
     else if(self.type==kChSHIP)
     {
         VBShipChVC *view1=(VBShipChVC*) self.parentMapView;
@@ -135,6 +166,8 @@
             [view1.shipButton setTitle:@"船名" forState:UIControlStateNormal];
         }
     }
+    
+   
     else if(self.type==kChFACTORY)
     {
         VBShipChVC *view1=(VBShipChVC*) self.parentMapView;
@@ -235,7 +268,7 @@
         }
         
     }
-    
+   
     //新添  TH_SHIPTRANS    STAGE
     else if (self.type==kshiptransStage) {
         TH_ShipTransChVC *view1=(TH_ShipTransChVC *)self.parentMapView;
@@ -249,6 +282,41 @@
         }
 
 
+    }
+
+      
+    
+    //滞期费     供货方
+    else if (self.type==kSUPPLIER) {
+       
+        TB_LatefeeChVC *view1=(TB_LatefeeChVC *)self.parentMapView  ;
+     
+        view1.supLable.text=[self.iDArray objectAtIndex:indexPath.row];
+        if (![view1.supLable.text isEqualToString:All_]) {
+            view1.supLable.hidden=NO;
+            [view1.supButton     setTitle:@"" forState:UIControlStateNormal];
+        }else {
+            view1.supLable  .hidden=YES;
+            [view1.supButton setTitle:@"供货方" forState:UIControlStateNormal  ];
+        }
+        
+        
+    }
+    else if (self.type==kfactoryCate) {
+      
+        NT_LatefeeTongjChVC *view1=(NT_LatefeeTongjChVC *)self.parentMapView;
+        view1.factoryCateLable.text=[self.iDArray objectAtIndex:indexPath.row];
+        if (![view1 .factoryCateLable.text isEqualToString:All_]) {
+            view1.factoryCateLable.hidden=NO;
+            [view1.factoryCateButton setTitle:@"" forState:UIControlStateNormal];
+        }else {
+            view1.factoryCateLable.hidden=YES;
+            [view1.factoryCateButton setTitle:@"电厂类别" forState:UIControlStateNormal];
+        }
+        
+        
+        
+        
     }
     //电厂类型
     else if(kTYPE==self.type)
@@ -288,10 +356,8 @@
 //          }
 
     
-    
-    
-    
-    
+ */
+
     
     
     

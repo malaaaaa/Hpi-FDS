@@ -17,4 +17,17 @@
 @synthesize CONTACT=_CONTACT;
 @synthesize SORT=_SORT;
 @synthesize didSelected;
+
+-(void)dealloc
+{
+
+    [_SUPPLIER release];
+    [_DESCRIPTION release];
+    [_LINKMAN release];
+
+    [_CONTACT release];
+
+    [super dealloc];
+}
+
 @end

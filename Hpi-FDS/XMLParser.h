@@ -36,6 +36,12 @@
 #import "TH_ShipTransDao.h"
 
 
+#import "TB_Latefee.h"
+#import "TB_LatefeeDao.h"
+#import "TfPort.h"
+#import "TfPortDao.h"
+
+
 #import "NTShipCompanyTranShare.h"
 #import "NTShipCompanyTranShareDao.h"
 #import "NTFactoryFreightVolume.h"
@@ -69,8 +75,12 @@
     
     //新添 调度日志
     TH_ShipTrans *thshiptrans;
+    TB_Latefee *tblateFee;
     
-    NTShipCompanyTranShare *ntShipCompanyTranShare;
+    //tfport
+    TfPort *tfport;
+    
+   NTShipCompanyTranShare *ntShipCompanyTranShare;
     NTFactoryFreightVolume *factoryFreightVolume;
     
 }
@@ -101,9 +111,20 @@
 
 //新添 调度日志
 @property(nonatomic,retain) TH_ShipTrans *thshiptrans;
+@property(nonatomic,retain)TB_Latefee *tblateFee;
+@property(nonatomic,retain) TfPort *tfport;
+
+
+
 
 @property(nonatomic,retain) NTShipCompanyTranShare *ntShipCompanyTranShare;
 @property(nonatomic,retain) NTFactoryFreightVolume *factoryFreightVolume;
+
+
+
+
+
+
 
 - (void)getTgPort;
 - (void)getTgFactory;
@@ -126,6 +147,14 @@
 - (void)getTsShipStage;
 //新添  thshiptrans  调度日志
 -(void)getTHShipTrans;
+
+-(void)getTBLateFee;
+
+-(void)getTfPort;
+
+
+
+-(void)getTableDete:(NSInteger)Set_iSoapValue :(NSString *)RequestXMLMethodName;
 
 - (void)getNtShipCompanyTranShare;
 - (void)getNTFactoryFreightVolume;
@@ -156,6 +185,11 @@
 -(NSInteger)iSoapTsShipStageDone;
 //新添调度日志
 -(NSInteger)iSoapThShipTransDone;
+-(NSInteger)iSoapTbLateFeeDone;
+-(NSInteger)iSoapTfPortDone;
+
+
+
 -(NSInteger)iSoapNTShipCompanyTranShareDone;
 -(NSInteger)iSoapNTFactoryFreightVolumeDone;
 

@@ -14,9 +14,10 @@
 #import "DataGridComponent.h"
 #import "MultiTitleDataGridComponent.h"
 #import "DateViewController.h"
+#import "ChooseViewDelegate.h"
 
 
-@interface FactoryFreightVolumeVC : UIViewController<UIPopoverControllerDelegate>{
+@interface FactoryFreightVolumeVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIButton *queryButton;
     UIButton *resetButton;
     UIButton *tradeButton; //贸易性质

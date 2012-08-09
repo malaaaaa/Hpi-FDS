@@ -18,7 +18,9 @@
 #import "SummaryInfoViewController.h"
 #import "XMLParser.h"	
 
-@interface MapViewController : UIViewController <MKMapViewDelegate,UITableViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate>{
+#import "ChooseViewDelegate.h"
+
+@interface MapViewController : UIViewController <MKMapViewDelegate,UITableViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate,ChooseViewDelegate>{
     IBOutlet MKMapView *mapView;
     IBOutlet MKMapView *mapViewBig;
     IBOutlet UIActivityIndicatorView *activity;

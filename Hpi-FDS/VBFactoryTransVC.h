@@ -14,10 +14,10 @@
 #import "VBFactoryTransDetailVC.h"
 #import "DataGridComponent.h"
 #import "DateViewController.h"
+#import "ChooseViewDelegate.h"
 
 
-
-@interface VBFactoryTransVC : UIViewController<UITableViewDataSource,UIPopoverControllerDelegate>{
+@interface VBFactoryTransVC : UIViewController<UITableViewDataSource,UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIButton *factoryButton;
     UILabel *factoryLabel;
     UIButton *comButton;

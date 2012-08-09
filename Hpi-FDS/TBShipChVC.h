@@ -10,7 +10,10 @@
 #import "ChooseView.h"
 #import "PubInfo.h"
 #import "XMLParser.h"
-@interface TBShipChVC : UIViewController<UIPopoverControllerDelegate>{
+
+#import "ChooseViewDelegate.h"
+
+@interface TBShipChVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIButton *comButton;
     UILabel *comLabel;
     UIButton *shipButton;

@@ -4,7 +4,6 @@
 //
 //  Created by zcx on 12-3-30.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
-//mawp --周二
 
 #import <Foundation/Foundation.h>
 #import "NSString+Verify.h"
@@ -67,14 +66,16 @@ typedef enum{
     kChSTAT,
     kPORTBUTTON,
     kSHIPCOMPANY,
-    kSUPPLIER,
+    
     kCOALTYPE,
     kKEYVALUE,
     kTRADE,
     kSHIPSTAGE,
+    kSUPPLIER,//14
+    kshiptransStage,//15
+    kfactoryCate,
     kTYPE, //电厂类型
     kSCHEDULE, //班轮
-    kshiptransStage
 } CoordinateType;
 
 #define All_PORT    @"全部港口"
@@ -103,5 +104,26 @@ typedef enum{
 
 //计算两个YYYYMM格式字符串之间月份之差
 +(NSInteger)getMonthDifference:(NSString *)startDate :(NSString *)endDate;
+
+
+
+
+//计算两个 时间段[%d天%d小时%d分钟]  [%d天%d小时%d分钟]的和       返回[%d天%d小时%d分钟]字符串      string1/string2  [days,@"days",hours,@"hours",minutes,@"minutes"]  
++(NSString *)getTotalTime:(NSMutableDictionary *)string1:(NSMutableDictionary *)string2 ;
+
+
+//从数据库时间（string）里格式化 字符串时间   返回formateStr @"yyyy/MM/dd"格式字符串  或  “未知”    
++(NSString *)formaDateTime:(NSString *)string  FormateString:(NSString *)formateStr;
+
+
+//计算两个  string1(yyyy-MM-dd HH:mm:ss) 和string2(yyyy-MM-dd HH:mm:ss)做差    时间之间的时间段 返回 [days,@"days",hours,@"hours",minutes,@"minutes"]字典 如果有一个时间为“未知”   则返回 [0,@"days",0,@"hours",0,@"minutes"]
+
++(NSMutableDictionary *)formatInfoDate1:(NSString *)string1 :(NSString *)string2;
+
+
+
+//计算两个  string1(yyyy-MM-dd HH:mm:ss) 和string2(yyyy-MM-dd HH:mm:ss)    时间之间的时间段 返回 %d天%d小时%d分钟  如果有一个时间为“未知”   则返回 0天0小时0分钟
++(NSString *)formatInfoDate  :(NSString *)string1 :(NSString *)string2;
+
 
 @end

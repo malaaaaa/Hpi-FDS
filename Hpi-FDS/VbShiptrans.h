@@ -56,6 +56,7 @@
     NSString *shipShift;
     NSInteger facSort;
     NSString *tradeTime;
+    NSString *iscal;
 }
 
 @property (nonatomic, retain) NSString *disPatchNo;
@@ -103,5 +104,5 @@
 @property (nonatomic, retain) NSString *shipShift;
 @property NSInteger facSort;
 @property (nonatomic, retain) NSString *tradeTime;
-
+@property (nonatomic, retain) NSString *iscal;
 @end
