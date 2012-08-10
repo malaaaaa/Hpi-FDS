@@ -98,10 +98,10 @@ static  NSMutableArray *ShipStageArray;
     [activity removeFromSuperview];
     self.xmlParser=[[XMLParser alloc]init];
     
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-//    self.dateLabel.text=[dateFormatter stringFromDate:[NSDate date]];
-//    [dateFormatter release];
+    //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    //    self.dateLabel.text=[dateFormatter stringFromDate:[NSDate date]];
+    //    [dateFormatter release];
     
     //factoryArray= [[NSMutableArray alloc] init];
     
@@ -114,7 +114,7 @@ static  NSMutableArray *ShipStageArray;
     animation.removedOnCompletion = NO;
     animation.type = @"cube";
     [self.view.layer addAnimation:animation forKey:@"animation"];
-   // [self.chooseView bringSubviewToFront:vbFactoryTransVC.view];
+    // [self.chooseView bringSubviewToFront:vbFactoryTransVC.view];
     
     float columnOffset = 0.0;
     
@@ -126,7 +126,7 @@ static  NSMutableArray *ShipStageArray;
     
     animation.type = @"oglFlip";
     [self.labelView.layer addAnimation:animation forKey:@"animation"];
-  //  [labelView removeFromSuperview];
+    //  [labelView removeFromSuperview];
     //填冲标题数据
     for(int column = 0;column < [dataSource.titles count];column++){
         float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
@@ -144,20 +144,20 @@ static  NSMutableArray *ShipStageArray;
     }
     dataSource.data=[[NSMutableArray alloc]init];
     
-    listView.layer.masksToBounds=YES;      
-    listView.layer.cornerRadius=10.0;      
-    listView.layer.borderWidth=10.0;      
+    listView.layer.masksToBounds=YES;
+    listView.layer.cornerRadius=10.0;
+    listView.layer.borderWidth=10.0;
     listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
     listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     
     listView.center=CGPointMake(512,442);
-
+    
     
     [listTableview setSeparatorColor:[UIColor clearColor]];
     listTableview.backgroundColor = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
-
-
-   // [self.view addSubview:labelView];
+    
+    
+    // [self.view addSubview:labelView];
     
     self.startDay = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -256,7 +256,7 @@ static  NSMutableArray *ShipStageArray;
     }
     
     if(!startDateCV)//初始化待显示控制器
-        startDateCV=[[DateViewController alloc]init]; 
+        startDateCV=[[DateViewController alloc]init];
     //设置待显示控制器的范围
     [startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
     //设置待显示控制器视图的尺寸
@@ -270,7 +270,7 @@ static  NSMutableArray *ShipStageArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(730, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];    
+    [self.popover presentPopoverFromRect:CGRectMake(730, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 - (IBAction)factoryAction:(id)sender {
@@ -279,7 +279,7 @@ static  NSMutableArray *ShipStageArray;
     }
     
     //初始化多选控制器
-    multipleSelectView=[[MultipleSelectView alloc]init]; 
+    multipleSelectView=[[MultipleSelectView alloc]init];
     //设置待显示控制器的范围
     [multipleSelectView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -289,7 +289,7 @@ static  NSMutableArray *ShipStageArray;
     multipleSelectView.popover = pop;
     
     
-    if ( FactoryPop==NO) { 
+    if ( FactoryPop==NO) {
         FactoryArray=[[NSMutableArray alloc]init];
         TgFactory *allFactory =  [[TgFactory alloc] init];
         allFactory.factoryCode = All_;
@@ -326,7 +326,7 @@ static  NSMutableArray *ShipStageArray;
     }
     
     //初始化多选控制器
-    multipleSelectView=[[MultipleSelectView alloc]init]; 
+    multipleSelectView=[[MultipleSelectView alloc]init];
     //设置待显示控制器的范围
     [multipleSelectView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -336,7 +336,7 @@ static  NSMutableArray *ShipStageArray;
     multipleSelectView.popover = pop;
     
     
-    if ( ShipCompanyPop==NO) { 
+    if ( ShipCompanyPop==NO) {
         ShipCompanyArray=[[NSMutableArray alloc]init];
         TfShipCompany *allShipCompany =  [[ TfShipCompany alloc] init];
         allShipCompany.comid=0;
@@ -353,7 +353,7 @@ static  NSMutableArray *ShipStageArray;
         
     }
     multipleSelectView.iDArray=ShipCompanyArray;
-     
+    
     multipleSelectView.parentMapView=self;
     multipleSelectView.type=kSHIPCOMPANY;
     self.popover = pop;
@@ -373,7 +373,7 @@ static  NSMutableArray *ShipStageArray;
     }
     
     //初始化多选控制器
-    multipleSelectView=[[MultipleSelectView alloc]init]; 
+    multipleSelectView=[[MultipleSelectView alloc]init];
     //设置待显示控制器的范围
     [multipleSelectView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -383,7 +383,7 @@ static  NSMutableArray *ShipStageArray;
     multipleSelectView.popover = pop;
     
     
-    if ( ShipPop==NO) { 
+    if ( ShipPop==NO) {
         ShipArray=[[NSMutableArray alloc]init];
         TgShip *allShip =  [[ TgShip alloc] init];
         allShip.shipID=0;
@@ -421,7 +421,7 @@ static  NSMutableArray *ShipStageArray;
     }
     
     //初始化多选控制器
-    multipleSelectView=[[MultipleSelectView alloc]init]; 
+    multipleSelectView=[[MultipleSelectView alloc]init];
     //设置待显示控制器的范围
     [multipleSelectView.view setFrame:CGRectMake(0,0, 200, 400)];
     //设置待显示控制器视图的尺寸
@@ -431,7 +431,7 @@ static  NSMutableArray *ShipStageArray;
     multipleSelectView.popover = pop;
     
     
-    if ( SupplierPop==NO) { 
+    if ( SupplierPop==NO) {
         SupplierArray=[[NSMutableArray alloc]init];
         TfSupplier *allSupplier =  [[ TfSupplier alloc] init];
         allSupplier.SUPID=0;
@@ -468,7 +468,7 @@ static  NSMutableArray *ShipStageArray;
     }
     
     //初始化多选控制器
-    multipleSelectView=[[MultipleSelectView alloc]init]; 
+    multipleSelectView=[[MultipleSelectView alloc]init];
     //设置待显示控制器的范围
     [multipleSelectView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -478,7 +478,7 @@ static  NSMutableArray *ShipStageArray;
     multipleSelectView.popover = pop;
     
     
-    if ( CoalTypePop==NO) { 
+    if ( CoalTypePop==NO) {
         CoalTypeArray=[[NSMutableArray alloc]init];
         TfCoalType *allCoalType =  [[ TfCoalType alloc] init];
         allCoalType.TYPEID=0;
@@ -514,7 +514,7 @@ static  NSMutableArray *ShipStageArray;
         [self.popover dismissPopoverAnimated:YES];
     }
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -541,7 +541,7 @@ static  NSMutableArray *ShipStageArray;
         [self.popover dismissPopoverAnimated:YES];
     }
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -570,7 +570,7 @@ static  NSMutableArray *ShipStageArray;
     }
     
     //初始化多选控制器
-    multipleSelectView=[[MultipleSelectView alloc]init]; 
+    multipleSelectView=[[MultipleSelectView alloc]init];
     //设置待显示控制器的范围
     [multipleSelectView.view setFrame:CGRectMake(0,0, 125, 300)];
     //设置待显示控制器视图的尺寸
@@ -580,7 +580,7 @@ static  NSMutableArray *ShipStageArray;
     multipleSelectView.popover = pop;
     
     
-    if ( ShipStagePop==NO) { 
+    if ( ShipStagePop==NO) {
         ShipStageArray=[[NSMutableArray alloc]init];
         TsShipStage *allShipStage =  [[ TsShipStage alloc] init];
         allShipStage.STAGE=All_;
@@ -637,19 +637,19 @@ static  NSMutableArray *ShipStageArray;
 }
 
 - (IBAction)queryAction:(id)sender {
-
+    
     [dataSource.data removeAllObjects];
     //listArray=[VbFactoryTransDao getVbFactoryTrans:[multipleSelectView iDArray]];
-    listArray=[VbFactoryTransDao getVbFactoryTransState:FactoryArray 
-                                                       :self.startDay 
-                                                       :ShipCompanyArray 
-                                                       :ShipArray 
-                                                       :SupplierArray 
+    listArray=[VbFactoryTransDao getVbFactoryTransState:FactoryArray
+                                                       :self.startDay
+                                                       :ShipCompanyArray
+                                                       :ShipArray
+                                                       :SupplierArray
                                                        :CoalTypeArray
                                                        :keyValueLabel.text
                                                        :tradeLabel.text
                                                        :ShipStageArray];
-
+    
     for (int i=0;i<[listArray count];i++) {
         VbFactoryTrans *vbFactoryTrans = [listArray objectAtIndex:i];
         [dataSource.data addObject:[NSArray arrayWithObjects:
@@ -669,7 +669,7 @@ static  NSMutableArray *ShipStageArray;
         
     }
     [listTableview reloadData];
-
+    
     
     
 }
@@ -761,10 +761,10 @@ static  NSMutableArray *ShipStageArray;
     if (shipNum>0) {
         detailArray = [[NSMutableArray alloc] init];
         NSString *factoryCode = [[dataSource.data objectAtIndex:[indexPath row]] objectAtIndex:11];
-        detailArray= [VbFactoryTransDao   getVbFactoryTransDetail:factoryCode 
+        detailArray= [VbFactoryTransDao   getVbFactoryTransDetail:factoryCode
                                                                  :ShipCompanyArray
-                                                                 :ShipArray 
-                                                                 :SupplierArray 
+                                                                 :ShipArray
+                                                                 :SupplierArray
                                                                  :CoalTypeArray
                                                                  :keyValueLabel.text
                                                                  :tradeLabel.text
@@ -774,7 +774,7 @@ static  NSMutableArray *ShipStageArray;
         factorytransDeitail.iDArray=detailArray;
         
         [factorytransDeitail.view setFrame:CGRectMake(0,0, 125, 620)];
-        factorytransDeitail.contentSizeForViewInPopover = CGSizeMake(125, 620);        
+        factorytransDeitail.contentSizeForViewInPopover = CGSizeMake(125, 620);
         factorytransDeitail.parentView = self;
         
         //初始化弹出窗口
@@ -793,8 +793,8 @@ static  NSMutableArray *ShipStageArray;
         [detailArray release];
         
     }
-
-           
+    
+    
 }
 
 - (NSString *)formatInfoDate:(NSString *)string1 :(NSString *)string2 {
@@ -847,7 +847,7 @@ static  NSMutableArray *ShipStageArray;
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     
     NSString *MyIdentifier = @"UITableViewCell";
     UITableViewCell *cell=(UITableViewCell*)[listTableview dequeueReusableCellWithIdentifier:MyIdentifier];
@@ -865,7 +865,7 @@ static  NSMutableArray *ShipStageArray;
     for(int column=0;column<[rowData count];column++){
         //第1个字段表示是否显示红色字体
         if(column==0)
-        {  
+        {
             if([[rowData objectAtIndex:0] intValue] == 1)
             {
                 iColorRed=1;
@@ -890,15 +890,15 @@ static  NSMutableArray *ShipStageArray;
                 l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
             else
                 l.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-            if (iColorRed==1) 
+            if (iColorRed==1)
             {
                 l.textColor=[UIColor redColor];
             }
-            if (iColorRed==2) 
+            if (iColorRed==2)
             {
                 l.textColor=[UIColor colorWithRed:0.0/255 green:180.0/255 blue:90.0/255 alpha:1];
             }
-            if (iColorRed==0) 
+            if (iColorRed==0)
             {
                 l.textColor=[UIColor whiteColor];
             }
@@ -917,33 +917,33 @@ static  NSMutableArray *ShipStageArray;
             columnOffset += columnWidth;
             [l release];
         }
-   
+        
     }
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
     cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
     return cell;
 }
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { 
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 40;
-} 
+}
 #pragma mark SetSelectValue  Method
 -(void)setLableValue:(NSString *)currentSelectValue
 {
     
     if (chooseView) {
-    
+        
         if (chooseView.type==kChFACTORY) {
             self.factoryLabel.text =currentSelectValue;
             if (![self.factoryLabel.text isEqualToString:All_]) {
-               self.factoryLabel.hidden=NO;
+                self.factoryLabel.hidden=NO;
                 [self.factoryButton setTitle:@"" forState:UIControlStateNormal];
             }
             else {
                 self.factoryLabel.hidden=YES;
                 [self.factoryButton setTitle:@"电厂" forState:UIControlStateNormal];
             }
-
+            
         }
         if (chooseView.type==kSHIPCOMPANY) {
             
@@ -963,10 +963,10 @@ static  NSMutableArray *ShipStageArray;
             
             self.supLabel.text=currentSelectValue;
             if (![ self.supLabel.text isEqualToString:All_]) {
-                 self.supLabel.hidden=NO;
+                self.supLabel.hidden=NO;
                 [ self.supButton     setTitle:@"" forState:UIControlStateNormal];
             }else {
-                 self.supLabel  .hidden=YES;
+                self.supLabel  .hidden=YES;
                 [ self.supButton setTitle:@"供货方" forState:UIControlStateNormal  ];
             }
             
@@ -986,15 +986,15 @@ static  NSMutableArray *ShipStageArray;
                 [self.typeButton   setTitle:@"煤种" forState:UIControlStateNormal];
             }
             
-
+            
             
             
             
         }
         if (chooseView.type==kKEYVALUE) {
             
-           self.keyValueLabel.text =currentSelectValue;
-           if (![self.keyValueLabel.text isEqualToString:All_]) {
+            self.keyValueLabel.text =currentSelectValue;
+            if (![self.keyValueLabel.text isEqualToString:All_]) {
                 self.keyValueLabel.hidden=NO;
                 [self.keyValueButton setTitle:@"" forState:UIControlStateNormal];
             }
@@ -1002,7 +1002,7 @@ static  NSMutableArray *ShipStageArray;
                 self.keyValueLabel.hidden=YES;
                 [self.keyValueButton setTitle:@"性质" forState:UIControlStateNormal];
             }
-
+            
             
             
         }
@@ -1017,7 +1017,7 @@ static  NSMutableArray *ShipStageArray;
                 self.tradeLabel.hidden=YES;
                 [self.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
             }
-
+            
             
             
             
@@ -1026,7 +1026,7 @@ static  NSMutableArray *ShipStageArray;
             
             
             
-
+            
             
             
         }
@@ -1041,6 +1041,252 @@ static  NSMutableArray *ShipStageArray;
     
 }
 
+#pragma mark multipleSelectViewdidSelectRow Delegate Method
+-(void)multipleSelectViewdidSelectRow:(NSInteger)indexPathRow
+{
+    if (multipleSelectView) {
+        
+        if (multipleSelectView.type==kChFACTORY) {
+            NSInteger count = 0;
+            TgFactory *shipCompany = [FactoryArray objectAtIndex:indexPathRow];
+            if ([shipCompany.factoryName isEqualToString:All_]) {
+                if(shipCompany.didSelected==YES){
+                    for (int i=0; i<[FactoryArray count]; i++) {
+                        ((TgFactory *)[FactoryArray objectAtIndex:i]).didSelected=NO;
+                    }
+                }
+                else {
+                    for (int i=0; i<[FactoryArray count]; i++) {
+                        ((TgFactory *)[FactoryArray objectAtIndex:i]).didSelected=YES;
+                    }
+                }
+            }
+            else{
+                if(shipCompany.didSelected==YES){
+                    ((TgFactory *)[FactoryArray objectAtIndex:indexPathRow]).didSelected=NO;
+                }
+                else{
+                    ((TgFactory *)[FactoryArray objectAtIndex:indexPathRow]).didSelected=YES;
+                }
+            }
+            for (int i=0; i<[FactoryArray count]; i++) {
+                if(((TgFactory *)[FactoryArray objectAtIndex:i]).didSelected==YES)
+                {
+                    count++;
+                }
+            }
+            //只要有条件选中，附加星号标示
+            if (count>0) {
+                [self.factoryButton setTitle:@"电厂(*)" forState:UIControlStateNormal];
+            }
+            else{
+                [self.factoryButton setTitle:@"电厂" forState:UIControlStateNormal];
+                
+            }
+        }
 
+        
+        if (multipleSelectView.type==kSHIPCOMPANY) {
+            NSInteger count = 0;
+            TfShipCompany *shipCompany = [ShipCompanyArray objectAtIndex:indexPathRow];
+            if ([shipCompany.company isEqualToString:All_]) {
+                if(shipCompany.didSelected==YES){
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        ((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected=NO;
+                    }
+                }
+                else {
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        ((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected=YES;
+                    }
+                }
+            }
+            else{
+                if(shipCompany.didSelected==YES){
+                    ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=NO;
+                }
+                else{
+                    ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=YES;
+                }
+            }
+            for (int i=0; i<[ShipCompanyArray count]; i++) {
+                if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                {
+                    count++;
+                }
+            }
+            //只要有条件选中，附加星号标示
+            if (count>0) {
+                [self.comButton setTitle:@"航运公司(*)" forState:UIControlStateNormal];
+            }
+            else{
+                [self.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
+                
+            }
+        }
+        
+        if (multipleSelectView.type==kSHIP) {
+            NSInteger count = 0;
+            TgShip *ship = [ShipArray objectAtIndex:indexPathRow];
+            if ([ship.shipName isEqualToString:All_]) {
+                if(ship.didSelected==YES){
+                    for (int i=0; i<[ShipArray count]; i++) {
+                        ((TgShip *)[ShipArray objectAtIndex:i]).didSelected=NO;
+                    }
+                }
+                else {
+                    for (int i=0; i<[ShipArray count]; i++) {
+                        ((TgShip *)[ShipArray objectAtIndex:i]).didSelected=YES;
+                    }
+                }
+            }
+            else{
+                if(ship.didSelected==YES){
+                    ((TgShip *)[ShipArray objectAtIndex:indexPathRow]).didSelected=NO;
+                }
+                else{
+                    ((TgShip *)[ShipArray objectAtIndex:indexPathRow]).didSelected=YES;
+                }
+            }
+            for (int i=0; i<[ShipArray count]; i++) {
+                if(((TgShip *)[ShipArray objectAtIndex:i]).didSelected==YES)
+                {
+                    count++;
+                }
+            }
+            //只要有条件选中，附加星号标示
+            if (count>0) {
+                [self.shipButton setTitle:@"船名(*)" forState:UIControlStateNormal];
+            }
+            else{
+                [self.shipButton setTitle:@"船名" forState:UIControlStateNormal];
+                
+            }
+        }
+        
+        if (multipleSelectView.type==kSUPPLIER) {
+            NSInteger count = 0;
+            TfSupplier *supplier = [SupplierArray objectAtIndex:indexPathRow];
+            if ([supplier.SUPPLIER isEqualToString:All_]) {
+                if(supplier.didSelected==YES){
+                    for (int i=0; i<[SupplierArray count]; i++) {
+                        ((TfSupplier *)[SupplierArray objectAtIndex:i]).didSelected=NO;
+                    }
+                }
+                else {
+                    for (int i=0; i<[SupplierArray count]; i++) {
+                        ((TfSupplier *)[SupplierArray objectAtIndex:i]).didSelected=YES;
+                    }
+                }
+            }
+            else{
+                if(supplier.didSelected==YES){
+                    ((TfSupplier *)[SupplierArray objectAtIndex:indexPathRow]).didSelected=NO;
+                }
+                else{
+                    ((TfSupplier *)[SupplierArray objectAtIndex:indexPathRow]).didSelected=YES;
+                }
+            }
+            for (int i=0; i<[SupplierArray count]; i++) {
+                if(((TfSupplier *)[SupplierArray objectAtIndex:i]).didSelected==YES)
+                {
+                    count++;
+                }
+            }
+            //只要有条件选中，附加星号标示
+            if (count>0) {
+                [self.supButton setTitle:@"供货商(*)" forState:UIControlStateNormal];
+            }
+            else{
+                [self.supButton setTitle:@"供货商" forState:UIControlStateNormal];
+                
+            }
+        }
+        
+        if (multipleSelectView.type==kCOALTYPE) {
+            NSInteger count = 0;
+            TfCoalType *coalType = [CoalTypeArray objectAtIndex:indexPathRow];
+            if ([coalType.COALTYPE isEqualToString:All_]) {
+                if(coalType.didSelected==YES){
+                    for (int i=0; i<[CoalTypeArray count]; i++) {
+                        ((TfCoalType *)[CoalTypeArray objectAtIndex:i]).didSelected=NO;
+                    }
+                }
+                else {
+                    for (int i=0; i<[CoalTypeArray count]; i++) {
+                        ((TfCoalType *)[CoalTypeArray objectAtIndex:i]).didSelected=YES;
+                    }
+                }
+            }
+            else{
+                if(coalType.didSelected==YES){
+                    ((TfCoalType *)[CoalTypeArray objectAtIndex:indexPathRow]).didSelected=NO;
+                }
+                else{
+                    ((TfCoalType *)[CoalTypeArray objectAtIndex:indexPathRow]).didSelected=YES;
+                }
+            }
+            for (int i=0; i<[CoalTypeArray count]; i++) {
+                if(((TfCoalType *)[CoalTypeArray objectAtIndex:i]).didSelected==YES)
+                {
+                    count++;
+                }
+            }
+            //只要有条件选中，附加星号标示
+            if (count>0) {
+                [self.typeButton setTitle:@"煤种(*)" forState:UIControlStateNormal];
+            }
+            else{
+                [self.typeButton setTitle:@"煤种" forState:UIControlStateNormal];
+                
+            }
+        }
+        
+        if (multipleSelectView.type==kSHIPSTAGE) {
+            NSInteger count = 0;
+            TsShipStage *shipStage = [ShipStageArray objectAtIndex:indexPathRow];
+            if ([shipStage.STAGENAME isEqualToString:All_]) {
+                if(shipStage.didSelected==YES){
+                    for (int i=0; i<[ShipStageArray count]; i++) {
+                        ((TsShipStage *)[ShipStageArray objectAtIndex:i]).didSelected=NO;
+                    }
+                }
+                else {
+                    for (int i=0; i<[ShipStageArray count]; i++) {
+                        ((TsShipStage *)[ShipStageArray objectAtIndex:i]).didSelected=YES;
+                    }
+                }
+            }
+            else{
+                if(shipStage.didSelected==YES){
+                    ((TsShipStage *)[ShipStageArray objectAtIndex:indexPathRow]).didSelected=NO;
+                }
+                else{
+                    ((TsShipStage *)[ShipStageArray objectAtIndex:indexPathRow]).didSelected=YES;
+                }
+            }
+            for (int i=0; i<[ShipStageArray count]; i++) {
+                if(((TsShipStage *)[ShipStageArray objectAtIndex:i]).didSelected==YES)
+                {
+                    count++;
+                }
+            }
+            //只要有条件选中，附加星号标示
+            if (count>0) {
+                [self.statButton setTitle:@"状态(*)" forState:UIControlStateNormal];
+            }
+            else{
+                [self.statButton setTitle:@"状态" forState:UIControlStateNormal];
+                
+            }
+        }
+
+        
+        
+        
+        
+        
+    }
+}
 
 @end

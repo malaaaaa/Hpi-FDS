@@ -340,15 +340,15 @@
     }
     else if (segment.selectedSegmentIndex==2)
     {
-//        self.vbFactoryTransVC =[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil];
-//        vbFactoryTransVC.parentVC=self;
-//        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
-//        vbFactoryTransVC.view.frame=CGRectMake(0, 30, 1024, 661);
-//        [self.view addSubview:vbFactoryTransVC.view];
-//        [self.view bringSubviewToFront:vbFactoryTransVC.view];
-//        
-//               
-//        NSLog(@"电厂动态");
+        self.vbFactoryTransVC =[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil];
+        vbFactoryTransVC.parentVC=self;
+        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
+        vbFactoryTransVC.view.frame=CGRectMake(0, 30, 1024, 661);
+        [self.view addSubview:vbFactoryTransVC.view];
+        [self.view bringSubviewToFront:vbFactoryTransVC.view];
+        
+               
+        NSLog(@"电厂动态");
 
 //        self.shipCompanyTrnasShareVC =[[ ShipCompanyTransShareVC alloc ]initWithNibName:@"ShipCompanyTransShareVC" bundle:nil];
 //        shipCompanyTrnasShareVC.parentVC=self;
@@ -369,12 +369,12 @@
 //        [self.view bringSubviewToFront:factoryFreightVolumeVC.view];
 //        NSLog(@"电厂运力运量统计");
         
-        self.portEfficiencyVC =[[ PortEfficiencyVC alloc ]initWithNibName:@"PortEfficiencyVC" bundle:nil];
-        portEfficiencyVC.parentVC=self;
-        portEfficiencyVC.view.frame=CGRectMake(0, 30, 1024, 661);
-        [self.view addSubview:portEfficiencyVC.view];
-        [self.view bringSubviewToFront:portEfficiencyVC.view];
-        NSLog(@"装卸港效率统计");
+//        self.portEfficiencyVC =[[ PortEfficiencyVC alloc ]initWithNibName:@"PortEfficiencyVC" bundle:nil];
+//        portEfficiencyVC.parentVC=self;
+//        portEfficiencyVC.view.frame=CGRectMake(0, 30, 1024, 661);
+//        [self.view addSubview:portEfficiencyVC.view];
+//        [self.view bringSubviewToFront:portEfficiencyVC.view];
+//        NSLog(@"装卸港效率统计");
         
         
     }else if (segment.selectedSegmentIndex==3) {

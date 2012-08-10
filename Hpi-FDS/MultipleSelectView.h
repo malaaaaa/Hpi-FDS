@@ -7,19 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChooseViewDelegate.h"
 
 @interface MultipleSelectView : UIViewController<UITableViewDataSource,UITableViewDelegate>{
     IBOutlet UITableView *tableView;
     NSMutableArray *iDArray;
     UIPopoverController *popover;
-    id parentMapView;
+    id<ChooseViewDelegate> parentMapView;
     NSInteger type;
 }
 
 @property(nonatomic,retain) UITableView *tableView;
 @property(nonatomic,retain) NSMutableArray *iDArray;
 @property(nonatomic,retain) UIPopoverController *popover;
-@property(nonatomic,retain)id parentMapView;
+@property(nonatomic,retain)id<ChooseViewDelegate> parentMapView;
 @property NSInteger type;
 
 @end

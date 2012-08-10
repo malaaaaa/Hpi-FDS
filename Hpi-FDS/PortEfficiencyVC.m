@@ -36,6 +36,7 @@ static  NSMutableArray *ShipCompanyArray;
     self.comLabel.hidden=YES;
     self.typeLabel.hidden=YES;
     self.scheduleLabel.hidden=YES;
+    [self.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
     
     self.endDay = [[NSDate alloc] init];
     self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
@@ -302,7 +303,7 @@ static  NSMutableArray *ShipCompanyArray;
     [dateFormatter release];
 }
 -(void)loadHpiGraphView{
-
+    
     WSData *barData = [[self getData] indexedData];
     // Create and configure a bar plot.
     WSChart *electionChart = [WSChart barPlotWithFrame:[self.chartView bounds]
@@ -313,7 +314,7 @@ static  NSMutableArray *ShipCompanyArray;
     [electionChart scaleAllAxisXD:NARangeMake(-3, 30)];
     [electionChart setAllAxisLocationXD:-1];
     [electionChart setAllAxisLocationYD:0];
-
+    
     
     WSPlotAxis *axis = [electionChart firstPlotAxis];
     [[axis ticksX] setTicksStyle:kTicksLabelsSlanted];
@@ -326,7 +327,7 @@ static  NSMutableArray *ShipCompanyArray;
                                      nil]
                              labels:[NSArray arrayWithObjects:@"",
                                      @"400", @"800", @"1200", nil]];
-     [electionChart setChartTitle:NSLocalizedString(@"卸港效率统计(吨小时)", @"")];
+    [electionChart setChartTitle:NSLocalizedString(@"卸港效率统计(吨小时)", @"")];
     
     electionChart.autoresizingMask = 63;
     [self.chartView addSubview:electionChart];
@@ -341,7 +342,7 @@ static  NSMutableArray *ShipCompanyArray;
     for (int i=0; i<[array count]; i++) {
         PortEfficiency *portEfficiency= [array objectAtIndex:i];
         NSLog(@"factory=%@",portEfficiency.factory);
-        [arrayX addObject:portEfficiency.factory];        
+        [arrayX addObject:portEfficiency.factory];
         [arrayY addObject:[NSNumber numberWithInteger:portEfficiency.efficiency]];
     }
     
@@ -353,7 +354,6 @@ static  NSMutableArray *ShipCompanyArray;
 {
     if (chooseView) {
         if (chooseView.type==kSCHEDULE) {
-            NSLog(@"choosedele");
             
             self.scheduleLabel.text =currentSelectValue;
             if (![self.scheduleLabel.text isEqualToString:All_]) {
@@ -364,6 +364,51 @@ static  NSMutableArray *ShipCompanyArray;
                 self.scheduleLabel.hidden=YES;
                 [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
             }
+        }
+    }
+}
+
+#pragma mark multipleSelectViewdidSelectRow Delegate Method
+-(void)multipleSelectViewdidSelectRow:(NSInteger)indexPathRow
+{
+    if (_multipleSelectView) {
+        if (_multipleSelectView.type==kSHIPCOMPANY) {
+            NSInteger count = 0;
+            TfShipCompany *shipCompany = [ShipCompanyArray objectAtIndex:indexPathRow];
+            if ([shipCompany.company isEqualToString:All_]) {
+                if(shipCompany.didSelected==YES){
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        ((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected=NO;
+                    }
+                }
+                else {
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        ((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected=YES;
+                    }
+                }
+            }
+            else{
+                if(shipCompany.didSelected==YES){
+                    ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=NO;
+                }
+                else{
+                    ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=YES;
+                }
+            }
+            for (int i=0; i<[ShipCompanyArray count]; i++) {
+                if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                {
+                    count++;
+                }
+            }
+            //只要有条件选中，附加星号标示
+            if (count>0) {
+                [self.comButton setTitle:@"航运公司(*)" forState:UIControlStateNormal];
+            }
+            else{
+                [self.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
+                
+            }           
         }
     }
 }
