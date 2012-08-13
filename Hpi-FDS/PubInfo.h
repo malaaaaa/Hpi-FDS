@@ -78,6 +78,23 @@ typedef enum{
     kSCHEDULE, //班轮
 } CoordinateType;
 
+
+//数据查询菜单
+typedef enum{
+    kMenuDCDTCX=0, //电厂动态查询
+    kMenuHYGSFETJ, //航运公司份额统计
+    kMenuDCYLYLTJ, //电厂运力运量统计
+    kMenuZXGXLTJ, //装卸港效率统计
+    kMenuSSCBCX, //实时船舶查询
+    kMenuCYJH, //船运计划
+    kMenuDDRZCX, //调度日志查询
+    kMenuZQFMXCX, //滞期费明细查询
+    kMenuZQFTJ, //滞期费统计
+    kMenuGKMJZGSJ, //港口平均装港时间统计
+    kDataQueryMenu_MAX,//最大数量
+
+} DataQueryMenu;
+
 #define All_PORT    @"全部港口"
 #define All_FCTRY   @"全部电厂"
 #define All_SHIP    @"全部船舶"

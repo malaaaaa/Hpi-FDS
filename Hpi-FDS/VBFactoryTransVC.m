@@ -11,6 +11,7 @@
 #import "QueryViewController.h"
 #import "DataQueryVC.h"
 @interface VBFactoryTransVC ()
+@property (strong, nonatomic) UIPopoverController *masterPopoverController;
 
 @end
 
@@ -248,6 +249,7 @@ static  NSMutableArray *ShipStageArray;
     }
     
 }
+
 -(IBAction)startDate:(id)sender
 {
     NSLog(@"startDate");
@@ -1203,6 +1205,21 @@ static  NSMutableArray *ShipStageArray;
      
         
     }
+}
+#pragma mark - Split view
+
+- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
+{
+    barButtonItem.title = NSLocalizedString(@"Master", @"Master");
+    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
+    self.masterPopoverController = popoverController;
+}
+
+- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    // Called when the view is shown again in the split view, invalidating the button and popover controller.
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    self.masterPopoverController = nil;
 }
 
 @end

@@ -17,7 +17,7 @@
 #import "ChooseViewDelegate.h"
 
 
-@interface VBFactoryTransVC : UIViewController<UITableViewDataSource,UIPopoverControllerDelegate,ChooseViewDelegate>{
+@interface VBFactoryTransVC : UIViewController<UITableViewDataSource,UIPopoverControllerDelegate,ChooseViewDelegate,UISplitViewControllerDelegate>{
     UIButton *factoryButton;
     UILabel *factoryLabel;
     UIButton *comButton;

@@ -16,6 +16,7 @@
 #import "DataQueryVC.h"
 #import "PubInfo.h"
 #import "UIDevice+IdentifierAddition.h"
+#import "DataQueryPopVC.h"
 @implementation FdsAppDelegate
 
 @synthesize window;
@@ -45,7 +46,8 @@
     UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
     UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
     UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
-    UIViewController *viewController5 = [[[DataQueryVC alloc] initWithNibName:@"DataQueryVC" bundle:nil] autorelease];
+//    UIViewController *viewController5 = [[[DataQueryVC alloc] initWithNibName:@"DataQueryVC" bundle:nil] autorelease];
+      UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
     UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
     //UIViewController *viewController4 = [[[QueryViewController alloc] initWithNibName:@"QueryViewController" bundle:nil] autorelease];
     //NSString *deviceUDID = [[UIDevice currentDevice] uniqueIdentifier];
@@ -56,8 +58,11 @@
     NSString *deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]];
     NSLog(@"%@",deviceUID); // 输出设备id
     
+
+    
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+//    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+        self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
     
     [window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];

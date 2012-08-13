@@ -79,14 +79,14 @@
     //    tbShipChVC.view.center = CGPointMake(512, 60);
     //    [self.chooseView addSubview:tbShipChVC.view];
     
- 
+    
     [self.chooseView bringSubviewToFront:vbShipChVC.view];
     chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
     
-    //为视图增加边框      
-    listView.layer.masksToBounds=YES;      
-    listView.layer.cornerRadius=10.0;      
-    listView.layer.borderWidth=10.0;      
+    //为视图增加边框
+    listView.layer.masksToBounds=YES;
+    listView.layer.cornerRadius=10.0;
+    listView.layer.borderWidth=10.0;
     listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
     listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     
@@ -141,7 +141,7 @@
     [chooseView release];
     [listView release];
     [listTableview release];
-       
+    
     [thShipTransVC  release];
     
     
@@ -234,276 +234,276 @@
     }
     [listTableview reloadData];
 }
-
-#pragma mark - segment
-//根据选择，显示不同类型的坐标点
--(void)segmentChanged:(id) sender
-{
-    if (dataSource) {
-        NSLog(@"dataSource不为空 ，清空。。。。。。。。。。。。。。。");
-        [dataSource release];
-        dataSource=nil;
-    }
-    
-    [dataArray removeAllObjects];
-    [listTableview reloadData];
-    
-    if(segment.selectedSegmentIndex==0)
-    {
-        NSLog(@"实时船舶查询");
-         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
-        
-        CATransition *animation = [CATransition animation];
-        animation.delegate = self;
-        animation.duration = 0.5f;
-        animation.timingFunction = UIViewAnimationCurveEaseInOut;
-        animation.fillMode = kCAFillModeForwards;
-        animation.endProgress = 1;
-        animation.removedOnCompletion = NO;
-        animation.type = @"cube";
-        [self.chooseView.layer addAnimation:animation forKey:@"animation"];
-        [self.chooseView bringSubviewToFront:vbShipChVC.view];
-        
-        float columnOffset = 0.0;
-        NSLog(@"查询 %d条记录",[dataArray count]);
-        dataSource = [[DataGridComponentDataSource alloc] init];
-        //(20.20.985.42)
-        dataSource.columnWidth = [NSArray arrayWithObjects:@"80",@"105",@"80",@"100",@"95",@"150",@"70",@"70",@"90",@"70",@"75",nil];
-        dataSource.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",nil];
-        NSLog(@"查询 %d条记录",[dataArray count]);
-        
-        animation.type = @"oglFlip";
-        [self.labelView.layer addAnimation:animation forKey:@"animation"];
-        [labelView removeFromSuperview];
-        //填冲标题数据
-        for(int column = 0;column < [dataSource.titles count];column++){
-            float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
-            UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
-            l.font = [UIFont systemFontOfSize:16.0f];
-            l.text = [dataSource.titles objectAtIndex:column];
-            l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
-            l.textColor = [UIColor whiteColor];
-            l.shadowColor = [UIColor blackColor];
-            l.shadowOffset = CGSizeMake(0, -0.5);
-            l.textAlignment = UITextAlignmentCenter;
-            [self.labelView addSubview:l];
-            [l release];
-            columnOffset += columnWidth;
-        }
-        [self.listView addSubview:labelView];
-        
-    }
-    else if (segment.selectedSegmentIndex==1)
-    {
-        NSLog(@"船运计划");
-        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
-
-        CATransition *animation = [CATransition animation];
-        animation.delegate = self;
-        animation.duration = 0.5f;
-        animation.timingFunction = UIViewAnimationCurveEaseInOut;
-        animation.fillMode = kCAFillModeForwards;
-        animation.endProgress = 1;
-        animation.removedOnCompletion = NO;
-        animation.type = @"cube";
-        [self.chooseView.layer addAnimation:animation forKey:@"animation"];
-        
-        [self.chooseView bringSubviewToFront:vbTransChVC.view];
-        
-        float columnOffset = 0.0;
-        NSLog(@"查询 %d条记录",[dataArray count]);
-        dataSource = [[DataGridComponentDataSource alloc] init];
-        //(20.20.985.42)
-        dataSource.columnWidth = [NSArray arrayWithObjects:@"90",@"80",@"80",@"85",@"80",@"95",@"85",@"85",@"85",@"70",@"75",@"75",nil];
-        dataSource.titles = [NSArray arrayWithObjects:@"计划号",@"计划月份",@"船名",@"流向",@"航次",@"装运港",@"预抵装港",@"预抵卸港",@"预计载煤量",@"煤种",@"供货方",@"类别",nil];
-        NSLog(@"查询 %d条记录",[dataArray count]);
-        
-        animation.type = @"oglFlip";
-        [self.labelView.layer addAnimation:animation forKey:@"animation"];
-        [labelView removeFromSuperview];
-        //填冲标题数据
-        for(int column = 0;column < [dataSource.titles count];column++){
-            float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
-            UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
-            l.font = [UIFont systemFontOfSize:16.0f];
-            l.text = [dataSource.titles objectAtIndex:column];
-            l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
-            l.textColor = [UIColor whiteColor];
-            l.shadowColor = [UIColor blackColor];
-            l.shadowOffset = CGSizeMake(0, -0.5);
-            l.textAlignment = UITextAlignmentCenter;
-            [self.labelView addSubview:l];
-            [l release];
-            columnOffset += columnWidth;
-        }
-        [self.listView addSubview:labelView];
-    }
-    else if (segment.selectedSegmentIndex==2)
-    {
-        self.vbFactoryTransVC =[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil];
-        vbFactoryTransVC.parentVC=self;
-        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
-        vbFactoryTransVC.view.frame=CGRectMake(0, 30, 1024, 661);
-        [self.view addSubview:vbFactoryTransVC.view];
-        [self.view bringSubviewToFront:vbFactoryTransVC.view];
-        
-               
-        NSLog(@"电厂动态");
-
-//        self.shipCompanyTrnasShareVC =[[ ShipCompanyTransShareVC alloc ]initWithNibName:@"ShipCompanyTransShareVC" bundle:nil];
-//        shipCompanyTrnasShareVC.parentVC=self;
-//        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
-//        shipCompanyTrnasShareVC.view.frame=CGRectMake(0, 30, 1024, 661);
-//        [self.view addSubview:shipCompanyTrnasShareVC.view];
-//        [self.view bringSubviewToFront:shipCompanyTrnasShareVC.view];
-//        
-//        
-//        NSLog(@"船运公司份额统计");
-//
-        
-//        self.factoryFreightVolumeVC =[[ FactoryFreightVolumeVC alloc ]initWithNibName:@"FactoryFreightVolumeVC" bundle:nil];
-//        factoryFreightVolumeVC.parentVC=self;
-//        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
-//        factoryFreightVolumeVC.view.frame=CGRectMake(0, 30, 1024, 661);
-//        [self.view addSubview:factoryFreightVolumeVC.view];
-//        [self.view bringSubviewToFront:factoryFreightVolumeVC.view];
-//        NSLog(@"电厂运力运量统计");
-        
-//        self.portEfficiencyVC =[[ PortEfficiencyVC alloc ]initWithNibName:@"PortEfficiencyVC" bundle:nil];
-//        portEfficiencyVC.parentVC=self;
-//        portEfficiencyVC.view.frame=CGRectMake(0, 30, 1024, 661);
-//        [self.view addSubview:portEfficiencyVC.view];
-//        [self.view bringSubviewToFront:portEfficiencyVC.view];
-//        NSLog(@"装卸港效率统计");
-        
-        
-    }else if (segment.selectedSegmentIndex==3) {
-        
-        //在下一个   视图显示时   移除上一个   视图
-      
-        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
-         [self.avgTimePort.view removeFromSuperview  ];
-        
-        
-        
-        //[self.vbShipChVC.view removeFromSuperview];
-        //[self.vbTransChVC.view removeFromSuperview  ];
-               //新添  调度日志查询
-        self.thShipTransVC=[[TH_ShipTransChVC alloc] initWithNibName:@"TH_ShipTransChVC" bundle:nil];
-        thShipTransVC.parentVC=self;
-        thShipTransVC.view.center=CGPointMake(512, 120);
-        thShipTransVC.view.frame=CGRectMake(0, 0, 1024, 180);
-        [self.chooseView addSubview:thShipTransVC.view];
-        
-        chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
-        
-        
-        
-        //[self.view addSubview:thShipTransVC.view];
-        //[self.view bringSubviewToFront:thShipTransVC.view];
-        
-        NSLog(@"调度日志.............");
-        
-        
-    }
-    //新添 滞期费查询
-    else if (segment.selectedSegmentIndex==4) {
-         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
-         [self.avgTimePort.view removeFromSuperview  ];
-        
-        
-        
-        
-       // [self.vbFactoryTransVC.view removeFromSuperview ];
-        //[self.vbShipChVC.view removeFromSuperview];
-        //[self.vbTransChVC.view removeFromSuperview  ];
-        
-        self.tblatefeeVC=[[TB_LatefeeChVC alloc] init];
-        tblatefeeVC.parentVC=self;
-        tblatefeeVC.view.center=CGPointMake(512, 120);
-        tblatefeeVC.view.frame=CGRectMake(0, 0, 1024, 180);
-        
-        [self.chooseView addSubview:tblatefeeVC.view];
-        
-        self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
-        
-         NSLog(@"滞期费查询.............");
-        
-        
-        
-        
-        
-    }
-    
-    //滞期费  统计
-    else if (segment.selectedSegmentIndex==5) {
-        
-        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
-        
-        [self.avgTimePort.view removeFromSuperview  ];
-        
-        
-        
-        
-        
-        self.latefeeTj=[[NT_LatefeeTongjChVC alloc] init];
-        latefeeTj.parentVC=self;
-        
-        latefeeTj.view.center=CGPointMake(512, 120);
-        latefeeTj.view.frame=CGRectMake(0, 0, 1024, 180);
-        
-        [self.chooseView addSubview:latefeeTj.view];
-        
-        self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
-        
-        NSLog(@"滞期费统计查询.............");
-        
-        
-        
-        
-        
-        
-    }
-    //港口平均装港时间统计
-    
-     else if (segment.selectedSegmentIndex==6) {
-         
-         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
-        
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-        
-         
-                  
-         
-         self.avgTimePort=[[AvgPortPTimeChVC alloc] init];
-         avgTimePort.parentVC=self;
-         avgTimePort.view.center=CGPointMake(512, 120);
-         avgTimePort.view.frame=CGRectMake(0, 0, 1024, 180);
-
-         [self.chooseView addSubview:avgTimePort.view];
-         self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
-         
-         NSLog(@"港口平均装港时间统计查询.............");
-                 
-     }
-    
-    
-    
-    
-
-}
-
+/*
+ #pragma mark - segment
+ //根据选择，显示不同类型的坐标点
+ -(void)segmentChanged:(id) sender
+ {
+ if (dataSource) {
+ NSLog(@"dataSource不为空 ，清空。。。。。。。。。。。。。。。");
+ [dataSource release];
+ dataSource=nil;
+ }
+ 
+ [dataArray removeAllObjects];
+ [listTableview reloadData];
+ 
+ if(segment.selectedSegmentIndex==0)
+ {
+ NSLog(@"实时船舶查询");
+ [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+ 
+ CATransition *animation = [CATransition animation];
+ animation.delegate = self;
+ animation.duration = 0.5f;
+ animation.timingFunction = UIViewAnimationCurveEaseInOut;
+ animation.fillMode = kCAFillModeForwards;
+ animation.endProgress = 1;
+ animation.removedOnCompletion = NO;
+ animation.type = @"cube";
+ [self.chooseView.layer addAnimation:animation forKey:@"animation"];
+ [self.chooseView bringSubviewToFront:vbShipChVC.view];
+ 
+ float columnOffset = 0.0;
+ NSLog(@"查询 %d条记录",[dataArray count]);
+ dataSource = [[DataGridComponentDataSource alloc] init];
+ //(20.20.985.42)
+ dataSource.columnWidth = [NSArray arrayWithObjects:@"80",@"105",@"80",@"100",@"95",@"150",@"70",@"70",@"90",@"70",@"75",nil];
+ dataSource.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",nil];
+ NSLog(@"查询 %d条记录",[dataArray count]);
+ 
+ animation.type = @"oglFlip";
+ [self.labelView.layer addAnimation:animation forKey:@"animation"];
+ [labelView removeFromSuperview];
+ //填冲标题数据
+ for(int column = 0;column < [dataSource.titles count];column++){
+ float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
+ UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+ l.font = [UIFont systemFontOfSize:16.0f];
+ l.text = [dataSource.titles objectAtIndex:column];
+ l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
+ l.textColor = [UIColor whiteColor];
+ l.shadowColor = [UIColor blackColor];
+ l.shadowOffset = CGSizeMake(0, -0.5);
+ l.textAlignment = UITextAlignmentCenter;
+ [self.labelView addSubview:l];
+ [l release];
+ columnOffset += columnWidth;
+ }
+ [self.listView addSubview:labelView];
+ 
+ }
+ else if (segment.selectedSegmentIndex==1)
+ {
+ NSLog(@"船运计划");
+ [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+ 
+ CATransition *animation = [CATransition animation];
+ animation.delegate = self;
+ animation.duration = 0.5f;
+ animation.timingFunction = UIViewAnimationCurveEaseInOut;
+ animation.fillMode = kCAFillModeForwards;
+ animation.endProgress = 1;
+ animation.removedOnCompletion = NO;
+ animation.type = @"cube";
+ [self.chooseView.layer addAnimation:animation forKey:@"animation"];
+ 
+ [self.chooseView bringSubviewToFront:vbTransChVC.view];
+ 
+ float columnOffset = 0.0;
+ NSLog(@"查询 %d条记录",[dataArray count]);
+ dataSource = [[DataGridComponentDataSource alloc] init];
+ //(20.20.985.42)
+ dataSource.columnWidth = [NSArray arrayWithObjects:@"90",@"80",@"80",@"85",@"80",@"95",@"85",@"85",@"85",@"70",@"75",@"75",nil];
+ dataSource.titles = [NSArray arrayWithObjects:@"计划号",@"计划月份",@"船名",@"流向",@"航次",@"装运港",@"预抵装港",@"预抵卸港",@"预计载煤量",@"煤种",@"供货方",@"类别",nil];
+ NSLog(@"查询 %d条记录",[dataArray count]);
+ 
+ animation.type = @"oglFlip";
+ [self.labelView.layer addAnimation:animation forKey:@"animation"];
+ [labelView removeFromSuperview];
+ //填冲标题数据
+ for(int column = 0;column < [dataSource.titles count];column++){
+ float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
+ UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+ l.font = [UIFont systemFontOfSize:16.0f];
+ l.text = [dataSource.titles objectAtIndex:column];
+ l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
+ l.textColor = [UIColor whiteColor];
+ l.shadowColor = [UIColor blackColor];
+ l.shadowOffset = CGSizeMake(0, -0.5);
+ l.textAlignment = UITextAlignmentCenter;
+ [self.labelView addSubview:l];
+ [l release];
+ columnOffset += columnWidth;
+ }
+ [self.listView addSubview:labelView];
+ }
+ else if (segment.selectedSegmentIndex==2)
+ {
+ //        self.vbFactoryTransVC =[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil];
+ //        vbFactoryTransVC.parentVC=self;
+ //        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
+ //        vbFactoryTransVC.view.frame=CGRectMake(0, 30, 1024, 661);
+ //        [self.view addSubview:vbFactoryTransVC.view];
+ //        [self.view bringSubviewToFront:vbFactoryTransVC.view];
+ //
+ //
+ //        NSLog(@"电厂动态");
+ 
+ //        self.shipCompanyTrnasShareVC =[[ ShipCompanyTransShareVC alloc ]initWithNibName:@"ShipCompanyTransShareVC" bundle:nil];
+ //        shipCompanyTrnasShareVC.parentVC=self;
+ //        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
+ //        shipCompanyTrnasShareVC.view.frame=CGRectMake(0, 30, 1024, 661);
+ //        [self.view addSubview:shipCompanyTrnasShareVC.view];
+ //        [self.view bringSubviewToFront:shipCompanyTrnasShareVC.view];
+ //
+ //
+ //        NSLog(@"船运公司份额统计");
+ //
+ 
+ //        self.factoryFreightVolumeVC =[[ FactoryFreightVolumeVC alloc ]initWithNibName:@"FactoryFreightVolumeVC" bundle:nil];
+ //        factoryFreightVolumeVC.parentVC=self;
+ //        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
+ //        factoryFreightVolumeVC.view.frame=CGRectMake(0, 30, 1024, 661);
+ //        [self.view addSubview:factoryFreightVolumeVC.view];
+ //        [self.view bringSubviewToFront:factoryFreightVolumeVC.view];
+ //        NSLog(@"电厂运力运量统计");
+ 
+ //        self.portEfficiencyVC =[[ PortEfficiencyVC alloc ]initWithNibName:@"PortEfficiencyVC" bundle:nil];
+ //        portEfficiencyVC.parentVC=self;
+ //        portEfficiencyVC.view.frame=CGRectMake(0, 30, 1024, 661);
+ //        [self.view addSubview:portEfficiencyVC.view];
+ //        [self.view bringSubviewToFront:portEfficiencyVC.view];
+ //        NSLog(@"装卸港效率统计");
+ 
+ 
+ }else if (segment.selectedSegmentIndex==3) {
+ 
+ //在下一个   视图显示时   移除上一个   视图
+ 
+ [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+ [self.avgTimePort.view removeFromSuperview  ];
+ 
+ 
+ 
+ //[self.vbShipChVC.view removeFromSuperview];
+ //[self.vbTransChVC.view removeFromSuperview  ];
+ //新添  调度日志查询
+ self.thShipTransVC=[[TH_ShipTransChVC alloc] initWithNibName:@"TH_ShipTransChVC" bundle:nil];
+ thShipTransVC.parentVC=self;
+ thShipTransVC.view.center=CGPointMake(512, 120);
+ thShipTransVC.view.frame=CGRectMake(0, 0, 1024, 180);
+ [self.chooseView addSubview:thShipTransVC.view];
+ 
+ chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+ 
+ 
+ 
+ //[self.view addSubview:thShipTransVC.view];
+ //[self.view bringSubviewToFront:thShipTransVC.view];
+ 
+ NSLog(@"调度日志.............");
+ 
+ 
+ }
+ //新添 滞期费查询
+ else if (segment.selectedSegmentIndex==4) {
+ [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+ [self.avgTimePort.view removeFromSuperview  ];
+ 
+ 
+ 
+ 
+ // [self.vbFactoryTransVC.view removeFromSuperview ];
+ //[self.vbShipChVC.view removeFromSuperview];
+ //[self.vbTransChVC.view removeFromSuperview  ];
+ 
+ self.tblatefeeVC=[[TB_LatefeeChVC alloc] init];
+ tblatefeeVC.parentVC=self;
+ tblatefeeVC.view.center=CGPointMake(512, 120);
+ tblatefeeVC.view.frame=CGRectMake(0, 0, 1024, 180);
+ 
+ [self.chooseView addSubview:tblatefeeVC.view];
+ 
+ self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+ 
+ NSLog(@"滞期费查询.............");
+ 
+ 
+ 
+ 
+ 
+ }
+ 
+ //滞期费  统计
+ else if (segment.selectedSegmentIndex==5) {
+ 
+ [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+ 
+ [self.avgTimePort.view removeFromSuperview  ];
+ 
+ 
+ 
+ 
+ 
+ self.latefeeTj=[[NT_LatefeeTongjChVC alloc] init];
+ latefeeTj.parentVC=self;
+ 
+ latefeeTj.view.center=CGPointMake(512, 120);
+ latefeeTj.view.frame=CGRectMake(0, 0, 1024, 180);
+ 
+ [self.chooseView addSubview:latefeeTj.view];
+ 
+ self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+ 
+ NSLog(@"滞期费统计查询.............");
+ 
+ 
+ 
+ 
+ 
+ 
+ }
+ //港口平均装港时间统计
+ 
+ else if (segment.selectedSegmentIndex==6) {
+ 
+ [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ self.avgTimePort=[[AvgPortPTimeChVC alloc] init];
+ avgTimePort.parentVC=self;
+ avgTimePort.view.center=CGPointMake(512, 120);
+ avgTimePort.view.frame=CGRectMake(0, 0, 1024, 180);
+ 
+ [self.chooseView addSubview:avgTimePort.view];
+ self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+ 
+ NSLog(@"港口平均装港时间统计查询.............");
+ 
+ }
+ 
+ 
+ 
+ 
+ 
+ }
+ */
 #pragma mark -
 #pragma mark tableview
 // Customize the number of rows in the table view.
@@ -554,49 +554,49 @@
     }
     
     //新添   调度日志
-  if (segment.selectedSegmentIndex==3){
-      TH_ShipTrans *thshiptrans=[dataArray objectAtIndex:indexPath.row];
-      NSLog(@"%@",thshiptrans.P_ANCHORAGETIME );
-      NSLog(@"%@",thshiptrans.P_ARRIVALTIME );
-      NSLog(@"%@",thshiptrans.P_HANDLE );
-      NSLog(@"%@",thshiptrans.NOTE );
-      
-      
-      TH_ShipTransDetailCV *thShipTransDetail=[[TH_ShipTransDetailCV alloc] init];
-      //初始化大小
-      
-      [thShipTransDetail.view setFrame:CGRectMake(0, 0, 600, 280)];
-      
-      thShipTransDetail.contentSizeForViewInPopover=CGSizeMake(600, 280);
-      
-      
-      UIPopoverController *pop=[[UIPopoverController  alloc] initWithContentViewController:thShipTransDetail];
-      
-      
-      thShipTransDetail.pop=pop;//没什么用
-       
-    
-      [thShipTransDetail setLable:thshiptrans];
-      self.popover=pop;
-      self.popover.delegate=self;
-      self.popover.popoverContentSize=CGSizeMake(600, 280);
-      
-      [self.popover presentPopoverFromRect:CGRectMake(512,430 , 0.5,0.5) inView:self.view   permittedArrowDirections:0 animated:YES];
-      [TH_ShipTransDetailCV release];
-      [pop release];
-       //不能释放  thshiptrans
-      
-      //[thshiptrans release];
+    if (segment.selectedSegmentIndex==3){
+        TH_ShipTrans *thshiptrans=[dataArray objectAtIndex:indexPath.row];
+        NSLog(@"%@",thshiptrans.P_ANCHORAGETIME );
+        NSLog(@"%@",thshiptrans.P_ARRIVALTIME );
+        NSLog(@"%@",thshiptrans.P_HANDLE );
+        NSLog(@"%@",thshiptrans.NOTE );
+        
+        
+        TH_ShipTransDetailCV *thShipTransDetail=[[TH_ShipTransDetailCV alloc] init];
+        //初始化大小
+        
+        [thShipTransDetail.view setFrame:CGRectMake(0, 0, 600, 280)];
+        
+        thShipTransDetail.contentSizeForViewInPopover=CGSizeMake(600, 280);
+        
+        
+        UIPopoverController *pop=[[UIPopoverController  alloc] initWithContentViewController:thShipTransDetail];
+        
+        
+        thShipTransDetail.pop=pop;//没什么用
+        
+        
+        [thShipTransDetail setLable:thshiptrans];
+        self.popover=pop;
+        self.popover.delegate=self;
+        self.popover.popoverContentSize=CGSizeMake(600, 280);
+        
+        [self.popover presentPopoverFromRect:CGRectMake(512,430 , 0.5,0.5) inView:self.view   permittedArrowDirections:0 animated:YES];
+        [TH_ShipTransDetailCV release];
+        [pop release];
+        //不能释放  thshiptrans
+        
+        //[thshiptrans release];
     }
     
     //滞期费
     if (segment.selectedSegmentIndex==4) {
-          NSLog(@"滞期费详细...............");
+        NSLog(@"滞期费详细...............");
         double  t=0;
         //滞期费合计
         for (int i=0; i<dataArray.count; i++) {
             t=t+[[(TB_Latefee *)[dataArray  objectAtIndex:i]  LATEFEE] doubleValue];
-        }        
+        }
         NSLog(@"------------------滞期费合计----------------：【%.2f】",(double)t);
         
         
@@ -607,7 +607,7 @@
         
         tblatefeeDial.totalLatefee= [NSString stringWithFormat:@"%.2f",t];
         
-         tblatefeeDial.tblatefee=tblatefee;
+        tblatefeeDial.tblatefee=tblatefee;
         
         [tblatefeeDial.view setFrame:CGRectMake(0,0,600,280)];
         tblatefeeDial.contentSizeForViewInPopover=CGSizeMake(600, 280);
@@ -691,7 +691,7 @@
     for(int column=0;column<[rowData count];column++){
         //第1个字段表示是否显示红色字体
         if(column==0)
-        {  
+        {
             if([[rowData objectAtIndex:0] intValue] == 1)
             {
                 iColorRed=1;
@@ -718,15 +718,15 @@
                 l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
             else
                 l.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-            if (iColorRed==1) 
+            if (iColorRed==1)
             {
                 l.textColor=[UIColor redColor];
             }
-            if (iColorRed==2) 
+            if (iColorRed==2)
             {
                 l.textColor=[UIColor colorWithRed:0.0/255 green:180.0/255 blue:90.0/255 alpha:1];
             }
-            if (iColorRed==0) 
+            if (iColorRed==0)
             {
                 l.textColor=[UIColor whiteColor];
             }
@@ -741,9 +741,9 @@
     cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
     return cell;
 }
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { 
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 40;
-} 
+}
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
     NSLog(@"popoverControllerShouldDismissPopover");
@@ -755,5 +755,189 @@
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
     NSLog(@"popoverControllerDidDismissPopover");
 }
+
+//删除segment控件，模拟segmentChanged
+-(void)setSegmentIndex:(NSInteger) index
+{
+    if (dataSource) {
+        NSLog(@"dataSource不为空 ，清空。。。。。。。。。。。。。。。");
+        [dataSource release];
+        dataSource=nil;
+    }
+    
+    [dataArray removeAllObjects];
+    [listTableview reloadData];
+    
+    if(index==kMenuSSCBCX)
+    {
+        NSLog(@"实时船舶查询");
+        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        
+        CATransition *animation = [CATransition animation];
+        animation.delegate = self;
+        animation.duration = 0.5f;
+        animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        animation.fillMode = kCAFillModeForwards;
+        animation.endProgress = 1;
+        animation.removedOnCompletion = NO;
+        animation.type = @"cube";
+        [self.chooseView.layer addAnimation:animation forKey:@"animation"];
+        [self.chooseView bringSubviewToFront:vbShipChVC.view];
+        
+        float columnOffset = 0.0;
+        NSLog(@"查询 %d条记录",[dataArray count]);
+        dataSource = [[DataGridComponentDataSource alloc] init];
+        //(20.20.985.42)
+        dataSource.columnWidth = [NSArray arrayWithObjects:@"80",@"105",@"80",@"100",@"95",@"150",@"70",@"70",@"90",@"70",@"75",nil];
+        dataSource.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",nil];
+        NSLog(@"查询 %d条记录",[dataArray count]);
+        
+        animation.type = @"oglFlip";
+        [self.labelView.layer addAnimation:animation forKey:@"animation"];
+        [labelView removeFromSuperview];
+        //填冲标题数据
+        for(int column = 0;column < [dataSource.titles count];column++){
+            float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
+            UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+            l.font = [UIFont systemFontOfSize:16.0f];
+            l.text = [dataSource.titles objectAtIndex:column];
+            l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
+            l.textColor = [UIColor whiteColor];
+            l.shadowColor = [UIColor blackColor];
+            l.shadowOffset = CGSizeMake(0, -0.5);
+            l.textAlignment = UITextAlignmentCenter;
+            [self.labelView addSubview:l];
+            [l release];
+            columnOffset += columnWidth;
+        }
+        [self.listView addSubview:labelView];
+        
+    }
+    else if (index==kMenuCYJH)
+    {
+        NSLog(@"船运计划");
+        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        
+        CATransition *animation = [CATransition animation];
+        animation.delegate = self;
+        animation.duration = 0.5f;
+        animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        animation.fillMode = kCAFillModeForwards;
+        animation.endProgress = 1;
+        animation.removedOnCompletion = NO;
+        animation.type = @"cube";
+        [self.chooseView.layer addAnimation:animation forKey:@"animation"];
+        
+        [self.chooseView bringSubviewToFront:vbTransChVC.view];
+        
+        float columnOffset = 0.0;
+        NSLog(@"查询 %d条记录",[dataArray count]);
+        dataSource = [[DataGridComponentDataSource alloc] init];
+        //(20.20.985.42)
+        dataSource.columnWidth = [NSArray arrayWithObjects:@"90",@"80",@"80",@"85",@"80",@"95",@"85",@"85",@"85",@"70",@"75",@"75",nil];
+        dataSource.titles = [NSArray arrayWithObjects:@"计划号",@"计划月份",@"船名",@"流向",@"航次",@"装运港",@"预抵装港",@"预抵卸港",@"预计载煤量",@"煤种",@"供货方",@"类别",nil];
+        NSLog(@"查询 %d条记录",[dataArray count]);
+        
+        animation.type = @"oglFlip";
+        [self.labelView.layer addAnimation:animation forKey:@"animation"];
+        [labelView removeFromSuperview];
+        //填冲标题数据
+        for(int column = 0;column < [dataSource.titles count];column++){
+            float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
+            UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+            l.font = [UIFont systemFontOfSize:16.0f];
+            l.text = [dataSource.titles objectAtIndex:column];
+            l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
+            l.textColor = [UIColor whiteColor];
+            l.shadowColor = [UIColor blackColor];
+            l.shadowOffset = CGSizeMake(0, -0.5);
+            l.textAlignment = UITextAlignmentCenter;
+            [self.labelView addSubview:l];
+            [l release];
+            columnOffset += columnWidth;
+        }
+        [self.listView addSubview:labelView];
+    }
+    else if (index==kMenuDDRZCX) {
+        
+        //在下一个   视图显示时   移除上一个   视图
+        
+        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        [self.avgTimePort.view removeFromSuperview  ];
+        
+        //新添  调度日志查询
+        self.thShipTransVC=[[TH_ShipTransChVC alloc] initWithNibName:@"TH_ShipTransChVC" bundle:nil];
+        thShipTransVC.parentVC=self;
+        thShipTransVC.view.center=CGPointMake(512, 120);
+        thShipTransVC.view.frame=CGRectMake(0, 0, 1024, 180);
+        [self.chooseView addSubview:thShipTransVC.view];
+        
+        chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+        
+        //[self.view addSubview:thShipTransVC.view];
+        //[self.view bringSubviewToFront:thShipTransVC.view];
+        
+        NSLog(@"调度日志.............");
+        
+        
+    }
+    //新添 滞期费查询
+    else if (index==kMenuZQFMXCX) {
+        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        [self.avgTimePort.view removeFromSuperview  ];
+        
+        self.tblatefeeVC=[[TB_LatefeeChVC alloc] init];
+        tblatefeeVC.parentVC=self;
+        tblatefeeVC.view.center=CGPointMake(512, 120);
+        tblatefeeVC.view.frame=CGRectMake(0, 0, 1024, 180);
+        
+        [self.chooseView addSubview:tblatefeeVC.view];
+        
+        self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+        
+        NSLog(@"滞期费查询.............");
+        
+    }
+    
+    //滞期费  统计
+    else if (index==kMenuZQFTJ) {
+        
+        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        
+        [self.avgTimePort.view removeFromSuperview  ];
+        
+        self.latefeeTj=[[NT_LatefeeTongjChVC alloc] init];
+        latefeeTj.parentVC=self;
+        
+        latefeeTj.view.center=CGPointMake(512, 120);
+        latefeeTj.view.frame=CGRectMake(0, 0, 1024, 180);
+        
+        [self.chooseView addSubview:latefeeTj.view];
+        
+        self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+        
+        NSLog(@"滞期费统计查询.............");
+        
+    }
+    //港口平均装港时间统计
+    
+    else if (index==kMenuGKMJZGSJ) {
+        
+        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        
+        self.avgTimePort=[[AvgPortPTimeChVC alloc] init];
+        avgTimePort.parentVC=self;
+        avgTimePort.view.center=CGPointMake(512, 120);
+        avgTimePort.view.frame=CGRectMake(0, 0, 1024, 180);
+        
+        [self.chooseView addSubview:avgTimePort.view];
+        self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+        
+        NSLog(@"港口平均装港时间统计查询.............");
+        
+    }
+    
+}
+
 @end
 
