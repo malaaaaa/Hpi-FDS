@@ -37,6 +37,7 @@ static  NSMutableArray *ShipCompanyArray;
     self.typeLabel.hidden=YES;
     self.scheduleLabel.hidden=YES;
     [self.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
+    [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
     
     self.endDay = [[NSDate alloc] init];
     self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
@@ -287,7 +288,15 @@ static  NSMutableArray *ShipCompanyArray;
 -(IBAction)queryData:(id)sender
 {
     [self generateGraphDate];
-    [self loadHpiGraphView];
+    //增加判断，如果Y轴数据全部为0，组件WSChart崩溃，所以不显示
+    if ([PortEfficiencyDao isNoData]) {
+        UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:@"查询结果为空！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil ];
+        [alertView show];
+        [alertView release];
+    }
+    else{
+        [self loadHpiGraphView];
+    }
 }
 
 -(void)generateGraphDate{
@@ -345,7 +354,7 @@ static  NSMutableArray *ShipCompanyArray;
         [arrayX addObject:portEfficiency.factory];
         [arrayY addObject:[NSNumber numberWithInteger:portEfficiency.efficiency]];
     }
-    
+    NSLog(@"arrayYcount=%d",[arrayY count]);
     return [WSData dataWithValues:arrayY
                       annotations:arrayX];
 }
@@ -365,6 +374,19 @@ static  NSMutableArray *ShipCompanyArray;
                 [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
             }
         }
+        if (chooseView.type==kTYPE) {
+            
+            self.typeLabel.text =currentSelectValue;
+            if (![self.typeLabel.text isEqualToString:All_]) {
+                self.typeLabel.hidden=NO;
+                [self.typeButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.typeLabel.hidden=YES;
+                [self.typeButton setTitle:@"电厂类别" forState:UIControlStateNormal];
+            }
+        }
+        
     }
 }
 
@@ -408,7 +430,7 @@ static  NSMutableArray *ShipCompanyArray;
             else{
                 [self.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
                 
-            }           
+            }
         }
     }
 }

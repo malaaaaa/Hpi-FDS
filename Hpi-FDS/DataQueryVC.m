@@ -50,6 +50,7 @@
 
 //static DataGridComponentDataSource *dataSource;
 
+static NSInteger menuIndex;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -516,9 +517,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"选中行：【%d】----------------------",indexPath.row);
+    NSLog(@"选中行：【%d】----------------------%d",indexPath.row,menuIndex);
     
-    if(segment.selectedSegmentIndex==0)
+//    if(segment.selectedSegmentIndex==0)
+    if(menuIndex==kMenuDCDTCX)
+
     {
         VbShiptrans *vbShiptrans=[dataArray objectAtIndex:indexPath.row];
         //初始化待显示控制器
@@ -554,7 +557,8 @@
     }
     
     //新添   调度日志
-    if (segment.selectedSegmentIndex==3){
+//    if (segment.selectedSegmentIndex==3){
+        if (menuIndex==kMenuDDRZCX){
         TH_ShipTrans *thshiptrans=[dataArray objectAtIndex:indexPath.row];
         NSLog(@"%@",thshiptrans.P_ANCHORAGETIME );
         NSLog(@"%@",thshiptrans.P_ARRIVALTIME );
@@ -590,8 +594,10 @@
     }
     
     //滞期费
-    if (segment.selectedSegmentIndex==4) {
-        NSLog(@"滞期费详细...............");
+//    if (segment.selectedSegmentIndex==4) {
+       if (menuIndex==kMenuZQFMXCX) {
+
+    NSLog(@"滞期费详细...............");
         double  t=0;
         //滞期费合计
         for (int i=0; i<dataArray.count; i++) {
@@ -759,6 +765,7 @@
 //删除segment控件，模拟segmentChanged
 -(void)setSegmentIndex:(NSInteger) index
 {
+    menuIndex=index;
     if (dataSource) {
         NSLog(@"dataSource不为空 ，清空。。。。。。。。。。。。。。。");
         [dataSource release];

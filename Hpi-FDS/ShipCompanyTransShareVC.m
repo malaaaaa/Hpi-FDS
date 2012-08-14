@@ -53,7 +53,8 @@ static  NSMutableArray *LegendArray;
     [_activity removeFromSuperview];
     self.xmlParser=[[XMLParser alloc]init];
     
-    self.portLabel.text=@"港口";
+    [self.portButton setTitle:@"港口" forState:UIControlStateNormal];
+
     
     self.endDay = [[NSDate alloc] init];
     self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];

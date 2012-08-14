@@ -34,5 +34,6 @@ Category:(NSString *)category
 StartDate:(NSString *)startDate
                 EndDate:(NSString *)endDate;
 +(NSMutableArray *) getPortEfficiency;
++(BOOL) isNoData;
 
 @end
