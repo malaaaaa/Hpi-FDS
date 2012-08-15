@@ -1922,12 +1922,12 @@ NSString* alertMsg;
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     [webData setLength: 0];
-    NSLog(@"connection: didReceiveResponse:1");
+//    NSLog(@"connection: didReceiveResponse:1");
 }
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [webData appendData:data];
-    NSLog(@"connection: didReceiveData:2");
+//    NSLog(@"connection: didReceiveData:2");
     
 }
 //如果没有连接网络，则出现此信息（不是网络服务器不通）
@@ -4414,7 +4414,7 @@ NSString* alertMsg;
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-    NSLog(@"5 parser: foundCharacters:");
+//    NSLog(@"5 parser: foundCharacters:");
     
     if( recordResults )
     {
@@ -4423,7 +4423,7 @@ NSString* alertMsg;
 }
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    NSLog(@"6 parser: didEndElement:");
+//    NSLog(@"6 parser: didEndElement:");
     if(iSoap==0)
     {   
         if( [elementName isEqualToString:@"PORTCODE"])
@@ -6415,7 +6415,7 @@ NSString* alertMsg;
             soapResults=nil;
             
             
-            NSLog(@"执行  删除  插入   ");
+//            NSLog(@"执行  删除  插入   ");
             [TH_ShipTransDao delete:thshiptrans ];
             [TH_ShipTransDao insert:thshiptrans];
             

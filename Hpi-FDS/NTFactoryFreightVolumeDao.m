@@ -146,6 +146,8 @@ static sqlite3 *database;
             
         }
     }
+    sqlite3_finalize(statement);
+
     [tmpString release];
 }
 +(void)insert_tmpTable:(NTFactoryFreightVolume *) factoryFreightVolume
@@ -231,6 +233,8 @@ static sqlite3 *database;
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
+
 	return array;
 }
 +(NSMutableArray *) getTradeTimeFromTmpNTFactoryFreightVolume
@@ -256,6 +260,7 @@ static sqlite3 *database;
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
 	return array;
 }
 +(NSMutableArray *) getAllDataByTradeTime:(NSMutableArray *)tradetime Factory:(NSMutableArray *)factory
@@ -293,7 +298,8 @@ static sqlite3 *database;
         }else {
             NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
         }
-        
+        sqlite3_finalize(statement_facSum);
+
         //第三列开始：各电厂名称
         //j从2开始，因为工厂数组中为填充标题第一项是"月份",第二项是“公司合计”
         for (int j=2; j<[factory count]; j++) {
@@ -318,7 +324,8 @@ static sqlite3 *database;
             }else {
                 NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
             }
-            
+            sqlite3_finalize(statement);
+
         }
         [rowArray addObject:coloumArray];
         [coloumArray release];
@@ -359,7 +366,8 @@ static sqlite3 *database;
     [sumColoumArray1 addObject:[NSString stringWithFormat:@"%d",sumCOUNT]];
     [sumColoumArray2 addObject:@"100%" ];
     [sumColoumArray2 addObject:@"100%" ];
-    
+    sqlite3_finalize(statement_Sum);
+
     //第三列开始：各电厂合计,占比
     //j从2开始，因为工厂数组中为填充标题第一项是"月份",第二项是“公司合计”
     for (int j=2; j<[factory count]; j++) {
@@ -390,7 +398,8 @@ static sqlite3 *database;
         }else {
             NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
         }
-        
+        sqlite3_finalize(statement);
+
     }
     [rowArray addObject:sumColoumArray1];
     [rowArray addObject:sumColoumArray2];

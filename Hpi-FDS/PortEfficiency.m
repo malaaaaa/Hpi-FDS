@@ -155,6 +155,8 @@ static sqlite3 *database;
             
         }
     }
+    sqlite3_finalize(statement);
+
     [shiptransSubSql release];
     [factorySubSql release];
 }
@@ -185,6 +187,8 @@ static sqlite3 *database;
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
+
 	return array;
 }
 +(BOOL) isNoData
@@ -197,12 +201,14 @@ static sqlite3 *database;
 		while (sqlite3_step(statement)==SQLITE_ROW) {
             NSInteger maxNumber=sqlite3_column_int(statement,0);
             if (0==maxNumber) {
+                sqlite3_finalize(statement);
                 return YES;
             }
 		}
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
 	return NO;
 }
 @end

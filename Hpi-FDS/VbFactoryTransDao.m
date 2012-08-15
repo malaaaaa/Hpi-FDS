@@ -66,7 +66,7 @@ static sqlite3 *database;
 
 +(void)insert:(VbFactoryTrans*) vbFactoryTrans
 {
-	NSLog(@"Insert begin VbFactoryTrans");
+//	NSLog(@"Insert begin VbFactoryTrans");
 	const char *insert="INSERT INTO VbFactoryTrans (FACTORYCODE,DISPATCHNO,SHIPID,SHIPNAME,TYPEID, TRADE,KEYVALUE,SUPID,STATECODE,STATENAME,STAGECODE,STAGENAME,elw,COMID,T_NOTE,F_NOTE) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -76,18 +76,18 @@ static sqlite3 *database;
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
     
-    NSLog(@"FACTORYCODE=%@", vbFactoryTrans.FACTORYCODE);
-    NSLog(@"DISPATCHNO=%@", vbFactoryTrans.DISPATCHNO);
-    NSLog(@"SHIPID=%d", vbFactoryTrans.SHIPID);
-    NSLog(@"SHIPNAME=%@", vbFactoryTrans.SHIPNAME);
-    NSLog(@"TYPEID=%d", vbFactoryTrans.TYPEID);
-    NSLog(@"TRADE=%@", vbFactoryTrans.TRADE);
-    NSLog(@"KEYVALUE=%@", vbFactoryTrans.KEYVALUE);
-    NSLog(@"SUPID=%d", vbFactoryTrans.SUPID);
-    NSLog(@"STATECODE=%@", vbFactoryTrans.STATECODE);
-    NSLog(@"elw=%d", vbFactoryTrans.elw);
-    NSLog(@"T_NOTE=%@", vbFactoryTrans.T_NOTE);
-    NSLog(@"F_NOTE=%@", vbFactoryTrans.F_NOTE);
+//    NSLog(@"FACTORYCODE=%@", vbFactoryTrans.FACTORYCODE);
+//    NSLog(@"DISPATCHNO=%@", vbFactoryTrans.DISPATCHNO);
+//    NSLog(@"SHIPID=%d", vbFactoryTrans.SHIPID);
+//    NSLog(@"SHIPNAME=%@", vbFactoryTrans.SHIPNAME);
+//    NSLog(@"TYPEID=%d", vbFactoryTrans.TYPEID);
+//    NSLog(@"TRADE=%@", vbFactoryTrans.TRADE);
+//    NSLog(@"KEYVALUE=%@", vbFactoryTrans.KEYVALUE);
+//    NSLog(@"SUPID=%d", vbFactoryTrans.SUPID);
+//    NSLog(@"STATECODE=%@", vbFactoryTrans.STATECODE);
+//    NSLog(@"elw=%d", vbFactoryTrans.elw);
+//    NSLog(@"T_NOTE=%@", vbFactoryTrans.T_NOTE);
+//    NSLog(@"F_NOTE=%@", vbFactoryTrans.F_NOTE);
     
 	sqlite3_bind_text(statement, 1, [vbFactoryTrans.FACTORYCODE UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 2, [vbFactoryTrans.DISPATCHNO UTF8String], -1, SQLITE_TRANSIENT);
@@ -361,7 +361,7 @@ static sqlite3 *database;
                         [innerTmpString appendString:@")"];
                     }
                 }
-                
+
                 sqlite3_stmt *innerStatement;
                 NSString *innerSql=[NSString stringWithFormat:@"select count(*) from VBFACTORYTRANS where  trim(STATECODE)<>'b' and  FACTORYCODE ='%@' %@",vbFactoryTrans.FACTORYCODE,innerTmpString];
                 NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
@@ -375,6 +375,8 @@ static sqlite3 *database;
                     NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),innerSql);
                 }
                 [innerTmpString release];
+                sqlite3_finalize(innerStatement);
+
             }
                         
 			[array addObject:vbFactoryTrans];
@@ -384,6 +386,8 @@ static sqlite3 *database;
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
     [tmpString release];
+    sqlite3_finalize(statement);
+
 	return array;
 }
 
@@ -432,6 +436,7 @@ static sqlite3 *database;
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
 	return array;
 }
 +(NSMutableArray *) getVbFactoryTransDetail:(NSString *)FactoryCode 

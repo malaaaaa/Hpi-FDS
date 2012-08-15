@@ -625,14 +625,14 @@ static  NSMutableArray *ShipStageArray;
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
         [xmlParser setISoapNum:1];
-        [xmlParser getTfFactory];
-        [xmlParser getTbFactoryState];
+//        [xmlParser getTfFactory];
+//        [xmlParser getTbFactoryState];
         [VbFactoryTransDao   deleteAll];
         [xmlParser getVbFactoryTrans];
-        [xmlParser getTfShipCompany];
-        [xmlParser getTfSupplier];
-        [xmlParser getTfCoalType];
-        [xmlParser getTsShipStage];
+//        [xmlParser getTfShipCompany];
+//        [xmlParser getTfSupplier];
+//        [xmlParser getTfCoalType];
+//        [xmlParser getTsShipStage];
         [self runActivity];
     }
 	
