@@ -272,7 +272,8 @@ static sqlite3 *database;
             }
         }
         NSLog(@"++%@%@",year,month);
-        
+        sqlite3_finalize(statement);
+
     }    
     
     [tmpString release];
@@ -304,6 +305,7 @@ static sqlite3 *database;
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
 	return transShare;
 }
 +(NTShipCompanyTranShare *) getTransShareByTag:(NSInteger)tag {
@@ -336,6 +338,7 @@ static sqlite3 *database;
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
 	return transShare;
 }
 +(void) updateTransShareCoordinate:(NSInteger) tag setX:(NSInteger)x setY:(NSInteger)y

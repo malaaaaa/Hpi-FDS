@@ -17,7 +17,7 @@
 #import "MultipleSelectView.h"
 #import "NTColorConfigDao.h"
 
-@interface ShipCompanyTransShareVC : UIViewController<UIPopoverControllerDelegate>{
+@interface ShipCompanyTransShareVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIPopoverController *_popover;
     DateViewController *_startDateCV;
     DateViewController *_endDateCV;

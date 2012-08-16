@@ -11,4 +11,7 @@
 @protocol ChooseViewDelegate <NSObject>
 @optional
 -(void)setLableValue:(NSString *)currentSelectValue;
+//多选控件代理方法
+-(void)multipleSelectViewdidSelectRow:(NSInteger)indexPathRow;
+
 @end

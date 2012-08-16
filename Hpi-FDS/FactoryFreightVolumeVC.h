@@ -11,7 +11,7 @@
 #import "PubInfo.h"
 #import "XMLParser.h"
 #import "MultipleSelectView.h"
-#import "DataGridComponent.h"
+//#import "DataGridComponent.h"
 #import "MultiTitleDataGridComponent.h"
 #import "DateViewController.h"
 #import "ChooseViewDelegate.h"

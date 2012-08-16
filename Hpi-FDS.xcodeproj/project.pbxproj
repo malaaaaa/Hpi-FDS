@@ -194,12 +194,15 @@
 		2AA44B3215D10D05007B499B /* TfPortDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B3115D10D03007B499B /* TfPortDao.m */; };
 		2AA44B3B15D11985007B499B /* AvgPortPTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B3915D11985007B499B /* AvgPortPTimeChVC.m */; };
 		2AA44B3C15D11985007B499B /* AvgPortPTimeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */; };
-		2AB1A0E115DB53A400EEA466 /* MultiTitleDataGridComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1A0E015DB53A400EEA466 /* MultiTitleDataGridComponent.m */; };
 		2ACA24AC15D88E440016812A /* AvgFactoryZXTimeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA24AB15D88E440016812A /* AvgFactoryZXTimeDao.m */; };
 		2AD84EA115B91B2B00D91111 /* TH_ShipTransChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */; };
 		2AD84EA215B91B2B00D91111 /* TH_ShipTransChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */; };
 		2ADAEF5515D4F4EB0028C72D /* AvgFactoryTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADAEF5315D4F4EB0028C72D /* AvgFactoryTimeChVC.m */; };
 		2ADAEF5615D4F4EB0028C72D /* AvgFactoryTimeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ADAEF5415D4F4EB0028C72D /* AvgFactoryTimeChVC.xib */; };
+		D32DCA5015D791D900FCB6AA /* DataQueryPopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D32DCA4E15D791D900FCB6AA /* DataQueryPopVC.m */; };
+		D32DCA5115D791D900FCB6AA /* DataQueryPopVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32DCA4F15D791D900FCB6AA /* DataQueryPopVC.xib */; };
+		D35A54A315DC9ED900D55862 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = D35A54A015DC9ED900D55862 /* TBXML.m */; };
+		D35A54A415DC9ED900D55862 /* TBXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D35A54A215DC9ED900D55862 /* TBXMLParser.m */; };
 		D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */; };
 		D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */; };
 		D35CFE4715D1EB13005FAA17 /* PortEfficiency.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */; };
@@ -207,6 +210,7 @@
 		D378812D15C65B3E0033FB88 /* BrokenLineLegendVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D378812B15C65B3D0033FB88 /* BrokenLineLegendVC.xib */; };
 		D37A3E1215C902E7002B48F8 /* NTFactoryFreightVolume.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A3E1115C902E7002B48F8 /* NTFactoryFreightVolume.m */; };
 		D37A3E1615C90318002B48F8 /* NTFactoryFreightVolumeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */; };
+		D3980FDE15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3980FDD15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m */; };
 		D3A06E4615D0E74C00963BA2 /* NAArrow.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DDF15D0E74C00963BA2 /* NAArrow.c */; };
 		D3A06E4715D0E74C00963BA2 /* NABezierControlPoints.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DE215D0E74C00963BA2 /* NABezierControlPoints.c */; };
 		D3A06E4815D0E74C00963BA2 /* NADashing.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DE415D0E74C00963BA2 /* NADashing.c */; };
@@ -253,6 +257,8 @@
 		D3A06E7115D0E74C00963BA2 /* WSView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E4515D0E74C00963BA2 /* WSView.m */; };
 		D3A06E7515D0E93500963BA2 /* PortEfficiencyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */; };
 		D3A06E7615D0E93500963BA2 /* PortEfficiencyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */; };
+		D3F2040415D7A44B00BA6658 /* DataQueryMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F2040215D7A44B00BA6658 /* DataQueryMenuVC.m */; };
+		D3F2040515D7A44B00BA6658 /* DataQueryMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */; };
 		D9063A7A15C13D27002FE1CE /* NTColorConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D9063A7915C13D27002FE1CE /* NTColorConfig.m */; };
 		D9063A7E15C14032002FE1CE /* NTColorConfigDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D9063A7D15C14031002FE1CE /* NTColorConfigDao.m */; };
 		D90A84FE15B54224001CC03A /* TfShipCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A84FD15B54224001CC03A /* TfShipCompany.m */; };
@@ -564,8 +570,6 @@
 		2AA44B3815D11985007B499B /* AvgPortPTimeChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgPortPTimeChVC.h; sourceTree = "<group>"; };
 		2AA44B3915D11985007B499B /* AvgPortPTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgPortPTimeChVC.m; sourceTree = "<group>"; };
 		2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvgPortPTimeChVC.xib; sourceTree = "<group>"; };
-		2AB1A0DF15DB53A400EEA466 /* MultiTitleDataGridComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiTitleDataGridComponent.h; path = PowerPlot_lib/MultiTitleDataGridComponent.h; sourceTree = "<group>"; };
-		2AB1A0E015DB53A400EEA466 /* MultiTitleDataGridComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultiTitleDataGridComponent.m; path = PowerPlot_lib/MultiTitleDataGridComponent.m; sourceTree = "<group>"; };
 		2ACA24AA15D88E440016812A /* AvgFactoryZXTimeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgFactoryZXTimeDao.h; sourceTree = "<group>"; };
 		2ACA24AB15D88E440016812A /* AvgFactoryZXTimeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryZXTimeDao.m; sourceTree = "<group>"; };
 		2AD84E9E15B91B2B00D91111 /* TH_ShipTransChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransChVC.h; sourceTree = "<group>"; };
@@ -574,6 +578,13 @@
 		2ADAEF5215D4F4EB0028C72D /* AvgFactoryTimeChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgFactoryTimeChVC.h; sourceTree = "<group>"; };
 		2ADAEF5315D4F4EB0028C72D /* AvgFactoryTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryTimeChVC.m; sourceTree = "<group>"; };
 		2ADAEF5415D4F4EB0028C72D /* AvgFactoryTimeChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvgFactoryTimeChVC.xib; sourceTree = "<group>"; };
+		D32DCA4D15D791D900FCB6AA /* DataQueryPopVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataQueryPopVC.h; sourceTree = "<group>"; };
+		D32DCA4E15D791D900FCB6AA /* DataQueryPopVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataQueryPopVC.m; sourceTree = "<group>"; };
+		D32DCA4F15D791D900FCB6AA /* DataQueryPopVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataQueryPopVC.xib; sourceTree = "<group>"; };
+		D35A549F15DC9ED900D55862 /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
+		D35A54A015DC9ED900D55862 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
+		D35A54A115DC9ED900D55862 /* TBXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXMLParser.h; sourceTree = "<group>"; };
+		D35A54A215DC9ED900D55862 /* TBXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXMLParser.m; sourceTree = "<group>"; };
 		D35ACFE215C7D84100F53AAD /* FactoryFreightVolumeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryFreightVolumeVC.h; sourceTree = "<group>"; };
 		D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryFreightVolumeVC.m; sourceTree = "<group>"; };
 		D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FactoryFreightVolumeVC.xib; sourceTree = "<group>"; };
@@ -586,6 +597,8 @@
 		D37A3E1115C902E7002B48F8 /* NTFactoryFreightVolume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTFactoryFreightVolume.m; sourceTree = "<group>"; };
 		D37A3E1415C90318002B48F8 /* NTFactoryFreightVolumeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTFactoryFreightVolumeDao.h; sourceTree = "<group>"; };
 		D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTFactoryFreightVolumeDao.m; sourceTree = "<group>"; };
+		D3980FDC15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTitleDataGridComponent.h; sourceTree = "<group>"; };
+		D3980FDD15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiTitleDataGridComponent.m; sourceTree = "<group>"; };
 		D3A06DDE15D0E74C00963BA2 /* NAAmethyst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NAAmethyst.h; sourceTree = "<group>"; };
 		D3A06DDF15D0E74C00963BA2 /* NAArrow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NAArrow.c; sourceTree = "<group>"; };
 		D3A06DE015D0E74C00963BA2 /* NAArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NAArrow.h; sourceTree = "<group>"; };
@@ -693,6 +706,9 @@
 		D3A06E7215D0E93300963BA2 /* PortEfficiencyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortEfficiencyVC.h; sourceTree = "<group>"; };
 		D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortEfficiencyVC.m; sourceTree = "<group>"; };
 		D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortEfficiencyVC.xib; sourceTree = "<group>"; };
+		D3F2040115D7A44B00BA6658 /* DataQueryMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataQueryMenuVC.h; sourceTree = "<group>"; };
+		D3F2040215D7A44B00BA6658 /* DataQueryMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataQueryMenuVC.m; sourceTree = "<group>"; };
+		D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataQueryMenuVC.xib; sourceTree = "<group>"; };
 		D9063A7815C13D27002FE1CE /* NTColorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTColorConfig.h; sourceTree = "<group>"; };
 		D9063A7915C13D27002FE1CE /* NTColorConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTColorConfig.m; sourceTree = "<group>"; };
 		D9063A7C15C14031002FE1CE /* NTColorConfigDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTColorConfigDao.h; sourceTree = "<group>"; };
@@ -850,6 +866,8 @@
 				D378812A15C65B3D0033FB88 /* BrokenLineLegendVC.m */,
 				059A1BF31525B75100AB24C4 /* ChooseView.h */,
 				059A1BF41525B75100AB24C4 /* ChooseView.m */,
+				2A7B339115B80D1E006B7994 /* MultipleSelectView.h */,
+				2A7B339215B80D1E006B7994 /* MultipleSelectView.m */,
 				059A1B95152551A100AB24C4 /* DataBase */,
 				05F43027153BFBB500CC00EB /* DateViewController.h */,
 				05F43028153BFBB500CC00EB /* DateViewController.m */,
@@ -990,8 +1008,12 @@
 		059A1B911525510500AB24C4 /* Pub */ = {
 			isa = PBXGroup;
 			children = (
-				2AB1A0DF15DB53A400EEA466 /* MultiTitleDataGridComponent.h */,
-				2AB1A0E015DB53A400EEA466 /* MultiTitleDataGridComponent.m */,
+				D3980FDC15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.h */,
+				D3980FDD15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m */,
+				D35A549F15DC9ED900D55862 /* TBXML.h */,
+				D35A54A015DC9ED900D55862 /* TBXML.m */,
+				D35A54A115DC9ED900D55862 /* TBXMLParser.h */,
+				D35A54A215DC9ED900D55862 /* TBXMLParser.m */,
 				D3A06DDD15D0E74C00963BA2 /* PowerPlot_lib */,
 				059A1BA8152551D600AB24C4 /* Http */,
 				059A1BD7152556A500AB24C4 /* PubInfo.h */,
@@ -1186,8 +1208,6 @@
 				14E4586415622CCC0015258C /* MarketOneController.m */,
 				05F57B071530923100DBFFAC /* MarketViewController.h */,
 				05F57B081530923100DBFFAC /* MarketViewController.m */,
-				2A7B339115B80D1E006B7994 /* MultipleSelectView.h */,
-				2A7B339215B80D1E006B7994 /* MultipleSelectView.m */,
 				14CFDACA154A9B4800E0FF8F /* NSString+MD5Addition.h */,
 				14CFDACB154A9B4800E0FF8F /* NSString+MD5Addition.m */,
 				2A2FA32B15BFF74400B71C7D /* NSString+Verify.h */,
@@ -1242,6 +1262,12 @@
 				D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */,
 				2ADAEF5215D4F4EB0028C72D /* AvgFactoryTimeChVC.h */,
 				2ADAEF5315D4F4EB0028C72D /* AvgFactoryTimeChVC.m */,
+				D32DCA4D15D791D900FCB6AA /* DataQueryPopVC.h */,
+				D32DCA4E15D791D900FCB6AA /* DataQueryPopVC.m */,
+				D32DCA4F15D791D900FCB6AA /* DataQueryPopVC.xib */,
+				D3F2040115D7A44B00BA6658 /* DataQueryMenuVC.h */,
+				D3F2040215D7A44B00BA6658 /* DataQueryMenuVC.m */,
+				D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1525,6 +1551,8 @@
 				D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */,
 				D3A06E7615D0E93500963BA2 /* PortEfficiencyVC.xib in Resources */,
 				2ADAEF5615D4F4EB0028C72D /* AvgFactoryTimeChVC.xib in Resources */,
+				D32DCA5115D791D900FCB6AA /* DataQueryPopVC.xib in Resources */,
+				D3F2040515D7A44B00BA6658 /* DataQueryMenuVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1698,7 +1726,11 @@
 				D35CFE4715D1EB13005FAA17 /* PortEfficiency.m in Sources */,
 				2ADAEF5515D4F4EB0028C72D /* AvgFactoryTimeChVC.m in Sources */,
 				2ACA24AC15D88E440016812A /* AvgFactoryZXTimeDao.m in Sources */,
-				2AB1A0E115DB53A400EEA466 /* MultiTitleDataGridComponent.m in Sources */,
+				D32DCA5015D791D900FCB6AA /* DataQueryPopVC.m in Sources */,
+				D3F2040415D7A44B00BA6658 /* DataQueryMenuVC.m in Sources */,
+				D35A54A315DC9ED900D55862 /* TBXML.m in Sources */,
+				D35A54A415DC9ED900D55862 /* TBXMLParser.m in Sources */,
+				D3980FDE15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1791,7 +1823,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1805,7 +1837,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

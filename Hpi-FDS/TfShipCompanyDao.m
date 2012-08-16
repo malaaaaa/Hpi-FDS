@@ -160,6 +160,8 @@ static sqlite3	*database;
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
+
 	[array autorelease];
 	return array;
 }

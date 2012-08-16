@@ -155,6 +155,8 @@ static sqlite3 *database;
             
         }
     }
+    sqlite3_finalize(statement);
+
     [shiptransSubSql release];
     [factorySubSql release];
 }
@@ -185,6 +187,28 @@ static sqlite3 *database;
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
+
 	return array;
+}
++(BOOL) isNoData
+{
+	sqlite3_stmt *statement;
+    NSString *sql=@"select  max(efficiency) from PortEfficiency ";
+    NSLog(@"执行 isNoData [%@] ",sql);
+
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+            NSInteger maxNumber=sqlite3_column_int(statement,0);
+            if (0==maxNumber) {
+                sqlite3_finalize(statement);
+                return YES;
+            }
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+    sqlite3_finalize(statement);
+	return NO;
 }
 @end

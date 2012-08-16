@@ -53,7 +53,8 @@ static  NSMutableArray *LegendArray;
     [_activity removeFromSuperview];
     self.xmlParser=[[XMLParser alloc]init];
     
-    self.portLabel.text=@"港口";
+    [self.portButton setTitle:@"港口" forState:UIControlStateNormal];
+
     
     self.endDay = [[NSDate alloc] init];
     self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
@@ -440,8 +441,52 @@ static  NSMutableArray *LegendArray;
     NSLog(@"HHHHH");
     
 }
-//-(BOOL) checkDatePicker{
-//
-//}
+
+#pragma mark multipleSelectViewdidSelectRow Delegate Method
+-(void)multipleSelectViewdidSelectRow:(NSInteger)indexPathRow
+{
+    if (_multipleSelectView) {
+        
+        if (_multipleSelectView.type==kPORT) {
+            NSInteger count = 0;
+            TgPort *tgPort = [PortArray objectAtIndex:indexPathRow];
+            if ([tgPort.portName isEqualToString:All_]) {
+                if(tgPort.didSelected==YES){
+                    for (int i=0; i<[PortArray count]; i++) {
+                        ((TgPort *)[PortArray objectAtIndex:i]).didSelected=NO;
+                    }
+                }
+                else {
+                    for (int i=0; i<[PortArray count]; i++) {
+                        ((TgPort *)[PortArray objectAtIndex:i]).didSelected=YES;
+                    }
+                }
+            }
+            else{
+                if(tgPort.didSelected==YES){
+                    ((TgPort *)[PortArray objectAtIndex:indexPathRow]).didSelected=NO;
+                }
+                else{
+                    ((TgPort *)[PortArray objectAtIndex:indexPathRow]).didSelected=YES;
+                }
+            }
+            for (int i=0; i<[PortArray count]; i++) {
+                if(((TgPort *)[PortArray objectAtIndex:i]).didSelected==YES)
+                {
+                    count++;
+                }
+            }
+            //只要有条件选中，附加星号标示
+            if (count>0) {
+                [self.portButton setTitle:@"港口(*)" forState:UIControlStateNormal];
+            }
+            else{
+                [self.portButton setTitle:@"港口" forState:UIControlStateNormal];
+                
+            }
+        }
+        
+    }
+}
 
 @end

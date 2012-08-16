@@ -7,7 +7,6 @@
 //
 
 #import "FactoryFreightVolumeVC.h"
-
 @interface FactoryFreightVolumeVC ()
 
 @end
@@ -320,7 +319,7 @@
     ds.data = [NTFactoryFreightVolumeDao getAllDataByTradeTime:tradetimeArray Factory:factoryArray];
     ds.splitTitle = [NSArray arrayWithObjects:@"运量",@"航次",nil];
 
-    MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(30, 50, 960, 200) data:ds];
+    MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(30, 50, 960, 400) data:ds];
     [ds.columnWidth release];
 	[ds release];
 	[self.listView addSubview:grid];

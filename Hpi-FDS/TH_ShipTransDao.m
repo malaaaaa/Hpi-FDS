@@ -79,7 +79,7 @@ static sqlite3  *database;
 +(void)insert:(TH_ShipTrans *)th_Shiptrans
 {
 
-    NSLog(@"Insert begin Th_ShipTrans ");
+//    NSLog(@"Insert begin Th_ShipTrans ");
     
     
     const char *insert="INSERT INTO Th_ShipTrans(recid,statecode,recorddate,statename,portcode,portname,shipname,tripno,factoryname,supplier,coaltype,lw,p_anchoragetime,p_handle ,p_arrivaltime,p_departtime,note)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -91,11 +91,11 @@ static sqlite3  *database;
         NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),insert);
     }
 
-    NSLog(@"recid=%d", th_Shiptrans.RECID);
-   
-	NSLog(@"recorddate=%@", th_Shiptrans.RECORDDATE );
- 
-    NSLog(@"插入实体中   有值");
+//    NSLog(@"recid=%d", th_Shiptrans.RECID);
+//   
+//	NSLog(@"recorddate=%@", th_Shiptrans.RECORDDATE );
+// 
+//    NSLog(@"插入实体中   有值");
 
 //绑定数据
     
@@ -162,7 +162,7 @@ static sqlite3  *database;
 
 +(void)delete:(TH_ShipTrans *)th_Shiptrans
 {
-    NSLog(@"删除实体........");
+//    NSLog(@"删除实体........");
     
     
     char *errorMsg;
