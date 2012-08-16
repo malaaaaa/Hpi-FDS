@@ -54,6 +54,8 @@
 #import "NTFactoryFreightVolume.h"
 #import "NTFactoryFreightVolumeDao.h"
 #import "PortEfficiency.h"
+#import "TH_ShipTrans.h"
+#import "TH_ShipTransDao.h"
 
 typedef enum{
     kPORT=0,
