@@ -75,20 +75,7 @@ NSDateFormatter *f;
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
     
-
-    
     [ self  getDateSource:self.startTime.text :self.endTime.text:All_ :0];
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
 }
  -(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSString *)facotryCate:(NSInteger)initAndSelect
 {
@@ -101,7 +88,7 @@ NSDateFormatter *f;
         dc=[[MultiTitleDataGridComponent alloc ] init];
     }
     if(!dataQueryVC){
-        NSLog(@"dataQueryVC 为空。。初始......");
+       // NSLog(@"dataQueryVC 为空。。初始......");
         //初始化 父视图
         dataQueryVC=(DataQueryVC *)self.parentVC;
     }
@@ -118,14 +105,14 @@ NSDateFormatter *f;
         source.data=[[NSMutableArray alloc] init ];
         source.columnWidth=[[NSMutableArray alloc] init ];
     }
-NSLog(@"查询数据。。。。。。。。");
+//NSLog(@"查询数据。。。。。。。。");
     
     
     //dataQueryVC.dataArray=[[NSMutableArray alloc] init];
    // MultiTitleDataSource *Msource=[[MultiTitleDataSource alloc] init];
     
     source.titles=[AvgFactoryZXTimeDao getTimeTitle:startTime.text :endTime.text :factoryCateLable.text];
-    NSLog(@"----------------source.titles[%d]",[source.titles  count]);
+  //  NSLog(@"----------------source.titles[%d]",[source.titles  count]);
      
     [source .titles addObject:@"平均"];
     source.splitTitle=[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil];
@@ -194,22 +181,15 @@ NSLog(@"查询数据。。。。。。。。");
     dc=[[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
     
      [dataQueryVC.listView   addSubview:dc];
-    
-    
-    
-    
-
-
-
 }
 
 - (IBAction)Select:(id)sender {
       
     startTime.text=startButton.titleLabel.text;
     endTime.text=endButton.titleLabel.text;
-    NSLog(@"开始时间为：%@",startTime.text);
-    NSLog(@"结束时间为：%@",endTime.text);
-    NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
+   // NSLog(@"开始时间为：%@",startTime.text);
+   // NSLog(@"结束时间为：%@",endTime.text);
+    //NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
     
     [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
     
@@ -249,7 +229,7 @@ NSLog(@"查询数据。。。。。。。。");
 }
 - (IBAction)startTimeSelect:(id)sender {
     whichButton=1;
-    NSLog(@"startmonth。。。。。");
+   // NSLog(@"startmonth。。。。。");
     if (self.popover .popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -356,16 +336,16 @@ NSLog(@"查询数据。。。。。。。。");
     }
     if(dc){
         
-        NSLog(@"释放  dc  视图");
+       // NSLog(@"释放  dc  视图");
         [dc release];
     }
     if(source){
         
-        NSLog(@"释放  dc  数据源source ");
+       //NSLog(@"释放  dc  数据源source ");
         [source release];
     }
     if(dataQueryVC){
-        NSLog(@"释放 父视图 .。。。 ");
+       //NSLog(@"释放 父视图 .。。。 ");
   
         [dataQueryVC release];
     }
@@ -421,11 +401,11 @@ NSLog(@"查询数据。。。。。。。。");
 {
     
     if (monthVC) {
-        NSLog(@"monthCV 不为空。。。");
+       // NSLog(@"monthCV 不为空。。。");
         self.month=monthVC.selectedDate;
     }
     
-    NSLog(@"当前picket的日期为%@",monthVC.selectedDate);
+    //NSLog(@"当前picket的日期为%@",monthVC.selectedDate);
     return YES;
 }
 
@@ -435,13 +415,13 @@ NSLog(@"查询数据。。。。。。。。");
     [formater setDateFormat:@"yyyy-MM"];
     if (whichButton==1) {
         [startButton setTitle:[formater stringFromDate:month] forState:UIControlStateNormal ];
-        NSLog(@"startButton:[%@]",[formater stringFromDate:month]);
+     //   NSLog(@"startButton:[%@]",[formater stringFromDate:month]);
         
         
         whichButton=0;
     }else if (whichButton==2) {
         [endButton setTitle:[formater stringFromDate:month] forState:UIControlStateNormal ];
-        NSLog(@"endButton:[%@]",[formater stringFromDate:month]);
+       // NSLog(@"endButton:[%@]",[formater stringFromDate:month]);
         whichButton=0;
         
     }
@@ -457,7 +437,7 @@ NSLog(@"查询数据。。。。。。。。");
 -(void)runActivity
 {
     
-    NSLog(@"runActivity-----iSoapNum-[%d]",xmlParser.iSoapNum);
+    //NSLog(@"runActivity-----iSoapNum-[%d]",xmlParser.iSoapNum);
     if (xmlParser.iSoapNum==0) {
         [activty stopAnimating];
         
@@ -481,11 +461,9 @@ NSLog(@"查询数据。。。。。。。。");
 #pragma mark SetSelectValue  Method
 -(void)setLableValue:(NSString *)currentSelectValue
 {
-    
     if (chooseView) {
         if (chooseView.type==kfactoryCate) {
-            
-            
+
             self.factoryCateLable.text=currentSelectValue;
             if (![self .factoryCateLable.text isEqualToString:All_]) {
                 self.factoryCateLable.hidden=NO;

@@ -68,17 +68,17 @@ int count=1;
     source.columnWidth=d;
     [d release];
     
-    NSLog(@"source.columnWidth[%d]",[source.columnWidth count]);
+  //  NSLog(@"source.columnWidth[%d]",[source.columnWidth count]);
     
 }
 
 -(void)layoutSubView:(CGRect)aRect{
     source=(MultiTitleDataSource *)dataSource;
     [self getColument];
-    NSLog(@"-----source.splitTitle-------%d", [source.splitTitle count]) ;
-    NSLog(@"-----source.data-------%d", [source.data count]) ;
-    NSLog(@"-----source.columnWidth-------%d", [source.columnWidth  count]) ;
-    NSLog(@"-----source.titles -------%d", [source.titles  count]) ;
+  //  NSLog(@"-----source.splitTitle-------%d", [source.splitTitle count]) ;
+   // NSLog(@"-----source.data-------%d", [source.data count]) ;
+  // NSLog(@"-----source.columnWidth-------%d", [source.columnWidth  count]) ;
+  // NSLog(@"-----source.titles -------%d", [source.titles  count]) ;
     
     
     if ([source.splitTitle count]>1) {
@@ -268,7 +268,7 @@ int count=1;
 //-------------------------------以下为事件处发方法----------------------------------------
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 	
-    NSLog(@"bbbbbbbbbb");
+  //  NSLog(@"bbbbbbbbbb");
 	vTopRight.frame = CGRectMake(cellWidth, 0, vRight.contentSize.width, vTopRight.frame.size.height);
     
     

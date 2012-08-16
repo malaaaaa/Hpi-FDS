@@ -16,7 +16,7 @@ static sqlite3  *database;
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory=[paths objectAtIndex:0];
     NSString *path=[documentsDirectory  stringByAppendingPathComponent: @"database.db"  ];
-    NSLog(@"database:path=== %@",path);
+   //NSLog(@"database:path=== %@",path);
     return  path;
 }
 
@@ -26,10 +26,10 @@ static sqlite3  *database;
 	if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
-		NSLog(@"open  database error");
+		//NSLog(@"open  database error");
 		return;
 	}
-	NSLog(@"open  database succes ....");
+	//NSLog(@"open  database succes ....");
 }
 +(NSMutableArray *)getTimeTitle:(NSString *)startTime :(NSString *)endTime :(NSString *)factoryCate
 {
@@ -51,9 +51,9 @@ static sqlite3  *database;
     if (![factoryCate isEqualToString:All_]) {
         query=[query stringByAppendingFormat:@"  AND TFFACTORY.CATEGORY='%@' ",factoryCate ];
     }
-    NSLog(@"--------------------------%@",query1);
+   // NSLog(@"--------------------------%@",query1);
     NSMutableArray *array=[AvgFactoryZXTimeDao getTimeTitleBySql:query:query1];
- NSLog(@"执行 getTimeTitleBySql: 数量[%d]",[array count]);
+// NSLog(@"执行 getTimeTitleBySql: 数量[%d]",[array count]);
 return array;
 }
 
@@ -63,7 +63,7 @@ return array;
     sqlite3_stmt *statement;
     NSString *sql= [NSString   stringWithFormat:@"SELECT   AvgT.TradeMonth  FROM ( select  ifnull(Pavg.avgZG,0) as avgZG,ifnull(Favg.avgXG,0)as avgXG,ifnull(Pavg.avgZG,0) + ifnull(Favg.avgXG,0) as avgLT,ifnull(Pavg.TradeMonth,Favg.TradeMonth) as TradeMonth,ifnull(Pavg.FACTORYNAME,Favg.FACTORYNAME) as FACTORYNAME from ( select '卸港' as UseType,FACTORYNAME,TradeMonth,round(sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2     ) as avgXG  from (sELECT  vbshiptrans.FACTORYCODE,    vbshiptrans.FACTORYNAME, ( CAST(strftime('%%Y',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%%m',VbShiptrans.tradetime) AS VARCHAR(100)) ) as TradeMonth, round( round(   round(  (julianday(F_FINISHTIME)  -  julianday(F_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0  ,2  ) as  UseDay, vbshiptrans.lw  as  lw  FROM  vbshiptrans   inner  Join  TFFACTORY    On    vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE   where 1=1  and vbshiptrans.ISCAL=1  And  strftime('%%Y',vbshiptrans.F_FINISHTIME)!='2000' And   strftime('%%Y',vbshiptrans.F_ANCHORAGETIME)!='2000'  and %@ )  as  a    group by FACTORYNAME,TradeMonth    ) as Favg  LEFT OUTER  JOIN (  select '装港' as UseType,FACTORYNAME,TradeMonth, round( sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2 ) as avgZG  from ( sELECT   vbshiptrans.FACTORYNAME,(CAST(strftime('%%Y',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%%m',VbShiptrans.tradetime) AS VARCHAR(100))) as TradeMonth, round(  round(   round(  (julianday(P_DEPARTTIME)  -  julianday(P_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0  ,2  )  as  UseDay,	vbshiptrans.lw as lw  FROM vbshiptrans  Inner  Join   TFFACTORY   On   vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE   where ISCAL=1 And strftime('%%Y',vbshiptrans.P_DEPARTTIME) != '2000'  And strftime('%%Y',vbshiptrans.P_ANCHORAGETIME) != '2000'	and  %@ )  as   a  group by FACTORYNAME,TradeMonth  )as Pavg  on Favg.Factoryname=Pavg.Factoryname    AND  Favg.TradeMonth=Pavg.TradeMonth       union     select    ifnull(   Pavg.avgZG,0) as avgZG,ifnull(  Favg.avgXG    ,0)as avgXG,   ifnull(Pavg.avgZG,0) + ifnull(Favg.avgXG,0) as avgLT,ifnull(Pavg.TradeMonth,Favg.TradeMonth) as TradeMonth,  ifnull(Pavg.FACTORYNAME,Favg.FACTORYNAME) as FACTORYNAME  from (   select '装港' as UseType,FACTORYNAME,TradeMonth, round(    sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2     ) as avgZG   from (   sELECT   vbshiptrans.FACTORYNAME, (CAST(strftime('%%Y',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%%m',VbShiptrans.tradetime) AS VARCHAR(100)) ) as TradeMonth,   round(  round(   round(  (julianday(P_DEPARTTIME)  -  julianday(P_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0 ,2  )  as  UseDay,	vbshiptrans.lw as lw  FROM vbshiptrans  Inner  Join   TFFACTORY   On   vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE   where ISCAL=1  And    strftime('%%Y',vbshiptrans.P_DEPARTTIME) != '2000'	 And strftime('%%Y',vbshiptrans.P_ANCHORAGETIME) != '2000'	and %@ )  as   a  group by FACTORYNAME,TradeMonth  )AS Pavg  LEFT OUTER  JOIN  (    select '卸港' as UseType,FACTORYNAME,TradeMonth, round(    sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2     ) as avgXG   from ( sELECT    vbshiptrans.FACTORYCODE,    vbshiptrans.FACTORYNAME,   (  CAST(strftime('%%Y',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%%m',VbShiptrans.tradetime) AS VARCHAR(100)) ) as TradeMonth, round(  round(  round(  (julianday(F_FINISHTIME)  -  julianday(F_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0  ,2  ) as  UseDay,vbshiptrans.lw  as  lw  FROM  vbshiptrans   inner  Join  TFFACTORY    On    vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE  where 1=1  and     vbshiptrans.ISCAL=1   And   strftime('%%Y',vbshiptrans.F_FINISHTIME)!='2000'And   strftime('%%m',vbshiptrans.F_ANCHORAGETIME)!='2000'  and %@   )  as   a  group by FACTORYNAME,TradeMonth      )as Favg   on      Favg.Factoryname=Pavg.Factoryname    AND  Favg.TradeMonth=Pavg.TradeMonth  order by  avgLT  )  AS AvgT   where  %@   group  by  AvgT.TradeMonth",sql1,sql1,sql1,sql1,sql2];
 
-    NSLog(@"执行 getTimeTitleBySql [%@]",sql);
+    //NSLog(@"执行 getTimeTitleBySql [%@]",sql);
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         
         [ d  addObject:@"电厂"];
@@ -75,16 +75,12 @@ return array;
             else
                 time=[NSString stringWithUTF8String:date1];
             
-            NSLog(@"%@",time);
+            //NSLog(@"%@",time);
             
             [d addObject:time];
         }
-    }else
-    {
-        NSLog(@"---------Error:[%s]",sqlite3_errmsg(database));
-     NSLog(@"------------编译 不通");
     }
-NSLog(@"--------------查到时间标题：【%d】",[d count]);
+//NSLog(@"--------------查到时间标题：【%d】",[d count]);
 return d;
 }
 
@@ -108,7 +104,7 @@ return d;
     }
 
  NSMutableArray *array=[AvgFactoryZXTimeDao getFactoryNameBySql:query:query1];
- NSLog(@"执行 getFactoryNameBySql: 数量[%d]",[array count]);
+ //NSLog(@"执行 getFactoryNameBySql: 数量[%d]",[array count]);
 return array;
 }
 
@@ -118,7 +114,7 @@ return array;
     NSMutableArray *d=[[NSMutableArray alloc] init];
     sqlite3_stmt *statement;
     NSString *sql= [NSString   stringWithFormat:@"SELECT  AvgT.Factoryname  FROM (   select  ifnull(Pavg.avgZG,0) as avgZG,ifnull(Favg.avgXG,0)as avgXG,ifnull(Pavg.avgZG,0) + ifnull(Favg.avgXG,0) as avgLT,ifnull(Pavg.TradeMonth,Favg.TradeMonth) as TradeMonth,ifnull(Pavg.FACTORYNAME,Favg.FACTORYNAME) as FACTORYNAME from ( select '卸港' as UseType,FACTORYNAME,TradeMonth,round(sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2     ) as avgXG  from (sELECT  vbshiptrans.FACTORYCODE,    vbshiptrans.FACTORYNAME, ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)) ) as TradeMonth, round( round(   round(  (julianday(F_FINISHTIME)  -  julianday(F_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0  ,2  ) as  UseDay, vbshiptrans.lw  as  lw  FROM  vbshiptrans   inner  Join  TFFACTORY    On    vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE   where 1=1  and vbshiptrans.ISCAL=1  And  strftime('%@',vbshiptrans.F_FINISHTIME)!='2000' And   strftime('%@',vbshiptrans.F_ANCHORAGETIME)!='2000'  and %@ )  as  a    group by FACTORYNAME,TradeMonth    ) as Favg  LEFT OUTER  JOIN (  select '装港' as UseType,FACTORYNAME,TradeMonth, round( sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2 ) as avgZG  from ( sELECT   vbshiptrans.FACTORYNAME,(CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) as TradeMonth, round(  round(   round(  (julianday(P_DEPARTTIME)  -  julianday(P_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0  ,2  )  as  UseDay,	vbshiptrans.lw as lw  FROM vbshiptrans  Inner  Join   TFFACTORY   On   vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE   where ISCAL=1 And strftime('%@',vbshiptrans.P_DEPARTTIME) != '2000'  And strftime('%@',vbshiptrans.P_ANCHORAGETIME) != '2000'	and  %@ )  as   a  group by FACTORYNAME,TradeMonth  )as Pavg  on Favg.Factoryname=Pavg.Factoryname    AND  Favg.TradeMonth=Pavg.TradeMonth       union     select    ifnull(   Pavg.avgZG,0) as avgZG,ifnull(  Favg.avgXG    ,0)as avgXG,   ifnull(Pavg.avgZG,0) + ifnull(Favg.avgXG,0) as avgLT,ifnull(Pavg.TradeMonth,Favg.TradeMonth) as TradeMonth,  ifnull(Pavg.FACTORYNAME,Favg.FACTORYNAME) as FACTORYNAME  from (   select '装港' as UseType,FACTORYNAME,TradeMonth, round(    sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2     ) as avgZG   from (   sELECT   vbshiptrans.FACTORYNAME, (CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)) ) as TradeMonth,   round(  round(   round(  (julianday(P_DEPARTTIME)  -  julianday(P_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0 ,2  )  as  UseDay,	vbshiptrans.lw as lw  FROM vbshiptrans  Inner  Join   TFFACTORY   On   vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE   where ISCAL=1  And    strftime('%@',vbshiptrans.P_DEPARTTIME) != '2000'	 And strftime('%@',vbshiptrans.P_ANCHORAGETIME) != '2000'	and %@ )  as   a  group by FACTORYNAME,TradeMonth  )AS Pavg  LEFT OUTER  JOIN  (    select '卸港' as UseType,FACTORYNAME,TradeMonth, round(    sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2     ) as avgXG   from ( sELECT    vbshiptrans.FACTORYCODE,    vbshiptrans.FACTORYNAME,   (  CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)) ) as TradeMonth, round(  round(  round(  (julianday(F_FINISHTIME)  -  julianday(F_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0  ,2  ) as  UseDay,vbshiptrans.lw  as  lw  FROM  vbshiptrans   inner  Join  TFFACTORY    On    vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE  where 1=1  and     vbshiptrans.ISCAL=1   And   strftime('%@',vbshiptrans.F_FINISHTIME)!='2000'And   strftime('%@',vbshiptrans.F_ANCHORAGETIME)!='2000'  and %@   )  as   a  group by FACTORYNAME,TradeMonth      )as Favg   on      Favg.Factoryname=Pavg.Factoryname    AND  Favg.TradeMonth=Pavg.TradeMonth  order by  avgLT  )  AS AvgT   where   %@  group  by  AvgT.Factoryname ",@"%Y",@"%m",@"%Y",@"%Y",sql1,@"%Y",@"%m",@"%Y",@"%Y",sql1,@"%Y",@"%m",@"%Y",@"%Y",sql1,@"%Y",@"%m",@"%Y",@"%Y",sql1,sql2];
- NSLog(@"执行 getFactoryNameBySql [%@]",sql);
+  //NSLog(@"执行 getFactoryNameBySql [%@]",sql);
     if (sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         while ( sqlite3_step(statement)==SQLITE_ROW) {
             NSString *name;
@@ -134,7 +130,7 @@ return array;
     }
     
      sqlite3_finalize(statement);
-    NSLog(@"------查到电厂名：【%d】",[d count]);
+   // NSLog(@"------查到电厂名：【%d】",[d count]);
     return d;
 }
 
@@ -159,7 +155,7 @@ return array;
         query1=[query1 stringByAppendingFormat:@"  AND  AvgT.Factoryname='%@'  " ,factoryName];
     }
    NSMutableDictionary *array=[AvgFactoryZXTimeDao getFactoryDateBySql:query:query1];
-NSLog(@"执行 getFactoryDateBySql: 数量[%d]",[array count]);
+//NSLog(@"执行 getFactoryDateBySql: 数量[%d]",[array count]);
 return array;
 }
 
@@ -168,7 +164,7 @@ return array;
       NSMutableDictionary *b=[[NSMutableDictionary   alloc] init ];
     sqlite3_stmt *statement;
     NSString *sql= [NSString   stringWithFormat:@"SELECT  FACTORYNAME, avgXG,avgZG ,avgLT,TradeMonth   FROM(  select  ifnull(Pavg.avgZG,0) as avgZG,ifnull(Favg.avgXG,0)as avgXG,ifnull(Pavg.avgZG,0) + ifnull(Favg.avgXG,0) as avgLT,ifnull(Pavg.TradeMonth,Favg.TradeMonth) as TradeMonth,ifnull(Pavg.FACTORYNAME,Favg.FACTORYNAME) as FACTORYNAME from ( select '卸港' as UseType,FACTORYNAME,TradeMonth,round(sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2     ) as avgXG  from (sELECT  vbshiptrans.FACTORYCODE,    vbshiptrans.FACTORYNAME, ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)) ) as TradeMonth, round( round(   round(  (julianday(F_FINISHTIME)  -  julianday(F_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0  ,2  ) as  UseDay, vbshiptrans.lw  as  lw  FROM  vbshiptrans   inner  Join  TFFACTORY    On    vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE   where 1=1  and vbshiptrans.ISCAL=1  And  strftime('%@',vbshiptrans.F_FINISHTIME)!='2000' And   strftime('%@',vbshiptrans.F_ANCHORAGETIME)!='2000'  and %@ )  as  a    group by FACTORYNAME,TradeMonth    ) as Favg  LEFT OUTER  JOIN (  select '装港' as UseType,FACTORYNAME,TradeMonth, round( sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2 ) as avgZG  from ( sELECT   vbshiptrans.FACTORYNAME,(CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) as TradeMonth, round(  round(   round(  (julianday(P_DEPARTTIME)  -  julianday(P_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0  ,2  )  as  UseDay,	vbshiptrans.lw as lw  FROM vbshiptrans  Inner  Join   TFFACTORY   On   vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE   where ISCAL=1 And strftime('%@',vbshiptrans.P_DEPARTTIME) != '2000'  And strftime('%@',vbshiptrans.P_ANCHORAGETIME) != '2000'	and  %@ )  as   a  group by FACTORYNAME,TradeMonth  )as Pavg  on Favg.Factoryname=Pavg.Factoryname    AND  Favg.TradeMonth=Pavg.TradeMonth       union     select    ifnull(   Pavg.avgZG,0) as avgZG,ifnull(  Favg.avgXG    ,0)as avgXG,   ifnull(Pavg.avgZG,0) + ifnull(Favg.avgXG,0) as avgLT,ifnull(Pavg.TradeMonth,Favg.TradeMonth) as TradeMonth,  ifnull(Pavg.FACTORYNAME,Favg.FACTORYNAME) as FACTORYNAME  from (   select '装港' as UseType,FACTORYNAME,TradeMonth, round(    sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2     ) as avgZG   from (   sELECT   vbshiptrans.FACTORYNAME, (CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)) ) as TradeMonth,   round(  round(   round(  (julianday(P_DEPARTTIME)  -  julianday(P_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0 ,2  )  as  UseDay,	vbshiptrans.lw as lw  FROM vbshiptrans  Inner  Join   TFFACTORY   On   vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE   where ISCAL=1  And    strftime('%@',vbshiptrans.P_DEPARTTIME) != '2000'	 And strftime('%@',vbshiptrans.P_ANCHORAGETIME) != '2000'	and %@ )  as   a  group by FACTORYNAME,TradeMonth  )AS Pavg  LEFT OUTER  JOIN  (    select '卸港' as UseType,FACTORYNAME,TradeMonth, round(    sum(useday*lw/10000.0)/SUM(lw/10000.0) ,2     ) as avgXG   from ( sELECT    vbshiptrans.FACTORYCODE,    vbshiptrans.FACTORYNAME,   (  CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)) ) as TradeMonth, round(  round(  round(  (julianday(F_FINISHTIME)  -  julianday(F_ANCHORAGETIME)  ),2)*24*60 ,2  )/1440.0  ,2  ) as  UseDay,vbshiptrans.lw  as  lw  FROM  vbshiptrans   inner  Join  TFFACTORY    On    vbshiptrans.FACTORYCODE  = TFFACTORY.FACTORYCODE  where 1=1  and     vbshiptrans.ISCAL=1   And   strftime('%@',vbshiptrans.F_FINISHTIME)!='2000'And   strftime('%@',vbshiptrans.F_ANCHORAGETIME)!='2000'  and %@   )  as   a  group by FACTORYNAME,TradeMonth      )as Favg   on      Favg.Factoryname=Pavg.Factoryname    AND  Favg.TradeMonth=Pavg.TradeMonth  order by  avgLT  )  AS AvgT     where  %@  order by  AvgT.TradeMonth",@"%Y",@"%m",@"%Y",@"%Y",sql1,@"%Y",@"%m",@"%Y",@"%Y",sql1,@"%Y",@"%m",@"%Y",@"%Y",sql1,@"%Y",@"%m",@"%Y",@"%Y",sql1,sql2];
-NSLog(@"执行 getFactoryDateBySql [%@]",sql);
+//NSLog(@"执行 getFactoryDateBySql [%@]",sql);
     if (sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         int XG=0;
         int ZG=0;

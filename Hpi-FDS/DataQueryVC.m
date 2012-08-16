@@ -479,21 +479,10 @@
             NSLog(@"移除电厂动态。。。。。");
             [self.portEfficiencyVC.view removeFromSuperview ];
         }
-        
-       
         [self.avgTimePort.dc removeFromSuperview];
         [self.avgTimeZXFactory.dc removeFromSuperview   ];
-
-        
-        
-        
         self.latefeeTj=[[NT_LatefeeTongjChVC alloc] init];
         latefeeTj.parentVC=self;
-        
-        
-        
-        [latefeeTj  setlAndF:5];
-        
         latefeeTj.view.center=CGPointMake(512, 120);
         latefeeTj.view.frame=CGRectMake(0, 0, 1024, 180);
         [self.chooseView addSubview:latefeeTj.view];
@@ -508,11 +497,7 @@
              NSLog(@"移除电厂动态。。。。。");
           [self.portEfficiencyVC.view removeFromSuperview ];
          }
-        
-   
          [self.avgTimeZXFactory.dc removeFromSuperview   ];
-         
-         
          self.avgTimePort=[[AvgPortPTimeChVC alloc] init];
          avgTimePort.parentVC=self;
          avgTimePort.view.center=CGPointMake(512, 120);
@@ -529,8 +514,6 @@
              NSLog(@"移除电厂动态。。。。。");
              [self.portEfficiencyVC.view removeFromSuperview ];
          }
-      
-
          [self.avgTimePort.dc removeFromSuperview];
          self.avgTimeZXFactory=[[AvgFactoryTimeChVC alloc] init];
          avgTimeZXFactory.parentVC=self;
@@ -549,15 +532,14 @@
 #pragma mark tableview
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"listTableview  row[%d]",dataSource.data .count);
-    
-    
+   // NSLog(@"listTableview  row[%d]",dataSource.data .count);
+
 	return [dataSource.data count];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"选中行：【%d】----------------------",indexPath.row);
+   //NSLog(@"选中行：【%d】----------------------",indexPath.row);
     
     if(segment.selectedSegmentIndex==0)
     {
@@ -638,7 +620,7 @@
         for (int i=0; i<dataArray.count; i++) {
             t=t+[[(TB_Latefee *)[dataArray  objectAtIndex:i]  LATEFEE] doubleValue];
         }        
-        NSLog(@"------------------滞期费合计----------------：【%.2f】",(double)t);
+      //  NSLog(@"------------------滞期费合计----------------：【%.2f】",(double)t);
         
         
         
@@ -728,7 +710,7 @@
     int iColorRed=0;
     //NSLog(@"rowData  count %d  at %d",[dataSource.data count],indexPath.row);
     NSArray *rowData = [dataSource.data objectAtIndex:indexPath.row];
-    NSLog(@"--------------rowData。count【%d】indexPath.row[%d]",[rowData count],indexPath.row);
+   // NSLog(@"--------------rowData。count【%d】indexPath.row[%d]",[rowData count],indexPath.row);
     for(int column=0;column<[rowData count];column++){
         //第1个字段表示是否显示红色字体
         if(column==0)
@@ -750,7 +732,7 @@
             float columnWidth = [[dataSource.columnWidth objectAtIndex:column-1] floatValue];;
             UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1, 40 -1 )];
             l.font = [UIFont systemFontOfSize:14.0f];
-            NSLog(@"---------[rowData objectAtIndex:column]:[%@]",[rowData objectAtIndex:column]);
+           // NSLog(@"---------[rowData objectAtIndex:column]:[%@]",[rowData objectAtIndex:column]);
             l.text = [rowData objectAtIndex:column];
             
             l.textAlignment = UITextAlignmentCenter;
@@ -787,14 +769,14 @@
 } 
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
-    NSLog(@"popoverControllerShouldDismissPopover");
+   // NSLog(@"popoverControllerShouldDismissPopover");
     return  YES;
 }
 
 /* Called on the delegate when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.
  */
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
-    NSLog(@"popoverControllerDidDismissPopover");
+   // NSLog(@"popoverControllerDidDismissPopover");
 }
 @end
 

@@ -44,7 +44,7 @@ NSDateFormatter *formater;
 
 NSDateFormatter *formater1;
 
-int lAndF=0;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,26 +60,12 @@ int lAndF=0;
     return self;
  
 }
-
-
--(void)setlAndF:(NSInteger)LatefeeAndFactory
-{
-
-    lAndF=LatefeeAndFactory;
- 
-    NSLog(@"--------------%d",lAndF);
-
-}
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //初始化
     month=[[NSDate alloc] init];
-    NSLog(@"----------------初始化month------------------：%@",month);
     formater=[[NSDateFormatter alloc] init];
     formater1=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd"];
@@ -139,12 +125,7 @@ int lAndF=0;
         columnOffset += columnWidth;
         
     }
-
-    [dataQueryVC.listView addSubview:dataQueryVC.labelView];
-    
-
-  
-   
+    [dataQueryVC.listView addSubview:dataQueryVC.labelView]; 
     
 }
 
@@ -232,52 +213,22 @@ int lAndF=0;
 }
 
 - (IBAction)Select:(id)sender {
-    NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
-    NSLog(@"startTime:[%@]",startTime.text);
-    NSLog(@"endTime:[%@]",endTime.text);
-    
     if (![startButton .titleLabel.text isEqualToString:@"开始时间"]) {
         startTime.text=startButton.titleLabel.text;
     }
     if (![endButton .titleLabel.text isEqualToString:@"结束时间"]) {
         endTime.text=endButton.titleLabel.text;
-    }
-    NSLog(@"开始时间为：%@",startTime.text);
-    NSLog(@"结束时间为：%@",endTime.text);
-    
-    
-    
-    
+    } 
     NSAutoreleasePool *looPool=[[NSAutoreleasePool   alloc] init];
     
  
-    if (lAndF==5&&lAndF!=0) {
-        [self loadLatefeeTongjChVC];
-    }
-    if (lAndF==7&&lAndF!=0) {
-        [self loadFactoryAvgZXTimeChCV];
-    }
-   
+   [self loadLatefeeTongjChVC];
+         
    [dataQueryVC.listTableview   reloadData];
     
    [looPool drain];
 }
 
-
--(void)loadFactoryAvgZXTimeChCV
-{
-    
-    
-    
-    
-    
-
-
-
-
-
-
-}
 -(void)loadLatefeeTongjChVC
 {
 
@@ -343,36 +294,18 @@ int lAndF=0;
     for (int i=1; i<13; i++) {
         if ([allArrayKeys containsObject:[NSString stringWithFormat:@"%d",i]]) {
             allLatefee=allLatefee+[[allMonthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i] ] doubleValue];
-            
-            
             [totalArray addObject: [NSString stringWithFormat:@"%.2f",[[allMonthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i]]doubleValue]]];
         }else {
             [totalArray addObject:@""];
         }
     }
-    NSLog(@"分类:allLatefee:[%.2f]",allLatefee);
+   // NSLog(@"分类:allLatefee:[%.2f]",allLatefee);
     [totalArray addObject:[NSString stringWithFormat:@"%.2f",allLatefee]];
     [dataSource.data addObject:totalArray];
-    
-    
-    NSLog(@"-----------合计15：totalArray：【%d】",[totalArray count]);
-    NSLog(@"加载 listTableView")  ;
+   // NSLog(@"-----------合计15：totalArray：【%d】",[totalArray count]);
+   // NSLog(@"加载 listTableView")  ;
     dataQueryVC.dataSource=dataSource;
-    
-    
-    NSLog(@"--------------------dataQueryVC.dataSource.data[%d]",[dataQueryVC.dataSource.data count]);
-    
-
-
-
-
-
-
-
-
-
-
-
+  //  NSLog(@"--------------------dataQueryVC.dataSource.data[%d]",[dataQueryVC.dataSource.data count]);
 }
 
 
@@ -390,9 +323,7 @@ int lAndF=0;
 }
 - (IBAction)reload:(id)sender {
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间"  delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步", nil];
-    
     [alert show];
-    
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -441,15 +372,8 @@ int lAndF=0;
     [endTime release];
     [startButton release];
     [endButton release];
-  
     [factoryCateButton release];
     [activty release];
-    
-    //该不该释放
-    //[dataSource release];
-   // [dataQueryVC release];
-    
-    
     [xmlParser release];
     [parentVC release];
     [monthVC release];
@@ -468,11 +392,11 @@ int lAndF=0;
 {
     
     if (monthVC) {
-        NSLog(@"monthCV 不为空。。。");
+        //NSLog(@"monthCV 不为空。。。");
         self.month=monthVC.selectedDate;
     }
     
-    NSLog(@"当前picket的日期为%@",monthVC.selectedDate);
+  //  NSLog(@"当前picket的日期为%@",monthVC.selectedDate);
     return YES;
 }
 
@@ -482,13 +406,13 @@ int lAndF=0;
     [formater setDateFormat:@"yyyy-MM-dd"];
     if (whichButton==1) {
         [startButton setTitle:[formater stringFromDate:month] forState:UIControlStateNormal ];
-        NSLog(@"startButton:[%@]",[formater stringFromDate:month]);
+      //  NSLog(@"startButton:[%@]",[formater stringFromDate:month]);
         
         
         whichButton=0;
     }else if (whichButton==2) {
         [endButton setTitle:[formater stringFromDate:month] forState:UIControlStateNormal ];
-        NSLog(@"endButton:[%@]",[formater stringFromDate:month]);
+       // NSLog(@"endButton:[%@]",[formater stringFromDate:month]);
         whichButton=0;
         
     }
@@ -503,7 +427,7 @@ int lAndF=0;
 -(void)runActivity
 {
     
-    NSLog(@"runActivity-----iSoapNum-[%d]",xmlParser.iSoapNum);
+   // NSLog(@"runActivity-----iSoapNum-[%d]",xmlParser.iSoapNum);
     if (xmlParser.iSoapNum==0) {
         [activty stopAnimating];
         

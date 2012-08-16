@@ -66,10 +66,4 @@ UILabel *endTime;
 
 
 
-
-
--(void)setlAndF:(NSInteger)LatefeeAndFactory;
-
-
-
 @end

@@ -66,8 +66,6 @@ int currentMonth;
     [comp setYear:[yeas intValue]];
     NSCalendar *myCal = [[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar];
     NSDate *myDate1 = [myCal dateFromComponents:comp];
-    
-    
     self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
     [self.startButton setTitle:[NSString stringWithFormat:@"%@-01",yeas] forState:UIControlStateNormal];
     self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
@@ -92,7 +90,6 @@ int currentMonth;
         dc=[[DataGridComponent alloc ] init];
     }
     if(!dataQueryVC){
-        NSLog(@"dataQueryVC 为空。。初始......");
         //初始化 父视图
         dataQueryVC=(DataQueryVC *)self.parentVC;
     }
@@ -108,7 +105,6 @@ int currentMonth;
         source.data=[[NSMutableArray alloc] init ];
         source.columnWidth=[[NSMutableArray alloc] init ];
     }
-      NSLog(@"查询数据。。。。。。。。");
         NSMutableArray *tites=[AvgPortPTimeDao getTime:cStartTime :cEndTime];
         [source.titles addObject:@"港口"];
         [source.columnWidth addObject:@"90"];
@@ -208,8 +204,6 @@ int currentMonth;
     if (![endButton .titleLabel.text isEqualToString:@"结束时间"]) {
         endTime.text=endButton.titleLabel.text;
     }
-    NSLog(@"开始时间为：%@",startTime.text);
-    NSLog(@"结束时间为：%@",endTime.text); 
     dataQueryVC.dataArray=[[NSMutableArray  alloc] init ];
     [ self  getDateSource:self.startTime.text :self.endTime.text :1];
 }
@@ -278,17 +272,12 @@ int currentMonth;
         [f release];
     }
     if(dc){
-        
-        NSLog(@"释放port dc 视图");
-        
         [dc release];
     }
     if(source){
-           NSLog(@"释放port dc   数据源");
-        [source release];
+    [source release];
     }
     if(dataQueryVC){
-          NSLog(@"释放port 父视图");
         [dataQueryVC release];
     }
     [startTime release];
@@ -313,8 +302,6 @@ int currentMonth;
         NSLog(@"monthCV 不为空。。。");
         self.month=monthVC.selectedDate;
     }
-    
-    NSLog(@"当前picket的日期为%@",monthVC.selectedDate);
     return YES;
 }
 -(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController  
@@ -323,22 +310,16 @@ int currentMonth;
    
     if (whichButton==1) {
         [startButton setTitle:[formater stringFromDate:month] forState:UIControlStateNormal ];
-        NSLog(@"startButton:[%@]",[formater stringFromDate:month]);
-        
-        
         whichButton=0;
     }else if (whichButton==2) {
         [endButton setTitle:[formater stringFromDate:month] forState:UIControlStateNormal ];
-        NSLog(@"endButton:[%@]",[formater stringFromDate:month]);
         whichButton=0;
-        
     }
 }
 
 #pragma mark activety
 -(void)runActivity
 {
-    NSLog(@"runActivity-----iSoapNum-[%d]",xmlParser.iSoapNum);
     if (xmlParser.iSoapNum==0) {
         [activty stopAnimating];
         [activty removeFromSuperview];
