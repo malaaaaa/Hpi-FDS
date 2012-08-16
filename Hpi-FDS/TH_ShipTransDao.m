@@ -183,6 +183,25 @@ return;
 
 
 }
++(void)deleteAll
+{
+    NSLog(@"删除实体........");
+    
+    
+    char *errorMsg;
+    NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  Th_ShipTrans  "];
+    
+    
+    if (sqlite3_exec(database, [deletesql UTF8String], NULL, NULL, &errorMsg)!=SQLITE_OK) {
+        
+        NSLog(@"Error: delete Th_ShipTrans error with message [%s]  sql[%@]", errorMsg,deletesql);
+        
+    }else {
+        NSLog(@"delete success")  ;
+    }
+    return;
+   
+}
 +(NSMutableArray *)getTH_ShipTrans:(NSInteger)recid
 {
 
