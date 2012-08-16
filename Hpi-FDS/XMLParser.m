@@ -460,7 +460,7 @@ NSString* alertMsg;
     }
     iSoapDone=0;
     iSoapVbShiptransDone=1;
-    NSLog(@"开始 getTmIndexdefine");
+    NSLog(@"开始 getVbShiptrans");
     recordResults = NO;
     iSoap=7;
     NSString *soapMessage = [NSString stringWithFormat:
@@ -476,7 +476,7 @@ NSString* alertMsg;
                              "</GetShipTrans>\n"
                              "</soap12:Body>\n"
                              "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
-    NSLog(@"soapMessage[%@]",soapMessage);
+    NSLog(@"-------------------soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
     NSURL *url = [NSURL URLWithString:PubInfo.baseUrl];
@@ -2929,6 +2929,14 @@ NSString* alertMsg;
             }
             recordResults = YES;
         }
+        else if( [elementName isEqualToString:@"F_FINISHTIME"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
         else if( [elementName isEqualToString:@"ISCAL"])
         {
             if(!soapResults)
@@ -5318,7 +5326,16 @@ NSString* alertMsg;
             soapResults = nil;
             
         }
-
+        else if( [elementName isEqualToString:@"F_FINISHTIME"])
+        {
+            vbShiptrans.F_FINISHTIME = soapResults;
+              NSLog(@"-----------------------新添字段F_FINISHTIME：【%@】",vbShiptrans.F_FINISHTIME);
+            
+            
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
         else if( [elementName isEqualToString:@"ISCAL"])
         {
             vbShiptrans.iscal = soapResults;

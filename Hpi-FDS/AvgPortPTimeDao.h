@@ -18,6 +18,7 @@
 +(NSMutableArray *)getPortName:(NSString *)startTime:(NSString *)endTime ;
 
 
++(NSMutableArray *)getTime:(NSString *)startTime:(NSString *)endTime;
 
 
 

@@ -57,6 +57,7 @@
     NSInteger facSort;
     NSString *tradeTime;
     NSString *iscal;
+    NSString *F_FINISHTIME;
 }
 
 @property (nonatomic, retain) NSString *disPatchNo;
@@ -105,4 +106,7 @@
 @property NSInteger facSort;
 @property (nonatomic, retain) NSString *tradeTime;
 @property (nonatomic, retain) NSString *iscal;
+
+@property (nonatomic, retain)NSString *F_FINISHTIME;
+
 @end

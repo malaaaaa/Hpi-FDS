@@ -290,8 +290,8 @@ static  NSMutableArray *ShipCompanyArray;
 }
 
 -(void)generateGraphDate{
-    NSLog(@"_scheduleLabel=%@",_scheduleLabel.text);
-    NSLog(@"_typeLabel=%@",_typeLabel.text);
+  NSLog(@"_scheduleLabel=%@",_scheduleLabel.text);
+   NSLog(@"_typeLabel=%@",_typeLabel.text);
     NSLog(@"count=%d", [ShipCompanyArray count]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];

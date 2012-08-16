@@ -30,17 +30,13 @@
 	 */
 	NSMutableArray *columnWidth;
     
-    /**
-	 * 二层标题名称
-	 */
-	NSMutableArray *splitTitle;
+  
     
 }
 
 @property(retain) NSMutableArray *titles;
 @property(retain) NSMutableArray *data;
 @property(retain) NSMutableArray *columnWidth;
-@property(retain) NSMutableArray *splitTitle;
 
 
 @end

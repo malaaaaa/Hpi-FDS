@@ -35,7 +35,7 @@ static sqlite3	*database;
 +(void) initDb
 {	
 	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",
+	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS VbShiptrans  (dispatchNo TEXT PRIMARY KEY ",
 						 @",shipCompanyId INTEGER ",
                          @",shipCompany TEXT ",
@@ -81,7 +81,8 @@ static sqlite3	*database;
                          @",shipShift TEXT ",
                          @",facSort INTEGER ",
                          @",tradeTime TEXT  ",
-                          @",iscal TEXT )"];
+                         @",f_finishtime TEXT  ",
+                         @",iscal TEXT )"];
 	
 	if(sqlite3_exec(database,[createSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
@@ -90,13 +91,17 @@ static sqlite3	*database;
 		printf("%s",errorMsg);
 		return;
 		
-	}
+	}else{
+    
+        NSLog(@"[%@]",createSql);
+        NSLog(@"create table VbShiptrans  seccess....................");
+    }
 }
 
 +(void)insert:(VbShiptrans*) vbShiptrans
 {
 	NSLog(@"Insert begin VbShiptrans");
-	const char *insert="INSERT INTO VbShiptrans (disPatchNo,shipCompanyId,shipCompany,shipId,shipName,tripNo,factoryCode,factoryName,portCode,portName,supId,supplier,typeId,coalType,keyValue,keyName,trade,tradeName,heatValue,stage,stageName,stateCode,stateName,lw,p_AnchorageTime,p_Handle,p_ArrivalTime,p_DepartTime,p_Note,t_Note,f_AnchorageTime,f_ArrivalTime,f_DepartTime,f_Note,lateFee,offEfficiency,schedule,planType,planCode,laycanStart,laycanStop,reciept,shipShift,facSort,tradeTime,iscal) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	const char *insert="INSERT INTO VbShiptrans (disPatchNo,shipCompanyId,shipCompany,shipId,shipName,tripNo,factoryCode,factoryName,portCode,portName,supId,supplier,typeId,coalType,keyValue,keyName,trade,tradeName,heatValue,stage,stageName,stateCode,stateName,lw,p_AnchorageTime,p_Handle,p_ArrivalTime,p_DepartTime,p_Note,t_Note,f_AnchorageTime,f_ArrivalTime,f_DepartTime,f_Note,lateFee,offEfficiency,schedule,planType,planCode,laycanStart,laycanStop,reciept,shipShift,facSort,tradeTime,f_finishtime,iscal) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
 	int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
@@ -150,7 +155,7 @@ static sqlite3	*database;
     NSLog(@"shipShift=%@", vbShiptrans.shipShift);
     NSLog(@"facSort=%d", vbShiptrans.facSort);
     NSLog(@"tradeTime=%@", vbShiptrans.tradeTime);
-    
+     NSLog(@"-----------------------------------------新添字段F_FINISHTIME=%@",vbShiptrans.F_FINISHTIME);
     NSLog(@"-----------------------------------------新添字段iscal=%@",vbShiptrans.iscal);
     
 	sqlite3_bind_text(statement, 1, [vbShiptrans.disPatchNo UTF8String], -1, SQLITE_TRANSIENT);
@@ -199,7 +204,8 @@ static sqlite3	*database;
     sqlite3_bind_int(statement, 44, vbShiptrans.facSort);
     sqlite3_bind_text(statement, 45, [vbShiptrans.tradeTime UTF8String], -1, SQLITE_TRANSIENT);
     
-    sqlite3_bind_text(statement, 46, [vbShiptrans.iscal   UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, 46, [vbShiptrans.F_FINISHTIME   UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, 47, [vbShiptrans.iscal   UTF8String], -1, SQLITE_TRANSIENT);
     
 	re=sqlite3_step(statement);
 	if(re!=SQLITE_DONE)
@@ -207,7 +213,11 @@ static sqlite3	*database;
 		NSLog( @"Error: insert VbShiptrans error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
 		sqlite3_finalize(statement);
 		return;
-	}	
+	}else{
+    
+        NSLog(@"insert seccess..................");
+    
+    }
 	sqlite3_finalize(statement);
 	return;
 }
@@ -255,7 +265,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getVbShiptransBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"SELECT disPatchNo,shipCompanyId,shipCompany,shipId,shipName,tripNo,factoryCode,factoryName,portCode,portName,supId,supplier,typeId,coalType,keyValue,keyName,trade,tradeName,heatValue,stage,stageName,stateCode,stateName,lw,p_AnchorageTime,p_Handle,p_ArrivalTime,p_DepartTime,p_Note,t_Note,f_AnchorageTime,f_ArrivalTime,f_DepartTime,f_Note,lateFee,offEfficiency,schedule,planType,planCode,laycanStart,laycanStop,reciept,shipShift,facSort,tradeTime,iscal FROM  VbShiptrans WHERE %@ ",sql1];
+    NSString *sql=[NSString stringWithFormat:@"SELECT disPatchNo,shipCompanyId,shipCompany,shipId,shipName,tripNo,factoryCode,factoryName,portCode,portName,supId,supplier,typeId,coalType,keyValue,keyName,trade,tradeName,heatValue,stage,stageName,stateCode,stateName,lw,p_AnchorageTime,p_Handle,p_ArrivalTime,p_DepartTime,p_Note,t_Note,f_AnchorageTime,f_ArrivalTime,f_DepartTime,f_Note,lateFee,offEfficiency,schedule,planType,planCode,laycanStart,laycanStop,reciept,shipShift,facSort,tradeTime,f_finishtime,iscal FROM  VbShiptrans WHERE %@ ",sql1];
     NSLog(@"执行 getVbShiptransBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
@@ -500,9 +510,17 @@ static sqlite3	*database;
             
             char * rowData45=(char *)sqlite3_column_text(statement,45);
             if (rowData45 == NULL)
+                vbShiptrans.F_FINISHTIME = nil;
+            else
+                vbShiptrans.F_FINISHTIME = [NSString stringWithUTF8String: rowData45];
+
+            
+            
+            char * rowData46=(char *)sqlite3_column_text(statement,46);
+            if (rowData46 == NULL)
                 vbShiptrans.iscal = nil;
             else
-                vbShiptrans.iscal = [NSString stringWithUTF8String: rowData45];
+                vbShiptrans.iscal = [NSString stringWithUTF8String: rowData46];
 
             
 			[array addObject:vbShiptrans];

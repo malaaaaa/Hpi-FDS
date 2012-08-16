@@ -41,6 +41,7 @@
 @synthesize latefeeTj;
 
 @synthesize avgTimePort;
+@synthesize avgTimeZXFactory;
 @synthesize factoryFreightVolumeVC;
 @synthesize portEfficiencyVC;
 
@@ -155,7 +156,7 @@
     [vbFactoryTransVC release];
     [latefeeTj release];
     [avgTimePort release];
-    
+    [avgTimeZXFactory release   ];
     
     
     
@@ -251,7 +252,16 @@
     if(segment.selectedSegmentIndex==0)
     {
         NSLog(@"实时船舶查询");
-         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        if (self.portEfficiencyVC)
+        {
+            NSLog(@"移除电厂动态。。。。。");
+            [self.portEfficiencyVC.view removeFromSuperview ];
+        }
+ 
+        [self.avgTimePort.dc removeFromSuperview];
+        [self.avgTimeZXFactory.dc removeFromSuperview   ];
+        
+        
         
         CATransition *animation = [CATransition animation];
         animation.delegate = self;
@@ -296,7 +306,16 @@
     else if (segment.selectedSegmentIndex==1)
     {
         NSLog(@"船运计划");
-        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        if (self.portEfficiencyVC)
+        {
+            NSLog(@"移除电厂动态。。。。。");
+            [self.portEfficiencyVC.view removeFromSuperview ];
+        }
+        [self.avgTimePort.dc removeFromSuperview];
+        [self.avgTimeZXFactory.dc removeFromSuperview   ];
+
+
+        
 
         CATransition *animation = [CATransition animation];
         animation.delegate = self;
@@ -340,6 +359,10 @@
     }
     else if (segment.selectedSegmentIndex==2)
     {
+        [self.avgTimePort.dc removeFromSuperview];
+        [self.avgTimeZXFactory.dc removeFromSuperview   ];
+        
+        
 //        self.vbFactoryTransVC =[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil];
 //        vbFactoryTransVC.parentVC=self;
 //        //vbFactoryTransVC.view.center = CGPointMake(512, 320);
@@ -377,18 +400,29 @@
         NSLog(@"装卸港效率统计");
         
         
+        if (self.portEfficiencyVC)
+        {
+            NSLog(@"初始电厂动态。。。。。");
+           // [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        }
+        
+        
     }else if (segment.selectedSegmentIndex==3) {
         
         //在下一个   视图显示时   移除上一个   视图
       
-        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
-         [self.avgTimePort.view removeFromSuperview  ];
+        if (self.portEfficiencyVC)
+        {
+            NSLog(@"移除电厂动态。。。。。");
+            [self.portEfficiencyVC.view removeFromSuperview ];
+        }
+       
+        [self.avgTimePort.dc removeFromSuperview];
+        [self.avgTimeZXFactory.dc removeFromSuperview   ];
+
         
         
-        
-        //[self.vbShipChVC.view removeFromSuperview];
-        //[self.vbTransChVC.view removeFromSuperview  ];
-               //新添  调度日志查询
+                       //新添  调度日志查询
         self.thShipTransVC=[[TH_ShipTransChVC alloc] initWithNibName:@"TH_ShipTransChVC" bundle:nil];
         thShipTransVC.parentVC=self;
         thShipTransVC.view.center=CGPointMake(512, 120);
@@ -399,8 +433,7 @@
         
         
         
-        //[self.view addSubview:thShipTransVC.view];
-        //[self.view bringSubviewToFront:thShipTransVC.view];
+       
         
         NSLog(@"调度日志.............");
         
@@ -408,15 +441,18 @@
     }
     //新添 滞期费查询
     else if (segment.selectedSegmentIndex==4) {
-         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
-         [self.avgTimePort.view removeFromSuperview  ];
+        if (self.portEfficiencyVC)
+        {
+            NSLog(@"移除电厂动态。。。。。");
+            [self.portEfficiencyVC.view removeFromSuperview ];
+        }
+       
+
+        [self.avgTimePort.dc removeFromSuperview];
+        [self.avgTimeZXFactory.dc removeFromSuperview   ];
+
         
-        
-        
-        
-       // [self.vbFactoryTransVC.view removeFromSuperview ];
-        //[self.vbShipChVC.view removeFromSuperview];
-        //[self.vbTransChVC.view removeFromSuperview  ];
+       
         
         self.tblatefeeVC=[[TB_LatefeeChVC alloc] init];
         tblatefeeVC.parentVC=self;
@@ -438,70 +474,75 @@
     //滞期费  统计
     else if (segment.selectedSegmentIndex==5) {
         
-        [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+        if (self.portEfficiencyVC)
+        {
+            NSLog(@"移除电厂动态。。。。。");
+            [self.portEfficiencyVC.view removeFromSuperview ];
+        }
         
-        [self.avgTimePort.view removeFromSuperview  ];
-        
-        
+       
+        [self.avgTimePort.dc removeFromSuperview];
+        [self.avgTimeZXFactory.dc removeFromSuperview   ];
+
         
         
         
         self.latefeeTj=[[NT_LatefeeTongjChVC alloc] init];
         latefeeTj.parentVC=self;
         
+        
+        
+        [latefeeTj  setlAndF:5];
+        
         latefeeTj.view.center=CGPointMake(512, 120);
         latefeeTj.view.frame=CGRectMake(0, 0, 1024, 180);
-        
         [self.chooseView addSubview:latefeeTj.view];
-        
-        self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
-        
+        self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];     
         NSLog(@"滞期费统计查询.............");
-        
-        
-        
-        
-        
-        
     }
     //港口平均装港时间统计
     
      else if (segment.selectedSegmentIndex==6) {
-         
-         [self.shipCompanyTrnasShareVC.view removeFromSuperview ];
+         if (self.portEfficiencyVC)
+         {
+             NSLog(@"移除电厂动态。。。。。");
+          [self.portEfficiencyVC.view removeFromSuperview ];
+         }
         
+   
+         [self.avgTimeZXFactory.dc removeFromSuperview   ];
          
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-        
-         
-                  
          
          self.avgTimePort=[[AvgPortPTimeChVC alloc] init];
          avgTimePort.parentVC=self;
          avgTimePort.view.center=CGPointMake(512, 120);
          avgTimePort.view.frame=CGRectMake(0, 0, 1024, 180);
-
          [self.chooseView addSubview:avgTimePort.view];
          self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
-         
-         NSLog(@"港口平均装港时间统计查询.............");
-                 
+         NSLog(@"港口平均装港时间统计查询............."); 
      }
     
-    
-    
-    
+    //电厂平均装卸港时间统计
+     else if (segment.selectedSegmentIndex==7){
+         if (self.portEfficiencyVC)
+         {
+             NSLog(@"移除电厂动态。。。。。");
+             [self.portEfficiencyVC.view removeFromSuperview ];
+         }
+      
 
+         [self.avgTimePort.dc removeFromSuperview];
+         self.avgTimeZXFactory=[[AvgFactoryTimeChVC alloc] init];
+         avgTimeZXFactory.parentVC=self;
+         avgTimeZXFactory.view.center=CGPointMake(512, 120);
+         
+         avgTimeZXFactory.view.frame=CGRectMake(0, 0, 1024, 180);
+
+         [self.chooseView addSubview:avgTimeZXFactory.view];
+
+          self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+          NSLog(@"电厂平均装卸港时间统计.............");
+     }
 }
 
 #pragma mark -

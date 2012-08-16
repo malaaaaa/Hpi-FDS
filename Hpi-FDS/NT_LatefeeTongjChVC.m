@@ -8,6 +8,7 @@
 
 #import "NT_LatefeeTongjChVC.h"
 #import "DataQueryVC.h"
+#import "AvgFactoryZXTimeDao.h"
 
 
 @interface NT_LatefeeTongjChVC ()
@@ -43,16 +44,35 @@ NSDateFormatter *formater;
 
 NSDateFormatter *formater1;
 
-
+int lAndF=0;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]; 
     if (self) {
         // Custom initialization
+           
+        
+         
     }
+    
+    
     return self;
+ 
 }
+
+
+-(void)setlAndF:(NSInteger)LatefeeAndFactory
+{
+
+    lAndF=LatefeeAndFactory;
+ 
+    NSLog(@"--------------%d",lAndF);
+
+}
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -223,58 +243,95 @@ NSDateFormatter *formater1;
         endTime.text=endButton.titleLabel.text;
     }
     NSLog(@"开始时间为：%@",startTime.text);
-    NSLog(@"结束时间为：%@",endTime.text); 
+    NSLog(@"结束时间为：%@",endTime.text);
+    
+    
+    
+    
     NSAutoreleasePool *looPool=[[NSAutoreleasePool   alloc] init];
-    //没用 
+    
+ 
+    if (lAndF==5&&lAndF!=0) {
+        [self loadLatefeeTongjChVC];
+    }
+    if (lAndF==7&&lAndF!=0) {
+        [self loadFactoryAvgZXTimeChCV];
+    }
+   
+   [dataQueryVC.listTableview   reloadData];
+    
+   [looPool drain];
+}
+
+
+-(void)loadFactoryAvgZXTimeChCV
+{
+    
+    
+    
+    
+    
+
+
+
+
+
+
+}
+-(void)loadLatefeeTongjChVC
+{
+
+    //没用
     dataQueryVC.dataArray=[NT_LatefeeTongjDao getNT_LatefeeTongj:factoryCateLable.text :startTime.text :endTime.text];
+    
     NSLog(@"获得NT_LatefeeTongj[%d]",dataQueryVC.dataArray.count);
     //获得所有  不重复的额的电厂名   根据条件
     NSMutableArray *nameArray=[NT_LatefeeTongjDao getFactoryName:factoryCateLable.text:startTime.text :endTime.text];
     NSLog(@"获得电厂名【%d】",[nameArray count]);
-     dataSource.data=[[NSMutableArray alloc] init];
+    dataSource.data=[[NSMutableArray alloc] init];
     for (int i=0; i<[nameArray  count ]; i++) {
         
-         NSMutableArray *dateArray=[[NSMutableArray   alloc] init];
-         [dateArray addObject:@"3"]; 
-         [dateArray addObject:[NSString stringWithFormat:@"%@",[nameArray objectAtIndex:i]]];   
-            
-            NSMutableDictionary *monthAndLatefee=[NT_LatefeeTongjDao getMonthAndLatefee:@"factory":[nameArray objectAtIndex:i]:startTime.text:endTime.text ];
-            NSLog(@"根据电厂名 和时间得到    该电厂【%@】的费用和月份",[nameArray objectAtIndex:i]);
-            
-          NSMutableArray *arrayKeys=[[  NSMutableArray alloc] init];
-            for (NSObject* t in [monthAndLatefee keyEnumerator]) {
-                [arrayKeys addObject:t];
+        NSMutableArray *dateArray=[[NSMutableArray   alloc] init];
+        [dateArray addObject:@"3"];
+        [dateArray addObject:[NSString stringWithFormat:@"%@",[nameArray objectAtIndex:i]]];
+        
+        NSMutableDictionary *monthAndLatefee=[NT_LatefeeTongjDao getMonthAndLatefee:@"factory":[nameArray objectAtIndex:i]:startTime.text:endTime.text ];
+        NSLog(@"根据电厂名 和时间得到    该电厂【%@】的费用和月份",[nameArray objectAtIndex:i]);
+        
+        NSMutableArray *arrayKeys=[[  NSMutableArray alloc] init];
+        for (NSObject* t in [monthAndLatefee keyEnumerator]) {
+            [arrayKeys addObject:t];
+        }
+        double latefee=0;
+        for (int i=1; i<13; i++) {
+            if ([arrayKeys containsObject:[NSString stringWithFormat:@"%d",i]]) {
+                
+                latefee=latefee+[[monthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i]] doubleValue];
+                
+                [dateArray addObject: [NSString stringWithFormat:@"%.2f",[[monthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i]] doubleValue]]];
+            }else {
+                [dateArray addObject:@""];
             }
-         double latefee=0;
-         for (int i=1; i<13; i++) {
-             if ([arrayKeys containsObject:[NSString stringWithFormat:@"%d",i]]) {
-                       
-                 latefee=latefee+[[monthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i]] doubleValue];
-                 
-                 [dateArray addObject: [NSString stringWithFormat:@"%.2f",[[monthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i]] doubleValue]]];
-             }else {
-                  [dateArray addObject:@""];
-             }
-           }
+        }
         
         
-            NSLog(@"电厂：latefee【%.2f】",latefee);
-         [dateArray addObject:[NSString stringWithFormat:@"%.2f",latefee]];
-            NSLog(@"------------电厂：dateArray15:%d",[dateArray count]);
-         [dataSource.data addObject:dateArray]; 
+        NSLog(@"电厂：latefee【%.2f】",latefee);
+        [dateArray addObject:[NSString stringWithFormat:@"%.2f",latefee]];
+        NSLog(@"------------电厂：dateArray15:%d",[dateArray count]);
+        [dataSource.data addObject:dateArray];
         
-       // [dateArray release];
+        // [dateArray release];
         //[monthAndLatefee release];
         //[arrayKeys release];
-     }
+    }
     //[nameArray release];
-
+    
     //最后一行总计
     NSMutableArray *totalArray=[[NSMutableArray alloc] init];
     [totalArray  addObject:@"3"];
     [totalArray addObject:@"总计"];
     double  allLatefee=0;
-    //根据分类 来得到所有的  费用和月份   分组后的 
+    //根据分类 来得到所有的  费用和月份   分组后的
     NSMutableDictionary  *allMonthAndLatefee=[NT_LatefeeTongjDao getMonthAndLatefee:@"cate":factoryCateLable.text:startTime.text :endTime.text ];
     NSMutableArray *allArrayKeys=[[  NSMutableArray alloc] init];
     for (NSObject* t in [allMonthAndLatefee keyEnumerator]) {
@@ -284,14 +341,14 @@ NSDateFormatter *formater1;
     }
     NSLog(@"根据分类【%@】获得allMonthAndLatefee【%d】",factoryCateLable.text,[allMonthAndLatefee count]);
     for (int i=1; i<13; i++) {
-        if ([allArrayKeys containsObject:[NSString stringWithFormat:@"%d",i]]) {          
-                allLatefee=allLatefee+[[allMonthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i] ] doubleValue];
+        if ([allArrayKeys containsObject:[NSString stringWithFormat:@"%d",i]]) {
+            allLatefee=allLatefee+[[allMonthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i] ] doubleValue];
             
             
-                [totalArray addObject: [NSString stringWithFormat:@"%.2f",[[allMonthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i]]doubleValue]]];
-            }else {
-                [totalArray addObject:@""];
-            }
+            [totalArray addObject: [NSString stringWithFormat:@"%.2f",[[allMonthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i]]doubleValue]]];
+        }else {
+            [totalArray addObject:@""];
+        }
     }
     NSLog(@"分类:allLatefee:[%.2f]",allLatefee);
     [totalArray addObject:[NSString stringWithFormat:@"%.2f",allLatefee]];
@@ -299,17 +356,25 @@ NSDateFormatter *formater1;
     
     
     NSLog(@"-----------合计15：totalArray：【%d】",[totalArray count]);
-     NSLog(@"加载 listTableView")  ;
-     dataQueryVC.dataSource=dataSource;
+    NSLog(@"加载 listTableView")  ;
+    dataQueryVC.dataSource=dataSource;
+    
+    
     NSLog(@"--------------------dataQueryVC.dataSource.data[%d]",[dataQueryVC.dataSource.data count]);
-    //[dataSource.data release];
-    //[totalArray release];
-    //[allArrayKeys release];
-    //[allMonthAndLatefee release];
+    
 
-    [dataQueryVC.listTableview   reloadData];
-   [looPool drain];
+
+
+
+
+
+
+
+
+
+
 }
+
 
 - (IBAction)release:(id)sender {
     self.factoryCateLable.text=All_;

@@ -25,7 +25,7 @@
 #import "FactoryFreightVolumeVC.h"
 #import "PortEfficiencyVC.h"
 
-
+#import "AvgFactoryTimeChVC.h"
 @class VBFactoryTransVC;
 
 @interface DataQueryVC : UIViewController<UITableViewDataSource,UITabBarDelegate,UIPopoverControllerDelegate>
@@ -46,7 +46,7 @@
     NT_LatefeeTongjChVC *latefeeTj;
     
     AvgPortPTimeChVC *avgTimePort;
-    
+    AvgFactoryTimeChVC *avgTimeZXFactory;
     
     
     DataGridComponentDataSource *dataSource;
@@ -79,6 +79,9 @@
 
  @property (nonatomic,retain)NT_LatefeeTongjChVC *latefeeTj;
    @property (nonatomic,retain) AvgPortPTimeChVC *avgTimePort;
+
+  @property (nonatomic,retain) AvgFactoryTimeChVC *avgTimeZXFactory;
+
 
 @property (nonatomic,retain) UITableView *listTableview;
 @property (nonatomic,retain) UIPopoverController* popover;

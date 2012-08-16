@@ -194,9 +194,12 @@
 		2AA44B3215D10D05007B499B /* TfPortDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B3115D10D03007B499B /* TfPortDao.m */; };
 		2AA44B3B15D11985007B499B /* AvgPortPTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B3915D11985007B499B /* AvgPortPTimeChVC.m */; };
 		2AA44B3C15D11985007B499B /* AvgPortPTimeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */; };
+		2AB1A0E115DB53A400EEA466 /* MultiTitleDataGridComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1A0E015DB53A400EEA466 /* MultiTitleDataGridComponent.m */; };
+		2ACA24AC15D88E440016812A /* AvgFactoryZXTimeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA24AB15D88E440016812A /* AvgFactoryZXTimeDao.m */; };
 		2AD84EA115B91B2B00D91111 /* TH_ShipTransChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */; };
 		2AD84EA215B91B2B00D91111 /* TH_ShipTransChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */; };
-		D32C48E715CA5F720034B454 /* MultiTitleDataGridComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = D32C48E615CA5F720034B454 /* MultiTitleDataGridComponent.m */; };
+		2ADAEF5515D4F4EB0028C72D /* AvgFactoryTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADAEF5315D4F4EB0028C72D /* AvgFactoryTimeChVC.m */; };
+		2ADAEF5615D4F4EB0028C72D /* AvgFactoryTimeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ADAEF5415D4F4EB0028C72D /* AvgFactoryTimeChVC.xib */; };
 		D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */; };
 		D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */; };
 		D35CFE4715D1EB13005FAA17 /* PortEfficiency.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */; };
@@ -561,11 +564,16 @@
 		2AA44B3815D11985007B499B /* AvgPortPTimeChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgPortPTimeChVC.h; sourceTree = "<group>"; };
 		2AA44B3915D11985007B499B /* AvgPortPTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgPortPTimeChVC.m; sourceTree = "<group>"; };
 		2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvgPortPTimeChVC.xib; sourceTree = "<group>"; };
+		2AB1A0DF15DB53A400EEA466 /* MultiTitleDataGridComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiTitleDataGridComponent.h; path = PowerPlot_lib/MultiTitleDataGridComponent.h; sourceTree = "<group>"; };
+		2AB1A0E015DB53A400EEA466 /* MultiTitleDataGridComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultiTitleDataGridComponent.m; path = PowerPlot_lib/MultiTitleDataGridComponent.m; sourceTree = "<group>"; };
+		2ACA24AA15D88E440016812A /* AvgFactoryZXTimeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgFactoryZXTimeDao.h; sourceTree = "<group>"; };
+		2ACA24AB15D88E440016812A /* AvgFactoryZXTimeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryZXTimeDao.m; sourceTree = "<group>"; };
 		2AD84E9E15B91B2B00D91111 /* TH_ShipTransChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransChVC.h; sourceTree = "<group>"; };
 		2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransChVC.m; sourceTree = "<group>"; };
 		2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TH_ShipTransChVC.xib; sourceTree = "<group>"; };
-		D32C48E515CA5F710034B454 /* MultiTitleDataGridComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTitleDataGridComponent.h; sourceTree = "<group>"; };
-		D32C48E615CA5F720034B454 /* MultiTitleDataGridComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiTitleDataGridComponent.m; sourceTree = "<group>"; };
+		2ADAEF5215D4F4EB0028C72D /* AvgFactoryTimeChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgFactoryTimeChVC.h; sourceTree = "<group>"; };
+		2ADAEF5315D4F4EB0028C72D /* AvgFactoryTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryTimeChVC.m; sourceTree = "<group>"; };
+		2ADAEF5415D4F4EB0028C72D /* AvgFactoryTimeChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvgFactoryTimeChVC.xib; sourceTree = "<group>"; };
 		D35ACFE215C7D84100F53AAD /* FactoryFreightVolumeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryFreightVolumeVC.h; sourceTree = "<group>"; };
 		D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryFreightVolumeVC.m; sourceTree = "<group>"; };
 		D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FactoryFreightVolumeVC.xib; sourceTree = "<group>"; };
@@ -864,6 +872,7 @@
 		057F6C5C152449EA00E0E435 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				2ADAEF5415D4F4EB0028C72D /* AvgFactoryTimeChVC.xib */,
 				2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */,
 				2A8F1F5115CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib */,
 				2A25AB1415C67CD3008500B5 /* TB_LatefeeChDial.xib */,
@@ -981,9 +990,9 @@
 		059A1B911525510500AB24C4 /* Pub */ = {
 			isa = PBXGroup;
 			children = (
+				2AB1A0DF15DB53A400EEA466 /* MultiTitleDataGridComponent.h */,
+				2AB1A0E015DB53A400EEA466 /* MultiTitleDataGridComponent.m */,
 				D3A06DDD15D0E74C00963BA2 /* PowerPlot_lib */,
-				D32C48E515CA5F710034B454 /* MultiTitleDataGridComponent.h */,
-				D32C48E615CA5F720034B454 /* MultiTitleDataGridComponent.m */,
 				059A1BA8152551D600AB24C4 /* Http */,
 				059A1BD7152556A500AB24C4 /* PubInfo.h */,
 				059A1BD8152556A500AB24C4 /* PubInfo.m */,
@@ -1115,6 +1124,8 @@
 				D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */,
 				D35CFE4515D1EB13005FAA17 /* PortEfficiency.h */,
 				D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */,
+				2ACA24AA15D88E440016812A /* AvgFactoryZXTimeDao.h */,
+				2ACA24AB15D88E440016812A /* AvgFactoryZXTimeDao.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -1229,6 +1240,8 @@
 				D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */,
 				D3A06E7215D0E93300963BA2 /* PortEfficiencyVC.h */,
 				D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */,
+				2ADAEF5215D4F4EB0028C72D /* AvgFactoryTimeChVC.h */,
+				2ADAEF5315D4F4EB0028C72D /* AvgFactoryTimeChVC.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1511,6 +1524,7 @@
 				D378812D15C65B3E0033FB88 /* BrokenLineLegendVC.xib in Resources */,
 				D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */,
 				D3A06E7615D0E93500963BA2 /* PortEfficiencyVC.xib in Resources */,
+				2ADAEF5615D4F4EB0028C72D /* AvgFactoryTimeChVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1636,7 +1650,6 @@
 				D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */,
 				D37A3E1215C902E7002B48F8 /* NTFactoryFreightVolume.m in Sources */,
 				D37A3E1615C90318002B48F8 /* NTFactoryFreightVolumeDao.m in Sources */,
-				D32C48E715CA5F720034B454 /* MultiTitleDataGridComponent.m in Sources */,
 				D3A06E4615D0E74C00963BA2 /* NAArrow.c in Sources */,
 				D3A06E4715D0E74C00963BA2 /* NABezierControlPoints.c in Sources */,
 				D3A06E4815D0E74C00963BA2 /* NADashing.c in Sources */,
@@ -1683,6 +1696,9 @@
 				D3A06E7115D0E74C00963BA2 /* WSView.m in Sources */,
 				D3A06E7515D0E93500963BA2 /* PortEfficiencyVC.m in Sources */,
 				D35CFE4715D1EB13005FAA17 /* PortEfficiency.m in Sources */,
+				2ADAEF5515D4F4EB0028C72D /* AvgFactoryTimeChVC.m in Sources */,
+				2ACA24AC15D88E440016812A /* AvgFactoryZXTimeDao.m in Sources */,
+				2AB1A0E115DB53A400EEA466 /* MultiTitleDataGridComponent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

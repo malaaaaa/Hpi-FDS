@@ -1,48 +1,51 @@
 //
-//  AvgPortPTimeChVC.h
+//  AvgFactoryTimeChVC.h
 //  Hpi-FDS
 //
-//  Created by bin tang on 12-8-7.
+//  Created by tang bin on 12-8-10.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "ChooseView.h"
-#import "PubInfo.h"
-#import "DataGridComponent.h"
+#import "MultiTitleDataGridComponent.h"
 #import "DateViewController.h"
 #import "XMLParser.h"
 #import "ChooseViewDelegate.h"
-@interface AvgPortPTimeChVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>
+#import "ChooseView.h"
+#import "PubInfo.h"
+@interface AvgFactoryTimeChVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>
 {
+
     UIPopoverController *popover;
+    UIButton *factoryCateButton;
+    UILabel *factoryCateLable;
     UIButton *startButton;
     UILabel *startTime;
     UIButton *endButton;
     UILabel *endTime;
-
-DataGridComponent     *dc;
-
     UIActivityIndicatorView *activty;
     UIButton *reload;
     
     ChooseView *chooseView;
     
-    DateViewController *monthVC; 
+    DateViewController *monthVC;
     
     id parentVC;
     XMLParser *xmlParser;
     NSDate *month;
 
+MultiTitleDataGridComponent     *dc;
+
+
+
 
 
 }
-@property (retain, nonatomic)DataGridComponent     *dc;
-
+@property (retain, nonatomic)MultiTitleDataGridComponent     *dc;
 @property (retain, nonatomic)NSDate *month;
 @property (retain, nonatomic) XMLParser *xmlParser;
 
-@property (retain, nonatomic) id parentVC;  
+@property (retain, nonatomic) id parentVC;
 
 @property (retain, nonatomic) DateViewController *monthVC;
 
@@ -51,6 +54,9 @@ DataGridComponent     *dc;
 @property (retain, nonatomic)UIPopoverController *popover;
 
 @property (retain, nonatomic)  IBOutlet UIButton *reload;
+@property (retain, nonatomic) IBOutlet UIButton *factoryCateButton;
+
+@property (retain, nonatomic) IBOutlet UILabel *factoryCateLable;
 @property (retain, nonatomic) IBOutlet UIButton *startButton;
 
 @property (retain, nonatomic) IBOutlet UILabel *startTime;

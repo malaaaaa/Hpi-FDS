@@ -13,6 +13,10 @@
 #import "NT_LatefeeTongjDao.h"
 #import "TfPortDao.h"
 
+#import "AvgFactoryZXTimeDao.h"
+
+#import "AvgPortPTimeDao.h"
+
 @implementation PubInfo
 static NSString *hostName = @"http://10.2.17.121";     //http://172.16.1.16:84
 static NSString *port = @":82";                  //:82
@@ -81,9 +85,11 @@ static NSString *deviceID;
     [TfPortDao openDataBase];
     [TfPortDao initDb];
     
+    //港口平均装港时间统计
+    [AvgPortPTimeDao openDataBase];
     
-    
-    
+    //电厂平均装卸港时间
+    [AvgFactoryZXTimeDao openDataBase];
     
     
     

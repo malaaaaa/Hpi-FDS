@@ -32,14 +32,14 @@
 @end
 
 @implementation DataGridComponentDataSource
-@synthesize titles,data,columnWidth,splitTitle;
+@synthesize titles,data,columnWidth;
 
 - (void) dealloc
 {
     [data release];
     [titles release];
     [columnWidth release];
-    [splitTitle release];
+  
 	[super dealloc];
 }
 

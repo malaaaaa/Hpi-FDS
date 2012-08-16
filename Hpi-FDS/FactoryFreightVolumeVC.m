@@ -306,7 +306,7 @@
 -(void)loadViewData
 {
     int i;
-    DataGridComponentDataSource *ds = [[DataGridComponentDataSource alloc] init];
+    MultiTitleDataSource *ds = [[MultiTitleDataSource alloc] init];
    
     NSMutableArray *factoryArray = [NTFactoryFreightVolumeDao getFactoryFromTmpNTFactoryFreightVolume];
     NSMutableArray *tradetimeArray = [NTFactoryFreightVolumeDao getTradeTimeFromTmpNTFactoryFreightVolume];
@@ -314,8 +314,8 @@
     
     ds.columnWidth = [[NSMutableArray alloc] init];
     [ds.columnWidth addObject:@"120"];
-    for (i=0; i<[ds.titles count]*2; i++) {
-        [ds.columnWidth addObject:@"60"];
+    for (i=1; i<[ds.titles count]; i++) {
+        [ds.columnWidth addObject:@"120"];
     }
     ds.data = [NTFactoryFreightVolumeDao getAllDataByTradeTime:tradetimeArray Factory:factoryArray];
     ds.splitTitle = [NSArray arrayWithObjects:@"运量",@"航次",nil];

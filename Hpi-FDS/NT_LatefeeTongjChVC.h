@@ -6,13 +6,14 @@
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <UIKit/UIKit.h> 
 #import "ChooseView.h"
 #import "PubInfo.h"
 #import "DataGridComponent.h"
 #import "DateViewController.h"
 #import "XMLParser.h"
 #import "ChooseViewDelegate.h"
+#import "MultiTitleDataGridComponent.h"
 
 @interface NT_LatefeeTongjChVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>
 {
@@ -67,7 +68,7 @@ UILabel *endTime;
 
 
 
-
+-(void)setlAndF:(NSInteger)LatefeeAndFactory;
 
 
 
