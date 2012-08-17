@@ -15,6 +15,7 @@
 #import "DataGridComponent.h"
 #import "DateViewController.h"
 #import "ChooseViewDelegate.h"
+#import "TBXMLParser.h"
 
 
 @interface VBFactoryTransVC : UIViewController<UITableViewDataSource,UIPopoverControllerDelegate,ChooseViewDelegate,UISplitViewControllerDelegate>{
@@ -53,6 +54,7 @@
     NSMutableArray  *detailArray;
     VBFactoryTransDetailVC *factorytransDeitail;
     NSMutableArray  *listArray;
+    TBXMLParser *tbxmlParser;
 }
 
 - (IBAction)factoryAction:(id)sender;
@@ -105,5 +107,7 @@
 @property (nonatomic,retain) NSMutableArray *detailArray;
 @property (nonatomic,retain) NSMutableArray *listArray;
 @property (nonatomic,retain) VBFactoryTransDetailVC    *factorytransDeitail;
+@property (retain, nonatomic) TBXMLParser *tbxmlParser;
+
 
 @end

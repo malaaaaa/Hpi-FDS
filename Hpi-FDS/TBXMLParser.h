@@ -16,6 +16,11 @@
     TBXML * tbxml;
 
 }
-- (void)getVbFactoryTrans;
+- (void)requestSOAP:(NSString *)identification;
+-(NSInteger)iSoapNum;
+-(NSInteger)iSoapDone;
+-(void)setISoapNum:(NSInteger)theNum;
+-(void)parseXML;
+
 
 @end

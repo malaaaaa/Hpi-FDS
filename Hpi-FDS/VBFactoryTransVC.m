@@ -48,6 +48,7 @@
 @synthesize listView;
 @synthesize startDateCV;
 @synthesize startDay;
+@synthesize tbxmlParser;
 
 static DataGridComponentDataSource *dataSource;
 static BOOL FactoryPop=NO;
@@ -98,6 +99,8 @@ static  NSMutableArray *ShipStageArray;
     self.typeLabel.hidden=YES;
     [activity removeFromSuperview];
     self.xmlParser=[[XMLParser alloc]init];
+    
+      self.tbxmlParser =[[TBXMLParser alloc] init];
     
     //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -198,6 +201,7 @@ static  NSMutableArray *ShipStageArray;
     [self setActivity:nil];
     xmlParser=nil;
     [xmlParser release];
+    self.tbxmlParser=nil;
     
 }
 
@@ -247,7 +251,7 @@ static  NSMutableArray *ShipStageArray;
     if (ShipStagePop==YES) {
         [ShipStageArray release];
     }
-    
+    self.tbxmlParser=nil;
 }
 
 -(IBAction)startDate:(id)sender
@@ -625,6 +629,8 @@ static  NSMutableArray *ShipStageArray;
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
         [xmlParser setISoapNum:1];
+        [tbxmlParser setISoapNum:1];
+
 //        [xmlParser getTfFactory];
 //        [xmlParser getTbFactoryState];
 //        [VbFactoryTransDao   deleteAll];
@@ -633,7 +639,6 @@ static  NSMutableArray *ShipStageArray;
 //        [xmlParser getTfSupplier];
 //        [xmlParser getTfCoalType];
 //        [xmlParser getTsShipStage];
-        
         
         
         [TfCoalTypeDao deleteAll];
@@ -658,6 +663,9 @@ static  NSMutableArray *ShipStageArray;
         [xmlParser getTmIndexdefine];
         [TmIndextypeDao deleteAll];
         [xmlParser getTmIndextype];
+//        [tbxmlParser requestSOAP:@"ThShipTrans"];
+        [tbxmlParser requestSOAP:@"FactoryTrans"];
+
         
         [self runActivity];
     }
@@ -764,7 +772,8 @@ static  NSMutableArray *ShipStageArray;
 #pragma mark activity
 -(void)runActivity
 {
-    if ([xmlParser iSoapNum]==0) {
+    if ([tbxmlParser iSoapNum]==0) {
+        NSLog(@"sopanum=%d",[tbxmlParser iSoapNum]);
         [activity stopAnimating];
         [activity removeFromSuperview];
         [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
