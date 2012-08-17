@@ -102,7 +102,7 @@ sqlite3_bind_text(statement,6, [tfprot.NATIONALTYPE UTF8String], -1,SQLITE_TRANS
         return;
         
     }else {
-        NSLog(@"insert  TF_Port  SUCCESS");
+//        NSLog(@"insert  TF_Port  SUCCESS");
     }
     sqlite3_finalize(statement);
     return;

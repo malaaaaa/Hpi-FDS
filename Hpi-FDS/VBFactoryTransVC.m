@@ -628,8 +628,8 @@ static  NSMutableArray *ShipStageArray;
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:1];
-        [tbxmlParser setISoapNum:1];
+//        [xmlParser setISoapNum:1];
+        [tbxmlParser setISoapNum:2];
 
 //        [xmlParser getTfFactory];
 //        [xmlParser getTbFactoryState];
@@ -640,30 +640,7 @@ static  NSMutableArray *ShipStageArray;
 //        [xmlParser getTfCoalType];
 //        [xmlParser getTsShipStage];
         
-        
-        [TfCoalTypeDao deleteAll];
-        [xmlParser getTfCoalType];
-        [TfFactoryDao deleteAll];
-        [xmlParser getTfFactory];
-        [TfPortDao deleteAll];
-        [xmlParser getTfPort];
-        [TfShipCompanyDao deleteAll];
-        [xmlParser getTfShipCompany];
-        [TfSupplierDao deleteAll];
-        [xmlParser getTfSupplier];
-        [TsShipStageDao deleteAll];
-        [xmlParser getTsShipStage];
-        [TgFactoryDao deleteAll];
-        [xmlParser getTgFactory];
-        [TgPortDao deleteAll];
-        [xmlParser getTgPort];
-        [TgShipDao deleteAll];
-        [xmlParser getTgShip];
-        [TmIndexdefineDao deleteAll];
-        [xmlParser getTmIndexdefine];
-        [TmIndextypeDao deleteAll];
-        [xmlParser getTmIndextype];
-//        [tbxmlParser requestSOAP:@"ThShipTrans"];
+        [tbxmlParser requestSOAP:@"FactoryState"];
         [tbxmlParser requestSOAP:@"FactoryTrans"];
 
         

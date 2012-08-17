@@ -354,7 +354,7 @@
         [xmlParser setISoapNum:1];
         [xmlParser getVbTransplan];
         //同步煤种
-        [xmlParser getTfCoalType];
+//        [xmlParser getTfCoalType];
         
         [self runActivity];
     }

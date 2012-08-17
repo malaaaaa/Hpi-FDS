@@ -19,4 +19,6 @@
 +(void) delete:(TbFactoryState*) tbFactoryState;
 +(NSMutableArray *) getTbFactoryState:(NSString *)factoryCode;
 +(NSMutableArray *) getTbFactoryStateBySql:(NSString *)sql;
++(void) deleteAll;
+
 @end

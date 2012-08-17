@@ -549,10 +549,10 @@ static int  whichButton=0;
         [xmlParser getTBLateFee];
         //港口
          //[xmlParser getTgPort];
-        [xmlParser getTfCoalType    ];
-        [xmlParser  getTfFactory];   
-        [xmlParser getTgShip    ];
-        [xmlParser   getTfSupplier  ];
+//        [xmlParser getTfCoalType    ];
+//        [xmlParser  getTfFactory];   
+//        [xmlParser getTgShip    ];
+//        [xmlParser   getTfSupplier  ];
         //状态
         [self runActivity];
     }

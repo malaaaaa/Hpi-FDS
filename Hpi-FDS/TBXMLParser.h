@@ -14,8 +14,10 @@
     NSMutableData *webData;
     NSMutableString *soapResults;
     TBXML * tbxml;
+     NSString *_Identification;
 
 }
+@property(nonatomic,copy) NSString *Identification;
 - (void)requestSOAP:(NSString *)identification;
 -(NSInteger)iSoapNum;
 -(NSInteger)iSoapDone;

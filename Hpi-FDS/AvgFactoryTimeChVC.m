@@ -319,7 +319,7 @@ NSDateFormatter *f;
         //解析入库
         [xmlParser setISoapNum:1];
         
-        [xmlParser getTfFactory];
+//        [xmlParser getTfFactory];
         [xmlParser getVbShiptrans];
         
         

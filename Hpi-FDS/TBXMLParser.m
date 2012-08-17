@@ -9,19 +9,23 @@
 #import "TBXMLParser.h"
 
 @implementation TBXMLParser
+@synthesize Identification=_Identification;
+
 static int iSoapDone=1; //1未开始 0进行中 3出错
 static int iSoapNum=0;
 static NSString *version = @"V1.2";
 static sqlite3  *database;
-static NSString *Identification;
 UIAlertView *alert;
 NSString* alertMsg;
 
 
 - (void)requestSOAP:(NSString *)identification
 {
-    Identification=identification;
     
+    self.Identification=identification;
+    NSLog(@"id=%@",self.Identification);
+    NSLog(@"id2=%@",_Identification);
+
     //出错
     if (iSoapDone==3) {
         NSLog(@"ddd");
@@ -45,7 +49,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</Get%@Info>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",Identification,PubInfo.deviceID,version,PubInfo.currTime,Identification];
+                             "</soap12:Envelope>\n",_Identification,PubInfo.deviceID,version,PubInfo.currTime,_Identification];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -116,13 +120,22 @@ NSString* alertMsg;
     [connection release];
     [webData release];
 }
+/*!
+ @method parseXML
+ @author 马文培
+ @version 1.0
+ @abstract TBXML方式解析，批量写入数据库
+ @discussion 用法
+ @param 参数说明
+ @result 返回结果
+ */
 -(void)parseXML
 {
     //    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
     //    NSLog(@"theXML[%@]",theXML);
     //    [theXML release];
-    NSString *elementString1= [NSString stringWithFormat:@"Get%@InfoResult",Identification];
-    NSString *elementString2= [NSString stringWithFormat:@"Get%@InfoResponse",Identification];
+    NSString *elementString1= [NSString stringWithFormat:@"Get%@InfoResult",_Identification];
+    NSString *elementString2= [NSString stringWithFormat:@"Get%@InfoResponse",_Identification];
     
     char *errorMsg;
     NSLog(@"start Parser");
@@ -146,7 +159,7 @@ NSString* alertMsg;
             TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
             
             /****************************调度日志**************************/
-            if ([Identification isEqualToString:@"ThShipTrans"]) {
+            if ([_Identification isEqualToString:@"ThShipTrans"]) {
                 TBXMLElement *element = [TBXML childElementNamed:@"VbThShipTrans" parentElement:elementNoUsed];
                 //打开数据库
                 NSString *file=[TH_ShipTransDao dataFilePath];
@@ -289,7 +302,7 @@ NSString* alertMsg;
                         return;
                         
                     }else {
-                        //                    NSLog(@"insert shipTrans  SUCCESS");
+                        //                                           NSLog(@"insert shipTrans  SUCCESS");
                     }
                     sqlite3_finalize(statement);
                     [shipTrans release];
@@ -309,8 +322,8 @@ NSString* alertMsg;
                 
             }
             
-            /****************************电厂动态查询**************************/
-            if ([Identification isEqualToString:@"FactoryTrans"]) {
+            /****************************电厂动态查询-FactoryTrans**************************/
+            if ([_Identification isEqualToString:@"FactoryTrans"]) {
                 TBXMLElement *element = [TBXML childElementNamed:@"VbFactoryTrans" parentElement:elementNoUsed];
                 //打开数据库
                 NSString *file=[VbFactoryTransDao dataFilePath];
@@ -472,6 +485,162 @@ NSString* alertMsg;
                 iSoapNum--;
                 
             }
+            
+            /****************************电厂动态查询-FactoryState**************************/
+            if ([_Identification isEqualToString:@"FactoryState"]) {
+                   NSLog(@"start Parser2");
+                TBXMLElement *element = [TBXML childElementNamed:@"TbFactoryState" parentElement:elementNoUsed];
+                   NSLog(@"start Parser3");
+                //打开数据库
+                NSString *file=[TbFactoryStateDao dataFilePath];
+                if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
+                {
+                    sqlite3_close(database);
+                    NSLog(@"open  TbFactoryState error");
+                    return;
+                }
+                NSLog(@"open TbFactoryState database succes ....");
+                
+                //为提高数据库写入性能，加入事务控制，批量提交
+                if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                    sqlite3_close(database);
+                    NSLog(@"exec begin error");
+                    return;
+                }
+                //全部删除
+                [TbFactoryStateDao deleteAll];
+                // if an author element was found
+                while (element != nil) {
+                    TbFactoryState *table= [[TbFactoryState alloc] init];
+                    
+                    TBXMLElement * desc = [TBXML childElementNamed:@"STID" parentElement:element];
+                    if (desc != nil) {
+                        table.STID = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"FACTORYCODE" parentElement:element];
+                    if (desc != nil) {
+                        table.FACTORYCODE = [TBXML textForElement:desc] ;
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"RECORDDATE" parentElement:element];
+                    if (desc != nil) {
+                        table.RECORDDATE = [TBXML textForElement:desc] ;
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"IMPORT" parentElement:element];
+                    if (desc != nil) {
+                        table.IMPORT = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"EXPORT" parentElement:element];
+                    if (desc != nil) {
+                        table.EXPORT = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"STORAGE" parentElement:element];
+                    if (desc != nil) {
+                        table.STORAGE = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"CONSUM" parentElement:element];
+                    if (desc != nil) {
+                        table.CONSUM = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"AVALIABLE" parentElement:element];
+                    if (desc != nil) {
+                        table.AVALIABLE = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"MONTHIMP" parentElement:element];
+                    if (desc != nil) {
+                        table.MONTHIMP = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"YEARIMP" parentElement:element];
+                    if (desc != nil) {
+                        table.YEARIMP = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"ELECGENER" parentElement:element];
+                    if (desc != nil) {
+                        table.ELECGENER = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"STORAGE7" parentElement:element];
+                    if (desc != nil) {
+                        table.STORAGE7 = [[TBXML textForElement:desc] integerValue];
+                    }
+                    
+                    
+                    desc = [TBXML childElementNamed:@"TRANSNOTE" parentElement:element];
+                    if (desc != nil) {
+                        table.TRANSNOTE = [TBXML textForElement:desc]  ;
+                    }
+                    
+                    
+                    desc = [TBXML childElementNamed:@"NOTE" parentElement:element];
+                    if (desc != nil) {
+                        table.NOTE = [TBXML textForElement:desc] ;
+                    }
+                    
+                    
+                    
+                    //                NSLog(@"执行  删除  插入   ");
+                  	const char *insert="INSERT INTO TbFactoryState (STID, FACTORYCODE, RECORDDATE, IMPORT, EXPORT, STORAGE, CONSUM, AVALIABLE, MONTHIMP, YEARIMP, ELECGENER, STORAGE7, TRANSNOTE, NOTE) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    
+                    sqlite3_stmt *statement;
+                    int re =sqlite3_prepare(database, insert, -1, &statement, NULL);
+                    
+                    if (re!=SQLITE_OK) {
+                        NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),insert);
+                    }
+                    
+                    sqlite3_bind_int(statement, 1, table.STID);
+                    sqlite3_bind_text(statement, 2,[table.FACTORYCODE UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement, 3, [table.RECORDDATE UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_int(statement, 4, table.IMPORT);
+                    sqlite3_bind_int(statement, 5, table.EXPORT);
+                    sqlite3_bind_int(statement, 6, table.STORAGE);
+                    sqlite3_bind_int(statement, 7, table.CONSUM);
+                    sqlite3_bind_int(statement, 8, table.AVALIABLE);
+                    sqlite3_bind_int(statement, 9, table.MONTHIMP);
+                    sqlite3_bind_int(statement, 10, table.YEARIMP);
+                    sqlite3_bind_int(statement, 11, table.ELECGENER);
+                    sqlite3_bind_int(statement, 12, table.STORAGE7);
+                    sqlite3_bind_text(statement, 13,[table.TRANSNOTE UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement, 14,[table.NOTE UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    re=sqlite3_step(statement);
+                    
+                    if (re!=SQLITE_DONE) {
+                        NSLog( @"Error: insert tbFactoryState  error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
+                        sqlite3_finalize(statement);
+                        return;
+                        
+                    }else {
+                        //                    NSLog(@"insert shipTrans  SUCCESS");
+                    }
+                    sqlite3_finalize(statement);
+                    [table release];
+                    // find the next sibling element named "author"
+                    element = [TBXML nextSiblingNamed:@"TbFactoryState" searchFromElement:element];
+                }
+                
+                if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                    sqlite3_close(database);
+                    NSLog(@"exec commit error");
+                    return;
+                }
+                sqlite3_close(database);
+                NSLog(@"commit over   ");
+                iSoapDone=1;
+                iSoapNum--;
+                
+            }
+            
+            
             
         }
         
