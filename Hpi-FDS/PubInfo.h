@@ -93,6 +93,7 @@ typedef enum{
     kMenuZQFMXCX, //滞期费明细查询
     kMenuZQFTJ, //滞期费统计
     kMenuGKMJZGSJ, //港口平均装港时间统计
+    kMenuFcAvgZXTime,//电厂装卸港时间统计
     kDataQueryMenu_MAX,//最大数量
 
 } DataQueryMenu;

@@ -98,17 +98,8 @@ DataQueryVC *dataQueryVC;
     dataSource.titles=[ NSArray arrayWithObjects:@"状态",@"港口",@"船名",@"航次",@"航线",@"供货方",@"煤种",@"配载",@"下次航运计划", nil];
     
     dataSource.columnWidth=[NSArray arrayWithObjects:@"75",@"80",@"90",@"90",@"80",@"100",@"80",@"80",@"305",nil];
-    
-    
     animation.type= @"oglFlip";
-    
-    
-    
     [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
-    
-    
-    
-    
      [dataQueryVC.labelView removeFromSuperview  ];
     
     
@@ -133,12 +124,7 @@ DataQueryVC *dataQueryVC;
         
      }
     
-    
     [dataQueryVC.listView addSubview:dataQueryVC.labelView];
-    
-    
-    
-    
     
     NSDateFormatter *dateFormate=[[NSDateFormatter alloc] init];
     [dateFormate setDateFormat:@"yyyy-MM-dd"];

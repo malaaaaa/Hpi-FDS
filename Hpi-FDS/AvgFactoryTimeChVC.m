@@ -35,11 +35,14 @@ static  int  whichButton=0;
 
 DataQueryVC *dataQueryVC;
 static   MultiTitleDataSource *source;
+NSDateFormatter *df;
 
 
 NSDateFormatter *formater;
-NSDateFormatter *f;
-
+NSDateFormatter *f; 
+NSDateFormatter *f1;
+NSString *yeas;
+int currentMonth;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -53,6 +56,12 @@ NSDateFormatter *f;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+   df =[[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+    
+    
+    
     month=[[NSDate alloc] init];
     formater=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM"];
@@ -60,6 +69,13 @@ NSDateFormatter *f;
     [f setDateFormat:@"yyyy-01"];
 
      [formater stringFromDate:month];
+    
+    f1=[[NSDateFormatter alloc] init];
+    [f1 setDateFormat:@"yyyy"];
+    yeas=[f1 stringFromDate:[NSDate date]] ;
+    [f1 setDateFormat:@"MM"];
+    currentMonth=[[f stringFromDate:[NSDate date]] intValue];
+    
     
      self.factoryCateLable.text=All_;
      self.factoryCateLable.hidden=YES;
@@ -74,10 +90,51 @@ NSDateFormatter *f;
     xmlParser=[[XMLParser alloc] init];
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
+ 
+   [ self  getDateSource:self.startTime.text :self.endTime.text:All_ :0];
     
-    [ self  getDateSource:self.startTime.text :self.endTime.text:All_ :0];
+    /*
+    NSLog(@"-----------------------------------初始化时间:%@",[NSDate date]);
+    
+    [self initDC];
+    [source .titles addObject:@"电厂"];
+
+         
+    for (int i=1; i<=currentMonth; i++) {
+        NSDateComponents *comp = [[NSDateComponents alloc]init];
+        [comp setMonth:i];
+        [comp setDay:31];
+        [comp setYear:[yeas intValue]];
+        NSCalendar *myCal = [[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDate *myDate1 = [myCal dateFromComponents:comp];       
+        [source.titles addObject:[formater stringFromDate:myDate1]];
+        [comp    release];
+    }
+        
+    
+    for (int i=1; i<=8; i++) {
+        [source.titles addObject:[NSString stringWithFormat:@"%@-%d",yeas,i]];
+   
+    }
+    
+    
+    
+    
+    [source .titles addObject:@"平均"];
+    source.splitTitle=[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil];
+   
+     //source.columnWidth=[[NSMutableArray alloc] init ];
+    [source.columnWidth addObject:@"70"];
+    for (int i=1; i<[source.titles count]; i++) {
+        [source .columnWidth addObject: @"210"];
+    }
+
+		
+    dc=[[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
+    [dataQueryVC.listView   addSubview:dc];
+NSLog(@"-----------------------------------初始化时间:%@",[NSDate date]);*/
 }
- -(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSString *)facotryCate:(NSInteger)initAndSelect
+-(void)initDC
 {
     if(dc){
         [dc removeFromSuperview];
@@ -88,11 +145,11 @@ NSDateFormatter *f;
         dc=[[MultiTitleDataGridComponent alloc ] init];
     }
     if(!dataQueryVC){
-       // NSLog(@"dataQueryVC 为空。。初始......");
+        // NSLog(@"dataQueryVC 为空。。初始......");
         //初始化 父视图
         dataQueryVC=(DataQueryVC *)self.parentVC;
     }
-
+    
     if(source){
         [source release];
         source=[[MultiTitleDataSource alloc] init   ];
@@ -105,26 +162,59 @@ NSDateFormatter *f;
         source.data=[[NSMutableArray alloc] init ];
         source.columnWidth=[[NSMutableArray alloc] init ];
     }
-//NSLog(@"查询数据。。。。。。。。");
+
+}
+
+
+
+
+-(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSString *)facotryCate:(NSInteger)initAndSelect
+{
+    [self initDC];
+    NSMutableArray *factoryAvgZXtime=[[NSMutableArray alloc] init];
+  if(initAndSelect==0)
+    {
+        source.titles=[AvgFactoryZXTimeDao getTimeTitle1:startTime.text :endTime.text:factoryCateLable.text];
+   }
     
+    if (initAndSelect==1) {
+        
+        NSLog(@"-----------------------------------初始临时表时间:%@",[df stringFromDate:[NSDate date] ]);
+        
+        
+         [AvgFactoryZXTimeDao delete];      
+        //  查询 临时表  NT_AvgFactoryZXTime
+        factoryAvgZXtime=[AvgFactoryZXTimeDao getNT_AvgFactoryZXTime:startTime.text :endTime.text :factoryCateLable.text];
+        //填充
+        for (int i=0; i<[factoryAvgZXtime count]; i++) {
+            AvgFactoryZXTime *avgF=[factoryAvgZXtime objectAtIndex:i];
+            [AvgFactoryZXTimeDao insert:avgF];
+        }
+        // NSLog(@"临时表中 插入数据完毕。。。。。。。。。。。");
+    NSLog(@"-----------------------------------初始临时表时间:%@",[df stringFromDate:[NSDate date] ]);
+        
+        
+        source.titles=[AvgFactoryZXTimeDao getTimeTitle:startTime.text :endTime.text ];
+    }
     
-    //dataQueryVC.dataArray=[[NSMutableArray alloc] init];
-   // MultiTitleDataSource *Msource=[[MultiTitleDataSource alloc] init];
-    
-    source.titles=[AvgFactoryZXTimeDao getTimeTitle:startTime.text :endTime.text :factoryCateLable.text];
-  //  NSLog(@"----------------source.titles[%d]",[source.titles  count]);
-     
-    [source .titles addObject:@"平均"];
+       
+          
+    //NSLog(@"----------------source.titles[%d]",[source.titles  count]);
+   [source .titles addObject:@"平均"];
     source.splitTitle=[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil];
-    source.columnWidth=[[NSMutableArray alloc] init ];
+   // source.columnWidth=[[NSMutableArray alloc] init ];
     [source.columnWidth addObject:@"70"];
     for (int i=1; i<[source.titles count]; i++) {
         [source .columnWidth addObject: @"210"];
     }
     
+   
+ 
+
     if(initAndSelect==1){
-    
-        NSMutableArray *FactoryN=[AvgFactoryZXTimeDao getFactoryName:startTime.text :endTime.text :factoryCateLable.text];
+        
+         NSLog(@"-----------------------------------填充data 时间:%@",[df stringFromDate:[NSDate date] ]);
+        NSMutableArray *FactoryN=[AvgFactoryZXTimeDao getFactoryName:startTime.text :endTime.text ];
         source .data=[[NSMutableArray alloc] init];
         for (int i=0; i<[FactoryN count]; i++) {
             NSMutableArray  *dateArray=[[NSMutableArray alloc] init];
@@ -133,7 +223,7 @@ NSDateFormatter *f;
             
             
             
-            NSMutableDictionary *date=[AvgFactoryZXTimeDao getFactoryDate:startTime.text :endTime.text :factoryCateLable.text :[FactoryN  objectAtIndex:i]];
+            NSMutableDictionary *date=[AvgFactoryZXTimeDao getFactoryDate:startTime.text :endTime.text :[FactoryN  objectAtIndex:i]];
             
             NSMutableArray *arrayKeys=[[  NSMutableArray alloc] init];
             for (NSObject* t in [date keyEnumerator]) {
@@ -142,59 +232,64 @@ NSDateFormatter *f;
             
             
             for (int t=1; t<[source .titles count]; t++) {
-                 
+                
                 if ([arrayKeys containsObject:[source .titles objectAtIndex:t]]) {
                     
                     NSMutableArray *a=[date objectForKey:[source.titles objectAtIndex:t]] ;
                     for (int i=0; i<[a count]; i++) {
                         [dateArray addObject:[a objectAtIndex:i]];
                     }
-              
+                    
                 }else
                 {
-                   for (int i=0; i<3; i++) {
-                     [dateArray addObject:@""];
-                   }
-                
+                    for (int i=0; i<3; i++) {
+                        [dateArray addObject:@""];
+                    }
+                    
                 }
                 
-           }
-            
-            
+            }
             [source.data addObject:dateArray];
             [dateArray release];
-            [arrayKeys release];
-            
-          
+            [arrayKeys release]; 
             
         }
-
-    
         [FactoryN    release];
-    
+         NSLog(@"-----------------------------------填充data 时间:%@",[df stringFromDate:[NSDate date] ]);
+        
     }
     
    
-    //初始化dc
-    
+ 
     //初始化
     dc=[[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
-    
-     [dataQueryVC.listView   addSubview:dc];
-}
+    [dataQueryVC.listView   addSubview:dc];
+  
 
-- (IBAction)Select:(id)sender {
+    
+    
+    //   [factoryAvgZXtime release];
+    
       
+}
+- (IBAction)Select:(id)sender {
+  
+    
+    
+    NSLog(@"-----------------------------------查询时间:%@",[df stringFromDate:[NSDate date] ]);
     startTime.text=startButton.titleLabel.text;
     endTime.text=endButton.titleLabel.text;
-   // NSLog(@"开始时间为：%@",startTime.text);
-   // NSLog(@"结束时间为：%@",endTime.text);
-    //NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
+   NSLog(@"开始时间为：%@",startTime.text);
+    NSLog(@"结束时间为：%@",endTime.text);
+    NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
+
+    NSLog(@"电厂 查询。。。。。。。。。");
+    
+    [self initDC];
     
     [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
     
-    
-    
+   NSLog(@"-----------------------------------查询时间:%@",[df stringFromDate:[NSDate date] ]);     
     
     
 }

@@ -34,6 +34,12 @@
 @synthesize resetButton;
 @synthesize popover,chooseView,parentVC,xmlParser;
 
+
+static DataGridComponentDataSource *dataSource;
+//初始化 父视图
+DataQueryVC *dataQueryVC;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -59,6 +65,51 @@
     self.portLabel.hidden=YES;
     self.factoryLabel.hidden=YES;
     self.statLabel.hidden=YES;
+    
+    
+    dataQueryVC=self.parentVC;
+    
+    CATransition *animation = [CATransition animation];
+    animation.delegate = self;
+    animation.duration = 0.5f;
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.fillMode = kCAFillModeForwards;
+    animation.endProgress = 1;
+    animation.removedOnCompletion = NO;
+    animation.type = @"cube";
+    [dataQueryVC.chooseView.layer addAnimation:animation forKey:@"animation"];
+    [dataQueryVC.chooseView bringSubviewToFront:self.view];
+    
+    float columnOffset = 0.0;
+    NSLog(@"查询 %d条记录",[dataQueryVC.dataArray count]);
+    dataSource = [[DataGridComponentDataSource alloc] init];
+    //(20.20.985.42)
+    dataSource.columnWidth = [NSArray arrayWithObjects:@"80",@"105",@"80",@"100",@"95",@"150",@"70",@"70",@"90",@"70",@"75",nil];
+    dataSource.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",nil];
+    NSLog(@"查询 %d条记录",[dataQueryVC.dataArray count]);
+    
+    animation.type = @"oglFlip";
+    [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
+    [dataQueryVC.labelView removeFromSuperview];
+    //填冲标题数据
+    for(int column = 0;column < [dataSource.titles count];column++){
+        float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
+        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+        l.font = [UIFont systemFontOfSize:16.0f];
+        l.text = [dataSource.titles objectAtIndex:column];
+        l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
+        l.textColor = [UIColor whiteColor];
+        l.shadowColor = [UIColor blackColor];
+        l.shadowOffset = CGSizeMake(0, -0.5);
+        l.textAlignment = UITextAlignmentCenter;
+        [dataQueryVC.labelView addSubview:l];
+        [l release];
+        columnOffset += columnWidth;
+    }
+  
+ [dataQueryVC.listView addSubview:dataQueryVC.labelView];
+    
+    
 }
 
 - (void)viewDidUnload
@@ -90,6 +141,11 @@
 }
 
 - (void)dealloc {
+    if(parentVC)
+    
+    [parentVC release   ];
+    [dataSource release];
+    
     [comButton release];
     [comLabel release];
     [shipButton release];
@@ -293,9 +349,38 @@
     NSLog(@"statLabel=[%@]",statLabel.text);
     
     NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
-    DataQueryVC *dataQueryVC=self.parentVC;
+    
+    
+    
+    
     dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
-    [dataQueryVC loadViewData_vb];
+   // [dataQueryVC loadViewData_vb];
+    dataSource.data=[[NSMutableArray alloc]init];
+    for (int i=0;i<[dataQueryVC.dataArray count];i++) {
+        VbShiptrans *vbShiptrans=[dataQueryVC.dataArray objectAtIndex:i];
+        
+        [dataSource.data addObject:[NSArray arrayWithObjects:
+                                    ([vbShiptrans.stage isEqualToString:@"0"])?kGREEN:(([vbShiptrans.stage isEqualToString:@"2"])?kRED:kBLACK),
+                                    vbShiptrans.shipCompany,
+                                    ([vbShiptrans.schedule isEqualToString:@"1"])?vbShiptrans.shipName:[NSString stringWithFormat:@"*%@",vbShiptrans.shipName],
+                                    vbShiptrans.tripNo,
+                                    vbShiptrans.factoryName,
+                                    vbShiptrans.portName,
+                                    vbShiptrans.supplier,
+                                    vbShiptrans.keyName,
+                                    [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
+                                    vbShiptrans.tradeName,
+                                    vbShiptrans.coalType,
+                                    vbShiptrans.stateName,
+                                    nil]];
+        
+    }
+    
+      dataQueryVC.dataSource=dataSource;
+    
+    [dataQueryVC.listTableview reloadData];
+    
+    
     [loopPool drain];
 }
 

@@ -153,6 +153,11 @@ int currentMonth;
     //初始化
     dc=[[DataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
     [dataQueryVC.listView   addSubview:dc];
+    
+    [dataQueryVC.labelView removeFromSuperview];
+    
+    [dataQueryVC.listTableview removeFromSuperview];
+  
     [tites release];
 }
 

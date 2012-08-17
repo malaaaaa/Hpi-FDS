@@ -187,6 +187,7 @@
 		2A8154DB15C2664D00D4AE2C /* TB_LatefeeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8154DA15C2664D00D4AE2C /* TB_LatefeeChVC.xib */; };
 		2A83FDB815C9392D00E342A6 /* NT_LatefeeTongj.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A83FDB715C9392C00E342A6 /* NT_LatefeeTongj.m */; };
 		2A83FDBC15C93AE100E342A6 /* NT_LatefeeTongjDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A83FDBB15C93AE000E342A6 /* NT_LatefeeTongjDao.m */; };
+		2A8CBEEB15DE0B4C00B86257 /* AvgFactoryZXTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */; };
 		2A8E37B815D1F1FA00BD6B41 /* AvgPortPTimeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E37B715D1F1FA00BD6B41 /* AvgPortPTimeDao.m */; };
 		2A8F1F5215CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */; };
 		2A8F1F5315CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8F1F5115CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib */; };
@@ -557,6 +558,8 @@
 		2A83FDB715C9392C00E342A6 /* NT_LatefeeTongj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_LatefeeTongj.m; sourceTree = "<group>"; };
 		2A83FDBA15C93AE000E342A6 /* NT_LatefeeTongjDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NT_LatefeeTongjDao.h; sourceTree = "<group>"; };
 		2A83FDBB15C93AE000E342A6 /* NT_LatefeeTongjDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_LatefeeTongjDao.m; sourceTree = "<group>"; };
+		2A8CBEE915DE0B4C00B86257 /* AvgFactoryZXTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgFactoryZXTime.h; sourceTree = "<group>"; };
+		2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryZXTime.m; sourceTree = "<group>"; };
 		2A8E37B615D1F1FA00BD6B41 /* AvgPortPTimeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgPortPTimeDao.h; sourceTree = "<group>"; };
 		2A8E37B715D1F1FA00BD6B41 /* AvgPortPTimeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgPortPTimeDao.m; sourceTree = "<group>"; };
 		2A8F1F4F15CA0D7A005C7B62 /* NT_LatefeeTongjChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NT_LatefeeTongjChVC.h; sourceTree = "<group>"; };
@@ -1148,6 +1151,8 @@
 				D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */,
 				2ACA24AA15D88E440016812A /* AvgFactoryZXTimeDao.h */,
 				2ACA24AB15D88E440016812A /* AvgFactoryZXTimeDao.m */,
+				2A8CBEE915DE0B4C00B86257 /* AvgFactoryZXTime.h */,
+				2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -1731,6 +1736,7 @@
 				D35A54A315DC9ED900D55862 /* TBXML.m in Sources */,
 				D35A54A415DC9ED900D55862 /* TBXMLParser.m in Sources */,
 				D3980FDE15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m in Sources */,
+				2A8CBEEB15DE0B4C00B86257 /* AvgFactoryZXTime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
