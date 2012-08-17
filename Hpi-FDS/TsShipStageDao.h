@@ -21,5 +21,6 @@
 +(NSMutableArray *) getTsShipStage:(NSString *)stage;
 +(NSMutableArray *) getTsShipStage;
 +(NSMutableArray *) getTsShipStageBySql:(NSString *)sql;
++(void) deleteAll;
 
 @end

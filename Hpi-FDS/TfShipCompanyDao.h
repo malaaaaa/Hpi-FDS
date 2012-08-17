@@ -21,5 +21,6 @@
 +(NSMutableArray *) getTfShipCompany:(NSInteger)comid;
 +(NSMutableArray *) getTfShipCompany;
 +(NSMutableArray *) getTfShipCompanyBySql:(NSString *)sql;
++(void) deleteAll;
 
 @end

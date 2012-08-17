@@ -62,7 +62,7 @@ static sqlite3	*database;
 
 +(void)insert:(TfFactory*) tfFactory
 {
-	NSLog(@"Insert begin TfFactory");
+//	NSLog(@"Insert begin TfFactory");
 	const char *insert="INSERT INTO TfFactory (FACTORYCODE,FACTORYNAME,CAPACITYSUM,DESCRIPTION,SORT,BERTHNUM,BERTHWET,CHANNELDEPTH,CATEGORY,MAXSTORAGE,ORGANCODE) values(?,?,?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -71,19 +71,19 @@ static sqlite3	*database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
-	NSLog(@"FACTORYCODE=%@", tfFactory.FACTORYCODE);
-    NSLog(@"FACTORYNAME=%@", tfFactory.FACTORYNAME);
-	NSLog(@"CAPACITYSUM=%@", tfFactory.CAPACITYSUM);
-	NSLog(@"DESCRIPTION=%@", tfFactory.DESCRIPTION);
-	NSLog(@"SORT=%d", tfFactory.SORT);
-	NSLog(@"BERTHNUM=%d", tfFactory.BERTHNUM);
-	NSLog(@"BERTHWET=%@", tfFactory.BERTHWET);
-	NSLog(@"CHANNELDEPTH=%@", tfFactory.CHANNELDEPTH);
-    NSLog(@"CATEGORY=%@", tfFactory.CATEGORY);
-    NSLog(@"MAXSTORAGE=%d", tfFactory.MAXSTORAGE);
-    NSLog(@"ORGANCODE=%@", tfFactory.ORGANCODE);
-
-    
+//	NSLog(@"FACTORYCODE=%@", tfFactory.FACTORYCODE);
+//    NSLog(@"FACTORYNAME=%@", tfFactory.FACTORYNAME);
+//	NSLog(@"CAPACITYSUM=%@", tfFactory.CAPACITYSUM);
+//	NSLog(@"DESCRIPTION=%@", tfFactory.DESCRIPTION);
+//	NSLog(@"SORT=%d", tfFactory.SORT);
+//	NSLog(@"BERTHNUM=%d", tfFactory.BERTHNUM);
+//	NSLog(@"BERTHWET=%@", tfFactory.BERTHWET);
+//	NSLog(@"CHANNELDEPTH=%@", tfFactory.CHANNELDEPTH);
+//    NSLog(@"CATEGORY=%@", tfFactory.CATEGORY);
+//    NSLog(@"MAXSTORAGE=%d", tfFactory.MAXSTORAGE);
+//    NSLog(@"ORGANCODE=%@", tfFactory.ORGANCODE);
+//
+//    
 	sqlite3_bind_text(statement, 1,[tfFactory.FACTORYCODE UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 2, [tfFactory.FACTORYNAME UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 3, [tfFactory.CAPACITYSUM UTF8String], -1, SQLITE_TRANSIENT);
@@ -123,7 +123,21 @@ static sqlite3	*database;
 	}
 	return;
 }
-
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  tfFactory  "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete tfFactory error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
+	}
+	return;
+}
 +(NSMutableArray *) getTfFactory:(NSString *)factoryCode
 {
 	NSString *query=[NSString stringWithFormat:@" factoryCode = '%@' ",factoryCode];

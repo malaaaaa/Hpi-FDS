@@ -54,7 +54,7 @@ static sqlite3	*database;
 
 +(void)insert:(TfCoalType*) tfCoalType
 { 
-	NSLog(@"Insert begin TfCoalType");
+//	NSLog(@"Insert begin TfCoalType");
 	const char *insert="INSERT INTO TfCoalType (TYPEID,COALTYPE,SORT,HEATVALUE,SULFUR) values(?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -78,9 +78,9 @@ static sqlite3	*database;
 		return;
     }
 	sqlite3_finalize(statement);
-    NSLog(@"%@",tfCoalType.COALTYPE);
-    NSLog(@"%d",tfCoalType.SULFUR);
-    NSLog(@"%@",@"插入成功！！！！！！");
+//    NSLog(@"%@",tfCoalType.COALTYPE);
+//    NSLog(@"%d",tfCoalType.SULFUR);
+//    NSLog(@"%@",@"插入成功！！！！！！");
     
     
     
@@ -103,7 +103,21 @@ static sqlite3	*database;
 	}
 	return;
 }
-
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TfCoalType "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete TfCoalType error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
+	}
+	return;
+}
 +(NSMutableArray *) getTfCoalType:(NSInteger)typeid
 {
 	NSString *query=[NSString stringWithFormat:@" typeid = %d ",typeid];

@@ -54,7 +54,7 @@ static sqlite3	*database;
 
 +(void)insert:(TfShipCompany*) tfShipCompany
 {
-	NSLog(@"Insert begin TfShipCompany");
+//	NSLog(@"Insert begin TfShipCompany");
 	const char *insert="INSERT INTO TfShipCompany (comid,company,description,linkman,contact) values(?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -97,7 +97,21 @@ static sqlite3	*database;
 	}
 	return;
 }
-
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  tfShipCompany "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete tfShipCompany error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
+	}
+	return;
+}
 +(NSMutableArray *) getTfShipCompany:(NSInteger)comid
 {
 	NSString *query=[NSString stringWithFormat:@" comid = '%d' ",comid];

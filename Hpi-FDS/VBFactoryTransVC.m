@@ -627,12 +627,38 @@ static  NSMutableArray *ShipStageArray;
         [xmlParser setISoapNum:1];
 //        [xmlParser getTfFactory];
 //        [xmlParser getTbFactoryState];
-        [VbFactoryTransDao   deleteAll];
-        [xmlParser getVbFactoryTrans];
+//        [VbFactoryTransDao   deleteAll];
+//        [xmlParser getVbFactoryTrans];
 //        [xmlParser getTfShipCompany];
 //        [xmlParser getTfSupplier];
 //        [xmlParser getTfCoalType];
 //        [xmlParser getTsShipStage];
+        
+        
+        
+        [TfCoalTypeDao deleteAll];
+        [xmlParser getTfCoalType];
+        [TfFactoryDao deleteAll];
+        [xmlParser getTfFactory];
+        [TfPortDao deleteAll];
+        [xmlParser getTfPort];
+        [TfShipCompanyDao deleteAll];
+        [xmlParser getTfShipCompany];
+        [TfSupplierDao deleteAll];
+        [xmlParser getTfSupplier];
+        [TsShipStageDao deleteAll];
+        [xmlParser getTsShipStage];
+        [TgFactoryDao deleteAll];
+        [xmlParser getTgFactory];
+        [TgPortDao deleteAll];
+        [xmlParser getTgPort];
+        [TgShipDao deleteAll];
+        [xmlParser getTgShip];
+        [TmIndexdefineDao deleteAll];
+        [xmlParser getTmIndexdefine];
+        [TmIndextypeDao deleteAll];
+        [xmlParser getTmIndextype];
+        
         [self runActivity];
     }
 	

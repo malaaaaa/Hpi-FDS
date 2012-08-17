@@ -22,5 +22,6 @@
 +(NSMutableArray *) getTmIndextype:(NSInteger)typeId;
 +(NSMutableArray *) getTmIndextype;
 +(NSMutableArray *) getTmIndextypeBySql:(NSString *)sql;
++(void) deleteAll;
 
 @end
