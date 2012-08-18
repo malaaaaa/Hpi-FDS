@@ -102,6 +102,8 @@ static int  whichButton=0;
     animation.type=@"cube";
     
     [dataQueryVC.chooseView.layer addAnimation:animation forKey:@"animation"];
+    NSLog(@"--------------dataQueryVC.chooseView.layer  增加动画。。。。。。。。。");
+    
     //-------------------------
     [dataQueryVC.chooseView bringSubviewToFront:self.view];
 
@@ -117,7 +119,7 @@ static int  whichButton=0;
     animation.type= @"oglFlip"; 
 
     [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
-    
+     NSLog(@"------------------dataQueryVC.labelView.layer  增加动画。。。。。。。。。");
     [dataQueryVC.labelView removeFromSuperview  ];
     
     //清空数据源。。。。。

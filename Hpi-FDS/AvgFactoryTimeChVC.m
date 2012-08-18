@@ -447,7 +447,7 @@ NSLog(@"-----------------------------------初始化时间:%@",[NSDate date]);*/
   
         [dataQueryVC release];
     }
-
+    [df  release    ] ;
     
     
     [factoryCateLable release];
