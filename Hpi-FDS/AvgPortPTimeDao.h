@@ -13,25 +13,13 @@
 +(NSString *)dataFilePath;
 +(void) openDataBase;
 
-//要根据时间去查  港口名
-+(NSMutableArray *)getPortName:(NSString *)sql1;
-+(NSMutableArray *)getPortName:(NSString *)startTime:(NSString *)endTime ;
 
 
 +(NSMutableArray *)getTime:(NSString *)startTime:(NSString *)endTime;
 
++(NSMutableArray *)getAvgPortDate:(NSString *)startTime:(NSString *)endTime:(NSMutableArray *)titleTime;
 
 
-
-
-//
-+(NSMutableDictionary *)getTimeAndAvgTime:(NSString *)sql1;
-//根据港口名获得  时间和平均时间
-+(NSMutableDictionary *)getTimeAndAvgTime:(NSString *)portName:(NSString *)startTime:(NSString *)endTime ;
-
-
-
-
-
++(NSMutableArray *)getAvgPortDateBySql:(NSString *)sql1:(NSString *)sql2 :(NSInteger)count;
 
 @end

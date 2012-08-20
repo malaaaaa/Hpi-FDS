@@ -90,7 +90,7 @@ static NSString *deviceID;
     
     //电厂平均装卸港时间
     [AvgFactoryZXTimeDao openDataBase];
-    [AvgFactoryZXTimeDao initDb];
+
     
     
     
