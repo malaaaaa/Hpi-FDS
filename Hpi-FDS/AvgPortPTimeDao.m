@@ -36,11 +36,9 @@ static sqlite3  *database;
 }
 +(NSMutableArray *)getTime:(NSString *)startTime:(NSString *)endTime
 {
-<<<<<<< HEAD
-    NSMutableArray *d=[[NSMutableArray alloc] init];
-=======
+
     NSMutableArray *d=[[[NSMutableArray alloc] init] autorelease];
->>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
+
     sqlite3_stmt *statement;
     NSString *sql= [NSString   stringWithFormat:@"select ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) AS TRADETIME     from VbShiptrans inner join TF_PORT  on TF_PORT.PORTCODE=VbShiptrans.PORTCODE  where   ISCAL=1  and strftime('%@',VbShiptrans.P_ANCHORAGETIME)!='2000' and strftime('%@',VbShiptrans.P_DEPARTTIME)!='2000'  and NATIONALTYPE=0  AND ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) >='%@' AND ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) <='%@'  group by   TRADETIME order by     TRADETIME  ",@"%Y",@"%m",    @"%Y",@"%Y",    @"%Y",@"%m",  startTime,@"%Y",@"%m",endTime];
     
@@ -111,11 +109,9 @@ sqlite3_stmt *statement;
 
   //  NSLog(@"执行 getAvgFactoryDateBySql [%@]",sql);
     
-<<<<<<< HEAD
-    NSMutableArray  *date=[[NSMutableArray alloc] init];
-=======
+
     NSMutableArray  *date=[[[NSMutableArray alloc] init] autorelease];
->>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
+
     
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         while (sqlite3_step(statement)==SQLITE_ROW) {

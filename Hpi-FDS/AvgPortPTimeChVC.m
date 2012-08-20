@@ -101,15 +101,11 @@ int currentMonth;
     if(source){
         [source release];
         source=[[DataGridComponentDataSource alloc] init   ];
-<<<<<<< HEAD
-        source.titles=[[NSMutableArray alloc] init ];
-        source.data=[[NSMutableArray alloc] init ];
-        source.columnWidth=[[NSMutableArray alloc] init ];
-=======
+
         source.titles=[[[NSMutableArray alloc] init ] autorelease];
         source.data=[[[NSMutableArray alloc] init ] autorelease];
         source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
->>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
+
     }else{
         source=[[DataGridComponentDataSource alloc] init   ];
         source.titles=[[[NSMutableArray alloc] init ] autorelease   ];
