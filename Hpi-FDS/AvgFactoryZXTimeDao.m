@@ -93,10 +93,10 @@ static sqlite3  *database;
     //NSLog(@"--------------查到时间标题：【%d】",[d count]);
     
      [ d  addObject:@"平均"];
-<<<<<<< HEAD
-    
-    
+
+
     return d;
+ 
 }
 
 +(NSMutableArray *)getAvgFactoryDate:(NSString *)startTime :(NSString *)endTime :(NSString *)factoryCate :(NSMutableArray *)titleTime
@@ -141,7 +141,10 @@ return date;
     
    // NSLog(@"执行 getAvgFactoryDateBySql [%@]",sql);
 
- NSMutableArray  *date=[[NSMutableArray alloc] init];
+
+ NSMutableArray  *date=[[[NSMutableArray alloc] init]
+    autorelease ];
+
 
 if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -167,7 +170,8 @@ if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE
    }
     return  date;
 }
-=======
+
+
            
     return d;
  
@@ -242,15 +246,6 @@ if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE
    }
     return  date;
 }
-
-
-
-
-
-
-
-
->>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
 
 
 

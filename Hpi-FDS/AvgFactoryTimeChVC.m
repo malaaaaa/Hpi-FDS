@@ -5,6 +5,7 @@
 //  Created by tang bin on 12-8-10.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
+<<<<<<< HEAD
 
 
 
@@ -14,6 +15,9 @@
 //	
 
 
+=======
+//MyLoca_Bh
+>>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
 #import "AvgFactoryTimeChVC.h"
 #import "DataQueryVC.h"
 #import "AvgFactoryZXTimeDao.h"
@@ -127,9 +131,14 @@ NSDateFormatter *f;
     source.titles=[AvgFactoryZXTimeDao getTimeTitle1:startTime.text :endTime.text:All_];
  
    // NSLog(@"----------------source.titles[%d]",[source.titles  count]);
+<<<<<<< HEAD
 
     source.splitTitle=[[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil] autorelease  ];
 
+=======
+ 
+    source.splitTitle=[[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil] autorelease  ];
+>>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
     
     [source.columnWidth addObject:@"70"];
     for (int i=1; i<[source.titles count]; i++) {
@@ -143,7 +152,12 @@ NSDateFormatter *f;
     [dataQueryVC.listView   addSubview:dc];
 
    
+<<<<<<< HEAD
 
+=======
+    
+    
+>>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
 }
 - (IBAction)Select:(id)sender {
 startTime.text=startButton.titleLabel.text;
@@ -151,6 +165,7 @@ endTime.text=endButton.titleLabel.text;
   // NSLog(@"开始时间为：%@",startTime.text);
    // NSLog(@"结束时间为：%@",endTime.text);
    // NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
+<<<<<<< HEAD
 
  //   NSLog(@"电厂 查询。。。。。。。。。");
 
@@ -159,6 +174,14 @@ endTime.text=endButton.titleLabel.text;
     
     [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
 
+=======
+
+ //   NSLog(@"电厂 查询。。。。。。。。。");
+ 
+    NSAutoreleasePool *poll=[[NSAutoreleasePool alloc ] init];
+    [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
+      [poll drain];
+>>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
 }
 
 - (IBAction)endTimeSelect:(id)sender {
