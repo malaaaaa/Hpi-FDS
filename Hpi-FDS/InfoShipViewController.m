@@ -124,7 +124,7 @@
     TgShip *tgShip=[array objectAtIndex:0];
     [ds.data addObject:[NSArray arrayWithObjects:
                         kBLACK,
-                        [NSString stringWithFormat:@"   %d",i+1],
+                        [NSString stringWithFormat:@"%d",i+1],
                             tgShip.factoryName,
                             tgShip.portName,
                             tgShip.supplier,

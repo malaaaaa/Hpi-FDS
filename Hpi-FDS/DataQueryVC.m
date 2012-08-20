@@ -88,7 +88,7 @@ static NSInteger menuIndex;
     
     
     
-    self.vbShipChVC=[[[VBShipChVC alloc] init] autorelease];
+    self.vbShipChVC=[[VBShipChVC alloc] init]  ;//不能autorelease
     vbShipChVC.parentVC=self;
     vbShipChVC.view.center=CGPointMake(512, 120);
     vbShipChVC.view.frame=CGRectMake(0, 0, 1024, 180);
@@ -817,7 +817,7 @@ static NSInteger menuIndex;
         [self.avgTimePort.dc removeFromSuperview  ];
         [self.avgTimeZXFactory.dc removeFromSuperview  ];
 
-        self.vbShipChVC=[[VBShipChVC alloc] init] ;
+        self.vbShipChVC=[[VBShipChVC alloc] init] ;//不能autorelease
         vbShipChVC.parentVC=self;
         vbShipChVC.view.center=CGPointMake(512, 120);
         vbShipChVC.view.frame=CGRectMake(0, 0, 1024, 180);
