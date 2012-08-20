@@ -91,18 +91,7 @@ NSDateFormatter *f;
         NSLog(@"dataQueryVC 为空。。初始......");
         //初始化 父视图
         dataQueryVC=(DataQueryVC *)self.parentVC;
-        
-        
-        
-        
-        
-        
-    }else
-    {
-    
-       
-        NSLog(@" ------------ [dataQueryVC.dataSource.titles count][%d]",  [dataQueryVC.dataSource.titles count]);
-    
+  
     }
     
     if(source){
