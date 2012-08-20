@@ -123,7 +123,7 @@ static sqlite3	*database;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *start=[dateFormatter stringFromDate:day];
-    NSString *end=[dateFormatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([day timeIntervalSinceReferenceDate] + 24*60*60)]];
+    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([day timeIntervalSinceReferenceDate] + 24*60*60)] autorelease]];
 	NSString *query=[NSString stringWithFormat:@" indexName = '%@' AND recordTime >='%@' AND recordTime <='%@' Limit 1 ",indexName,start,end];
 	NSMutableArray * array=[TmIndexinfoDao getTmIndexinfoBySql:query];
     //NSLog(@"执行 getTmIndexinfo 数量[%d] ",[array count]);
@@ -140,7 +140,7 @@ static sqlite3	*database;
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT infoId,indexName,recordTime,infoValue FROM  TmIndexinfo WHERE %@ ",sql1];
     //NSLog(@"执行 getTmIndexinfoBySql [%@] ",sql);
-	NSMutableArray *array=[[NSMutableArray alloc]init];
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			

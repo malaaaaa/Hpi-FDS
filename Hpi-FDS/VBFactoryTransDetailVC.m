@@ -56,7 +56,7 @@ static DataGridComponentDataSource *dataSource;
         
 	}
     
-    dataSource.data=[[NSMutableArray alloc]init];
+    dataSource.data=[[[NSMutableArray alloc]init] autorelease];
     for (int i=0;i<[self.iDArray count];i++) {
         VbFactoryTrans *vbFactoryTrans = [iDArray objectAtIndex:i];
         [dataSource.data addObject:[NSArray arrayWithObjects:

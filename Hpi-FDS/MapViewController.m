@@ -87,7 +87,7 @@ static int iDisplay=0;
         [self.view addSubview:activity];
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        self.xmlParser=[[XMLParser alloc]init];
+        self.xmlParser=[[[XMLParser alloc]init] autorelease];
         [xmlParser setISoapNum:6];
         [xmlParser getTsFileinfo];
         [xmlParser getTgPort];
@@ -105,15 +105,15 @@ static int iDisplay=0;
         [activity removeFromSuperview];
     }
     
-    self.shipIDArray = [[NSMutableArray alloc]init];
-	self.portIDArray = [[NSMutableArray alloc]init];
-    self.factoryIDArray = [[NSMutableArray alloc]init];
+    self.shipIDArray = [[[NSMutableArray alloc]init] autorelease];
+	self.portIDArray = [[[NSMutableArray alloc]init] autorelease];
+    self.factoryIDArray = [[[NSMutableArray alloc]init] autorelease];
     [shipIDArray addObject:All_SHIP];
     [portIDArray addObject:All_PORT];
     [factoryIDArray addObject:All_FCTRY];
-    self.shipCoordinateArray = [[NSMutableArray alloc]init];
-	self.portCoordinateArray = [[NSMutableArray alloc]init];
-    self.factoryCoordinateArray = [[NSMutableArray alloc]init];
+    self.shipCoordinateArray = [[[NSMutableArray alloc]init] autorelease];
+	self.portCoordinateArray = [[[NSMutableArray alloc]init] autorelease];
+    self.factoryCoordinateArray = [[[NSMutableArray alloc]init] autorelease];
     
     
     // Do any additional setup after loading the view from its nib.
@@ -370,7 +370,7 @@ static int iDisplay=0;
 {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
-    
+    [alert release];
 }
 
 
@@ -379,7 +379,7 @@ static int iDisplay=0;
         [self.view addSubview:activity];
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        self.xmlParser=[[XMLParser alloc]init];
+        self.xmlParser=[[[XMLParser alloc]init] autorelease];
         [xmlParser setISoapNum:3];
         [xmlParser getTgPort];
         [xmlParser getTgShip];

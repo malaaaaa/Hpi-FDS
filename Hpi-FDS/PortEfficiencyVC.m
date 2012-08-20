@@ -39,8 +39,8 @@ static  NSMutableArray *ShipCompanyArray;
     [self.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
     [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
     
-    self.endDay = [[NSDate alloc] init];
-    self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
+    self.endDay = [[[NSDate alloc] init] autorelease];
+    self.startDay = [[[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] autorelease];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];

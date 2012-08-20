@@ -5,6 +5,7 @@
 //  Created by tang bin on 12-8-10.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
+<<<<<<< HEAD
 
 
 
@@ -13,6 +14,9 @@
 //	
 
 
+=======
+//MyLoca_Bh
+>>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
 #import "AvgFactoryTimeChVC.h"
 #import "DataQueryVC.h"
 #import "AvgFactoryZXTimeDao.h"
@@ -102,16 +106,17 @@ NSDateFormatter *f;
     }
     
     if(source){
+    
         [source release];
-        source=[[MultiTitleDataSource alloc] init   ];
-        source.titles=[[NSMutableArray alloc] init ];
-        source.data=[[NSMutableArray alloc] init ];
-        source.columnWidth=[[NSMutableArray alloc] init ];
+       source=[[MultiTitleDataSource alloc] init   ];
+        source.titles=[[[NSMutableArray alloc] init ] autorelease];
+        source.data=[[[NSMutableArray alloc] init ] autorelease];
+       source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
     }else{
         source=[[MultiTitleDataSource alloc] init   ];
-        source.titles=[[NSMutableArray alloc] init ];
-        source.data=[[NSMutableArray alloc] init ];
-        source.columnWidth=[[NSMutableArray alloc] init ];
+        source.titles=[[[NSMutableArray alloc] init ] autorelease];
+        source.data=[[[NSMutableArray alloc] init ] autorelease];
+        source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
     }
 
 }
@@ -126,7 +131,11 @@ NSDateFormatter *f;
  
    // NSLog(@"----------------source.titles[%d]",[source.titles  count]);
  
+<<<<<<< HEAD
     source.splitTitle=[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil];
+=======
+    source.splitTitle=[[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil] autorelease  ];
+>>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
     
     [source.columnWidth addObject:@"70"];
     for (int i=1; i<[source.titles count]; i++) {
@@ -138,7 +147,14 @@ NSDateFormatter *f;
     //初始化
     dc=[[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
     [dataQueryVC.listView   addSubview:dc];
+<<<<<<< HEAD
    
+=======
+
+   
+    
+    
+>>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
 }
 - (IBAction)Select:(id)sender {
 startTime.text=startButton.titleLabel.text;
@@ -148,10 +164,17 @@ endTime.text=endButton.titleLabel.text;
    // NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
 
  //   NSLog(@"电厂 查询。。。。。。。。。");
+<<<<<<< HEAD
     
     [self initDC];
     
     [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
+=======
+ 
+    NSAutoreleasePool *poll=[[NSAutoreleasePool alloc ] init];
+    [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
+      [poll drain];
+>>>>>>> 914be559acfb3f72e5437bb32eda74890524f115
 }
 
 - (IBAction)endTimeSelect:(id)sender {
@@ -260,7 +283,7 @@ endTime.text=endButton.titleLabel.text;
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间"  delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步", nil];
     
     [alert show];
-    
+    [alert release];
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

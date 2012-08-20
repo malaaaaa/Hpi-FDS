@@ -25,7 +25,7 @@ static int cellNum =0;
 	//  should be calling your tableviews data source model to reload
 	//  put here just for demo
     if (!xmlParser) {
-        self.xmlParser=[[XMLParser alloc]init];
+        self.xmlParser=[[[XMLParser alloc]init] autorelease];
     }
     [xmlParser setISoapNum:1];
     [xmlParser getTsFileinfo];
@@ -118,7 +118,7 @@ static int cellNum =0;
     // Do any additional setup after loading the view from its nib.
     //self.listArray =[TsFileinfoDao getTsFileinfo];
     //开始初始化下载数组
-	self.cellArray=[[NSMutableArray alloc]init];
+	self.cellArray=[[[NSMutableArray alloc]init] autorelease];
     cellNum=0;
     [memoirTableView setSeparatorColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];
 //    for(int i=0;i<[listArray count];i++)
@@ -140,11 +140,11 @@ static int cellNum =0;
 			[view release];
 		}
 	}
-    self.networkQueue=[[ASINetworkQueue alloc]init];
+    self.networkQueue=[[[ASINetworkQueue alloc]init] autorelease];
 	[networkQueue setShowAccurateProgress:YES];
 	//[networkQueue go];
     
-	self.downLoadArray=[[NSMutableArray alloc]init];
+	self.downLoadArray=[[[NSMutableArray alloc]init] autorelease];
 	//[networkQueue setDownloadProgressDelegate: self.processView ]; // 设置 queue 进度条
     [networkQueue setDelegate:self];
 	[networkQueue setRequestDidFinishSelector:@selector(requestDone:)];
@@ -195,7 +195,7 @@ static int cellNum =0;
 	if(cell==nil)
 	{
 		NSArray *nib=[[NSBundle mainBundle]loadNibNamed:@"MemoirCell" owner:self	options:nil];
-		cell=[nib objectAtIndex:0];
+		cell=[nib objectAtIndex:0];//无法执行
 	}
 	cell=(MemoirCell *)[self.cellArray objectAtIndex:[indexPath row]];
 	return cell;

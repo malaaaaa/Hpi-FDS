@@ -178,7 +178,7 @@ static sqlite3	*database;
 	if(sqlite3_prepare_v2(database,[query UTF8String],-1,&statement,nil)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			char * rowData0=(char *)sqlite3_column_text(statement,0);
-			int num=[[[NSString alloc] initWithUTF8String:rowData0]intValue] ;
+			int num=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease]intValue] ;
 			if(num>0)
 				return YES;
 			else
@@ -198,7 +198,7 @@ static sqlite3	*database;
 	if(sqlite3_prepare_v2(database,[query UTF8String],-1,&statement,nil)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			char * rowData0=(char *)sqlite3_column_text(statement,0);
-			int num=[[[NSString alloc] initWithUTF8String:rowData0]intValue] ;
+			int num=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease]intValue] ;
 			if(num>0)
 				return YES;
 			else
@@ -217,7 +217,7 @@ static sqlite3	*database;
     NSString *sql=[NSString stringWithFormat:@"SELECT fileId,fileType,title,filePath,fileName,userName,recordTime,xzbz FROM  TsFileinfo WHERE %@ ORDER BY recordTime DESC",sql1];
     NSLog(@"执行 getTsFileinfoBySql [%@] ",sql);
     
-	NSMutableArray *array=[[NSMutableArray alloc]init];
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			

@@ -149,7 +149,7 @@ static NSString *deviceID;
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
 	NSString *fileName=[[NSString alloc]initWithFormat:@"%@/data.plist",doc]; 
-	NSArray *tempArray = [[NSArray alloc] initWithContentsOfFile:fileName];
+	NSArray *tempArray = [[[NSArray alloc] initWithContentsOfFile:fileName] autorelease];
 	//NSLog(@"data=%d",[tempArray count]);
 	if([tempArray count]<3)
 	{
@@ -169,12 +169,12 @@ static NSString *deviceID;
 }
 +(void)save
 {
-	NSArray *tempArray = [[NSArray alloc]initWithObjects:
+	NSArray *tempArray = [[[NSArray alloc]initWithObjects:
 						  userName,
                           autoUpdate,
                           updateTime,
 						  nil
-						  ];
+						  ] autorelease];
 	NSArray *paths= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
 	NSString *fileName=[[NSString alloc]initWithFormat:@"%@/data.plist",doc];
@@ -244,7 +244,7 @@ static NSString *deviceID;
 +(NSString *)currTime
 {
     //实例化一个NSDateFormatter对象
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     //用[NSDate date]可以获取系统当前时间
@@ -313,7 +313,7 @@ static NSString *deviceID;
             m=mintues;
         }
         NSInteger hours=[[string1 objectForKey:@"hours"] intValue]+[[string2 objectForKey:@"hours"] intValue]+hadd;
-        hadd=0;
+      //  hadd=0;
         if (hours>24) {
             dadd=hours/24;
             h=hours%24;
@@ -321,7 +321,7 @@ static NSString *deviceID;
             h=hours;
         }
         NSInteger days=[[string1 objectForKey:@"days"] intValue]+[[string2 objectForKey:@"days"] intValue]+dadd;
-        dadd=0;
+       // dadd=0;
         d=days;
         //可以不判断   先不改
         if(d!=0)
@@ -360,13 +360,15 @@ static NSString *deviceID;
 +(NSString *)formaDateTime:(NSString *)string   FormateString:(NSString *)formateStr
 {
     NSString *str;
-    NSDateFormatter *formater=[[NSDateFormatter alloc] init];
+    NSDateFormatter *formater=[[[NSDateFormatter alloc] init] autorelease];
     [formater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-    NSDateFormatter *formater1=[[NSDateFormatter alloc] init];
+    NSDateFormatter *formater1=[[[NSDateFormatter alloc] init] autorelease];
     [formater1 setDateFormat:@"yyyy/MM/dd"];
-    NSDateFormatter *formater2=[[NSDateFormatter alloc] init];
+    NSDateFormatter *formater2=[[[NSDateFormatter alloc] init] autorelease];
     [formater2 setDateFormat:[NSString stringWithFormat:@"%@",formateStr]];
-    NSString *date=[NSString  stringWithFormat:@"%@",[formater1 stringFromDate:[formater dateFromString:string]]];
+    
+    
+    NSString *date=[NSString  stringWithFormat:@"%@",        [formater1 stringFromDate:[formater dateFromString:string]]         ];
     NSString *date1=[NSString  stringWithFormat:@"%@",[formater2 stringFromDate:[formater dateFromString:string]]];
     NSLog(@"formaDateTime---date--yyyy-MM-dd--:%@",date);
     if (![date isEqualToString:@"2000/01/01"]&&![date isEqualToString:@"1900/01/01"]&&![date isEqualToString:@"0001/01/01"]) {
@@ -378,9 +380,9 @@ static NSString *deviceID;
         return  str;
     }
     [date release];
-    [formater2 release];
-    [formater release];
-    [formater1 release];
+    
+   
+   
 }
 
 #pragma mark 计算两个时间之间的时间段返回字典            [days,@"days",hours,@"hours",minutes,@"minutes"]     string1(yyyy-MM-dd HH:mm:ss) 和string2(yyyy-MM-dd HH:mm:ss)    
@@ -396,7 +398,7 @@ static NSString *deviceID;
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
         NSDate *date1 = [formatter dateFromString:string1];
         NSDate *date2 = [formatter dateFromString:string2];
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
         unsigned int unitFlag = NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit;
         
         NSDateComponents *components = [calendar components:unitFlag fromDate:date1 toDate:date2 options:0];
@@ -410,10 +412,11 @@ static NSString *deviceID;
         
         
         d=[[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",days],@"days",[NSString stringWithFormat:@"%d",hours],@"hours",[NSString stringWithFormat:@"%d",minutes],@"minutes", nil];
+      
         [formatter release];
         
     }
-    
+      [d autorelease];
     return d;
     
 }
@@ -436,7 +439,7 @@ static NSString *deviceID;
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
         NSDate *date1 = [formatter dateFromString:string1];
         NSDate *date2 = [formatter dateFromString:string2];
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
         unsigned int unitFlag = NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit;
         
         NSDateComponents *components = [calendar components:unitFlag fromDate:date1 toDate:date2 options:0];

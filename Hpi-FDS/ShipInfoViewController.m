@@ -53,7 +53,7 @@
     
     NSLog(@"查询在途信息 %d条记录",[self.array count]);
     
-    ds.data=[[NSMutableArray alloc]init];
+    ds.data=[[[NSMutableArray alloc]init] autorelease];
     for (i=0;i<[array count];i++) {
         TgShip *tgShip=[self.array objectAtIndex:i];
         if([tgShip.stage isEqualToString:@"0"])

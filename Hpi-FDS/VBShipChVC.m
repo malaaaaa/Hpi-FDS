@@ -59,7 +59,7 @@ DataQueryVC *dataQueryVC;
     self.factoryLabel.text=All_;
     self.statLabel.text=All_;
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.xmlParser=[[[XMLParser alloc]init] autorelease];
     self.shipLabel.hidden=YES;
     self.comLabel.hidden=YES;
     self.portLabel.hidden=YES;
@@ -326,7 +326,7 @@ DataQueryVC *dataQueryVC;
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
-    
+    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -350,12 +350,10 @@ DataQueryVC *dataQueryVC;
     
     NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
     
-    
-    
-    
     dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
-   // [dataQueryVC loadViewData_vb];
-    dataSource.data=[[NSMutableArray alloc]init];
+    // [dataQueryVC loadViewData_vb];
+    dataSource.data=[[[NSMutableArray alloc]init] autorelease];
+  
     for (int i=0;i<[dataQueryVC.dataArray count];i++) {
         VbShiptrans *vbShiptrans=[dataQueryVC.dataArray objectAtIndex:i];
         
@@ -374,9 +372,11 @@ DataQueryVC *dataQueryVC;
                                     vbShiptrans.stateName,
                                     nil]];
         
+
+        
     }
-    
-      dataQueryVC.dataSource=dataSource;
+   
+    dataQueryVC.dataSource=dataSource;
     
     [dataQueryVC.listTableview reloadData];
     

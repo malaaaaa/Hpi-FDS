@@ -60,7 +60,7 @@
     }
     
     if (sysctl(mib, 6, buf, &len, NULL, 0) < 0) {
-        printf("Error: sysctl, take 2");
+      printf("Error: sysctl, take 2");
         return NULL;
     }
     
@@ -70,7 +70,7 @@
     NSString *outstring = [NSString stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X", 
                            *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)];
     free(buf);
-    
+ 
     return outstring;
 }
 

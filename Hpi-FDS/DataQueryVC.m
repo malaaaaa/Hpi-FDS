@@ -88,7 +88,7 @@ static NSInteger menuIndex;
     
     
     
-    self.vbShipChVC=[[VBShipChVC alloc] init];
+    self.vbShipChVC=[[VBShipChVC alloc] init]  ;//不能autorelease
     vbShipChVC.parentVC=self;
     vbShipChVC.view.center=CGPointMake(512, 120);
     vbShipChVC.view.frame=CGRectMake(0, 0, 1024, 180);
@@ -214,7 +214,7 @@ static NSInteger menuIndex;
 -(void)loadViewData_tb
 {
     /*   使用表  VBTRANSCHVC   */
-    dataSource.data=[[NSMutableArray alloc]init];
+    dataSource.data=[[[NSMutableArray alloc]init] autorelease];
     
     NSLog(@"获得transPlan：%d",dataArray.count  );
     
@@ -586,7 +586,7 @@ static NSInteger menuIndex;
         self.popover.popoverContentSize = CGSizeMake(600, 280);
         //显示，其中坐标为箭头的坐标以及尺寸 0 可去掉箭头
         [self.popover presentPopoverFromRect:CGRectMake(512, 430, 0, 0) inView:self.view permittedArrowDirections:0 animated:YES];
-        [VBShipDetailController release];
+        [vbShipDetailController release];
         [pop release];
     }
     
@@ -620,7 +620,7 @@ static NSInteger menuIndex;
         self.popover.popoverContentSize=CGSizeMake(600, 280);
         
         [self.popover presentPopoverFromRect:CGRectMake(512,430 , 0.5,0.5) inView:self.view   permittedArrowDirections:0 animated:YES];
-        [TH_ShipTransDetailCV release];
+        [thShipTransDetail release];
         [pop release];
         //不能释放  thshiptrans
         
@@ -659,9 +659,9 @@ static NSInteger menuIndex;
         self.popover.popoverContentSize=CGSizeMake(600, 280);
         //设置箭头方向
         [self.popover presentPopoverFromRect:CGRectMake(512,430 , 0.5,0.5) inView:self.view   permittedArrowDirections:0 animated:YES];
-        [TB_LatefeeChDial release];
+        [tblatefeeDial release];
         [pop release];
-            [tblatefee release];
+          //  [tblatefee release];
     
 }
 }
@@ -674,7 +674,7 @@ static NSInteger menuIndex;
     NSDate *date2 = [formatter dateFromString:string2];
     NSLog(@"date1: %@", [formatter stringFromDate:date1]);
     NSLog(@"date2: %@", [formatter stringFromDate:date2]);
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     unsigned int unitFlag = NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit;
     NSDateComponents *components = [calendar components:unitFlag fromDate:date1 toDate:date2 options:0];
     int days    = [components day];
@@ -817,7 +817,7 @@ static NSInteger menuIndex;
         [self.avgTimePort.dc removeFromSuperview  ];
         [self.avgTimeZXFactory.dc removeFromSuperview  ];
 
-        self.vbShipChVC=[[VBShipChVC alloc] init];
+        self.vbShipChVC=[[VBShipChVC alloc] init] ;//不能autorelease
         vbShipChVC.parentVC=self;
         vbShipChVC.view.center=CGPointMake(512, 120);
         vbShipChVC.view.frame=CGRectMake(0, 0, 1024, 180);
@@ -893,7 +893,7 @@ static NSInteger menuIndex;
 
         
         //新添  调度日志查询
-        self.thShipTransVC=[[TH_ShipTransChVC alloc] initWithNibName:@"TH_ShipTransChVC" bundle:nil];
+        self.thShipTransVC=[[[TH_ShipTransChVC alloc] initWithNibName:@"TH_ShipTransChVC" bundle:nil] autorelease];
         thShipTransVC.parentVC=self;
         thShipTransVC.view.center=CGPointMake(512, 120);
         thShipTransVC.view.frame=CGRectMake(0, 0, 1024, 180);
@@ -902,7 +902,7 @@ static NSInteger menuIndex;
         chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
         
         NSLog(@"调度日志.............");
-        
+     
         
     }
     //新添 滞期费查询
@@ -910,7 +910,7 @@ static NSInteger menuIndex;
         [self.avgTimePort.dc removeFromSuperview  ];
         [self.avgTimeZXFactory.dc removeFromSuperview  ];
         
-        self.tblatefeeVC=[[TB_LatefeeChVC alloc] init];
+        self.tblatefeeVC=[[[TB_LatefeeChVC alloc] init] autorelease ];
         tblatefeeVC.parentVC=self;
         tblatefeeVC.view.center=CGPointMake(512, 120);
         tblatefeeVC.view.frame=CGRectMake(0, 0, 1024, 180);
@@ -920,7 +920,7 @@ static NSInteger menuIndex;
         self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
         
         NSLog(@"滞期费查询.............");
-        
+       
     }
     
     //滞期费  统计
@@ -930,7 +930,7 @@ static NSInteger menuIndex;
         [self.avgTimeZXFactory.dc removeFromSuperview  ];
         
         
-        self.latefeeTj=[[NT_LatefeeTongjChVC alloc] init];
+        self.latefeeTj=[[[NT_LatefeeTongjChVC alloc] init] autorelease];
         latefeeTj.parentVC=self;
         
         latefeeTj.view.center=CGPointMake(512, 120);
@@ -949,7 +949,7 @@ static NSInteger menuIndex;
         
         [self.avgTimeZXFactory.dc removeFromSuperview  ];
 
-        self.avgTimePort=[[AvgPortPTimeChVC alloc] init];
+        self.avgTimePort=[[[AvgPortPTimeChVC alloc] init] autorelease];
         avgTimePort.parentVC=self;
         avgTimePort.view.center=CGPointMake(512, 120);
         avgTimePort.view.frame=CGRectMake(0, 0, 1024, 180);
@@ -971,7 +971,7 @@ static NSInteger menuIndex;
       
         
         
-        self.avgTimeZXFactory=[[AvgFactoryTimeChVC alloc] init];
+        self.avgTimeZXFactory=[[[AvgFactoryTimeChVC alloc] init] autorelease];
         avgTimeZXFactory.parentVC=self;
         avgTimeZXFactory.view.center=CGPointMake(512, 120);
         avgTimeZXFactory.view.frame=CGRectMake(0, 0, 1024, 180);
@@ -981,7 +981,7 @@ static NSInteger menuIndex;
         
 
          NSLog(@"电厂平均装XIE港时间统计查询.............");
-        
+       
         
         
     }

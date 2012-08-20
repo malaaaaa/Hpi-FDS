@@ -52,7 +52,7 @@
     if([stringType isEqualToString:@"BSPI"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"平均价格",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         
         //[dateFormatter stringFromDate:endDay];
@@ -67,11 +67,14 @@
                                 nil]];
             
         }
+        
+       
+        
     }
     else if([stringType isEqualToString:@"BDI"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"指数",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
@@ -88,7 +91,7 @@
     else if([stringType isEqualToString:@"BJ_PRICE"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"200",@"200",@"200",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"价格",@"指数",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         NSMutableArray *array2=[TmIndexinfoDao getTmIndexinfo :@"BJ_INDEX" :startDay :endDay];
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
@@ -108,7 +111,7 @@
     else if([stringType isEqualToString:@"QHD_GZ"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"200",@"200",@"200",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"秦皇岛-广州",@"秦皇岛-上海",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         NSMutableArray *array2=[TmIndexinfoDao getTmIndexinfo :@"QHD_SH" :startDay :endDay];
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
@@ -129,7 +132,7 @@
     else if([stringType isEqualToString:@"WTI"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"收盘价",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
@@ -146,7 +149,7 @@
     else if([stringType isEqualToString:@"HPI4500"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"150",@"150",@"150",@"150",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"4500大卡",@"5000大卡",@"5500大卡",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         NSMutableArray *array2=[TmIndexinfoDao getTmIndexinfo :@"HPI5000" :startDay :endDay];
         NSMutableArray *array3=[TmIndexinfoDao getTmIndexinfo :@"HPI5500" :startDay :endDay];
@@ -169,7 +172,7 @@
     else if([stringType isEqualToString:@"NEWC"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"纽卡斯尔港煤炭指数",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
@@ -186,7 +189,7 @@
     else if([stringType isEqualToString:@"RB"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"南非理查德港指数",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
@@ -203,7 +206,7 @@
     else if([stringType isEqualToString:@"DESARA"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"欧洲ARA煤炭市场指数",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
@@ -220,7 +223,7 @@
     else if([stringType isEqualToString:@"GKDJL"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"港口调进(万吨)",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmCoalinfoDao getTmCoalinfo:portCode :startDay :endDay];
         
         //[dateFormatter stringFromDate:endDay];
@@ -239,7 +242,7 @@
     else if([stringType isEqualToString:@"GKDCL"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"港口调出(万吨)",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmCoalinfoDao getTmCoalinfo:portCode :startDay :endDay];
         
         //[dateFormatter stringFromDate:endDay];
@@ -259,7 +262,7 @@
     else if([stringType isEqualToString:@"GKCML"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"港口存量(万吨)",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmCoalinfoDao getTmCoalinfo:portCode :startDay :endDay];
         
         //[dateFormatter stringFromDate:endDay];
@@ -279,7 +282,7 @@
     else if([stringType isEqualToString:@"ZGCS"]){
         ds.columnWidth = [NSArray arrayWithObjects:@"300",@"300",nil];
         ds.titles = [NSArray arrayWithObjects:@"日期",@"在港船数",nil];
-        ds.data=[[NSMutableArray alloc]init];
+        ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmShipinfoDao getTmShipinfo:portCode :startDay :endDay];
         
         //[dateFormatter stringFromDate:endDay];

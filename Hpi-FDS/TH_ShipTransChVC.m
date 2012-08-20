@@ -56,13 +56,13 @@ DataQueryVC *dataQueryVC;
   
     
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc] init];
+    self.xmlParser=[[[XMLParser alloc] init] autorelease];
     
     self.portLabel.hidden=YES;
     self.stageLabel.hidden=YES;
     self.monthLabel.hidden=YES;
     
-    self.month=[[NSDate alloc] init];
+    self.month=[[[NSDate alloc] init] autorelease];
     
     
     //初始化 父视图
@@ -335,22 +335,14 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
     
     if (monthLabel.text!=All_) {
         monthLabel.text=[formater stringFromDate:month];
-        [formater release];
+       
     }
-    
-    
-    
-    
-    
-NSAutoreleasePool *looPool=[[NSAutoreleasePool   alloc] init];
-    
-    
-    
+ 
    dataQueryVC.dataArray=[TH_ShipTransDao getTH_ShipTrans:portLabel.text :monthLabel.text:stageLabel.text];
 
     
-    dataSource.data=[[NSMutableArray alloc] init];
-    NSLog(@"获得Th_ShipTrans[%d]",dataQueryVC.dataArray.count);
+    dataSource.data=[[[NSMutableArray alloc] init] autorelease];
+
     
     for (int i=0; i<[dataQueryVC.dataArray  count ]; i++) {
         TH_ShipTrans *shipTrans=[dataQueryVC.dataArray objectAtIndex:i];
@@ -367,12 +359,14 @@ NSAutoreleasePool *looPool=[[NSAutoreleasePool   alloc] init];
                                     [NSString stringWithFormat:@"%d",shipTrans.LW],
                                     @"",
                                      nil]];
+        
+        
      }
     NSLog(@"加载 listTableView");
     dataQueryVC.dataSource=dataSource;
       [dataQueryVC.listTableview   reloadData];
-    
-   [looPool drain];    
+  
+  [formater release];
 }
 
 - (IBAction)reset:(id)sender {
@@ -403,7 +397,7 @@ NSAutoreleasePool *looPool=[[NSAutoreleasePool   alloc] init];
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间"  delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步", nil];
     
     [alert show];
-       
+    [alert release];
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

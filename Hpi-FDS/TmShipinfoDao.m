@@ -138,12 +138,16 @@ static sqlite3	*database;
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *start=[dateFormatter stringFromDate:day];
-    NSString *end=[dateFormatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([day timeIntervalSinceReferenceDate] + 24*60*60)]];
+    NSString *start=[dateFormatter stringFromDate:day] ;
+    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([day timeIntervalSinceReferenceDate] + 24*60*60)] autorelease]] ;
+   
 	NSString *query=[NSString stringWithFormat:@" portCode = '%@' AND recordDate >='%@' AND recordDate <='%@' Limit 1 ",portCode,start,end];
-	NSMutableArray * array=[TmShipinfoDao getTmShipinfoBySql:query];
+  
+	NSMutableArray * array=[TmShipinfoDao getTmShipinfoBySql:query] ;
     //NSLog(@"执行 getTmShipinfo 数量[%d] ",[array count]);
+   
     [dateFormatter release];
+    
     if ([array count]==0) {
         return nil;
     }
@@ -157,7 +161,7 @@ static sqlite3	*database;
     NSString *sql=[NSString stringWithFormat:@"SELECT infoId,portCode,recordDate,waitShip,transactShip,loadShip FROM  TmShipinfo WHERE %@ ",sql1];
     //NSLog(@"执行 getTmShipinfoBySql [%@] ",sql);
     
-	NSMutableArray *array=[[NSMutableArray alloc]init];
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			

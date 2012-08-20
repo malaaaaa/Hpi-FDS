@@ -101,7 +101,7 @@ UIAlertView *alert;
         [cell addSubview:activity];
         [activity startAnimating];
         if (!xmlParser) {
-            self.xmlParser=[[XMLParser alloc]init];
+            self.xmlParser=[[[XMLParser alloc]init] autorelease];
         }
         [xmlParser setISoapNum:2];
         [xmlParser getTmIndexdefine];
@@ -134,7 +134,7 @@ UIAlertView *alert;
 			{
 				case 0	:
 					cell.textLabel.text=@"启动自动更新数据";
-					UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(310, 8.5, 500.0, 0.0)];
+					UISwitch *switchView = [[[UISwitch alloc] initWithFrame:CGRectMake(310, 8.5, 500.0, 0.0)] autorelease];
 					if([PubInfo.autoUpdate isEqualToString:kYES])
 						switchView.on = YES;//设置初始为ON的一边
 					else {
@@ -149,7 +149,7 @@ UIAlertView *alert;
 					cell.textLabel.text=[NSString stringWithFormat:@"更新基础数据  上次更新:%@",PubInfo.updateTime];
                     cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     if (!activity) {
-                        self.activity=[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(400, 8.5, 20, 20)];
+                        self.activity=[[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(400, 8.5, 20, 20)] autorelease];
                         activity.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
                         [cell addSubview:activity];
                         [activity removeFromSuperview];
