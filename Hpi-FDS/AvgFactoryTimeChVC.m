@@ -7,9 +7,11 @@
 //
 
 
+
 //dev_tangb 
 
-//dev_tangb 提交
+//	
+
 
 #import "AvgFactoryTimeChVC.h"
 #import "DataQueryVC.h"
@@ -294,9 +296,6 @@ endTime.text=endButton.titleLabel.text;
     if(dataQueryVC){
         [dataQueryVC release];
     }
-
-    
-    
 
     [factoryCateLable release];
     [startTime release];
