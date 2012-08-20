@@ -258,7 +258,7 @@ static sqlite3	*database;
         query=[query stringByAppendingFormat:@" AND factoryName ='%@' ",factoryName];
     if(![stageName isEqualToString:All_])
         query=[query stringByAppendingFormat:@" AND stageName ='%@' ",stageName];
-	NSMutableArray * array=[VbShiptransDao getVbShiptransBySql:query];
+	NSMutableArray * array=[[VbShiptransDao getVbShiptransBySql:query] autorelease];
     NSLog(@"执行 getVbShiptransBySql 数量[%d] ",[array count]);
 	return array;
 }
@@ -268,7 +268,7 @@ static sqlite3	*database;
     NSString *sql=[NSString stringWithFormat:@"SELECT disPatchNo,shipCompanyId,shipCompany,shipId,shipName,tripNo,factoryCode,factoryName,portCode,portName,supId,supplier,typeId,coalType,keyValue,keyName,trade,tradeName,heatValue,stage,stageName,stateCode,stateName,lw,p_AnchorageTime,p_Handle,p_ArrivalTime,p_DepartTime,p_Note,t_Note,f_AnchorageTime,f_ArrivalTime,f_DepartTime,f_Note,lateFee,offEfficiency,schedule,planType,planCode,laycanStart,laycanStop,reciept,shipShift,facSort,tradeTime,f_finishtime,iscal FROM  VbShiptrans WHERE %@ ",sql1];
     NSLog(@"执行 getVbShiptransBySql [%@] ",sql);
     
-	NSMutableArray *array=[[NSMutableArray alloc]init];
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			

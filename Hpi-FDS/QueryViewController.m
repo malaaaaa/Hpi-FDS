@@ -31,12 +31,12 @@
     //self.segment.tintColor= [UIColor colorWithRed:116.0/255 green:67.0/255 blue:167.0/255 alpha:1];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.vbShipChVC =[[ VBShipChVC alloc ]initWithNibName:@"VBShipChVC" bundle:nil];
+    self.vbShipChVC =[[[ VBShipChVC alloc ]initWithNibName:@"VBShipChVC" bundle:nil] autorelease];
     vbShipChVC.parentVC=self;
     vbShipChVC.view.center = CGPointMake(512, 60);
     [self.chooseView addSubview:vbShipChVC.view];
     
-    self.tbShipChVC =[[ TBShipChVC alloc ]initWithNibName:@"TBShipChVC" bundle:nil];
+    self.tbShipChVC =[[[ TBShipChVC alloc ]initWithNibName:@"TBShipChVC" bundle:nil] autorelease];
     tbShipChVC.parentVC=self;
     tbShipChVC.view.center = CGPointMake(512, 60);
     [self.chooseView addSubview:tbShipChVC.view];
@@ -105,7 +105,7 @@
     
     NSLog(@"查询 %d条记录",[self.dataArray count]);
     
-    ds.data=[[NSMutableArray alloc]init];
+    ds.data=[[[NSMutableArray alloc]init] autorelease];
     for (i=0;i<[dataArray count];i++) {
         VbShiptrans *vbShiptrans=[dataArray objectAtIndex:i];
         if ([vbShiptrans.stage isEqualToString:@"0"]) {
@@ -211,7 +211,7 @@
     
     NSLog(@"查询 %d条记录",[self.dataArray count]);
     
-    ds.data=[[NSMutableArray alloc]init];
+    ds.data=[[[NSMutableArray alloc]init] autorelease];
     for (i=0;i<[dataArray count];i++) {
         VbShiptrans *vbShiptrans=[dataArray objectAtIndex:i];
         if ([vbShiptrans.stage isEqualToString:@"0"]) {

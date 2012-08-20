@@ -37,6 +37,8 @@
     if (!selectedDate) {
         [picker setDate:[NSDate date] animated:NO];
     }
+    
+    [myFormatter     release];
 }
 
 - (void)viewWillAppear:(BOOL)animated

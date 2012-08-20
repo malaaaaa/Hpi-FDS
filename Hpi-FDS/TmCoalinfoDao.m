@@ -140,7 +140,7 @@ static sqlite3	*database;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *start=[dateFormatter stringFromDate:day];
-    NSString *end=[dateFormatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([day timeIntervalSinceReferenceDate] + 24*60*60)]];
+    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([day timeIntervalSinceReferenceDate] + 24*60*60)] autorelease]];
 	NSString *query=[NSString stringWithFormat:@" portCode = '%@' AND recordDate >='%@' AND recordDate <='%@' Limit 1 ",portCode,start,end];
 	NSMutableArray * array=[TmCoalinfoDao getTmCoalinfoBySql:query];
     //NSLog(@"执行 getTmCoalinfo 数量[%d] ",[array count]);
@@ -157,7 +157,7 @@ static sqlite3	*database;
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT infoId,portCode,recordDate,import,Export,storage FROM  TmCoalinfo WHERE %@ ",sql1];
     //NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
-	NSMutableArray *array=[[NSMutableArray alloc]init];
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			

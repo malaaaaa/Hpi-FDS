@@ -48,7 +48,7 @@ static sqlite3  *database;
 +(NSMutableArray *)getFactoryName:(NSString *)sql1
 {
     
-    NSMutableArray *d=[[NSMutableArray alloc] init];
+    NSMutableArray *d=[[[NSMutableArray alloc] init] autorelease];
     sqlite3_stmt *statement;
     NSString *sql=  [NSString   stringWithFormat:@"select TfFactory.CATEGORY ,  TB_Latefee.factoryname from  TB_Latefee   left  join TfFactory  on  TB_Latefee.factorycode=TfFactory.factorycode      where TB_Latefee .iscal=1 AND %@ group by  TB_Latefee.factoryname",sql1];
     
@@ -71,7 +71,7 @@ static sqlite3  *database;
                factoryName=[NSString stringWithUTF8String:date1];
             
             [d addObject:factoryName];
-            [factoryName release];
+            
         }
        
     }
@@ -113,7 +113,7 @@ static sqlite3  *database;
 +(NSMutableDictionary *)getMonthAndLatefee:(NSString *)sql1
 {
 
- NSMutableDictionary *a=[[NSMutableDictionary    alloc] init];
+ NSMutableDictionary *a=[[[NSMutableDictionary    alloc] init] autorelease];
     sqlite3_stmt *statement;
     NSString *sql= [NSString stringWithFormat:@"select TfFactory.CATEGORY , round(SUM(latefee)/10000 ,2) as MONTHLATEFEE,cast(strftime('%@',tradetime)  as int)  as MonthM from TB_Latefee  left  join TfFactory  on  TB_Latefee.factorycode=TfFactory.factorycode   where TB_Latefee.iscal=1 AND %@  group by  TB_Latefee.factoryname,cast(strftime('%@',tradetime)  as int)  order by MonthM ASC",@"%m",sql1,@"%m"] ;
     
@@ -210,6 +210,21 @@ static sqlite3  *database;
     
     NSMutableArray  *array=[[NSMutableArray alloc] init];
  
+    /*select    factoryname ,
+     sum( CASE  WHEN   MonthM=3  THEN  MONTHLATEFEE    ELSE   0  END  )AS '3',
+     sum( CASE  WHEN   MonthM=5  THEN  MONTHLATEFEE    ELSE   0   END  )AS '5',
+     sum( CASE  WHEN   MonthM=7  THEN  MONTHLATEFEE    ELSE   0   END  )AS '7',
+     total(  MONTHLATEFEE ) AS 'Total'
+     from(
+     select TfFactory.CATEGORY ,TB_Latefee.factoryname ,round(SUM(latefee)/10000 ,2)  as MONTHLATEFEE,cast(strftime('%m',tradetime)  as int)  as MonthM from TB_Latefee left  join TfFactory on TB_Latefee.factorycode=TfFactory.factorycode  where TB_Latefee.iscal=1 and  1=1   AND TB_Latefee.TRADETIME>='2012-01-01'    AND TB_Latefee.TRADETIME<='2012-08-20'    group   by TB_Latefee.factoryname, cast(strftime('%m',tradetime)  as int) ,TfFactory.CATEGORY  order by  MonthM ASC
+     )as LT */
+    
+    
+    
+    
+    
+    
+    
     
 sqlite3_stmt *statement;
     NSString *sql=[NSString  stringWithFormat:@"select TfFactory.CATEGORY ,TB_Latefee.factoryname ,round(SUM(latefee)/10000 ,2)  as MONTHLATEFEE,cast(strftime('%@',tradetime)  as int)  as MonthM from TB_Latefee left  join TfFactory on TB_Latefee.factorycode=TfFactory.factorycode  where TB_Latefee.iscal=1 and %@   group   by TB_Latefee.factoryname, cast(strftime('%@',tradetime)  as int) ,TfFactory.CATEGORY  order by  MonthM ASC",@"%m",sql1,@"%m"];

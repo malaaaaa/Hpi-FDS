@@ -37,9 +37,9 @@ static NSString *stringType=@"BSPI";
 	// Do any additional setup after loading the view.
     [segment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
     
-    self.endDay = [[NSDate alloc] init];
+    self.endDay = [[[NSDate alloc] init] autorelease];
     //self.startDay = [[NSDate alloc] init];
-    self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
+    self.startDay = [[[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] autorelease];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     [endButton setTitle:[dateFormatter stringFromDate:endDay] forState:UIControlStateNormal];
@@ -47,7 +47,7 @@ static NSString *stringType=@"BSPI";
     [dateFormatter release];
     
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.xmlParser=[[[XMLParser alloc]init] autorelease ];
 }
 
 - (void)viewDidUnload
@@ -107,11 +107,11 @@ static NSString *stringType=@"BSPI";
     NSDate *maxDate=[endDay laterDate:startDay];
     NSDate *minDate=[endDay earlierDate:startDay];
     HpiGraphData *graphData=[[HpiGraphData alloc] init];
-    graphData.pointArray = [[NSMutableArray alloc]init];
-    graphData.pointArray2 = [[NSMutableArray alloc]init];
-    graphData.pointArray3 = [[NSMutableArray alloc]init];
-    graphData.xtitles = [[NSMutableArray alloc]init];
-    graphData.ytitles = [[NSMutableArray alloc]init];
+    graphData.pointArray = [[[NSMutableArray alloc]init] autorelease];
+    graphData.pointArray2 = [[[NSMutableArray alloc]init] autorelease];
+    graphData.pointArray3 = [[[NSMutableArray alloc]init] autorelease];
+    graphData.xtitles = [[[NSMutableArray alloc]init] autorelease];
+    graphData.ytitles = [[[NSMutableArray alloc]init] autorelease];
     NSDate *date=minDate;
     NSMutableArray *array=[TmIndexdefineDao getTmIndexdefineByName:stringType];
     NSLog(@"查询[%d]",[array count]);
@@ -170,7 +170,9 @@ static NSString *stringType=@"BSPI";
         }
         [dateFormatter release];    
     }
-    else 
+    else
+        [graphData release];
+        
         return;
 
     //NSLog(@"BSPI 统计共%d天",graphData.xNum);
@@ -384,7 +386,7 @@ static NSString *stringType=@"BSPI";
 {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
-    
+    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {

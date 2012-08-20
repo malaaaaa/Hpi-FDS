@@ -49,15 +49,15 @@
     self.typeLabel.text=All_;
     self.tradeLabel.text=All_;
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.xmlParser=[[[XMLParser alloc]init] autorelease];
     
-    self.endDay = [[NSDate alloc] init];
-    self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    self.endDay = [[[NSDate alloc] init] autorelease];
+    self.startDay = [[[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] autorelease];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy-MM"];
     [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
     [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
-    [dateFormatter release];
+   // [dateFormatter release];
 }
 
 - (void)viewDidUnload
@@ -214,7 +214,7 @@
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
-    
+    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -311,7 +311,7 @@
     NSMutableArray *tradetimeArray = [NTFactoryFreightVolumeDao getTradeTimeFromTmpNTFactoryFreightVolume];
     ds.titles = factoryArray;
     
-    ds.columnWidth = [[NSMutableArray alloc] init];
+    ds.columnWidth = [[[NSMutableArray alloc] init] autorelease];
     [ds.columnWidth addObject:@"120"];
     for (i=1; i<[ds.titles count]; i++) {
         [ds.columnWidth addObject:@"120"];
@@ -320,7 +320,7 @@
     ds.splitTitle = [NSArray arrayWithObjects:@"运量",@"航次",nil];
 
     MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(30, 50, 960, 400) data:ds];
-    [ds.columnWidth release];
+    //[ds.columnWidth release];
 	[ds release];
 	[self.listView addSubview:grid];
 	[grid release];

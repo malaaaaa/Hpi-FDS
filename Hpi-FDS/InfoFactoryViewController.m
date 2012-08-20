@@ -64,7 +64,7 @@
     NSMutableArray *array=[TgShipDao getTgShipZCPort:self.factoryName];
     NSLog(@"查询 %@ 在厂信息 %d条记录",self.factoryName,[array count]);
     
-    ds.data=[[NSMutableArray alloc]init];
+    ds.data=[[[NSMutableArray alloc]init] autorelease];
     for (i=0;i<[array count];i++) {
         TgShip *tgShip=[array objectAtIndex:i];
         [ds.data addObject:[NSArray arrayWithObjects:

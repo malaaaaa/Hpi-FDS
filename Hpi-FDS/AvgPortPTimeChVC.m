@@ -64,20 +64,24 @@ int currentMonth;
     [comp setMonth:currentMonth-1];
     [comp setDay:31];
     [comp setYear:[yeas intValue]];
-    NSCalendar *myCal = [[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDate *myDate1 = [myCal dateFromComponents:comp];
+    NSCalendar *myCal = [[[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+   
+    NSDate *myDate1 = [myCal dateFromComponents:comp] ;
+    [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]] forState:UIControlStateNormal];
+     self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
     self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
     [self.startButton setTitle:[NSString stringWithFormat:@"%@-01",yeas] forState:UIControlStateNormal];
-    self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
-    [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]] forState:UIControlStateNormal];
+   
+    
     [activty removeFromSuperview];
     xmlParser=[[XMLParser alloc] init];
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
 
     [ self  getDateSource:self.startTime.text :self.endTime.text :0];
+
     [comp    release];
- 
+   
 }
 
 -(void)initDC
@@ -97,14 +101,14 @@ int currentMonth;
     if(source){
         [source release];
         source=[[DataGridComponentDataSource alloc] init   ];
-        source.titles=[[NSMutableArray alloc] init ];
-        source.data=[[NSMutableArray alloc] init ];
-        source.columnWidth=[[NSMutableArray alloc] init ];
+        source.titles=[[[NSMutableArray alloc] init ] autorelease];
+        source.data=[[[NSMutableArray alloc] init ] autorelease];
+        source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
     }else{
         source=[[DataGridComponentDataSource alloc] init   ];
-        source.titles=[[NSMutableArray alloc] init ];
-        source.data=[[NSMutableArray alloc] init ];
-        source.columnWidth=[[NSMutableArray alloc] init ];
+        source.titles=[[[NSMutableArray alloc] init ] autorelease   ];
+        source.data=[[[NSMutableArray alloc] init ] autorelease];
+        source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
     }
 }
 
@@ -187,8 +191,13 @@ int currentMonth;
     if (![endButton .titleLabel.text isEqualToString:@"结束时间"]) {
         endTime.text=endButton.titleLabel.text;
     }
-    dataQueryVC.dataArray=[[NSMutableArray  alloc] init ];
+    dataQueryVC.dataArray=[[[NSMutableArray  alloc] init ] autorelease];
+
+    
+    
     [ self  getDateSource:self.startTime.text :self.endTime.text :1];
+    
+    
 }
 - (IBAction)release:(id)sender {
     //获得当前月份和年份    
@@ -200,20 +209,22 @@ int currentMonth;
     [comp setMonth:currentMonth-1];
     [comp setDay:31];
     [comp setYear:[yeas intValue]];
-    NSCalendar *myCal = [[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *myCal = [[[NSCalendar alloc ] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     NSDate *myDate1 = [myCal dateFromComponents:comp];
-
+    self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
+     [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]]  forState:UIControlStateNormal];
     self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
     self.startTime.hidden=YES;
     [self.startButton setTitle:[NSString stringWithFormat:@"%@-01",yeas] forState:UIControlStateNormal];
-    self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
+
     self.endTime.hidden=YES;
-    [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]]  forState:UIControlStateNormal];
+   
     [comp release];
 }
 - (IBAction)reload:(id)sender {
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间"  delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步", nil];
     [alert show];
+    [alert  release];
 }
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {

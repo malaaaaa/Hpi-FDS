@@ -193,7 +193,7 @@ static sqlite3 *database;
     NSString *start=[dateFormatter stringFromDate:date];
     [tmpString appendFormat:@" AND strftime('%%Y-%%m-%%d',s.RECORDDATE) ='%@'",start];
     
-    
+    [dateFormatter release];
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT f.FACTORYCODE,f.FACTORYNAME,F.CAPACITYSUM, S.CONSUM,S.AVALIABLE,S.MONTHIMP,S.YEARIMP,f.description FROM  TfFactory f,TbFactoryState s WHERE f.factorycode=s.factorycode  %@ ",tmpString];
     NSLog(@"执行 getVbFactoryTransState OuterSql[%@] ",sql);

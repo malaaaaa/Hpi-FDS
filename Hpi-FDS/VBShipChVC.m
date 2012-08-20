@@ -59,7 +59,7 @@ DataQueryVC *dataQueryVC;
     self.factoryLabel.text=All_;
     self.statLabel.text=All_;
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.xmlParser=[[[XMLParser alloc]init] autorelease];
     self.shipLabel.hidden=YES;
     self.comLabel.hidden=YES;
     self.portLabel.hidden=YES;
@@ -326,7 +326,7 @@ DataQueryVC *dataQueryVC;
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
-    
+    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -348,13 +348,15 @@ DataQueryVC *dataQueryVC;
     NSLog(@"factoryLabel=[%@]",factoryLabel.text);
     NSLog(@"statLabel=[%@]",statLabel.text);
     
-    NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
+   // NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
     
     
     
     
     dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
-   // [dataQueryVC loadViewData_vb];
+    NSLog(@"-----------------------dataQueryVC.dataArray[%d]",[dataQueryVC.dataArray count]);
+    NSLog(@"填充数据源");
+  // [dataQueryVC loadViewData_vb];
     dataSource.data=[[NSMutableArray alloc]init];
     for (int i=0;i<[dataQueryVC.dataArray count];i++) {
         VbShiptrans *vbShiptrans=[dataQueryVC.dataArray objectAtIndex:i];
@@ -375,13 +377,37 @@ DataQueryVC *dataQueryVC;
                                     nil]];
         
     }
-    
-      dataQueryVC.dataSource=dataSource;
-    
     [dataQueryVC.listTableview reloadData];
     
-    
-    [loopPool drain];
+    /*
+    dataSource.data=[[NSMutableArray alloc]init] ;
+   
+    for (int i=0;i<[dataQueryVC.dataArray count];i++) {
+        VbShiptrans *vbShiptrans=[dataQueryVC.dataArray objectAtIndex:i];
+        
+        [dataSource.data addObject:[NSArray arrayWithObjects:
+                                    ([vbShiptrans.stage isEqualToString:@"0"])?kGREEN:(([vbShiptrans.stage isEqualToString:@"2"])?kRED:kBLACK),
+                                    vbShiptrans.shipCompany,
+                                    ([vbShiptrans.schedule isEqualToString:@"1"])?vbShiptrans.shipName:[NSString stringWithFormat:@"*%@",vbShiptrans.shipName],
+                                    vbShiptrans.tripNo,
+                                    vbShiptrans.factoryName,
+                                    vbShiptrans.portName,
+                                    vbShiptrans.supplier,
+                                    vbShiptrans.keyName,
+                                    [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
+                                    vbShiptrans.tradeName,
+                                    vbShiptrans.coalType,
+                                    vbShiptrans.stateName,
+                                    nil]];
+        
+    }
+    NSLog(@"填充完毕。。。。。。");
+       NSLog(@"sdddddddddddd------------");
+      dataQueryVC.dataSource=dataSource;  */
+   // [dataQueryVC.listTableview reloadData];
+   
+  
+    //[loopPool drain];
 }
 
 - (IBAction)resetAction:(id)sender {

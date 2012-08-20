@@ -116,7 +116,7 @@ static sqlite3	*database;
     NSString *sql=[NSString stringWithFormat:@"SELECT typeId,indexType,typeName FROM  TmIndextype WHERE %@ ",sql1];
     NSLog(@"执行 getTmIndextypeBySql [%@] ",sql);
     
-	NSMutableArray *array=[[NSMutableArray alloc]init];
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			

@@ -97,7 +97,7 @@ static  NSMutableArray *ShipStageArray;
     self.supLabel.hidden=YES;
     self.typeLabel.hidden=YES;
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.xmlParser=[[[XMLParser alloc]init] autorelease];
     
     //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -143,7 +143,7 @@ static  NSMutableArray *ShipStageArray;
         [l release];
         columnOffset += columnWidth;
     }
-    dataSource.data=[[NSMutableArray alloc]init];
+    dataSource.data=[[[NSMutableArray alloc]init] autorelease];
     
     listView.layer.masksToBounds=YES;
     listView.layer.cornerRadius=10.0;
@@ -616,7 +616,7 @@ static  NSMutableArray *ShipStageArray;
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
-    
+    [alert  release];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -721,6 +721,7 @@ static  NSMutableArray *ShipStageArray;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         NSLog(@"startDay=%@",[dateFormatter stringFromDate:self.startDay]);
+        [dateFormatter release];
     }
     return  YES;
 }
@@ -808,9 +809,9 @@ static  NSMutableArray *ShipStageArray;
     NSDate *date2 = [formatter dateFromString:string2];
     NSLog(@"date1: %@", [formatter stringFromDate:date1]);
     NSLog(@"date2: %@", [formatter stringFromDate:date2]);
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     unsigned int unitFlag = NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit;
-    NSDateComponents *components = [calendar components:unitFlag fromDate:date1 toDate:date2 options:0];
+    NSDateComponents *components = [calendar components:unitFlag fromDate:date1 toDate:date2 options:0] ;
     int days    = [components day];
     int hours   = [components hour];
     int minutes = [components minute];
@@ -844,6 +845,10 @@ static  NSMutableArray *ShipStageArray;
         str=@"";
         return str;
     }
+    
+ 
+    
+   
 }
 
 
