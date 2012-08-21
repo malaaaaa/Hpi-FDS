@@ -16,14 +16,14 @@
 	if(![super initWithFrame:frame]) return nil;
 	
     self.data=graphData;
-    self.layer.masksToBounds=YES;
-    self.layer.cornerRadius=10.0;
-    self.layer.borderWidth=10.0;
+//    self.layer.masksToBounds=YES;
+//    self.layer.cornerRadius=10.0;
+//    self.layer.borderWidth=10.0;
     self.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
     self.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     
-	titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, frame.size.width-40, 30)];
-	titleLabel.backgroundColor = [UIColor colorWithRed:15./255 green:43./255 blue:64./255 alpha:1.0];
+	titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, frame.size.width-40, 30)];
+	titleLabel.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1.0];
 	titleLabel.opaque = YES;
 	titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     titleLabel.textColor =[UIColor whiteColor];
@@ -68,7 +68,7 @@
     else {
         favg= (_rect.size.width-marginLeft-marginRight);
     }
-    NSLog(@"HpiGraphView drawScale  %d条横线 %d条竖线  %f",[data.ytitles count],[data.xtitles count],favg);
+//    NSLog(@"HpiGraphView drawScale  %d条横线 %d条竖线  %f",[data.ytitles count],[data.xtitles count],favg);
 	for(int i=0;i<[data.xtitles count]; i++){
         CGContextMoveToPoint(context, marginLeft+favg*i, marginTop);
         CGContextAddLineToPoint(context, marginLeft+favg*i, _rect.size.height-marginBottom);
@@ -109,7 +109,7 @@
     //        return;
     BOOL start=NO;
     
-    NSLog(@"graphData.pointArray222.count=%d",[self.data.pointArray count]);
+//    NSLog(@"graphData.pointArray222.count=%d",[self.data.pointArray count]);
     
     for (int i=0; i<[self.data.pointArray count]; i++) {
         
@@ -128,23 +128,23 @@
         float wlength,hlength;
         hlength=(_rect.size.height-marginTop-marginBottom)/data.yNum;
         wlength=(_rect.size.width-marginRight-marginLeft)/(data.xNum-1);
-        NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
+//        NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
         //将数据转化成坐标系
         CGContextMoveToPoint(context, marginLeft, _rect.size.height-marginBottom);
-        NSLog(@"graphData.pointArray333.count=%d",[line.pointArray count]);
+//        NSLog(@"graphData.pointArray333.count=%d",[line.pointArray count]);
         
         
         for(int i=0;i<[line.pointArray count]; i++){
             BrokenLineGraphPoint *point=[line.pointArray objectAtIndex:i];
-            NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
+//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
             if (start == NO) {
                 CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
                 start = YES;
-                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
             }
             else {
                 CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-                NSLog(@"HpiGraphView drawPoints Line 第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//                NSLog(@"HpiGraphView drawPoints Line 第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
             }
         }
         CGContextStrokePath(context);
@@ -161,7 +161,7 @@
     //        return;
     BOOL start=NO;
     
-    NSLog(@"graphData.pointArray222.count=%d",[self.data.pointArray count]);
+//    NSLog(@"graphData.pointArray222.count=%d",[self.data.pointArray count]);
     
     for (int i=0; i<[self.data.pointArray count]; i++) {
         
@@ -171,18 +171,18 @@
         float wlength,hlength;
         hlength=(_rect.size.height-marginTop-marginBottom)/data.yNum;
         wlength=(_rect.size.width-marginRight-marginLeft)/(data.xNum-1);
-        NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
+//        NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
         //将数据转化成坐标系
-        NSLog(@"graphData.pointArray333.count=%d",[line.pointArray count]);
+//        NSLog(@"graphData.pointArray333.count=%d",[line.pointArray count]);
         
         
         for(int i=0;i<[line.pointArray count]; i++){
             BrokenLineGraphPoint *point=[line.pointArray objectAtIndex:i];
             
-            NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
+//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
             if (start == NO) {
                 start = YES;
-                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
             }
             else {
                 NTShipCompanyTranShare *companyShare = point.companyShare;

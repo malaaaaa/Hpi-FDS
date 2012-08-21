@@ -31,6 +31,8 @@
 @synthesize parentVC;
 @synthesize legendView=_legendView;
 @synthesize tbxmlParser;
+@synthesize buttonView=_buttonView;
+@synthesize listView=_listView;
 static BOOL PortPop=NO;
 static  NSMutableArray *PortArray;
 static  NSMutableArray *LegendArray;
@@ -62,6 +64,18 @@ static  NSMutableArray *LegendArray;
     [dateFormatter release];
     self.tbxmlParser =[[TBXMLParser alloc] init];
 
+    _listView.layer.masksToBounds=YES;
+    _listView.layer.cornerRadius=2.0;
+    _listView.layer.borderWidth=2.0;
+    _listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    _listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    
+    _buttonView.layer.masksToBounds=YES;
+    _buttonView.layer.cornerRadius=2.0;
+    _buttonView.layer.borderWidth=2.0;
+    _buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    _buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -382,11 +396,11 @@ static  NSMutableArray *LegendArray;
             else {
                
                 point.x=i-1;
-                NSLog(@"TransShare%@",point.companyShare.PERCENT);
+//                NSLog(@"TransShare%@",point.companyShare.PERCENT);
                 point.y=([point.companyShare.PERCENT floatValue]-minY)*10;
-                NSLog(@"point.x%d",point.x);
-                NSLog(@"point.y%d",point.y);
-                
+//                NSLog(@"point.x%d",point.x);
+//                NSLog(@"point.y%d",point.y);
+//            
                 [line.pointArray  addObject:point];
                 
             }
@@ -398,12 +412,11 @@ static  NSMutableArray *LegendArray;
             [offsetComponents release];
             
         }
-        NSLog(@"graphData.pointArray000.count=%d",[line.pointArray count]);
+//        NSLog(@"graphData.pointArray000.count=%d",[line.pointArray count]);
         
         line.red=[colorConfig.RED floatValue];
         line.green=[colorConfig.GREEN floatValue];
         line.blue=[colorConfig.BLUE floatValue];
-        NSLog(@"blue%f",line.blue);
         [graphData.pointArray addObject:line];
         
         [line.pointArray release];
@@ -413,30 +426,29 @@ static  NSMutableArray *LegendArray;
     
     [dateFormatter release]; 
     
-    NSLog(@"graphData.pointArray111.count=%d",[graphData.pointArray count]);
+//    NSLog(@"graphData.pointArray111.count=%d",[graphData.pointArray count]);
     
     if (_graphView) {
         [_graphView removeFromSuperview];
         self.graphView=nil;
 
     }
-    self.graphView=[[BrokenLineGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData];
+    self.graphView=[[BrokenLineGraphView alloc] initWithFrame:CGRectMake(50, 0, 924, 500) :graphData];
     _graphView.titleLabel.text=@"航运公司份额统计";
     
     _graphView.marginRight=60;
     _graphView.marginBottom=60;
     _graphView.marginLeft=60;
-    _graphView.marginTop=80;
+    _graphView.marginTop=50;
     
     [_graphView setNeedsDisplay];
     
-    [self.view addSubview:_graphView];
+    [self.listView addSubview:_graphView];
     
     [graphData.pointArray  release];
     [graphData.xtitles release];
     [graphData.ytitles release];
     [graphData release];  
-    NSLog(@"HHHHH");
     
 }
 

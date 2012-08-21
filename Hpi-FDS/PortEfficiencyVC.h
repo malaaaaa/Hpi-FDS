@@ -35,6 +35,9 @@
     ChooseView *chooseView;
     id parentVC;
     IBOutlet UIView *_chartView;
+    IBOutlet UIView *_buttonView;
+    IBOutlet UIView *_listView;
+
 }
 @property(nonatomic,retain) UIPopoverController *popover;
 @property(nonatomic,retain) DateViewController *startDateCV;
@@ -55,6 +58,10 @@
 @property (retain, nonatomic) ChooseView *chooseView;
 @property (retain, nonatomic) id parentVC;
 @property(nonatomic,retain) IBOutlet UIView *chartView;
+@property(nonatomic,retain) IBOutlet UIView *buttonView;
+@property(nonatomic,retain) IBOutlet UIView *listView;
+
+
 
 - (IBAction)queryData:(id)sender;
 - (IBAction)startDate:(id)sender;

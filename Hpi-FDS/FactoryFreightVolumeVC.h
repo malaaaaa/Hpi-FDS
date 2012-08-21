@@ -32,8 +32,7 @@
     UIButton *reloadButton;
     UIActivityIndicatorView *activity;
     TBXMLParser *tbxmlParser;
-//    IBOutlet UITableView *listTableview;
-//    IBOutlet UIView *labelView;
+    IBOutlet UIView *_buttonView;
     IBOutlet UIView *listView;
     NSMutableArray  *listArray;
     DateViewController *_startDateCV;
@@ -66,7 +65,7 @@
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (retain, nonatomic) IBOutlet UIButton *reloadButton;
 @property (retain, nonatomic) TBXMLParser *tbxmlParser;
-//@property (nonatomic,retain) UITableView *listTableview;
+@property (nonatomic,retain) UIView *buttonView;
 //@property (nonatomic,retain) UIView *labelView;
 @property (nonatomic,retain) UIView *listView;
 @property (nonatomic,retain) NSMutableArray *listArray;

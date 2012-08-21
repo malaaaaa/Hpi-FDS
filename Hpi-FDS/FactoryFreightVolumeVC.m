@@ -22,7 +22,7 @@
 @synthesize queryButton;
 @synthesize resetButton;
 @synthesize popover,chooseView,multipleSelectView,parentVC;
-//@synthesize listTableview;
+@synthesize buttonView=_buttonView;
 //@synthesize labelView;
 @synthesize listArray;
 @synthesize listView;
@@ -60,6 +60,18 @@
     [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
     [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
     [dateFormatter release];
+    
+    listView.layer.masksToBounds=YES;
+    listView.layer.cornerRadius=2.0;
+    listView.layer.borderWidth=2.0;
+    listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+        
+    _buttonView.layer.masksToBounds=YES;
+    _buttonView.layer.cornerRadius=2.0;
+    _buttonView.layer.borderWidth=2.0;
+    _buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    _buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
 }
 
 - (void)viewDidUnload
@@ -320,7 +332,7 @@
     ds.data = [NTFactoryFreightVolumeDao getAllDataByTradeTime:tradetimeArray Factory:factoryArray];
     ds.splitTitle = [NSArray arrayWithObjects:@"运量",@"航次",nil];
 
-    MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(30, 50, 960, 400) data:ds];
+    MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 50, 1024, 450) data:ds];
     [ds.columnWidth release];
 	[ds release];
 	[self.listView addSubview:grid];
@@ -332,7 +344,7 @@
     titleLabel.textColor=[UIColor whiteColor];
     titleLabel.textAlignment=UITextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:18.0f];
-    titleLabel.backgroundColor=[UIColor blackColor];
+    titleLabel.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     [self.listView addSubview:titleLabel];
     [titleLabel release];
 }

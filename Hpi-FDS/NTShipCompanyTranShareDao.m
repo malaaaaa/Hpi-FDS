@@ -110,7 +110,7 @@ static sqlite3 *database;
 }
 +(void)insert_tmpTable:(NTShipCompanyTranShare*) NTShipCompanyTranShare
 {
-	NSLog(@"Insert begin TMP_NTShipCompanyTranShare");
+//	NSLog(@"Insert begin TMP_NTShipCompanyTranShare");
 	const char *insert="INSERT INTO TMP_NTShipCompanyTranShare (COMID,COMPANY,TRADEYEAR,TRADEMONTH,LW,PERCENT) values(?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -203,7 +203,7 @@ static sqlite3 *database;
     for (int i=0; i<monthNum; i++) {
         sqlite3_stmt *statement;
         NSString *sql=[NSString stringWithFormat:@"SELECT sum(lw) from NTShipCompanyTranShare where tradeyear='%@' and trademonth='%@' %@ ",year,month,tmpString];
-        NSLog(@"执行 InsertByPortCode Sql[%@] ",sql);
+       NSLog(@"执行 InsertByPortCode Sql[%@] ",sql);
         
         if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
             while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -258,7 +258,6 @@ static sqlite3 *database;
             
         }
         
-        NSLog(@"--%@%@",year,month);
         if ([month isEqualToString:@"12"]) {
             month=@"01";
             year =  [NSString stringWithFormat:@"%d",[year integerValue]+1];
@@ -271,11 +270,10 @@ static sqlite3 *database;
                 month = [NSString stringWithFormat:@"0%d", [month integerValue]+1];
             }
         }
-        NSLog(@"++%@%@",year,month);
         sqlite3_finalize(statement);
 
     }    
-    
+    NSLog(@"insert over");
     [tmpString release];
 }
 +(NTShipCompanyTranShare *) getTransShareByComid:(NSInteger)comid Year:(NSString *)year Month:(NSString *)month
@@ -350,7 +348,7 @@ static sqlite3 *database;
 	}
 	else
 	{
-		NSLog(@"update success");
+//		NSLog(@"update success");
 		
 	}
 	return;

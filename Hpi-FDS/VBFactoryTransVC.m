@@ -49,6 +49,7 @@
 @synthesize startDateCV;
 @synthesize startDay;
 @synthesize tbxmlParser;
+@synthesize buttonView;
 
 static DataGridComponentDataSource *dataSource;
 static BOOL FactoryPop=NO;
@@ -108,15 +109,15 @@ static  NSMutableArray *ShipStageArray;
     
     //factoryArray= [[NSMutableArray alloc] init];
     
-    CATransition *animation = [CATransition animation];
-    animation.delegate = self;
-    animation.duration = 0.5f;
-    animation.timingFunction = UIViewAnimationCurveEaseInOut;
-    animation.fillMode = kCAFillModeForwards;
-    animation.endProgress = 1;
-    animation.removedOnCompletion = NO;
-    animation.type = @"cube";
-    [self.view.layer addAnimation:animation forKey:@"animation"];
+//    CATransition *animation = [CATransition animation];
+//    animation.delegate = self;
+//    animation.duration = 0.5f;
+//    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+//    animation.fillMode = kCAFillModeForwards;
+//    animation.endProgress = 1;
+//    animation.removedOnCompletion = NO;
+//    animation.type = @"cube";
+//    [self.view.layer addAnimation:animation forKey:@"animation"];
     // [self.chooseView bringSubviewToFront:vbFactoryTransVC.view];
     
     float columnOffset = 0.0;
@@ -124,11 +125,11 @@ static  NSMutableArray *ShipStageArray;
     
     dataSource = [[DataGridComponentDataSource alloc] init];
     //(20.20.985.42)
-    dataSource.columnWidth = [NSArray arrayWithObjects:@"100",@"145",@"100",@"80",@"80",@"60",@"120",@"100",@"150",@"50",@"2",nil];
-    dataSource.titles = [NSArray arrayWithObjects:@"厂名",@"机组容量（万千瓦）",@"日耗",@"库存",@"较前日",@"可用天数",@"当月调进量",@"年调进量",@"备注",@"船舶",@"factorycode",nil];
+    dataSource.columnWidth = [NSArray arrayWithObjects:@"100",@"100",@"100",@"50",@"50",@"70",@"100",@"100",@"295",@"50",@"2",nil];
+    dataSource.titles = [NSArray arrayWithObjects:@"厂名",@"机组容量",@"日耗",@"库存",@"较前日",@"可用天数",@"当月调进量",@"年调进量",@"备注",@"船舶",@"factorycode",nil];
     
-    animation.type = @"oglFlip";
-    [self.labelView.layer addAnimation:animation forKey:@"animation"];
+//    animation.type = @"oglFlip";
+//    [self.labelView.layer addAnimation:animation forKey:@"animation"];
     //  [labelView removeFromSuperview];
     //填冲标题数据
     for(int column = 0;column < [dataSource.titles count];column++){
@@ -148,17 +149,22 @@ static  NSMutableArray *ShipStageArray;
     dataSource.data=[[NSMutableArray alloc]init];
     
     listView.layer.masksToBounds=YES;
-    listView.layer.cornerRadius=10.0;
-    listView.layer.borderWidth=10.0;
+    listView.layer.cornerRadius=2.0;
+    listView.layer.borderWidth=2.0;
     listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
     listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     
-    listView.center=CGPointMake(512,442);
+//    listView.center=CGPointMake(512,442);
     
     
     [listTableview setSeparatorColor:[UIColor clearColor]];
     listTableview.backgroundColor = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
     
+    buttonView.layer.masksToBounds=YES;
+    buttonView.layer.cornerRadius=2.0;
+    buttonView.layer.borderWidth=2.0;
+    buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     
     // [self.view addSubview:labelView];
     

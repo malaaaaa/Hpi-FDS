@@ -50,6 +50,7 @@
     IBOutlet UITableView *listTableview;
     IBOutlet UIView *labelView;
     IBOutlet UIView *listView;
+    IBOutlet UIView *buttonView;
     NSMutableArray  *detailArray;
     VBFactoryTransDetailVC *factorytransDeitail;
     NSMutableArray  *listArray;
@@ -102,6 +103,7 @@
 @property (nonatomic,retain) UITableView *listTableview;
 @property (nonatomic,retain) UIView *labelView;
 @property (nonatomic,retain) UIView *listView;
+@property (nonatomic,retain) UIView *buttonView;
 @property (nonatomic,retain) NSMutableArray *detailArray;
 @property (nonatomic,retain) NSMutableArray *listArray;
 @property (nonatomic,retain) VBFactoryTransDetailVC    *factorytransDeitail;

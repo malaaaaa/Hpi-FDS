@@ -47,6 +47,19 @@ static  NSMutableArray *ShipCompanyArray;
     [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
     [dateFormatter release];
     
+    _buttonView.layer.masksToBounds=YES;
+    _buttonView.layer.cornerRadius=2.0;
+    _buttonView.layer.borderWidth=2.0;
+    _buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    _buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    
+    _chartView.layer.masksToBounds=YES;
+    _chartView.layer.cornerRadius=3.0;
+    _chartView.layer.borderWidth=3.0;
+    _chartView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    _chartView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -300,8 +313,8 @@ static  NSMutableArray *ShipCompanyArray;
 }
 
 -(void)generateGraphDate{
-  NSLog(@"_scheduleLabel=%@",_scheduleLabel.text);
-   NSLog(@"_typeLabel=%@",_typeLabel.text);
+    NSLog(@"_scheduleLabel=%@",_scheduleLabel.text);
+    NSLog(@"_typeLabel=%@",_typeLabel.text);
     NSLog(@"count=%d", [ShipCompanyArray count]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -318,7 +331,7 @@ static  NSMutableArray *ShipCompanyArray;
     WSChart *electionChart = [WSChart barPlotWithFrame:[self.chartView bounds]
                                                   data:barData
                                                  style:kChartBarPlain
-                                           colorScheme:kColorGray];
+                                           colorScheme:kColor_FDS_Gray];
     [electionChart scaleAllAxisYD:NARangeMake(-300, 1400)];
     [electionChart scaleAllAxisXD:NARangeMake(-3, 30)];
     [electionChart setAllAxisLocationXD:-1];

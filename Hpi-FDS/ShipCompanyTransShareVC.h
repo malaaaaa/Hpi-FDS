@@ -36,6 +36,8 @@
     BrokenLineLegendVC *_legendView;
     id parentVC;
     TBXMLParser *tbxmlParser;
+    IBOutlet UIView *_buttonView;
+    IBOutlet UIView *_listView;
 
 }
 @property(nonatomic,retain) UIPopoverController *popover;
@@ -56,6 +58,9 @@
 @property (retain, nonatomic) id parentVC;
 @property(nonatomic,retain) BrokenLineLegendVC *legendView;
 @property (retain, nonatomic) TBXMLParser *tbxmlParser;
+@property(nonatomic,retain) UIView *buttonView;
+@property(nonatomic,retain) UIView *listView;
+
 
 
 - (IBAction)portAction:(id)sender;
