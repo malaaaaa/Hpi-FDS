@@ -72,7 +72,7 @@ static sqlite3 *database;
 
 +(void)insert:(NTFactoryFreightVolume *) factoryFreightVolume
 {
-	NSLog(@"Insert begin NTFactoryFreightVolume");
+//	NSLog(@"Insert begin NTFactoryFreightVolume");
 	const char *insert="INSERT INTO NTFactoryFreightVolume (TRADETIME,TRADE,TRADENAME,CATEGORY,FACTORYNAME,LW) values(?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	

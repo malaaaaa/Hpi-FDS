@@ -39,7 +39,7 @@
 @synthesize dateLabel;
 @synthesize queryButton;
 @synthesize resetButton;
-@synthesize popover,chooseView,multipleSelectView,parentVC,xmlParser;
+@synthesize popover,chooseView,multipleSelectView,parentVC;
 @synthesize listTableview;
 @synthesize labelView;
 @synthesize detailArray;
@@ -98,9 +98,8 @@ static  NSMutableArray *ShipStageArray;
     self.supLabel.hidden=YES;
     self.typeLabel.hidden=YES;
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
     
-      self.tbxmlParser =[[TBXMLParser alloc] init];
+    self.tbxmlParser =[[TBXMLParser alloc] init];
     
     //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -174,7 +173,7 @@ static  NSMutableArray *ShipStageArray;
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     [self setFactoryButton:nil];
@@ -199,10 +198,9 @@ static  NSMutableArray *ShipStageArray;
     [self setResetButton:nil];
     [self setReloadButton:nil];
     [self setActivity:nil];
-    xmlParser=nil;
-    [xmlParser release];
-    self.tbxmlParser=nil;
     
+    self.tbxmlParser=nil;
+    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -233,8 +231,7 @@ static  NSMutableArray *ShipStageArray;
     [popover release];
     [reloadButton release];
     [activity release];
-    [xmlParser release];
-    [super dealloc];
+    
     //[factoryArray release];
     if (FactoryPop==YES) {
         [FactoryArray release];
@@ -252,6 +249,7 @@ static  NSMutableArray *ShipStageArray;
         [ShipStageArray release];
     }
     self.tbxmlParser=nil;
+    [super dealloc];
 }
 
 -(IBAction)startDate:(id)sender
@@ -628,21 +626,10 @@ static  NSMutableArray *ShipStageArray;
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-//        [xmlParser setISoapNum:1];
         [tbxmlParser setISoapNum:2];
-
-//        [xmlParser getTfFactory];
-//        [xmlParser getTbFactoryState];
-//        [VbFactoryTransDao   deleteAll];
-//        [xmlParser getVbFactoryTrans];
-//        [xmlParser getTfShipCompany];
-//        [xmlParser getTfSupplier];
-//        [xmlParser getTfCoalType];
-//        [xmlParser getTsShipStage];
         
         [tbxmlParser requestSOAP:@"FactoryState"];
         [tbxmlParser requestSOAP:@"FactoryTrans"];
-
         
         [self runActivity];
     }
@@ -956,7 +943,7 @@ static  NSMutableArray *ShipStageArray;
                 self.keyValueLabel.hidden=YES;
                 [self.keyValueButton setTitle:@"性质" forState:UIControlStateNormal];
             }
-       
+            
         }
         if (chooseView.type==kTRADE) {
             
@@ -969,10 +956,10 @@ static  NSMutableArray *ShipStageArray;
                 self.tradeLabel.hidden=YES;
                 [self.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
             }
-         
+            
         }
     }
-
+    
 }
 
 #pragma mark multipleSelectViewdidSelectRow Delegate Method
@@ -1018,7 +1005,7 @@ static  NSMutableArray *ShipStageArray;
                 
             }
         }
-
+        
         
         if (multipleSelectView.type==kSHIPCOMPANY) {
             NSInteger count = 0;
@@ -1214,7 +1201,7 @@ static  NSMutableArray *ShipStageArray;
                 
             }
         }
-     
+        
         
     }
 }

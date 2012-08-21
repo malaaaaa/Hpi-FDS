@@ -26,12 +26,11 @@
 @synthesize reloadButton=_reloadButton;
 @synthesize legendButton=_legendButton;
 @synthesize activity=_activity;
-@synthesize xmlParser=_xmlParser;
 @synthesize graphView=_graphView;
 @synthesize multipleSelectView=_multipleSelectView;
 @synthesize parentVC;
 @synthesize legendView=_legendView;
-
+@synthesize tbxmlParser;
 static BOOL PortPop=NO;
 static  NSMutableArray *PortArray;
 static  NSMutableArray *LegendArray;
@@ -51,8 +50,6 @@ static  NSMutableArray *LegendArray;
     
     self.portLabel.hidden=NO;
     [_activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
-    
     [self.portButton setTitle:@"港口" forState:UIControlStateNormal];
 
     
@@ -63,7 +60,8 @@ static  NSMutableArray *LegendArray;
     [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
     [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
     [dateFormatter release];
-    
+    self.tbxmlParser =[[TBXMLParser alloc] init];
+
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -80,10 +78,9 @@ static  NSMutableArray *LegendArray;
     self.endButton=nil;
     self.portButton=nil;
     self.reloadButton=nil;
-    self.xmlParser=nil;
     self.legendButton=nil;
-    //    _xmlParser=nil;
-    //    [_xmlParser release];
+    self.tbxmlParser=nil;
+
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -92,12 +89,13 @@ static  NSMutableArray *LegendArray;
     [_popover release];
     [_reloadButton release];
     [_activity release];
-    [_xmlParser release];
     [super dealloc];
     //[factoryArray release];
     if (PortPop==YES) {
         [PortArray release];
     }
+    self.tbxmlParser=nil;
+
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -250,9 +248,9 @@ static  NSMutableArray *LegendArray;
         [self.view addSubview:_activity];
         [_reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [_activity startAnimating];
-        [_xmlParser setISoapNum:1];
-        [NTShipCompanyTranShareDao deleteAll];
-        [_xmlParser getNtShipCompanyTranShare];
+        
+        [tbxmlParser setISoapNum:1];
+        [tbxmlParser requestSOAP:@"TransPorts"];
         
         [self runActivity];
     }
@@ -293,7 +291,7 @@ static  NSMutableArray *LegendArray;
 #pragma mark activity
 -(void)runActivity
 {
-    if ([_xmlParser iSoapNum]==0) {
+    if ([tbxmlParser iSoapNum]==0) {
         [_activity stopAnimating];
         [_activity removeFromSuperview];
         [_reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];

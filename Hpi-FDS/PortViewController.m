@@ -16,7 +16,7 @@
 @synthesize portLabel;
 @synthesize segment,popover,endDateCV,startDateCV;
 @synthesize endDay,startDay,portButton,endButton,startButton;
-@synthesize reloadButton,queryButton,activity,xmlParser,graphView,chooseView,marketOneController;
+@synthesize reloadButton,queryButton,activity,tbxmlParser,graphView,chooseView,marketOneController;
 
 static NSString *stringType=@"GKDJL";
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -46,7 +46,7 @@ static NSString *stringType=@"GKDJL";
     [dateFormatter release];
     
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.tbxmlParser =[[TBXMLParser alloc] init];
 }
 
 - (void)viewDidUnload
@@ -67,8 +67,8 @@ static NSString *stringType=@"GKDJL";
     queryButton = nil;
     [activity release];
     activity = nil;
-    [xmlParser release];
-    xmlParser=nil;
+    self.tbxmlParser=nil;
+
     [graphView release];
     graphView=nil;
     [self setPortLabel:nil];
@@ -98,7 +98,7 @@ static NSString *stringType=@"GKDJL";
     [endDay release];
     [reloadButton release];
     [queryButton release];
-    [xmlParser release];
+    self.tbxmlParser=nil;
     [graphView release];
     [portLabel release];
     [marketOneController release];
@@ -471,9 +471,10 @@ static NSString *stringType=@"GKDJL";
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:2];
-        [xmlParser getTmCoalinfo];
-        [xmlParser getTmShipinfo];
+        [tbxmlParser setISoapNum:2];
+        
+        [tbxmlParser requestSOAP:@"Coal"];
+        [tbxmlParser requestSOAP:@"Ship"];
         [self runActivity];
     }
 	
@@ -527,7 +528,7 @@ static NSString *stringType=@"GKDJL";
 #pragma mark activity
 -(void)runActivity
 {
-    if ([xmlParser iSoapNum]==0) {
+    if ([tbxmlParser iSoapNum]==0) {
         [activity stopAnimating];
         [activity removeFromSuperview];
         [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
@@ -552,11 +553,7 @@ static NSString *stringType=@"GKDJL";
 
         }
     }
-    
-    
-    
-    
-    
+
 }
 
 

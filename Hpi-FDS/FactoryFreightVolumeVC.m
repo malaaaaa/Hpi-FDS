@@ -21,7 +21,7 @@
 @synthesize reloadButton;
 @synthesize queryButton;
 @synthesize resetButton;
-@synthesize popover,chooseView,multipleSelectView,parentVC,xmlParser;
+@synthesize popover,chooseView,multipleSelectView,parentVC;
 //@synthesize listTableview;
 //@synthesize labelView;
 @synthesize listArray;
@@ -30,6 +30,8 @@
 @synthesize endDateCV=_endDateCV;
 @synthesize startDay=_startDay;
 @synthesize endDay=_endDay;
+@synthesize tbxmlParser;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,7 +51,7 @@
     self.typeLabel.text=All_;
     self.tradeLabel.text=All_;
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.tbxmlParser =[[TBXMLParser alloc] init];
     
     self.endDay = [[NSDate alloc] init];
     self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
@@ -77,8 +79,8 @@
     [self setResetButton:nil];
     [self setReloadButton:nil];
     [self setActivity:nil];
-    xmlParser=nil;
-    [xmlParser release];
+    self.tbxmlParser=nil;
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -93,7 +95,7 @@
     [popover release];
     [reloadButton release];
     [activity release];
-    [xmlParser release];
+    self.tbxmlParser=nil;
     [_startButton release];
     [_startDateCV release];
     [_startDay release];
@@ -222,9 +224,8 @@
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:1];
-        [NTFactoryFreightVolumeDao deleteAll];
-        [xmlParser getNTFactoryFreightVolume];
+        [tbxmlParser setISoapNum:1];
+        [tbxmlParser requestSOAP:@"YunLi"];
 
         [self runActivity];
     }
@@ -292,7 +293,7 @@
 #pragma mark activity
 -(void)runActivity
 {
-    if ([xmlParser iSoapNum]==0) {
+    if ([tbxmlParser iSoapNum]==0) {
         [activity stopAnimating];
         [activity removeFromSuperview];
         [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];

@@ -32,7 +32,8 @@
 @synthesize statLabel;
 @synthesize queryButton;
 @synthesize resetButton;
-@synthesize popover,chooseView,parentVC,xmlParser;
+@synthesize popover,chooseView,parentVC;
+@synthesize tbxmlParser;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,7 +54,7 @@
     self.factoryLabel.text=All_;
     self.statLabel.text=All_;
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.tbxmlParser =[[TBXMLParser alloc] init];
     self.shipLabel.hidden=YES;
     self.comLabel.hidden=YES;
     self.portLabel.hidden=YES;
@@ -77,8 +78,8 @@
     [self setResetButton:nil];
     [self setReloadButton:nil];
     [self setActivity:nil];
-    xmlParser=nil;
-    [xmlParser release];
+    self.tbxmlParser =nil;
+
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -105,7 +106,7 @@
     [popover release];
     [reloadButton release];
     [activity release];
-    [xmlParser release];
+    self.tbxmlParser=nil;
     [super dealloc];
 }
 - (IBAction)comAction:(id)sender {
@@ -278,8 +279,9 @@
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:1];
-        [xmlParser getVbShiptrans];
+        [tbxmlParser setISoapNum:1];
+        
+        [tbxmlParser requestSOAP:@"ShipTrans"];
         [self runActivity];
     }
 	
@@ -334,7 +336,7 @@
 #pragma mark activity
 -(void)runActivity
 {
-    if ([xmlParser iSoapNum]==0) {
+    if ([tbxmlParser iSoapNum]==0) {
         [activity stopAnimating];
         [activity removeFromSuperview];
         [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];

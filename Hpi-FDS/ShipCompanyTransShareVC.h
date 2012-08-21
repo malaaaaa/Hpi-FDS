@@ -16,7 +16,7 @@
 #import "XMLParser.h"
 #import "MultipleSelectView.h"
 #import "NTColorConfigDao.h"
-
+#import "TBXMLParser.h"
 @interface ShipCompanyTransShareVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIPopoverController *_popover;
     DateViewController *_startDateCV;
@@ -31,11 +31,11 @@
     IBOutlet UIButton *_reloadButton;
     IBOutlet UIButton *_legendButton;
     IBOutlet UIActivityIndicatorView *_activity;
-    XMLParser *_xmlParser;
     BrokenLineGraphView *_graphView;
     MultipleSelectView *_multipleSelectView;
     BrokenLineLegendVC *_legendView;
     id parentVC;
+    TBXMLParser *tbxmlParser;
 
 }
 @property(nonatomic,retain) UIPopoverController *popover;
@@ -51,11 +51,11 @@
 @property(nonatomic,retain) UIButton *reloadButton;
 @property(nonatomic,retain) UIButton *legendButton;
 @property(nonatomic,retain) UIActivityIndicatorView *activity;
-@property(nonatomic,retain) XMLParser *xmlParser;
 @property(nonatomic,retain) BrokenLineGraphView *graphView;
 @property(nonatomic,retain) MultipleSelectView *multipleSelectView;
 @property (retain, nonatomic) id parentVC;
 @property(nonatomic,retain) BrokenLineLegendVC *legendView;
+@property (retain, nonatomic) TBXMLParser *tbxmlParser;
 
 
 - (IBAction)portAction:(id)sender;

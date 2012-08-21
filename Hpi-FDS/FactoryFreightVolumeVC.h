@@ -15,6 +15,7 @@
 #import "MultiTitleDataGridComponent.h"
 #import "DateViewController.h"
 #import "ChooseViewDelegate.h"
+#import "TBXMLParser.h"
 
 
 @interface FactoryFreightVolumeVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
@@ -30,7 +31,7 @@
     id parentVC;
     UIButton *reloadButton;
     UIActivityIndicatorView *activity;
-    XMLParser *xmlParser;
+    TBXMLParser *tbxmlParser;
 //    IBOutlet UITableView *listTableview;
 //    IBOutlet UIView *labelView;
     IBOutlet UIView *listView;
@@ -64,7 +65,7 @@
 @property (retain, nonatomic) id parentVC;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (retain, nonatomic) IBOutlet UIButton *reloadButton;
-@property (retain, nonatomic) XMLParser *xmlParser;
+@property (retain, nonatomic) TBXMLParser *tbxmlParser;
 //@property (nonatomic,retain) UITableView *listTableview;
 //@property (nonatomic,retain) UIView *labelView;
 @property (nonatomic,retain) UIView *listView;

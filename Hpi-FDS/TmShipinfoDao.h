@@ -22,4 +22,6 @@
 +(NSMutableArray *) getTmShipinfo:(NSString *)portCode :(NSDate*)startDay :(NSDate *)endDay;
 +(NSMutableArray *) getTmShipinfoBySql:(NSString *)sql;
 +(TmShipinfo *) getTmShipinfoOne:(NSString *)portCode :(NSDate*)day;
++(void) deleteAll;
+
 @end

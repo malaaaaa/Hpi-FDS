@@ -80,7 +80,7 @@ static sqlite3 *database;
 
 +(void)insert:(NTShipCompanyTranShare*) NTShipCompanyTranShare
 {
-	NSLog(@"Insert begin NTShipCompanyTranShare");
+//	NSLog(@"Insert begin NTShipCompanyTranShare");
 	const char *insert="INSERT INTO NTShipCompanyTranShare (COMID,COMPANY,PORTCODE,PORTNAME,TRADEYEAR,TRADEMONTH,LW) values(?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	

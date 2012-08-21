@@ -114,7 +114,31 @@ static sqlite3	*database;
 		return;
     }
 }
-
++(void) deleteAll
+{
+    sqlite3_stmt *statement;
+    
+    NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TmShipinfo "];
+	NSInteger SqlOK=sqlite3_prepare_v2(database, [deletesql UTF8String], -1, &statement, NULL);
+    if (SqlOK != SQLITE_OK) {
+        NSLog( @"Error: delete TmShipinfo error with message [%s]  sql[%@]", sqlite3_errmsg(database),deletesql);
+        sqlite3_finalize(statement);
+		return;
+    }
+    
+    if(sqlite3_step(statement) == SQLITE_ERROR)
+	{
+		NSLog( @"Error: delete TmShipinfo error with message [%s]  sql[%@]", sqlite3_errmsg(database),deletesql);
+        sqlite3_finalize(statement);
+		return;
+	}
+	else
+	{
+        NSLog(@"delete success");
+        sqlite3_finalize(statement);
+		return;
+    }
+}
 +(NSMutableArray *) getTmShipinfo:(NSInteger)infoId
 {
 	NSString *query=[NSString stringWithFormat:@" infoId = '%d' ",infoId];
