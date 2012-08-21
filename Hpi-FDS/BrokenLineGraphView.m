@@ -12,6 +12,9 @@
 
 @synthesize titleLabel,data;
 @synthesize  marginLeft,marginTop,marginRight,marginBottom;
+
+static sqlite3  *database;
+
 - (id) initWithFrame:(CGRect)frame :(BrokenLineGraphData *) graphData {
 	if(![super initWithFrame:frame]) return nil;
 	
@@ -156,11 +159,28 @@
 }
 
 - (void)drawTriggerPoint:(CGContextRef)context rect:(CGRect)_rect{
-    //NSLog(@"HpiGraphView drawPoints  %d个点需描绘",[data.pointArray count]);
+//    NSLog(@"HpiGraphView drawPoints  %d个点需描绘",[data.pointArray count]);
     //    if([data.pointArray count] < 1)
     //        return;
     BOOL start=NO;
+    char *errorMsg;
+    //打开数据库
+    NSString *file=[NTShipCompanyTranShareDao dataFilePath];
+    if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
+    {
+        sqlite3_close(database);
+        NSLog(@"open  NTShipCompanyTranShareDao error");
+        return;
+    }
+    NSLog(@"open NTShipCompanyTranShareDao database succes ....");
     
+    //为提高数据库写入性能，加入事务控制，批量提交
+    if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
+        sqlite3_close(database);
+        NSLog(@"exec begin error");
+        return;
+    }
+
 //    NSLog(@"graphData.pointArray222.count=%d",[self.data.pointArray count]);
     
     for (int i=0; i<[self.data.pointArray count]; i++) {
@@ -192,7 +212,17 @@
                 button.center=CGPointMake(x, y);
 //                button.backgroundColor=[UIColor blueColor];
                 button.backgroundColor= [UIColor colorWithRed:line.red/255 green:line.green/255 blue:line.blue/255 alpha:1];
-                [NTShipCompanyTranShareDao updateTransShareCoordinate:companyShare.TAG setX:x setY:y];
+//                [NTShipCompanyTranShareDao updateTransShareCoordinate:companyShare.TAG setX:x setY:y];
+                NSString *updateSql=[NSString stringWithFormat:@"update  TMP_NTShipCompanyTranShare  set x=%d, y=%d where TAG=%d ",x,y,companyShare.TAG];
+                if(sqlite3_exec(database,[updateSql UTF8String],NULL,NULL,NULL)!=SQLITE_OK)
+                {
+                    NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);
+                }
+                else
+                {
+                    //		NSLog(@"update success");
+                }
+
                 button.tag=companyShare.TAG;
                 button.layer.cornerRadius=4.0;
                 [button addTarget:self action:@selector(showDetail:) forControlEvents:UIControlEventTouchUpInside];
@@ -204,7 +234,15 @@
         }
         
     }
-    
+    if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+        sqlite3_close(database);
+        NSLog(@"exec commit error");
+        return;
+    }
+    sqlite3_close(database);
+    NSLog(@"commit over   ");
+
+//        NSLog(@"HpiGraphView drawPoints  %d个点需描绘",[data.pointArray count]);
 }
 
 -(void)showDetail:(id)sender{

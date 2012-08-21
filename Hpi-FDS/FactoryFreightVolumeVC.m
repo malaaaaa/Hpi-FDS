@@ -138,7 +138,7 @@
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(250, 60, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_startButton.frame.origin.x+85, _startButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 -(IBAction)endDate:(id)sender
@@ -167,7 +167,7 @@
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(500, 60, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_endButton.frame.origin.x+85, _endButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 //贸易性质
@@ -192,7 +192,7 @@
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 150);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(700, 60, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(tradeButton.frame.origin.x+85, tradeButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
@@ -219,7 +219,7 @@
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 250);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(900, 60, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(typeButton.frame.origin.x+85, typeButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];

@@ -160,7 +160,8 @@ static  NSMutableArray *LegendArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 400);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(150, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    NSLog(@"orgin%f+%f",_portButton.frame.origin.x+100,_portButton.frame.origin.y+20);
+    [self.popover presentPopoverFromRect:CGRectMake(_portButton.frame.origin.x+85, _portButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [_multipleSelectView.tableView reloadData];
     [_multipleSelectView release];
     [pop release];
@@ -188,7 +189,7 @@ static  NSMutableArray *LegendArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(350, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];   
+    [self.popover presentPopoverFromRect:CGRectMake(_startButton.frame.origin.x+85, _startButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 -(IBAction)endDate:(id)sender
@@ -217,7 +218,7 @@ static  NSMutableArray *LegendArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(610, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_endButton.frame.origin.x+85, _endButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 - (IBAction)legendAction:(id)sender {

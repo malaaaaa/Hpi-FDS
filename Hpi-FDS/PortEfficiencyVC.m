@@ -133,7 +133,7 @@ static  NSMutableArray *ShipCompanyArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(250, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_startButton.frame.origin.x+85, _startButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 -(IBAction)endDate:(id)sender
@@ -162,7 +162,7 @@ static  NSMutableArray *ShipCompanyArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(400, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_endButton.frame.origin.x+85, _endButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 - (IBAction)shipCompanyAction:(id)sender {
@@ -206,7 +206,7 @@ static  NSMutableArray *ShipCompanyArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 400);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(600, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_comButton.frame.origin.x+85, _comButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [_multipleSelectView.tableView reloadData];
     [_multipleSelectView release];
     [pop release];
@@ -233,7 +233,7 @@ static  NSMutableArray *ShipCompanyArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 150);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(700, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_scheduleButton.frame.origin.x+85, _scheduleButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
@@ -260,7 +260,7 @@ static  NSMutableArray *ShipCompanyArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 250);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(940, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_typeButton.frame.origin.x+85, _typeButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
