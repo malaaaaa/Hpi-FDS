@@ -26,12 +26,13 @@
 @synthesize reloadButton=_reloadButton;
 @synthesize legendButton=_legendButton;
 @synthesize activity=_activity;
-@synthesize xmlParser=_xmlParser;
 @synthesize graphView=_graphView;
 @synthesize multipleSelectView=_multipleSelectView;
 @synthesize parentVC;
 @synthesize legendView=_legendView;
-
+@synthesize tbxmlParser;
+@synthesize buttonView=_buttonView;
+@synthesize listView=_listView;
 static BOOL PortPop=NO;
 static  NSMutableArray *PortArray;
 static  NSMutableArray *LegendArray;
@@ -51,8 +52,6 @@ static  NSMutableArray *LegendArray;
     
     self.portLabel.hidden=NO;
     [_activity removeFromSuperview];
-    self.xmlParser=[[[XMLParser alloc]init] autorelease];
-    
     [self.portButton setTitle:@"港口" forState:UIControlStateNormal];
 
     
@@ -63,7 +62,30 @@ static  NSMutableArray *LegendArray;
     [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
     [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
     [dateFormatter release];
+    self.tbxmlParser =[[TBXMLParser alloc] init];
+
+    _listView.layer.masksToBounds=YES;
+    _listView.layer.cornerRadius=2.0;
+    _listView.layer.borderWidth=2.0;
+//     _listView.layer.borderColor=[[UIColor blackColor] CGColor];
+    _listView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
+    _listView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     
+    _buttonView.layer.masksToBounds=YES;
+    _buttonView.layer.cornerRadius=2.0;
+    _buttonView.layer.borderWidth=2.0;
+    _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
+
+//    _buttonView.layer.borderColor=[[UIColor colorWithRed:85.0/255 green:85.0/255 blue:85.0/255 alpha:1]CGColor];
+    
+//    [_buttonView.layer setShadowColor:[UIColor colorWithRed:85.0/255 green:85.0/255 blue:85.0/255 alpha:1].CGColor];
+//    [_buttonView.layer setShadowColor:[UIColor blackColor].CGColor];
+//    [_buttonView.layer setShadowRadius:5];
+//    [_buttonView.layer setShadowOpacity:1];
+//    [_buttonView.layer setShadowOffset:CGSizeMake(1, 1)];
+    
+    _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
+
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -80,10 +102,9 @@ static  NSMutableArray *LegendArray;
     self.endButton=nil;
     self.portButton=nil;
     self.reloadButton=nil;
-    self.xmlParser=nil;
     self.legendButton=nil;
-    //    _xmlParser=nil;
-    //    [_xmlParser release];
+    self.tbxmlParser=nil;
+
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -92,12 +113,13 @@ static  NSMutableArray *LegendArray;
     [_popover release];
     [_reloadButton release];
     [_activity release];
-    [_xmlParser release];
     [super dealloc];
     //[factoryArray release];
     if (PortPop==YES) {
         [PortArray release];
     }
+    self.tbxmlParser=nil;
+
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -148,7 +170,8 @@ static  NSMutableArray *LegendArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 400);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(150, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    NSLog(@"orgin%f+%f",_portButton.frame.origin.x+100,_portButton.frame.origin.y+20);
+    [self.popover presentPopoverFromRect:CGRectMake(_portButton.frame.origin.x+85, _portButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [_multipleSelectView.tableView reloadData];
     [_multipleSelectView release];
     [pop release];
@@ -164,9 +187,9 @@ static  NSMutableArray *LegendArray;
     if(!_startDateCV)//初始化待显示控制器
         _startDateCV=[[DateViewController alloc]init]; 
     //设置待显示控制器的范围
-    [_startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [_startDateCV.view setFrame:CGRectMake(0,0, 195, 216)];
     //设置待显示控制器视图的尺寸
-    _startDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    _startDateCV.contentSizeForViewInPopover = CGSizeMake(195, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_startDateCV];
     _startDateCV.popover = pop;
@@ -174,9 +197,9 @@ static  NSMutableArray *LegendArray;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(195, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(350, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];   
+    [self.popover presentPopoverFromRect:CGRectMake(_startButton.frame.origin.x+85, _startButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 -(IBAction)endDate:(id)sender
@@ -193,9 +216,9 @@ static  NSMutableArray *LegendArray;
         _endDateCV.selectedDate=self.endDay;
     }
     //设置待显示控制器的范围
-    [_endDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [_endDateCV.view setFrame:CGRectMake(0,0, 195, 216)];
     //设置待显示控制器视图的尺寸
-    _endDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    _endDateCV.contentSizeForViewInPopover = CGSizeMake(195, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_endDateCV];
     _endDateCV.popover = pop;
@@ -203,9 +226,9 @@ static  NSMutableArray *LegendArray;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(195, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(610, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_endButton.frame.origin.x+85, _endButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 - (IBAction)legendAction:(id)sender {
@@ -250,9 +273,9 @@ static  NSMutableArray *LegendArray;
         [self.view addSubview:_activity];
         [_reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [_activity startAnimating];
-        [_xmlParser setISoapNum:1];
-        [NTShipCompanyTranShareDao deleteAll];
-        [_xmlParser getNtShipCompanyTranShare];
+        
+        [tbxmlParser setISoapNum:1];
+        [tbxmlParser requestSOAP:@"TransPorts"];
         
         [self runActivity];
     }
@@ -293,7 +316,7 @@ static  NSMutableArray *LegendArray;
 #pragma mark activity
 -(void)runActivity
 {
-    if ([_xmlParser iSoapNum]==0) {
+    if ([tbxmlParser iSoapNum]==0) {
         [_activity stopAnimating];
         [_activity removeFromSuperview];
         [_reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
@@ -384,11 +407,11 @@ static  NSMutableArray *LegendArray;
             else {
                
                 point.x=i-1;
-                NSLog(@"TransShare%@",point.companyShare.PERCENT);
+//                NSLog(@"TransShare%@",point.companyShare.PERCENT);
                 point.y=([point.companyShare.PERCENT floatValue]-minY)*10;
-                NSLog(@"point.x%d",point.x);
-                NSLog(@"point.y%d",point.y);
-                
+//                NSLog(@"point.x%d",point.x);
+//                NSLog(@"point.y%d",point.y);
+//            
                 [line.pointArray  addObject:point];
                 
             }
@@ -400,12 +423,11 @@ static  NSMutableArray *LegendArray;
             [offsetComponents release];
             
         }
-        NSLog(@"graphData.pointArray000.count=%d",[line.pointArray count]);
+//        NSLog(@"graphData.pointArray000.count=%d",[line.pointArray count]);
         
         line.red=[colorConfig.RED floatValue];
         line.green=[colorConfig.GREEN floatValue];
         line.blue=[colorConfig.BLUE floatValue];
-        NSLog(@"blue%f",line.blue);
         [graphData.pointArray addObject:line];
         
         [line.pointArray release];
@@ -415,30 +437,29 @@ static  NSMutableArray *LegendArray;
     
     [dateFormatter release]; 
     
-    NSLog(@"graphData.pointArray111.count=%d",[graphData.pointArray count]);
+//    NSLog(@"graphData.pointArray111.count=%d",[graphData.pointArray count]);
     
     if (_graphView) {
         [_graphView removeFromSuperview];
         self.graphView=nil;
 
     }
-    self.graphView=[[BrokenLineGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData];
+    self.graphView=[[BrokenLineGraphView alloc] initWithFrame:CGRectMake(50, 0, 924, 500) :graphData];
     _graphView.titleLabel.text=@"航运公司份额统计";
     
     _graphView.marginRight=60;
     _graphView.marginBottom=60;
     _graphView.marginLeft=60;
-    _graphView.marginTop=80;
+    _graphView.marginTop=50;
     
     [_graphView setNeedsDisplay];
     
-    [self.view addSubview:_graphView];
+    [self.listView addSubview:_graphView];
     
     [graphData.pointArray  release];
     [graphData.xtitles release];
     [graphData.ytitles release];
     [graphData release];  
-    NSLog(@"HHHHH");
     
 }
 

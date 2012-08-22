@@ -20,7 +20,7 @@ static sqlite3  *database;
     
     NSString  *documentsDirectory=[paths objectAtIndex:0];
     
-    NSString *path=[documentsDirectory  stringByAppendingPathComponent: @"VBThShipTrans.db"  ];
+    NSString *path=[documentsDirectory  stringByAppendingPathComponent: @"database.db"  ];
     
     
     NSLog(@"VBThShipTrans:path=== %@",path);

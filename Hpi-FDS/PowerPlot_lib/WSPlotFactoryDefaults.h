@@ -35,7 +35,8 @@ typedef enum _LPColorScheme {
     kColorGray,       ///< Darker gray.
     kColorDark,       ///< Dark background, light foreground.
     kColorDarkGreen,  ///< Dark background, green foreground.
-    kColorDarkBlue    ///< Dark background, blue foreground.
+    kColorDarkBlue,    ///< Dark background, blue foreground.
+    kColor_FDS_Gray    ///自定义颜色，为调运系统风格统一 mawp added 2012.08.21
 } LPColorScheme;
 
 @class WSData;

@@ -39,7 +39,7 @@
 @synthesize dateLabel;
 @synthesize queryButton;
 @synthesize resetButton;
-@synthesize popover,chooseView,multipleSelectView,parentVC,xmlParser;
+@synthesize popover,chooseView,multipleSelectView,parentVC;
 @synthesize listTableview;
 @synthesize labelView;
 @synthesize detailArray;
@@ -49,6 +49,7 @@
 @synthesize startDateCV;
 @synthesize startDay;
 @synthesize tbxmlParser;
+@synthesize buttonView;
 
 static DataGridComponentDataSource *dataSource;
 static BOOL FactoryPop=NO;
@@ -98,9 +99,8 @@ static  NSMutableArray *ShipStageArray;
     self.supLabel.hidden=YES;
     self.typeLabel.hidden=YES;
     [activity removeFromSuperview];
-    self.xmlParser=[[[XMLParser alloc]init] autorelease];
     
-      self.tbxmlParser =[[TBXMLParser alloc] init];
+    self.tbxmlParser =[[TBXMLParser alloc] init];
     
     //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -109,15 +109,15 @@ static  NSMutableArray *ShipStageArray;
     
     //factoryArray= [[NSMutableArray alloc] init];
     
-    CATransition *animation = [CATransition animation];
-    animation.delegate = self;
-    animation.duration = 0.5f;
-    animation.timingFunction = UIViewAnimationCurveEaseInOut;
-    animation.fillMode = kCAFillModeForwards;
-    animation.endProgress = 1;
-    animation.removedOnCompletion = NO;
-    animation.type = @"cube";
-    [self.view.layer addAnimation:animation forKey:@"animation"];
+//    CATransition *animation = [CATransition animation];
+//    animation.delegate = self;
+//    animation.duration = 0.5f;
+//    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+//    animation.fillMode = kCAFillModeForwards;
+//    animation.endProgress = 1;
+//    animation.removedOnCompletion = NO;
+//    animation.type = @"cube";
+//    [self.view.layer addAnimation:animation forKey:@"animation"];
     // [self.chooseView bringSubviewToFront:vbFactoryTransVC.view];
     
     float columnOffset = 0.0;
@@ -125,11 +125,11 @@ static  NSMutableArray *ShipStageArray;
     
     dataSource = [[DataGridComponentDataSource alloc] init];
     //(20.20.985.42)
-    dataSource.columnWidth = [NSArray arrayWithObjects:@"100",@"145",@"100",@"80",@"80",@"60",@"120",@"100",@"150",@"50",@"2",nil];
-    dataSource.titles = [NSArray arrayWithObjects:@"厂名",@"机组容量（万千瓦）",@"日耗",@"库存",@"较前日",@"可用天数",@"当月调进量",@"年调进量",@"备注",@"船舶",@"factorycode",nil];
+    dataSource.columnWidth = [NSArray arrayWithObjects:@"100",@"100",@"100",@"50",@"50",@"70",@"100",@"100",@"295",@"50",@"2",nil];
+    dataSource.titles = [NSArray arrayWithObjects:@"厂名",@"机组容量",@"日耗",@"库存",@"较前日",@"可用天数",@"当月调进量",@"年调进量",@"备注",@"船舶",@"factorycode",nil];
     
-    animation.type = @"oglFlip";
-    [self.labelView.layer addAnimation:animation forKey:@"animation"];
+//    animation.type = @"oglFlip";
+//    [self.labelView.layer addAnimation:animation forKey:@"animation"];
     //  [labelView removeFromSuperview];
     //填冲标题数据
     for(int column = 0;column < [dataSource.titles count];column++){
@@ -149,17 +149,22 @@ static  NSMutableArray *ShipStageArray;
     dataSource.data=[[[NSMutableArray alloc]init] autorelease];
     
     listView.layer.masksToBounds=YES;
-    listView.layer.cornerRadius=10.0;
-    listView.layer.borderWidth=10.0;
+    listView.layer.cornerRadius=2.0;
+    listView.layer.borderWidth=2.0;
     listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
     listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     
-    listView.center=CGPointMake(512,442);
+//    listView.center=CGPointMake(512,442);
     
     
     [listTableview setSeparatorColor:[UIColor clearColor]];
     listTableview.backgroundColor = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
     
+    buttonView.layer.masksToBounds=YES;
+    buttonView.layer.cornerRadius=2.0;
+    buttonView.layer.borderWidth=2.0;
+    buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    buttonView.backgroundColor=[UIColor colorWithRed:45.0/255 green:45.0/255 blue:45.0/255 alpha:1];
     
     // [self.view addSubview:labelView];
     
@@ -174,7 +179,7 @@ static  NSMutableArray *ShipStageArray;
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     [self setFactoryButton:nil];
@@ -199,10 +204,9 @@ static  NSMutableArray *ShipStageArray;
     [self setResetButton:nil];
     [self setReloadButton:nil];
     [self setActivity:nil];
-    xmlParser=nil;
-    [xmlParser release];
-    self.tbxmlParser=nil;
     
+    self.tbxmlParser=nil;
+    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -233,8 +237,7 @@ static  NSMutableArray *ShipStageArray;
     [popover release];
     [reloadButton release];
     [activity release];
-    [xmlParser release];
-    [super dealloc];
+    
     //[factoryArray release];
     if (FactoryPop==YES) {
         [FactoryArray release];
@@ -252,6 +255,7 @@ static  NSMutableArray *ShipStageArray;
         [ShipStageArray release];
     }
     self.tbxmlParser=nil;
+    [super dealloc];
 }
 
 -(IBAction)startDate:(id)sender
@@ -264,9 +268,11 @@ static  NSMutableArray *ShipStageArray;
     if(!startDateCV)//初始化待显示控制器
         startDateCV=[[DateViewController alloc]init];
     //设置待显示控制器的范围
-    [startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [startDateCV.view setFrame:CGRectMake(0,0, 270, 216)];
+
     //设置待显示控制器视图的尺寸
-    startDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    startDateCV.contentSizeForViewInPopover = CGSizeMake(270, 216);
+
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:startDateCV];
     startDateCV.popover = pop;
@@ -274,7 +280,8 @@ static  NSMutableArray *ShipStageArray;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(270, 216);
+
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(730, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
@@ -628,44 +635,10 @@ static  NSMutableArray *ShipStageArray;
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:1];
-        [tbxmlParser setISoapNum:1];
-
-//        [xmlParser getTfFactory];
-//        [xmlParser getTbFactoryState];
-//        [VbFactoryTransDao   deleteAll];
-//        [xmlParser getVbFactoryTrans];
-//        [xmlParser getTfShipCompany];
-//        [xmlParser getTfSupplier];
-//        [xmlParser getTfCoalType];
-//        [xmlParser getTsShipStage];
+        [tbxmlParser setISoapNum:2];
         
-        
-        [TfCoalTypeDao deleteAll];
-        [xmlParser getTfCoalType];
-        [TfFactoryDao deleteAll];
-        [xmlParser getTfFactory];
-        [TfPortDao deleteAll];
-        [xmlParser getTfPort];
-        [TfShipCompanyDao deleteAll];
-        [xmlParser getTfShipCompany];
-        [TfSupplierDao deleteAll];
-        [xmlParser getTfSupplier];
-        [TsShipStageDao deleteAll];
-        [xmlParser getTsShipStage];
-        [TgFactoryDao deleteAll];
-        [xmlParser getTgFactory];
-        [TgPortDao deleteAll];
-        [xmlParser getTgPort];
-        [TgShipDao deleteAll];
-        [xmlParser getTgShip];
-        [TmIndexdefineDao deleteAll];
-        [xmlParser getTmIndexdefine];
-        [TmIndextypeDao deleteAll];
-        [xmlParser getTmIndextype];
-//        [tbxmlParser requestSOAP:@"ThShipTrans"];
+        [tbxmlParser requestSOAP:@"FactoryState"];
         [tbxmlParser requestSOAP:@"FactoryTrans"];
-
         
         [self runActivity];
     }
@@ -984,7 +957,7 @@ static  NSMutableArray *ShipStageArray;
                 self.keyValueLabel.hidden=YES;
                 [self.keyValueButton setTitle:@"性质" forState:UIControlStateNormal];
             }
-       
+            
         }
         if (chooseView.type==kTRADE) {
             
@@ -997,10 +970,10 @@ static  NSMutableArray *ShipStageArray;
                 self.tradeLabel.hidden=YES;
                 [self.tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
             }
-         
+            
         }
     }
-
+    
 }
 
 #pragma mark multipleSelectViewdidSelectRow Delegate Method
@@ -1046,7 +1019,7 @@ static  NSMutableArray *ShipStageArray;
                 
             }
         }
-
+        
         
         if (multipleSelectView.type==kSHIPCOMPANY) {
             NSInteger count = 0;
@@ -1242,7 +1215,7 @@ static  NSMutableArray *ShipStageArray;
                 
             }
         }
-     
+        
         
     }
 }

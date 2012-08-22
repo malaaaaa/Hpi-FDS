@@ -15,7 +15,7 @@ static sqlite3	*database;
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"TmCoalinfo.db"];
+	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"database.db"];
 	return	 path;
 }
 
@@ -116,6 +116,30 @@ static sqlite3	*database;
 
 }
 
++(void) deleteAll
+{
+    sqlite3_stmt *statement;
+    NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TmCoalinfo "];
+	NSInteger SqlOK=sqlite3_prepare_v2(database, [deletesql UTF8String], -1, &statement, NULL);
+    if (SqlOK != SQLITE_OK) {
+        NSLog( @"Error: delete TmCoalinfo error with message [%s]  sql[%@]", sqlite3_errmsg(database),deletesql);
+        sqlite3_finalize(statement);
+		return;
+    }
+    
+    if(sqlite3_step(statement) == SQLITE_ERROR)
+	{
+		NSLog( @"Error: delete TmCoalinfo error with message [%s]  sql[%@]", sqlite3_errmsg(database),deletesql);
+        sqlite3_finalize(statement);
+		return;
+	}
+	else
+	{
+        NSLog(@"delete success");
+        sqlite3_finalize(statement);
+		return;
+    }
+}
 +(NSMutableArray *) getTmCoalinfo:(NSInteger)infoId
 {
 	NSString *query=[NSString stringWithFormat:@" infoId = '%d' ",infoId];

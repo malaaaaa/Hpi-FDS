@@ -12,7 +12,7 @@
 #import "PubInfo.h"
 #import "XMLParser.h"
 #import "ChooseViewDelegate.h"
-
+#import "TBXMLParser.h"
 
 
 @interface VBTransChVC :  UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
@@ -36,11 +36,9 @@
     id parentVC;
     UIButton *reloadButton;
     UIActivityIndicatorView *activity;
-    XMLParser *xmlParser;
+    TBXMLParser *tbxmlParser;
     NSDate *month;
     DateViewController *monthCV;
-    
-    
 
 }
 
@@ -67,4 +65,6 @@
 @property (retain, nonatomic) XMLParser *xmlParser;
 @property (retain, nonatomic) NSDate *month;
 @property (retain, nonatomic) DateViewController *monthCV;
+@property (retain, nonatomic) TBXMLParser *tbxmlParser;
+
 @end

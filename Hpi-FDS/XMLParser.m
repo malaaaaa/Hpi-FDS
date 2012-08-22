@@ -6944,7 +6944,11 @@ NSString* alertMsg;
         
         iSoapNum--;
     }
-    
+    if (iSoapTfPortDone==1) {
+        iSoapTfPortDone=2;
+        
+        iSoapNum--;
+    }
     
     
     

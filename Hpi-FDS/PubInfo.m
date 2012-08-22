@@ -149,7 +149,8 @@ static NSString *deviceID;
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
 	NSString *fileName=[[NSString alloc]initWithFormat:@"%@/data.plist",doc]; 
-	NSArray *tempArray = [[[NSArray alloc] initWithContentsOfFile:fileName] autorelease];
+//	NSArray *tempArray = [[[NSArray alloc] initWithContentsOfFile:fileName] autorelease];
+    NSArray *tempArray = [[NSArray alloc] initWithContentsOfFile:fileName] ;
 	//NSLog(@"data=%d",[tempArray count]);
 	if([tempArray count]<3)
 	{
@@ -165,16 +166,16 @@ static NSString *deviceID;
 	}    
     
     [fileName release];
-    //[tempArray release];
+//    [tempArray release];
 }
 +(void)save
 {
-	NSArray *tempArray = [[[NSArray alloc]initWithObjects:
+	NSArray *tempArray = [[NSArray alloc]initWithObjects:
 						  userName,
                           autoUpdate,
                           updateTime,
 						  nil
-						  ] autorelease];
+						  ];
 	NSArray *paths= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
 	NSString *fileName=[[NSString alloc]initWithFormat:@"%@/data.plist",doc];
@@ -244,7 +245,9 @@ static NSString *deviceID;
 +(NSString *)currTime
 {
     //实例化一个NSDateFormatter对象
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+//    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init] ;
+
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     //用[NSDate date]可以获取系统当前时间

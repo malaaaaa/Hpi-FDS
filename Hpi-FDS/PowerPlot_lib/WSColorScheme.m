@@ -55,6 +55,11 @@
         case kColorDarkBlue:
             result = [UIColor colorWithRed:0.7 green:0.7 blue:1.0 alpha:1.0];
             break;
+            //mawp added
+        case kColor_FDS_Gray:
+            result = [UIColor colorWithRed:171./255 green:171./255 blue:171./255 alpha:1];
+            break;
+            
         default:
             break;
     }
@@ -81,6 +86,10 @@
             break;
         case kColorDarkBlue:
             result = [UIColor blackColor];
+            break;
+            //mawp added
+        case kColor_FDS_Gray:
+            result = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
             break;
         default:
             result = [UIColor clearColor];
@@ -109,6 +118,10 @@
         case kColorDarkBlue:
             result = [UIColor colorWithRed:0.2 green:0.2 blue:0.5 alpha:1.0];
             break;
+            //mawp added
+        case kColor_FDS_Gray:
+            result = [UIColor whiteColor];
+            break;
         default:
             break;
     }
@@ -133,6 +146,10 @@
         case kColorDarkBlue:
             result = [UIColor colorWithRed:0.5 green:0.5 blue:0.9 alpha:1.0];
             break;
+            //mawp added
+        case kColor_FDS_Gray:
+            result = [UIColor colorWithRed:0.5 green:0.5 blue:0.9 alpha:1.0];
+            break;
         default:
             break;
     }
@@ -155,6 +172,10 @@
             result = [UIColor whiteColor];
             break;
         case kColorDarkBlue:
+            result = [UIColor whiteColor];
+            break;
+            //mawp added
+        case kColor_FDS_Gray:
             result = [UIColor whiteColor];
             break;
         default:

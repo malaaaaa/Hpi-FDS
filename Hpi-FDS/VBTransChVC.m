@@ -36,7 +36,9 @@
 @synthesize codeTextField;
 @synthesize queryButton;
 @synthesize resetButton;
-@synthesize popover,chooseView,parentVC,xmlParser,month,monthCV;
+@synthesize popover,chooseView,parentVC,month,monthCV;
+@synthesize tbxmlParser;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -57,8 +59,8 @@
     self.factoryLabel.text=All_;
     self.monthLabel.text=All_;
     [activity removeFromSuperview];
-    //初始化  xmlparser
-    self.xmlParser=[[[XMLParser   alloc] init] autorelease];
+    //初始化  tbxmlparser
+    self.tbxmlParser =[[TBXMLParser alloc] init];
     
     self.shipLabel.hidden=YES;
     self.comLabel.hidden=YES;
@@ -99,6 +101,8 @@
     [self setResetButton:nil];
     [self setReloadButton:nil];
     [self setActivity:nil];
+    self.tbxmlParser =nil;
+
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -128,6 +132,8 @@
     [reloadButton release];
     [activity release];
     [month release];
+    self.tbxmlParser =nil;
+
     [super dealloc];
 }
 
@@ -351,10 +357,11 @@
         
         [activity startAnimating];
         
-        [xmlParser setISoapNum:1];
-        [xmlParser getVbTransplan];
+        [tbxmlParser setISoapNum:1];
+        
+        [tbxmlParser requestSOAP:@"TransPlan"];
         //同步煤种
-        [xmlParser getTfCoalType];
+//        [xmlParser getTfCoalType];
         
         [self runActivity];
     }
@@ -451,7 +458,7 @@
 #pragma mark activity
 -(void)runActivity
 {
-    if ([xmlParser iSoapNum]==0) {
+    if ([tbxmlParser iSoapNum]==0) {
         [activity stopAnimating];
         [activity removeFromSuperview];
         [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
@@ -536,18 +543,11 @@
 
              
          }
-        
-        
+    
         
     }
     
-    
-    
-    
-    
-    
-    
-    
+ 
 }
 
 

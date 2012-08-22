@@ -16,7 +16,7 @@ static sqlite3	*database;
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"TgShip.db"];
+	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"database.db"];
 	return	 path;
 }
 
