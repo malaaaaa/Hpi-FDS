@@ -929,7 +929,7 @@ NSString* alertMsg;
     
     
     if (iSoapDone==0) {
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTfSupplier) userInfo:NULL repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getTsShipStage) userInfo:NULL repeats:NO];
         return;
     }
     //出错
@@ -4499,7 +4499,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-            [TgPortDao delete:tgPort];
+//            [TgPortDao delete:tgPort];
             [TgPortDao insert:tgPort];
             [tgPort release];
             tgPort = nil;
@@ -4600,7 +4600,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-            [TgFactoryDao delete:tgFactory];
+//            [TgFactoryDao delete:tgFactory];
             [TgFactoryDao insert:tgFactory];
             [tgFactory release];
             tgFactory = nil;
@@ -4809,7 +4809,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-            [TgShipDao delete:tgShip];
+//            [TgShipDao delete:tgShip];
             [TgShipDao insert:tgShip];
             [tgShip release];
             tgShip = nil;
@@ -4923,7 +4923,7 @@ NSString* alertMsg;
     //解析Indexdefine
     if(iSoap==5)
     {
-        NSLog(@"%@",elementName);
+//        NSLog(@"%@",elementName);
         if( [elementName isEqualToString:@"INDEXID"])
         {
             if(!tmIndexdefine)
@@ -4967,7 +4967,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-            [TmIndexdefineDao delete:tmIndexdefine];
+//            [TmIndexdefineDao delete:tmIndexdefine];
             [TmIndexdefineDao insert:tmIndexdefine];
             [tmIndexdefine release];
             tmIndexdefine = nil;
@@ -4998,7 +4998,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-            [TmIndextypeDao delete:tmIndextype];
+//            [TmIndextypeDao delete:tmIndextype];
             [TmIndextypeDao insert:tmIndextype];
             [tmIndextype release];
             tmIndextype = nil;
@@ -5761,7 +5761,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-            [TfFactoryDao delete:tfFactory];
+//            [TfFactoryDao delete:tfFactory];
             [TfFactoryDao insert:tfFactory];
             
             [tfFactory release];
@@ -6045,8 +6045,8 @@ NSString* alertMsg;
             [soapResults release];
             soapResults = nil;
             
-            [TfShipCompanyDao delete:tfShipCompany];            
-            [TfShipCompanyDao insert:tfShipCompany];            
+//            [TfShipCompanyDao delete:tfShipCompany];            
+            [TfShipCompanyDao insert:tfShipCompany];
             [tfShipCompany release];
             tfShipCompany = nil;
         }
@@ -6106,7 +6106,7 @@ NSString* alertMsg;
             [soapResults release];
             soapResults = nil;
             
-            [TfSupplierDao delete:tfSupplier];
+//            [TfSupplierDao delete:tfSupplier];
             [TfSupplierDao insert:tfSupplier];
             [tfSupplier release];
             tfSupplier=nil;
@@ -6153,7 +6153,7 @@ NSString* alertMsg;
             [soapResults release];
             soapResults = nil;
             
-            [TfCoalTypeDao delete:tfCoalType];
+//            [TfCoalTypeDao delete:tfCoalType];
             [TfCoalTypeDao insert:tfCoalType];
             [tfCoalType release];
             tfCoalType=nil;
@@ -6185,7 +6185,7 @@ NSString* alertMsg;
             [soapResults release];
             soapResults = nil;
             
-            [TsShipStageDao delete:tsShipStage];
+//            [TsShipStageDao delete:tsShipStage];
             [TsShipStageDao insert:tsShipStage];
             [tsShipStage release];
             tsShipStage=nil;
@@ -6795,7 +6795,7 @@ NSString* alertMsg;
             
             
             
-            [TfPortDao delete:tfport];
+//            [TfPortDao delete:tfport];
             [TfPortDao insert:tfport];
             [tfport release];
             tfport=nil;
@@ -6944,7 +6944,11 @@ NSString* alertMsg;
         
         iSoapNum--;
     }
-    
+    if (iSoapTfPortDone==1) {
+        iSoapTfPortDone=2;
+        
+        iSoapNum--;
+    }
     
     
     

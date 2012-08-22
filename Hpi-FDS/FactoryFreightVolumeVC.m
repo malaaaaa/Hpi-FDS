@@ -21,8 +21,8 @@
 @synthesize reloadButton;
 @synthesize queryButton;
 @synthesize resetButton;
-@synthesize popover,chooseView,multipleSelectView,parentVC,xmlParser;
-//@synthesize listTableview;
+@synthesize popover,chooseView,multipleSelectView,parentVC;
+@synthesize buttonView=_buttonView;
 //@synthesize labelView;
 @synthesize listArray;
 @synthesize listView;
@@ -30,6 +30,8 @@
 @synthesize endDateCV=_endDateCV;
 @synthesize startDay=_startDay;
 @synthesize endDay=_endDay;
+@synthesize tbxmlParser;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,7 +51,7 @@
     self.typeLabel.text=All_;
     self.tradeLabel.text=All_;
     [activity removeFromSuperview];
-    self.xmlParser=[[[XMLParser alloc]init] autorelease];
+    self.tbxmlParser =[[TBXMLParser alloc] init];
     
     self.endDay = [[[NSDate alloc] init] autorelease];
     self.startDay = [[[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] autorelease];
@@ -57,7 +59,19 @@
     [dateFormatter setDateFormat:@"yyyy-MM"];
     [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
     [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
-   // [dateFormatter release];
+    //[dateFormatter release];
+    
+    listView.layer.masksToBounds=YES;
+    listView.layer.cornerRadius=2.0;
+    listView.layer.borderWidth=2.0;
+    listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+        
+    _buttonView.layer.masksToBounds=YES;
+    _buttonView.layer.cornerRadius=2.0;
+    _buttonView.layer.borderWidth=2.0;
+    _buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+    _buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
 }
 
 - (void)viewDidUnload
@@ -77,8 +91,8 @@
     [self setResetButton:nil];
     [self setReloadButton:nil];
     [self setActivity:nil];
-    xmlParser=nil;
-    [xmlParser release];
+    self.tbxmlParser=nil;
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -93,7 +107,7 @@
     [popover release];
     [reloadButton release];
     [activity release];
-    [xmlParser release];
+    self.tbxmlParser=nil;
     [_startButton release];
     [_startDateCV release];
     [_startDay release];
@@ -112,9 +126,9 @@
     if(!_startDateCV)//初始化待显示控制器
         _startDateCV=[[DateViewController alloc]init];
     //设置待显示控制器的范围
-    [_startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [_startDateCV.view setFrame:CGRectMake(0,0, 195, 216)];
     //设置待显示控制器视图的尺寸
-    _startDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    _startDateCV.contentSizeForViewInPopover = CGSizeMake(195, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_startDateCV];
     _startDateCV.popover = pop;
@@ -122,9 +136,9 @@
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(195, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(250, 60, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_startButton.frame.origin.x+85, _startButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 -(IBAction)endDate:(id)sender
@@ -141,9 +155,9 @@
         _endDateCV.selectedDate=self.endDay;
     }
     //设置待显示控制器的范围
-    [_endDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [_endDateCV.view setFrame:CGRectMake(0,0, 195, 216)];
     //设置待显示控制器视图的尺寸
-    _endDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    _endDateCV.contentSizeForViewInPopover = CGSizeMake(195, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_endDateCV];
     _endDateCV.popover = pop;
@@ -151,9 +165,9 @@
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(195, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(500, 60, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(_endButton.frame.origin.x+85, _endButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 //贸易性质
@@ -178,7 +192,7 @@
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 150);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(700, 60, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(tradeButton.frame.origin.x+85, tradeButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
@@ -205,7 +219,7 @@
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 250);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(900, 60, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(typeButton.frame.origin.x+85, typeButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
@@ -222,9 +236,8 @@
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:1];
-        [NTFactoryFreightVolumeDao deleteAll];
-        [xmlParser getNTFactoryFreightVolume];
+        [tbxmlParser setISoapNum:1];
+        [tbxmlParser requestSOAP:@"YunLi"];
 
         [self runActivity];
     }
@@ -235,12 +248,16 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMM"];
     NSLog(@"type=%@",typeLabel.text);
-    NSLog(@"trade=%@",tradeLabel.text);
+    NSLog(@"trade1=%@",tradeLabel.text);
     [NTFactoryFreightVolumeDao InsertByTrade:tradeLabel.text Type:typeLabel.text StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
+    NSLog(@"trade2=%@",tradeLabel.text);
+
     [dateFormatter release];
-    
+    NSLog(@"trade3=%@",tradeLabel.text);
+
     [self loadViewData];
-    
+    NSLog(@"trade4=%@",tradeLabel.text);
+
     
 }
 
@@ -292,7 +309,7 @@
 #pragma mark activity
 -(void)runActivity
 {
-    if ([xmlParser iSoapNum]==0) {
+    if ([tbxmlParser iSoapNum]==0) {
         [activity stopAnimating];
         [activity removeFromSuperview];
         [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
@@ -319,7 +336,7 @@
     ds.data = [NTFactoryFreightVolumeDao getAllDataByTradeTime:tradetimeArray Factory:factoryArray];
     ds.splitTitle = [NSArray arrayWithObjects:@"运量",@"航次",nil];
 
-    MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(30, 50, 960, 400) data:ds];
+    MultiTitleDataGridComponent *grid = [[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 50, 1024, 450) data:ds];
     //[ds.columnWidth release];
 	[ds release];
 	[self.listView addSubview:grid];
@@ -331,7 +348,7 @@
     titleLabel.textColor=[UIColor whiteColor];
     titleLabel.textAlignment=UITextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:18.0f];
-    titleLabel.backgroundColor=[UIColor blackColor];
+    titleLabel.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
     [self.listView addSubview:titleLabel];
     [titleLabel release];
 }

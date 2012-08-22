@@ -15,7 +15,7 @@ static sqlite3	*database;
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"TgPort.db"];
+	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"database.db"];
 	return	 path;
 }
 
@@ -57,7 +57,7 @@ static sqlite3	*database;
 
 +(void)insert:(TgPort*) tgPort
 {
-	NSLog(@"Insert begin TgPort");
+//	NSLog(@"Insert begin TgPort");
 	const char *insert="INSERT INTO TgPort (portCode,shipNum,handleShip,loadShip,transactShip,waitShip,portName,lon,lat) values(?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -66,16 +66,16 @@ static sqlite3	*database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
-	NSLog(@"portCode=%@", tgPort.portCode);
-	NSLog(@"shipNum=%d", tgPort.shipNum);
-	NSLog(@"handleShip=%d", tgPort.handleShip);
-	NSLog(@"loadShip=%d", tgPort.loadShip);
-	NSLog(@"transactShip=%d", tgPort.transactShip);
-	NSLog(@"waitShip=%d", tgPort.waitShip);
-	NSLog(@"portName=%@", tgPort.portName);
-    NSLog(@"lon=%@", tgPort.lon);
-    NSLog(@"lat=%@", tgPort.lat);
-    
+//	NSLog(@"portCode=%@", tgPort.portCode);
+//	NSLog(@"shipNum=%d", tgPort.shipNum);
+//	NSLog(@"handleShip=%d", tgPort.handleShip);
+//	NSLog(@"loadShip=%d", tgPort.loadShip);
+//	NSLog(@"transactShip=%d", tgPort.transactShip);
+//	NSLog(@"waitShip=%d", tgPort.waitShip);
+//	NSLog(@"portName=%@", tgPort.portName);
+//    NSLog(@"lon=%@", tgPort.lon);
+//    NSLog(@"lat=%@", tgPort.lat);
+//    
 	sqlite3_bind_text(statement, 1, [tgPort.portCode UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_int(statement, 2, tgPort.shipNum);
     sqlite3_bind_int(statement, 3, tgPort.handleShip);
@@ -109,6 +109,21 @@ static sqlite3	*database;
 	else
 	{
 		NSLog(@"delete success");		
+	}
+	return;
+}
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TgPort "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete TgPort error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
 	}
 	return;
 }

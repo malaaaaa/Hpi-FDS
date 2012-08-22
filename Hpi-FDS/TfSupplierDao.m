@@ -55,7 +55,7 @@ static sqlite3	*database;
 
 +(void)insert:(TfSupplier*) tfSupplier
 { 
-	NSLog(@"Insert begin TfSupplier");
+//	NSLog(@"Insert begin TfSupplier");
 	const char *insert="INSERT INTO TfSupplier (SUPID,PID,SUPPLIER,DESCRIPTION,LINKMAN,CONTACT,SORT) values(?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -77,7 +77,7 @@ static sqlite3	*database;
 	re = sqlite3_step(statement);
 	if(re!=SQLITE_DONE)
     {
-		NSLog( @"Error: insert tfShipCompany error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
+		NSLog( @"Error: insert TfSupplier error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
 		sqlite3_finalize(statement);
 		return;
     }
@@ -100,7 +100,21 @@ static sqlite3	*database;
 	}
 	return;
 }
-
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TfSupplier "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete TfSupplier error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
+	}
+	return;
+}
 +(NSMutableArray *) getTfSupplier:(NSInteger)supid
 {
 	NSString *query=[NSString stringWithFormat:@" supid = %d ",supid];

@@ -13,7 +13,7 @@
 #import "PubInfo.h"
 #import "HpiGraphData.h"
 #import "HpiGraphView.h"
-#import "XMLParser.h"
+#import "TBXMLParser.h"
 #import "ChooseView.h"
 #import "MarketOneController.h"
 #import "ChooseViewDelegate.h"
@@ -32,7 +32,7 @@
     IBOutlet UIButton *queryButton;
     IBOutlet UIButton *reloadButton;
     IBOutlet UIActivityIndicatorView *activity;
-    XMLParser *xmlParser;
+    TBXMLParser *tbxmlParser;
     HpiGraphView *graphView;
     ChooseView *chooseView;
     MarketOneController *marketOneController;
@@ -50,7 +50,7 @@
 @property(nonatomic,retain) UIButton *queryButton;
 @property(nonatomic,retain) UIButton *reloadButton;
 @property(nonatomic,retain) UIActivityIndicatorView *activity;
-@property(nonatomic,retain) XMLParser *xmlParser;
+@property(nonatomic,retain) TBXMLParser *tbxmlParser;
 @property(nonatomic,retain) HpiGraphView *graphView;
 @property(nonatomic,retain) ChooseView *chooseView;
 @property(nonatomic,retain) MarketOneController *marketOneController;

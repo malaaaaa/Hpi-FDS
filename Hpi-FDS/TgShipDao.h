@@ -26,4 +26,6 @@
 +(NSMutableArray *) getTgShipZCPort:(NSString *)factoryName;
 +(NSMutableArray *) getTgShipByName:(NSString *)shipName;
 +(NSMutableArray *) getTgShipZTPort:(NSString *)chooseShip :(NSString *)chooseFactory :(NSString *)choosePort;
++(void) deleteAll;
+
 @end

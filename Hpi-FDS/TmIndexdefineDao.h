@@ -23,4 +23,5 @@
 +(NSMutableArray *) getTmIndexdefine;
 +(NSMutableArray *) getTmIndexdefineBySql:(NSString *)sql;
 +(NSMutableArray *) getTmIndexdefineByName:(NSString *)indexName;
++(void) deleteAll;
 @end

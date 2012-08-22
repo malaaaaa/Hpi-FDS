@@ -64,7 +64,7 @@ static sqlite3  *database;
 
 +(void)insert:(TfPort *)tfprot
 {
- NSLog(@"Insert begin TF_Port ");
+// NSLog(@"Insert begin TF_Port ");
 
 const char *insert="INSERT INTO TF_Port(portcode,portname,sort,upload,download,nationaltype )values(?,?,?,?,?,?)";
 
@@ -75,13 +75,13 @@ const char *insert="INSERT INTO TF_Port(portcode,portname,sort,upload,download,n
         NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),insert);
     }
     
-    NSLog(@"tfprot.PORTCODE[%@]",tfprot.PORTCODE);
-     NSLog(@"tfprot.PORTNAME[%@]",tfprot.PORTNAME);
-    NSLog(@"tfprot.SORT[%@]",tfprot.SORT);
-      NSLog(@"tfprot.UPLOAD[%@]",tfprot.UPLOAD);
-    
-      NSLog(@"tfprot.DOWNLOAD[%@]",tfprot.DOWNLOAD);
-    NSLog(@"tfprot.NATIONALTYPE[%@]",tfprot.NATIONALTYPE);
+//    NSLog(@"tfprot.PORTCODE[%@]",tfprot.PORTCODE);
+//     NSLog(@"tfprot.PORTNAME[%@]",tfprot.PORTNAME);
+//    NSLog(@"tfprot.SORT[%@]",tfprot.SORT);
+//      NSLog(@"tfprot.UPLOAD[%@]",tfprot.UPLOAD);
+//    
+//      NSLog(@"tfprot.DOWNLOAD[%@]",tfprot.DOWNLOAD);
+//    NSLog(@"tfprot.NATIONALTYPE[%@]",tfprot.NATIONALTYPE);
     
     
     
@@ -102,7 +102,7 @@ sqlite3_bind_text(statement,6, [tfprot.NATIONALTYPE UTF8String], -1,SQLITE_TRANS
         return;
         
     }else {
-        NSLog(@"insert  TF_Port  SUCCESS");
+//        NSLog(@"insert  TF_Port  SUCCESS");
     }
     sqlite3_finalize(statement);
     return;
@@ -125,6 +125,21 @@ sqlite3_bind_text(statement,6, [tfprot.NATIONALTYPE UTF8String], -1,SQLITE_TRANS
     return;
 
 
+}
++(void)deleteAll
+{
+    
+    
+    char *errorMsg;
+    NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TF_Port  " ];
+    if (sqlite3_exec(database, [deletesql UTF8String], NULL, NULL, &errorMsg)!=SQLITE_OK) {
+        NSLog(@"Error: delete TB_Latefee error with message [%s]  sql[%@]", errorMsg,deletesql);
+    }else {
+        NSLog(@"delete success")  ;
+    }
+    return;
+    
+    
 }
 
 

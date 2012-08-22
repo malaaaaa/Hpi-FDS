@@ -5,7 +5,7 @@
 //  Created by tang bin on 12-8-10.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
-//dev_tangb 
+//dev_tangb
 #import "AvgFactoryTimeChVC.h"
 #import "DataQueryVC.h"
 #import "AvgFactoryZXTimeDao.h"
@@ -277,7 +277,7 @@ endTime.text=endButton.titleLabel.text;
         //解析入库
         [xmlParser setISoapNum:1];
         
-        [xmlParser getTfFactory];
+//        [xmlParser getTfFactory];
         [xmlParser getVbShiptrans];
         
         

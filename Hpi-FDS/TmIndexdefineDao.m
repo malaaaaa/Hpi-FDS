@@ -16,7 +16,7 @@ static sqlite3	*database;
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"TmIndexdefine.db"];
+	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"database.db"];
 	return	 path;
 }
 
@@ -55,7 +55,7 @@ static sqlite3	*database;
 
 +(void)insert:(TmIndexdefine*) tmIndexdefine
 {
-	NSLog(@"Insert begin TmIndexdefine");
+//	NSLog(@"Insert begin TmIndexdefine");
 	const char *insert="INSERT INTO TmIndexdefine (indexId,indexName,indexType,maxiMum,miniMum,displayName) values(?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -64,13 +64,13 @@ static sqlite3	*database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
-	NSLog(@"indexId=%d", tmIndexdefine.indexId);
-	NSLog(@"indexName=%@", tmIndexdefine.indexName);
-	NSLog(@"indexType=%@", tmIndexdefine.indexType);
-	NSLog(@"maxiMum=%d", tmIndexdefine.maxiMum);
-    NSLog(@"miniMum=%d", tmIndexdefine.miniMum);
-    NSLog(@"displayName=%@", tmIndexdefine.displayName);
-    
+//	NSLog(@"indexId=%d", tmIndexdefine.indexId);
+//	NSLog(@"indexName=%@", tmIndexdefine.indexName);
+//	NSLog(@"indexType=%@", tmIndexdefine.indexType);
+//	NSLog(@"maxiMum=%d", tmIndexdefine.maxiMum);
+//    NSLog(@"miniMum=%d", tmIndexdefine.miniMum);
+//    NSLog(@"displayName=%@", tmIndexdefine.displayName);
+//    
     sqlite3_bind_int(statement, 1, tmIndexdefine.indexId);
 	sqlite3_bind_text(statement, 2, [tmIndexdefine.indexName UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 3, [tmIndexdefine.indexType UTF8String], -1, SQLITE_TRANSIENT);
@@ -104,7 +104,21 @@ static sqlite3	*database;
 	}
 	return;
 }
-
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TmIndexdefine "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete TmIndexdefine error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
+	}
+	return;
+}
 +(NSMutableArray *) getTmIndexdefine:(NSInteger)indexId
 {
 	NSString *query=[NSString stringWithFormat:@" indexId = %d ",indexId];
