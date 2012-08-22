@@ -5,7 +5,7 @@
 //  Created by tang bin on 12-8-10.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
-
+//dev_tangb 
 #import "AvgFactoryTimeChVC.h"
 #import "DataQueryVC.h"
 #import "AvgFactoryZXTimeDao.h"
@@ -37,8 +37,10 @@ DataQueryVC *dataQueryVC;
 static   MultiTitleDataSource *source;
 
 
+
 NSDateFormatter *formater;
-NSDateFormatter *f;
+NSDateFormatter *f; 
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,31 +55,29 @@ NSDateFormatter *f;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+
     month=[[NSDate alloc] init];
     formater=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM"];
     f=[[NSDateFormatter alloc] init];
     [f setDateFormat:@"yyyy-01"];
-
-     [formater stringFromDate:month];
+    [formater stringFromDate:month];
     
+ 
      self.factoryCateLable.text=All_;
      self.factoryCateLable.hidden=YES;
-    
     self.startTime.text=[f   stringFromDate:[NSDate date]];
-    
      [self.startButton setTitle:[f   stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     self.endTime.text=[formater   stringFromDate:[NSDate date]];
-    
     [self.endButton setTitle:[formater   stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     [activty removeFromSuperview];
     xmlParser=[[XMLParser alloc] init];
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
+   [ self  getDateSource:self.startTime.text :self.endTime.text:All_ :0];
     
-    [ self  getDateSource:self.startTime.text :self.endTime.text:All_ :0];
 }
- -(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSString *)facotryCate:(NSInteger)initAndSelect
+-(void)initDC
 {
     if(dc){
         [dc removeFromSuperview];
@@ -88,115 +88,67 @@ NSDateFormatter *f;
         dc=[[MultiTitleDataGridComponent alloc ] init];
     }
     if(!dataQueryVC){
-       // NSLog(@"dataQueryVC 为空。。初始......");
+        NSLog(@"dataQueryVC 为空。。初始......");
         //初始化 父视图
         dataQueryVC=(DataQueryVC *)self.parentVC;
+  
     }
-
+    
     if(source){
+    
         [source release];
-        source=[[MultiTitleDataSource alloc] init   ];
-        source.titles=[[NSMutableArray alloc] init ];
-        source.data=[[NSMutableArray alloc] init ];
-        source.columnWidth=[[NSMutableArray alloc] init ];
+       source=[[MultiTitleDataSource alloc] init   ];
+        source.titles=[[[NSMutableArray alloc] init ] autorelease];
+        source.data=[[[NSMutableArray alloc] init ] autorelease];
+       source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
     }else{
         source=[[MultiTitleDataSource alloc] init   ];
-        source.titles=[[NSMutableArray alloc] init ];
-        source.data=[[NSMutableArray alloc] init ];
-        source.columnWidth=[[NSMutableArray alloc] init ];
+        source.titles=[[[NSMutableArray alloc] init ] autorelease];
+        source.data=[[[NSMutableArray alloc] init ] autorelease];
+        source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
     }
-//NSLog(@"查询数据。。。。。。。。");
+
+}
+
+
+
+
+-(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSString *)facotryCate:(NSInteger)initAndSelect
+{
+    [self initDC];
+    source.titles=[AvgFactoryZXTimeDao getTimeTitle1:startTime.text :endTime.text:All_];
+ 
+   // NSLog(@"----------------source.titles[%d]",[source.titles  count]);
+ 
+    source.splitTitle=[[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil] autorelease  ];
     
-    
-    //dataQueryVC.dataArray=[[NSMutableArray alloc] init];
-   // MultiTitleDataSource *Msource=[[MultiTitleDataSource alloc] init];
-    
-    source.titles=[AvgFactoryZXTimeDao getTimeTitle:startTime.text :endTime.text :factoryCateLable.text];
-  //  NSLog(@"----------------source.titles[%d]",[source.titles  count]);
-     
-    [source .titles addObject:@"平均"];
-    source.splitTitle=[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil];
-    source.columnWidth=[[NSMutableArray alloc] init ];
     [source.columnWidth addObject:@"70"];
     for (int i=1; i<[source.titles count]; i++) {
         [source .columnWidth addObject: @"210"];
     }
-    
     if(initAndSelect==1){
-    
-        NSMutableArray *FactoryN=[AvgFactoryZXTimeDao getFactoryName:startTime.text :endTime.text :factoryCateLable.text];
-        source .data=[[NSMutableArray alloc] init];
-        for (int i=0; i<[FactoryN count]; i++) {
-            NSMutableArray  *dateArray=[[NSMutableArray alloc] init];
-            [dateArray addObject:@"3"];
-            [dateArray addObject:[FactoryN objectAtIndex:i] ];
-            
-            
-            
-            NSMutableDictionary *date=[AvgFactoryZXTimeDao getFactoryDate:startTime.text :endTime.text :factoryCateLable.text :[FactoryN  objectAtIndex:i]];
-            
-            NSMutableArray *arrayKeys=[[  NSMutableArray alloc] init];
-            for (NSObject* t in [date keyEnumerator]) {
-                [arrayKeys addObject:t];
-            }
-            
-            
-            for (int t=1; t<[source .titles count]; t++) {
-                 
-                if ([arrayKeys containsObject:[source .titles objectAtIndex:t]]) {
-                    
-                    NSMutableArray *a=[date objectForKey:[source.titles objectAtIndex:t]] ;
-                    for (int i=0; i<[a count]; i++) {
-                        [dateArray addObject:[a objectAtIndex:i]];
-                    }
-              
-                }else
-                {
-                   for (int i=0; i<3; i++) {
-                     [dateArray addObject:@""];
-                   }
-                
-                }
-                
-           }
-            
-            
-            [source.data addObject:dateArray];
-            [dateArray release];
-            [arrayKeys release];
-            
-          
-            
-        }
-
-    
-        [FactoryN    release];
-    
+        source.data=[AvgFactoryZXTimeDao getAvgFactoryDate:startTime.text:endTime.text:factoryCateLable.text:source.titles ];
     }
-    
-   
-    //初始化dc
-    
     //初始化
     dc=[[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
-    
-     [dataQueryVC.listView   addSubview:dc];
-}
+    [dataQueryVC.listView   addSubview:dc];
 
+   
+    
+    
+}
 - (IBAction)Select:(id)sender {
-      
-    startTime.text=startButton.titleLabel.text;
-    endTime.text=endButton.titleLabel.text;
-   // NSLog(@"开始时间为：%@",startTime.text);
+startTime.text=startButton.titleLabel.text;
+endTime.text=endButton.titleLabel.text;
+  // NSLog(@"开始时间为：%@",startTime.text);
    // NSLog(@"结束时间为：%@",endTime.text);
-    //NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
-    
+   // NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
+
+ //   NSLog(@"电厂 查询。。。。。。。。。");
+ 
+    NSAutoreleasePool *poll=[[NSAutoreleasePool alloc ] init];
     [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
-    
-    
-    
-    
-    
+      [poll drain];
 }
 
 - (IBAction)endTimeSelect:(id)sender {
@@ -281,9 +233,7 @@ NSDateFormatter *f;
     
 }
 - (IBAction)release:(id)sender {
-    
-    
-    
+
     self.startTime.text=[f   stringFromDate:[NSDate date]];
     
     [self.startButton setTitle:[f   stringFromDate:[NSDate date]] forState:UIControlStateNormal];
@@ -307,7 +257,7 @@ NSDateFormatter *f;
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间"  delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步", nil];
     
     [alert show];
-    
+    [alert release];
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -335,23 +285,15 @@ NSDateFormatter *f;
         [f release];
     }
     if(dc){
-        
-       // NSLog(@"释放  dc  视图");
         [dc release];
     }
     if(source){
-        
-       //NSLog(@"释放  dc  数据源source ");
         [source release];
     }
     if(dataQueryVC){
-       //NSLog(@"释放 父视图 .。。。 ");
-  
         [dataQueryVC release];
     }
 
-    
-    
     [factoryCateLable release];
     [startTime release];
     [endTime release];

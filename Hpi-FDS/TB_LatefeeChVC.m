@@ -102,6 +102,8 @@ static int  whichButton=0;
     animation.type=@"cube";
     
     [dataQueryVC.chooseView.layer addAnimation:animation forKey:@"animation"];
+    NSLog(@"--------------dataQueryVC.chooseView.layer  增加动画。。。。。。。。。");
+    
     //-------------------------
     [dataQueryVC.chooseView bringSubviewToFront:self.view];
 
@@ -117,7 +119,7 @@ static int  whichButton=0;
     animation.type= @"oglFlip"; 
 
     [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
-    
+     NSLog(@"------------------dataQueryVC.labelView.layer  增加动画。。。。。。。。。");
     [dataQueryVC.labelView removeFromSuperview  ];
     
     //清空数据源。。。。。
@@ -493,12 +495,11 @@ static int  whichButton=0;
     }
     NSLog(@"开始时间为：%@",startTime.text);
     NSLog(@"结束时间为：%@",endTime.text);
-    NSAutoreleasePool *looPool=[[NSAutoreleasePool   alloc] init];
-    dataQueryVC.dataArray=[TB_LatefeeDao getTB_LateFee:comLabel.text :shipLabel.text :factoryLabel.text :typeLabel.text  :supLable.text :startTime.text :endTime.text];
+
+    dataQueryVC.dataArray=[TB_LatefeeDao getTB_LateFee:comLabel.text :shipLabel.text :factoryLabel.text :typeLabel.text  :supLable.text :startTime.text :endTime.text] ;
     
     
-    dataSource.data=[[NSMutableArray alloc] init];
-    NSLog(@"获得TB_Latefee[%d]",dataQueryVC.dataArray.count);
+    dataSource.data=[[[NSMutableArray alloc] init] autorelease];
     for (int i=0; i<[dataQueryVC.dataArray  count ]; i++) {
        TB_Latefee *tblatefee=[dataQueryVC.dataArray objectAtIndex:i];
         [dataSource.data addObject:[NSArray arrayWithObjects:@"3",
@@ -524,17 +525,19 @@ static int  whichButton=0;
         
   
     }
+    
     NSLog(@"加载 listTableView");
     dataQueryVC.dataSource=dataSource;
     [dataQueryVC.listTableview   reloadData];
-    [looPool drain];        
-}
+    
+   }
 
 - (IBAction)reload:(id)sender {
     
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间"  delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步", nil];
     
     [alert show];
+    [alert release];
     
 }
 
@@ -605,7 +608,7 @@ static int  whichButton=0;
     [poper   release];
     
     [parentVC release];
-    [XMLParser release];
+    [xmlParser release];
     [month release];
     [monthCV release];
     [chooseView  release];

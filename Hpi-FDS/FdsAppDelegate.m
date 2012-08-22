@@ -55,7 +55,7 @@
     NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
     
     //获取设备id号
-    NSString *deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]];
+    NSString *deviceUID = [[[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] autorelease];
     NSLog(@"%@",deviceUID); // 输出设备id
     
 

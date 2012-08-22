@@ -41,6 +41,7 @@
     [toolBar setItems:[NSArray arrayWithObject:barItem]];
     
     [self.view addSubview:toolBar];
+    [barItem release];
     
     
 //    VBFactoryTransVC *subview=[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil];

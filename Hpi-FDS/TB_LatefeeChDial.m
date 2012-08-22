@@ -37,16 +37,32 @@ NSMutableDictionary *d3;
     // Do any additional setup after loading the view from its nib.
 
     if (tblatefee!=nil&&totalLatefee!=0 ) {
-        NSLog(@"tblatefee 不为空..................");
+     //   NSLog(@"tblatefee 不为空..................");
         //滞期费合计
         total.text=totalLatefee;
-        NSLog(@"------------------滞期费合计----------------：【%@】", total.text);
+     //   NSLog(@"------------------滞期费合计----------------：【%@】", total.text);
+        
+        
+        
         p_Time.text=[PubInfo formatInfoDate:tblatefee.P_DEPARTTIME :tblatefee.P_ANCHORAGETIME];
+        
+        
+      //  NSLog(@"-------p_Time:[%@]",p_Time.text);
+        
         d2=[PubInfo formatInfoDate1:tblatefee.P_DEPARTTIME :tblatefee.P_ANCHORAGETIME];
-        f_Time.text=[PubInfo formatInfoDate:tblatefee.F_DEPARTTIME :tblatefee.F_ANCHORAGETIME];  
+        
+        
+        f_Time.text=[PubInfo formatInfoDate:tblatefee.F_DEPARTTIME :tblatefee.F_ANCHORAGETIME];
+         //NSLog(@"-------f_Time:[%@]",f_Time.text);
+        
+        
+        
         d3=[PubInfo formatInfoDate1:tblatefee.F_DEPARTTIME :tblatefee.F_ANCHORAGETIME];
         //装卸总时间
         pfTotalTime.text=[PubInfo getTotalTime:d2:d3];
+        
+       //   NSLog(@"-------pfTotalTime:[%@]",pfTotalTime.text);
+        
         fileName.text=@"附件";
     }
   }

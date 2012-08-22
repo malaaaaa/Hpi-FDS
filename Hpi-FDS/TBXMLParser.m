@@ -57,7 +57,7 @@ NSString* alertMsg;
     [urlRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
     
     // 请求
-    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    NSURLConnection *theConnection = [[[NSURLConnection alloc] initWithRequest:urlRequest delegate:self] autorelease];
     
     // 如果连接已经建好，则初始化data
     if( theConnection )

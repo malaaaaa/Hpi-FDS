@@ -295,7 +295,7 @@
     [self.view addSubview:activity];
     self.reloadButton.titleLabel.text=@"";
     [activity startAnimating];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.xmlParser=[[[XMLParser alloc]init] autorelease];
     [xmlParser setISoapNum:1];
     [xmlParser getVbShiptrans];
     [self runActivity];

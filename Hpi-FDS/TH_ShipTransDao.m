@@ -262,7 +262,7 @@ return;
     
     
     NSLog(@"执行 getTH_ShipTransBySql [%@]",sql);
-    NSMutableArray  *array=[[NSMutableArray alloc] init];
+    NSMutableArray  *array=[[[NSMutableArray alloc] init] autorelease];
     
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         
@@ -383,7 +383,7 @@ return;
     }else {
         NSLog(@"getTH_ShipTrans--- Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
     }
-    [array  autorelease ];
+  
     return array;
 }
 

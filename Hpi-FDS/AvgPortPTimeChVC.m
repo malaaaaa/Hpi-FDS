@@ -64,27 +64,32 @@ int currentMonth;
     [comp setMonth:currentMonth-1];
     [comp setDay:31];
     [comp setYear:[yeas intValue]];
-    NSCalendar *myCal = [[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDate *myDate1 = [myCal dateFromComponents:comp];
+    NSCalendar *myCal = [[[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+   
+    NSDate *myDate1 = [myCal dateFromComponents:comp] ;
+    [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]] forState:UIControlStateNormal];
+     self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
     self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
     [self.startButton setTitle:[NSString stringWithFormat:@"%@-01",yeas] forState:UIControlStateNormal];
-    self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
-    [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]] forState:UIControlStateNormal];
+   
+    
     [activty removeFromSuperview];
     xmlParser=[[XMLParser alloc] init];
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
 
     [ self  getDateSource:self.startTime.text :self.endTime.text :0];
+
     [comp    release];
- 
+   
 }
--(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSInteger)initAndSelect
-{
-    if(dc){
+
+-(void)initDC
+{ 
+  if(dc){
         [dc removeFromSuperview];
         [dc release];
-         dc=[[DataGridComponent alloc ] init];
+        dc=[[DataGridComponent alloc ] init];
     }else
     {
         dc=[[DataGridComponent alloc ] init];
@@ -96,64 +101,46 @@ int currentMonth;
     if(source){
         [source release];
         source=[[DataGridComponentDataSource alloc] init   ];
-        source.titles=[[NSMutableArray alloc] init ];
-        source.data=[[NSMutableArray alloc] init ];
-        source.columnWidth=[[NSMutableArray alloc] init ];  
+        source.titles=[[[NSMutableArray alloc] init ] autorelease];
+        source.data=[[[NSMutableArray alloc] init ] autorelease];
+        source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
     }else{
         source=[[DataGridComponentDataSource alloc] init   ];
-        source.titles=[[NSMutableArray alloc] init ];
-        source.data=[[NSMutableArray alloc] init ];
-        source.columnWidth=[[NSMutableArray alloc] init ];
+        source.titles=[[[NSMutableArray alloc] init ] autorelease   ];
+        source.data=[[[NSMutableArray alloc] init ] autorelease];
+        source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
     }
-        NSMutableArray *tites=[AvgPortPTimeDao getTime:cStartTime :cEndTime];
-        [source.titles addObject:@"港口"];
+}
+
+
+-(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSInteger)initAndSelect
+{
+    [self initDC];
+    
+    source.titles=[AvgPortPTimeDao getTime:cStartTime :cEndTime];
+  //  NSLog(@"----------source.titles[%d]",[source.titles count]);
         [source.columnWidth addObject:@"90"];
         //tites count  不为0
-        for (int t=0; t<[tites count]; t++) {
-            [source.titles addObject:[tites objectAtIndex:t]];
-             [ source.columnWidth addObject:[NSString stringWithFormat:@"%d",840/[tites count]]];
+        for (int t=0; t<[source.titles count]-2; t++) {
+         
+             [ source.columnWidth addObject:[NSString stringWithFormat:@"%d",840/([source.titles count]-2)]];
         }
-        [source.titles addObject:@"平均时间"];
         [ source.columnWidth addObject:@"80"];
+
         //查询
     if(initAndSelect==1){
-        NSMutableArray *portName=[AvgPortPTimeDao getPortName:cStartTime :cEndTime];
-        //循环港口名
-        for (int i=0; i<[portName count]; i++) {
-            NSMutableArray  *dateArray=[[NSMutableArray alloc] init];
-            [dateArray addObject:@"3"];
-            [dateArray addObject:[portName objectAtIndex:i] ];
-            NSMutableDictionary *timeAndAvgTime=[[NSMutableDictionary alloc] init ];
-            timeAndAvgTime=[AvgPortPTimeDao getTimeAndAvgTime:[portName objectAtIndex:i] :cStartTime :cEndTime];
-            NSMutableArray *arrayKeys=[[  NSMutableArray alloc] init];
-            for (NSObject* t in [timeAndAvgTime keyEnumerator]) {
-                [arrayKeys addObject:t];
-            }
-            double sumTime=0;
-            int a=0;
-            for (int t=0; t<[tites count]; t++) {
-                if ([arrayKeys containsObject:[tites objectAtIndex:t]]) {
-                    [dateArray addObject:[timeAndAvgTime objectForKey:[tites objectAtIndex:t]] ];
-                    a++;
-                    sumTime=sumTime+[[timeAndAvgTime objectForKey:[tites objectAtIndex:t]] doubleValue];
-                }else
-                {
-                    [dateArray addObject:@""];
-                }
-            }
-            NSLog(@"总的平均时间：avgTime【%.2f】",sumTime/a);
-            [dateArray addObject:[NSString stringWithFormat:@"%.2f",sumTime/a]];
-            [source.data addObject:dateArray];
-            [dateArray release];
-            [arrayKeys release  ];
-            [timeAndAvgTime release];
-        }
-        [portName release];
-    }
+        source.data=[AvgPortPTimeDao getAvgPortDate:startTime.text:endTime.text :source.titles];
+        
+      //  NSLog(@"source.data[%d]",[source.data  count]);
+        
+       }
     //初始化
     dc=[[DataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
+    
+    
+    
     [dataQueryVC.listView   addSubview:dc];
-    [tites release];
+
 }
 
 - (IBAction)startTimeSelect:(id)sender {
@@ -204,8 +191,13 @@ int currentMonth;
     if (![endButton .titleLabel.text isEqualToString:@"结束时间"]) {
         endTime.text=endButton.titleLabel.text;
     }
-    dataQueryVC.dataArray=[[NSMutableArray  alloc] init ];
+    dataQueryVC.dataArray=[[[NSMutableArray  alloc] init ] autorelease];
+
+    
+    
     [ self  getDateSource:self.startTime.text :self.endTime.text :1];
+    
+    
 }
 - (IBAction)release:(id)sender {
     //获得当前月份和年份    
@@ -217,20 +209,22 @@ int currentMonth;
     [comp setMonth:currentMonth-1];
     [comp setDay:31];
     [comp setYear:[yeas intValue]];
-    NSCalendar *myCal = [[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *myCal = [[[NSCalendar alloc ] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     NSDate *myDate1 = [myCal dateFromComponents:comp];
-
+    self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
+     [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]]  forState:UIControlStateNormal];
     self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
     self.startTime.hidden=YES;
     [self.startButton setTitle:[NSString stringWithFormat:@"%@-01",yeas] forState:UIControlStateNormal];
-    self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
+
     self.endTime.hidden=YES;
-    [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]]  forState:UIControlStateNormal];
+   
     [comp release];
 }
 - (IBAction)reload:(id)sender {
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间"  delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步", nil];
     [alert show];
+    [alert  release];
 }
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {

@@ -128,7 +128,9 @@
         case kMenuGKMJZGSJ:
             cell.textLabel.text=@"港口平均装港时间统计";
             break;
-            
+        case kMenuFcAvgZXTime:
+            cell.textLabel.text=@"电厂平均装卸港时间统计";
+            break;
         default:
             break;
     }

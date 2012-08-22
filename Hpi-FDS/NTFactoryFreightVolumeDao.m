@@ -220,7 +220,7 @@ static sqlite3 *database;
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			
-            NSString *factoryname = [[NSString alloc]init];
+            NSString *factoryname =@"";
             
             char * rowData0=(char *)sqlite3_column_text(statement,0);
             if (rowData0 == NULL)
@@ -228,7 +228,7 @@ static sqlite3 *database;
             else
                 factoryname = [NSString stringWithUTF8String: rowData0];
             [array addObject:factoryname];
-            [factoryname release];
+            
 		}
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
@@ -247,7 +247,7 @@ static sqlite3 *database;
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			
-            NSString *tradetime = [[NSString alloc]init];
+            NSString *tradetime = @"";
             
             char * rowData0=(char *)sqlite3_column_text(statement,0);
             if (rowData0 == NULL)
@@ -255,7 +255,7 @@ static sqlite3 *database;
             else
                 tradetime = [NSString stringWithUTF8String: rowData0];
             [array addObject:tradetime];
-            [tradetime release];
+           
 		}
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);

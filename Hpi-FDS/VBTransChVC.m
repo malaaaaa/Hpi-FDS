@@ -58,7 +58,7 @@
     self.monthLabel.text=All_;
     [activity removeFromSuperview];
     //初始化  xmlparser
-    self.xmlParser=[[XMLParser   alloc] init];
+    self.xmlParser=[[[XMLParser   alloc] init] autorelease];
     
     self.shipLabel.hidden=YES;
     self.comLabel.hidden=YES;
@@ -341,7 +341,7 @@
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
-    
+    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -391,10 +391,10 @@
     NSLog(@"codeTextField=[%@]",codeTextField.text);
     if (monthLabel.text!=All_) {
         monthLabel.text=[f stringFromDate:self.month];
-        [f release];
+      
     }
-    
-      NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
+     [f release];
+      NSAutoreleasePool *loopPool = [[[NSAutoreleasePool alloc]init] autorelease];
     
       DataQueryVC *dataQueryVC=self.parentVC;
     dataQueryVC.dataArray=[VbTransplanDao getVbTransplan:comLabel.text :shipLabel.text :portLabel.text :typeLabel.text :factoryLabel.text :monthLabel.text:codeTextField.text];

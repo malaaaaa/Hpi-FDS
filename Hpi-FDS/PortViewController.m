@@ -36,9 +36,9 @@ static NSString *stringType=@"GKDJL";
     [segment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
 //    [portButton setTitle:@"港  口" forState:UIControlStateNormal];
     portLabel.text=@"秦皇岛港";
-    self.endDay = [[NSDate alloc] init];
+    self.endDay = [[[NSDate alloc] init] autorelease];
     //self.startDay = [[NSDate alloc] init];
-    self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366];
+    self.startDay = [[[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] autorelease];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     [endButton setTitle:[dateFormatter stringFromDate:endDay] forState:UIControlStateNormal];
@@ -46,7 +46,7 @@ static NSString *stringType=@"GKDJL";
     [dateFormatter release];
     
     [activity removeFromSuperview];
-    self.xmlParser=[[XMLParser alloc]init];
+    self.xmlParser=[[[XMLParser alloc]init] autorelease];
 }
 
 - (void)viewDidUnload
@@ -108,11 +108,11 @@ static NSString *stringType=@"GKDJL";
     NSDate *maxDate=[endDay laterDate:startDay];
     NSDate *minDate=[endDay earlierDate:startDay];
     HpiGraphData *graphData=[[HpiGraphData alloc] init];
-    graphData.pointArray = [[NSMutableArray alloc]init];
-    graphData.pointArray2 = [[NSMutableArray alloc]init];
-    graphData.pointArray3 = [[NSMutableArray alloc]init];
-    graphData.xtitles = [[NSMutableArray alloc]init];
-    graphData.ytitles = [[NSMutableArray alloc]init];
+    graphData.pointArray = [[[NSMutableArray alloc]init] autorelease    ];
+    graphData.pointArray2 = [[[NSMutableArray alloc]init] autorelease];
+    graphData.pointArray3 = [[[NSMutableArray alloc]init] autorelease];
+    graphData.xtitles = [[[NSMutableArray alloc]init] autorelease];
+    graphData.ytitles = [[[NSMutableArray alloc]init] autorelease   ];
     NSDate *date=minDate;
     int minY = 0;
     int maxY = 1000;
@@ -197,7 +197,7 @@ static NSString *stringType=@"GKDJL";
 //            [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",0+(10000000-0)*i/5]];
 //        }
 //    }
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease    ];
     unsigned int unitFlags = NSDayCalendarUnit;
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:minDate  toDate:maxDate  options:0];
     graphData.xNum = [comps day]+1;
@@ -230,7 +230,7 @@ static NSString *stringType=@"GKDJL";
         {
             [graphData.xtitles addObject:[dateFormatter stringFromDate:date]];
         }
-        date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
+        date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
     }
     [dateFormatter release];    
     
@@ -246,12 +246,12 @@ static NSString *stringType=@"GKDJL";
             if(tmCoalinfo == nil){
             }
             else{
-                HpiPoint *point=[[HpiPoint alloc]init];
+                HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
                 point.x=i;
                 point.y=tmCoalinfo.import/10000-minY;
                 [graphData.pointArray  addObject:point];
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
         }
     }
     
@@ -264,12 +264,12 @@ static NSString *stringType=@"GKDJL";
             if(tmCoalinfo == nil){
             }
             else{
-                HpiPoint *point=[[HpiPoint alloc]init];
+                HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
                 point.x=i;
                 point.y=tmCoalinfo.Export/10000-minY;
                 [graphData.pointArray  addObject:point];
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
         }
     }
     
@@ -282,12 +282,12 @@ static NSString *stringType=@"GKDJL";
             if(tmCoalinfo == nil){
             }
             else{
-                HpiPoint *point=[[HpiPoint alloc]init];
+                HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
                 point.x=i;
                 point.y=tmCoalinfo.storage/10000-minY;
                 [graphData.pointArray  addObject:point];
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
         }
     }
     
@@ -300,12 +300,12 @@ static NSString *stringType=@"GKDJL";
             if(tmShipinfo == nil){
             }
             else{
-                HpiPoint *point=[[HpiPoint alloc]init];
+                HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
                 point.x=i;
                 point.y=tmShipinfo.waitShip-minY;
                 [graphData.pointArray  addObject:point];
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
         }
     }
     
@@ -315,7 +315,7 @@ static NSString *stringType=@"GKDJL";
         graphView =nil;
     }
     //NSLog(@"graphView $$$$$$$$ %d",[graphView retainCount]);
-    self.graphView=[[HpiGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData];
+    self.graphView=[[[HpiGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData] autorelease];
     if([stringType isEqualToString:@"GKDJL"]){
         graphView.titleLabel.text=@"港口调进量(万吨)";
     }
@@ -336,7 +336,8 @@ static NSString *stringType=@"GKDJL";
     graphView.marginTop=80;
     [graphView setNeedsDisplay];
     [self.view addSubview:graphView];
-    [graphData release];    
+    [graphData release];
+    [stringType release];
 }
 #pragma mark -
 #pragma mark buttion action
@@ -465,6 +466,7 @@ static NSString *stringType=@"GKDJL";
 {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
+    [alert release];
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
