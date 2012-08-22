@@ -81,13 +81,11 @@ DataQueryVC *dataQueryVC;
     [dataQueryVC.chooseView bringSubviewToFront:self.view];
     
     float columnOffset = 0.0;
-    NSLog(@"查询 %d条记录",[dataQueryVC.dataArray count]);
-    dataSource = [[DataGridComponentDataSource alloc] init];
-    //(20.20.985.42)
-    dataSource.columnWidth = [NSArray arrayWithObjects:@"80",@"105",@"80",@"100",@"95",@"150",@"70",@"70",@"90",@"70",@"75",nil];
-    dataSource.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",nil];
-    NSLog(@"查询 %d条记录",[dataQueryVC.dataArray count]);
     
+    
+    [self initSource];
+    
+  
     animation.type = @"oglFlip";
     [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
     [dataQueryVC.labelView removeFromSuperview];
@@ -109,8 +107,22 @@ DataQueryVC *dataQueryVC;
   
  [dataQueryVC.listView addSubview:dataQueryVC.labelView];
     
+    if(dataSource){
+        dataSource=nil;
+      [dataSource release];
+    }   
     
 }
+
+-(void)initSource
+{
+    if (!dataSource) {
+     dataSource = [[DataGridComponentDataSource alloc] init];
+        dataSource.columnWidth = [NSArray arrayWithObjects:@"80",@"105",@"80",@"100",@"95",@"150",@"70",@"70",@"90",@"70",@"75",nil];
+         dataSource.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",nil];
+    }
+}
+
 
 - (void)viewDidUnload
 {
@@ -141,11 +153,9 @@ DataQueryVC *dataQueryVC;
 }
 
 - (void)dealloc {
-    if(parentVC)
-    
+    if(parentVC) 
     [parentVC release   ];
     [dataSource release];
-    
     [comButton release];
     [comLabel release];
     [shipButton release];
@@ -350,6 +360,7 @@ DataQueryVC *dataQueryVC;
     
     NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
     
+    [self initSource];
     dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
     // [dataQueryVC loadViewData_vb];
     dataSource.data=[[[NSMutableArray alloc]init] autorelease];
@@ -375,13 +386,20 @@ DataQueryVC *dataQueryVC;
 
         
     }
-   
-    dataQueryVC.dataSource=dataSource;
+       dataQueryVC.dataSource=dataSource;
     
+    [dataSource release];
     [dataQueryVC.listTableview reloadData];
     
     
     [loopPool drain];
+    
+    
+    if(dataSource){
+        dataSource=nil;
+        [dataSource release];
+    }
+    
 }
 
 - (IBAction)resetAction:(id)sender {

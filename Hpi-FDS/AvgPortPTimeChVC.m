@@ -81,30 +81,34 @@ int currentMonth;
     [ self  getDateSource:self.startTime.text :self.endTime.text :0];
 
     [comp    release];
+
+    if(source){
+        source=nil;
+        [source release];
+    }
+    if(dc){
+        NSLog(@"-----初始--------dc [%d]",[dc retainCount]);
+        dc=nil;
+        [dc release];
+         NSLog(@"-----初始--------dc [%d]",[dc retainCount]);
+    }
+    
    
 }
 
 -(void)initDC
 { 
-  if(dc){
-        [dc removeFromSuperview];
-        [dc release];
-        dc=[[DataGridComponent alloc ] init];
-    }else
+  if(!dc)
     {
+          NSLog(@"dc 为空    初始化");
         dc=[[DataGridComponent alloc ] init];
     }
     if(!dataQueryVC){
         //初始化 父视图
         dataQueryVC=(DataQueryVC *)self.parentVC;
     }
-    if(source){
-        [source release];
-        source=[[DataGridComponentDataSource alloc] init   ];
-        source.titles=[[[NSMutableArray alloc] init ] autorelease];
-        source.data=[[[NSMutableArray alloc] init ] autorelease];
-        source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
-    }else{
+       
+    if(!source){
         source=[[DataGridComponentDataSource alloc] init   ];
         source.titles=[[[NSMutableArray alloc] init ] autorelease   ];
         source.data=[[[NSMutableArray alloc] init ] autorelease];
@@ -137,10 +141,14 @@ int currentMonth;
     //初始化
     dc=[[DataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
     
-    
+    [source release];
     
     [dataQueryVC.listView   addSubview:dc];
-
+    NSLog(@"-------------dc [%d]",[dc retainCount]);
+    
+    [dc release];
+    
+  NSLog(@"-------------dc [%d]",[dc retainCount]);
 }
 
 - (IBAction)startTimeSelect:(id)sender {
@@ -193,10 +201,21 @@ int currentMonth;
     }
     dataQueryVC.dataArray=[[[NSMutableArray  alloc] init ] autorelease];
 
-    
-    
     [ self  getDateSource:self.startTime.text :self.endTime.text :1];
     
+    if(source){
+        source=nil;
+        [source release];
+
+    }
+    if(dc){
+        NSLog(@"-----查询-------dc [%d]",[dc retainCount]);
+        dc=nil;
+        [dc release];
+        NSLog(@"-----查询--------dc [%d]",[dc retainCount]);
+    }
+    
+
     
 }
 - (IBAction)release:(id)sender {

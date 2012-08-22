@@ -76,14 +76,22 @@ NSDateFormatter *f;
     self.endTime.hidden=YES;
    [ self  getDateSource:self.startTime.text :self.endTime.text:All_ :0];
     
+    
+    if(source){
+        source=nil;
+        [source release];
+    }
+    
+    if(dc){
+        dc=nil;
+        [dc release];
+    }
+       
+    
 }
 -(void)initDC
 {
-    if(dc){
-        [dc removeFromSuperview];
-        [dc release];
-        dc=[[MultiTitleDataGridComponent alloc ] init];
-    }else
+    if(!dc)
     {
         dc=[[MultiTitleDataGridComponent alloc ] init];
     }
@@ -94,14 +102,7 @@ NSDateFormatter *f;
   
     }
     
-    if(source){
-    
-        [source release];
-       source=[[MultiTitleDataSource alloc] init   ];
-        source.titles=[[[NSMutableArray alloc] init ] autorelease];
-        source.data=[[[NSMutableArray alloc] init ] autorelease];
-       source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
-    }else{
+   if(!source){
         source=[[MultiTitleDataSource alloc] init   ];
         source.titles=[[[NSMutableArray alloc] init ] autorelease];
         source.data=[[[NSMutableArray alloc] init ] autorelease];
@@ -131,24 +132,31 @@ NSDateFormatter *f;
     }
     //初始化
     dc=[[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
+    [source release];
+    
     [dataQueryVC.listView   addSubview:dc];
 
-   
-    
-    
+    [dc release];
 }
 - (IBAction)Select:(id)sender {
-startTime.text=startButton.titleLabel.text;
+    startTime.text=startButton.titleLabel.text;
 endTime.text=endButton.titleLabel.text;
-  // NSLog(@"开始时间为：%@",startTime.text);
-   // NSLog(@"结束时间为：%@",endTime.text);
-   // NSLog(@"factoryCatelabel:[%@]",factoryCateLable.text);
 
- //   NSLog(@"电厂 查询。。。。。。。。。");
  
     NSAutoreleasePool *poll=[[NSAutoreleasePool alloc ] init];
     [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
       [poll drain];
+    
+    
+    if(source){
+        source=nil;
+        [source release];
+    }
+    if(dc){
+        dc=nil;
+        [dc release];
+    }
+
 }
 
 - (IBAction)endTimeSelect:(id)sender {
