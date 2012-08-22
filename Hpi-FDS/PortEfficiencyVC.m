@@ -50,14 +50,14 @@ static  NSMutableArray *ShipCompanyArray;
     _buttonView.layer.masksToBounds=YES;
     _buttonView.layer.cornerRadius=2.0;
     _buttonView.layer.borderWidth=2.0;
-    _buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    _buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
+    _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
     
     _chartView.layer.masksToBounds=YES;
-    _chartView.layer.cornerRadius=3.0;
-    _chartView.layer.borderWidth=3.0;
-    _chartView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    _chartView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    _chartView.layer.cornerRadius=2.0;
+    _chartView.layer.borderWidth=2.0;
+    _chartView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
+    _chartView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     
     
     [super viewDidLoad];
