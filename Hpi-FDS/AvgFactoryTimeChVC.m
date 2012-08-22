@@ -5,7 +5,7 @@
 //  Created by tang bin on 12-8-10.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
-//dev_tangb 
+//dev_Loca
 #import "AvgFactoryTimeChVC.h"
 #import "DataQueryVC.h"
 #import "AvgFactoryZXTimeDao.h"
