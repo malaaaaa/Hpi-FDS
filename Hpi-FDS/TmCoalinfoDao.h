@@ -21,5 +21,6 @@
 +(NSMutableArray *) getTmCoalinfo:(NSString *)portCode :(NSDate*)startDay :(NSDate *)endDay;
 +(NSMutableArray *) getTmCoalinfoBySql:(NSString *)sql;
 +(TmCoalinfo *) getTmCoalinfoOne:(NSString *)portCode :(NSDate*)day;
++(void) deleteAll;
 
 @end

@@ -13,7 +13,7 @@
 #import "PubInfo.h"
 #import "HpiGraphData.h"
 #import "HpiGraphView.h"
-#import "XMLParser.h"
+#import "TBXMLParser.h"
 #import "MarketOneController.h"
 
 @interface MarketViewController : UIViewController<UIPopoverControllerDelegate>{
@@ -29,7 +29,7 @@
     IBOutlet UIButton *dataButton;
     IBOutlet UIButton *reloadButton;
     IBOutlet UIActivityIndicatorView *activity;
-    XMLParser *xmlParser;
+    TBXMLParser *tbxmlParser;
     HpiGraphView *graphView;
     MarketOneController *marketOneController;
 }
@@ -45,7 +45,7 @@
 @property(nonatomic,retain) UIButton *dataButton;
 @property(nonatomic,retain) UIButton *reloadButton;
 @property(nonatomic,retain) UIActivityIndicatorView *activity;
-@property(nonatomic,retain) XMLParser *xmlParser;
+@property (retain, nonatomic) TBXMLParser *tbxmlParser;
 @property(nonatomic,retain) HpiGraphView *graphView;
 @property(nonatomic,retain) MarketOneController *marketOneController;
 @end

@@ -16,7 +16,9 @@
 @implementation MarketViewController
 @synthesize segment,popover,endDateCV,startDateCV;
 @synthesize endDay,startDay,endButton,startButton,dataButton;
-@synthesize reloadButton,queryButton,activity,xmlParser,graphView,marketOneController;
+@synthesize reloadButton,queryButton,activity,graphView,marketOneController;
+@synthesize tbxmlParser;
+
 
 static NSString *stringType=@"BSPI";
 
@@ -47,7 +49,7 @@ static NSString *stringType=@"BSPI";
     [dateFormatter release];
     
     [activity removeFromSuperview];
-    self.xmlParser=[[[XMLParser alloc]init] autorelease ];
+    self.tbxmlParser =[[TBXMLParser alloc] init];
 }
 
 - (void)viewDidUnload
@@ -66,8 +68,8 @@ static NSString *stringType=@"BSPI";
     dataButton = nil;
     [activity release];
     activity = nil;
-    [xmlParser release];
-    xmlParser=nil;
+    self.tbxmlParser=nil;
+    
     [graphView release];
     graphView=nil;
     [super viewDidUnload];
@@ -97,7 +99,7 @@ static NSString *stringType=@"BSPI";
     [reloadButton release];
     [queryButton release];
     [dataButton release];
-    [xmlParser release];
+    self.tbxmlParser=nil;
     [graphView release];
     [marketOneController release];
     [super dealloc];
@@ -155,10 +157,10 @@ static NSString *stringType=@"BSPI";
             graphData.xNum=a*9;
         }
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy/MM/dd"];   
+        [dateFormatter setDateFormat:@"yyyy/MM/dd"];
         
         for(int i=1;i<=graphData.xNum;i++)
-        {   
+        {
             if (i==1) {
                 [graphData.xtitles addObject:[dateFormatter stringFromDate:date]];
             }
@@ -168,13 +170,13 @@ static NSString *stringType=@"BSPI";
             }
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
-        [dateFormatter release];    
+        [dateFormatter release];
     }
     else
         [graphData release];
         
         return;
-
+    
     //NSLog(@"BSPI 统计共%d天",graphData.xNum);
     date=minDate;
     for ( int i = 0 ; i < graphData.xNum ; i++ ) {
@@ -188,7 +190,7 @@ static NSString *stringType=@"BSPI";
             point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
             [graphData.pointArray  addObject:point];
         }
-        date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+        date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
     }
     date=minDate;
     if([stringType isEqualToString: @"BJ_PRICE"])
@@ -204,7 +206,7 @@ static NSString *stringType=@"BSPI";
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray2  addObject:point];
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
     }
     date=minDate;
@@ -221,7 +223,7 @@ static NSString *stringType=@"BSPI";
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray2  addObject:point];
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
     }
     date=minDate;
@@ -237,7 +239,7 @@ static NSString *stringType=@"BSPI";
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray2  addObject:point];
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
     }
     date=minDate;
@@ -253,7 +255,7 @@ static NSString *stringType=@"BSPI";
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray3  addObject:point];
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)]; 
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
     }
     if (graphView) {
@@ -291,14 +293,14 @@ static NSString *stringType=@"BSPI";
         graphView.titleLabel.text=@"欧洲ARA煤炭市场指数";
     }
     
-//    graphView.titleLabel.text=stringType;
+    //    graphView.titleLabel.text=stringType;
     graphView.marginRight=60;
     graphView.marginBottom=60;
     graphView.marginLeft=60;
     graphView.marginTop=80;
     [graphView setNeedsDisplay];
     [self.view addSubview:graphView];
-    [graphData release];    
+    [graphData release];
 }
 #pragma mark -
 #pragma mark buttion action
@@ -310,7 +312,7 @@ static NSString *stringType=@"BSPI";
     }
     
     if(!startDateCV)//初始化待显示控制器
-        startDateCV=[[DateViewController alloc]init]; 
+        startDateCV=[[DateViewController alloc]init];
     //设置待显示控制器的范围
     [startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
     //设置待显示控制器视图的尺寸
@@ -337,7 +339,7 @@ static NSString *stringType=@"BSPI";
         endDateCV=[[DateViewController alloc]init];
     }
     else {
-         endDateCV.selectedDate=self.endDay;
+        endDateCV.selectedDate=self.endDay;
     }
     //设置待显示控制器的范围
     [endDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
@@ -378,7 +380,7 @@ static NSString *stringType=@"BSPI";
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(512, 410, 0, 0) inView:self.view permittedArrowDirections:0 animated:YES];
     [marketOneController release];
-    [pop release];			
+    [pop release];
     
     
 }
@@ -394,8 +396,9 @@ static NSString *stringType=@"BSPI";
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:1];
-        [xmlParser getTmIndexinfo];
+        [tbxmlParser setISoapNum:1];
+        
+        [tbxmlParser requestSOAP:@"TmIndex"];
         [self runActivity];
     }
 	
@@ -474,7 +477,7 @@ static NSString *stringType=@"BSPI";
 #pragma mark activity
 -(void)runActivity
 {
-    if ([xmlParser iSoapNum]==0) {
+    if ([tbxmlParser iSoapNum]==0) {
         [activity stopAnimating];
         [activity removeFromSuperview];
         [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];

@@ -12,6 +12,7 @@
 #import "XMLParser.h"
 
 #import "ChooseViewDelegate.h"
+#import "TBXMLParser.h"
 
 @interface VBShipChVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIButton *comButton;
@@ -31,7 +32,7 @@
     id parentVC;
     UIButton *reloadButton;
     UIActivityIndicatorView *activity;
-    XMLParser *xmlParser;
+    TBXMLParser *tbxmlParser;
 }
 @property (retain, nonatomic) IBOutlet UIButton *comButton;
 @property (retain, nonatomic) IBOutlet UILabel *comLabel;
@@ -50,5 +51,6 @@
 @property (retain, nonatomic) id parentVC;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (retain, nonatomic) IBOutlet UIButton *reloadButton;
-@property (retain, nonatomic) XMLParser *xmlParser;
+@property (retain, nonatomic) TBXMLParser *tbxmlParser;
+
 @end

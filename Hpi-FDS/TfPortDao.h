@@ -18,6 +18,7 @@
 +(void) insert:(TfPort *) tfprot;
 +(void) delete:(TfPort *) tfprot;
 
++(void)deleteAll;
 
 
 

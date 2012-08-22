@@ -23,4 +23,6 @@
 +(NSMutableArray *) getTmIndexinfo:(NSString *)indexName :(NSDate*)startDay :(NSDate *)endDay;
 +(NSMutableArray *) getTmIndexinfoBySql:(NSString *)sql;
 +(TmIndexinfo *) getTmIndexinfoOne:(NSString *)indexName :(NSDate*)day;
++(void) deleteAll;
+
 @end

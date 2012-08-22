@@ -50,7 +50,7 @@ static sqlite3	*database;
 
 +(void)insert:(TsShipStage*) tsShipStage
 { 
-	NSLog(@"Insert begin TsShipStage");
+//	NSLog(@"Insert begin TsShipStage");
 	const char *insert="INSERT INTO TsShipStage (STAGE,STAGENAME,SORT) values(?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -86,6 +86,21 @@ static sqlite3	*database;
 	else
 	{
 		NSLog(@"delete success");		
+	}
+	return;
+}
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TsShipStage "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete TsShipStage error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
 	}
 	return;
 }

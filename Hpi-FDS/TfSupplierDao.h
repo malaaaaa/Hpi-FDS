@@ -21,6 +21,7 @@
 +(NSMutableArray *) getTfSupplier:(NSInteger)supid;
 +(NSMutableArray *) getTfSupplier;
 +(NSMutableArray *) getTfSupplierBySql:(NSString *)sql;
++(void) deleteAll;
 
 
 @end

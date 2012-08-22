@@ -102,10 +102,34 @@ UIAlertView *alert;
         [activity startAnimating];
         if (!xmlParser) {
             self.xmlParser=[[[XMLParser alloc]init] autorelease];
+//            self.xmlParser=[[XMLParser alloc]init];
+
         }
-        [xmlParser setISoapNum:2];
+        [xmlParser setISoapNum:11];
+        
+        [TfCoalTypeDao deleteAll];
+        [xmlParser getTfCoalType];
+        [TfFactoryDao deleteAll];
+        [xmlParser getTfFactory];
+        [TfPortDao deleteAll];
+        [xmlParser getTfPort];
+        [TfShipCompanyDao deleteAll];
+        [xmlParser getTfShipCompany];
+        [TfSupplierDao deleteAll];
+        [xmlParser getTfSupplier];
+        [TsShipStageDao deleteAll];
+        [xmlParser getTsShipStage];
+        [TgFactoryDao deleteAll];
+        [xmlParser getTgFactory];
+        [TgPortDao deleteAll];
+        [xmlParser getTgPort];
+        [TgShipDao deleteAll];
+        [xmlParser getTgShip];
+        [TmIndexdefineDao deleteAll];
         [xmlParser getTmIndexdefine];
+        [TmIndextypeDao deleteAll];
         [xmlParser getTmIndextype];
+
         [self runActivity];
 	}
     if ((section==0) && (row==2)) {
@@ -135,6 +159,7 @@ UIAlertView *alert;
 				case 0	:
 					cell.textLabel.text=@"启动自动更新数据";
 					UISwitch *switchView = [[[UISwitch alloc] initWithFrame:CGRectMake(310, 8.5, 500.0, 0.0)] autorelease];
+					
 					if([PubInfo.autoUpdate isEqualToString:kYES])
 						switchView.on = YES;//设置初始为ON的一边
 					else {
@@ -150,7 +175,8 @@ UIAlertView *alert;
                     cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     if (!activity) {
                         self.activity=[[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(400, 8.5, 20, 20)] autorelease];
-                        activity.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+                                               self.activity=[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(400, 8.5, 20, 20)];
+   
                         [cell addSubview:activity];
                         [activity removeFromSuperview];
                     }
@@ -205,6 +231,7 @@ UIAlertView *alert;
 
 -(void)runActivity
 {
+    NSLog(@"aaaaaaaaaaa==========%d",xmlParser.iSoapNum);
     if ([xmlParser iSoapNum]==0) {
         [activity stopAnimating];
         [activity removeFromSuperview];

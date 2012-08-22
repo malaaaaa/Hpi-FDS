@@ -16,7 +16,7 @@ static sqlite3	*database;
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"VbTransplan.db"];
+	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"database.db"];
     
     NSLog(@"VbTransplan:path========%@",path);
 	return	 path;
@@ -154,7 +154,21 @@ static sqlite3	*database;
 	}
 	return;
 }
-
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  VbTransplan "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete VbTransplan error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
+	}
+	return;
+}
 +(NSMutableArray *) getVbTransplan:(NSString *)planCode
 {
 	NSString *query=[NSString stringWithFormat:@" VbTransplan = '%@' ",planCode];

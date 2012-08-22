@@ -64,7 +64,7 @@ static sqlite3	*database;
 
 +(void)insert:(TbFactoryState*) tbFactoryState
 {
-	NSLog(@"Insert begin TbFactoryState");
+//	NSLog(@"Insert begin TbFactoryState");
 	const char *insert="INSERT INTO TbFactoryState (STID, FACTORYCODE, RECORDDATE, IMPORT, EXPORT, STORAGE, CONSUM, AVALIABLE, MONTHIMP, YEARIMP, ELECGENER, STORAGE7, TRANSNOTE, NOTE) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -74,20 +74,20 @@ static sqlite3	*database;
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
 
-	NSLog(@"STID=%d", tbFactoryState.STID);
-    NSLog(@"FACTORYCODE=%@", tbFactoryState.FACTORYCODE);
-	NSLog(@"RECORDDATE=%@", tbFactoryState.RECORDDATE);
-	NSLog(@"IMPORT=%d", tbFactoryState.IMPORT);
-	NSLog(@"EXPORT=%d", tbFactoryState.EXPORT);
-	NSLog(@"STORAGE=%d", tbFactoryState.STORAGE);
-	NSLog(@"CONSUM=%d", tbFactoryState.CONSUM);
-	NSLog(@"AVALIABLE=%d", tbFactoryState.AVALIABLE);
-    NSLog(@"MONTHIMP=%d", tbFactoryState.MONTHIMP);
-    NSLog(@"YEARIMP=%d", tbFactoryState.YEARIMP);
-    NSLog(@"ELECGENER=%d", tbFactoryState.ELECGENER);
-    NSLog(@"STORAGE7=%d", tbFactoryState.STORAGE7);
-    NSLog(@"TRANSNOTE=%@", tbFactoryState.TRANSNOTE);
-    NSLog(@"NOTE=%@", tbFactoryState.NOTE);
+//	NSLog(@"STID=%d", tbFactoryState.STID);
+//    NSLog(@"FACTORYCODE=%@", tbFactoryState.FACTORYCODE);
+//	NSLog(@"RECORDDATE=%@", tbFactoryState.RECORDDATE);
+//	NSLog(@"IMPORT=%d", tbFactoryState.IMPORT);
+//	NSLog(@"EXPORT=%d", tbFactoryState.EXPORT);
+//	NSLog(@"STORAGE=%d", tbFactoryState.STORAGE);
+//	NSLog(@"CONSUM=%d", tbFactoryState.CONSUM);
+//	NSLog(@"AVALIABLE=%d", tbFactoryState.AVALIABLE);
+//    NSLog(@"MONTHIMP=%d", tbFactoryState.MONTHIMP);
+//    NSLog(@"YEARIMP=%d", tbFactoryState.YEARIMP);
+//    NSLog(@"ELECGENER=%d", tbFactoryState.ELECGENER);
+//    NSLog(@"STORAGE7=%d", tbFactoryState.STORAGE7);
+//    NSLog(@"TRANSNOTE=%@", tbFactoryState.TRANSNOTE);
+//    NSLog(@"NOTE=%@", tbFactoryState.NOTE);
 
     
     sqlite3_bind_int(statement, 1, tbFactoryState.STID);
@@ -128,6 +128,21 @@ static sqlite3	*database;
 	else
 	{
 		NSLog(@"delete success");		
+	}
+	return;
+}
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  tbFactoryState "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete tbFactoryState error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
 	}
 	return;
 }

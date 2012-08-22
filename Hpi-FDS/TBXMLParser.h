@@ -14,8 +14,15 @@
     NSMutableData *webData;
     NSMutableString *soapResults;
     TBXML * tbxml;
+     NSString *_Identification;
 
 }
-- (void)getVbFactoryTrans;
+@property(nonatomic,copy) NSString *Identification;
+- (void)requestSOAP:(NSString *)identification;
+-(NSInteger)iSoapNum;
+-(NSInteger)iSoapDone;
+-(void)setISoapNum:(NSInteger)theNum;
+-(void)parseXML;
+
 
 @end

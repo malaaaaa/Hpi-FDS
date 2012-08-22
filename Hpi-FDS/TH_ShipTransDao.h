@@ -28,4 +28,6 @@
 +(NSMutableArray *) getTH_ShipTrans:(NSString *)portName:(NSString *)dateTime:(NSString *)state;
 
 +(NSMutableArray *) getTH_ShipTransBySql:(NSString *)sql1;
++(void)deleteAll;
+
 @end

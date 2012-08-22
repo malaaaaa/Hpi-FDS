@@ -21,4 +21,6 @@
 +(NSMutableArray *) getTgFactory:(NSString *)portCode;
 +(NSMutableArray *) getTgFactory;
 +(NSMutableArray *) getTgFactoryBySql:(NSString *)sql;
++(void) deleteAll;
+
 @end

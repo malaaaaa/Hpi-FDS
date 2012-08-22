@@ -20,5 +20,6 @@
 +(void) delete:(TfFactory*) tfFactory;
 +(NSMutableArray *) getTfFactory:(NSString *)factoryCode;
 +(NSMutableArray *) getTfFactoryBySql:(NSString *)sql;
++(void) deleteAll;
 
 @end

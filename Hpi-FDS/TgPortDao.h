@@ -23,4 +23,6 @@
 +(NSMutableArray *) getTgPortByPortName:(NSString *)portName;
 +(NSMutableArray *) getTgPort;
 +(NSMutableArray *) getTgPortBySql:(NSString *)sql;
++(void) deleteAll;
+
 @end

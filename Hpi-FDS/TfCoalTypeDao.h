@@ -21,6 +21,7 @@
 +(NSMutableArray *) getTfCoalType:(NSInteger)typeid;
 +(NSMutableArray *) getTfCoalType;
 +(NSMutableArray *) getTfCoalTypeBySql:(NSString *)sql;
++(void) deleteAll;
 
 
 @end

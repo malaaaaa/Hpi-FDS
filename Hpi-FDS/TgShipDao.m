@@ -16,7 +16,7 @@ static sqlite3	*database;
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"TgShip.db"];
+	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"database.db"];
 	return	 path;
 }
 
@@ -75,7 +75,7 @@ static sqlite3	*database;
 
 +(void)insert:(TgShip*) tgShip
 {
-	NSLog(@"Insert begin tgShip");
+//	NSLog(@"Insert begin tgShip");
 	const char *insert="INSERT INTO TgShip (shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,statCode,statName) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -84,34 +84,34 @@ static sqlite3	*database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
-	NSLog(@"shipID=%d", tgShip.shipID);
-    NSLog(@"shipName=%@", tgShip.shipName);
-	NSLog(@"comID=%d", tgShip.comID);
-	NSLog(@"company=%@", tgShip.company);
-	NSLog(@"portCode=%@", tgShip.portCode);
-	NSLog(@"portName=%@", tgShip.portName);
-	NSLog(@"factoryCode=%@", tgShip.factoryCode);
-	NSLog(@"factoryName=%@", tgShip.factoryName);
-    NSLog(@"tripNo=%@", tgShip.tripNo);
-    NSLog(@"supID=%d", tgShip.supID);
-    NSLog(@"supplier=%@", tgShip.supplier);
-    NSLog(@"heatValue=%d", tgShip.heatValue);
-    NSLog(@"lw=%d", tgShip.lw);
-    NSLog(@"length=%@", tgShip.length);
-    NSLog(@"width=%@", tgShip.width);
-    NSLog(@"draft=%@", tgShip.draft);
-    NSLog(@"eta=%@", tgShip.eta);
-    NSLog(@"lat=%@", tgShip.lat);
-    NSLog(@"lon=%@", tgShip.lon);
-    NSLog(@"sog=%@", tgShip.sog);
-    NSLog(@"destination=%@", tgShip.destination);
-    NSLog(@"infoTime=%@", tgShip.infoTime);
-    NSLog(@"naviStat=%@", tgShip.naviStat);
-    NSLog(@"online=%@", tgShip.online);
-    NSLog(@"stage=%@", tgShip.stage);
-    NSLog(@"stageName=%@", tgShip.stageName);
-    NSLog(@"statCode=%@", tgShip.statCode);
-    NSLog(@"statName=%@", tgShip.statName);
+//	NSLog(@"shipID=%d", tgShip.shipID);
+//    NSLog(@"shipName=%@", tgShip.shipName);
+//	NSLog(@"comID=%d", tgShip.comID);
+//	NSLog(@"company=%@", tgShip.company);
+//	NSLog(@"portCode=%@", tgShip.portCode);
+//	NSLog(@"portName=%@", tgShip.portName);
+//	NSLog(@"factoryCode=%@", tgShip.factoryCode);
+//	NSLog(@"factoryName=%@", tgShip.factoryName);
+//    NSLog(@"tripNo=%@", tgShip.tripNo);
+//    NSLog(@"supID=%d", tgShip.supID);
+//    NSLog(@"supplier=%@", tgShip.supplier);
+//    NSLog(@"heatValue=%d", tgShip.heatValue);
+//    NSLog(@"lw=%d", tgShip.lw);
+//    NSLog(@"length=%@", tgShip.length);
+//    NSLog(@"width=%@", tgShip.width);
+//    NSLog(@"draft=%@", tgShip.draft);
+//    NSLog(@"eta=%@", tgShip.eta);
+//    NSLog(@"lat=%@", tgShip.lat);
+//    NSLog(@"lon=%@", tgShip.lon);
+//    NSLog(@"sog=%@", tgShip.sog);
+//    NSLog(@"destination=%@", tgShip.destination);
+//    NSLog(@"infoTime=%@", tgShip.infoTime);
+//    NSLog(@"naviStat=%@", tgShip.naviStat);
+//    NSLog(@"online=%@", tgShip.online);
+//    NSLog(@"stage=%@", tgShip.stage);
+//    NSLog(@"stageName=%@", tgShip.stageName);
+//    NSLog(@"statCode=%@", tgShip.statCode);
+//    NSLog(@"statName=%@", tgShip.statName);
     
 	sqlite3_bind_int(statement, 1,tgShip.shipID);
 	sqlite3_bind_text(statement, 2, [tgShip.shipName UTF8String], -1, SQLITE_TRANSIENT);
@@ -165,6 +165,21 @@ static sqlite3	*database;
 	else
 	{
 		NSLog(@"delete success");		
+	}
+	return;
+}
++(void) deleteAll
+{
+	char * errorMsg;
+	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TgShip "];
+	
+	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		NSLog( @"Error: delete TgShip error with message [%s]  sql[%@]", errorMsg,deletesql);
+	}
+	else
+	{
+		NSLog(@"delete success");
 	}
 	return;
 }
