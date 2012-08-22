@@ -53,6 +53,7 @@ static sqlite3 *database;
 +(void) deleteAll
 {
 	char * errorMsg;
+    
 	NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  PortEfficiency "];
 	
 	if(sqlite3_exec(database,[deletesql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
@@ -94,6 +95,12 @@ static sqlite3 *database;
                Category:(NSString *)category
               StartDate:(NSString *)startDate
                 EndDate:(NSString *)endDate{
+    char *errorMsg;
+    if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
+        sqlite3_close(database);
+        NSLog(@"exec begin error");
+        return;
+    }
     [NTFactoryFreightVolumeDao deleteAll_tmpTable];
     NSMutableString *shiptransSubSql = [[NSMutableString alloc] init ];
     NSMutableString *factorySubSql = [[NSMutableString alloc] init ];
@@ -156,7 +163,11 @@ static sqlite3 *database;
         }
     }
     sqlite3_finalize(statement);
-
+    if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+        sqlite3_close(database);
+        NSLog(@"exec commit error");
+        return;
+    }
     [shiptransSubSql release];
     [factorySubSql release];
 }
@@ -164,12 +175,12 @@ static sqlite3 *database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=@"select  factory||'('||efficiency||')',efficiency from PortEfficiency order by efficiency asc";
-//    NSString *sql=@"select  factory,efficiency from PortEfficiency order by efficiency asc";
-
+    //    NSString *sql=@"select  factory,efficiency from PortEfficiency order by efficiency asc";
+    
     NSLog(@"执行 getPortEfficiency [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
-
+    
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			PortEfficiency *portEfficiency = [[PortEfficiency alloc] init];
@@ -188,7 +199,7 @@ static sqlite3 *database;
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
     sqlite3_finalize(statement);
-
+    
 	return array;
 }
 +(BOOL) isNoData
@@ -196,7 +207,7 @@ static sqlite3 *database;
 	sqlite3_stmt *statement;
     NSString *sql=@"select  max(efficiency) from PortEfficiency ";
     NSLog(@"执行 isNoData [%@] ",sql);
-
+    
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
             NSInteger maxNumber=sqlite3_column_int(statement,0);

@@ -67,15 +67,25 @@ static  NSMutableArray *LegendArray;
     _listView.layer.masksToBounds=YES;
     _listView.layer.cornerRadius=2.0;
     _listView.layer.borderWidth=2.0;
-    _listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    _listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+//     _listView.layer.borderColor=[[UIColor blackColor] CGColor];
+    _listView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
+    _listView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     
     _buttonView.layer.masksToBounds=YES;
     _buttonView.layer.cornerRadius=2.0;
     _buttonView.layer.borderWidth=2.0;
-    _buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    _buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
+
+//    _buttonView.layer.borderColor=[[UIColor colorWithRed:85.0/255 green:85.0/255 blue:85.0/255 alpha:1]CGColor];
     
+//    [_buttonView.layer setShadowColor:[UIColor colorWithRed:85.0/255 green:85.0/255 blue:85.0/255 alpha:1].CGColor];
+//    [_buttonView.layer setShadowColor:[UIColor blackColor].CGColor];
+//    [_buttonView.layer setShadowRadius:5];
+//    [_buttonView.layer setShadowOpacity:1];
+//    [_buttonView.layer setShadowOffset:CGSizeMake(1, 1)];
+    
+    _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
+
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -177,9 +187,9 @@ static  NSMutableArray *LegendArray;
     if(!_startDateCV)//初始化待显示控制器
         _startDateCV=[[DateViewController alloc]init]; 
     //设置待显示控制器的范围
-    [_startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [_startDateCV.view setFrame:CGRectMake(0,0, 195, 216)];
     //设置待显示控制器视图的尺寸
-    _startDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    _startDateCV.contentSizeForViewInPopover = CGSizeMake(195, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_startDateCV];
     _startDateCV.popover = pop;
@@ -187,7 +197,7 @@ static  NSMutableArray *LegendArray;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(195, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(_startButton.frame.origin.x+85, _startButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
@@ -206,9 +216,9 @@ static  NSMutableArray *LegendArray;
         _endDateCV.selectedDate=self.endDay;
     }
     //设置待显示控制器的范围
-    [_endDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [_endDateCV.view setFrame:CGRectMake(0,0, 195, 216)];
     //设置待显示控制器视图的尺寸
-    _endDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    _endDateCV.contentSizeForViewInPopover = CGSizeMake(195, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_endDateCV];
     _endDateCV.popover = pop;
@@ -216,7 +226,7 @@ static  NSMutableArray *LegendArray;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(195, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(_endButton.frame.origin.x+85, _endButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];

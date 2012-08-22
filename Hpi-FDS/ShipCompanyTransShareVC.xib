@@ -288,7 +288,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{1024, 121}</string>
+						<string key="NSFrame">{{0, 1}, {1024, 121}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="476869783"/>
@@ -311,7 +311,10 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="291955069"/>
-				<reference key="IBUIBackgroundColor" ref="179750737"/>
+				<object class="NSColor" key="IBUIBackgroundColor">
+					<int key="NSColorSpace">1</int>
+					<bytes key="NSRGB">MC4wOTgwMzkyMTU2OSAwLjA5ODAzOTIxNTY5IDAuMDk4MDM5MjE1NjkAA</bytes>
+				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="IBUIInterfaceOrientation">3</int>

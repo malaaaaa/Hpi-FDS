@@ -363,7 +363,7 @@ static  NSMutableArray *ShipCompanyArray;
     
     for (int i=0; i<[array count]; i++) {
         PortEfficiency *portEfficiency= [array objectAtIndex:i];
-        NSLog(@"factory=%@",portEfficiency.factory);
+        //        NSLog(@"factory=%@",portEfficiency.factory);
         [arrayX addObject:portEfficiency.factory];
         [arrayY addObject:[NSNumber numberWithInteger:portEfficiency.efficiency]];
     }

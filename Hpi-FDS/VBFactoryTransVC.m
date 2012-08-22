@@ -164,7 +164,7 @@ static  NSMutableArray *ShipStageArray;
     buttonView.layer.cornerRadius=2.0;
     buttonView.layer.borderWidth=2.0;
     buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    buttonView.backgroundColor=[UIColor colorWithRed:45.0/255 green:45.0/255 blue:45.0/255 alpha:1];
     
     // [self.view addSubview:labelView];
     
@@ -268,9 +268,11 @@ static  NSMutableArray *ShipStageArray;
     if(!startDateCV)//初始化待显示控制器
         startDateCV=[[DateViewController alloc]init];
     //设置待显示控制器的范围
-    [startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [startDateCV.view setFrame:CGRectMake(0,0, 270, 216)];
+
     //设置待显示控制器视图的尺寸
-    startDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    startDateCV.contentSizeForViewInPopover = CGSizeMake(270, 216);
+
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:startDateCV];
     startDateCV.popover = pop;
@@ -278,7 +280,8 @@ static  NSMutableArray *ShipStageArray;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(270, 216);
+
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(730, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];

@@ -126,9 +126,9 @@
     if(!_startDateCV)//初始化待显示控制器
         _startDateCV=[[DateViewController alloc]init];
     //设置待显示控制器的范围
-    [_startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [_startDateCV.view setFrame:CGRectMake(0,0, 195, 216)];
     //设置待显示控制器视图的尺寸
-    _startDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    _startDateCV.contentSizeForViewInPopover = CGSizeMake(195, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_startDateCV];
     _startDateCV.popover = pop;
@@ -136,7 +136,7 @@
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(195, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(_startButton.frame.origin.x+85, _startButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
@@ -155,9 +155,9 @@
         _endDateCV.selectedDate=self.endDay;
     }
     //设置待显示控制器的范围
-    [_endDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [_endDateCV.view setFrame:CGRectMake(0,0, 195, 216)];
     //设置待显示控制器视图的尺寸
-    _endDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    _endDateCV.contentSizeForViewInPopover = CGSizeMake(195, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_endDateCV];
     _endDateCV.popover = pop;
@@ -165,7 +165,7 @@
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(195, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(_endButton.frame.origin.x+85, _endButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
@@ -248,12 +248,16 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMM"];
     NSLog(@"type=%@",typeLabel.text);
-    NSLog(@"trade=%@",tradeLabel.text);
+    NSLog(@"trade1=%@",tradeLabel.text);
     [NTFactoryFreightVolumeDao InsertByTrade:tradeLabel.text Type:typeLabel.text StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
+    NSLog(@"trade2=%@",tradeLabel.text);
+
     [dateFormatter release];
-    
+    NSLog(@"trade3=%@",tradeLabel.text);
+
     [self loadViewData];
-    
+    NSLog(@"trade4=%@",tradeLabel.text);
+
     
 }
 

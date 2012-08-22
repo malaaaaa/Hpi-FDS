@@ -99,6 +99,12 @@ static sqlite3 *database;
 	return;
 }
 +(void) InsertByTrade:(NSString *)trade Type:(NSString *)type StartDate:(NSString *)startDate EndDate:(NSString *)endDate{
+    char *errorMsg;
+    if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
+        sqlite3_close(database);
+        NSLog(@"exec begin error");
+        return;
+    }
     [NTFactoryFreightVolumeDao deleteAll_tmpTable];
     NSMutableString *tmpString = [[NSMutableString alloc] init ];
     
@@ -147,6 +153,11 @@ static sqlite3 *database;
         }
     }
     sqlite3_finalize(statement);
+    if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+        sqlite3_close(database);
+        NSLog(@"exec commit error");
+        return;
+    }
 
     [tmpString release];
 }
