@@ -12,8 +12,10 @@
 @interface DataQueryPopVC : UIViewController<UIPopoverControllerDelegate>{
     UIPopoverController* popover;
     DataQueryMenuVC *menuView;
+    VBFactoryTransVC *_vbFactoryTransVC;
 }
 @property (retain, nonatomic) UIPopoverController* popover;
 @property (retain,nonatomic) DataQueryMenuVC *menuView;
+@property(retain,nonatomic) VBFactoryTransVC *vbFactoryTransVC;
 
 @end

@@ -14,6 +14,7 @@
 
 @implementation DataQueryMenuVC
 @synthesize parentView;
+@synthesize tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

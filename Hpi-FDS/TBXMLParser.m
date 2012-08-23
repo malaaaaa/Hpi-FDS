@@ -904,6 +904,11 @@ static bool ThreadFinished=TRUE;
                         table.factoryCode = [TBXML textForElement:desc] ;
                     }
                     
+                    desc = [TBXML childElementNamed:@"FACTORYNAME" parentElement:element];
+                    if (desc != nil) {
+                        table.factoryName = [TBXML textForElement:desc] ;
+                    }
+                    
                     desc = [TBXML childElementNamed:@"PORTCODE" parentElement:element];
                     if (desc != nil) {
                         table.portCode = [TBXML textForElement:desc] ;
@@ -975,7 +980,7 @@ static bool ThreadFinished=TRUE;
                     }
                     desc = [TBXML childElementNamed:@"STATENAME" parentElement:element];
                     if (desc != nil) {
-                        table.stageName = [TBXML textForElement:desc] ;
+                        table.stateName = [TBXML textForElement:desc] ;
                     }
                     
                     desc = [TBXML childElementNamed:@"LW" parentElement:element];

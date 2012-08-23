@@ -922,9 +922,11 @@ static  NSMutableArray *ShipStageArray;
                 NSLog(@"column=%d",[[rowData objectAtIndex:column] integerValue]);
                 l.text=@"";
                 if ([[rowData objectAtIndex:column] integerValue]>0) {
-                    
-                    l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blueArrow"]];
-                    
+                    UILabel *imageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, columnWidth-1, 40 -1 )];
+                     imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"xiangx"]];
+                    [l addSubview:imageLabel];
+                    [imageLabel release];
+
                 }
             }
             

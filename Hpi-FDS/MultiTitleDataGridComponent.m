@@ -116,7 +116,6 @@ int count=1;
     vTopRight.backgroundColor=[UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
     vRight.backgroundColor=[UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
     vTopLeft.backgroundColor=[UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
-	
 	//添加各视图
 	[vRight addSubview:vRightContent];
 	[vLeft addSubview:vLeftContent];
@@ -144,8 +143,8 @@ int count=1;
     
     
     
-    l2.backgroundColor=[UIColor blueColor];
-    
+    l2.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbgd"]];
+
     
     
     

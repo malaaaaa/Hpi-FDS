@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PubInfo.h"
-#import "XMLParser.h"
+#import "TBXMLParser.h"
 #import "MultipleSelectView.h"
 #import "DateViewController.h"
 #import "PowerPlot_lib/PowerPlot.h"
@@ -37,6 +37,9 @@
     IBOutlet UIView *_chartView;
     IBOutlet UIView *_buttonView;
     IBOutlet UIView *_listView;
+    IBOutlet UIButton *_reloadButton;
+    IBOutlet UIActivityIndicatorView *_activity;
+    TBXMLParser *_tbxmlParser;
 
 }
 @property(nonatomic,retain) UIPopoverController *popover;
@@ -60,7 +63,8 @@
 @property(nonatomic,retain) IBOutlet UIView *chartView;
 @property(nonatomic,retain) IBOutlet UIView *buttonView;
 @property(nonatomic,retain) IBOutlet UIView *listView;
-
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+@property (retain, nonatomic) TBXMLParser *tbxmlParser;
 
 
 - (IBAction)queryData:(id)sender;
@@ -70,7 +74,7 @@
 - (IBAction)shipCompanyAction:(id)sender;
 - (IBAction)typeAction:(id)sender;
 - (WSData *)getData;
-
+- (IBAction)reloadAction:(id)sender;
 
 
 @end

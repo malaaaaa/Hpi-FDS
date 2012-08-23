@@ -348,7 +348,7 @@
     titleLabel.textColor=[UIColor whiteColor];
     titleLabel.textAlignment=UITextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:18.0f];
-    titleLabel.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    titleLabel.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     [self.listView addSubview:titleLabel];
     [titleLabel release];
 }
