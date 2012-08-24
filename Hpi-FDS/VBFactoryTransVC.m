@@ -113,7 +113,7 @@ static  NSMutableArray *ShipStageArray;
 //    animation.delegate = self;
 //    animation.duration = 0.5f;
 //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
-//    animation.fillMode = kCAFillModeForwards;
+//    animation.fillMode = kCAFillModeForwa rds;
 //    animation.endProgress = 1;
 //    animation.removedOnCompletion = NO;
 //    animation.type = @"cube";
@@ -204,7 +204,7 @@ static  NSMutableArray *ShipStageArray;
     [self setResetButton:nil];
     [self setReloadButton:nil];
     [self setActivity:nil];
-    
+    [dataSource release];
     self.tbxmlParser=nil;
     [super viewDidUnload];
 }
@@ -237,7 +237,8 @@ static  NSMutableArray *ShipStageArray;
     [popover release];
     [reloadButton release];
     [activity release];
-    
+    [dataSource release];
+
     //[factoryArray release];
     if (FactoryPop==YES) {
         [FactoryArray release];

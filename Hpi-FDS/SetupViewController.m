@@ -179,6 +179,7 @@ UIAlertView *alert;
    
                         [cell addSubview:activity];
                         [activity removeFromSuperview];
+                        [activity release];
                     }
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 					break;

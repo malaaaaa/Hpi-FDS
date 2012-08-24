@@ -2027,7 +2027,7 @@ static bool ThreadFinished=TRUE;
                     sqlite3_bind_text(statement, 3, [table.recordTime UTF8String], -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(statement, 4, [table.infoValue UTF8String], -1, SQLITE_TRANSIENT);
                     re=sqlite3_step(statement);
-                    
+                    [table release];
                     if (re!=SQLITE_DONE) {
                         NSLog( @"Error: insert TmIndexinfo  error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
                         sqlite3_finalize(statement);
@@ -2037,7 +2037,6 @@ static bool ThreadFinished=TRUE;
                         //                    NSLog(@"insert shipTrans  SUCCESS");
                     }
                     sqlite3_finalize(statement);
-                    [table release];
                     // find the next sibling element named "author"
                     element = [TBXML nextSiblingNamed:@"TmIndexInfo" searchFromElement:element];
                 }
@@ -2130,7 +2129,8 @@ static bool ThreadFinished=TRUE;
                     sqlite3_bind_int(statement, 6, table.storage);
                     
                     re=sqlite3_step(statement);
-                    
+                    [table release];
+
                     if (re!=SQLITE_DONE) {
                         NSLog( @"Error: insert TmCoalinfo  error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
                         sqlite3_finalize(statement);
@@ -2140,7 +2140,6 @@ static bool ThreadFinished=TRUE;
                         //                    NSLog(@"insert shipTrans  SUCCESS");
                     }
                     sqlite3_finalize(statement);
-                    [table release];
                     // find the next sibling element named "author"
                     element = [TBXML nextSiblingNamed:@"TmCoalInfo" searchFromElement:element];
                 }
@@ -2233,6 +2232,7 @@ static bool ThreadFinished=TRUE;
                     sqlite3_bind_int(statement, 6, table.loadShip);
                     
                     re=sqlite3_step(statement);
+                    [table release];
 
                     if (re!=SQLITE_DONE) {
                         NSLog( @"Error: insert TmShipinfo  error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
@@ -2243,7 +2243,6 @@ static bool ThreadFinished=TRUE;
                         //                    NSLog(@"insert shipTrans  SUCCESS");
                     }
                     sqlite3_finalize(statement);
-                    [table release];
                     // find the next sibling element named "author"
                     element = [TBXML nextSiblingNamed:@"TmShipInfo" searchFromElement:element];
                 }
