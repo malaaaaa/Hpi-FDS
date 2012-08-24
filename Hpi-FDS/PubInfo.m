@@ -154,6 +154,7 @@ static NSString *deviceID;
 	//NSLog(@"data=%d",[tempArray count]);
 	if([tempArray count]<3)
 	{
+        //此处用Analyze工具监测会出现可能内存泄漏的提示，tempArray不能autorelease，否则会崩溃
 		userName=@"weix-test";
         autoUpdate=kNO;
         updateTime=@"2012-04-02 00:00";

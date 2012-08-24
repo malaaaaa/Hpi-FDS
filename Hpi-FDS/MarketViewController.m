@@ -49,7 +49,7 @@ static NSString *stringType=@"BSPI";
     [dateFormatter release];
     
     [activity removeFromSuperview];
-    self.tbxmlParser =[[TBXMLParser alloc] init];
+    self.tbxmlParser =[[TBXMLParser alloc] init] ;
 }
 
 - (void)viewDidUnload
