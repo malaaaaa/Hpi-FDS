@@ -112,15 +112,15 @@
 }
 
 -(void)loadViewData{
-    int i;
+    int i=0;
     DataGridComponentDataSource *ds = [[DataGridComponentDataSource alloc] init];
-	
 	ds.columnWidth = [NSArray arrayWithObjects:@"100",@"100",@"100",@"100",@"100",@"100",nil];
 	ds.titles = [NSArray arrayWithObjects:@"序号",@"流向",@"装港",@"供货方",@"预计载重",@"预计抵港时间",nil];
     
     NSMutableArray *array=[TgShipDao getTgShipByName:shipName];
-    
+
     ds.data=[[NSMutableArray alloc]init];
+
     TgShip *tgShip=[array objectAtIndex:0];
     [ds.data addObject:[NSArray arrayWithObjects:
                         kBLACK,
@@ -130,6 +130,7 @@
                             tgShip.supplier,
                             [NSString stringWithFormat:@"%d",tgShip.lw],
                             tgShip.eta,nil]];
+ 
     self.labelShipName.text = [NSString stringWithFormat:@"%@", tgShip.shipName];
     self.company.text = [NSString stringWithFormat:@"%@", tgShip.company];
     self.portName.text = [NSString stringWithFormat:@"%@", tgShip.portName];
@@ -150,8 +151,13 @@
     self.stageName.text = [NSString stringWithFormat:@"%@", tgShip.stageName];
     
 	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 246, 600, 154) data:ds];
+
+//    [ds.data release];
+
 	[ds release];
 	[self.view addSubview:grid];
+
 	[grid release];
+
 }
 @end

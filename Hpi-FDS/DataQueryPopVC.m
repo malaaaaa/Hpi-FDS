@@ -42,14 +42,12 @@
     
     [self.view addSubview:toolBar];
     [barItem release];
-    
-    
-//    VBFactoryTransVC *subview=[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil];
-//    subview.view.center = CGPointMake(512, 90);
-//    [self.view addSubview:subview.view];
-    
+
     [toolBar release];
     
+    _vbFactoryTransVC=[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil] ;
+    _vbFactoryTransVC.view.frame = CGRectMake(0, 40, 1024,661 );
+    [self.view addSubview:_vbFactoryTransVC.view];
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -77,9 +75,9 @@
     //初始化待显示控制器
     menuView=[[DataQueryMenuVC alloc]init];
     //设置待显示控制器的范围
-    [menuView.view setFrame:CGRectMake(0,0, 250, 600)];
+    [menuView.view setFrame:CGRectMake(0,0, 200, 600)];
     //设置待显示控制器视图的尺寸
-    menuView.contentSizeForViewInPopover = CGSizeMake(250, 600);
+    menuView.contentSizeForViewInPopover = CGSizeMake(200, 600);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:menuView];
     menuView.popover = pop;
@@ -87,7 +85,7 @@
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(250, 600);
+    self.popover.popoverContentSize = CGSizeMake(200, 600);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(30, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [menuView.tableView reloadData];

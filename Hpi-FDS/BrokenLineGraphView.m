@@ -208,7 +208,7 @@ static sqlite3  *database;
                 NTShipCompanyTranShare *companyShare = point.companyShare;
                 NSInteger x=marginLeft+(point.x)*wlength;
                 NSInteger y=_rect.size.height-marginBottom-point.y*hlength;
-                UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 7, 7)];
+                UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 10, 10)];
                 button.center=CGPointMake(x, y);
 //                button.backgroundColor=[UIColor blueColor];
                 button.backgroundColor= [UIColor colorWithRed:line.red/255 green:line.green/255 blue:line.blue/255 alpha:1];

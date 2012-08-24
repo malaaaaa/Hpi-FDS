@@ -212,6 +212,12 @@
 		D37F60D715E4B81200E6741A /* AvgPortPTimeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F60D315E4B81200E6741A /* AvgPortPTimeDao.m */; };
 		D37F60D815E4B81200E6741A /* AvgFactoryZXTimeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F60D515E4B81200E6741A /* AvgFactoryZXTimeDao.m */; };
 		D3980FDE15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3980FDD15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m */; };
+		D39E90D715E60F9800C8CCF4 /* xiangx@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D39E90D115E60F9800C8CCF4 /* xiangx@2x.png */; };
+		D39E90D815E60F9800C8CCF4 /* xiangx.png in Resources */ = {isa = PBXBuildFile; fileRef = D39E90D215E60F9800C8CCF4 /* xiangx.png */; };
+		D39E90D915E60F9800C8CCF4 /* bgtopbgd.png in Resources */ = {isa = PBXBuildFile; fileRef = D39E90D315E60F9800C8CCF4 /* bgtopbgd.png */; };
+		D39E90DA15E60F9800C8CCF4 /* xialax@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D39E90D415E60F9800C8CCF4 /* xialax@2x.png */; };
+		D39E90DB15E60F9800C8CCF4 /* bgtopbgd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D39E90D515E60F9800C8CCF4 /* bgtopbgd@2x.png */; };
+		D39E90DC15E60F9800C8CCF4 /* xialax.png in Resources */ = {isa = PBXBuildFile; fileRef = D39E90D615E60F9800C8CCF4 /* xialax.png */; };
 		D3A06E4615D0E74C00963BA2 /* NAArrow.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DDF15D0E74C00963BA2 /* NAArrow.c */; };
 		D3A06E4715D0E74C00963BA2 /* NABezierControlPoints.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DE215D0E74C00963BA2 /* NABezierControlPoints.c */; };
 		D3A06E4815D0E74C00963BA2 /* NADashing.c in Sources */ = {isa = PBXBuildFile; fileRef = D3A06DE415D0E74C00963BA2 /* NADashing.c */; };
@@ -602,6 +608,12 @@
 		D37F60D615E4B81200E6741A /* AvgFactoryZXTimeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgFactoryZXTimeDao.h; sourceTree = "<group>"; };
 		D3980FDC15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTitleDataGridComponent.h; sourceTree = "<group>"; };
 		D3980FDD15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiTitleDataGridComponent.m; sourceTree = "<group>"; };
+		D39E90D115E60F9800C8CCF4 /* xiangx@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xiangx@2x.png"; sourceTree = "<group>"; };
+		D39E90D215E60F9800C8CCF4 /* xiangx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xiangx.png; sourceTree = "<group>"; };
+		D39E90D315E60F9800C8CCF4 /* bgtopbgd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgtopbgd.png; sourceTree = "<group>"; };
+		D39E90D415E60F9800C8CCF4 /* xialax@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xialax@2x.png"; sourceTree = "<group>"; };
+		D39E90D515E60F9800C8CCF4 /* bgtopbgd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgtopbgd@2x.png"; sourceTree = "<group>"; };
+		D39E90D615E60F9800C8CCF4 /* xialax.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xialax.png; sourceTree = "<group>"; };
 		D3A06DDE15D0E74C00963BA2 /* NAAmethyst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NAAmethyst.h; sourceTree = "<group>"; };
 		D3A06DDF15D0E74C00963BA2 /* NAArrow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NAArrow.c; sourceTree = "<group>"; };
 		D3A06DE015D0E74C00963BA2 /* NAArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NAArrow.h; sourceTree = "<group>"; };
@@ -942,6 +954,12 @@
 		057F6C5D152449F800E0E435 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				D39E90D115E60F9800C8CCF4 /* xiangx@2x.png */,
+				D39E90D215E60F9800C8CCF4 /* xiangx.png */,
+				D39E90D315E60F9800C8CCF4 /* bgtopbgd.png */,
+				D39E90D415E60F9800C8CCF4 /* xialax@2x.png */,
+				D39E90D515E60F9800C8CCF4 /* bgtopbgd@2x.png */,
+				D39E90D615E60F9800C8CCF4 /* xialax.png */,
 				D9DDDDC4159063780023D88A /* gk.png */,
 				14BE5D43154650E40042C562 /* chuanx1@2x.png */,
 				14BE5D44154650E40042C562 /* chuanx3.png */,
@@ -1596,6 +1614,12 @@
 				2ADAEF5615D4F4EB0028C72D /* AvgFactoryTimeChVC.xib in Resources */,
 				D32DCA5115D791D900FCB6AA /* DataQueryPopVC.xib in Resources */,
 				D3F2040515D7A44B00BA6658 /* DataQueryMenuVC.xib in Resources */,
+				D39E90D715E60F9800C8CCF4 /* xiangx@2x.png in Resources */,
+				D39E90D815E60F9800C8CCF4 /* xiangx.png in Resources */,
+				D39E90D915E60F9800C8CCF4 /* bgtopbgd.png in Resources */,
+				D39E90DA15E60F9800C8CCF4 /* xialax@2x.png in Resources */,
+				D39E90DB15E60F9800C8CCF4 /* bgtopbgd@2x.png in Resources */,
+				D39E90DC15E60F9800C8CCF4 /* xialax.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

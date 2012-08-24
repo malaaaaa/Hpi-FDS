@@ -64,14 +64,14 @@
     listView.layer.masksToBounds=YES;
     listView.layer.cornerRadius=2.0;
     listView.layer.borderWidth=2.0;
-    listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    listView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
+    listView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
         
     _buttonView.layer.masksToBounds=YES;
     _buttonView.layer.cornerRadius=2.0;
     _buttonView.layer.borderWidth=2.0;
-    _buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    _buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
+    _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
 }
 
 - (void)viewDidUnload
@@ -351,7 +351,7 @@
     titleLabel.textColor=[UIColor whiteColor];
     titleLabel.textAlignment=UITextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:18.0f];
-    titleLabel.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    titleLabel.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     [self.listView addSubview:titleLabel];
     [titleLabel release];
 }

@@ -154,6 +154,7 @@ static NSString *deviceID;
 	//NSLog(@"data=%d",[tempArray count]);
 	if([tempArray count]<3)
 	{
+        //此处用Analyze工具监测会出现可能内存泄漏的提示，tempArray不能autorelease，否则会崩溃
 		userName=@"weix-test";
         autoUpdate=kNO;
         updateTime=@"2012-04-02 00:00";
@@ -164,9 +165,9 @@ static NSString *deviceID;
 		autoUpdate=[tempArray objectAtIndex:1];
         updateTime=[tempArray objectAtIndex:2];
 	}    
-    
-    [fileName release];
+  
 //    [tempArray release];
+    [fileName release];
 }
 +(void)save
 {
@@ -180,6 +181,7 @@ static NSString *deviceID;
 	NSString *doc=[paths objectAtIndex:0];
 	NSString *fileName=[[NSString alloc]initWithFormat:@"%@/data.plist",doc];
 	[tempArray writeToFile:fileName atomically:YES];
+    [tempArray release];
 	[fileName release];
 }
 
@@ -245,8 +247,8 @@ static NSString *deviceID;
 +(NSString *)currTime
 {
     //实例化一个NSDateFormatter对象
-//    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init] ;
+   NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init] ;
 
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
