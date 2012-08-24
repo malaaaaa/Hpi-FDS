@@ -273,7 +273,7 @@ static sqlite3	*database;
     if(![stageName isEqualToString:All_])
         query=[query stringByAppendingFormat:@" AND stageName ='%@' ",stageName];
 	NSMutableArray * array=[VbShiptransDao getVbShiptransBySql:query] ;
-    NSLog(@"执行 getVbShiptransBySql 数量[%d] ",[array count]);
+    NSLog(@"--------执行 getVbShiptransBySql 数量[%d] ",[array count]);
 	return array;
 }
 +(NSMutableArray *) getVbShiptransBySql:(NSString *)sql1

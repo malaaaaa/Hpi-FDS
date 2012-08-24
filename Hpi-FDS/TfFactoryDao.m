@@ -27,10 +27,10 @@ static sqlite3	*database;
 	if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
-		NSLog(@"open TfFactory error");
+		NSLog(@"open database.db error");
 		return;
 	}
-	NSLog(@"open TfFactory database succes ....");
+	NSLog(@"open database.db database succes ....");
 }
 
 +(void) initDb

@@ -220,7 +220,7 @@ static sqlite3	*database;
     
     
 	NSMutableArray * array=[VbTransplanDao getVbTransplanBySql:query];
-    NSLog(@"执行  getVbShiptransBySql 数量[%d] ",[array count]);
+   // NSLog(@"执行  getVbTransplanBySql 数量[%d] ",[array count]);
 	return array;
 }
 
@@ -293,7 +293,7 @@ static sqlite3	*database;
             else
                 vbTransplan.eTap = [NSString stringWithUTF8String: rowData9];
             
-            NSLog(@"--------读取时间为%@",vbTransplan.eTap);
+          //  NSLog(@"--------读取时间为%@",vbTransplan.eTap);
             
             char * rowData10=(char *)sqlite3_column_text(statement,10);
             if (rowData10 == NULL)

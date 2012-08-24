@@ -99,6 +99,22 @@ static sqlite3  *database;
     }
 }
 
++(void)deleteAll
+{
+    
+    
+    char *errorMsg;
+    NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TB_Latefee  " ];
+    if (sqlite3_exec(database, [deletesql UTF8String], NULL, NULL, &errorMsg)!=SQLITE_OK) {
+        NSLog(@"Error: delete TB_Latefee error with message [%s]  sql[%@]", errorMsg,deletesql);
+    }else {
+        NSLog(@"delete success")  ;
+    }
+    return;
+    
+    
+}
+
 
 +(void)insert:(TB_Latefee *)tb_Latefee
 {

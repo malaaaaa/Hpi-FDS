@@ -236,8 +236,11 @@
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
+        
+        
         [tbxmlParser setISoapNum:1];
         [tbxmlParser requestSOAP:@"YunLi"];
+        
 
         [self runActivity];
     }

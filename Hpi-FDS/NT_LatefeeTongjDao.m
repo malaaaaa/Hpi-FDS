@@ -21,7 +21,7 @@ static sqlite3  *database;
     NSString *path=[documentsDirectory  stringByAppendingPathComponent: @"database.db"  ];
     
     
-    NSLog(@"database:path=== %@",path);
+   // NSLog(@"database:path=== %@",path);
     return  path;
 }
 
@@ -34,7 +34,7 @@ static sqlite3  *database;
 		NSLog(@"open  database error");
 		return;
 	}
-	NSLog(@"open  database succes ....");
+	//NSLog(@"open  database succes ....");
 }
 
 
@@ -60,7 +60,7 @@ static sqlite3  *database;
     
     
     
-    NSLog(@"执行 getFactoryName [%@]",sql);
+  //  NSLog(@"执行 getFactoryName [%@]",sql);
     if (sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         while ( sqlite3_step(statement)==SQLITE_ROW) {
             NSString *factoryName;
@@ -93,7 +93,7 @@ static sqlite3  *database;
     }
 
     NSMutableArray *a=[self getFactoryName:query];
-    NSLog(@"根据电厂类别时间等条件  得到电厂【%d】",[a count]);
+   // NSLog(@"根据电厂类别时间等条件  得到电厂【%d】",[a count]);
     return a;
 
 }
@@ -118,7 +118,7 @@ static sqlite3  *database;
     NSString *sql= [NSString stringWithFormat:@"select TfFactory.CATEGORY , round(SUM(latefee)/10000 ,2) as MONTHLATEFEE,cast(strftime('%@',tradetime)  as int)  as MonthM from TB_Latefee  left  join TfFactory  on  TB_Latefee.factorycode=TfFactory.factorycode   where TB_Latefee.iscal=1 AND %@  group by  TB_Latefee.factoryname,cast(strftime('%@',tradetime)  as int)  order by MonthM ASC",@"%m",sql1,@"%m"] ;
     
     
-      NSLog(@"getMonthAndLatefee[%@]",sql );
+     // NSLog(@"getMonthAndLatefee[%@]",sql );
        
 
     if (sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK){
@@ -193,7 +193,7 @@ static sqlite3  *database;
     
     
     NSMutableArray *array=[self getNT_LatefeeTongjBySql:query];
-    NSLog(@"执行 getNT_LatefeeTongj: 数量[%d]",[array count]);
+  //  NSLog(@"执行 getNT_LatefeeTongj: 数量[%d]",[array count]);
     
     return array;
 }
@@ -209,7 +209,7 @@ static sqlite3  *database;
 {
     
     NSMutableArray  *array=[[NSMutableArray alloc] init];
- 
+ //-----------------------有用不要  删除
     /*select    factoryname ,
      sum( CASE  WHEN   MonthM=3  THEN  MONTHLATEFEE    ELSE   0  END  )AS '3',
      sum( CASE  WHEN   MonthM=5  THEN  MONTHLATEFEE    ELSE   0   END  )AS '5',
@@ -231,7 +231,7 @@ sqlite3_stmt *statement;
     
     
 
-NSLog(@"执行 getNT_LatefeeTongjBySql-----------%@",sql);
+//NSLog(@"执行 getNT_LatefeeTongjBySql-----------%@",sql);
     
     NSLog(@"SQLITE_OK[%d]",SQLITE_OK);
     NSLog(@"sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)[%d]",sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL));
@@ -263,7 +263,7 @@ NSLog(@"执行 getNT_LatefeeTongjBySql-----------%@",sql);
             
             
             
-            NSLog(@"-------%@",[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)]);
+          //  NSLog(@"-------%@",[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)]);
             
             
             latefeetj.MonthM=sqlite3_column_int(statement, 3);
@@ -276,8 +276,8 @@ NSLog(@"执行 getNT_LatefeeTongjBySql-----------%@",sql);
         
         }
     }else {
-        NSLog(@"编译错误");
-        NSLog(@"getNT_LatefeeTongjBySql --- Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+        //NSLog(@"编译错误");
+       // NSLog(@"getNT_LatefeeTongjBySql --- Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
         
         
         

@@ -82,7 +82,7 @@ NSDateFormatter *formater1;
      [self.endButton setTitle:[formater stringFromDate:[NSDate date] ] forState:UIControlStateNormal];
     
     [activty removeFromSuperview];
-    xmlParser=[[XMLParser alloc] init];
+    xmlParser=[[TBXMLParser alloc] init];
     self.factoryCateLable.hidden=YES;
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
@@ -104,7 +104,7 @@ NSDateFormatter *formater1;
     float columnOffset = 0.0;
     dataSource=[[DataGridComponentDataSource alloc] init];
     dataSource.titles=[ NSArray arrayWithObjects:@"电厂",@"1月",@"2月",@"3月",@"4月",@"5月",@"6月",@"7月",@"8月",@"9月",@"10月",@"11月",@"12月", @"合计",nil];
-    dataSource.columnWidth=[NSArray arrayWithObjects:@"70",@"70",@"70",@"70",@"70",@"70",@"70",@"70",@"70",@"70",@"70",@"70",@"70",@"95",nil];
+    dataSource.columnWidth=[NSArray arrayWithObjects:@"80",@"72",@"72",@"72",@"72",@"72",@"72",@"72",@"72",@"72",@"72",@"72",@"72",@"100",nil];
     animation.type= @"oglFlip";
     [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
     [dataQueryVC.labelView removeFromSuperview  ];
@@ -266,9 +266,9 @@ NSDateFormatter *formater1;
         }
         
         
-        NSLog(@"电厂：latefee【%.2f】",latefee);
+      //  NSLog(@"电厂：latefee【%.2f】",latefee);
         [dateArray addObject:[NSString stringWithFormat:@"%.2f",latefee]];
-        NSLog(@"------------电厂：dateArray15:%d",[dateArray count]);
+       // NSLog(@"------------电厂：dateArray15:%d",[dateArray count]);
         [dataSource.data addObject:dateArray];
         
         // [dateArray release];
@@ -290,7 +290,7 @@ NSDateFormatter *formater1;
         [allArrayKeys addObject:t];
         
     }
-    NSLog(@"根据分类【%@】获得allMonthAndLatefee【%d】",factoryCateLable.text,[allMonthAndLatefee count]);
+   // NSLog(@"根据分类【%@】获得allMonthAndLatefee【%d】",factoryCateLable.text,[allMonthAndLatefee count]);
     for (int i=1; i<13; i++) {
         if ([allArrayKeys containsObject:[NSString stringWithFormat:@"%d",i]]) {
             allLatefee=allLatefee+[[allMonthAndLatefee objectForKey:[NSString stringWithFormat:@"%d",i] ] doubleValue];
@@ -335,8 +335,8 @@ NSDateFormatter *formater1;
         [activty startAnimating];
         //解析入库
         [xmlParser setISoapNum:1];
-        [xmlParser  getTfFactory]; 
-       [xmlParser getTBLateFee];
+        [xmlParser  requestSOAP:@"Factory"];
+       [xmlParser requestSOAP:@"LateFee"];//GetInfo
         [self runActivity];
     }
 }

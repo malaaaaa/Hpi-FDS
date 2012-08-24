@@ -157,6 +157,96 @@ static bool ThreadFinished=TRUE;
             // search for the first author element within the root element's children
             TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
             
+            /***********************TfCoalType**********************/
+             if ([_Identification isEqualToString:@"CoalType"]) {
+                 NSLog(@"coalType 解析。。。。。。。。。。");
+                 
+                 
+                 TBXMLElement *element = [TBXML childElementNamed:@"TfCoalType" parentElement:elementNoUsed];
+                 //打开数据库
+                 NSString *file=[TfCoalTypeDao dataFilePath];
+                 if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
+                 {
+                     sqlite3_close(database);
+                     NSLog(@"open  database error");
+                     return;
+                 }
+                 //为提高数据库写入性能，加入事务控制，批量提交
+                 if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                     sqlite3_close(database);
+                     NSLog(@"exec begin error");
+                     return;
+                 }
+                 [TfCoalTypeDao deleteAll];
+                 while (element != nil) {
+                     TfCoalType *tfCoalType= [[TfCoalType alloc] init];
+                     
+                     
+                     TBXMLElement * desc = [TBXML childElementNamed:@"TYPEID" parentElement:element];
+                     if (desc != nil) {
+                         tfCoalType.TYPEID = [[TBXML textForElement:desc] integerValue];
+                     }
+                     desc = [TBXML childElementNamed:@"COALTYPE" parentElement:element];
+                     if (desc != nil) {
+                         tfCoalType.COALTYPE = [TBXML textForElement:desc] ;
+                     }
+                     desc = [TBXML childElementNamed:@"SORT" parentElement:element];
+                     if (desc != nil) {
+                         tfCoalType.SORT = [[TBXML textForElement:desc] integerValue] ;
+                     }
+                     desc = [TBXML childElementNamed:@"HEATVALUE" parentElement:element];
+                     if (desc != nil) {
+                         tfCoalType.HEATVALUE = [[TBXML textForElement:desc] integerValue] ;
+                     }
+                     
+                     desc = [TBXML childElementNamed:@"SULFUR" parentElement:element];
+                     if (desc != nil) {
+                         tfCoalType.SULFUR = [[TBXML textForElement:desc] integerValue] ;
+                     }
+                     
+                     const char *insert="INSERT INTO TfCoalType (TYPEID,COALTYPE,SORT,HEATVALUE,SULFUR) values(?,?,?,?,?)";
+                     sqlite3_stmt *statement;
+                     
+                     int re=sqlite3_prepare(database, insert, -1, &statement, NULL);
+                     if (re != SQLITE_OK)
+                     {
+                         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
+                     }
+                     
+                     sqlite3_bind_int(statement, 1, tfCoalType.TYPEID);
+                     sqlite3_bind_text(statement, 2,[tfCoalType.COALTYPE UTF8String], -1, SQLITE_TRANSIENT);
+                     sqlite3_bind_int(statement, 3, tfCoalType.SORT);
+                     sqlite3_bind_int(statement, 4, tfCoalType.HEATVALUE);
+                     sqlite3_bind_int(statement, 5, tfCoalType.SULFUR);
+                     
+                     re = sqlite3_step(statement);
+                     if(re!=SQLITE_DONE)
+                     {
+                         NSLog( @"Error: insert TfCoalType error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
+                         sqlite3_finalize(statement);
+                         return;
+                     }
+                     sqlite3_finalize(statement);
+                     
+                     [tfCoalType release];
+                     
+                     
+                     element = [TBXML nextSiblingNamed:@"TfCoalType" searchFromElement:element]; 
+                 }
+                 
+                 
+                 if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                     sqlite3_close(database);
+                     NSLog(@"exec commit error");
+                     return;
+                 }
+                 sqlite3_close(database);
+                 NSLog(@"-----TFcOAL TYPE---commit over   ");
+                 iSoapDone=1;
+                 iSoapNum--;
+            
+             }
+            
             /****************************调度日志**************************/
             if ([_Identification isEqualToString:@"ThShipTrans"]) {
                 
@@ -170,7 +260,7 @@ static bool ThreadFinished=TRUE;
                     NSLog(@"open  Th_ShipTrans error");
                     return;
                 }
-                NSLog(@"open Th_ShipTrans database succes ....");
+               // NSLog(@"open Th_ShipTrans database succes ....");
                 
                 //为提高数据库写入性能，加入事务控制，批量提交
                 if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
@@ -637,6 +727,494 @@ static bool ThreadFinished=TRUE;
                 iSoapNum--;
                 
             }
+            
+            /***************************港口信息基础表  **tf_port****************************/
+            
+             if ([_Identification isEqualToString:@"Port"]) {
+                   TBXMLElement *element = [TBXML childElementNamed:@"TfPortInfo" parentElement:elementNoUsed];
+                 //打开数据库
+                 NSString *file= [TfPortDao  dataFilePath];
+                 if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
+                 {
+                     sqlite3_close(database);
+                     return;
+                 }
+                 //为提高数据库写入性能，加入事务控制，批量提交
+                 if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                     sqlite3_close(database);
+                     NSLog(@"exec begin error");
+                     return;
+                 }
+                 //全部删除
+                 [TfPortDao deleteAll];
+                 
+                   while (element != nil) {
+                       
+                       TfPort *tfprot= [[TfPort alloc] init];
+    TBXMLElement * desc = [TBXML childElementNamed:@"PORTCODE" parentElement:element];
+                       if (desc != nil) {
+                           tfprot.PORTCODE = [TBXML textForElement:desc] ;
+                       }
+                       desc = [TBXML childElementNamed:@"PORTNAME" parentElement:element];
+                       if (desc != nil) {
+                           tfprot.PORTNAME = [TBXML textForElement:desc] ;
+                       }
+                       desc = [TBXML childElementNamed:@"SORT" parentElement:element];
+                       if (desc != nil) {
+                           tfprot.SORT = [TBXML textForElement:desc] ;
+                       }
+                       desc = [TBXML childElementNamed:@"UPLOAD" parentElement:element];
+                       if (desc != nil) {
+                           tfprot.UPLOAD = [TBXML textForElement:desc] ;
+                       }
+                       desc = [TBXML childElementNamed:@"DOWNLOAD" parentElement:element];
+                       if (desc != nil) {
+                           tfprot.DOWNLOAD = [TBXML textForElement:desc] ;
+                       }
+                       desc = [TBXML childElementNamed:@"NATIONALTYPE" parentElement:element];
+                       if (desc != nil) {
+                           tfprot.NATIONALTYPE = [TBXML textForElement:desc] ;
+                       }
+                       
+                       const char *insert="INSERT INTO TF_Port(portcode,portname,sort,upload,download,nationaltype )values(?,?,?,?,?,?)";
+                       
+                       sqlite3_stmt *statement;
+                       int re =sqlite3_prepare(database, insert, -1, &statement, NULL);
+                       
+                       if (re!=SQLITE_OK) {
+                           NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),insert);
+                       }
+                       sqlite3_bind_text(statement, 1, [tfprot.PORTCODE UTF8String], -1,SQLITE_TRANSIENT);
+                       
+                       sqlite3_bind_text(statement, 2, [tfprot.PORTNAME UTF8String], -1,SQLITE_TRANSIENT);
+                       
+                       sqlite3_bind_text(statement, 3, [tfprot.SORT UTF8String], -1,SQLITE_TRANSIENT);
+                       sqlite3_bind_text(statement,4, [tfprot.UPLOAD UTF8String], -1,SQLITE_TRANSIENT);
+                       sqlite3_bind_text(statement,5, [tfprot.DOWNLOAD UTF8String], -1,SQLITE_TRANSIENT);
+                       sqlite3_bind_text(statement,6, [tfprot.NATIONALTYPE UTF8String], -1,SQLITE_TRANSIENT);
+                       
+                       re=sqlite3_step(statement);
+                       if (re!=SQLITE_DONE) {
+                           NSLog( @"Error: insert TF_Port  error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert); 
+                           
+                           sqlite3_finalize(statement);
+                           return;
+                           
+                       }else {
+                           //        NSLog(@"insert  TF_Port  SUCCESS");
+                       }
+                       sqlite3_finalize(statement);
+                       [TfPort release];
+
+                         element = [TBXML nextSiblingNamed:@"TfPortInfo" searchFromElement:element];
+                    
+                   }
+                 if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                     sqlite3_close(database);
+                     NSLog(@"exec commit error");
+                     return;
+                 }
+                 sqlite3_close(database);
+                 NSLog(@" ------TfPort-- ------ commit over   ");
+                 iSoapDone=1;
+                 iSoapNum--;
+                 
+
+                 
+                 
+                 
+             }
+            /**************************电厂信息基础表******************************/
+            
+            if ([_Identification isEqualToString:@"Factory"]) {
+             TBXMLElement *element = [TBXML childElementNamed:@"TfFactory" parentElement:elementNoUsed];
+             //打开数据库
+               NSString *file= [TfFactoryDao dataFilePath];
+                if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
+                {
+                    sqlite3_close(database);
+                    return;
+                }
+                //为提高数据库写入性能，加入事务控制，批量提交
+                if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) { 
+                    sqlite3_close(database);
+                    NSLog(@"exec begin error");
+                    return;
+                }
+
+            
+                //全部删除
+                [TfFactoryDao deleteAll];
+             while (element != nil) {
+                  TfFactory *tfFactory= [[TfFactory alloc] init];
+                  TBXMLElement * desc = [TBXML childElementNamed:@"FACTORYCODE" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.FACTORYCODE = [TBXML textForElement:desc] ;
+                 }
+                 desc = [TBXML childElementNamed:@"FACTORYNAME" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.FACTORYNAME = [TBXML textForElement:desc] ;
+                 }
+                 desc = [TBXML childElementNamed:@"CAPACITYSUM" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.CAPACITYSUM = [TBXML textForElement:desc]  ;
+                 }
+                 desc = [TBXML childElementNamed:@"DESCRIPTION" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.DESCRIPTION = [TBXML textForElement:desc]  ;
+                 }
+                 
+                 desc = [TBXML childElementNamed:@"SORT" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.SORT = [[TBXML textForElement:desc] integerValue]  ;
+                 }
+                 desc = [TBXML childElementNamed:@"BERTHNUM" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.BERTHNUM = [[TBXML textForElement:desc] integerValue]  ;
+                 }
+                 desc = [TBXML childElementNamed:@"BERTHWET" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.BERTHWET = [TBXML textForElement:desc]   ;
+                 }
+                 desc = [TBXML childElementNamed:@"CHANNELDEPTH" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.CHANNELDEPTH = [TBXML textForElement:desc]   ;
+                 }
+                 desc = [TBXML childElementNamed:@"CATEGORY" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.CATEGORY = [TBXML textForElement:desc]   ;
+                 }
+
+                 desc = [TBXML childElementNamed:@"MAXSTORAGE" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.MAXSTORAGE = [[TBXML textForElement:desc]  integerValue]  ;
+                 }
+                 desc = [TBXML childElementNamed:@"ORGANCODE" parentElement:element];
+                 if (desc != nil) {
+                     tfFactory.ORGANCODE = [TBXML textForElement:desc]   ;
+                 }
+                 
+                
+                const char *insert="INSERT INTO TfFactory (FACTORYCODE,FACTORYNAME,CAPACITYSUM,DESCRIPTION,SORT,BERTHNUM,BERTHWET,CHANNELDEPTH,CATEGORY,MAXSTORAGE,ORGANCODE) values(?,?,?,?,?,?,?,?,?,?,?)";
+                
+                sqlite3_stmt *statement;
+                
+                int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
+                if (re != SQLITE_OK)
+                {
+                    NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
+                }
+
+                sqlite3_bind_text(statement, 1,[tfFactory.FACTORYCODE UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, 2, [tfFactory.FACTORYNAME UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, 3, [tfFactory.CAPACITYSUM UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, 4, [tfFactory.DESCRIPTION UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_int(statement, 5, tfFactory.SORT);
+                sqlite3_bind_int(statement, 6, tfFactory.BERTHNUM);
+                sqlite3_bind_text(statement, 7,[tfFactory.BERTHWET UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, 8,[tfFactory.CHANNELDEPTH UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, 9,[tfFactory.CATEGORY UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_int(statement, 10, tfFactory.MAXSTORAGE);
+                sqlite3_bind_text(statement, 11,[tfFactory.ORGANCODE UTF8String], -1, SQLITE_TRANSIENT);
+
+                
+                
+                 re=sqlite3_step(statement);
+                 
+                 if (re!=SQLITE_DONE) {
+                     NSLog( @"Error: insert NTShipCompanyTranShare  error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
+                     sqlite3_finalize(statement);
+                     return;
+                     
+                 }else {
+                     //                    NSLog(@"insert TfFactory  SUCCESS");
+                 }
+                 sqlite3_finalize(statement);
+                 [tfFactory release];
+                 // find the next sibling element named "author"
+                 element = [TBXML nextSiblingNamed:@"TfFactory" searchFromElement:element];
+                
+             }
+
+                if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                    sqlite3_close(database);
+                    NSLog(@"exec commit error");
+                    return;
+                }
+                sqlite3_close(database);
+                NSLog(@" ------TfFactory-- ------ commit over   ");
+                iSoapDone=1;
+                iSoapNum--;
+            }
+            /******************************滞期费*****************************/
+            if ([_Identification isEqualToString:@"LateFee"]) {
+                TBXMLElement *element = [TBXML childElementNamed:@"VbLateFee" parentElement:elementNoUsed];
+                //打开数据库
+                NSString *file=[TB_LatefeeDao dataFilePath];
+                if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
+                {
+                    sqlite3_close(database);
+                    NSLog(@"open  TB_LatefeeDao error");
+                    return;
+                }
+
+                //为提高数据库写入性能，加入事务控制，批量提交
+                if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                    sqlite3_close(database);
+                    NSLog(@"exec begin error");
+                    return;
+                }
+
+                
+                  [TB_LatefeeDao deleteAll];
+                while (element != nil) {
+                    TB_Latefee *tb_Latefee= [[TB_Latefee alloc] init];
+                    TBXMLElement * desc = [TBXML childElementNamed:@"DISPATCHNO" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.DISPATCHNO = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"PORTCODE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.PORTCODE = [TBXML textForElement:desc] ;
+                    }
+
+                    desc = [TBXML childElementNamed:@"PORTNAME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.PORTNAME = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"FACTORYCODE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.FACTORYCODE = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"FACTORYNAME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.FACTORYNAME = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"COMID" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.COMID = [[TBXML textForElement:desc] integerValue];
+                    }
+                    desc = [TBXML childElementNamed:@"COMPANY" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.COMPANY = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"SHIPID" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.SHIPID = [[TBXML textForElement:desc] integerValue];
+                    }
+                    desc = [TBXML childElementNamed:@"SHIPNAME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.SHIPNAME = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"FEERATE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.FEERATE = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"ALLOWPERIOD" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.ALLOWPERIOD = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"SUPID" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.SUPID = [[TBXML textForElement:desc] integerValue];
+                    }
+                    desc = [TBXML childElementNamed:@"SUPPLIER" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.SUPPLIER = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"TYPEID" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.TYPEID = [[TBXML textForElement:desc] integerValue];
+                    }
+                    desc = [TBXML childElementNamed:@"COALTYPE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.COALTYPE = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"TRADE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.TRADE = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"KEYVALUE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.KEYVALUE = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"TRIPNO" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.TRIPNO = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"LW" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.LW = [[TBXML textForElement:desc] integerValue] ;
+                    }
+                    desc = [TBXML childElementNamed:@"TRADETIME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.TRADETIME = [TBXML textForElement:desc] ;
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"P_ANCHORAGETIME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.P_ANCHORAGETIME = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"P_DEPARTTIME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.P_DEPARTTIME = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"P_CONFIRM" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.P_CONFIRM = [TBXML textForElement:desc] ;
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"P_CONTIME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.P_CONTIME = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"P_CONUSER" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.P_CONUSER = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"F_ANCHORAGETIME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.F_ANCHORAGETIME = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"F_DEPARTTIME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.F_DEPARTTIME = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"F_CONFIRM" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.F_CONFIRM = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"F_CONTIME" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.F_CONTIME = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"F_CONUSER" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.F_CONUSER = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"LATEFEE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.LATEFEE = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"P_CORRECT" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.P_CORRECT = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"P_NOTE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.P_NOTE = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"F_CORRECT" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.F_CORRECT = [TBXML textForElement:desc] ;
+                    }
+                    
+                    desc = [TBXML childElementNamed:@"F_NOTE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.F_NOTE = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"ISCAL" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.ISCAL = [TBXML textForElement:desc] ;
+                    }
+                    desc = [TBXML childElementNamed:@"CURRENCY" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.CURRENCY = [TBXML textForElement:desc] ;
+                    }
+
+                    desc = [TBXML childElementNamed:@"EXCHANGERATE" parentElement:element];
+                    if (desc != nil) {
+                        tb_Latefee.EXCHANGERATE = [TBXML textForElement:desc] ;
+                    }
+                    
+                    const char *insert="INSERT INTO TB_Latefee(dispatchno,portcode ,portname,factorycode,factoryname,comid , company,shipid,shipname,feerate,allowperiod,supid,supplier,typeid,coaltype,trade,keyvalue,tripno,lw,tradetime ,p_anchoragetime,p_departtime,p_confirm,p_contime,p_conuser,f_anchoragetime,f_departtime,f_confirm,f_contime,f_conuser,latefee,p_correct,p_note,f_correct,f_note,iscal,currency,exchangrate)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    
+                    sqlite3_stmt *statement;
+                    int re =sqlite3_prepare(database, insert, -1, &statement, NULL);
+                    
+                    if (re!=SQLITE_OK) {
+                        NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),insert);
+                    }
+                    //绑定数据
+                    
+                    sqlite3_bind_text(statement, 1, [tb_Latefee.DISPATCHNO UTF8String], -1,SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_text(statement, 2, [tb_Latefee.PORTCODE UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement, 3, [tb_Latefee .PORTNAME   UTF8String],-1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement, 4, [tb_Latefee.FACTORYCODE UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement, 5, [tb_Latefee.FACTORYNAME UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_int(statement, 6, tb_Latefee.COMID);
+                    sqlite3_bind_text(statement, 7, [tb_Latefee.COMPANY UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_int(statement, 8, tb_Latefee.SHIPID);
+                    sqlite3_bind_text(statement, 9, [tb_Latefee.SHIPNAME   UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_text(statement, 10, [tb_Latefee.FEERATE UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_text(statement, 11, [tb_Latefee.ALLOWPERIOD   UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_int(statement, 12, tb_Latefee.SUPID);
+                    sqlite3_bind_text(statement,13, [tb_Latefee.SUPPLIER UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    
+                    sqlite3_bind_int(statement,14, tb_Latefee.TYPEID );
+                    sqlite3_bind_text(statement,15, [tb_Latefee.COALTYPE UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement, 16, [tb_Latefee.TRADE   UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement, 17, [tb_Latefee.KEYVALUE   UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_text(statement,18, [tb_Latefee.TRIPNO   UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_int(statement,19, tb_Latefee.LW );
+                    sqlite3_bind_text(statement,20, [tb_Latefee.TRADETIME   UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_text(statement,21, [tb_Latefee.P_ANCHORAGETIME   UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,22, [tb_Latefee.P_DEPARTTIME    UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,23, [tb_Latefee.P_CONFIRM    UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_text(statement,24, [tb_Latefee.P_CONTIME    UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,25, [tb_Latefee.P_CONUSER    UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,26, [tb_Latefee.F_ANCHORAGETIME   UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_text(statement,27, [tb_Latefee.F_DEPARTTIME   UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_text(statement,28, [tb_Latefee.F_CONFIRM   UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,29, [tb_Latefee.F_CONTIME   UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,30, [tb_Latefee.F_CONUSER   UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,31, [tb_Latefee.LATEFEE   UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,32, [tb_Latefee.P_CORRECT   UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,33, [tb_Latefee.P_NOTE  UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    sqlite3_bind_text(statement,34, [tb_Latefee.F_CORRECT   UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,35, [tb_Latefee.F_NOTE  UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,36, [tb_Latefee.ISCAL  UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,37, [tb_Latefee.CURRENCY  UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement,38, [tb_Latefee.EXCHANGERATE  UTF8String], -1, SQLITE_TRANSIENT);
+                    
+                    
+                    
+                    re=sqlite3_step(statement);
+                    
+                    
+                    if (re!=SQLITE_DONE) {
+                        NSLog( @"Error: insert TB_Latefee  error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert); 
+                        
+                        sqlite3_finalize(statement);
+                    }
+                        [tb_Latefee release];
+                        
+                    element = [TBXML nextSiblingNamed:@"VbLateFee" searchFromElement:element];
+                }
+                
+                if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                    sqlite3_close(database);
+                    NSLog(@"exec commit error");
+                    return;
+                }
+                sqlite3_close(database);
+                NSLog(@"---tb_Latefee------commit over   ");
+                iSoapDone=1;
+                iSoapNum--;
+            
+            }
+
             /****************************航运公司份额统计-NTShipCompanyTranShare**************************/
             if ([_Identification isEqualToString:@"TransPorts"]) {
                 TBXMLElement *element = [TBXML childElementNamed:@"VbTransPorts" parentElement:elementNoUsed];
@@ -852,10 +1430,10 @@ static bool ThreadFinished=TRUE;
                 if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
                 {
                     sqlite3_close(database);
-                    NSLog(@"VbShipTrans  open error");
+                    NSLog(@"database.db  open error");
                     return;
                 }
-                NSLog(@"open VbShipTrans database succes ....");
+                NSLog(@"open database.db database succes ....");
                 
                 //为提高数据库写入性能，加入事务控制，批量提交
                 if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
@@ -903,7 +1481,10 @@ static bool ThreadFinished=TRUE;
                     if (desc != nil) {
                         table.factoryCode = [TBXML textForElement:desc] ;
                     }
-                    
+                    desc = [TBXML childElementNamed:@"FACTORYNAME" parentElement:element];
+                    if (desc != nil) {
+                        table.factoryName = [TBXML textForElement:desc] ;
+                    }
                     desc = [TBXML childElementNamed:@"PORTCODE" parentElement:element];
                     if (desc != nil) {
                         table.portCode = [TBXML textForElement:desc] ;
@@ -1093,7 +1674,7 @@ static bool ThreadFinished=TRUE;
                     
                     
                     
-                    //                NSLog(@"执行  删除  插入   ");
+                               // NSLog(@"执行  删除  插入   ");
                   	const char *insert="INSERT INTO VbShiptrans (disPatchNo,shipCompanyId,shipCompany,shipId,shipName,tripNo,factoryCode,factoryName,portCode,portName,supId,supplier,typeId,coalType,keyValue,keyName,trade,tradeName,heatValue,stage,stageName,stateCode,stateName,lw,p_AnchorageTime,p_Handle,p_ArrivalTime,p_DepartTime,p_Note,t_Note,f_AnchorageTime,f_ArrivalTime,f_DepartTime,f_Note,lateFee,offEfficiency,schedule,planType,planCode,laycanStart,laycanStop,reciept,shipShift,facSort,tradeTime,f_finishtime,iscal) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                     
                     sqlite3_stmt *statement;
@@ -1162,7 +1743,7 @@ static bool ThreadFinished=TRUE;
                         return;
                         
                     }else {
-                        //                    NSLog(@"insert shipTrans  SUCCESS");
+                                          // NSLog(@"insert shipTrans  SUCCESS");
                     }
                     sqlite3_finalize(statement);
                     [table release];
@@ -1182,9 +1763,12 @@ static bool ThreadFinished=TRUE;
                 
             }
             
-            
             /****************************航运计划-vbTransplan**************************/
             if ([_Identification isEqualToString:@"TransPlan"]) {
+                
+                
+                NSLog(@"-----------TransPlan 解析。。。。。。。。。。");
+                
                 TBXMLElement *element = [TBXML childElementNamed:@"VbTransPlan" parentElement:elementNoUsed];
                 //打开数据库
                 NSString *file=[VbTransplanDao dataFilePath];
@@ -1374,12 +1958,11 @@ static bool ThreadFinished=TRUE;
                     return;
                 }
                 sqlite3_close(database);
-                NSLog(@"commit over   ");
+                NSLog(@"------VbTransPlan ---------commit over   ");
                 iSoapDone=1;
                 iSoapNum--;
                 
-            }
-            
+            }            
             /****************************市场指数-TmIndexinfo**************************/
             if ([_Identification isEqualToString:@"TmIndex"]) {
                 TBXMLElement *element = [TBXML childElementNamed:@"TmIndexInfo" parentElement:elementNoUsed];
@@ -1425,7 +2008,6 @@ static bool ThreadFinished=TRUE;
                         table.infoValue = [TBXML textForElement:desc]  ;
                     }
                     
-                    
                     //                NSLog(@"执行  删除  插入   ");
                     const char *insert="INSERT INTO TmIndexinfo (infoId,indexName,recordTime,infoValue) values(?,?,?,?)";
                     
@@ -1436,7 +2018,8 @@ static bool ThreadFinished=TRUE;
                         NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),insert);
                     }
                     
-                    
+
+                                      
                     sqlite3_bind_int(statement, 1, table.infoId);
                     sqlite3_bind_text(statement, 2, [table.indexName UTF8String], -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(statement, 3, [table.recordTime UTF8String], -1, SQLITE_TRANSIENT);
@@ -1678,6 +2261,8 @@ static bool ThreadFinished=TRUE;
         
     }
 }
+
+
 -(NSInteger)iSoapDone
 {
     return iSoapDone;

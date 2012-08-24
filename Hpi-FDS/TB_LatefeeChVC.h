@@ -11,7 +11,7 @@
 #import "TB_Latefee.h"
 #import "TB_LatefeeDao.h"
 #import "ChooseView.h"
-#import "XMLParser.h"
+#import "TBXMLParser.h"
 #import "DateViewController.h"
 #import "ChooseViewDelegate.h"
 
@@ -37,7 +37,7 @@
     UIButton *reload;
     UIActivityIndicatorView *active;
     id  parentVC;
-    XMLParser *xmlParser;
+    TBXMLParser *xmlParser;
     NSDate *month;
     DateViewController  *monthCV;
     ChooseView *chooseView;
@@ -45,7 +45,7 @@
 @property(nonatomic,retain) ChooseView *chooseView;
 @property(nonatomic,retain) id  parentVC;
 @property(nonatomic,retain) DateViewController  *monthCV;
-@property(nonatomic,retain) XMLParser *xmlParser;
+@property(nonatomic,retain) TBXMLParser *xmlParser;
 @property(nonatomic,retain) NSDate *month;
 @property(nonatomic,retain)UIPopoverController *poper;
 @property (retain, nonatomic) IBOutlet UILabel *comLabel;

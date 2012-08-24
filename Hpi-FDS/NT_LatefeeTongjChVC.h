@@ -11,7 +11,7 @@
 #import "PubInfo.h"
 #import "DataGridComponent.h"
 #import "DateViewController.h"
-#import "XMLParser.h"
+#import "TBXMLParser.h"
 #import "ChooseViewDelegate.h"
 #import "MultiTitleDataGridComponent.h"
 
@@ -32,12 +32,12 @@ UILabel *endTime;
     DateViewController *monthVC; 
     
     id parentVC;
-     XMLParser *xmlParser;
+     TBXMLParser *xmlParser;
     NSDate *month;
     
 }
 @property (retain, nonatomic)NSDate *month;
-@property (retain, nonatomic) XMLParser *xmlParser;
+@property (retain, nonatomic) TBXMLParser *xmlParser;
 
 @property (retain, nonatomic) id parentVC;  
 

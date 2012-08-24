@@ -39,6 +39,11 @@
 @synthesize popover,chooseView,parentVC,month,monthCV;
 @synthesize tbxmlParser;
 
+
+static DataGridComponentDataSource *dataSource;
+//初始化 父视图
+DataQueryVC *dataQueryVC;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -72,14 +77,67 @@
     NSDate *date=[[NSDate alloc]init];
     self.month=date;
     [date release];
-    
-    
     //[self setMonth:[[NSDate alloc] init]];
     month=[[NSDate alloc]init];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy年MM月"];
     [dateFormatter stringFromDate:month];
     [dateFormatter release];
+    
+    
+    dataQueryVC=self.parentVC;
+    
+    CATransition *animation = [CATransition animation];
+    animation.delegate = self;
+    animation.duration = 0.5f;
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.fillMode = kCAFillModeForwards;
+    animation.endProgress = 1;
+    animation.removedOnCompletion = NO;
+    animation.type = @"cube";
+    [dataQueryVC.chooseView.layer addAnimation:animation forKey:@"animation"];
+    
+    [dataQueryVC.chooseView bringSubviewToFront:self.view];
+    
+    float columnOffset = 0.0;
+
+    [self initSource];
+    
+    animation.type = @"oglFlip";
+    [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
+    [dataQueryVC.labelView removeFromSuperview];
+    //填冲标题数据
+    for(int column = 0;column < [dataSource.titles count];column++){
+        float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
+        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+        l.font = [UIFont systemFontOfSize:16.0f];
+        l.text = [dataSource.titles objectAtIndex:column];
+        l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
+        l.textColor = [UIColor whiteColor];
+        l.shadowColor = [UIColor blackColor];
+        l.shadowOffset = CGSizeMake(0, -0.5);
+        l.textAlignment = UITextAlignmentCenter;
+        [dataQueryVC.labelView addSubview:l];
+        [l release];
+        columnOffset += columnWidth;
+    }
+    [dataQueryVC.listView addSubview:dataQueryVC.labelView];
+    if(dataSource){
+        dataSource=nil;
+        [dataSource release];
+    }
+ 
+    
+}
+-(void)initSource
+{
+    if (!dataSource) {
+        
+         dataSource = [[DataGridComponentDataSource alloc] init];
+        
+        dataSource.columnWidth = [NSArray arrayWithObjects:@"115",@"75",@"85",@"85",@"80",@"100",@"90",@"90",@"85",@"70",@"75",@"75",nil];
+        dataSource.titles = [NSArray arrayWithObjects:@"计划号",@"计划月份",@"船名",@"流向",@"航次",@"装运港",@"预抵装港",@"预抵卸港",@"预计载煤量",@"煤种",@"供货方",@"类别",nil];
+    }
 }
 
 - (void)viewDidUnload
@@ -113,6 +171,14 @@
 }
 
 - (void)dealloc {
+    if(dataSource){
+        [dataSource release];
+    }
+    if(dataQueryVC){
+        [dataQueryVC release];
+    }
+    
+    
     [comButton release];
     [comLabel release];
     [shipButton release];
@@ -252,23 +318,13 @@
     NSMutableArray *Array=[[NSMutableArray alloc]init];
     chooseView.iDArray=Array;
     [chooseView.iDArray addObject:All_];
-    
-    
-    
-    
-    
     //获得煤种数据源
     NSMutableArray *array=[TfCoalTypeDao getTfCoalType];
     for(int i=0;i<[array count];i++){
         TfCoalType *tfcoal=[array objectAtIndex:i];
         
         [chooseView.iDArray addObject:tfcoal.COALTYPE];
-    }
-    
-    
-    
-    
-    
+    } 
     chooseView.parentMapView=self;
     chooseView.type=kCOALTYPE;
     self.popover = pop;
@@ -348,7 +404,11 @@
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
     [alert release];
+ 
 }
+
+typedef struct objc_property *Property;
+
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
@@ -358,10 +418,35 @@
         [activity startAnimating];
         
         [tbxmlParser setISoapNum:1];
-        
-        [tbxmlParser requestSOAP:@"TransPlan"];
+
+       [tbxmlParser requestSOAP:@"TransPlan"];
         //同步煤种
-//        [xmlParser getTfCoalType];
+       [tbxmlParser requestSOAP:@"CoalType"];//GetInfo
+        
+        
+        //VbTransplan    *d=[[VbTransplan alloc] init];
+
+        /*
+        id LenderClass = objc_getClass("VbTransplan");
+        unsigned int outCount, i;
+        objc_property_t *properties = class_copyPropertyList(LenderClass, &outCount);
+        
+        
+        
+        for (i = 0; i < outCount; i++) {
+           objc_property   property = properties[i];
+            
+            
+          fprintf(stdout, "%s %s\n", property_getName(property), property_getAttributes(property));
+            
+    
+        }
+        
+        */
+
+        
+        
+       
         
         [self runActivity];
     }
@@ -370,25 +455,14 @@
 
 - (IBAction)queryAction:(id)sender {
     
-    
-    NSLog(@"comLabel=[%@]",comLabel.text);
-    NSLog(@"shipLabel=[%@]",shipLabel.text);
-    NSLog(@"portLabel=[%@]",portLabel.text);
-    NSLog(@"typeLabel=[%@]",typeLabel.text);
-    NSLog(@"factoryLabel=[%@]",factoryLabel.text);
-  
 
-    
-    
     NSDateFormatter *f=[[NSDateFormatter alloc] init];
     [f setDateFormat:@"yyyyMM"];
     
     if (![monthButton.titleLabel.text isEqualToString:@"月份"]) {
         monthLabel.text=monthButton.titleLabel.text;
     }
-    
-    
-    
+
     NSLog(@"monthLabel.text=[%@]",monthLabel.text);
     NSLog(@"monthButton=[%@]",monthButton.titleLabel.text);
     NSLog(@"取时间用month=[%@]",[f stringFromDate:self.month]);
@@ -401,16 +475,59 @@
       
     }
      [f release];
-      NSAutoreleasePool *loopPool = [[[NSAutoreleasePool alloc]init] autorelease];
     
-      DataQueryVC *dataQueryVC=self.parentVC;
+    
+      NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
+    
+      [self initSource];
     dataQueryVC.dataArray=[VbTransplanDao getVbTransplan:comLabel.text :shipLabel.text :portLabel.text :typeLabel.text :factoryLabel.text :monthLabel.text:codeTextField.text];
+  
     
+    dataSource.data=[[[NSMutableArray alloc]init] autorelease];
     
-    
-    [dataQueryVC loadViewData_tb];
-    [loopPool drain];
+    for (int i=0;i<[dataQueryVC.dataArray count];i++) {
+        VbTransplan *transplan=[dataQueryVC.dataArray objectAtIndex:i];
+        //船运计划和 电厂动态  没有 状态  stage
+        [dataSource.data addObject:[NSArray arrayWithObjects:
+                                    @"3",
+                                    
+                                    transplan.planCode,
+                                    transplan.planMonth,
+                                    transplan.shipName,
+                                    transplan.factoryName,
+                                    transplan.tripNo,
+                                    transplan.portName,
+                                    
+                                   transplan.eTap,
+                                    //格式化时间  [PubInfo formaDateTime:transplan.eTap FormateString:@"yyyy-MM-dd"]  ,
+                                   transplan.eTaf,
+                                    
+                                    //格式化时间   [PubInfo formaDateTime:transplan.eTaf FormateString:@"yyyy-MM-dd"]  ,
+                                    
+                                    
+                                    [NSString stringWithFormat:@"%d",transplan.eLw],
+                                    transplan.coalType,
+                                    transplan.supplier,
+                                    transplan.keyName,
+                                    nil ]];
+        
+        
+        
+    }
 
+     dataQueryVC.dataSource=dataSource;
+    
+    [dataSource release];
+    [dataQueryVC.listTableview reloadData];
+      [loopPool drain];
+
+    if(dataSource){
+        dataSource=nil;
+        [dataSource release];
+    }
+
+    
+    
 }
 
 - (IBAction)resetAction:(id)sender {
@@ -553,3 +670,6 @@
 
 
 @end
+
+
+

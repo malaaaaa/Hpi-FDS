@@ -74,7 +74,7 @@ static int  whichButton=0;
     
     [active removeFromSuperview];
     
-    xmlParser=[[XMLParser alloc] init];
+    xmlParser=[[TBXMLParser alloc] init];
     self.comLabel.hidden=YES;
     self.shipLabel.hidden=YES;
     self.factoryLabel.hidden=YES;
@@ -102,28 +102,18 @@ static int  whichButton=0;
     animation.type=@"cube";
     
     [dataQueryVC.chooseView.layer addAnimation:animation forKey:@"animation"];
-    NSLog(@"--------------dataQueryVC.chooseView.layer  增加动画。。。。。。。。。");
     
     //-------------------------
     [dataQueryVC.chooseView bringSubviewToFront:self.view];
-
     float columnOffset = 0.0;
     dataSource=[[DataGridComponentDataSource alloc] init];
-    
-    
     dataSource.titles=[ NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"港口",@"流向",@"供货方",@"数量",@"交货时间",@"滞期费", nil];
     
-    dataSource.columnWidth=[NSArray arrayWithObjects:@"90",@"110",@"100",@"110",@"110",@"120",@"90",@"150",@"120",nil];
-    
-    
+    dataSource.columnWidth=[NSArray arrayWithObjects:@"100",@"110",@"100",@"115",@"115",@"120",@"90",@"150",@"130",nil];
     animation.type= @"oglFlip"; 
-
     [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
-     NSLog(@"------------------dataQueryVC.labelView.layer  增加动画。。。。。。。。。");
     [dataQueryVC.labelView removeFromSuperview  ];
-    
     //清空数据源。。。。。
-    
     
     //填充 标题数据
     for(int column = 0;column < [dataSource.titles count];column++){
@@ -139,26 +129,18 @@ static int  whichButton=0;
         l.textAlignment = UITextAlignmentCenter;
         
         [dataQueryVC.labelView addSubview:l];
-        
-        
         [l release];
-        columnOffset += columnWidth;
-        
+        columnOffset += columnWidth;  
     }
 
      [dataQueryVC.listView addSubview:dataQueryVC.labelView];
-    
-    
-    
     //初始化
     month=[[NSDate alloc] init];
-    NSLog(@"----------------初始化month------------------：%@",month);
     NSDateFormatter *formater=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd"];
     
     [formater stringFromDate:month];
     [ formater release];
-    
    
 }
 
@@ -549,13 +531,8 @@ static int  whichButton=0;
         [active startAnimating];
         //解析入库
         [xmlParser setISoapNum:1];
-        [xmlParser getTBLateFee];
-        //港口
-         //[xmlParser getTgPort];
-//        [xmlParser getTfCoalType    ];
-//        [xmlParser  getTfFactory];   
-//        [xmlParser getTgShip    ];
-//        [xmlParser   getTfSupplier  ];
+        [xmlParser requestSOAP:@"LateFee"];
+
         //状态
         [self runActivity];
     }

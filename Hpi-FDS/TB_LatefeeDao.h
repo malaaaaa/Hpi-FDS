@@ -26,7 +26,7 @@
 
 +(NSMutableArray *) getTB_LateFeeBySql:(NSString *)sql1;
 
-
++(void)deleteAll;
 
 
 

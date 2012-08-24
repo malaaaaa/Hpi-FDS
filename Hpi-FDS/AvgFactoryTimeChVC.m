@@ -22,7 +22,8 @@
 @synthesize endButton;
 @synthesize endTime;
 @synthesize activty;
-@synthesize xmlParser;
+@synthesize tbxmlParser;
+
 @synthesize parentVC;
 @synthesize chooseView;
 @synthesize month;
@@ -71,7 +72,12 @@ NSDateFormatter *f;
     self.endTime.text=[formater   stringFromDate:[NSDate date]];
     [self.endButton setTitle:[formater   stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     [activty removeFromSuperview];
-    xmlParser=[[XMLParser alloc] init];
+    
+    
+    self.tbxmlParser=[[TBXMLParser alloc] init] ;
+
+    
+    
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
    [ self  getDateSource:self.startTime.text :self.endTime.text:All_ :0];
@@ -131,7 +137,7 @@ NSDateFormatter *f;
         source.data=[AvgFactoryZXTimeDao getAvgFactoryDate:startTime.text:endTime.text:factoryCateLable.text:source.titles ];
     }
     //初始化
-    dc=[[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
+    dc=[[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 530) data:source];
     [source release];
     
     [dataQueryVC.listView   addSubview:dc];
@@ -275,10 +281,15 @@ endTime.text=endButton.titleLabel.text;
         [reload setTitle:@"同步中...." forState:UIControlStateNormal];
         [activty startAnimating];
         //解析入库
-        [xmlParser setISoapNum:1];
+        [tbxmlParser setISoapNum:1];
+      // [xmlParser setISoapNum:1];
+        [tbxmlParser requestSOAP:@"Factory"];
         
-//        [xmlParser getTfFactory];
-        [xmlParser getVbShiptrans];
+        
+      [tbxmlParser requestSOAP:@"ShipTrans"];
+       // [xmlParser getTfFactory];
+       // [xmlParser getVbShiptrans];
+       
         
         
         
@@ -309,7 +320,10 @@ endTime.text=endButton.titleLabel.text;
     [endButton release];
     [factoryCateButton release];
     [activty release];
-    [xmlParser release];
+    [tbxmlParser release];
+    
+  
+    
     [parentVC release];
     [monthVC release];
     [month   release];
@@ -388,7 +402,7 @@ endTime.text=endButton.titleLabel.text;
 {
     
     //NSLog(@"runActivity-----iSoapNum-[%d]",xmlParser.iSoapNum);
-    if (xmlParser.iSoapNum==0) {
+    if (tbxmlParser.iSoapNum==0) {
         [activty stopAnimating];
         
         [activty removeFromSuperview];

@@ -119,7 +119,7 @@ DataQueryVC *dataQueryVC;
 {
     if (!dataSource) {
      dataSource = [[DataGridComponentDataSource alloc] init];
-        dataSource.columnWidth = [NSArray arrayWithObjects:@"80",@"105",@"80",@"100",@"95",@"150",@"70",@"70",@"90",@"70",@"75",nil];
+        dataSource.columnWidth = [NSArray arrayWithObjects:@"85",@"110",@"85",@"105",@"105",@"150",@"75",@"70",@"90",@"70",@"80",nil];
          dataSource.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",nil];
     }
 }
@@ -156,7 +156,12 @@ DataQueryVC *dataQueryVC;
 - (void)dealloc {
     if(parentVC) 
     [parentVC release   ];
+    if(dataSource){
     [dataSource release];
+    }
+    if(dataQueryVC){
+        [dataQueryVC release];
+    }
     [comButton release];
     [comLabel release];
     [shipButton release];
@@ -338,6 +343,7 @@ DataQueryVC *dataQueryVC;
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
     [alert release];
+
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -345,7 +351,7 @@ DataQueryVC *dataQueryVC;
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [tbxmlParser setISoapNum:1];
+        [tbxmlParser setISoapNum:1];   
         
         [tbxmlParser requestSOAP:@"ShipTrans"];
         [self runActivity];
@@ -360,13 +366,13 @@ DataQueryVC *dataQueryVC;
     NSLog(@"factoryLabel=[%@]",factoryLabel.text);
     NSLog(@"statLabel=[%@]",statLabel.text);
     
-    NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
+   // NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
     
     [self initSource];
     dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
-    // [dataQueryVC loadViewData_vb];
+    NSLog(@"    dataQueryVC.dataArray [%d]",[    dataQueryVC.dataArray count]);
     dataSource.data=[[[NSMutableArray alloc]init] autorelease];
-  
+ 
     for (int i=0;i<[dataQueryVC.dataArray count];i++) {
         VbShiptrans *vbShiptrans=[dataQueryVC.dataArray objectAtIndex:i];
         
@@ -382,19 +388,19 @@ DataQueryVC *dataQueryVC;
                                     [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
                                     vbShiptrans.tradeName,
                                     vbShiptrans.coalType,
-                                    vbShiptrans.stateName,
+                                    vbShiptrans.stageName,
                                     nil]];
         
 
         
-    }
-       dataQueryVC.dataSource=dataSource;
+    }    
+    dataQueryVC.dataSource=dataSource;
     
     [dataSource release];
     [dataQueryVC.listTableview reloadData];
     
     
-    [loopPool drain];
+   // [loopPool drain];
     
     
     if(dataSource){

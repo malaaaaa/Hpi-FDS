@@ -66,7 +66,7 @@ static sqlite3  *database;
 {
 // NSLog(@"Insert begin TF_Port ");
 
-const char *insert="INSERT INTO TF_Port(portcode,portname,sort,upload,download,nationaltype )values(?,?,?,?,?,?)";
+   const char *insert="INSERT INTO TF_Port(portcode,portname,sort,upload,download,nationaltype )values(?,?,?,?,?,?)";
 
     sqlite3_stmt *statement;
     int re =sqlite3_prepare(database, insert, -1, &statement, NULL);
@@ -74,17 +74,6 @@ const char *insert="INSERT INTO TF_Port(portcode,portname,sort,upload,download,n
     if (re!=SQLITE_OK) {
         NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),insert);
     }
-    
-//    NSLog(@"tfprot.PORTCODE[%@]",tfprot.PORTCODE);
-//     NSLog(@"tfprot.PORTNAME[%@]",tfprot.PORTNAME);
-//    NSLog(@"tfprot.SORT[%@]",tfprot.SORT);
-//      NSLog(@"tfprot.UPLOAD[%@]",tfprot.UPLOAD);
-//    
-//      NSLog(@"tfprot.DOWNLOAD[%@]",tfprot.DOWNLOAD);
-//    NSLog(@"tfprot.NATIONALTYPE[%@]",tfprot.NATIONALTYPE);
-    
-    
-    
     sqlite3_bind_text(statement, 1, [tfprot.PORTCODE UTF8String], -1,SQLITE_TRANSIENT);
     
      sqlite3_bind_text(statement, 2, [tfprot.PORTNAME UTF8String], -1,SQLITE_TRANSIENT);

@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "MultiTitleDataGridComponent.h"
 #import "DateViewController.h"
-#import "XMLParser.h"
+#import "TBXMLParser.h"
+
 #import "ChooseViewDelegate.h"
 #import "ChooseView.h"
 #import "PubInfo.h"
+
+
+
 @interface AvgFactoryTimeChVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>
 {
 
@@ -31,7 +35,9 @@
     DateViewController *monthVC;
     
     id parentVC;
-    XMLParser *xmlParser;
+ TBXMLParser *tbxmlParser;
+
+    
     NSDate *month;
 
 MultiTitleDataGridComponent     *dc;
@@ -43,7 +49,7 @@ MultiTitleDataGridComponent     *dc;
 }
 @property (retain, nonatomic)MultiTitleDataGridComponent     *dc;
 @property (retain, nonatomic)NSDate *month;
-@property (retain, nonatomic) XMLParser *xmlParser;
+@property (retain, nonatomic) TBXMLParser *tbxmlParser;
 
 @property (retain, nonatomic) id parentVC;
 

@@ -295,16 +295,17 @@ static NSString *deviceID;
     int d=0;
     NSString *str;  
     if (string1&&string2) {
-        NSLog(@"都不为空.........");
+        /**/
+       NSLog(@"都不为空.........");
         NSLog(@"string1[%d]",string1.count    );
         NSLog(@"days:%@",[string1 objectForKey:@"days"]);
         NSLog(@"hours:%@",[string1 objectForKey:@"hours"]);
-        NSLog(@"minutes:%@",[string1 objectForKey:@"minutes"]);
+       NSLog(@"minutes:%@",[string1 objectForKey:@"minutes"]);
         
         
         NSLog(@"string2[%d]",string2.count   );
-        NSLog(@"days:%@",[string2 objectForKey:@"days"]);
-        NSLog(@"hours:%@",[string2 objectForKey:@"hours"]);
+       NSLog(@"days:%@",[string2 objectForKey:@"days"]);
+       NSLog(@"hours:%@",[string2 objectForKey:@"hours"]);
         NSLog(@"minutes:%@",[string2 objectForKey:@"minutes"]);
         NSInteger mintues=[[string1 objectForKey:@"minutes"] intValue]+[[string2 objectForKey:@"minutes"] intValue];
         if (mintues>60) {

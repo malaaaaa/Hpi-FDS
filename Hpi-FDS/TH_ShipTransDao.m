@@ -185,7 +185,7 @@ return;
 }
 +(void)deleteAll
 {
-    NSLog(@"删除实体........");
+   // NSLog(@"删除实体........");
     
     
     char *errorMsg;
@@ -197,7 +197,7 @@ return;
         NSLog(@"Error: delete Th_ShipTrans error with message [%s]  sql[%@]", errorMsg,deletesql);
         
     }else {
-        NSLog(@"delete success")  ;
+        //NSLog(@"delete success")  ;
     }
     return;
    

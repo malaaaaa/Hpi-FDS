@@ -40,9 +40,8 @@
 					<object class="IBUIButton" id="1044736285">
 						<reference key="NSNextResponder" ref="786520142"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{167, 22.5}, {180, 35}}</string>
+						<string key="NSFrame">{{167, 22}, {180, 35}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="886941579"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -76,9 +75,8 @@
 					<object class="IBUILabel" id="886941579">
 						<reference key="NSNextResponder" ref="786520142"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{197, 22.5}, {120, 35}}</string>
+						<string key="NSFrame">{{197, 22}, {120, 35}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="356287435"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -98,22 +96,21 @@
 						<int key="IBUIBaselineAdjustment">0</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUITextAlignment">1</int>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="637012852">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="503991303">
 							<int key="type">1</int>
-							<double key="pointSize">17</double>
+							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="710282983">
+						<object class="NSFont" key="IBUIFont" id="716350123">
 							<string key="NSName">Helvetica</string>
-							<double key="NSSize">17</double>
+							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 					<object class="IBUIButton" id="356287435">
 						<reference key="NSNextResponder" ref="786520142"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{422, 22.5}, {180, 35}}</string>
+						<string key="NSFrame">{{422, 22}, {180, 35}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="211765836"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -135,7 +132,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{452, 22}, {120, 35}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="753519889"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -153,15 +149,14 @@
 						<int key="IBUIBaselineAdjustment">0</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUITextAlignment">1</int>
-						<reference key="IBUIFontDescription" ref="637012852"/>
-						<reference key="IBUIFont" ref="710282983"/>
+						<reference key="IBUIFontDescription" ref="503991303"/>
+						<reference key="IBUIFont" ref="716350123"/>
 					</object>
 					<object class="IBUIButton" id="753519889">
 						<reference key="NSNextResponder" ref="786520142"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{677, 23}, {180, 35}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="278309067"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -181,9 +176,8 @@
 					<object class="IBUILabel" id="278309067">
 						<reference key="NSNextResponder" ref="786520142"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{707, 22.5}, {120, 35}}</string>
+						<string key="NSFrame">{{707, 22}, {120, 35}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="146964493"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -201,15 +195,14 @@
 						<int key="IBUIBaselineAdjustment">0</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUITextAlignment">1</int>
-						<reference key="IBUIFontDescription" ref="637012852"/>
-						<reference key="IBUIFont" ref="710282983"/>
+						<reference key="IBUIFontDescription" ref="503991303"/>
+						<reference key="IBUIFont" ref="716350123"/>
 					</object>
 					<object class="IBUIButton" id="146964493">
 						<reference key="NSNextResponder" ref="786520142"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{472, 82.5}, {80, 35}}</string>
+						<string key="NSFrame">{{472, 74}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -232,9 +225,8 @@
 					<object class="IBUIButton" id="730496946">
 						<reference key="NSNextResponder" ref="786520142"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{292, 82.5}, {80, 35}}</string>
+						<string key="NSFrame">{{345, 74}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -254,9 +246,8 @@
 					<object class="IBUIButton" id="656214781">
 						<reference key="NSNextResponder" ref="786520142"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{652, 82.5}, {80, 35}}</string>
+						<string key="NSFrame">{{602, 74}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -276,9 +267,8 @@
 					<object class="IBUIActivityIndicatorView" id="192918841">
 						<reference key="NSNextResponder" ref="786520142"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{757.5, 79.5}, {37, 37}}</string>
+						<string key="NSFrame">{{720, 72}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="786520142"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -290,15 +280,10 @@
 						</object>
 					</object>
 				</array>
-				<string key="NSFrameSize">{1024, 180}</string>
+				<string key="NSFrameSize">{1024, 121}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1044736285"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MCAwIDAAA</bytes>
-				</object>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 		</array>
@@ -542,96 +527,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">29</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">AvgFactoryTimeChVC</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="Select:">id</string>
-						<string key="endTimeSelect:">id</string>
-						<string key="factoryCateSelect:">id</string>
-						<string key="release:">id</string>
-						<string key="reload:">id</string>
-						<string key="startTimeSelect:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="Select:">
-							<string key="name">Select:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="endTimeSelect:">
-							<string key="name">endTimeSelect:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="factoryCateSelect:">
-							<string key="name">factoryCateSelect:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="release:">
-							<string key="name">release:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="reload:">
-							<string key="name">reload:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="startTimeSelect:">
-							<string key="name">startTimeSelect:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="activty">UIActivityIndicatorView</string>
-						<string key="endButton">UIButton</string>
-						<string key="endTime">UILabel</string>
-						<string key="factoryCateButton">UIButton</string>
-						<string key="factoryCateLable">UILabel</string>
-						<string key="reload">UIButton</string>
-						<string key="startButton">UIButton</string>
-						<string key="startTime">UILabel</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="activty">
-							<string key="name">activty</string>
-							<string key="candidateClassName">UIActivityIndicatorView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="endButton">
-							<string key="name">endButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="endTime">
-							<string key="name">endTime</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="factoryCateButton">
-							<string key="name">factoryCateButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="factoryCateLable">
-							<string key="name">factoryCateLable</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="reload">
-							<string key="name">reload</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="startButton">
-							<string key="name">startButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="startTime">
-							<string key="name">startTime</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/AvgFactoryTimeChVC.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">

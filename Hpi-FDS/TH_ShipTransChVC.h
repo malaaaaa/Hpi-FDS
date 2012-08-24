@@ -10,7 +10,7 @@
 #import "DateViewController.h"
 #import "ChooseView.h"
 #import "PubInfo.h"
-#import "XMLParser.h"
+#import "TBXMLParser.h"
 #import "ChooseViewDelegate.h"
 
 @interface TH_ShipTransChVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>
@@ -18,7 +18,7 @@
 {
     UIPopoverController *popover;
     ChooseView *chooseView;
-    XMLParser *xmlParser;
+    TBXMLParser *xmlParser;
     DateViewController *monthCV;
       NSDate *month;
      UIActivityIndicatorView *activity;
@@ -60,7 +60,7 @@
 @property(retain,nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property(retain,nonatomic) DateViewController *monthCV;
 @property(retain,nonatomic) ChooseView *chooseView;
-@property(retain,nonatomic)  XMLParser *xmlParser;
+@property(retain,nonatomic)  TBXMLParser *xmlParser;
 @property(retain,nonatomic)   UIPopoverController *popover;
 @property(retain,nonatomic)  NSDate *month;
 

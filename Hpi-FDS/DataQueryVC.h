@@ -26,6 +26,8 @@
 #import "PortEfficiencyVC.h"
 
 #import "AvgFactoryTimeChVC.h"
+
+
 @class VBFactoryTransVC;
 
 @interface DataQueryVC : UIViewController<UITableViewDataSource,UITabBarDelegate,UIPopoverControllerDelegate>
@@ -96,7 +98,7 @@
 
 
 //-(void)loadViewData_vb;
--(void)loadViewData_tb;
+//-(void)loadViewData_tb;
 -(void)setSegmentIndex:(NSInteger) index;
 
 

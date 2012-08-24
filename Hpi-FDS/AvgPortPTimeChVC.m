@@ -20,7 +20,7 @@
 @synthesize endButton;
 @synthesize endTime;
 @synthesize activty;
-@synthesize xmlParser;
+@synthesize  tbxmlParser;;
 @synthesize parentVC;
 @synthesize chooseView;
 @synthesize month;
@@ -74,7 +74,7 @@ int currentMonth;
    
     
     [activty removeFromSuperview];
-    xmlParser=[[XMLParser alloc] init];
+     tbxmlParser=[[TBXMLParser alloc] init];
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
 
@@ -87,10 +87,8 @@ int currentMonth;
         [source release];
     }
     if(dc){
-        NSLog(@"-----初始--------dc [%d]",[dc retainCount]);
         dc=nil;
         [dc release];
-         NSLog(@"-----初始--------dc [%d]",[dc retainCount]);
     }
     
    
@@ -100,7 +98,6 @@ int currentMonth;
 { 
   if(!dc)
     {
-          NSLog(@"dc 为空    初始化");
         dc=[[DataGridComponent alloc ] init];
     }
     if(!dataQueryVC){
@@ -127,7 +124,7 @@ int currentMonth;
         //tites count  不为0
         for (int t=0; t<[source.titles count]-2; t++) {
          
-             [ source.columnWidth addObject:[NSString stringWithFormat:@"%d",840/([source.titles count]-2)]];
+             [ source.columnWidth addObject:[NSString stringWithFormat:@"%d",860/([source.titles count]-2)]];
         }
         [ source.columnWidth addObject:@"80"];
 
@@ -139,16 +136,15 @@ int currentMonth;
         
        }
     //初始化
-    dc=[[DataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 490) data:source];
+    dc=[[DataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 530) data:source];
     
     [source release];
     
     [dataQueryVC.listView   addSubview:dc];
-    NSLog(@"-------------dc [%d]",[dc retainCount]);
+
     
     [dc release];
-    
-  NSLog(@"-------------dc [%d]",[dc retainCount]);
+
 }
 
 - (IBAction)startTimeSelect:(id)sender {
@@ -209,10 +205,8 @@ int currentMonth;
 
     }
     if(dc){
-        NSLog(@"-----查询-------dc [%d]",[dc retainCount]);
         dc=nil;
         [dc release];
-        NSLog(@"-----查询--------dc [%d]",[dc retainCount]);
     }
     
 
@@ -252,9 +246,13 @@ int currentMonth;
         [reload setTitle:@"同步中...." forState:UIControlStateNormal];
         [activty startAnimating];
         //解析入库
-        [xmlParser setISoapNum:1];
-         [xmlParser getVbShiptrans];
-          [xmlParser  getTfPort];
+        [tbxmlParser setISoapNum:1];
+         [tbxmlParser requestSOAP:@"ShipTrans"];
+        
+        
+        [tbxmlParser  requestSOAP:@"Port"];//tf_port
+        
+        
        
         [self runActivity];
     }
@@ -298,7 +296,7 @@ int currentMonth;
     [startButton release];
     [endButton release];
     [activty release];
-    [xmlParser release];
+    [tbxmlParser release];
     [parentVC release];
     [monthVC release];
     [month   release];
@@ -333,7 +331,7 @@ int currentMonth;
 #pragma mark activety
 -(void)runActivity
 {
-    if (xmlParser.iSoapNum==0) {
+    if (tbxmlParser.iSoapNum==0) {
         [activty stopAnimating];
         [activty removeFromSuperview];
         [reload setTitle:@"网络同步" forState:UIControlStateNormal];
