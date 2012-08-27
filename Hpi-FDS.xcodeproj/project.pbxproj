@@ -195,6 +195,7 @@
 		2AA44B2E15D109F5007B499B /* TfPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B2D15D109F3007B499B /* TfPort.m */; };
 		2AA44B3215D10D05007B499B /* TfPortDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B3115D10D03007B499B /* TfPortDao.m */; };
 		2AA44B3C15D11985007B499B /* AvgPortPTimeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */; };
+		2AD43A6A15EAFA22003349DA /* libobjc.A.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD43A6915EAFA22003349DA /* libobjc.A.dylib */; };
 		2AD84EA115B91B2B00D91111 /* TH_ShipTransChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */; };
 		2AD84EA215B91B2B00D91111 /* TH_ShipTransChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */; };
 		2ADAEF5615D4F4EB0028C72D /* AvgFactoryTimeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ADAEF5415D4F4EB0028C72D /* AvgFactoryTimeChVC.xib */; };
@@ -572,6 +573,7 @@
 		2AA44B3115D10D03007B499B /* TfPortDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TfPortDao.m; sourceTree = "<group>"; };
 		2AA44B3815D11985007B499B /* AvgPortPTimeChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgPortPTimeChVC.h; sourceTree = "<group>"; };
 		2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvgPortPTimeChVC.xib; sourceTree = "<group>"; };
+		2AD43A6915EAFA22003349DA /* libobjc.A.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libobjc.A.dylib; path = usr/lib/libobjc.A.dylib; sourceTree = SDKROOT; };
 		2AD84E9E15B91B2B00D91111 /* TH_ShipTransChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransChVC.h; sourceTree = "<group>"; };
 		2AD84E9F15B91B2B00D91111 /* TH_ShipTransChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransChVC.m; sourceTree = "<group>"; };
 		2AD84EA015B91B2B00D91111 /* TH_ShipTransChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TH_ShipTransChVC.xib; sourceTree = "<group>"; };
@@ -782,6 +784,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AD43A6A15EAFA22003349DA /* libobjc.A.dylib in Frameworks */,
 				D9DDDDC3159060150023D88A /* libxml2.dylib in Frameworks */,
 				05933BA61524557C00EE32A2 /* CFNetwork.framework in Frameworks */,
 				05933BA71524557C00EE32A2 /* libsqlite3.dylib in Frameworks */,
@@ -802,6 +805,7 @@
 		057F6C1E1524490600E0E435 = {
 			isa = PBXGroup;
 			children = (
+				2AD43A6915EAFA22003349DA /* libobjc.A.dylib */,
 				057F6C2C1524490600E0E435 /* Frameworks */,
 				057F6C331524490600E0E435 /* Hpi-FDS */,
 				057F6C2A1524490600E0E435 /* Products */,

@@ -15,10 +15,18 @@
     NSMutableData *webData;
     NSMutableString *soapResults;
     TBXML * tbxml;
-     NSString *_Identification;
+    NSString *_Identification;
 
+    
+    
 }
 @property(nonatomic,copy) NSString *Identification;
+@property(nonatomic,copy) NSString *tableName1;
+@property(nonatomic,copy) NSString *entityClassName;
+@property(nonatomic,copy) NSString *subElement;
+@property(nonatomic,copy) NSString *entityDao;
+
+
 - (void)requestSOAP:(NSString *)identification;
 -(NSInteger)iSoapNum;
 -(NSInteger)iSoapDone;

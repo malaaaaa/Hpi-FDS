@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NTShipCompanyTranShare : NSObject{
-    NSInteger _TAG;//自动增长的主键，tmp表使用，作用是通过该值传递给button.tag实现@selector的参数的作用
+   
     NSInteger _COMID;
     NSString *_COMPANY;
     NSString *_PORTCODE;
@@ -17,11 +17,15 @@
     NSString *_TRADEYEAR;
     NSString *_TRADEMONTH;
     NSInteger _LW;
+    
+    
+    
+    
+     NSInteger _TAG;//自动增长的主键，tmp表使用，作用是通过该值传递给button.tag实现@selector的参数的作用
     NSString *_PERCENT;
     NSInteger _X;
     NSInteger _Y;
 }
-@property NSInteger TAG;
 @property NSInteger COMID;
 @property(nonatomic,retain) NSString *COMPANY;
 @property(nonatomic,retain) NSString *PORTCODE;
@@ -29,9 +33,12 @@
 @property(nonatomic,retain) NSString *TRADEYEAR;
 @property(nonatomic,retain) NSString *TRADEMONTH;
 @property NSInteger LW;
+
+
+
 @property(nonatomic,retain) NSString *PERCENT;
 @property NSInteger X;
 @property NSInteger Y;
-
+@property NSInteger TAG;
 
 @end

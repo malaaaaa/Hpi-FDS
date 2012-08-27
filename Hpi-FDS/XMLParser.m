@@ -6263,7 +6263,7 @@ NSString* alertMsg;
             if(!factoryFreightVolume)
                 factoryFreightVolume = [[NTFactoryFreightVolume alloc]init];
             
-            factoryFreightVolume.TRACETIME=soapResults;
+            factoryFreightVolume.TRADETIME=soapResults;
             
             recordResults = FALSE;
             [soapResults release];
@@ -6724,7 +6724,7 @@ NSString* alertMsg;
             soapResults=nil;
         }  
         else  if ([elementName isEqualToString:@"EXCHANGERATE"]){
-            tblateFee.EXCHANGERATE=soapResults;
+            tblateFee.EXCHANGRATE=soapResults;
             
             recordResults =FALSE;
             [soapResults    release];

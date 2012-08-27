@@ -352,8 +352,10 @@ DataQueryVC *dataQueryVC;
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
         [tbxmlParser setISoapNum:1];   
-        
-        [tbxmlParser requestSOAP:@"ShipTrans"];
+
+     [tbxmlParser requestSOAP:@"ShipTrans"];
+      [tbxmlParser requestSOAP:@"Ship"];
+ 
         [self runActivity];
     }
 	

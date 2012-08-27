@@ -417,7 +417,7 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
         
         
         
-        // [xmlParser getTgPort];
+      
         
         //状态
       [self runActivety];

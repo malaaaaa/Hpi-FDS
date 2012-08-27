@@ -68,7 +68,7 @@
     NSString *F_NOTE;
     NSString *ISCAL;
     NSString  *CURRENCY;
-    NSString *EXCHANGERATE;
+    NSString *EXCHANGRATE;
 
 
 
@@ -122,7 +122,7 @@
 @property (nonatomic,retain)NSString *F_NOTE;
 @property (nonatomic,retain) NSString *ISCAL;
 @property (nonatomic,retain) NSString  *CURRENCY;
-@property (nonatomic,retain)  NSString *EXCHANGERATE;
+@property (nonatomic,retain)  NSString *EXCHANGRATE;
 
 @property    NSInteger COMID;
 

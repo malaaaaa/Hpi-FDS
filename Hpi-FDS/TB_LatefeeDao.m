@@ -180,7 +180,7 @@ sqlite3_bind_int(statement,19, tb_Latefee.LW );
     sqlite3_bind_text(statement,35, [tb_Latefee.F_NOTE  UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement,36, [tb_Latefee.ISCAL  UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement,37, [tb_Latefee.CURRENCY  UTF8String], -1, SQLITE_TRANSIENT);
-     sqlite3_bind_text(statement,38, [tb_Latefee.EXCHANGERATE  UTF8String], -1, SQLITE_TRANSIENT);
+     sqlite3_bind_text(statement,38, [tb_Latefee.EXCHANGRATE  UTF8String], -1, SQLITE_TRANSIENT);
     
     
     
@@ -518,9 +518,9 @@ return array;
             
             char *rowdata27=(char *)sqlite3_column_text(statement,37);
             if (rowdata27==NULL) 
-                tbLatefee.EXCHANGERATE     =nil;
+                tbLatefee.EXCHANGRATE     =nil;
             else 
-                tbLatefee.EXCHANGERATE =[NSString stringWithUTF8String:rowdata27];
+                tbLatefee.EXCHANGRATE =[NSString stringWithUTF8String:rowdata27];
             
             [array addObject:tbLatefee];
             [tbLatefee release];

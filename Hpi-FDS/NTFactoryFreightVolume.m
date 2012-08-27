@@ -9,4 +9,18 @@
 #import "NTFactoryFreightVolume.h"
 
 @implementation NTFactoryFreightVolume
+@synthesize TRADETIME,TRADE,TRADENAME,CATEGORY,FACTORYNAME;
+@synthesize LW,COUNT;
+
+
+-(void)dealloc
+{
+
+    [TRADENAME release];
+    [TRADETIME release];
+    [TRADE release];
+    [CATEGORY release];
+    [FACTORYNAME release];
+    [super dealloc];
+}
 @end

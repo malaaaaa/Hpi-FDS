@@ -81,7 +81,7 @@ static sqlite3 *database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
-    sqlite3_bind_text(statement, 1, [factoryFreightVolume.TRACETIME UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, 1, [factoryFreightVolume.TRADETIME UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 2, [factoryFreightVolume.TRADE UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 3, [factoryFreightVolume.TRADENAME UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 4, [factoryFreightVolume.CATEGORY UTF8String], -1, SQLITE_TRANSIENT);
@@ -134,9 +134,9 @@ static sqlite3 *database;
             
             char * rowData0=(char *)sqlite3_column_text(statement,0);
             if (rowData0 == NULL)
-                factoryFreightVolume.TRACETIME = nil;
+                factoryFreightVolume.TRADETIME = nil;
             else
-                factoryFreightVolume.TRACETIME = [NSString stringWithUTF8String: rowData0];
+                factoryFreightVolume.TRADETIME = [NSString stringWithUTF8String: rowData0];
             
             char * rowData1=(char *)sqlite3_column_text(statement,1);
             if (rowData1 == NULL)
@@ -171,7 +171,7 @@ static sqlite3 *database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
-    sqlite3_bind_text(statement, 1, [factoryFreightVolume.TRACETIME UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, 1, [factoryFreightVolume.TRADETIME UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 2, [factoryFreightVolume.FACTORYNAME UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_int(statement, 3, factoryFreightVolume.COUNT);
     sqlite3_bind_int(statement, 4, factoryFreightVolume.LW);
