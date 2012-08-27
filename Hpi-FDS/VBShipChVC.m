@@ -177,6 +177,8 @@ DataQueryVC *dataQueryVC;
     [popover release];
     [reloadButton release];
     [activity release];
+//    [tbxmlParser release];
+//    tbxmlParser=nil;
     self.tbxmlParser=nil;
     [super dealloc];
 }

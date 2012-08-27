@@ -902,7 +902,8 @@ NSString* alertMsg;
     
     // 请求
     NSURLConnection *theConnection = [[[NSURLConnection alloc] initWithRequest:urlRequest delegate:self] autorelease    ];
-    
+//    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    NSLog(@"retainCount=%d",[theConnection retainCount]);
     // 如果连接已经建好，则初始化data
     if( theConnection )
     {
@@ -1934,7 +1935,7 @@ NSString* alertMsg;
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     NSLog(@"--------------------------------------------ERROR with theConenction");
-    [connection release];
+//    [connection release];
     [webData release];
     iSoapDone=3;
     iSoapNum--;
@@ -1963,7 +1964,7 @@ NSString* alertMsg;
     [xmlParser setShouldResolveExternalEntities: YES];
     [xmlParser parse];
     
-    [connection release];
+//    [connection release];
     //[webData release];
 }
 

@@ -403,10 +403,6 @@ static bool ThreadFinished=TRUE;
 
 
 
-
-
-
-
 -(NSInteger)iSoapDone
 {
     return iSoapDone;

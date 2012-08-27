@@ -67,7 +67,6 @@ static  NSMutableArray *LegendArray;
     _listView.layer.masksToBounds=YES;
     _listView.layer.cornerRadius=2.0;
     _listView.layer.borderWidth=2.0;
-//     _listView.layer.borderColor=[[UIColor blackColor] CGColor];
     _listView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
     _listView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     
@@ -75,15 +74,6 @@ static  NSMutableArray *LegendArray;
     _buttonView.layer.cornerRadius=2.0;
     _buttonView.layer.borderWidth=2.0;
     _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
-
-//    _buttonView.layer.borderColor=[[UIColor colorWithRed:85.0/255 green:85.0/255 blue:85.0/255 alpha:1]CGColor];
-    
-//    [_buttonView.layer setShadowColor:[UIColor colorWithRed:85.0/255 green:85.0/255 blue:85.0/255 alpha:1].CGColor];
-//    [_buttonView.layer setShadowColor:[UIColor blackColor].CGColor];
-//    [_buttonView.layer setShadowRadius:5];
-//    [_buttonView.layer setShadowOpacity:1];
-//    [_buttonView.layer setShadowOffset:CGSizeMake(1, 1)];
-    
     _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
 
     [super viewDidLoad];
@@ -257,7 +247,7 @@ static  NSMutableArray *LegendArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 120);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(850, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(950, 120, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [_legendView.tableView reloadData];
     [_legendView release];
     [pop release];

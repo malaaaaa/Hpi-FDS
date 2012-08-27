@@ -13,6 +13,7 @@
 @end
 
 @implementation PortEfficiencyVC
+
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
 
@@ -32,7 +33,8 @@ static  NSMutableArray *ShipCompanyArray;
     self.comLabel.text=All_;
     self.typeLabel.text=All_;
     self.scheduleLabel.text=All_;
-    
+    [self.activity removeFromSuperview];
+
     self.comLabel.hidden=YES;
     self.typeLabel.hidden=YES;
     self.scheduleLabel.hidden=YES;
@@ -47,17 +49,20 @@ static  NSMutableArray *ShipCompanyArray;
     [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
     [dateFormatter release];
     
+    self.tbxmlParser =[[TBXMLParser alloc] init];
+
+    
     _buttonView.layer.masksToBounds=YES;
     _buttonView.layer.cornerRadius=2.0;
     _buttonView.layer.borderWidth=2.0;
-    _buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    _buttonView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
+    _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
     
     _chartView.layer.masksToBounds=YES;
-    _chartView.layer.cornerRadius=3.0;
-    _chartView.layer.borderWidth=3.0;
-    _chartView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    _chartView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    _chartView.layer.cornerRadius=2.0;
+    _chartView.layer.borderWidth=2.0;
+    _chartView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
+    _chartView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     
     
     [super viewDidLoad];
@@ -80,6 +85,9 @@ static  NSMutableArray *ShipCompanyArray;
     self.scheduleLabel=nil;
     self.typeButton=nil;
     self.typeLabel=nil;
+    self.activity=nil;
+    self.tbxmlParser =nil;
+
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -101,7 +109,10 @@ static  NSMutableArray *ShipCompanyArray;
         [ShipCompanyArray release];
     }
     
-    
+    [_activity release];
+    [_reloadButton release];
+    self.tbxmlParser =nil;
+
     [super dealloc];
     //[factoryArray release];
     
@@ -121,9 +132,9 @@ static  NSMutableArray *ShipCompanyArray;
     if(!_startDateCV)//初始化待显示控制器
         _startDateCV=[[DateViewController alloc]init];
     //设置待显示控制器的范围
-    [_startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [_startDateCV.view setFrame:CGRectMake(0,0, 270, 216)];
     //设置待显示控制器视图的尺寸
-    _startDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    _startDateCV.contentSizeForViewInPopover = CGSizeMake(270, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_startDateCV];
     _startDateCV.popover = pop;
@@ -131,7 +142,7 @@ static  NSMutableArray *ShipCompanyArray;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(270, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(_startButton.frame.origin.x+85, _startButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
@@ -311,7 +322,39 @@ static  NSMutableArray *ShipCompanyArray;
         [self loadHpiGraphView];
     }
 }
+- (IBAction)reloadAction:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
+	[alert show];
+    [alert release];
+}
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    NSLog(@"aaa");
+    if (buttonIndex == 1) {
+        NSLog(@"bbb");
+        [self.view addSubview:_activity];
+        [_reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
+        [_activity startAnimating];
+        [_tbxmlParser setISoapNum:1];
+        
+        [_tbxmlParser requestSOAP:@"ShipTrans"];
+        [self runActivity];
+    }
+	
+}
+#pragma mark activity
+-(void)runActivity
+{
+    if ([_tbxmlParser iSoapNum]==0) {
+        [_activity stopAnimating];
+        [_activity removeFromSuperview];
+        [_reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
+        return;
+    }
+    else {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
+    }
+}
 -(void)generateGraphDate{
     NSLog(@"_scheduleLabel=%@",_scheduleLabel.text);
     NSLog(@"_typeLabel=%@",_typeLabel.text);

@@ -151,8 +151,8 @@ static  NSMutableArray *ShipStageArray;
     listView.layer.masksToBounds=YES;
     listView.layer.cornerRadius=2.0;
     listView.layer.borderWidth=2.0;
-    listView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    listView.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    listView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
+    listView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     
 //    listView.center=CGPointMake(512,442);
     
@@ -163,8 +163,8 @@ static  NSMutableArray *ShipStageArray;
     buttonView.layer.masksToBounds=YES;
     buttonView.layer.cornerRadius=2.0;
     buttonView.layer.borderWidth=2.0;
-    buttonView.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    buttonView.backgroundColor=[UIColor colorWithRed:45.0/255 green:45.0/255 blue:45.0/255 alpha:1];
+    buttonView.layer.borderColor=[UIColor blackColor].CGColor;
+    buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
     
     // [self.view addSubview:labelView];
     
@@ -923,9 +923,11 @@ static  NSMutableArray *ShipStageArray;
                 NSLog(@"column=%d",[[rowData objectAtIndex:column] integerValue]);
                 l.text=@"";
                 if ([[rowData objectAtIndex:column] integerValue]>0) {
-                    
-                    l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"blueArrow"]];
-                    
+                    UILabel *imageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, columnWidth-1, 40 -1 )];
+                     imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"xiangx"]];
+                    [l addSubview:imageLabel];
+                    [imageLabel release];
+
                 }
             }
             
