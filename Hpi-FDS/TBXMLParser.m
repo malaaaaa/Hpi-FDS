@@ -360,9 +360,12 @@ static bool ThreadFinished=TRUE;
                         desc = [TBXML childElementNamed:[propertyName uppercaseString] parentElement:element];
                         if (desc != nil) {
                             if ([type rangeOfString:@"NSString"].length!=0) {
-                                sqlite3_bind_text(statement, i+1, [[TBXML textForElement:desc] UTF8String], -1, SQLITE_TRANSIENT);                                    
+                                sqlite3_bind_text(statement, i+1, [[TBXML textForElement:desc] UTF8String], -1, SQLITE_TRANSIENT);
+//                                NSLog(@"1 %@+%s",propertyName,[[TBXML textForElement:desc] UTF8String]);
                             }else{
                                 sqlite3_bind_int(statement, i+1,[[TBXML textForElement:desc] integerValue]);
+//                                NSLog(@"2 %@+%d",propertyName,[[TBXML textForElement:desc] integerValue]);
+
                             }
                         }
                         [propertyName release];

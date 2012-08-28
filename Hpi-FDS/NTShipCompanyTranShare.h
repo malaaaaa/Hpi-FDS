@@ -14,9 +14,9 @@
     NSString *_COMPANY;
     NSString *_PORTCODE;
     NSString *_PORTNAME;
-    NSString *_TRADEYEAR;
+    NSString *_TRADEWEEK;
     NSString *_TRADEMONTH;
-    NSInteger _LW;
+    NSInteger _LWSUM;
     
     
     
@@ -31,8 +31,8 @@
 @property(nonatomic,retain) NSString *PORTCODE;
 @property(nonatomic,retain) NSString *PORTNAME;
 @property(nonatomic,retain) NSString *TRADEYEAR;
-@property(nonatomic,retain) NSString *TRADEMONTH;
-@property NSInteger LW;
+@property(nonatomic,retain) NSString *TRADEWEEK;
+@property NSInteger LWSUM;
 
 
 

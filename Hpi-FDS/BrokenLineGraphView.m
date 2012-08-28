@@ -259,7 +259,7 @@ static sqlite3  *database;
         
         [pop  presentPopoverFromRect:CGRectMake(companyShare.X, companyShare.Y, 5, 5) inView:self permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
         detailVC.company.text=[NSString stringWithFormat:@"船厂：%@",companyShare.COMPANY];
-        detailVC.lw.text=[NSString stringWithFormat:@"载煤量：%d",companyShare.LW];
+        detailVC.lw.text=[NSString stringWithFormat:@"载煤量：%d",companyShare.LWSUM];
         detailVC.percent.text=[NSString stringWithFormat:@"份额：%@%%",companyShare.PERCENT];
         detailVC.company.textColor= [UIColor whiteColor];
         detailVC.lw.textColor= [UIColor whiteColor];

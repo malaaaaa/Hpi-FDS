@@ -14,9 +14,9 @@
 @synthesize COMPANY=_COMPANY;
 @synthesize PORTCODE=_PORTCODE;
 @synthesize PORTNAME=_PORTNAME;
-@synthesize LW=_LW;
+@synthesize LWSUM=_LWSUM;
 @synthesize TRADEYEAR=_TRADEYEAR;
-@synthesize TRADEMONTH=_TRADEMONTH;
+@synthesize TRADEWEEK=_TRADEWEEK;
 @synthesize PERCENT=_PERCENT;
 @synthesize X=_X;
 @synthesize Y=_Y;

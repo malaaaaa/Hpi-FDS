@@ -40,8 +40,8 @@ static sqlite3 *database;
                          @",PORTCODE TEXT ",
                          @",PORTNAME TEXT ",
                          @",TRADEYEAR TEXT ",
-                         @",TRADEMONTH TEXT ",
-						 @",LW INTEGER )" ];
+                         @",TRADEWEEK TEXT ",
+						 @",LWSUM INTEGER )" ];
 	
 	if(sqlite3_exec(database,[createSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
@@ -60,8 +60,8 @@ static sqlite3 *database;
 						 @",COMID TEXT ",
                          @",COMPANY TEXT ",
                          @",TRADEYEAR TEXT ",
-                         @",TRADEMONTH TEXT ",
-						 @",LW INTEGER ",
+                         @",TRADEWEEK TEXT ",
+						 @",LWSUM INTEGER ",
                          @",X INTEGER ",
                          @",Y INTEGER ",
                          @",PERCENT TEXT )" ];
@@ -81,7 +81,7 @@ static sqlite3 *database;
 +(void)insert:(NTShipCompanyTranShare*) NTShipCompanyTranShare
 {
 //	NSLog(@"Insert begin NTShipCompanyTranShare");
-	const char *insert="INSERT INTO NTShipCompanyTranShare (COMID,COMPANY,PORTCODE,PORTNAME,TRADEYEAR,TRADEMONTH,LW) values(?,?,?,?,?,?,?)";
+	const char *insert="INSERT INTO NTShipCompanyTranShare (COMID,COMPANY,PORTCODE,PORTNAME,TRADEYEAR,TRADEWEEK,LWSUM) values(?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
 	int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
@@ -95,8 +95,8 @@ static sqlite3 *database;
     sqlite3_bind_text(statement, 3, [NTShipCompanyTranShare.PORTCODE UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 4, [NTShipCompanyTranShare.PORTNAME UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 5, [NTShipCompanyTranShare.TRADEYEAR UTF8String], -1, SQLITE_TRANSIENT);
-	sqlite3_bind_text(statement, 6, [NTShipCompanyTranShare.TRADEMONTH UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(statement, 7, NTShipCompanyTranShare.LW);    
+	sqlite3_bind_text(statement, 6, [NTShipCompanyTranShare.TRADEWEEK UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int(statement, 7, NTShipCompanyTranShare.LWSUM);
 
 	re=sqlite3_step(statement);
 	if(re!=SQLITE_DONE)
@@ -111,7 +111,7 @@ static sqlite3 *database;
 +(void)insert_tmpTable:(NTShipCompanyTranShare*) NTShipCompanyTranShare
 {
 //	NSLog(@"Insert begin TMP_NTShipCompanyTranShare");
-	const char *insert="INSERT INTO TMP_NTShipCompanyTranShare (COMID,COMPANY,TRADEYEAR,TRADEMONTH,LW,PERCENT) values(?,?,?,?,?,?)";
+	const char *insert="INSERT INTO TMP_NTShipCompanyTranShare (COMID,COMPANY,TRADEYEAR,TRADEWEEK,LWSUM,PERCENT) values(?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
 	int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
@@ -124,8 +124,8 @@ static sqlite3 *database;
 	sqlite3_bind_text(statement, 2, [NTShipCompanyTranShare.COMPANY UTF8String], -1, SQLITE_TRANSIENT);
 
 	sqlite3_bind_text(statement, 3, [NTShipCompanyTranShare.TRADEYEAR UTF8String], -1, SQLITE_TRANSIENT);
-	sqlite3_bind_text(statement, 4, [NTShipCompanyTranShare.TRADEMONTH UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(statement, 5, NTShipCompanyTranShare.LW);  
+	sqlite3_bind_text(statement, 4, [NTShipCompanyTranShare.TRADEWEEK UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int(statement, 5, NTShipCompanyTranShare.LWSUM);
     sqlite3_bind_text(statement, 6, [NTShipCompanyTranShare.PERCENT UTF8String], -1, SQLITE_TRANSIENT);
     
 	re=sqlite3_step(statement);
@@ -209,7 +209,7 @@ static sqlite3 *database;
     
     for (int i=0; i<monthNum; i++) {
         sqlite3_stmt *statement;
-        NSString *sql=[NSString stringWithFormat:@"SELECT sum(lw) from NTShipCompanyTranShare where tradeyear='%@' and trademonth='%@' %@ ",year,month,tmpString];
+        NSString *sql=[NSString stringWithFormat:@"SELECT sum(lwsum) from NTShipCompanyTranShare where tradeyear='%@' and tradeweek='%@' %@ ",year,month,tmpString];
 //       NSLog(@"执行 InsertByPortCode Sql[%@] ",sql);
         
         if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
@@ -221,7 +221,7 @@ static sqlite3 *database;
         }
         if (sumLW>0) {
             
-            sql=[NSString stringWithFormat:@"select comid,company,tradeyear,trademonth,sum(lw) from NTShipCompanyTranShare where tradeyear='%@' and trademonth='%@' %@ group by comid,company,tradeyear,trademonth",year,month,tmpString];
+            sql=[NSString stringWithFormat:@"select comid,company,tradeyear,tradeweek,sum(lwsum) from NTShipCompanyTranShare where tradeyear='%@' and tradeweek='%@' %@ group by comid,company,tradeyear,tradeweek",year,month,tmpString];
 //            NSLog(@"执行 InsertByPortCode Sql[%@] ",sql);
             if(sqlite3_prepare_v2(database,[sql     UTF8String],-1,&statement,NULL)==SQLITE_OK){
                 while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -246,13 +246,13 @@ static sqlite3 *database;
                     
                     char * rowData3=(char *)sqlite3_column_text(statement,3);
                     if (rowData3 == NULL)
-                        ntShipCompanyTranShare.TRADEMONTH = nil;
+                        ntShipCompanyTranShare.TRADEWEEK = nil;
                     else
-                        ntShipCompanyTranShare.TRADEMONTH = [NSString stringWithUTF8String: rowData3];
+                        ntShipCompanyTranShare.TRADEWEEK = [NSString stringWithUTF8String: rowData3];
                     
-                    ntShipCompanyTranShare.LW   =  sqlite3_column_int(statement,4);
+                    ntShipCompanyTranShare.LWSUM   =  sqlite3_column_int(statement,4);
                     
-                    float percent=(float)ntShipCompanyTranShare.LW/sumLW;
+                    float percent=(float)ntShipCompanyTranShare.LWSUM/sumLW;
                     //保留三位小数
 //                    NSLog(@"%0.3f",percent);
                     ntShipCompanyTranShare.PERCENT =[NSString stringWithFormat:@"%0.1f", percent*100];
@@ -293,7 +293,7 @@ static sqlite3 *database;
 	sqlite3_stmt *statement;
     NTShipCompanyTranShare *transShare=[[[NTShipCompanyTranShare alloc] init] autorelease];
     
-    NSString *sql=[NSString stringWithFormat:@"SELECT company,percent,tag FROM  TMP_NTShipCompanyTranShare WHERE comid=%d and tradeyear='%@' and trademonth='%@' ",comid,year,month];
+    NSString *sql=[NSString stringWithFormat:@"SELECT company,percent,tag FROM  TMP_NTShipCompanyTranShare WHERE comid=%d and tradeyear='%@' and tradeweek='%@' ",comid,year,month];
     //NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -339,7 +339,7 @@ static sqlite3 *database;
             else
                 transShare.PERCENT = [NSString stringWithUTF8String: rowData1];
             
-            transShare.LW=sqlite3_column_int(statement, 2);
+            transShare.LWSUM=sqlite3_column_int(statement, 2);
             transShare.X=sqlite3_column_int(statement, 3);
             transShare.Y=sqlite3_column_int(statement, 4);
             
