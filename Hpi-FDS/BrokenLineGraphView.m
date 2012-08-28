@@ -16,25 +16,27 @@
 static sqlite3  *database;
 
 - (id) initWithFrame:(CGRect)frame :(BrokenLineGraphData *) graphData {
-	if(![super initWithFrame:frame]) return nil;
-	
-    self.data=graphData;
-//    self.layer.masksToBounds=YES;
-//    self.layer.cornerRadius=10.0;
-//    self.layer.borderWidth=10.0;
-    self.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
-    self.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-    
-	titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, frame.size.width-40, 30)];
-	titleLabel.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1.0];
-	titleLabel.opaque = YES;
-	titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-    titleLabel.textColor =[UIColor whiteColor];
-    titleLabel.shadowColor =[UIColor blackColor];
-    titleLabel.shadowOffset= CGSizeMake(-1, -1);
-	titleLabel.textAlignment = UITextAlignmentCenter;
-	[self addSubview:titleLabel];
-    
+    self=[super initWithFrame:frame];
+    if (self) {
+        self.data=graphData;
+        //    self.layer.masksToBounds=YES;
+        //    self.layer.cornerRadius=10.0;
+        //    self.layer.borderWidth=10.0;
+        self.layer.borderColor=[[UIColor colorWithRed:60.0/255 green:60.0/255 blue:60.0/255 alpha:1]CGColor];
+        self.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+        
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, frame.size.width-40, 30)];
+        titleLabel.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1.0];
+        titleLabel.opaque = YES;
+        titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+        titleLabel.textColor =[UIColor whiteColor];
+        titleLabel.shadowColor =[UIColor blackColor];
+        titleLabel.shadowOffset= CGSizeMake(-1, -1);
+        titleLabel.textAlignment = UITextAlignmentCenter;
+        [self addSubview:titleLabel];
+        [titleLabel release];
+    }
+  
     return self;
 }
 

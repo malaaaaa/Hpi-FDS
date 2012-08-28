@@ -68,6 +68,8 @@ static bool ThreadFinished=TRUE;
     // 如果连接已经建好，则初始化data
     if( theConnection )
     {
+        NSLog(@"yes connect");
+        
         ThreadFinished=FALSE;
         webData = [[NSMutableData data] retain];
     }
@@ -75,6 +77,7 @@ static bool ThreadFinished=TRUE;
     {
         NSLog(@"theConnection is NULL");
     }
+    NSLog(@"dddddddddddd");
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -89,9 +92,11 @@ static bool ThreadFinished=TRUE;
 }
 -(void) msgbox
 {
-	alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertMsg delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+	alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
-	[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performDismiss:) userInfo:nil repeats:NO];
+    
+	[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(performDismiss:) userInfo:nil repeats:NO];
+    
 }
 -(void) performDismiss:(NSTimer *)timer
 {
@@ -103,15 +108,17 @@ static bool ThreadFinished=TRUE;
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     NSLog(@"--------------------------------------------ERROR with theConenction");
-//    [connection release];
+    //    [connection release];
     [webData release];
     iSoapDone=3;
-    iSoapNum--;
-    alertMsg = @"无法连接,请检查网络是否正常?";
-    [self msgbox];
-    if (iSoapNum==0) {
-        iSoapDone=1;
-    }
+    //    alertMsg = @"无法连接,请检查网络是否正常?";
+    //    [self msgbox];
+    //    if (iSoapNum==0) {
+    //        iSoapDone=1;
+    //    }
+    //    iSoapNum=0;
+    ThreadFinished = TRUE;
+    
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -120,7 +127,7 @@ static bool ThreadFinished=TRUE;
     
     [self parseXML];
     ThreadFinished = TRUE;
-//    [connection release];
+    //    [connection release];
     [webData release];
 }
 /*!
@@ -136,33 +143,33 @@ static bool ThreadFinished=TRUE;
 
 -(void)parseXML
 {
-       /***********************TfCoalType**********************/
-       if ([_Identification isEqualToString:@"CoalType"]) {
-              [TfCoalTypeDao deleteAll];
-           [self getDate:@"TfCoalType" entityClass:@"TfCoalType" insertTableName:@"TfCoalType"];
-       }
+    /***********************TfCoalType**********************/
+    if ([_Identification isEqualToString:@"CoalType"]) {
+        [TfCoalTypeDao deleteAll];
+        [self getDate:@"TfCoalType" entityClass:@"TfCoalType" insertTableName:@"TfCoalType"];
+    }
     
     /****************************实时船舶查询-VbShiptrans**************************/
-     if ([_Identification isEqualToString:@"ShipTrans"]) {
-         //先清空表  数据
-           [VbShiptransDao deleteAll];
-         //调用  解析  
-    [self getDate:@"VbShipTrans" entityClass:@"VbShiptrans" insertTableName:@"VbShiptrans"];
-     }
-
+    if ([_Identification isEqualToString:@"ShipTrans"]) {
+        //先清空表  数据
+        [VbShiptransDao deleteAll];
+        //调用  解析
+        [self getDate:@"VbShipTrans" entityClass:@"VbShiptrans" insertTableName:@"VbShiptrans"];
+    }
+    
     /****************************调度日志**************************/
     
-     if ([_Identification isEqualToString:@"ThShipTrans"]) {
+    if ([_Identification isEqualToString:@"ThShipTrans"]) {
         [TH_ShipTransDao deleteAll];
-      
-          [self getDate:@"VbThShipTrans" entityClass:@"TH_ShipTrans" insertTableName:@"Th_ShipTrans"];
-
-     }
+        
+        [self getDate:@"VbThShipTrans" entityClass:@"TH_ShipTrans" insertTableName:@"Th_ShipTrans"];
+        
+    }
     /****************************电厂动态查询-FactoryTrans**************************/
     if ([_Identification isEqualToString:@"FactoryTrans"]) {
         //全部删除
         [VbFactoryTransDao deleteAll];
-          [self getDate:@"VbFactoryTrans" entityClass:@"VbFactoryTrans" insertTableName:@"VbFactoryTrans"];
+        [self getDate:@"VbFactoryTrans" entityClass:@"VbFactoryTrans" insertTableName:@"VbFactoryTrans"];
     }
     /****************************电厂动态查询-FactoryState**************************/
     if ([_Identification isEqualToString:@"FactoryState"]) {
@@ -175,85 +182,62 @@ static bool ThreadFinished=TRUE;
     if ([_Identification isEqualToString:@"Port"]) {
         //全部删除
         [TfPortDao deleteAll];
-         [self getDate:@"TfPortInfo" entityClass:@"TfPort" insertTableName:@"TF_Port"];
+        [self getDate:@"TfPortInfo" entityClass:@"TfPort" insertTableName:@"TF_Port"];
     }
     /**************************电厂信息基础表******************************/
     if ([_Identification isEqualToString:@"Factory"]) {
         //全部删除
         [TfFactoryDao deleteAll];
-         [self getDate:@"TfFactory" entityClass:@"TfFactory" insertTableName:@"TfFactory"];
+        [self getDate:@"TfFactory" entityClass:@"TfFactory" insertTableName:@"TfFactory"];
     }
-     /******************************滞期费*****************************/
-     if ([_Identification isEqualToString:@"LateFee"]) {
-          [TB_LatefeeDao deleteAll];
-         [self getDate:@"VbLateFee" entityClass:@"TB_Latefee" insertTableName:@"TB_Latefee"]; 
-     }
-     /****************************航运公司份额统计-NTShipCompanyTranShare**************************/
-    if ([_Identification isEqualToString:@"TransPorts"]) { 
+    /******************************滞期费*****************************/
+    if ([_Identification isEqualToString:@"LateFee"]) {
+        [TB_LatefeeDao deleteAll];
+        [self getDate:@"VbLateFee" entityClass:@"TB_Latefee" insertTableName:@"TB_Latefee"];
+    }
+    /****************************航运公司份额统计-NTShipCompanyTranShare**************************/
+    if ([_Identification isEqualToString:@"TransPorts"]) {
         //全部删除
         [NTShipCompanyTranShareDao deleteAll];
-      [self getDate:@"VbTransPorts" entityClass:@"NTShipCompanyTranShare" insertTableName:@"NTShipCompanyTranShare"];
+        [self getDate:@"VbTransPorts" entityClass:@"NTShipCompanyTranShare" insertTableName:@"NTShipCompanyTranShare"];
     }
     /****************************电厂运力运量统计-NTFactoryFreightVolume**************************/
-      if ([_Identification isEqualToString:@"YunLi"]) {
-          
-          //全部删除
-          [NTFactoryFreightVolumeDao deleteAll];
-          [self getDate:@"YunLi" entityClass:@"NTFactoryFreightVolume" insertTableName:@"NTFactoryFreightVolume"];
-      }
+    if ([_Identification isEqualToString:@"YunLi"]) {
+        
+        //全部删除
+        [NTFactoryFreightVolumeDao deleteAll];
+        [self getDate:@"YunLi" entityClass:@"NTFactoryFreightVolume" insertTableName:@"NTFactoryFreightVolume"];
+    }
     /****************************航运计划-vbTransplan**************************/
     if ([_Identification isEqualToString:@"TransPlan"]) {
         //全部删除
         [VbTransplanDao deleteAll];
-
+        
         [self getDate:@"VbTransPlan" entityClass:@"VbTransplan" insertTableName:@"VbTransplan"];
         
     }
     /****************************市场指数-TmIndexinfo**************************/
-     if ([_Identification isEqualToString:@"TmIndex"]) {
-         //全部删除
-         [TmIndexinfoDao deleteAll];
-    [self getDate:@"TmIndexInfo" entityClass:@"TmIndexinfo" insertTableName:@"TmIndexinfo"];
-  
-     }
-   /****************************港口信息-TmCoalinfo**************************/ 
-      if ([_Identification isEqualToString:@"Coal"]) {
-          //全部删除
-          [TmCoalinfoDao deleteAll];
-           [self getDate:@"TmCoalInfo" entityClass:@"TmCoalinfo" insertTableName:@"TmCoalinfo"]; 
-      }
+    if ([_Identification isEqualToString:@"TmIndex"]) {
+        //全部删除
+        [TmIndexinfoDao deleteAll];
+        [self getDate:@"TmIndexInfo" entityClass:@"TmIndexinfo" insertTableName:@"TmIndexinfo"];
+        
+    }
+    /****************************港口信息-TmCoalinfo**************************/
+    if ([_Identification isEqualToString:@"Coal"]) {
+        //全部删除
+        [TmCoalinfoDao deleteAll];
+        [self getDate:@"TmCoalInfo" entityClass:@"TmCoalinfo" insertTableName:@"TmCoalinfo"];
+    }
     /***********************船舶信息*****-ShipInfo**************************/
-     if ([_Identification isEqualToString:@"Ship"]) {
+    if ([_Identification isEqualToString:@"Ship"]) {
+        
+        //全部删除
+        [TmShipinfoDao deleteAll];
+        [self getDate:@"TmShipInfo" entityClass:@"TmShipinfo" insertTableName:@"TmShipinfo"];
+        
+    }
     
-         //全部删除
-         [TmShipinfoDao deleteAll];
- [self getDate:@"TmShipInfo" entityClass:@"TmShipinfo" insertTableName:@"TmShipinfo"];
-    
-     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  
 }
 #pragma mark -参数：1，xml子节点【TfCoalType】  2，表的对应实体类 3，插入的表名
 -(void)getDate :(NSString *)element1  entityClass:(NSString *)className    insertTableName:(NSString *)tableName
@@ -265,69 +249,69 @@ static bool ThreadFinished=TRUE;
     NSLog(@"start Parser");
     NSError *error = nil;
     tbxml = [TBXML newTBXMLWithXMLData:webData error:&error];
-
+    
     if (error) {
         NSLog(@"Error! %@ %@", [error localizedDescription], [error userInfo]);
         
     } else {
         TBXMLElement * root = tbxml.rootXMLElement;
-       //=======================================
+        //=======================================
         if (root) {
             TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
             //[_Identification compare:Identification options:NSCaseInsensitiveSearch]
-                TBXMLElement *element = [TBXML childElementNamed:element1 parentElement:elementNoUsed];
+            TBXMLElement *element = [TBXML childElementNamed:element1 parentElement:elementNoUsed];
+            
+            //打开数据库
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSString *file= [documentsDirectory stringByAppendingPathComponent:@"database.db"];
+            
+            if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
+            {
+                sqlite3_close(database);
+                NSLog(@"open  database error");
+                return;
+            }else
+            {
+                NSLog(@"open  database ");
                 
-                //打开数据库
-               	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                NSString *documentsDirectory = [paths objectAtIndex:0];
-                NSString *file= [documentsDirectory stringByAppendingPathComponent:@"database.db"];
-                
-                if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
-                {
-                    sqlite3_close(database);
-                    NSLog(@"open  database error");
-                    return;
-                }else
-                {
-                  NSLog(@"open  database ");
-                
-                }
-                //为提高数据库写入性能，加入事务控制，批量提交
-                if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
-                    sqlite3_close(database);
-                    NSLog(@"exec begin error");
-                    return;
-                }
-                //动态调用某个类的方法
-
-                sqlite3_stmt *statement;
-                id LenderClass = objc_getClass([className UTF8String]);//要不要释放
-                NSUInteger outCount;
-                objc_property_t *properties = class_copyPropertyList(LenderClass, &outCount);
-                NSString *columName=@" ";
-                NSString *columValue=@" ";
+            }
+            //为提高数据库写入性能，加入事务控制，批量提交
+            if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                sqlite3_close(database);
+                NSLog(@"exec begin error");
+                return;
+            }
+            //动态调用某个类的方法
+            
+            sqlite3_stmt *statement;
+            id LenderClass = objc_getClass([className UTF8String]);//要不要释放
+            NSUInteger outCount;
+            objc_property_t *properties = class_copyPropertyList(LenderClass, &outCount);
+            NSString *columName=@" ";
+            NSString *columValue=@" ";
             if (_Identification==@"FactoryTrans") {
                 outCount=16;
             }
             if (_Identification==@"CoalType") {
-                  outCount=5;
-                 
+                outCount=5;
+                
             }
             if(_Identification==@"TransPorts"){
-            outCount=7;
-            
+                outCount=7;
+                
             }
             if(_Identification==@"YunLi"){
-            
-             outCount=6;
+                
+                outCount=6;
             }
             
             
             
             for (int i = 0; i < outCount; i++) {
-                 objc_property_t property = properties[i];
-                 NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)];
-                  columName=[columName stringByAppendingFormat:@"%@,",propertyName];//多一个
+                objc_property_t property = properties[i];
+                NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)];
+                columName=[columName stringByAppendingFormat:@"%@,",propertyName];//多一个
                 
                 columValue=[columValue stringByAppendingFormat:@"%@",@"?,"];//多一个
                 
@@ -336,9 +320,9 @@ static bool ThreadFinished=TRUE;
                 
                 [propertyName release];
             }
-                    columName=[columName substringWithRange:NSMakeRange(0,[columName length]-1)];
-                    columValue=[columValue substringWithRange:NSMakeRange(0,[columValue length]-1)];
-               
+            columName=[columName substringWithRange:NSMakeRange(0,[columName length]-1)];
+            columValue=[columValue substringWithRange:NSMakeRange(0,[columValue length]-1)];
+            
             TBXMLElement * desc;
             NSString *sql=[NSString stringWithFormat:@"INSERT INTO %@ (%@) values(%@)",tableName,columName,columValue];
             
@@ -347,62 +331,59 @@ static bool ThreadFinished=TRUE;
             
             
             
-                while (element != nil) {
-                    int re =sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL);
-                    if (re!=SQLITE_OK) {
-                        NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),[sql UTF8String]);
-                    }
-                    for (int i = 0; i < outCount; i++) {
-                        // objc_property_t property = *properties++;
-                        objc_property_t property = properties[i];
-                        NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)]; 
-                        NSString *type=[[NSString    alloc] initWithFormat:@"%s",property_getAttributes(property)];
-                        desc = [TBXML childElementNamed:[propertyName uppercaseString] parentElement:element];
-                        if (desc != nil) {
-                            if ([type rangeOfString:@"NSString"].length!=0) {
-                                sqlite3_bind_text(statement, i+1, [[TBXML textForElement:desc] UTF8String], -1, SQLITE_TRANSIENT);
-//                                NSLog(@"1 %@+%s",propertyName,[[TBXML textForElement:desc] UTF8String]);
-                            }else{
-                                sqlite3_bind_int(statement, i+1,[[TBXML textForElement:desc] integerValue]);
-//                                NSLog(@"2 %@+%d",propertyName,[[TBXML textForElement:desc] integerValue]);
-
-                            }
+            while (element != nil) {
+                int re =sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL);
+                if (re!=SQLITE_OK) {
+                    NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),[sql UTF8String]);
+                }
+                for (int i = 0; i < outCount; i++) {
+                    // objc_property_t property = *properties++;
+                    objc_property_t property = properties[i];
+                    NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)];
+                    NSString *type=[[NSString    alloc] initWithFormat:@"%s",property_getAttributes(property)];
+                    desc = [TBXML childElementNamed:[propertyName uppercaseString] parentElement:element];
+                    if (desc != nil) {
+                        if ([type rangeOfString:@"NSString"].length!=0) {
+                            sqlite3_bind_text(statement, i+1, [[TBXML textForElement:desc] UTF8String], -1, SQLITE_TRANSIENT);
+                            //                                NSLog(@"1 %@+%s",propertyName,[[TBXML textForElement:desc] UTF8String]);
+                        }else{
+                            sqlite3_bind_int(statement, i+1,[[TBXML textForElement:desc] integerValue]);
+                            //                                NSLog(@"2 %@+%d",propertyName,[[TBXML textForElement:desc] integerValue]);
+                            
                         }
-                        [propertyName release];
-                        [type release];
-                    }                
-                    re=sqlite3_step(statement);
-                    if (re!=SQLITE_DONE) {
-                        NSLog( @"Error: insert VbShiptrans  error with message [%s]  sql[%s]", sqlite3_errmsg(database),[sql UTF8String]);
-                        sqlite3_finalize(statement);
-                        return;  
-                    }else {
-                       // NSLog(@"insert shipTrans  SUCCESS");
                     }
+                    [propertyName release];
+                    [type release];
+                }
+                re=sqlite3_step(statement);
+                if (re!=SQLITE_DONE) {
+                    NSLog( @"Error: insert VbShiptrans  error with message [%s]  sql[%s]", sqlite3_errmsg(database),[sql UTF8String]);
                     sqlite3_finalize(statement);
+                    return;
+                }else {
+                    // NSLog(@"insert shipTrans  SUCCESS");
+                }
+                sqlite3_finalize(statement);
                 //element1   :TfCoalType
                 
-                    element = [TBXML nextSiblingNamed:element1 searchFromElement:element];
-                }
-                
-                if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
-                    sqlite3_close(database);
-                    NSLog(@"exec commit error");
-                    return;
-                }
-                sqlite3_close(database);
-                NSLog(@"-----------%@-----------commit over  ",_Identification);
-                iSoapDone=1;
-                iSoapNum--;
+                element = [TBXML nextSiblingNamed:element1 searchFromElement:element];
             }
+            
+            if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+                sqlite3_close(database);
+                NSLog(@"exec commit error");
+                return;
+            }
+            sqlite3_close(database);
+            NSLog(@"-----------%@-----------commit over  ",_Identification);
+            iSoapDone=1;
+            iSoapNum--;
+        }
         //}
-    //====================================
-    
-    }   
- }
-
-
-
+        //====================================
+        
+    }
+}
 
 
 

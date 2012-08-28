@@ -74,10 +74,11 @@ DataQueryVC *dataQueryVC;
     self.factoryLabel.hidden=YES;
     self.monthLabel.hidden=YES;
     
-    NSDate *date=[[NSDate alloc]init];
-    self.month=date;
-    [date release];
+//    NSDate *date=[[NSDate alloc]init];
+//    self.month=date;
+//    [date release];
     //[self setMonth:[[NSDate alloc] init]];
+//    month=[[NSDate alloc]init];
     month=[[NSDate alloc]init];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy年MM月"];
@@ -123,8 +124,9 @@ DataQueryVC *dataQueryVC;
     }
     [dataQueryVC.listView addSubview:dataQueryVC.labelView];
     if(dataSource){
-        dataSource=nil;
         [dataSource release];
+        dataSource=nil;
+
     }
  
     
@@ -132,7 +134,6 @@ DataQueryVC *dataQueryVC;
 -(void)initSource
 {
     if (!dataSource) {
-        
          dataSource = [[DataGridComponentDataSource alloc] init];
         
         dataSource.columnWidth = [NSArray arrayWithObjects:@"115",@"75",@"85",@"85",@"80",@"100",@"90",@"90",@"85",@"70",@"75",@"75",nil];
@@ -160,6 +161,8 @@ DataQueryVC *dataQueryVC;
     [self setReloadButton:nil];
     [self setActivity:nil];
     self.tbxmlParser =nil;
+    
+    self.month=nil;
 
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -517,13 +520,14 @@ typedef struct objc_property *Property;
 
      dataQueryVC.dataSource=dataSource;
     
-    [dataSource release];
+//    [dataSource release];
     [dataQueryVC.listTableview reloadData];
       [loopPool drain];
 
     if(dataSource){
-        dataSource=nil;
         [dataSource release];
+        dataSource=nil;
+
     }
 
     

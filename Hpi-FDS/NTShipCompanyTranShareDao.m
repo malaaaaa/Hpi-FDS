@@ -20,7 +20,7 @@ static sqlite3 *database;
 }
 
 +(void) openDataBase
-{	
+{
 	NSString *file=[self dataFilePath];
 	if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
 	{
@@ -32,7 +32,7 @@ static sqlite3 *database;
 }
 
 +(void) initDb
-{	
+{
 	char *errorMsg;
 	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS NTShipCompanyTranShare  (COMID INTEGER   ",
@@ -53,7 +53,7 @@ static sqlite3 *database;
 	}
 }
 +(void) initDb_tmpTable
-{	
+{
 	char *errorMsg;
 	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS TMP_NTShipCompanyTranShare  (TAG INTEGER PRIMARY KEY  ",
@@ -85,12 +85,12 @@ static sqlite3 *database;
 	sqlite3_stmt *statement;
 	
 	int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
-    if (re != SQLITE_OK) 
+    if (re != SQLITE_OK)
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
-
-    sqlite3_bind_int(statement, 1, NTShipCompanyTranShare.COMID);    
+    
+    sqlite3_bind_int(statement, 1, NTShipCompanyTranShare.COMID);
 	sqlite3_bind_text(statement, 2, [NTShipCompanyTranShare.COMPANY UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 3, [NTShipCompanyTranShare.PORTCODE UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 4, [NTShipCompanyTranShare.PORTNAME UTF8String], -1, SQLITE_TRANSIENT);
@@ -104,7 +104,7 @@ static sqlite3 *database;
 		NSLog( @"Error: insert NTShipCompanyTranShare error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
 		sqlite3_finalize(statement);
 		return;
-	}	
+	}
 	sqlite3_finalize(statement);
 	return;
 }
@@ -115,14 +115,14 @@ static sqlite3 *database;
 	sqlite3_stmt *statement;
 	
 	int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
-    if (re != SQLITE_OK) 
+    if (re != SQLITE_OK)
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
     
-    sqlite3_bind_int(statement, 1, NTShipCompanyTranShare.COMID);    
+    sqlite3_bind_int(statement, 1, NTShipCompanyTranShare.COMID);
 	sqlite3_bind_text(statement, 2, [NTShipCompanyTranShare.COMPANY UTF8String], -1, SQLITE_TRANSIENT);
-
+    
 	sqlite3_bind_text(statement, 3, [NTShipCompanyTranShare.TRADEYEAR UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 4, [NTShipCompanyTranShare.TRADEWEEK UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_int(statement, 5, NTShipCompanyTranShare.LWSUM);
@@ -134,7 +134,7 @@ static sqlite3 *database;
 		NSLog( @"Error: insert NTShipCompanyTranShare error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
 		sqlite3_finalize(statement);
 		return;
-	}	
+	}
 	sqlite3_finalize(statement);
 	return;
 }
@@ -150,7 +150,7 @@ static sqlite3 *database;
 	}
 	else
 	{
-		NSLog(@"delete success");		
+		NSLog(@"delete success");
 	}
 	return;
 }
@@ -165,7 +165,7 @@ static sqlite3 *database;
 	}
 	else
 	{
-		NSLog(@"delete success");		
+		NSLog(@"delete success");
 	}
 	return;
 }
@@ -254,9 +254,9 @@ static sqlite3 *database;
                     
                     float percent=(float)ntShipCompanyTranShare.LWSUM/sumLW;
                     //保留三位小数
-//                    NSLog(@"%0.3f",percent);
+                    //                    NSLog(@"%0.3f",percent);
                     ntShipCompanyTranShare.PERCENT =[NSString stringWithFormat:@"%0.1f", percent*100];
-
+                    
                     [NTShipCompanyTranShareDao insert_tmpTable:ntShipCompanyTranShare];
                     [ntShipCompanyTranShare release];
                     
@@ -278,15 +278,15 @@ static sqlite3 *database;
             }
         }
         sqlite3_finalize(statement);
-
+        
     }
+    [tmpString release];
     if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
         sqlite3_close(database);
         NSLog(@"exec commit error");
         return;
     }
     NSLog(@"insert over");
-    [tmpString release];
 }
 +(NTShipCompanyTranShare *) getTransShareByComid:(NSInteger)comid Year:(NSString *)year Month:(NSString *)month
 {
@@ -360,7 +360,7 @@ static sqlite3 *database;
 	}
 	else
 	{
-//		NSLog(@"update success");
+        //		NSLog(@"update success");
     }
 	return;
 }

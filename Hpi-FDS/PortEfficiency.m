@@ -163,13 +163,14 @@ static sqlite3 *database;
         }
     }
     sqlite3_finalize(statement);
+    [shiptransSubSql release];
+    [factorySubSql release];
     if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
         sqlite3_close(database);
         NSLog(@"exec commit error");
         return;
     }
-    [shiptransSubSql release];
-    [factorySubSql release];
+
 }
 +(NSMutableArray *) getPortEfficiency
 {

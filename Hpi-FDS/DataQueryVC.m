@@ -89,7 +89,6 @@ static NSInteger menuIndex;
     vbShipChVC.view.frame=CGRectMake(0, 0, 1024, 121);
     
     [self.chooseView addSubview:vbShipChVC.view];
-    
     self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
    }
 
@@ -103,6 +102,7 @@ static NSInteger menuIndex;
     listView = nil;
     [listTableview release];
     listTableview = nil;
+    self.vbShipChVC=nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
