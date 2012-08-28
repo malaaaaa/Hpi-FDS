@@ -19,7 +19,7 @@
 
 
 @interface VBFactoryTransVC : UIViewController<UITableViewDataSource,UIPopoverControllerDelegate,ChooseViewDelegate,UISplitViewControllerDelegate>{
-    UIButton *factoryButton;
+    IBOutlet UIButton *factoryButton;
     UILabel *factoryLabel;
     UIButton *comButton;
     UILabel *comLabel;

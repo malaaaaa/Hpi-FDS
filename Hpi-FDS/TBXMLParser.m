@@ -23,7 +23,7 @@ static bool ThreadFinished=TRUE;
 {
     //由于NSURLConnection是异步方式，加入对当前RunLoop的控制，等待其他进程完成解析后再进行下一个请求的调用。
     while(!ThreadFinished) {
-        //        NSLog(@"runloop");
+//        NSLog(@"runloop");
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
         
     }
@@ -67,6 +67,8 @@ static bool ThreadFinished=TRUE;
     // 如果连接已经建好，则初始化data
     if( theConnection )
     {
+        NSLog(@"yes connect");
+
         ThreadFinished=FALSE;
         webData = [[NSMutableData data] retain];
     }
@@ -74,6 +76,7 @@ static bool ThreadFinished=TRUE;
     {
         NSLog(@"theConnection is NULL");
     }
+    NSLog(@"dddddddddddd");
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -88,9 +91,11 @@ static bool ThreadFinished=TRUE;
 }
 -(void) msgbox
 {
-	alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertMsg delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+	alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
-	[NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(performDismiss:) userInfo:nil repeats:NO];
+
+	[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(performDismiss:) userInfo:nil repeats:NO];
+
 }
 -(void) performDismiss:(NSTimer *)timer
 {
@@ -105,12 +110,14 @@ static bool ThreadFinished=TRUE;
 //    [connection release];
     [webData release];
     iSoapDone=3;
-    iSoapNum--;
-    alertMsg = @"无法连接,请检查网络是否正常?";
-    [self msgbox];
-    if (iSoapNum==0) {
-        iSoapDone=1;
-    }
+//    alertMsg = @"无法连接,请检查网络是否正常?";
+//    [self msgbox];
+//    if (iSoapNum==0) {
+//        iSoapDone=1;
+//    }
+//    iSoapNum=0;
+    ThreadFinished = TRUE;
+
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection

@@ -686,14 +686,16 @@ static  NSMutableArray *ShipStageArray;
 
 - (IBAction)resetAction:(id)sender {
     
-    self.factoryLabel.text=All_;
-    self.shipLabel.text =All_;
-    self.comLabel.text=All_;
-    self.typeLabel.text=All_;
+//    self.factoryLabel.text=All_;
+//    self.shipLabel.text =All_;
+//    self.comLabel.text=All_;
+//    self.typeLabel.text=All_;
+//    self.statLabel.text=All_;
+//    self.supLabel.text=All_;
+    
     self.keyValueLabel.text=All_;
     self.tradeLabel.text=All_;
-    self.statLabel.text=All_;
-    self.supLabel.text=All_;
+
     self.factoryLabel.hidden=YES;
     self.shipLabel.hidden=YES;
     self.comLabel.hidden=YES;
@@ -703,9 +705,11 @@ static  NSMutableArray *ShipStageArray;
     self.supLabel.hidden=YES;
     self.typeLabel.hidden=YES;
     
+    
+    self.startDay = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    self.dateLabel.text=[dateFormatter stringFromDate:[NSDate date]];
+    [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
     [dateFormatter release];
     
     [factoryButton setTitle:@"电厂" forState:UIControlStateNormal];
@@ -716,10 +720,34 @@ static  NSMutableArray *ShipStageArray;
     [keyValueButton setTitle:@"性质" forState:UIControlStateNormal];
     [tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
     [supButton setTitle:@"供货商" forState:UIControlStateNormal];
-    
-    
-    
-    
+}
+- (void)resetArray
+{
+
+    for (int i=0; i<[FactoryArray count]; i++) {
+        TgFactory *factory = [FactoryArray objectAtIndex:i];
+        factory.didSelected=NO;
+    }
+    for (int i=0; i<[ShipCompanyArray count]; i++) {
+        TfShipCompany *shipcompany = [ShipCompanyArray objectAtIndex:i];
+        shipcompany.didSelected=NO;
+    }
+    for (int i=0; i<[ShipArray count]; i++) {
+        TgShip *ship = [ShipArray objectAtIndex:i];
+        ship.didSelected=NO;
+    }
+    for (int i=0; i<[SupplierArray count]; i++) {
+        TfSupplier *supplier= [SupplierArray objectAtIndex:i];
+        supplier.didSelected=NO;
+    }
+    for (int i=0; i<[CoalTypeArray count]; i++) {
+         TfCoalType *coalType= [CoalTypeArray objectAtIndex:i];
+        coalType.didSelected=NO;
+    }
+    for (int i=0; i<[ShipStageArray count]; i++) {
+        TsShipStage *shipStage= [ShipStageArray objectAtIndex:i];
+        shipStage.didSelected=NO;
+    }
 }
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
@@ -748,11 +776,22 @@ static  NSMutableArray *ShipStageArray;
 -(void)runActivity
 {
     if ([tbxmlParser iSoapNum]==0) {
-        NSLog(@"sopanum=%d",[tbxmlParser iSoapNum]);
         [activity stopAnimating];
         [activity removeFromSuperview];
         [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
         return;
+    }
+    else if (tbxmlParser.iSoapDone==3)
+    {
+        [activity stopAnimating];
+        [activity removeFromSuperview];
+        [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"服务器连接失败" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [alert show];
+
+        [alert  release];
+        return;
+ 
     }
     else {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
