@@ -125,7 +125,7 @@ static sqlite3	*database;
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *end=[dateFormatter stringFromDate:endDay];
     NSString *start=[dateFormatter stringFromDate:startDay];
-	NSString *query=[NSString stringWithFormat:@" indexName = '%@' AND recordTime >='%@' AND recordTime <='%@' ",indexName,start,end];
+	NSString *query=[NSString stringWithFormat:@" indexName = '%@' AND recordTime >='%@' AND recordTime <='%@' order by recordTime desc ",indexName,start,end];
 	NSMutableArray * array=[TmIndexinfoDao getTmIndexinfoBySql:query];
     NSLog(@"执行 getTmIndexinfo 数量[%d] ",[array count]);
     [dateFormatter release];

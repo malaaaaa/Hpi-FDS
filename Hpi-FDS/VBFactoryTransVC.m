@@ -706,6 +706,7 @@ static  NSMutableArray *ShipStageArray;
     self.supLabel.hidden=YES;
     self.typeLabel.hidden=YES;
     
+    [self resetArray];
     
     self.startDay = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

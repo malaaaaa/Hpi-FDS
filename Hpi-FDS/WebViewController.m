@@ -66,16 +66,7 @@ static NSString *fileName;
 
 - (void)viewDidUnload
 {
-    [segment release];
-    segment = nil;
-    [webView release];
-    webView = nil;
-    [popover release];
-    popover = nil;
-    [titleLable release];
-    memoirListVC = nil;
-    [memoirListVC release];
-    memoirListVC = nil;
+
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -139,16 +130,16 @@ static NSString *fileName;
     }
     if (!memoirListVC) {
         //初始化待显示控制器
-        memoirListVC=[[MemoirListVC alloc]init]; 
+        self.memoirListVC=[[MemoirListVC alloc]init];
         //设置待显示控制器的范围
-        [memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
+        [self.memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
         //设置待显示控制器视图的尺寸
-        memoirListVC.contentSizeForViewInPopover = CGSizeMake(320, 484);
+        self.memoirListVC.contentSizeForViewInPopover = CGSizeMake(320, 484);
     }
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:memoirListVC];
-    memoirListVC.popover = pop;
-    memoirListVC.webVC=self;
+    self.memoirListVC.popover = pop;
+    self.memoirListVC.webVC=self;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -156,17 +147,17 @@ static NSString *fileName;
     
     if(segment.selectedSegmentIndex==0)
     {
-        memoirListVC.stringType=@"QHD";
+        self.memoirListVC.stringType=@"QHD";
         [self.popover presentPopoverFromRect:CGRectMake(710, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
     if(segment.selectedSegmentIndex==1)
     {
-        memoirListVC.stringType=@"COALSITE"; 
+        self.memoirListVC.stringType=@"COALSITE";
         [self.popover presentPopoverFromRect:CGRectMake(830, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
     if(segment.selectedSegmentIndex==2)
     {
-        memoirListVC.stringType=@"NOTICE"; 
+        self.memoirListVC.stringType=@"NOTICE";
         [self.popover presentPopoverFromRect:CGRectMake(950, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
     [pop release];

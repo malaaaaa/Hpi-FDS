@@ -1357,7 +1357,6 @@ NSString* alertMsg;
     // 如果连接已经建好，则初始化data
     if( theConnection )
     {
-        [TsFileinfoDao deleteAll];
         webData = [[NSMutableData data] retain];
     }
     else
@@ -1965,7 +1964,7 @@ NSString* alertMsg;
     [xmlParser parse];
     
 //    [connection release];
-    //[webData release];
+    [webData release];
 }
 
 
@@ -4871,13 +4870,14 @@ NSString* alertMsg;
             [soapResults release];
             soapResults = nil;
             if ([TsFileinfoDao tsFileIsDownload:tsFileinfo.fileId]) {
-                tsFileinfo.xzbz=@"1";
+//                tsFileinfo.xzbz=@"1";
             }
             else {
                 tsFileinfo.xzbz=@"0";
+                [TsFileinfoDao delete:tsFileinfo];
+                [TsFileinfoDao insert:tsFileinfo];
             }
-            [TsFileinfoDao delete:tsFileinfo];
-            [TsFileinfoDao insert:tsFileinfo];
+         
             [tsFileinfo release];
             tsFileinfo = nil;
         }

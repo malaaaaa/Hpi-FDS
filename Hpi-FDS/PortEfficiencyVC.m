@@ -16,7 +16,7 @@
 
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
-
+static WSChart *electionChart=nil;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -42,7 +42,18 @@ static  NSMutableArray *ShipCompanyArray;
     [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
     
     self.endDay = [[[NSDate alloc] init] autorelease];
-    self.startDay = [[[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] autorelease];
+    //本年度的第一天
+    NSDateComponents *comp = [[[NSDateComponents alloc]init] autorelease];
+    [comp setMonth:1];
+    NSDateFormatter *yearFormatter =[[NSDateFormatter alloc] init];
+    [yearFormatter setDateFormat:@"yyyy"];
+    [comp setYear:[[yearFormatter stringFromDate:[NSDate date]] integerValue]];
+    [comp setMonth:1];
+    [comp setDay:1];
+    NSCalendar *myCal = [[[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    [yearFormatter release];
+    self.startDay=[myCal dateFromComponents:comp] ;
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
@@ -317,6 +328,9 @@ static  NSMutableArray *ShipCompanyArray;
         UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:@"查询结果为空！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil ];
         [alertView show];
         [alertView release];
+        if (electionChart) {
+            [electionChart removeFromSuperview];
+        }
     }
     else{
         [self loadHpiGraphView];
@@ -371,7 +385,7 @@ static  NSMutableArray *ShipCompanyArray;
     
     WSData *barData = [[self getData] indexedData];
     // Create and configure a bar plot.
-    WSChart *electionChart = [WSChart barPlotWithFrame:[self.chartView bounds]
+    electionChart = [WSChart barPlotWithFrame:[self.chartView bounds]
                                                   data:barData
                                                  style:kChartBarPlain
                                            colorScheme:kColor_FDS_Gray];
@@ -393,6 +407,7 @@ static  NSMutableArray *ShipCompanyArray;
                              labels:[NSArray arrayWithObjects:@"",
                                      @"400", @"800", @"1200", nil]];
     [electionChart setChartTitle:NSLocalizedString(@"卸港效率统计(吨小时)", @"")];
+    [electionChart setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
     
     electionChart.autoresizingMask = 63;
     [self.chartView addSubview:electionChart];
@@ -433,13 +448,14 @@ static  NSMutableArray *ShipCompanyArray;
         if (chooseView.type==kTYPE) {
             
             self.typeLabel.text =currentSelectValue;
+            self.typeLabel.textAlignment=UITextAlignmentCenter;
             if (![self.typeLabel.text isEqualToString:All_]) {
                 self.typeLabel.hidden=NO;
                 [self.typeButton setTitle:@"" forState:UIControlStateNormal];
             }
             else {
                 self.typeLabel.hidden=YES;
-                [self.typeButton setTitle:@"电厂类别" forState:UIControlStateNormal];
+                [self.typeButton setTitle:@"    电厂类别" forState:UIControlStateNormal];
             }
         }
         

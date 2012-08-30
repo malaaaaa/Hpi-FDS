@@ -237,6 +237,14 @@ static bool ThreadFinished=TRUE;
         [self getDate:@"TmShipInfo" entityClass:@"TmShipinfo" insertTableName:@"TmShipinfo"];
         
     }
+    /***********************纪要查看*****-TsFileinfo**************************/
+//    if ([_Identification isEqualToString:@"TsFile"]) {
+//        
+//        //全部删除
+//        [TsFileinfoDao deleteAll];
+//        [self getDate:@"TsFileinfo" entityClass:@"TsFileinfo" insertTableName:@"TsFileinfo"];
+//        
+//    }
     
 }
 #pragma mark -参数：1，xml子节点【TfCoalType】  2，表的对应实体类 3，插入的表名
@@ -357,7 +365,7 @@ static bool ThreadFinished=TRUE;
                 }
                 re=sqlite3_step(statement);
                 if (re!=SQLITE_DONE) {
-                    NSLog( @"Error: insert VbShiptrans  error with message [%s]  sql[%s]", sqlite3_errmsg(database),[sql UTF8String]);
+                    NSLog( @"Error: insert   error with message [%s]  sql[%s]", sqlite3_errmsg(database),[sql UTF8String]);
                     sqlite3_finalize(statement);
                     return;
                 }else {

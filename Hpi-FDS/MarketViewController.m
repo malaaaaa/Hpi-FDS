@@ -175,12 +175,12 @@ static NSString *stringType=@"BSPI";
         }
         [dateFormatter release];
     }
-    else
+    else{
         [graphData release];
         
         return;
-    
-    //NSLog(@"BSPI 统计共%d天",graphData.xNum);
+    }
+    NSLog(@"BSPI 统计共%d天",graphData.xNum);
     date=minDate;
     for ( int i = 0 ; i < graphData.xNum ; i++ ) {
         //NSLog(@"date %@",date);

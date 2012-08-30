@@ -322,7 +322,7 @@ static sqlite3 *database;
 	sqlite3_stmt *statement;
     NTShipCompanyTranShare *transShare=[[[NTShipCompanyTranShare alloc] init] autorelease];
     
-    NSString *sql=[NSString stringWithFormat:@"SELECT company,percent,lw,x,y FROM  TMP_NTShipCompanyTranShare WHERE tag=%d  ",tag];
+    NSString *sql=[NSString stringWithFormat:@"SELECT company,percent,lwsum,x,y FROM  TMP_NTShipCompanyTranShare WHERE tag=%d  ",tag];
     //NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {

@@ -148,7 +148,7 @@
             break;
             //mawp added
         case kColor_FDS_Gray:
-            result = [UIColor colorWithRed:0.5 green:0.5 blue:0.9 alpha:1.0];
+            result = [UIColor colorWithRed:54.0/255 green:109.0/255 blue:160.0/255 alpha:1];
             break;
         default:
             break;

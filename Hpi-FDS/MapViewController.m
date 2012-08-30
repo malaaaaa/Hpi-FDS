@@ -88,12 +88,12 @@ static int iDisplay=0;
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
         self.xmlParser=[[[XMLParser alloc]init] autorelease];
-        [xmlParser setISoapNum:3];
-        [xmlParser getTsFileinfo];
+        [xmlParser setISoapNum:1];
+//        [xmlParser getTsFileinfo];
 //        [xmlParser getTgPort];
-        [xmlParser getTmIndexinfo];
+//        [xmlParser getTmIndexinfo];
 //        [xmlParser getTgShip];
-        [xmlParser getVbShiptrans];
+//        [xmlParser getVbShiptrans];
 //        [xmlParser getTgFactory];
         [xmlParser getTiListinfo];
         [self runActivity];
@@ -168,6 +168,16 @@ static int iDisplay=0;
 
 - (void)viewDidUnload
 {
+    self.mapView=nil;
+    self.mapViewBig=nil;
+    self.activity=nil;
+    self.switchMap=nil;
+    self.closeButton=nil;
+    self.shipButton=nil;
+    self.factoryButton=nil;
+    self.portButton=nil;
+    self.updateButton=nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -655,6 +665,9 @@ static int iDisplay=0;
         if ([port.shipStage isEqualToString:@"2"]) {
             port.topImage = [UIImage imageNamed:@"chuanx1.png"];
         }
+        else if([port.shipStat isEqualToString:@"7"]) {
+            port.topImage = [UIImage imageNamed:@"chuanx1.png"];
+        }
         else if([port.shipStat isEqualToString:@"8"]) {
             port.topImage = [UIImage imageNamed:@"chuanx1.png"];
         }
@@ -862,6 +875,9 @@ static int iDisplay=0;
             if ([myannotation.shipStage isEqualToString:@"2"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
             }
+            else if([myannotation.shipStat isEqualToString:@"7"]) {
+                myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
+            }
             else if([myannotation.shipStat isEqualToString:@"8"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
             }
@@ -891,6 +907,9 @@ static int iDisplay=0;
             if ([myannotation.shipStage isEqualToString:@"2"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
             }
+            else if([myannotation.shipStat isEqualToString:@"7"]) {
+                myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
+            }
             else if([myannotation.shipStat isEqualToString:@"8"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
             }
@@ -917,6 +936,9 @@ static int iDisplay=0;
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
             
             if ([myannotation.shipStage isEqualToString:@"2"]) {
+                myannotation.topImage = [UIImage imageNamed:@"chuanx3.png"];
+            }
+            else if([myannotation.shipStat isEqualToString:@"7"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx3.png"];
             }
             else if([myannotation.shipStat isEqualToString:@"8"]) {
@@ -967,10 +989,6 @@ static int iDisplay=0;
     }
 }
 
-
-
-
-
 #pragma mark SetSelectValue  Method
 -(void)setLableValue:(NSString *)currentSelectValue
 {
@@ -993,17 +1011,8 @@ static int iDisplay=0;
              
              
          }
-        
-        
-        
-        
-        
-        
-    }
-    
-    
-    
-    
+
+    } 
     
 }
 

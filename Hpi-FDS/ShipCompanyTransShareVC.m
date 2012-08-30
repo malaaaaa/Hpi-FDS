@@ -257,7 +257,7 @@ static  NSMutableArray *LegendArray;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 120);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(950, 120, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(680, 100, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [_legendView.tableView reloadData];
     [_legendView release];
     [pop release];

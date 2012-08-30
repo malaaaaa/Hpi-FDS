@@ -257,7 +257,7 @@ static sqlite3  *database;
         ShipCompanyShareDetailVC *detailVC = [[ShipCompanyShareDetailVC alloc]init];
         UIPopoverController *pop= [[UIPopoverController alloc] initWithContentViewController:detailVC];
         detailVC.popover=pop;
-        pop.popoverContentSize=CGSizeMake(150, 150);
+        pop.popoverContentSize=CGSizeMake(150, 110);
         
         [pop  presentPopoverFromRect:CGRectMake(companyShare.X, companyShare.Y, 5, 5) inView:self permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
         detailVC.company.text=[NSString stringWithFormat:@"船厂：%@",companyShare.COMPANY];
@@ -265,6 +265,10 @@ static sqlite3  *database;
         detailVC.percent.text=[NSString stringWithFormat:@"份额：%@%%",companyShare.PERCENT];
         detailVC.company.textColor= [UIColor whiteColor];
         detailVC.lw.textColor= [UIColor whiteColor];
+        detailVC.lw.font=[UIFont systemFontOfSize:15.0f];
+        detailVC.percent.font=[UIFont systemFontOfSize:15.0f];
+        detailVC.company.font=[UIFont systemFontOfSize:17.0f];
+
         detailVC.percent.textColor= [UIColor whiteColor];
         
         [pop release];
