@@ -109,15 +109,15 @@
     CGContextMoveToPoint(context, marginLeft, _rect.size.height-marginBottom);
     for(int i=0;i<[data.pointArray count]; i++){
         HpiPoint *point=[data.pointArray objectAtIndex:i];
-        NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
+//        NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
         if (start == NO) {
             CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
             start = YES;
-            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
         }
         else {
             CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-             NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//             NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
         }
     }
     CGContextStrokePath(context);
@@ -135,15 +135,15 @@
     start = NO;
     for(int i=0;i<[data.pointArray2 count]; i++){
         HpiPoint *point=[data.pointArray2 objectAtIndex:i];
-        NSLog(@"HpiGraphView drawPoints2  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
+//        NSLog(@"HpiGraphView drawPoints2  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
         if (start == NO) {
             CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
             start = YES;
-            NSLog(@"HpiGraphView drawPoints2  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//            NSLog(@"HpiGraphView drawPoints2  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
         }
         else {
             CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-            NSLog(@"HpiGraphView drawPoints2  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//            NSLog(@"HpiGraphView drawPoints2  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
         }
     }
 	CGContextStrokePath(context);
@@ -159,15 +159,15 @@
     start = NO;
     for(int i=0;i<[data.pointArray3 count]; i++){
         HpiPoint *point=[data.pointArray3 objectAtIndex:i];
-        NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
+//        NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
         if (start == NO) {
             CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
             start = YES;
-            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
         }
         else {
             CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
         }
     }
 	CGContextStrokePath(context);

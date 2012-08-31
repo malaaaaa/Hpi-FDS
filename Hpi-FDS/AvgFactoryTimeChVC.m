@@ -40,7 +40,7 @@ static   MultiTitleDataSource *source;
 
 
 NSDateFormatter *formater;
-NSDateFormatter *f; 
+NSDateFormatter *f;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -56,7 +56,7 @@ NSDateFormatter *f;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
+    
     month=[[NSDate alloc] init];
     formater=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM"];
@@ -64,59 +64,38 @@ NSDateFormatter *f;
     [f setDateFormat:@"yyyy-01"];
     [formater stringFromDate:month];
     
- 
-     self.factoryCateLable.text=All_;
-     self.factoryCateLable.hidden=YES;
+    
+    self.factoryCateLable.text=All_;
+    self.factoryCateLable.hidden=YES;
     self.startTime.text=[f   stringFromDate:[NSDate date]];
-     [self.startButton setTitle:[f   stringFromDate:[NSDate date]] forState:UIControlStateNormal];
+    [self.startButton setTitle:[f   stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     self.endTime.text=[formater   stringFromDate:[NSDate date]];
     [self.endButton setTitle:[formater   stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     [activty removeFromSuperview];
     
     
     self.tbxmlParser=[[TBXMLParser alloc] init] ;
-
-    
-    
+ 
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
-   [ self  getDateSource:self.startTime.text :self.endTime.text:All_ :0];
-    
-    
-    if(source){
-        source=nil;
-        [source release];
-    }
-    
-    if(dc){
-        dc=nil;
-        [dc release];
-    }
-       
-    
+    [ self  getDateSource:self.startTime.text :self.endTime.text:All_ :0];
+
 }
+
 -(void)initDC
-{
-    if(!dc)
-    {
-        dc=[[MultiTitleDataGridComponent alloc ] init];
-    }
-    if(!dataQueryVC){
-        NSLog(@"dataQueryVC 为空。。初始......");
-        //初始化 父视图
-        dataQueryVC=(DataQueryVC *)self.parentVC;
-  
+{    
+    if(!source){
+        source=[[MultiTitleDataSource alloc] init   ];
+        source.columnWidth=[[NSMutableArray alloc] init];
+        source.splitTitle=[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil];
+
+    }else{
+        [source.titles removeAllObjects];
+        [source.data removeAllObjects];
+        [source.columnWidth removeAllObjects];
     }
     
-   if(!source){
-        source=[[MultiTitleDataSource alloc] init   ];
-        source.titles=[[[NSMutableArray alloc] init ] autorelease];
-        source.data=[[[NSMutableArray alloc] init ] autorelease];
-        source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
-    }
-
 }
-
 
 
 
@@ -124,10 +103,6 @@ NSDateFormatter *f;
 {
     [self initDC];
     source.titles=[AvgFactoryZXTimeDao getTimeTitle1:startTime.text :endTime.text:All_];
- 
-   // NSLog(@"----------------source.titles[%d]",[source.titles  count]);
- 
-    source.splitTitle=[[[NSMutableArray  alloc] initWithObjects:@"卸港",@"装港",@"总计(天)", nil] autorelease  ];
     
     [source.columnWidth addObject:@"70"];
     for (int i=1; i<[source.titles count]; i++) {
@@ -139,29 +114,23 @@ NSDateFormatter *f;
     //初始化
     dc=[[MultiTitleDataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 530) data:source];
     [source release];
-    
-    [dataQueryVC.listView   addSubview:dc];
+    dataQueryVC=(DataQueryVC *)self.parentVC;
 
+    [dataQueryVC.listView   addSubview:dc];
+    
     [dc release];
 }
 - (IBAction)Select:(id)sender {
     startTime.text=startButton.titleLabel.text;
-endTime.text=endButton.titleLabel.text;
-
- 
+    endTime.text=endButton.titleLabel.text;
+    
+    
     NSAutoreleasePool *poll=[[NSAutoreleasePool alloc ] init];
+    if (dc) {
+        [dc removeFromSuperview];
+    }
     [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
-      [poll drain];
-    
-    
-    if(source){
-        source=nil;
-        [source release];
-    }
-    if(dc){
-        dc=nil;
-        [dc release];
-    }
+    [poll drain];
 
 }
 
@@ -190,12 +159,12 @@ endTime.text=endButton.titleLabel.text;
     
     // [monthVC release];
     [pop release];
-
+    
     
 }
 - (IBAction)startTimeSelect:(id)sender {
     whichButton=1;
-   // NSLog(@"startmonth。。。。。");
+    // NSLog(@"startmonth。。。。。");
     if (self.popover .popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -242,19 +211,19 @@ endTime.text=endButton.titleLabel.text;
     [chooseView release];
     [pop release];
     
-
+    
     
     
 }
 - (IBAction)release:(id)sender {
-
+    
     self.startTime.text=[f   stringFromDate:[NSDate date]];
     
     [self.startButton setTitle:[f   stringFromDate:[NSDate date]] forState:UIControlStateNormal];
     self.endTime.text=[formater   stringFromDate:[NSDate date]];
     
     [self.endButton setTitle:[formater   stringFromDate:[NSDate date]] forState:UIControlStateNormal];
-
+    
     
     self.factoryCateLable.text=All_ ;
     
@@ -282,14 +251,14 @@ endTime.text=endButton.titleLabel.text;
         [activty startAnimating];
         //解析入库
         [tbxmlParser setISoapNum:1];
-      // [xmlParser setISoapNum:1];
+        // [xmlParser setISoapNum:1];
         [tbxmlParser requestSOAP:@"Factory"];
         
         
-      [tbxmlParser requestSOAP:@"ShipTrans"];
-       // [xmlParser getTfFactory];
-       // [xmlParser getVbShiptrans];
-       
+        [tbxmlParser requestSOAP:@"ShipTrans"];
+        // [xmlParser getTfFactory];
+        // [xmlParser getVbShiptrans];
+        
         
         
         
@@ -312,7 +281,7 @@ endTime.text=endButton.titleLabel.text;
     if(dataQueryVC){
         [dataQueryVC release];
     }
-
+    
     [factoryCateLable release];
     [startTime release];
     [endTime release];
@@ -322,7 +291,7 @@ endTime.text=endButton.titleLabel.text;
     [activty release];
     [tbxmlParser release];
     
-  
+    
     
     [parentVC release];
     [monthVC release];
@@ -332,7 +301,7 @@ endTime.text=endButton.titleLabel.text;
     [reload release];
     
     
-   
+    
     [super dealloc];
 }
 
@@ -365,7 +334,7 @@ endTime.text=endButton.titleLabel.text;
 {
     
     if (monthVC) {
-       // NSLog(@"monthCV 不为空。。。");
+        // NSLog(@"monthCV 不为空。。。");
         self.month=monthVC.selectedDate;
     }
     
@@ -379,13 +348,13 @@ endTime.text=endButton.titleLabel.text;
     [formater setDateFormat:@"yyyy-MM"];
     if (whichButton==1) {
         [startButton setTitle:[formater stringFromDate:month] forState:UIControlStateNormal ];
-     //   NSLog(@"startButton:[%@]",[formater stringFromDate:month]);
+        //   NSLog(@"startButton:[%@]",[formater stringFromDate:month]);
         
         
         whichButton=0;
     }else if (whichButton==2) {
         [endButton setTitle:[formater stringFromDate:month] forState:UIControlStateNormal ];
-       // NSLog(@"endButton:[%@]",[formater stringFromDate:month]);
+        // NSLog(@"endButton:[%@]",[formater stringFromDate:month]);
         whichButton=0;
         
     }
@@ -427,7 +396,7 @@ endTime.text=endButton.titleLabel.text;
 {
     if (chooseView) {
         if (chooseView.type==kfactoryCate) {
-
+            
             self.factoryCateLable.text=currentSelectValue;
             if (![self .factoryCateLable.text isEqualToString:All_]) {
                 self.factoryCateLable.hidden=NO;

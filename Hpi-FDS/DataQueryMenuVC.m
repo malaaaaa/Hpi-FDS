@@ -159,6 +159,9 @@
     if(portEfficiencyVC){
         self.portEfficiencyVC=nil;
     }
+    if(dataQueryVC){
+        self.dataQueryVC=nil;
+    }
 }
 
 @end

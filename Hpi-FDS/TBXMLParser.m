@@ -124,7 +124,9 @@ static bool ThreadFinished=TRUE;
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"--------------------------------------------  connectionDidFinishLoading");
-    
+//    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+//  NSLog(@"theXML[%@]",theXML);
+//    [theXML release];
     [self parseXML];
     ThreadFinished = TRUE;
     //    [connection release];

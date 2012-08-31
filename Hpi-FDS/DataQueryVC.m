@@ -83,14 +83,14 @@ static NSInteger menuIndex;
     listTableview.backgroundColor = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
     
     /*   初始船舶动态查询    注释掉会出现问题-----------*/   
-    self.vbShipChVC=[[VBShipChVC alloc] init]  ;//不能autorelease
-    vbShipChVC.parentVC=self;
-    vbShipChVC.view.center=CGPointMake(512, 60);//120
-    vbShipChVC.view.frame=CGRectMake(0, 0, 1024, 121);
-    
-    [self.chooseView addSubview:vbShipChVC.view];
-    self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
-   }
+//    self.vbShipChVC=[[VBShipChVC alloc] init]  ;//不能autorelease
+//    vbShipChVC.parentVC=self;
+//    vbShipChVC.view.center=CGPointMake(512, 60);//120
+//    vbShipChVC.view.frame=CGRectMake(0, 0, 1024, 121);
+//    
+//    [self.chooseView addSubview:vbShipChVC.view];
+//    self.chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
+}
 
 - (void)viewDidUnload
 {

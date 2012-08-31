@@ -153,7 +153,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT infoId,indexName,recordTime,infoValue FROM  TmIndexinfo WHERE %@ ",sql1];
-    //NSLog(@"执行 getTmIndexinfoBySql [%@] ",sql);
+//    NSLog(@"执行 getTmIndexinfoBySql [%@] ",sql);
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -186,6 +186,8 @@ static sqlite3	*database;
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    sqlite3_finalize(statement);
+
 	return array;
 }
 

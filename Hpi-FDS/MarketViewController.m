@@ -112,11 +112,17 @@ static NSString *stringType=@"BSPI";
     NSDate *maxDate=[endDay laterDate:startDay];
     NSDate *minDate=[endDay earlierDate:startDay];
     HpiGraphData *graphData=[[HpiGraphData alloc] init];
-    graphData.pointArray = [[[NSMutableArray alloc]init] autorelease];
-    graphData.pointArray2 = [[[NSMutableArray alloc]init] autorelease];
-    graphData.pointArray3 = [[[NSMutableArray alloc]init] autorelease];
-    graphData.xtitles = [[[NSMutableArray alloc]init] autorelease];
-    graphData.ytitles = [[[NSMutableArray alloc]init] autorelease];
+    graphData.pointArray = [[NSMutableArray alloc] init] ;
+    graphData.pointArray2 = [[NSMutableArray alloc] init] ;
+    graphData.pointArray3 = [[NSMutableArray alloc] init];
+    graphData.xtitles = [[NSMutableArray alloc] init];
+    graphData.ytitles = [[NSMutableArray alloc] init];
+
+//    graphData.pointArray = [[[NSMutableArray alloc]init] autorelease];
+//    graphData.pointArray2 = [[[NSMutableArray alloc]init] autorelease];
+//    graphData.pointArray3 = [[[NSMutableArray alloc]init] autorelease];
+//    graphData.xtitles = [[[NSMutableArray alloc]init] autorelease];
+//    graphData.ytitles = [[[NSMutableArray alloc]init] autorelease];
     NSDate *date=minDate;
     NSMutableArray *array=[TmIndexdefineDao getTmIndexdefineByName:stringType];
     NSLog(@"查询[%d]",[array count]);
@@ -192,6 +198,7 @@ static NSString *stringType=@"BSPI";
             point.x=i;
             point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
             [graphData.pointArray  addObject:point];
+            [point release];
         }
         date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
     }
@@ -208,6 +215,8 @@ static NSString *stringType=@"BSPI";
                 point.x=i;
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray2  addObject:point];
+                [point release];
+
             }
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
@@ -225,6 +234,8 @@ static NSString *stringType=@"BSPI";
                 point.x=i;
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray2  addObject:point];
+                [point release];
+
             }
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
@@ -241,6 +252,8 @@ static NSString *stringType=@"BSPI";
                 point.x=i;
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray2  addObject:point];
+                [point release];
+
             }
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
@@ -257,6 +270,8 @@ static NSString *stringType=@"BSPI";
                 point.x=i;
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray3  addObject:point];
+                [point release];
+
             }
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
