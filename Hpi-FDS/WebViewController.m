@@ -13,9 +13,13 @@
 static NSString *fileName;
 +(void)setFileName:(NSString*) theName
 {
-	[fileName release];
-	fileName=theName;
-	[fileName retain];
+    if (fileName!=theName) {
+        [fileName release];
+        fileName = [theName retain];
+    }
+//	[fileName release];
+//	fileName=theName;
+//	[fileName retain];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -51,22 +55,26 @@ static NSString *fileName;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *docPath = [documentsDirectory stringByAppendingString:@"/1.png"];
-    NSLog(@"####docPath# [%@]",docPath);
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    NSString *docPath = [documentsDirectory stringByAppendingString:@"/1.png"];
+//    NSLog(@"####docPath# [%@]",docPath);
+//    
+//    NSURL *url = [NSURL fileURLWithPath:docPath];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    [webView loadRequest:request];
+//    webView.alpha=0.3;
     
-    NSURL *url = [NSURL fileURLWithPath:docPath];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [webView loadRequest:request];
-    webView.alpha=0.3;
     webView.scalesPageToFit =  YES;
     segment.momentary = YES;	
 }
 
 - (void)viewDidUnload
 {
-
+    self.webView=nil;
+    self.titleLable=nil;
+    self.segment=nil;
+    self.memoirListVC=nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

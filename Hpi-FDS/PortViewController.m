@@ -47,6 +47,18 @@ static NSString *stringType=@"GKDJL";
     
     [activity removeFromSuperview];
     self.tbxmlParser =[[TBXMLParser alloc] init];
+    
+    _listView.layer.masksToBounds=YES;
+    _listView.layer.cornerRadius=2.0;
+    _listView.layer.borderWidth=2.0;
+    _listView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
+    _listView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
+    
+    _buttonView.layer.masksToBounds=YES;
+    _buttonView.layer.cornerRadius=2.0;
+    _buttonView.layer.borderWidth=2.0;
+    _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
+    _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
 }
 
 - (void)viewDidUnload
@@ -315,7 +327,7 @@ static NSString *stringType=@"GKDJL";
         graphView =nil;
     }
     //NSLog(@"graphView $$$$$$$$ %d",[graphView retainCount]);
-    self.graphView=[[[HpiGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData] autorelease];
+    self.graphView=[[[HpiGraphView alloc] initWithFrame:CGRectMake(50, 15, 924, 550) :graphData] autorelease];
     if([stringType isEqualToString:@"GKDJL"]){
         graphView.titleLabel.text=@"港口调进量(万吨)";
     }
@@ -335,7 +347,7 @@ static NSString *stringType=@"GKDJL";
     graphView.marginLeft=60;
     graphView.marginTop=80;
     [graphView setNeedsDisplay];
-    [self.view addSubview:graphView];
+    [self.listView addSubview:graphView];
     [graphData release];
     [stringType release];
 }
