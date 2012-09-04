@@ -143,6 +143,7 @@ static int cellNum =0;
 		if (_refreshHeaderView == nil) {
 			EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame: CGRectMake(0.0f,-70, 320, 70)];
 			view.delegate = self;
+            
 			[self.memoirTableView addSubview:view];
 			self.refreshHeaderView = view;
 			[view release];
@@ -168,6 +169,7 @@ static int cellNum =0;
 //
 
     self.listArray=nil;
+    self.cellArray=nil;
 
 //    self.downLoadArray=nil;
 //    self.cellArray=nil;
@@ -202,7 +204,7 @@ static int cellNum =0;
         [self.popover dismissPopoverAnimated:YES];
     }
     else {
-        
+            
     }
 }
 

@@ -331,7 +331,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 32}, {1024, 74}}</string>
+						<string key="NSFrame">{{0, 31}, {1024, 74}}</string>
 						<reference key="NSSuperview" ref="388576104"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="69236220"/>
@@ -342,10 +342,9 @@
 						<reference key="NSNextResponder" ref="388576104"/>
 						<int key="NSvFlags">292</int>
 						<array class="NSMutableArray" key="NSSubviews"/>
-						<string key="NSFrame">{{0, 116}, {1024, 608}}</string>
+						<string key="NSFrame">{{0, 115}, {1024, 609}}</string>
 						<reference key="NSSuperview" ref="388576104"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>

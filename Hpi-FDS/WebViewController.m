@@ -88,7 +88,10 @@ static NSString *fileName;
     NSLog(@"####docPath# [%@]",docPath);
     
     NSURL *url = [NSURL fileURLWithPath:docPath];
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]];
+
     [webView loadRequest:request];
     self.titleLable.text=fileName;
     webView.alpha=1;
@@ -156,17 +159,17 @@ static NSString *fileName;
     if(segment.selectedSegmentIndex==0)
     {
         self.memoirListVC.stringType=@"QHD";
-        [self.popover presentPopoverFromRect:CGRectMake(710, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+        [self.popover presentPopoverFromRect:CGRectMake(590, 20, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
     if(segment.selectedSegmentIndex==1)
     {
         self.memoirListVC.stringType=@"COALSITE";
-        [self.popover presentPopoverFromRect:CGRectMake(830, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+        [self.popover presentPopoverFromRect:CGRectMake(770, 20, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
     if(segment.selectedSegmentIndex==2)
     {
         self.memoirListVC.stringType=@"NOTICE";
-        [self.popover presentPopoverFromRect:CGRectMake(950, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+        [self.popover presentPopoverFromRect:CGRectMake(950, 20, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
     [pop release];
     

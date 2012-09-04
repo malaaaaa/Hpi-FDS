@@ -40,14 +40,15 @@
 					<object class="IBUIWebView" id="116120263">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 44}, {1024, 704}}</string>
+						<string key="NSFrame">{{0, 27}, {1024, 721}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:693</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
+						<object class="NSColor" key="IBUIBackgroundColor" id="815467897">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
 						</object>
+						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIDataDetectorTypes">15</int>
@@ -56,7 +57,7 @@
 					<object class="IBUILabel" id="914021475">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{1024, 44}</string>
+						<string key="NSFrameSize">{1024, 29}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="434753358"/>
@@ -95,7 +96,7 @@
 					<object class="IBUISegmentedControl" id="820920023">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{650, 7}, {360, 30}}</string>
+						<string key="NSFrame">{{466, -1}, {558, 30}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="116120263"/>
@@ -137,7 +138,7 @@
 					<object class="IBUILabel" id="434753358">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{100, 0}, {450, 44}}</string>
+						<string key="NSFrameSize">{450, 29}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="820920023"/>
@@ -163,10 +164,7 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="914021475"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MC4yMzIwNjA5NzE1IDAuMjMyMDYwOTcxNSAwLjIzMjA2MDk3MTUAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="815467897"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
@@ -255,8 +253,8 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="914021475"/>
 							<reference ref="820920023"/>
-							<reference ref="434753358"/>
 							<reference ref="116120263"/>
+							<reference ref="434753358"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -305,6 +303,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">WebViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">segmentChanged:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">segmentChanged:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">segmentChanged:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="segment">UISegmentedControl</string>
 						<string key="titleLable">UILabel</string>
