@@ -964,7 +964,6 @@ static int iDisplay=0;
         iDisplay=2;
     }
     
-    
 }
 
 #pragma mark - popoverController
@@ -986,11 +985,12 @@ static int iDisplay=0;
         [activity stopAnimating];
         [activity removeFromSuperview];
         [updateButton setTitle:@"网络同步" forState:UIControlStateNormal];
-//        [self getFactoryCoordinateArray];
-//        
-//        [self getShipCoordinateArray];
-//        
-//        [self getPortCoordinateArray];
+        
+        [self getFactoryCoordinateArray];
+        [self getShipCoordinateArray];
+        [self getPortCoordinateArray];
+        [self chooseUpdateView];
+
         
         return;
     }

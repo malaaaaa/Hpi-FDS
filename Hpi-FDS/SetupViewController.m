@@ -46,6 +46,10 @@ UIAlertView *alert;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    tableView.layer.masksToBounds=YES;
+    tableView.layer.cornerRadius=5.0;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -129,6 +133,9 @@ UIAlertView *alert;
         [xmlParser getTmIndexdefine];
         [TmIndextypeDao deleteAll];
         [xmlParser getTmIndextype];
+
+
+   
 
         [self runActivity];
 	}

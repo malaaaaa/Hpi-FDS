@@ -109,9 +109,8 @@ DataQueryVC *dataQueryVC;
      for(int column = 0;column < [dataSource.titles count];column++){
          float columnWidth=[[dataSource.columnWidth objectAtIndex:column ] floatValue];
     
-//         UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
-         //预留1像素空隙，却显示成2个，不知为何？
-         UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth , 40+2 )];
+         UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+
 
 
          l.font = [UIFont systemFontOfSize:16.0f];

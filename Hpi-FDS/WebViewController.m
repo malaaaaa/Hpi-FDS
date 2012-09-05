@@ -92,9 +92,13 @@ static NSString *fileName;
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 //    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]];
 
+    [webView setBackgroundColor:[UIColor whiteColor]];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+
     [webView loadRequest:request];
+
     self.titleLable.text=fileName;
-    webView.alpha=1;
+//    webView.alpha=1;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

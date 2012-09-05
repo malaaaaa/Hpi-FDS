@@ -179,14 +179,21 @@ static sqlite3	*database;
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			char * rowData0=(char *)sqlite3_column_text(statement,0);
 			int num=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease]intValue] ;
-			if(num>0)
+			if(num>0){
+                sqlite3_finalize(statement);
+                
 				return YES;
-			else
-				return  NO;
+            }
+			else{
+                sqlite3_finalize(statement);
+                return  NO;
+            }
 		}
 	}else {
+        sqlite3_finalize(statement);
 		return NO;
 	}
+    sqlite3_finalize(statement);
     return NO;
 }
 
@@ -199,14 +206,22 @@ static sqlite3	*database;
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			char * rowData0=(char *)sqlite3_column_text(statement,0);
 			int num=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease]intValue] ;
-			if(num>0)
+			if(num>0){
+                sqlite3_finalize(statement);
 				return YES;
-			else
+            }
+			else{
+                sqlite3_finalize(statement);
+                
 				return  NO;
+            }
 		}
 	}else {
+        sqlite3_finalize(statement);
 		return NO;
 	}
+    sqlite3_finalize(statement);
+    
     return NO;
 }
 

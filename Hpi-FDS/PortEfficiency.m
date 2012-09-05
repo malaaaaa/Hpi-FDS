@@ -167,7 +167,7 @@ static sqlite3 *database;
     [factorySubSql release];
     if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
         sqlite3_close(database);
-        NSLog(@"exec commit error");
+        NSLog(@"exec commit error: %s",sqlite3_errmsg(database));
         return;
     }
 

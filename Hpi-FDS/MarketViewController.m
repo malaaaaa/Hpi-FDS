@@ -424,6 +424,7 @@ static NSString *stringType=@"BSPI";
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
+        [activity setFrame:CGRectMake(967, 45, 37, 37)];
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
