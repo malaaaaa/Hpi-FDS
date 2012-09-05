@@ -694,7 +694,7 @@ static int iDisplay=0;
     [self displayShip];
 }
 
--(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)portName :(NSString *)factoryName
+-(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(BOOL)move
 {
     int i;
     int a=0;
@@ -724,9 +724,9 @@ static int iDisplay=0;
         for(i=0;i<[shipCoordinateArray count];i++)
         {
             hpiAnnotation *port=[shipCoordinateArray objectAtIndex:i];
-            NSLog(@"shipName[%@]",port.title);
-            NSLog(@"port[%@]",port.port);
-            NSLog(@"factory[%@]",port.factory);
+//            NSLog(@"shipName[%@]",port.title);
+//            NSLog(@"port[%@]",port.port);
+//            NSLog(@"factory[%@]",port.factory);
             if(a==0)
             {
                 if(![shipName isEqualToString:port.title])
@@ -750,7 +750,7 @@ static int iDisplay=0;
             }
             [mapView addAnnotation:port];
             [mapViewBig addAnnotation:port];
-            if (a==0)
+            if (a==0 && move==YES)
             {
                 if([shipName isEqualToString:port.title])
                 {
@@ -770,7 +770,7 @@ static int iDisplay=0;
 #pragma mark - display 坐标
 - (void)chooseUpdateView
 {
-    [self getShipCoordinateByChoose:shipButton.titleLabel.text :portButton.titleLabel.text :factoryButton.titleLabel.text];
+    [self getShipCoordinateByChoose:shipButton.titleLabel.text :portButton.titleLabel.text :factoryButton.titleLabel.text :YES];
 }
 - (void)displayPort
 {
@@ -869,6 +869,7 @@ static int iDisplay=0;
 - (void)mapView:(MKMapView *)mapView1 regionDidChangeAnimated:(BOOL)animated
 {
     NSLog(@"self.mapView.region.span %f + %f" ,mapView.region.span.latitudeDelta,mapView.region.span.longitudeDelta);
+
     if((mapView.region.span.longitudeDelta<10.0) && (mapView.region.span.longitudeDelta>0.3) && (iDisplay != 1))
     {
         for (hpiAnnotation *myannotation in portCoordinateArray) {
@@ -903,6 +904,7 @@ static int iDisplay=0;
     }
     if((mapView.region.span.longitudeDelta>=10.0) && (iDisplay != 0))
     {
+
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou1"];
         }
@@ -934,6 +936,7 @@ static int iDisplay=0;
     }
     if((mapView.region.span.longitudeDelta<=0.3) && (iDisplay != 2))
     {
+
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou3"];
         }
@@ -963,7 +966,8 @@ static int iDisplay=0;
         [self.mapView addAnnotations:portCoordinateArray];
         iDisplay=2;
     }
-    
+        [self getShipCoordinateByChoose:shipButton.titleLabel.text :portButton.titleLabel.text :factoryButton.titleLabel.text :NO];
+   
 }
 
 #pragma mark - popoverController

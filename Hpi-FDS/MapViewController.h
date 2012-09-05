@@ -95,5 +95,5 @@
 -(void)displayShip;
 -(void)getShipCoordinateArray;
 -(void)chooseUpdateView;
-
+-(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(BOOL)move;
 @end

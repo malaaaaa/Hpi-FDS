@@ -64,7 +64,10 @@ static NSString *fileName;
 //    NSURLRequest *request = [NSURLRequest requestWithURL:url];
 //    [webView loadRequest:request];
 //    webView.alpha=0.3;
-    
+    self.waitingLable = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 600, 50)];
+    self.waitingLable.backgroundColor=[UIColor clearColor];
+    self.waitingLable.text=@"文档加载缓慢，请耐心等待...";
+    self.waitingLable.font = [UIFont systemFontOfSize:30.0f];
     webView.scalesPageToFit =  YES;
     segment.momentary = YES;	
 }
@@ -75,6 +78,7 @@ static NSString *fileName;
     self.titleLable=nil;
     self.segment=nil;
     self.memoirListVC=nil;
+    self.waitingLable=nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -93,12 +97,23 @@ static NSString *fileName;
 //    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]];
 
     [webView setBackgroundColor:[UIColor whiteColor]];
+
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 
     [webView loadRequest:request];
 
     self.titleLable.text=fileName;
 //    webView.alpha=1;
+}
+- (void )webViewDidStartLoad:(UIWebView  *)webView
+{
+    [self.webView.scrollView addSubview:_waitingLable];
+    
+}
+- (void )webViewDidFinishLoad:(UIWebView  *)webView
+{
+    [_waitingLable removeFromSuperview];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
