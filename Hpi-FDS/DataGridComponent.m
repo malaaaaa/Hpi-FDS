@@ -195,7 +195,7 @@
             }
             else
             {
-                float columnWidth = [[dataSource.columnWidth objectAtIndex:column-1] floatValue];;
+                float columnWidth = [[dataSource.columnWidth objectAtIndex:column-1] floatValue];
                 UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
                 l.font = [UIFont systemFontOfSize:14.0f];
                 l.text = [rowData objectAtIndex:column];

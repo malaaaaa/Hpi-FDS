@@ -8,7 +8,10 @@
 
 #import "TBXMLParser.h"
 #import <objc/runtime.h>
-
+#import "TF_FACTORYCAPACITYDao.h"
+#import "TfShipDao.h"
+#import "TB_OFFLOADSHIPDao.h"
+#import "TB_OFFLOADFACTORYDao.h"
 
 @implementation TBXMLParser
 @synthesize Identification=_Identification;
@@ -168,6 +171,8 @@ static bool ThreadFinished=TRUE;
     if ([_Identification isEqualToString:@"FactoryState"]) {
         //全部删除
         [TbFactoryStateDao deleteAll];
+        //TbFactoryState
+        
         [self getDate:@"TbFactoryState" entityClass:@"TbFactoryState" insertTableName:@"TbFactoryState"];
     }
     
@@ -231,20 +236,63 @@ static bool ThreadFinished=TRUE;
     
      }
 
+     /***********************电厂信息*****-**************************/
+  //tgFactory   
+    if ([_Identification isEqualToString:@"TgFactory"]) {
+        
+        //全部删除 GetTgFactoryInfo
+        [TgFactoryDao deleteAll];
+        [self getDate:@"TgFactory" entityClass:@"TgFactory" insertTableName:@"TgFactory"];
+        
+    }
+    
+
     
     
     
     
     
+  /******************获取电厂机组运行信息**********TF_FACTORYCAPACITY**************************/
     
+    if ([_Identification isEqualToString:@"FactoryCapacity"]) {
+        
+        //全部删除  GetFactoryCapacityInfo
+        [TF_FACTORYCAPACITYDao deleteAll];
+        [self getDate:@"TfFactoryCapacity" entityClass:@"TF_FACTORYCAPACITY" insertTableName:@"TF_FACTORYCAPACITY"];
+        
+    }
+
     
+  /****************************TB_OFFLOADSHIP**************************/
     
+    if ([_Identification isEqualToString:@"OffLoadShip"]) {
+        
+        //全部删除   GetOffLoadShipInfo
+        [TB_OFFLOADSHIPDao deleteAll];
+        [self getDate:@"OffLoadShip" entityClass:@"TB_OFFLOADSHIP" insertTableName:@"TB_OFFLOADSHIP"];
+        
+    }
+    /****************************TB_OFFLOADFACTORY**************************/
     
+    if ([_Identification isEqualToString:@"OffLoadFactory"]) {
+        
+        //全部删除  GetOffLoadFactoryInfo
+        [TB_OFFLOADFACTORYDao deleteAll];
+        [self getDate:@"OffLoadFactory" entityClass:@"TB_OFFLOADFACTORY" insertTableName:@"TB_OFFLOADFACTORY"];
+        
+    }
+ 
     
+    /****************************TfShip**************************/
     
-    
-    
-    
+    if ([_Identification isEqualToString:@"TfShip"]) {
+        
+        //全部删除   GetTfShipInfo
+        [TfShipDao deleteAll];
+        [self getDate:@"TfShip" entityClass:@"TfShip" insertTableName:@"TfShip"];
+        
+    }
+
     
     
     
@@ -275,6 +323,8 @@ static bool ThreadFinished=TRUE;
         if (root) {
             TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
             //[_Identification compare:Identification options:NSCaseInsensitiveSearch]
+            
+            
                 TBXMLElement *element = [TBXML childElementNamed:element1 parentElement:elementNoUsed];
                 
                 //打开数据库
@@ -306,6 +356,10 @@ static bool ThreadFinished=TRUE;
                 objc_property_t *properties = class_copyPropertyList(LenderClass, &outCount);
                 NSString *columName=@" ";
                 NSString *columValue=@" ";
+            if (_Identification==@"OffLoadFactory") {
+                
+                outCount=10;
+            }
             if (_Identification==@"FactoryTrans") {
                 outCount=16;
             }
@@ -321,7 +375,10 @@ static bool ThreadFinished=TRUE;
             
              outCount=6;
             }
-            
+            if (_Identification==@"TgFactory") {
+                
+                outCount=13;
+            }
             
             
             for (int i = 0; i < outCount; i++) {
@@ -330,8 +387,6 @@ static bool ThreadFinished=TRUE;
                   columName=[columName stringByAppendingFormat:@"%@,",propertyName];//多一个
                 
                 columValue=[columValue stringByAppendingFormat:@"%@",@"?,"];//多一个
-                
-                NSLog(@"%@",propertyName);
                 
                 
                 [propertyName release];
@@ -348,6 +403,7 @@ static bool ThreadFinished=TRUE;
             
             
                 while (element != nil) {
+                    
                     int re =sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL);
                     if (re!=SQLITE_OK) {
                         NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),[sql UTF8String]);
@@ -357,14 +413,30 @@ static bool ThreadFinished=TRUE;
                         objc_property_t property = properties[i];
                         NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)]; 
                         NSString *type=[[NSString    alloc] initWithFormat:@"%s",property_getAttributes(property)];
+                        
                         desc = [TBXML childElementNamed:[propertyName uppercaseString] parentElement:element];
                         if (desc != nil) {
                             if ([type rangeOfString:@"NSString"].length!=0) {
-                                sqlite3_bind_text(statement, i+1, [[TBXML textForElement:desc] UTF8String], -1, SQLITE_TRANSIENT);                                    
-                            }else{
-                                sqlite3_bind_int(statement, i+1,[[TBXML textForElement:desc] integerValue]);
+                                sqlite3_bind_text(statement, i+1, [[TBXML textForElement:desc]
+                                                                   UTF8String], -1, SQLITE_TRANSIENT);
+                                
                             }
+                            
+                          if ([type rangeOfString:@"Ti"].length!=0){
+                                sqlite3_bind_int(statement, i+1,[[TBXML textForElement:desc] integerValue]);
+                                
+                            }
+                         if ([type rangeOfString:@"Td"].length!=0){
+                                sqlite3_bind_double(statement, i+1,[[TBXML textForElement:desc] doubleValue]);
+                                
+                            }
+                            
+                            
+                            
+                            
+                            
                         }
+                        
                         [propertyName release];
                         [type release];
                     }                
@@ -374,7 +446,7 @@ static bool ThreadFinished=TRUE;
                         sqlite3_finalize(statement);
                         return;  
                     }else {
-                       // NSLog(@"insert shipTrans  SUCCESS");
+                        //NSLog(@"insert shipTrans  SUCCESS");
                     }
                     sqlite3_finalize(statement);
                 //element1   :TfCoalType

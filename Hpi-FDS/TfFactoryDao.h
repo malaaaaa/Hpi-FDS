@@ -22,4 +22,10 @@
 +(NSMutableArray *) getTfFactoryBySql:(NSString *)sql;
 +(void) deleteAll;
 
+
+
+
+//获得  tffactory  数据实体 根据 电厂名
++(TfFactory *)getTfFactoryByName:(NSString *)factoryName;
+
 @end

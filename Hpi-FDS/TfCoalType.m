@@ -9,10 +9,21 @@
 #import "TfCoalType.h"
 
 @implementation TfCoalType
-@synthesize TYPEID=_TYPEID;
-@synthesize COALTYPE=_COALTYPE;
-@synthesize SORT=_SORT;
-@synthesize HEATVALUE=_HEATVALUE;
-@synthesize SULFUR=_SULFUR;
+
+
+@synthesize COALTYPE;
+@synthesize TYPEID,SULFUR,SORT,HEATVALUE;
+
 @synthesize didSelected;
+
+
+-(void)dealloc
+{
+
+
+    [COALTYPE release];
+    [super dealloc];
+}
+
+
 @end

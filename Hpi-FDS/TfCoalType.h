@@ -10,11 +10,12 @@
 #import <sqlite3.h>
 
 @interface TfCoalType : NSObject{
-    NSInteger _TYPEID;
-    NSString *_COALTYPE;
-    NSInteger _SORT;
-    NSInteger _HEATVALUE;
-    NSInteger _SULFUR;
+    NSInteger TYPEID;
+    NSString *COALTYPE;
+    NSInteger SORT;
+    NSInteger HEATVALUE;
+    NSInteger SULFUR;
+    
     BOOL didSelected;
 }
 @property NSInteger TYPEID;

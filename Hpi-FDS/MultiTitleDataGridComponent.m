@@ -139,15 +139,8 @@ int count=1;
     UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth-1, cellHeight*cCount-1 )];
     l2.font = [UIFont systemFontOfSize:16.0f];
     l2.text = [source.titles objectAtIndex:0];
-    //l2.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
-    
-    
-    
+    //l2.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]]; 
     l2.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbgd"]];
-
-    
-    
-    
     l2.textColor = [UIColor whiteColor];
     l2.shadowColor = [UIColor blackColor];
     l2.shadowOffset = CGSizeMake(0, -0.5);

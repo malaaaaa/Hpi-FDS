@@ -79,6 +79,23 @@
         portEfficiencyVC.view.frame = CGRectMake(0, 40, 1024,661 );
         [parentView addSubview:portEfficiencyVC.view];
     }
+    else if ([indexPath row]==kMenuFactoryWaitState)//电厂靠泊  
+    {
+        factoryWait=[[FactoryWaitDynamicViewController   alloc] initWithNibName:@"FactoryWaitDynamicViewController" bundle:nil];
+        
+        
+        factoryWait.view.frame = CGRectMake(0, 40, 1024,661 );
+        [parentView addSubview:factoryWait.view];
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
     else{
         dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
         dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
@@ -132,6 +149,10 @@
         case kMenuFcAvgZXTime:
             cell.textLabel.text=@"电厂平均装卸港时间统计";
             break;
+        case kMenuFactoryWaitState:
+            cell.textLabel.text=@"电厂靠泊动态";
+            break;
+
         default:
             break;
     }

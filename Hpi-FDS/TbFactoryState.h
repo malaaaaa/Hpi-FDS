@@ -24,8 +24,12 @@
     NSInteger   STORAGE7;
     NSString    *TRANSNOTE;
     NSString    *NOTE;
+    NSInteger   MONTHCONSUM;
+    NSInteger  YEARCONSUM;
     
 }
+
+
 @property NSInteger STID;
 @property (nonatomic,retain) NSString *FACTORYCODE;
 @property (nonatomic,retain) NSString *RECORDDATE;
@@ -40,6 +44,7 @@
 @property NSInteger STORAGE7;
 @property (nonatomic,retain) NSString *TRANSNOTE;
 @property (nonatomic,retain) NSString *NOTE;
+@property NSInteger   MONTHCONSUM;
 
-
+@property NSInteger   YEARCONSUM;
 @end

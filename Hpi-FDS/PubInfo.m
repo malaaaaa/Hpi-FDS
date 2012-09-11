@@ -12,10 +12,14 @@
 #import "TB_LatefeeDao.h"
 #import "NT_LatefeeTongjDao.h"
 #import "TfPortDao.h"
-
+#import "FactoryWaitDynamicDao.h"
 #import "AvgFactoryZXTimeDao.h"
-
+#import "TB_OFFLOADFACTORYDao.h"
+#import "TB_OFFLOADSHIPDao.h"
 #import "AvgPortPTimeDao.h"
+#import "TfShip.h"
+#import "TfShipDao.h"
+#import "TF_FACTORYCAPACITYDao.h"
 
 @implementation PubInfo
 static NSString *hostName = @"http://10.2.17.121";     //http://172.16.1.16:84
@@ -61,8 +65,10 @@ static NSString *deviceID;
     [VbFactoryTransDao initDb];
     [TfFactoryDao openDataBase];
     [TfFactoryDao initDb];
+    
     [TbFactoryStateDao openDataBase];
     [TbFactoryStateDao initDb];
+    
     [TfShipCompanyDao openDataBase];
     [TfShipCompanyDao initDb];
     [TfSupplierDao openDataBase];
@@ -91,9 +97,27 @@ static NSString *deviceID;
     //电厂平均装卸港时间
     [AvgFactoryZXTimeDao openDataBase];
 
+    //电厂靠泊动态
+    [FactoryWaitDynamicDao  openDataBase];
+    
+    //
+    [TF_FACTORYCAPACITYDao openDataBase ];
+    [TF_FACTORYCAPACITYDao initDb];
+    
+    
+    //
+    [TfShipDao openDataBase];
+    [TfShipDao initDb];
     
     
     
+    
+    //  新添 量表
+    [TB_OFFLOADFACTORYDao openDataBase];
+    [TB_OFFLOADFACTORYDao initDb];
+    
+    [TB_OFFLOADSHIPDao openDataBase ];
+    [TB_OFFLOADSHIPDao initDb];
     
     
     [NTShipCompanyTranShareDao openDataBase];

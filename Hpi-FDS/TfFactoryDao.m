@@ -59,7 +59,24 @@ static sqlite3	*database;
 		
 	}
 }
+/*******电厂靠泊动态***********/
+//获得  tffactory  数据实体 根据 电厂名
++(TfFactory *)getTfFactoryByName:(NSString *)factoryName
+{
+    
+    TfFactory *tfFactory=[[[TfFactory   alloc] init] autorelease];
+    
+    NSString *query=[NSString stringWithFormat:@" FACTORYNAME = '%@'  ORDER BY sort",factoryName];
+    
+    
+    tfFactory=  [[TfFactoryDao getTfFactoryBySql:query] objectAtIndex:0];
+    
+    return tfFactory;
+    
+}
 
+
+/*******电厂靠泊动态***********/
 +(void)insert:(TfFactory*) tfFactory
 {
 //	NSLog(@"Insert begin TfFactory");
@@ -149,7 +166,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT FACTORYCODE,FACTORYNAME,CAPACITYSUM,DESCRIPTION,SORT,BERTHNUM,BERTHWET,CHANNELDEPTH,CATEGORY,MAXSTORAGE,ORGANCODE FROM  tfFactory WHERE %@ ",sql1];
-    NSLog(@"执行 gettfFactoryBySql [%@] ",sql);
+  // NSLog(@"执行 gettfFactoryBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
@@ -219,8 +236,11 @@ static sqlite3	*database;
 		}
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+        sqlite3_finalize(statement);
+        sqlite3_close(database);
 	}
-	//zhangcx add
+	sqlite3_finalize(statement);
+    //sqlite3_close(database);
 	[array autorelease];
 	return array;
 }

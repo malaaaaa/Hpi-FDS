@@ -407,7 +407,7 @@ DataQueryVC *dataQueryVC;
  
 }
 
-typedef struct objc_property *Property;
+
 
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -422,31 +422,6 @@ typedef struct objc_property *Property;
        [tbxmlParser requestSOAP:@"TransPlan"];
         //同步煤种
        [tbxmlParser requestSOAP:@"CoalType"];//GetInfo
-        
-        
-        //VbTransplan    *d=[[VbTransplan alloc] init];
-
-        /*
-        id LenderClass = objc_getClass("VbTransplan");
-        unsigned int outCount, i;
-        objc_property_t *properties = class_copyPropertyList(LenderClass, &outCount);
-        
-        
-        
-        for (i = 0; i < outCount; i++) {
-           objc_property   property = properties[i];
-            
-            
-          fprintf(stdout, "%s %s\n", property_getName(property), property_getAttributes(property));
-            
-    
-        }
-        
-        */
-
-        
-        
-       
         
         [self runActivity];
     }

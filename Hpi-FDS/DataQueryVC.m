@@ -21,6 +21,7 @@
 #import "DataGridComponent.h"
 
 
+
 @interface DataQueryVC ()
 
 @end
@@ -495,7 +496,7 @@ static NSInteger menuIndex;
         
     }
     //电厂装卸港时间统计
-    else if (index==kMenuFcAvgZXTime) {    
+    else if (index==kMenuFcAvgZXTime) {
    [self removeSubView];
         self.avgTimeZXFactory=[[[AvgFactoryTimeChVC alloc] init] autorelease];
         avgTimeZXFactory.parentVC=self;
@@ -511,6 +512,18 @@ static NSInteger menuIndex;
         [self.chooseView addSubview:avgTimeZXFactory.view];
          NSLog(@"电厂平均装XIE港时间统计查询............."); 
     }
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 }

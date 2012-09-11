@@ -24,6 +24,6 @@
 
 -(void)fillData;
 -(void)layoutSubView:(CGRect)aRect;
-
+-(void)getColument;
 
 @end

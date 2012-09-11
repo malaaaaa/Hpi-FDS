@@ -638,7 +638,7 @@ static  NSMutableArray *ShipStageArray;
         [tbxmlParser setISoapNum:2];
         
         [tbxmlParser requestSOAP:@"FactoryState"];
-        [tbxmlParser requestSOAP:@"FactoryTrans"];
+       [tbxmlParser requestSOAP:@"FactoryTrans"];
         
         
         [self runActivity];
