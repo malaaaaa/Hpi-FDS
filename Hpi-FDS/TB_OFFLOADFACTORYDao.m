@@ -73,6 +73,7 @@ static sqlite3	*database;
 	{
 		NSLog(@"delete success");
 	}
+ 
 	return;
 }
 

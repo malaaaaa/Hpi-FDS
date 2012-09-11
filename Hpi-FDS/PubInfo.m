@@ -120,6 +120,11 @@ static NSString *deviceID;
     [TB_OFFLOADSHIPDao initDb];
     
     
+    
+    
+    
+    
+    
     [NTShipCompanyTranShareDao openDataBase];
     [NTShipCompanyTranShareDao initDb];
     [NTShipCompanyTranShareDao initDb_tmpTable];
@@ -130,46 +135,6 @@ static NSString *deviceID;
     [NTFactoryFreightVolumeDao initDb_tmpTable];    
     [PortEfficiencyDao openDataBase];
     [PortEfficiencyDao initDb];
-    
-//    //新添  thshiptrans 调度日志
-//    [TH_ShipTransDao openDataBase];
-//    [TH_ShipTransDao initDb];
-//    
-//    [VbFactoryTransDao openDataBase];
-//    [VbFactoryTransDao initDb];
-//    [TfFactoryDao initDb];
-//    [TbFactoryStateDao initDb];
-//
-//    [TfShipCompanyDao initDb];
-//
-//    [TfSupplierDao initDb];
-//
-//    [TfCoalTypeDao initDb];
-//
-//    [TsShipStageDao initDb];
-//    
-//
-//    //新添  tblatefee
-//
-//    [TB_LatefeeDao initDb];
-//    
-//
-//    [TfPortDao initDb];
-//    
-//
-//    [NTShipCompanyTranShareDao initDb];
-//    [NTShipCompanyTranShareDao initDb_tmpTable];
-//
-//    [NTColorConfigDao initDb];
-//
-//    [NTFactoryFreightVolumeDao initDb];
-//    [NTFactoryFreightVolumeDao initDb_tmpTable];
-//
-//    [PortEfficiencyDao initDb];
-//
-
-    
-    
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
 	NSString *fileName=[[NSString alloc]initWithFormat:@"%@/data.plist",doc]; 

@@ -235,7 +235,7 @@ static bool ThreadFinished=TRUE;
         [self getDate:@"TmCoalInfo" entityClass:@"TmCoalinfo" insertTableName:@"TmCoalinfo"];
     }
     /***********************船舶信息*****-ShipInfo**************************/
-<<<<<<< HEAD
+
      if ([_Identification isEqualToString:@"Ship"]) {
     
          //全部删除
@@ -308,15 +308,7 @@ static bool ThreadFinished=TRUE;
     
     
     
-=======
-    if ([_Identification isEqualToString:@"Ship"]) {
-        
-        //全部删除
-        [TmShipinfoDao deleteAll];
-        [self getDate:@"TmShipInfo" entityClass:@"TmShipinfo" insertTableName:@"TmShipinfo"];
-        
-    }
->>>>>>> 92a5a31f41bc5a88b327bf2d8f114353c154d171
+
     
 }
 #pragma mark -参数：1，xml子节点【TfCoalType】  2，表的对应实体类 3，插入的表名
@@ -338,12 +330,7 @@ static bool ThreadFinished=TRUE;
         //=======================================
         if (root) {
             TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
-            //[_Identification compare:Identification options:NSCaseInsensitiveSearch]
-<<<<<<< HEAD
-            
-            
                 TBXMLElement *element = [TBXML childElementNamed:element1 parentElement:elementNoUsed];
-                
                 //打开数据库
                	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
                 NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -366,7 +353,6 @@ static bool ThreadFinished=TRUE;
                     return;
                 }
                 //动态调用某个类的方法
-
                 sqlite3_stmt *statement;
                 id LenderClass = objc_getClass([className UTF8String]);//要不要释放
                 NSUInteger outCount;
@@ -377,39 +363,7 @@ static bool ThreadFinished=TRUE;
                 
                 outCount=10;
             }
-=======
-            TBXMLElement *element = [TBXML childElementNamed:element1 parentElement:elementNoUsed];
-            
-            //打开数据库
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory = [paths objectAtIndex:0];
-            NSString *file= [documentsDirectory stringByAppendingPathComponent:@"database.db"];
-            
-            if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
-            {
-                sqlite3_close(database);
-                NSLog(@"open  database error");
-                return;
-            }else
-            {
-                NSLog(@"open  database ");
-                
-            }
-            //为提高数据库写入性能，加入事务控制，批量提交
-            if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
-                sqlite3_close(database);
-                NSLog(@"exec begin error");
-                return;
-            }
-            //动态调用某个类的方法
-            
-            sqlite3_stmt *statement;
-            id LenderClass = objc_getClass([className UTF8String]);//要不要释放
-            NSUInteger outCount;
-            objc_property_t *properties = class_copyPropertyList(LenderClass, &outCount);
-            NSString *columName=@" ";
-            NSString *columValue=@" ";
->>>>>>> 92a5a31f41bc5a88b327bf2d8f114353c154d171
+
             if (_Identification==@"FactoryTrans") {
                 outCount=16;
             }
@@ -429,30 +383,18 @@ static bool ThreadFinished=TRUE;
                 
                 outCount=13;
             }
-            
-            
             for (int i = 0; i < outCount; i++) {
                 objc_property_t property = properties[i];
                 NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)];
                 columName=[columName stringByAppendingFormat:@"%@,",propertyName];//多一个
-                
                 columValue=[columValue stringByAppendingFormat:@"%@",@"?,"];//多一个
-                
-                
                 [propertyName release];
             }
             columName=[columName substringWithRange:NSMakeRange(0,[columName length]-1)];
             columValue=[columValue substringWithRange:NSMakeRange(0,[columValue length]-1)];
-            
             TBXMLElement * desc;
             NSString *sql=[NSString stringWithFormat:@"INSERT INTO %@ (%@) values(%@)",tableName,columName,columValue];
-            
-            
             NSLog(@"==============sql[%@]",sql);
-            
-            
-            
-<<<<<<< HEAD
                 while (element != nil) {
                     
                     int re =sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL);
@@ -472,22 +414,14 @@ static bool ThreadFinished=TRUE;
                                                                    UTF8String], -1, SQLITE_TRANSIENT);
                                 
                             }
-                            
                           if ([type rangeOfString:@"Ti"].length!=0){
                                 sqlite3_bind_int(statement, i+1,[[TBXML textForElement:desc] integerValue]);
                                 
                             }
                          if ([type rangeOfString:@"Td"].length!=0){
-                                sqlite3_bind_double(statement, i+1,[[TBXML textForElement:desc] doubleValue]);
-                                
-                            }
-                            
-                            
-                            
-                            
-                            
+                                sqlite3_bind_double(statement, i+1,[[TBXML textForElement:desc] doubleValue]); 
+                            } 
                         }
-                        
                         [propertyName release];
                         [type release];
                     }                
@@ -498,43 +432,11 @@ static bool ThreadFinished=TRUE;
                         return;  
                     }else {
                         //NSLog(@"insert shipTrans  SUCCESS");
-=======
-            while (element != nil) {
-                int re =sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL);
-                if (re!=SQLITE_OK) {
-                    NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),[sql UTF8String]);
-                }
-                for (int i = 0; i < outCount; i++) {
-                    // objc_property_t property = *properties++;
-                    objc_property_t property = properties[i];
-                    NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)];
-                    NSString *type=[[NSString    alloc] initWithFormat:@"%s",property_getAttributes(property)];
-                    desc = [TBXML childElementNamed:[propertyName uppercaseString] parentElement:element];
-                    if (desc != nil) {
-                        if ([type rangeOfString:@"NSString"].length!=0) {
-                            sqlite3_bind_text(statement, i+1, [[TBXML textForElement:desc] UTF8String], -1, SQLITE_TRANSIENT);
-                            //                                NSLog(@"1 %@+%s",propertyName,[[TBXML textForElement:desc] UTF8String]);
-                        }else{
-                            sqlite3_bind_int(statement, i+1,[[TBXML textForElement:desc] integerValue]);
-                            //                                NSLog(@"2 %@+%d",propertyName,[[TBXML textForElement:desc] integerValue]);
-                            
-                        }
->>>>>>> 92a5a31f41bc5a88b327bf2d8f114353c154d171
+
                     }
-                    [propertyName release];
-                    [type release];
-                }
-                re=sqlite3_step(statement);
-                if (re!=SQLITE_DONE) {
-                    NSLog( @"Error: insert VbShiptrans  error with message [%s]  sql[%s]", sqlite3_errmsg(database),[sql UTF8String]);
-                    sqlite3_finalize(statement);
-                    return;
-                }else {
-                    // NSLog(@"insert shipTrans  SUCCESS");
                 }
                 sqlite3_finalize(statement);
                 //element1   :TfCoalType
-                
                 element = [TBXML nextSiblingNamed:element1 searchFromElement:element];
             }
             
@@ -548,11 +450,8 @@ static bool ThreadFinished=TRUE;
             iSoapDone=1;
             iSoapNum--;
         }
-        //}
-        //====================================
-        
-    }
 }
+
 
 
 
