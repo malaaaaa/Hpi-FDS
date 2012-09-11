@@ -56,7 +56,17 @@ static  NSMutableArray *LegendArray;
 
     
     self.endDay = [[[NSDate alloc] init] autorelease];
-    self.startDay = [[[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] autorelease];
+    
+    //本年度的一个月
+    NSDateComponents *comp = [[[NSDateComponents alloc]init] autorelease];
+    [comp setMonth:1];
+    NSDateFormatter *yearFormatter =[[NSDateFormatter alloc] init];
+    [yearFormatter setDateFormat:@"yyyy"];
+    [comp setYear:[[yearFormatter stringFromDate:[NSDate date]] integerValue]];
+    NSCalendar *myCal = [[[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    [yearFormatter release];
+    self.startDay=[myCal dateFromComponents:comp] ;
+//    self.startDay = [[[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] autorelease];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM"];
     [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];

@@ -49,6 +49,7 @@ static NSString *stringType=@"BSPI";
     [dateFormatter release];
     
     [activity removeFromSuperview];
+
     self.tbxmlParser =[[TBXMLParser alloc] init] ;
 }
 
@@ -68,8 +69,10 @@ static NSString *stringType=@"BSPI";
     dataButton = nil;
     [activity release];
     activity = nil;
-    self.tbxmlParser=nil;
-    
+//    self.tbxmlParser=nil;
+    [tbxmlParser release];
+    tbxmlParser=nil;
+    NSLog(@"mawp didunload");
     [graphView release];
     graphView=nil;
     [super viewDidUnload];

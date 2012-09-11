@@ -194,8 +194,8 @@ static int cellNum =0;
 	MemoirCell *cell=(MemoirCell *)[tableView dequeueReusableCellWithIdentifier:MyIdentifier];
 	if(cell==nil)
 	{
-		NSArray *nib=[[NSBundle mainBundle]loadNibNamed:@"MemoirCell" owner:self	options:nil];
-		cell=[nib objectAtIndex:0];//无法执行
+//		NSArray *nib=[[NSBundle mainBundle]loadNibNamed:@"MemoirCell" owner:self	options:nil];
+//		cell=[nib objectAtIndex:0];//无法执行
 	}
 	cell=(MemoirCell *)[self.cellArray objectAtIndex:[indexPath row]];
 	return cell;

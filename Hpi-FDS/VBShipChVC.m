@@ -86,7 +86,7 @@ DataQueryVC *dataQueryVC;
     
     [self initSource];
     
-  
+    
     animation.type = @"oglFlip";
     [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
     [dataQueryVC.labelView removeFromSuperview];
@@ -105,22 +105,23 @@ DataQueryVC *dataQueryVC;
         [l release];
         columnOffset += columnWidth;
     }
-  
- [dataQueryVC.listView addSubview:dataQueryVC.labelView];
+    
+    [dataQueryVC.listView addSubview:dataQueryVC.labelView];
     
     if(dataSource){
+        
+        [dataSource release];
         dataSource=nil;
-      [dataSource release];
-    }   
+    }
     
 }
 
 -(void)initSource
 {
     if (!dataSource) {
-     dataSource = [[DataGridComponentDataSource alloc] init];
+        dataSource = [[DataGridComponentDataSource alloc] init];
         dataSource.columnWidth = [NSArray arrayWithObjects:@"85",@"110",@"85",@"105",@"105",@"150",@"75",@"70",@"90",@"70",@"80",nil];
-         dataSource.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",nil];
+        dataSource.titles = [NSArray arrayWithObjects:@"航运公司",@"船名",@"航次",@"流向",@"装港",@"供货方",@"性质",@"煤质",@"贸易性质",@"煤种",@"状态",nil];
     }
 }
 
@@ -142,7 +143,7 @@ DataQueryVC *dataQueryVC;
     [self setReloadButton:nil];
     [self setActivity:nil];
     self.tbxmlParser =nil;
-
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -154,10 +155,10 @@ DataQueryVC *dataQueryVC;
 }
 
 - (void)dealloc {
-    if(parentVC) 
-    [parentVC release   ];
+    if(parentVC)
+        [parentVC release   ];
     if(dataSource){
-    [dataSource release];
+        [dataSource release];
     }
     if(dataQueryVC){
         [dataQueryVC release];
@@ -177,8 +178,8 @@ DataQueryVC *dataQueryVC;
     [popover release];
     [reloadButton release];
     [activity release];
-//    [tbxmlParser release];
-//    tbxmlParser=nil;
+    //    [tbxmlParser release];
+    //    tbxmlParser=nil;
     self.tbxmlParser=nil;
     [super dealloc];
 }
@@ -187,7 +188,7 @@ DataQueryVC *dataQueryVC;
         [self.popover dismissPopoverAnimated:YES];
     }
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -212,9 +213,9 @@ DataQueryVC *dataQueryVC;
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
-
+    
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -249,7 +250,7 @@ DataQueryVC *dataQueryVC;
     }
     
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -284,7 +285,7 @@ DataQueryVC *dataQueryVC;
     }
     
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -318,7 +319,7 @@ DataQueryVC *dataQueryVC;
         [self.popover dismissPopoverAnimated:YES];
     }
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -345,7 +346,7 @@ DataQueryVC *dataQueryVC;
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
     [alert release];
-
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -353,11 +354,10 @@ DataQueryVC *dataQueryVC;
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [tbxmlParser setISoapNum:1];   
 
-     [tbxmlParser requestSOAP:@"ShipTrans"];
-      [tbxmlParser requestSOAP:@"Ship"];
- 
+        [tbxmlParser setISoapNum:1];
+        
+        [tbxmlParser requestSOAP:@"ShipTrans"];
         [self runActivity];
     }
 	
@@ -370,13 +370,13 @@ DataQueryVC *dataQueryVC;
     NSLog(@"factoryLabel=[%@]",factoryLabel.text);
     NSLog(@"statLabel=[%@]",statLabel.text);
     
-   // NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
+    // NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
     
     [self initSource];
     dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
     NSLog(@"    dataQueryVC.dataArray [%d]",[    dataQueryVC.dataArray count]);
-    dataSource.data=[[[NSMutableArray alloc]init] autorelease];
- 
+    dataSource.data=[[NSMutableArray alloc]init] ;
+    
     for (int i=0;i<[dataQueryVC.dataArray count];i++) {
         VbShiptrans *vbShiptrans=[dataQueryVC.dataArray objectAtIndex:i];
         
@@ -395,21 +395,21 @@ DataQueryVC *dataQueryVC;
                                     vbShiptrans.stageName,
                                     nil]];
         
-
         
-    }    
+        
+    }
     dataQueryVC.dataSource=dataSource;
     
-    [dataSource release];
+//    [dataSource release];
     [dataQueryVC.listTableview reloadData];
     
     
-   // [loopPool drain];
+    // [loopPool drain];
     
     
     if(dataSource){
-        dataSource=nil;
         [dataSource release];
+        dataSource=nil;
     }
     
 }
@@ -432,7 +432,7 @@ DataQueryVC *dataQueryVC;
     [shipButton setTitle:@"船名" forState:UIControlStateNormal];
     [factoryButton setTitle:@"电厂" forState:UIControlStateNormal];
     [portButton setTitle:@"装运港" forState:UIControlStateNormal];
-
+    
 }
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
@@ -519,7 +519,7 @@ DataQueryVC *dataQueryVC;
             
             
         }
-
+        
         if (chooseView.type==kChSTAT) {
             
             self.statLabel.text =currentSelectValue;
@@ -531,7 +531,7 @@ DataQueryVC *dataQueryVC;
                 self.statLabel.hidden=YES;
                 [self.statButton setTitle:@"状态" forState:UIControlStateNormal];
             }
-
+            
             
             
         }
@@ -547,7 +547,7 @@ DataQueryVC *dataQueryVC;
         
         
         
-      }
+    }
     
     
     

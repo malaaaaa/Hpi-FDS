@@ -72,7 +72,7 @@ static sqlite3 *database;
 
 +(void)insert:(NTFactoryFreightVolume *) factoryFreightVolume
 {
-//	NSLog(@"Insert begin NTFactoryFreightVolume");
+    //	NSLog(@"Insert begin NTFactoryFreightVolume");
 	const char *insert="INSERT INTO NTFactoryFreightVolume (TRADETIME,TRADE,TRADENAME,CATEGORY,FACTORYNAME,LW) values(?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -153,13 +153,14 @@ static sqlite3 *database;
         }
     }
     sqlite3_finalize(statement);
+    [tmpString release];
     if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
         sqlite3_close(database);
         NSLog(@"exec commit error");
         return;
     }
-
-    [tmpString release];
+    
+    
 }
 +(void)insert_tmpTable:(NTFactoryFreightVolume *) factoryFreightVolume
 {
@@ -245,7 +246,7 @@ static sqlite3 *database;
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
     sqlite3_finalize(statement);
-
+    
 	return array;
 }
 +(NSMutableArray *) getTradeTimeFromTmpNTFactoryFreightVolume
@@ -266,7 +267,7 @@ static sqlite3 *database;
             else
                 tradetime = [NSString stringWithUTF8String: rowData0];
             [array addObject:tradetime];
-           
+            
 		}
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
@@ -310,7 +311,7 @@ static sqlite3 *database;
             NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
         }
         sqlite3_finalize(statement_facSum);
-
+        
         //第三列开始：各电厂名称
         //j从2开始，因为工厂数组中为填充标题第一项是"月份",第二项是“公司合计”
         for (int j=2; j<[factory count]; j++) {
@@ -322,13 +323,13 @@ static sqlite3 *database;
                     
                     factoryFreightVolume.LW=sqlite3_column_int(statement, 0);
                     factoryFreightVolume.COUNT=sqlite3_column_int(statement, 1);
-                 }
+                }
                 else{
                     factoryFreightVolume.LW=0;
                     factoryFreightVolume.COUNT=0;
                     
                 }
-              [coloumArray addObject:[NSString stringWithFormat:@"%0.2f",(float)factoryFreightVolume.LW/10000]];
+                [coloumArray addObject:[NSString stringWithFormat:@"%0.2f",(float)factoryFreightVolume.LW/10000]];
                 [coloumArray addObject:[NSString stringWithFormat:@"%d",factoryFreightVolume.COUNT]];
                 
                 [factoryFreightVolume release];
@@ -336,7 +337,7 @@ static sqlite3 *database;
                 NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
             }
             sqlite3_finalize(statement);
-
+            
         }
         [rowArray addObject:coloumArray];
         [coloumArray release];
@@ -378,7 +379,7 @@ static sqlite3 *database;
     [sumColoumArray2 addObject:@"100%" ];
     [sumColoumArray2 addObject:@"100%" ];
     sqlite3_finalize(statement_Sum);
-
+    
     //第三列开始：各电厂合计,占比
     //j从2开始，因为工厂数组中为填充标题第一项是"月份",第二项是“公司合计”
     for (int j=2; j<[factory count]; j++) {
@@ -410,7 +411,7 @@ static sqlite3 *database;
             NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
         }
         sqlite3_finalize(statement);
-
+        
     }
     [rowArray addObject:sumColoumArray1];
     [rowArray addObject:sumColoumArray2];

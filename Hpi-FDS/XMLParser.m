@@ -6223,7 +6223,7 @@ NSString* alertMsg;
         }
         else if( [elementName isEqualToString:@"TRADEWEEK"])
         {
-            ntShipCompanyTranShare.TRADEMONTH = soapResults;
+            ntShipCompanyTranShare.TRADEWEEK = soapResults;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
@@ -6244,7 +6244,7 @@ NSString* alertMsg;
         }
         else if( [elementName isEqualToString:@"LWSUM"])
         {
-            ntShipCompanyTranShare.LW = [soapResults integerValue];
+            ntShipCompanyTranShare.LWSUM = [soapResults integerValue];
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
