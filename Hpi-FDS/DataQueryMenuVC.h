@@ -12,6 +12,7 @@
 #import "FactoryFreightVolumeVC.h"
 #import "PortEfficiencyVC.h"
 #import "DataQueryVC.h"
+#import "NTLateFeeDmfxVC.h"
 @interface DataQueryMenuVC : UIViewController<UITableViewDataSource,UITableViewDelegate>{
     IBOutlet UITableView *tableView;
     NSMutableArray *iDArray;
@@ -22,6 +23,7 @@
      FactoryFreightVolumeVC *factoryFreightVolumeVC;
      PortEfficiencyVC *portEfficiencyVC;
     DataQueryVC *dataQueryVC;
+    NTLateFeeDmfxVC *ntLateFeeDmfxVC;
 }
 @property(nonatomic,retain) UITableView *tableView;
 @property(nonatomic,retain) NSMutableArray *iDArray;
@@ -32,6 +34,8 @@
 @property(nonatomic,assign) FactoryFreightVolumeVC *factoryFreightVolumeVC;
 @property(nonatomic,assign) PortEfficiencyVC *portEfficiencyVC;
 @property(nonatomic,assign) DataQueryVC *dataQueryVC;
+@property(nonatomic,assign) NTLateFeeDmfxVC *ntLateFeeDmfxVC;
+
 
 
 

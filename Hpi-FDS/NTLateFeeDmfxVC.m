@@ -1,23 +1,21 @@
 //
-//  PortEfficiencyVC.m
+//  NTLateFeeDmfxVC.m
 //  Hpi-FDS
-//  卸港效率统计
-//  Created by 馬文培 on 12-8-7.
+//  滞期费吨煤分析
+//  Created by 馬文培 on 12-9-6.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
 
-#import "PortEfficiencyVC.h"
+#import "NTLateFeeDmfxVC.h"
 
-@interface PortEfficiencyVC ()
+@interface NTLateFeeDmfxVC ()
 
 @end
 
-@implementation PortEfficiencyVC
-
+@implementation NTLateFeeDmfxVC
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
 static WSChart *electionChart=nil;
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,15 +29,10 @@ static WSChart *electionChart=nil;
 - (void)viewDidLoad
 {
     self.comLabel.text=All_;
-    self.typeLabel.text=All_;
-    self.scheduleLabel.text=All_;
     [self.activity removeFromSuperview];
-
+    
     self.comLabel.hidden=YES;
-    self.typeLabel.hidden=YES;
-    self.scheduleLabel.hidden=YES;
     [self.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
-    [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
     
     self.endDay = [[[NSDate alloc] init] autorelease];
     //本年度的第一天
@@ -61,7 +54,7 @@ static WSChart *electionChart=nil;
     [dateFormatter release];
     
     self.tbxmlParser =[[TBXMLParser alloc] init];
-
+    
     
     _buttonView.layer.masksToBounds=YES;
     _buttonView.layer.cornerRadius=2.0;
@@ -75,13 +68,13 @@ static WSChart *electionChart=nil;
     _chartView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
     _chartView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
+    
     self.startDay=nil;
     self.endDay=nil;
     self.startDateCV=nil;
@@ -91,15 +84,10 @@ static WSChart *electionChart=nil;
     self.reloadButton=nil;
     self.comButton=nil;
     self.comLabel=nil;
-    self.scheduleButton=nil;
-    self.scheduleLabel=nil;
-    self.typeButton=nil;
-    self.typeLabel=nil;
     self.activity=nil;
     self.tbxmlParser =nil;
-
+    
     [super viewDidUnload];
-
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -110,13 +98,9 @@ static WSChart *electionChart=nil;
     [_endButton release];
     [_startDateCV release];
     [_endDateCV release];
-    [comButton release];
-    [comLabel release];
-    [typeButton release];
-    [typeLabel release];
-    [scheduleLabel release];
-    [scheduleButton release];
-    
+    [_comButton release];
+    [_comLabel release];
+     
     if (ShipCompanyPop==YES) {
         [ShipCompanyArray release];
     }
@@ -124,16 +108,16 @@ static WSChart *electionChart=nil;
     [_activity release];
     [_reloadButton release];
     self.tbxmlParser =nil;
-
+    
     [super dealloc];
     //[factoryArray release];
     
 }
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
 }
+
 -(IBAction)startDate:(id)sender
 {
     NSLog(@"startDate");
@@ -235,59 +219,8 @@ static WSChart *electionChart=nil;
     [pop release];
     
 }
-- (IBAction)scheduleAction:(id)sender {
-    if (self.popover.popoverVisible) {
-        [self.popover dismissPopoverAnimated:YES];
-    }
-    //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init];
-    //设置待显示控制器的范围
-    [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
-    //设置待显示控制器视图的尺寸
-    chooseView.contentSizeForViewInPopover = CGSizeMake(125, 400);
-    //初始化弹出窗口
-    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:chooseView];
-    chooseView.popover = pop;
-    chooseView.iDArray=[NSArray arrayWithObjects:All_,@"否",@"是",nil];
-    chooseView.parentMapView=self;
-    chooseView.type=kSCHEDULE;
-    self.popover = pop;
-    self.popover.delegate = self;
-    //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(125, 150);
-    //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(_scheduleButton.frame.origin.x+85, _scheduleButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    [chooseView.tableView reloadData];
-    [chooseView release];
-    [pop release];
-}
-//电厂类型
-- (IBAction)typeAction:(id)sender {
-    if (self.popover.popoverVisible) {
-        [self.popover dismissPopoverAnimated:YES];
-    }
-    //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init];
-    //设置待显示控制器的范围
-    [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
-    //设置待显示控制器视图的尺寸
-    chooseView.contentSizeForViewInPopover = CGSizeMake(125, 400);
-    //初始化弹出窗口
-    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:chooseView];
-    chooseView.popover = pop;
-    chooseView.iDArray=[NSArray arrayWithObjects:All_,@"直供",@"海进江",@"山东",@"海南",nil];
-    chooseView.parentMapView=self;
-    chooseView.type=kTYPE;
-    self.popover = pop;
-    self.popover.delegate = self;
-    //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(125, 250);
-    //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(_typeButton.frame.origin.x+85, _typeButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    [chooseView.tableView reloadData];
-    [chooseView release];
-    [pop release];
-}
+
+
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
     NSLog(@"popoverControllerShouldDismissPopover");
@@ -325,7 +258,7 @@ static WSChart *electionChart=nil;
 {
     [self generateGraphDate];
     //增加判断，如果Y轴数据全部为0，组件WSChart崩溃，所以不显示
-    if ([PortEfficiencyDao isNoData]) {
+    if ([NTLateFeeDMFXDao isNoData]) {
         UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:@"查询结果为空！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil ];
         [alertView show];
         [alertView release];
@@ -346,14 +279,14 @@ static WSChart *electionChart=nil;
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSLog(@"aaa");
-    if (buttonIndex == 1) {
+    if (buttonIndex == 1) { 
         NSLog(@"bbb");
         [self.view addSubview:_activity];
         [_reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [_activity startAnimating];
         [_tbxmlParser setISoapNum:1];
         
-        [_tbxmlParser requestSOAP:@"ShipTrans"];
+        [_tbxmlParser requestSOAP:@"LateFee"];
         [self runActivity];
     }
 	
@@ -371,15 +304,13 @@ static WSChart *electionChart=nil;
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
     }
 }
+
 -(void)generateGraphDate{
-    NSLog(@"_scheduleLabel=%@",_scheduleLabel.text);
-    NSLog(@"_typeLabel=%@",_typeLabel.text);
-    NSLog(@"count=%d", [ShipCompanyArray count]);
+      NSLog(@"count=%d", [ShipCompanyArray count]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSLog(@"startDay=%@",[dateFormatter stringFromDate:self.startDay]);
     
-    [PortEfficiencyDao InsertByCompany:ShipCompanyArray Schedule:_scheduleLabel.text Category:_typeLabel.text StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
+    [NTLateFeeDMFXDao InsertByCompany:ShipCompanyArray StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
     
     [dateFormatter release];
 }
@@ -388,11 +319,11 @@ static WSChart *electionChart=nil;
     WSData *barData = [[self getData] indexedData];
     // Create and configure a bar plot.
     electionChart = [WSChart barPlotWithFrame:[self.chartView bounds]
-                                                  data:barData
-                                                 style:kChartBarPlain
-                                           colorScheme:kColor_FDS_Gray];
-    [electionChart scaleAllAxisYD:NARangeMake(-300, 1400)];
-    [electionChart scaleAllAxisXD:NARangeMake(-3, 30)];
+                                         data:barData
+                                        style:kChartBarPlain
+                                  colorScheme:kColor_FDS_Gray];
+    [electionChart scaleAllAxisYD:NARangeMake(-6, 35)];
+    [electionChart scaleAllAxisXD:NARangeMake(-2, [NTLateFeeDMFXDao getFactoryCount])];
     [electionChart setAllAxisLocationXD:-1];
     [electionChart setAllAxisLocationYD:0];
     
@@ -402,13 +333,20 @@ static WSChart *electionChart=nil;
     [[axis ticksY] setTicksStyle:kTicksLabels];
     [[axis ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
                                      [NSNumber numberWithFloat:0],
-                                     [NSNumber numberWithFloat:400],
-                                     [NSNumber numberWithFloat:800],
-                                     [NSNumber numberWithFloat:1200],
+                                     [NSNumber numberWithFloat:3.0],
+                                     [NSNumber numberWithFloat:6.0],
+                                     [NSNumber numberWithFloat:9.0],
+                                     [NSNumber numberWithFloat:12.0],
+                                     [NSNumber numberWithFloat:15.0],
+                                     [NSNumber numberWithFloat:18.0],
+                                     [NSNumber numberWithFloat:21.0],
+                                     [NSNumber numberWithFloat:24.0],
+                                     [NSNumber numberWithFloat:27.0],
+                                     [NSNumber numberWithFloat:30.0],
                                      nil]
                              labels:[NSArray arrayWithObjects:@"",
-                                     @"400", @"800", @"1200", nil]];
-    [electionChart setChartTitle:NSLocalizedString(@"卸港效率统计(吨小时)", @"")];
+                                     @"3.0", @"6.0", @"9.0",@"12.0",@"15.0",@"18.0",@"21.0",@"24.0",@"27.0",@"30.0", nil]];
+    [electionChart setChartTitle:NSLocalizedString(@"各电厂吨煤滞期费分析图表", @"")];
     [electionChart setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
     
     electionChart.autoresizingMask = 63;
@@ -417,52 +355,21 @@ static WSChart *electionChart=nil;
 
 - (WSData *)getData {
     
-    NSMutableArray *array = [PortEfficiencyDao getPortEfficiency];
+    NSMutableArray *array = [NTLateFeeDMFXDao getNTLateFeeDMFX];
     NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
     NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
     
     for (int i=0; i<[array count]; i++) {
-        PortEfficiency *portEfficiency= [array objectAtIndex:i];
+        NTLateFeeDMFX *ntLateFeeDMFX= [array objectAtIndex:i];
         //        NSLog(@"factory=%@",portEfficiency.factory);
-        [arrayX addObject:portEfficiency.factory];
-        [arrayY addObject:[NSNumber numberWithInteger:portEfficiency.efficiency]];
+        [arrayX addObject:ntLateFeeDMFX.factory];
+        [arrayY addObject:[NSNumber numberWithInteger:ntLateFeeDMFX.latefee]];
     }
     NSLog(@"arrayYcount=%d",[arrayY count]);
     return [WSData dataWithValues:arrayY
                       annotations:arrayX];
 }
-#pragma mark SetSelectValue  Method
--(void)setLableValue:(NSString *)currentSelectValue
-{
-    if (chooseView) {
-        if (chooseView.type==kSCHEDULE) {
-            
-            self.scheduleLabel.text =currentSelectValue;
-            if (![self.scheduleLabel.text isEqualToString:All_]) {
-                self.scheduleLabel.hidden=NO;
-                [self.scheduleButton setTitle:@"" forState:UIControlStateNormal];
-            }
-            else {
-                self.scheduleLabel.hidden=YES;
-                [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
-            }
-        }
-        if (chooseView.type==kTYPE) {
-            
-            self.typeLabel.text =currentSelectValue;
-            self.typeLabel.textAlignment=UITextAlignmentCenter;
-            if (![self.typeLabel.text isEqualToString:All_]) {
-                self.typeLabel.hidden=NO;
-                [self.typeButton setTitle:@"" forState:UIControlStateNormal];
-            }
-            else {
-                self.typeLabel.hidden=YES;
-                [self.typeButton setTitle:@"    电厂类别" forState:UIControlStateNormal];
-            }
-        }
-        
-    }
-}
+ 
 
 #pragma mark multipleSelectViewdidSelectRow Delegate Method
 -(void)multipleSelectViewdidSelectRow:(NSInteger)indexPathRow
@@ -508,4 +415,5 @@ static WSChart *electionChart=nil;
         }
     }
 }
+
 @end

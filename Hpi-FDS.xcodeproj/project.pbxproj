@@ -265,6 +265,9 @@
 		D3A06E7115D0E74C00963BA2 /* WSView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E4515D0E74C00963BA2 /* WSView.m */; };
 		D3A06E7515D0E93500963BA2 /* PortEfficiencyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */; };
 		D3A06E7615D0E93500963BA2 /* PortEfficiencyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */; };
+		D3E522F915F83CA2008756BD /* NTLateFeeDMFX.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */; };
+		D3E522FE15F87410008756BD /* NTLateFeeDmfxVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E522FC15F87410008756BD /* NTLateFeeDmfxVC.m */; };
+		D3E522FF15F87410008756BD /* NTLateFeeDmfxVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */; };
 		D3F2040415D7A44B00BA6658 /* DataQueryMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F2040215D7A44B00BA6658 /* DataQueryMenuVC.m */; };
 		D3F2040515D7A44B00BA6658 /* DataQueryMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */; };
 		D9063A7A15C13D27002FE1CE /* NTColorConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D9063A7915C13D27002FE1CE /* NTColorConfig.m */; };
@@ -723,6 +726,11 @@
 		D3A06E7215D0E93300963BA2 /* PortEfficiencyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortEfficiencyVC.h; sourceTree = "<group>"; };
 		D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortEfficiencyVC.m; sourceTree = "<group>"; };
 		D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortEfficiencyVC.xib; sourceTree = "<group>"; };
+		D3E522F715F83CA2008756BD /* NTLateFeeDMFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeDMFX.h; sourceTree = "<group>"; };
+		D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTLateFeeDMFX.m; sourceTree = "<group>"; };
+		D3E522FB15F8740F008756BD /* NTLateFeeDmfxVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeDmfxVC.h; sourceTree = "<group>"; };
+		D3E522FC15F87410008756BD /* NTLateFeeDmfxVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTLateFeeDmfxVC.m; sourceTree = "<group>"; };
+		D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NTLateFeeDmfxVC.xib; sourceTree = "<group>"; };
 		D3F2040115D7A44B00BA6658 /* DataQueryMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataQueryMenuVC.h; sourceTree = "<group>"; };
 		D3F2040215D7A44B00BA6658 /* DataQueryMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataQueryMenuVC.m; sourceTree = "<group>"; };
 		D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataQueryMenuVC.xib; sourceTree = "<group>"; };
@@ -1213,6 +1221,8 @@
 				D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */,
 				2A8CBEE915DE0B4C00B86257 /* AvgFactoryZXTime.h */,
 				2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */,
+				D3E522F715F83CA2008756BD /* NTLateFeeDMFX.h */,
+				D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -1333,6 +1343,9 @@
 				14CB7DCC1552877A008097AE /* VBTransChVC.m */,
 				05CCEA821526C9930045C150 /* WebViewController.h */,
 				05CCEA831526C9930045C150 /* WebViewController.m */,
+				D3E522FB15F8740F008756BD /* NTLateFeeDmfxVC.h */,
+				D3E522FC15F87410008756BD /* NTLateFeeDmfxVC.m */,
+				D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1624,6 +1637,7 @@
 				D39E90DA15E60F9800C8CCF4 /* xialax@2x.png in Resources */,
 				D39E90DB15E60F9800C8CCF4 /* bgtopbgd@2x.png in Resources */,
 				D39E90DC15E60F9800C8CCF4 /* xialax.png in Resources */,
+				D3E522FF15F87410008756BD /* NTLateFeeDmfxVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1803,6 +1817,8 @@
 				2A8D93F115E262C50058EAA8 /* AvgPortPTimeChVC.m in Sources */,
 				D37F60D715E4B81200E6741A /* AvgPortPTimeDao.m in Sources */,
 				D37F60D815E4B81200E6741A /* AvgFactoryZXTimeDao.m in Sources */,
+				D3E522F915F83CA2008756BD /* NTLateFeeDMFX.m in Sources */,
+				D3E522FE15F87410008756BD /* NTLateFeeDmfxVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

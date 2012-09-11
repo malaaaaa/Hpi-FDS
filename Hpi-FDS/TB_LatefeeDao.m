@@ -533,6 +533,8 @@ return array;
     
     
     }
+    sqlite3_finalize(statement);
+
     [array autorelease];
     return array;
     

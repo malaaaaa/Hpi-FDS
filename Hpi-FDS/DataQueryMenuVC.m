@@ -79,6 +79,11 @@
         portEfficiencyVC.view.frame = CGRectMake(0, 40, 1024,661 );
         [parentView addSubview:portEfficiencyVC.view];
     }
+    else if (kMenuZQFDMFX==[indexPath row]){
+        ntLateFeeDmfxVC=[[ NTLateFeeDmfxVC alloc ]initWithNibName:@"NTLateFeeDmfxVC" bundle:nil] ;
+        ntLateFeeDmfxVC.view.frame = CGRectMake(0, 40, 1024,661 );
+        [parentView addSubview:ntLateFeeDmfxVC.view];
+    }
     else{
         dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
         dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
@@ -132,6 +137,9 @@
         case kMenuFcAvgZXTime:
             cell.textLabel.text=@"电厂平均装卸港时间统计";
             break;
+        case kMenuZQFDMFX:
+            cell.textLabel.text=@"滞期费吨煤分析";
+            break;
         default:
             break;
     }
@@ -161,6 +169,9 @@
     }
     if(dataQueryVC){
         self.dataQueryVC=nil;
+    }
+    if(ntLateFeeDmfxVC){
+        self.ntLateFeeDmfxVC=nil;
     }
 }
 

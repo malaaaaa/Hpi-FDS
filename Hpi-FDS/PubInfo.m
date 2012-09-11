@@ -106,6 +106,8 @@ static NSString *deviceID;
     [NTFactoryFreightVolumeDao initDb_tmpTable];    
     [PortEfficiencyDao openDataBase];
     [PortEfficiencyDao initDb];
+    [NTLateFeeDMFXDao openDataBase];
+    [NTLateFeeDMFXDao initDb];
     
 //    //新添  thshiptrans 调度日志
 //    [TH_ShipTransDao openDataBase];
