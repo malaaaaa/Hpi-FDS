@@ -253,13 +253,7 @@ static bool ThreadFinished=TRUE;
         [self getDate:@"TgFactory" entityClass:@"TgFactory" insertTableName:@"TgFactory"];
         
     }
-    
-
-    
-    
-    
-    
-    
+ 
   /******************获取电厂机组运行信息**********TF_FACTORYCAPACITY**************************/
     
     if ([_Identification isEqualToString:@"FactoryCapacity"]) {
@@ -329,6 +323,9 @@ static bool ThreadFinished=TRUE;
         TBXMLElement * root = tbxml.rootXMLElement;
         //=======================================
         if (root) {
+            
+            
+            
             TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
                 TBXMLElement *element = [TBXML childElementNamed:element1 parentElement:elementNoUsed];
                 //打开数据库
@@ -434,7 +431,7 @@ static bool ThreadFinished=TRUE;
                         //NSLog(@"insert shipTrans  SUCCESS");
 
                     }
-                }
+               
                 sqlite3_finalize(statement);
                 //element1   :TfCoalType
                 element = [TBXML nextSiblingNamed:element1 searchFromElement:element];
@@ -449,9 +446,17 @@ static bool ThreadFinished=TRUE;
             NSLog(@"-----------%@-----------commit over  ",_Identification);
             iSoapDone=1;
             iSoapNum--;
-        }
-}
+        
+            
+        
+        
+        
+       }
 
+    }
+
+
+}
 
 
 
