@@ -1,21 +1,23 @@
 //
-//  NTLateFeeDmfxVC.m
+//  NTLateFeeHcfxVC.m
 //  Hpi-FDS
-//  滞期费吨煤分析
-//  Created by 馬文培 on 12-9-6.
+//  滞期费航次分析
+//  Created by 馬文培 on 12-9-13.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
 
-#import "NTLateFeeDmfxVC.h"
-
-@interface NTLateFeeDmfxVC ()
+#import "NTLateFeeHcfxVC.h"
+@interface NTLateFeeHcfxVC ()
 
 @end
 
-@implementation NTLateFeeDmfxVC
+@implementation NTLateFeeHcfxVC
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
-static WSChart *electionChart=nil;
+static WSChart *electionChart0=nil;
+static WSChart *electionChart1=nil;
+static WSChart *electionChart2=nil;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,14 +69,12 @@ static WSChart *electionChart=nil;
     _chartView.layer.borderWidth=2.0;
     _chartView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
     _chartView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
-    
     self.startDay=nil;
     self.endDay=nil;
     self.startDateCV=nil;
@@ -86,7 +86,6 @@ static WSChart *electionChart=nil;
     self.comLabel=nil;
     self.activity=nil;
     self.tbxmlParser =nil;
-    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -100,7 +99,7 @@ static WSChart *electionChart=nil;
     [_endDateCV release];
     [_comButton release];
     [_comLabel release];
-     
+    
     if (ShipCompanyPop==YES) {
         [ShipCompanyArray release];
     }
@@ -117,7 +116,6 @@ static WSChart *electionChart=nil;
 {
 	return YES;
 }
-
 -(IBAction)startDate:(id)sender
 {
     NSLog(@"startDate");
@@ -258,14 +256,14 @@ static WSChart *electionChart=nil;
 {
     [self generateGraphDate];
     //增加判断，如果Y轴数据全部为0，组件WSChart崩溃，所以不显示
-    if ([NTLateFeeDMFXDao isNoData]) {
+    if ([NTLateFeeHCFXDao isNoData_LATEFEE]) {
         UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:@"查询结果为空！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil ];
         [alertView show];
         [alertView release];
-        if (electionChart) {
-            [electionChart removeFromSuperview];
-            electionChart=nil;
-        }
+//        if (electionChart) {
+//            [electionChart removeFromSuperview];
+//            electionChart=nil;
+//        }
     }
     else{
         [self loadHpiGraphView];
@@ -279,7 +277,7 @@ static WSChart *electionChart=nil;
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSLog(@"aaa");
-    if (buttonIndex == 1) { 
+    if (buttonIndex == 1) {
         NSLog(@"bbb");
         [self.view addSubview:_activity];
         [_reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
@@ -306,71 +304,177 @@ static WSChart *electionChart=nil;
 }
 
 -(void)generateGraphDate{
-      NSLog(@"count=%d", [ShipCompanyArray count]);
+    NSLog(@"count=%d", [ShipCompanyArray count]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-    [NTLateFeeDMFXDao InsertByCompany:ShipCompanyArray StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
+    [NTLateFeeHCFXDao InsertByCompany:ShipCompanyArray StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
     
     [dateFormatter release];
 }
+
 -(void)loadHpiGraphView{
-    
-    WSData *barData = [[self getData] indexedData];
+    WSData *barData0 = [[self getData_HC] indexedData];
     // Create and configure a bar plot.
-    electionChart = [WSChart barPlotWithFrame:[self.chartView bounds]
-                                         data:barData
+    electionChart0 = [WSChart barPlotWithFrame:[self.chartView bounds]
+                                         data:barData0
                                         style:kChartBarPlain
                                   colorScheme:kColor_FDS_Gray];
-    [electionChart scaleAllAxisYD:NARangeMake(-6, 35)];
-    [electionChart scaleAllAxisXD:NARangeMake(-2, [NTLateFeeDMFXDao getFactoryCount])];
-    [electionChart setAllAxisLocationXD:-1];
-    [electionChart setAllAxisLocationYD:0];
+
+    [electionChart0 scaleAllAxisYD:NARangeMake(-10, 70)];
+    [electionChart0 scaleAllAxisXD:NARangeMake(-2, [NTLateFeeHCFXDao getFactoryCount])];
+    [electionChart0 setAllAxisLocationXD:-1];
+    [electionChart0 setAllAxisLocationYD:0];
     
-    
-    WSPlotAxis *axis = [electionChart firstPlotAxis];
-    [[axis ticksX] setTicksStyle:kTicksLabelsSlanted];
-    [[axis ticksY] setTicksStyle:kTicksLabels];
-    [[axis ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
+
+    WSPlotAxis *axis0 = [electionChart0 firstPlotAxis];
+    [[axis0 ticksX] setTicksStyle:kTicksLabelsSlanted];
+    [[axis0 ticksY] setTicksStyle:kTicksLabels];
+    [[axis0 ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
                                      [NSNumber numberWithFloat:0],
-                                     [NSNumber numberWithFloat:3.0],
-                                     [NSNumber numberWithFloat:6.0],
-                                     [NSNumber numberWithFloat:9.0],
-                                     [NSNumber numberWithFloat:12.0],
-                                     [NSNumber numberWithFloat:15.0],
-                                     [NSNumber numberWithFloat:18.0],
-                                     [NSNumber numberWithFloat:21.0],
-                                     [NSNumber numberWithFloat:24.0],
-                                     [NSNumber numberWithFloat:27.0],
-                                     [NSNumber numberWithFloat:30.0],
+                                     [NSNumber numberWithFloat:10],
+                                     [NSNumber numberWithFloat:20],
+                                     [NSNumber numberWithFloat:30],
+                                     [NSNumber numberWithFloat:40],
+                                     [NSNumber numberWithFloat:50],
+                                      [NSNumber numberWithFloat:60],
                                      nil]
                              labels:[NSArray arrayWithObjects:@"",
-                                     @"3.0", @"6.0", @"9.0",@"12.0",@"15.0",@"18.0",@"21.0",@"24.0",@"27.0",@"30.0", nil]];
-    [electionChart setChartTitle:NSLocalizedString(@"各电厂吨煤滞期费分析图表", @"")];
-    [electionChart setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
+                                     @"10", @"20", @"30",@"40",@"50",@"60", nil]];
+    [electionChart0 setChartTitle:NSLocalizedString(@"各电厂航次分析图表", @"")];
+    [electionChart0 setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
     
-    electionChart.autoresizingMask = 63;
-    [self.chartView addSubview:electionChart];
+    electionChart0.autoresizingMask = 63;
+    
+    WSData *barData1 = [[self getData_YL] indexedData];
+    // Create and configure a bar plot.
+    electionChart1 = [WSChart barPlotWithFrame:[self.chartView bounds]
+                                         data:barData1
+                                        style:kChartBarPlain
+                                  colorScheme:kColor_FDS_Gray];
+    
+       [electionChart1 scaleAllAxisYD:NARangeMake(-100, 700)];
+    [electionChart1 scaleAllAxisXD:NARangeMake(-2, [NTLateFeeHCFXDao getFactoryCount])];
+    [electionChart1 setAllAxisLocationXD:-1];
+    [electionChart1 setAllAxisLocationYD:0];
+    
+    WSPlotAxis *axis1 = [electionChart1 firstPlotAxis];
+    [[axis1 ticksX] setTicksStyle:kTicksLabelsSlanted];
+    [[axis1 ticksY] setTicksStyle:kTicksLabels];
+    [[axis1 ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
+                                     [NSNumber numberWithFloat:0],
+                                     [NSNumber numberWithFloat:100],
+                                     [NSNumber numberWithFloat:200],
+                                     [NSNumber numberWithFloat:300],
+                                     [NSNumber numberWithFloat:400],
+                                     [NSNumber numberWithFloat:500],
+                                      [NSNumber numberWithFloat:600],
+
+                                     nil]
+                             labels:[NSArray arrayWithObjects:@"",
+                                     @"100", @"200", @"300",@"400",@"500",@"600", nil]];
+    [electionChart1 setChartTitle:NSLocalizedString(@"各电厂运量分析图表", @"")];
+    [electionChart1 setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
+    
+    electionChart1.autoresizingMask = 63;
+    
+    
+    
+    WSData *barData2 = [[self getData_LATEFEE] indexedData];
+    // Create and configure a bar plot.
+    electionChart2 = [WSChart barPlotWithFrame:[self.chartView bounds]
+                                          data:barData2
+                                         style:kChartBarPlain
+                                   colorScheme:kColor_FDS_Gray];
+    
+    [electionChart2 scaleAllAxisYD:NARangeMake(-1, 7)];
+    [electionChart2 scaleAllAxisXD:NARangeMake(-2, [NTLateFeeHCFXDao getFactoryCount])];
+    [electionChart2 setAllAxisLocationXD:-1];
+    [electionChart2 setAllAxisLocationYD:0];
+    
+    WSPlotAxis *axis2 = [electionChart2 firstPlotAxis];
+    [[axis2 ticksX] setTicksStyle:kTicksLabelsSlanted];
+    [[axis2 ticksY] setTicksStyle:kTicksLabels];
+    [[axis2 ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
+                                      [NSNumber numberWithFloat:0],
+                                      [NSNumber numberWithFloat:1],
+                                      [NSNumber numberWithFloat:2],
+                                      [NSNumber numberWithFloat:3],
+                                      [NSNumber numberWithFloat:4],
+                                      [NSNumber numberWithFloat:5],
+                                      [NSNumber numberWithFloat:6],
+                                      nil]
+                              labels:[NSArray arrayWithObjects:@"",
+                                      @"1", @"2", @"3",@"4",@"5",@"6",  nil]];
+    [electionChart2 setChartTitle:NSLocalizedString(@"各电厂滞期费分析图表", @"")];
+    [electionChart2 setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
+    
+    electionChart2.autoresizingMask = 63;
+
+
+    NSArray* ds =[NSArray arrayWithObjects:
+                  electionChart0,
+                  electionChart1,
+                  electionChart2,
+                  nil];
+    
+    if (self) {
+        ATHorizontalBarChartView *shv=[[[ATHorizontalBarChartView alloc] initWithFrame:CGRectMake(0, 0, 1000, 600)] autorelease];
+
+        shv.ds = ds;
+        [self.chartView addSubview:shv];
+    }
+    
 }
 
-- (WSData *)getData {
+- (WSData *)getData_LATEFEE {
     
-    NSMutableArray *array = [NTLateFeeDMFXDao getNTLateFeeDMFX];
+    NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_LATEFEE];
     NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
     NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
     
     for (int i=0; i<[array count]; i++) {
-        NTLateFeeDMFX *ntLateFeeDMFX= [array objectAtIndex:i];
+        NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
         //        NSLog(@"factory=%@",portEfficiency.factory);
-        [arrayX addObject:ntLateFeeDMFX.factory];
-        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeDMFX.latefee]];
+        [arrayX addObject:ntLateFeeHCFX.factory];
+        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.latefee]];
     }
     NSLog(@"arrayYcount=%d",[arrayY count]);
     return [WSData dataWithValues:arrayY
                       annotations:arrayX];
 }
- 
-
+- (WSData *)getData_HC {
+    
+    NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_HC];
+    NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
+    
+    for (int i=0; i<[array count]; i++) {
+        NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+       NSLog(@"hc=%d",ntLateFeeHCFX.hc);
+        [arrayX addObject:ntLateFeeHCFX.factory];
+        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.hc]];
+    }
+    NSLog(@"arrayYcount=%d",[arrayY count]);
+    return [WSData dataWithValues:arrayY
+                      annotations:arrayX];
+}
+- (WSData *)getData_YL {
+    
+    NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_YL];
+    NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
+    
+    for (int i=0; i<[array count]; i++) {
+        NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+        //        NSLog(@"factory=%@",portEfficiency.factory);
+        [arrayX addObject:ntLateFeeHCFX.factory];
+        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.yl]];
+    }
+    NSLog(@"arrayYcount=%d",[arrayY count]);
+    return [WSData dataWithValues:arrayY
+                      annotations:arrayX];
+}
 #pragma mark multipleSelectViewdidSelectRow Delegate Method
 -(void)multipleSelectViewdidSelectRow:(NSInteger)indexPathRow
 {
@@ -415,5 +519,6 @@ static WSChart *electionChart=nil;
         }
     }
 }
+
 
 @end
