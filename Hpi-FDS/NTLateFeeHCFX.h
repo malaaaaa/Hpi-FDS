@@ -34,8 +34,11 @@
 +(void) InsertByCompany:(NSMutableArray *)company
               StartDate:(NSString *)startDate
                 EndDate:(NSString *)endDate;
+//单独获得滞期费数据
 +(NSMutableArray *) getNTLateFeeHCFX_LATEFEE;
+//单独获得航次数据
 +(NSMutableArray *) getNTLateFeeHCFX_HC;
+//单独获得运量数据
 +(NSMutableArray *) getNTLateFeeHCFX_YL;
 
 +(BOOL) isNoData_LATEFEE;

@@ -318,6 +318,9 @@ static WSChart *electionChart=nil;
     
     WSData *barData = [[self getData] indexedData];
     // Create and configure a bar plot.
+    if (electionChart) {
+        [electionChart removeFromSuperview];
+    }
     electionChart = [WSChart barPlotWithFrame:[self.chartView bounds]
                                          data:barData
                                         style:kChartBarPlain

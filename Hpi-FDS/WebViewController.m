@@ -66,7 +66,7 @@ static NSString *fileName;
 //    webView.alpha=0.3;
     self.waitingLable = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 600, 50)];
     self.waitingLable.backgroundColor=[UIColor clearColor];
-    self.waitingLable.text=@"文档加载缓慢，请耐心等待...";
+    self.waitingLable.text=@"文档正在加载中，请稍等...";
     self.waitingLable.font = [UIFont systemFontOfSize:30.0f];
     webView.scalesPageToFit =  YES;
     segment.momentary = YES;	

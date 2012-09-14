@@ -14,9 +14,9 @@
 @implementation NTLateFeeHcfxVC
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
-static WSChart *electionChart0=nil;
-static WSChart *electionChart1=nil;
-static WSChart *electionChart2=nil;
+static WSChart *electionChart0=nil; //第一张航次图表
+static WSChart *electionChart1=nil; //第二张运量图表
+static WSChart *electionChart2=nil; //第三张滞期费图表
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -86,6 +86,7 @@ static WSChart *electionChart2=nil;
     self.comLabel=nil;
     self.activity=nil;
     self.tbxmlParser =nil;
+     [_shv removeFromSuperview];  
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -107,7 +108,7 @@ static WSChart *electionChart2=nil;
     [_activity release];
     [_reloadButton release];
     self.tbxmlParser =nil;
-    
+     [_shv removeFromSuperview];  
     [super dealloc];
     //[factoryArray release];
     
@@ -260,10 +261,9 @@ static WSChart *electionChart2=nil;
         UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:@"查询结果为空！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil ];
         [alertView show];
         [alertView release];
-//        if (electionChart) {
-//            [electionChart removeFromSuperview];
-//            electionChart=nil;
-//        }
+        if (_shv) {
+            [_shv removeFromSuperview];
+        }
     }
     else{
         [self loadHpiGraphView];
@@ -418,12 +418,14 @@ static WSChart *electionChart2=nil;
                   electionChart2,
                   nil];
     
-    if (self) {
-        ATHorizontalBarChartView *shv=[[[ATHorizontalBarChartView alloc] initWithFrame:CGRectMake(0, 0, 1000, 600)] autorelease];
-
-        shv.ds = ds;
-        [self.chartView addSubview:shv];
+    if (_shv) {
+        [_shv removeFromSuperview];        
     }
+    self.shv=[[[ATHorizontalBarChartView alloc] initWithFrame:CGRectMake(0, 0, 1024, 600)] autorelease];
+    
+    self.shv.ds = ds;
+    [self.chartView addSubview:_shv];
+
     
 }
 

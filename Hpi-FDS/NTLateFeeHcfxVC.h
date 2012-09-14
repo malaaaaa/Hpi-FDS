@@ -30,6 +30,7 @@
     IBOutlet UIView *_buttonView;
     IBOutlet UIActivityIndicatorView *_activity;
     TBXMLParser *_tbxmlParser;
+    ATHorizontalBarChartView *_shv;
 }
 @property(nonatomic,retain) UIPopoverController *popover;
 @property(nonatomic,retain) DateViewController *startDateCV;
@@ -48,11 +49,18 @@
 @property(nonatomic,retain)  UIView *buttonView;
 @property (retain, nonatomic)  UIActivityIndicatorView *activity;
 @property (retain, nonatomic) TBXMLParser *tbxmlParser;
+@property (retain, nonatomic) ATHorizontalBarChartView *shv;
+
 
 - (IBAction)queryData:(id)sender;
 - (IBAction)startDate:(id)sender;
 - (IBAction)endDate:(id)sender;
 - (IBAction)shipCompanyAction:(id)sender;
-//- (WSData *)getData;
+//获得滞期费数据
+- (WSData *)getData_LATEFEE;
+//获得航次数据
+- (WSData *)getData_HC;
+//获得运量数据
+- (WSData *)getData_YL;
 - (IBAction)reloadAction:(id)sender;
 @end
