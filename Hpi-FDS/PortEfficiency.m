@@ -128,11 +128,11 @@ static sqlite3 *database;
     }
     //是否班轮
     if ([schedule isEqualToString:@"否"]) {
-        [shiptransSubSql appendString:@" AND trade='0' "];
+        [shiptransSubSql appendString:@" AND SCHEDULE='0' "];
         
     }
-    else if ([schedule isEqualToString:@"进口"]) {
-        [shiptransSubSql appendString:@" AND trade='1' "];
+    else if ([schedule isEqualToString:@"是"]) {
+        [shiptransSubSql appendString:@" AND SCHEDULE='1' "];
     }
     //电厂类型
     if (![category isEqualToString:All_]) {

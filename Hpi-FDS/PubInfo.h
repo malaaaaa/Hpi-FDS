@@ -58,6 +58,7 @@
 #import "TH_ShipTransDao.h"
 #import "NTLateFeeDMFX.h"
 #import "NTLateFeeHCFX.h"
+#import "NTZxgsjtj.h"
 
 typedef enum{
     kPORT=0,
@@ -98,6 +99,7 @@ typedef enum{
     kMenuFcAvgZXTime,//电厂装卸港时间统计
     kMenuZQFDMFX,//滞期费吨煤分析
     kMenuZQFHCFX,//滞期费航次分析
+    kMenuZXGSJTJ,//装卸港时间统计
     kDataQueryMenu_MAX,//最大数量
 
 } DataQueryMenu;

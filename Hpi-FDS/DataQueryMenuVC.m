@@ -89,6 +89,11 @@
         ntLateFeeHcfxVC.view.frame = CGRectMake(0, 40, 1024,661 );
         [parentView addSubview:ntLateFeeHcfxVC.view];
     }
+    else if (kMenuZXGSJTJ==[indexPath row]){
+        ntZxgsjtjVC=[[ NTZxgsjtjVC alloc ]initWithNibName:@"NTZxgsjtjVC" bundle:nil] ;
+        ntZxgsjtjVC.view.frame = CGRectMake(0, 40, 1024,661 );
+        [parentView addSubview:ntZxgsjtjVC.view];
+    }
     else{
         dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
         dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
@@ -148,6 +153,9 @@
         case kMenuZQFHCFX:
             cell.textLabel.text=@"滞期费航次分析";
             break;
+        case kMenuZXGSJTJ:
+            cell.textLabel.text=@"装卸港时间统计";
+            break;
         default:
             break;
     }
@@ -183,6 +191,9 @@
     }
     if(ntLateFeeHcfxVC){
         self.ntLateFeeHcfxVC=nil;
+    }
+    if(ntZxgsjtjVC){
+        self.ntZxgsjtjVC=nil;
     }
 }
 

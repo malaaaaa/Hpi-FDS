@@ -273,6 +273,9 @@
 		D3E522F915F83CA2008756BD /* NTLateFeeDMFX.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */; };
 		D3E522FE15F87410008756BD /* NTLateFeeDmfxVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E522FC15F87410008756BD /* NTLateFeeDmfxVC.m */; };
 		D3E522FF15F87410008756BD /* NTLateFeeDmfxVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */; };
+		D3E5B0B316080882001FA133 /* NTZxgsjtjVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E5B0B116080881001FA133 /* NTZxgsjtjVC.m */; };
+		D3E5B0B416080882001FA133 /* NTZxgsjtjVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E5B0B216080881001FA133 /* NTZxgsjtjVC.xib */; };
+		D3E5B0B8160813B3001FA133 /* NTZxgsjtj.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E5B0B7160813B3001FA133 /* NTZxgsjtj.m */; };
 		D3F2040415D7A44B00BA6658 /* DataQueryMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F2040215D7A44B00BA6658 /* DataQueryMenuVC.m */; };
 		D3F2040515D7A44B00BA6658 /* DataQueryMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */; };
 		D9063A7A15C13D27002FE1CE /* NTColorConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D9063A7915C13D27002FE1CE /* NTColorConfig.m */; };
@@ -745,6 +748,11 @@
 		D3E522FB15F8740F008756BD /* NTLateFeeDmfxVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeDmfxVC.h; sourceTree = "<group>"; };
 		D3E522FC15F87410008756BD /* NTLateFeeDmfxVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTLateFeeDmfxVC.m; sourceTree = "<group>"; };
 		D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NTLateFeeDmfxVC.xib; sourceTree = "<group>"; };
+		D3E5B0B016080881001FA133 /* NTZxgsjtjVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTZxgsjtjVC.h; sourceTree = "<group>"; };
+		D3E5B0B116080881001FA133 /* NTZxgsjtjVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTZxgsjtjVC.m; sourceTree = "<group>"; };
+		D3E5B0B216080881001FA133 /* NTZxgsjtjVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NTZxgsjtjVC.xib; sourceTree = "<group>"; };
+		D3E5B0B6160813B3001FA133 /* NTZxgsjtj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTZxgsjtj.h; sourceTree = "<group>"; };
+		D3E5B0B7160813B3001FA133 /* NTZxgsjtj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTZxgsjtj.m; sourceTree = "<group>"; };
 		D3F2040115D7A44B00BA6658 /* DataQueryMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataQueryMenuVC.h; sourceTree = "<group>"; };
 		D3F2040215D7A44B00BA6658 /* DataQueryMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataQueryMenuVC.m; sourceTree = "<group>"; };
 		D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataQueryMenuVC.xib; sourceTree = "<group>"; };
@@ -1242,6 +1250,8 @@
 				D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */,
 				D31B512216017E1D00EFB98F /* NTLateFeeHCFX.h */,
 				D31B512316017E1D00EFB98F /* NTLateFeeHCFX.m */,
+				D3E5B0B6160813B3001FA133 /* NTZxgsjtj.h */,
+				D3E5B0B7160813B3001FA133 /* NTZxgsjtj.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -1368,6 +1378,9 @@
 				D31B5126160184C700EFB98F /* NTLateFeeHcfxVC.h */,
 				D31B5127160184C700EFB98F /* NTLateFeeHcfxVC.m */,
 				D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */,
+				D3E5B0B016080881001FA133 /* NTZxgsjtjVC.h */,
+				D3E5B0B116080881001FA133 /* NTZxgsjtjVC.m */,
+				D3E5B0B216080881001FA133 /* NTZxgsjtjVC.xib */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1670,6 +1683,7 @@
 				D39E90DC15E60F9800C8CCF4 /* xialax.png in Resources */,
 				D3E522FF15F87410008756BD /* NTLateFeeDmfxVC.xib in Resources */,
 				D31B512A160184C800EFB98F /* NTLateFeeHcfxVC.xib in Resources */,
+				D3E5B0B416080882001FA133 /* NTZxgsjtjVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1855,6 +1869,8 @@
 				D31B512416017E1D00EFB98F /* NTLateFeeHCFX.m in Sources */,
 				D31B5129160184C800EFB98F /* NTLateFeeHcfxVC.m in Sources */,
 				D31CF40C1601ED1800B1985B /* ATHorizontalBarChartView.m in Sources */,
+				D3E5B0B316080882001FA133 /* NTZxgsjtjVC.m in Sources */,
+				D3E5B0B8160813B3001FA133 /* NTZxgsjtj.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

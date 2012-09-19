@@ -14,6 +14,7 @@
 #import "DataQueryVC.h"
 #import "NTLateFeeDmfxVC.h"
 #import "NTLateFeeHcfxVC.h"
+#import "NTZxgsjtjVC.h"
 
 @interface DataQueryMenuVC : UIViewController<UITableViewDataSource,UITableViewDelegate>{
     IBOutlet UITableView *tableView;
@@ -27,7 +28,7 @@
     DataQueryVC *dataQueryVC;
     NTLateFeeDmfxVC *ntLateFeeDmfxVC;
     NTLateFeeHcfxVC *ntLateFeeHcfxVC;
-
+    NTZxgsjtjVC *ntZxgsjtjVC;
 }
 @property(nonatomic,retain) UITableView *tableView;
 @property(nonatomic,retain) NSMutableArray *iDArray;
@@ -40,8 +41,7 @@
 @property(nonatomic,assign) DataQueryVC *dataQueryVC;
 @property(nonatomic,assign) NTLateFeeDmfxVC *ntLateFeeDmfxVC;
 @property(nonatomic,assign) NTLateFeeHcfxVC *ntLateFeeHcfxVC;
-
-
+@property(nonatomic,assign) NTZxgsjtjVC *ntZxgsjtjVC;
 
 
 @end

@@ -110,6 +110,8 @@ static NSString *deviceID;
     [NTLateFeeDMFXDao initDb];
     [NTLateFeeHCFXDao openDataBase];
     [NTLateFeeHCFXDao initDb];
+    [NTZxgsjtjDao openDataBase];
+    [NTZxgsjtjDao initDb];
     
 //    //新添  thshiptrans 调度日志
 //    [TH_ShipTransDao openDataBase];

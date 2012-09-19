@@ -326,7 +326,7 @@ static WSChart *electionChart=nil;
                                         style:kChartBarPlain
                                   colorScheme:kColor_FDS_Gray];
     [electionChart scaleAllAxisYD:NARangeMake(-6, 35)];
-    [electionChart scaleAllAxisXD:NARangeMake(-2, [NTLateFeeDMFXDao getFactoryCount])];
+    [electionChart scaleAllAxisXD:NARangeMake(-4, [NTLateFeeDMFXDao getFactoryCount]+2)];
     [electionChart setAllAxisLocationXD:-1];
     [electionChart setAllAxisLocationYD:0];
     

@@ -1,23 +1,23 @@
 //
-//  NTLateFeeHcfxVC.m
+//  NTZxgsjtjVC.m
 //  Hpi-FDS
-//  滞期费航次分析
-//  Created by 馬文培 on 12-9-13.
+//  装卸港时间统计
+//  Created by 馬文培 on 12-9-18. #918国耻日# 81年前的今天，东北军在军力占优的情况下不抵抗，东北沦陷。今天，一群傻逼在自己家打砸抢，这么多年过去了，中国人还是这个德行！
 //  Copyright (c) 2012年 Landscape. All rights reserved.
 //
 
-#import "NTLateFeeHcfxVC.h"
-@interface NTLateFeeHcfxVC ()
+#import "NTZxgsjtjVC.h"
+
+@interface NTZxgsjtjVC ()
 
 @end
 
-@implementation NTLateFeeHcfxVC
+@implementation NTZxgsjtjVC
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
-static WSChart *electionChart0=nil; //第一张航次图表
-static WSChart *electionChart1=nil; //第二张运量图表
-static WSChart *electionChart2=nil; //第三张滞期费图表
-
+static WSChart *electionChart0=nil; //第一张合计柱状图
+static WSChart *electionChart1=nil; //第二张装港柱状图
+static WSChart *electionChart2=nil; //第三张卸港柱状图
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,11 +31,17 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 - (void)viewDidLoad
 {
     self.comLabel.text=All_;
+    self.typeLabel.text=All_;
+    self.scheduleLabel.text=All_;
+
     [self.activity removeFromSuperview];
     
     self.comLabel.hidden=YES;
+    self.typeLabel.hidden=YES;
+    self.scheduleLabel.hidden=YES;
+
     [self.comButton setTitle:@"航运公司" forState:UIControlStateNormal];
-    
+    [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
     self.endDay = [[[NSDate alloc] init] autorelease];
     //本年度的第一天
     NSDateComponents *comp = [[[NSDateComponents alloc]init] autorelease];
@@ -69,6 +75,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     _chartView.layer.borderWidth=2.0;
     _chartView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
     _chartView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
+
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -85,8 +92,12 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     self.comButton=nil;
     self.comLabel=nil;
     self.activity=nil;
+    self.scheduleButton=nil;
+    self.scheduleLabel=nil;
+    self.typeButton=nil;
+    self.typeLabel=nil;
     self.tbxmlParser =nil;
-     [_shv removeFromSuperview];  
+    [_shv removeFromSuperview];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -100,6 +111,10 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     [_endDateCV release];
     [_comButton release];
     [_comLabel release];
+    [_typeButton release];
+    [_typeLabel release];
+    [_scheduleLabel release];
+    [_scheduleButton release];
     
     if (ShipCompanyPop==YES) {
         [ShipCompanyArray release];
@@ -108,7 +123,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     [_activity release];
     [_reloadButton release];
     self.tbxmlParser =nil;
-     [_shv removeFromSuperview];  
+    [_shv removeFromSuperview];
     [super dealloc];
     //[factoryArray release];
     
@@ -218,7 +233,59 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     [pop release];
     
 }
-
+- (IBAction)scheduleAction:(id)sender {
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    //初始化待显示控制器
+    _chooseView=[[ChooseView alloc]init];
+    //设置待显示控制器的范围
+    [_chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
+    //设置待显示控制器视图的尺寸
+    _chooseView.contentSizeForViewInPopover = CGSizeMake(125, 400);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_chooseView];
+    _chooseView.popover = pop;
+    _chooseView.iDArray=[NSArray arrayWithObjects:All_,@"否",@"是",nil];
+    _chooseView.parentMapView=self;
+    _chooseView.type=kSCHEDULE;
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(125, 150);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(_scheduleButton.frame.origin.x+85, _scheduleButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [_chooseView.tableView reloadData];
+    [_chooseView release];
+    [pop release];
+}
+//电厂类型
+- (IBAction)typeAction:(id)sender {
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    //初始化待显示控制器
+    _chooseView=[[ChooseView alloc]init];
+    //设置待显示控制器的范围
+    [_chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
+    //设置待显示控制器视图的尺寸
+    _chooseView.contentSizeForViewInPopover = CGSizeMake(125, 400);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:_chooseView];
+    _chooseView.popover = pop;
+    _chooseView.iDArray=[NSArray arrayWithObjects:All_,@"直供",@"海进江",@"山东",@"海南",nil];
+    _chooseView.parentMapView=self;
+    _chooseView.type=kTYPE;
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(125, 250);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(_typeButton.frame.origin.x+85, _typeButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [_chooseView.tableView reloadData];
+    [_chooseView release];
+    [pop release];
+}
 
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
@@ -257,7 +324,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 {
     [self generateGraphDate];
     //增加判断，如果Y轴数据全部为0，组件WSChart崩溃，所以不显示
-    if ([NTLateFeeHCFXDao isNoData_LATEFEE]) {
+    if ([NTZxgsjtjDao isNoData_LT]) {
         UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:@"查询结果为空！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil ];
         [alertView show];
         [alertView release];
@@ -284,7 +351,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
         [_activity startAnimating];
         [_tbxmlParser setISoapNum:1];
         
-        [_tbxmlParser requestSOAP:@"LateFee"];
+        [_tbxmlParser requestSOAP:@"ShipTrans"];
         [self runActivity];
     }
 	
@@ -304,57 +371,64 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 }
 
 -(void)generateGraphDate{
+    NSLog(@"_scheduleLabel=%@",_scheduleLabel.text);
+    NSLog(@"_typeLabel=%@",_typeLabel.text);
+
     NSLog(@"count=%d", [ShipCompanyArray count]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-    [NTLateFeeHCFXDao InsertByCompany:ShipCompanyArray StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
+    [NTZxgsjtjDao InsertByCompany:ShipCompanyArray Schedule:_scheduleLabel.text Category:_typeLabel.text StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
     
     [dateFormatter release];
 }
 
 -(void)loadHpiGraphView{
-    WSData *barData0 = [[self getData_HC] indexedData];
+    WSData *barData0 = [[self getData_LT] indexedData];
     // Create and configure a bar plot.
     electionChart0 = [WSChart barPlotWithFrame:[self.chartView bounds]
-                                         data:barData0
-                                        style:kChartBarPlain
-                                  colorScheme:kColor_FDS_Gray];
-
-    [electionChart0 scaleAllAxisYD:NARangeMake(-10, 70)];
-    [electionChart0 scaleAllAxisXD:NARangeMake(-4, [NTLateFeeHCFXDao getFactoryCount]+2)];
+                                          data:barData0
+                                         style:kChartBarPlain
+                                   colorScheme:kColor_FDS_Gray];
+    
+    [electionChart0 scaleAllAxisYD:NARangeMake(-5, 35)];
+    [electionChart0 scaleAllAxisXD:NARangeMake(-4, [NTZxgsjtjDao getFactoryCount]+2)];
     [electionChart0 setAllAxisLocationXD:-1];
     [electionChart0 setAllAxisLocationYD:0];
     
-
+    
     WSPlotAxis *axis0 = [electionChart0 firstPlotAxis];
     [[axis0 ticksX] setTicksStyle:kTicksLabelsSlanted];
     [[axis0 ticksY] setTicksStyle:kTicksLabels];
     [[axis0 ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
-                                     [NSNumber numberWithFloat:0],
-                                     [NSNumber numberWithFloat:10],
-                                     [NSNumber numberWithFloat:20],
-                                     [NSNumber numberWithFloat:30],
-                                     [NSNumber numberWithFloat:40],
-                                     [NSNumber numberWithFloat:50],
-                                      [NSNumber numberWithFloat:60],
-                                     nil]
-                             labels:[NSArray arrayWithObjects:@"",
-                                     @"10", @"20", @"30",@"40",@"50",@"60", nil]];
-    [electionChart0 setChartTitle:NSLocalizedString(@"各电厂航次分析图表", @"")];
+                                      [NSNumber numberWithFloat:0],
+                                      [NSNumber numberWithFloat:3],
+                                      [NSNumber numberWithFloat:6],
+                                      [NSNumber numberWithFloat:9],
+                                      [NSNumber numberWithFloat:12],
+                                      [NSNumber numberWithFloat:15],
+                                      [NSNumber numberWithFloat:18],
+                                      [NSNumber numberWithFloat:21],
+                                      [NSNumber numberWithFloat:24],
+                                      [NSNumber numberWithFloat:27],
+                                      [NSNumber numberWithFloat:30],
+                                      nil]
+                              labels:[NSArray arrayWithObjects:@"",
+                                      @"3", @"6", @"9",@"12",@"15",@"18",@"21",@"24",@"27",@"30", nil]];
+    [electionChart0 setChartTitle:NSLocalizedString(@"各电厂平均装卸港合计柱状图", @"")];
     [electionChart0 setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
     
     electionChart0.autoresizingMask = 63;
     
-    WSData *barData1 = [[self getData_YL] indexedData];
+    WSData *barData1 = [[self getData_ZG] indexedData];
     // Create and configure a bar plot.
     electionChart1 = [WSChart barPlotWithFrame:[self.chartView bounds]
-                                         data:barData1
-                                        style:kChartBarPlain
-                                  colorScheme:kColor_FDS_Gray];
+                                          data:barData1
+                                         style:kChartBarPlain
+                                   colorScheme:kColor_FDS_Gray];
     
-       [electionChart1 scaleAllAxisYD:NARangeMake(-100, 700)];
-    [electionChart1 scaleAllAxisXD:NARangeMake(-4, [NTLateFeeHCFXDao getFactoryCount]+2)];
+    [electionChart1 scaleAllAxisYD:NARangeMake(-4, 25)];
+    [electionChart1 scaleAllAxisXD:NARangeMake(-4, [NTZxgsjtjDao getFactoryCount]+2)];
     [electionChart1 setAllAxisLocationXD:-1];
     [electionChart1 setAllAxisLocationYD:0];
     
@@ -362,33 +436,36 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     [[axis1 ticksX] setTicksStyle:kTicksLabelsSlanted];
     [[axis1 ticksY] setTicksStyle:kTicksLabels];
     [[axis1 ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
-                                     [NSNumber numberWithFloat:0],
-                                     [NSNumber numberWithFloat:100],
-                                     [NSNumber numberWithFloat:200],
-                                     [NSNumber numberWithFloat:300],
-                                     [NSNumber numberWithFloat:400],
-                                     [NSNumber numberWithFloat:500],
-                                      [NSNumber numberWithFloat:600],
-
-                                     nil]
-                             labels:[NSArray arrayWithObjects:@"",
-                                     @"100", @"200", @"300",@"400",@"500",@"600", nil]];
-    [electionChart1 setChartTitle:NSLocalizedString(@"各电厂运量分析图表", @"")];
+                                      [NSNumber numberWithFloat:0],
+                                      [NSNumber numberWithFloat:2],
+                                      [NSNumber numberWithFloat:4],
+                                      [NSNumber numberWithFloat:6],
+                                      [NSNumber numberWithFloat:8],
+                                      [NSNumber numberWithFloat:10],
+                                      [NSNumber numberWithFloat:12],
+                                      [NSNumber numberWithFloat:14],
+                                      [NSNumber numberWithFloat:16],
+                                      [NSNumber numberWithFloat:18],
+                                      [NSNumber numberWithFloat:20],
+                                      nil]
+                              labels:[NSArray arrayWithObjects:@"",
+                                      @"2", @"4", @"6",@"8",@"10",@"12",@"14", @"16", @"18",@"20", nil]];
+    [electionChart1 setChartTitle:NSLocalizedString(@"各电厂平均装港时间柱状图", @"")];
     [electionChart1 setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
     
     electionChart1.autoresizingMask = 63;
     
     
     
-    WSData *barData2 = [[self getData_LATEFEE] indexedData];
+    WSData *barData2 = [[self getData_XG] indexedData];
     // Create and configure a bar plot.
     electionChart2 = [WSChart barPlotWithFrame:[self.chartView bounds]
                                           data:barData2
                                          style:kChartBarPlain
                                    colorScheme:kColor_FDS_Gray];
     
-    [electionChart2 scaleAllAxisYD:NARangeMake(-1, 7)];
-    [electionChart2 scaleAllAxisXD:NARangeMake(-4, [NTLateFeeHCFXDao getFactoryCount]+2)];
+    [electionChart2 scaleAllAxisYD:NARangeMake(-4, 25)];
+    [electionChart2 scaleAllAxisXD:NARangeMake(-4, [NTZxgsjtjDao getFactoryCount]+2)];
     [electionChart2 setAllAxisLocationXD:-1];
     [electionChart2 setAllAxisLocationYD:0];
     
@@ -397,21 +474,25 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     [[axis2 ticksY] setTicksStyle:kTicksLabels];
     [[axis2 ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
                                       [NSNumber numberWithFloat:0],
-                                      [NSNumber numberWithFloat:1],
                                       [NSNumber numberWithFloat:2],
-                                      [NSNumber numberWithFloat:3],
                                       [NSNumber numberWithFloat:4],
-                                      [NSNumber numberWithFloat:5],
                                       [NSNumber numberWithFloat:6],
+                                      [NSNumber numberWithFloat:8],
+                                      [NSNumber numberWithFloat:10],
+                                      [NSNumber numberWithFloat:12],
+                                      [NSNumber numberWithFloat:14],
+                                      [NSNumber numberWithFloat:16],
+                                      [NSNumber numberWithFloat:18],
+                                      [NSNumber numberWithFloat:20],
                                       nil]
                               labels:[NSArray arrayWithObjects:@"",
-                                      @"1", @"2", @"3",@"4",@"5",@"6",  nil]];
-    [electionChart2 setChartTitle:NSLocalizedString(@"各电厂滞期费分析图表", @"")];
+                                      @"2", @"4", @"6",@"8",@"10",@"12",@"14", @"16", @"18",@"20", nil]];
+    [electionChart2 setChartTitle:NSLocalizedString(@"各电厂平均卸港时间柱状图", @"")];
     [electionChart2 setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
     
     electionChart2.autoresizingMask = 63;
-
-
+    
+    
     NSArray* ds =[NSArray arrayWithObjects:
                   electionChart0,
                   electionChart1,
@@ -419,59 +500,58 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
                   nil];
     
     if (_shv) {
-        [_shv removeFromSuperview];        
+        [_shv removeFromSuperview];
     }
     self.shv=[[[ATHorizontalBarChartView alloc] initWithFrame:CGRectMake(0, 0, 1024, 600)] autorelease];
     
     self.shv.ds = ds;
     [self.chartView addSubview:_shv];
-
+    
     
 }
 
-- (WSData *)getData_LATEFEE {
+- (WSData *)getData_ZG {
     
-    NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_LATEFEE];
+    NSMutableArray *array = [NTZxgsjtjDao getNTZxgsjtj_ZG];
     NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
     NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
     
     for (int i=0; i<[array count]; i++) {
-        NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+        NTZxgsjtj *ntZxgsjtj= [array objectAtIndex:i];
         //        NSLog(@"factory=%@",portEfficiency.factory);
-        [arrayX addObject:ntLateFeeHCFX.factory];
-        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.latefee]];
+        [arrayX addObject:ntZxgsjtj.factory];
+        [arrayY addObject:[NSNumber numberWithDouble:ntZxgsjtj.zg]];
     }
     NSLog(@"arrayYcount=%d",[arrayY count]);
     return [WSData dataWithValues:arrayY
                       annotations:arrayX];
 }
-- (WSData *)getData_HC {
+- (WSData *)getData_XG {
     
-    NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_HC];
+    NSMutableArray *array = [NTZxgsjtjDao getNTZxgsjtj_XG];
     NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
     NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
     
     for (int i=0; i<[array count]; i++) {
-        NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
-       NSLog(@"hc=%d",ntLateFeeHCFX.hc);
-        [arrayX addObject:ntLateFeeHCFX.factory];
-        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.hc]];
+        NTZxgsjtj *ntZxgsjtj= [array objectAtIndex:i];
+        [arrayX addObject:ntZxgsjtj.factory];
+        [arrayY addObject:[NSNumber numberWithDouble:ntZxgsjtj.xg]];
     }
     NSLog(@"arrayYcount=%d",[arrayY count]);
     return [WSData dataWithValues:arrayY
                       annotations:arrayX];
 }
-- (WSData *)getData_YL {
+- (WSData *)getData_LT {
     
-    NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_YL];
+    NSMutableArray *array = [NTZxgsjtjDao getNTZxgsjtj_LT];
     NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
     NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
     
     for (int i=0; i<[array count]; i++) {
-        NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+        NTZxgsjtj *ntZxgsjtj= [array objectAtIndex:i];
         //        NSLog(@"factory=%@",portEfficiency.factory);
-        [arrayX addObject:ntLateFeeHCFX.factory];
-        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.yl]];
+        [arrayX addObject:ntZxgsjtj.factory];
+        [arrayY addObject:[NSNumber numberWithDouble:ntZxgsjtj.lt]];
     }
     NSLog(@"arrayYcount=%d",[arrayY count]);
     return [WSData dataWithValues:arrayY
@@ -519,6 +599,38 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
                 
             }
         }
+    }
+}
+#pragma mark SetSelectValue  Method
+-(void)setLableValue:(NSString *)currentSelectValue
+{
+    if (_chooseView) {
+        if (_chooseView.type==kSCHEDULE) {
+            
+            self.scheduleLabel.text =currentSelectValue;
+            if (![self.scheduleLabel.text isEqualToString:All_]) {
+                self.scheduleLabel.hidden=NO;
+                [self.scheduleButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.scheduleLabel.hidden=YES;
+                [self.scheduleButton setTitle:@"班轮" forState:UIControlStateNormal];
+            }
+        }
+        if (_chooseView.type==kTYPE) {
+            
+            self.typeLabel.text =currentSelectValue;
+            self.typeLabel.textAlignment=UITextAlignmentCenter;
+            if (![self.typeLabel.text isEqualToString:All_]) {
+                self.typeLabel.hidden=NO;
+                [self.typeButton setTitle:@"" forState:UIControlStateNormal];
+            }
+            else {
+                self.typeLabel.hidden=YES;
+                [self.typeButton setTitle:@"    电厂类别" forState:UIControlStateNormal];
+            }
+        }
+        
     }
 }
 
