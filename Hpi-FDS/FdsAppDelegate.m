@@ -37,10 +37,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    if (NO==[PubInfo checkDevice]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"该设备没有注册，请联系管理员！" delegate:self cancelButtonTitle:@"退出" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+    }
+    
     [PubInfo initdata];
     [self customizeAppearance];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    
+  
     // Override point for customization after application launch.
     UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
     UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
@@ -58,6 +64,8 @@
     NSString *deviceUID = [[[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] autorelease];
     NSLog(@"%@",deviceUID); // 输出设备id
     
+  
+    
 
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
@@ -70,6 +78,13 @@
     return YES;
 }
 
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        exit(0);
+           }
+	
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
@@ -98,6 +113,8 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    
+  
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

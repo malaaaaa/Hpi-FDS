@@ -128,7 +128,23 @@ typedef enum{
 +(NSString *)deviceID;
 +(NSString *)currTime;
 
+/*!
+ @method +(BOOL)checkDevice;
+ @author 马文培
+ @abstract 监测该设备是否注册
+ @param 参数说明
+ @result 返回结果
+ */
++(BOOL)checkDevice;
+
 //计算两个YYYYMM格式字符串之间月份之差
+/*!
+ @method +(NSInteger)getMonthDifference:(NSString *)startDate :(NSString *)endDate;
+ @author 马文培
+ @abstract 计算两个YYYYMM格式字符串之间月份之差
+ @param startDate 开始时间 endDate 结束时间
+ @result 返回整型的月份
+ */
 +(NSInteger)getMonthDifference:(NSString *)startDate :(NSString *)endDate;
 
 

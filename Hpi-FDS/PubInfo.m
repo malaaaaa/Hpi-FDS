@@ -507,7 +507,9 @@ static NSString *deviceID;
     
 }
 
-
++ (BOOL)checkDevice{
+    return YES;
+}
 
 
 
