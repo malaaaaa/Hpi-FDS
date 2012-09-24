@@ -28,7 +28,7 @@ static int iDisplay=0;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"地图", @"1th");
+        self.title = NSLocalizedString(@"地图展示", @"1th");
         self.tabBarItem.image = [UIImage imageNamed:@"map"];
     }
     return self;

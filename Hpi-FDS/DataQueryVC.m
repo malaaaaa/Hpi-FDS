@@ -52,7 +52,7 @@ static NSInteger menuIndex;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"数据查询", @"5th");
+        self.title = NSLocalizedString(@"查询统计", @"5th");
         self.tabBarItem.image = [UIImage imageNamed:@"query"];
     }
     return self;

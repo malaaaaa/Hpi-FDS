@@ -36,7 +36,7 @@ UIAlertView *alert;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"设置", @"6th");
+        self.title = NSLocalizedString(@"系统设置", @"6th");
         self.tabBarItem.image = [UIImage imageNamed:@"setup"];
     }
     return self;

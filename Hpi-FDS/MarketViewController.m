@@ -27,7 +27,7 @@ static NSString *stringType=@"BSPI";
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"市场指数", @"3th");
+        self.title = NSLocalizedString(@"市场信息", @"3th");
         self.tabBarItem.image = [UIImage imageNamed:@"market"];
     }
     return self;
