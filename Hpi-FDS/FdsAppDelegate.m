@@ -37,12 +37,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    if (NO==[PubInfo checkDevice]) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"该设备没有注册，请联系管理员！" delegate:self cancelButtonTitle:@"退出" otherButtonTitles:nil,nil];
-        [alert show];
-        [alert release];
-    }
-    
+ 
     [PubInfo initdata];
     [self customizeAppearance];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
@@ -64,10 +59,18 @@
     NSString *deviceUID = [[[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] autorelease];
     NSLog(@"%@",deviceUID); // 输出设备id
     
-  
-    
-
-    
+    NSString *meg=[NSString stringWithFormat:@"标示ID:\n%@",deviceUID];
+    if (NO==[PubInfo checkDeviceRegisterInfo]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"该设备未注册！" message:meg delegate:self cancelButtonTitle:@"退出" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+    }else if(NO==[PubInfo checkDeviceVerificationInfo])
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"消息" message:@"该设备验证失败！" delegate:self cancelButtonTitle:@"退出" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+    }
+ 
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
 //    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
         self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];

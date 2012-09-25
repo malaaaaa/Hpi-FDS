@@ -507,10 +507,12 @@ static NSString *deviceID;
     
 }
 
-+ (BOOL)checkDevice{
++ (BOOL)checkDeviceRegisterInfo{
     return YES;
 }
-
++ (BOOL)checkDeviceVerificationInfo{
+    return YES;
+}
 
 
 

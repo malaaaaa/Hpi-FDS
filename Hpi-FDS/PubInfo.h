@@ -129,13 +129,21 @@ typedef enum{
 +(NSString *)currTime;
 
 /*!
- @method +(BOOL)checkDevice;
+ @method +(BOOL)checkDeviceRegisterInfo;
  @author 马文培
- @abstract 监测该设备是否注册
+ @abstract 监测该设备是否注册成功
  @param 参数说明
  @result 返回结果
  */
-+(BOOL)checkDevice;
++(BOOL)checkDeviceRegisterInfo;
+/*!
+ @method +(BOOL)checkDeviceVerificationInfo;
+ @author 马文培
+ @abstract 监测该设备是否登陆验证成功
+ @param 参数说明
+ @result 返回结果
+ */
++(BOOL)checkDeviceVerificationInfo;
 
 //计算两个YYYYMM格式字符串之间月份之差
 /*!
