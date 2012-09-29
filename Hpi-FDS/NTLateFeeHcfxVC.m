@@ -284,7 +284,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
         [_activity startAnimating];
         [_tbxmlParser setISoapNum:1];
         
-        [_tbxmlParser requestSOAP:@"LateFee"];
+        [_tbxmlParser requestSOAP:@"TbLateFee"];
         [self runActivity];
     }
 	
@@ -320,12 +320,12 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
                                          data:barData0
                                         style:kChartBarPlain
                                   colorScheme:kColor_FDS_Gray];
-
+    
     [electionChart0 scaleAllAxisYD:NARangeMake(-10, 70)];
     [electionChart0 scaleAllAxisXD:NARangeMake(-4, [NTLateFeeHCFXDao getFactoryCount]+2)];
     [electionChart0 setAllAxisLocationXD:-1];
     [electionChart0 setAllAxisLocationYD:0];
-    
+
 
     WSPlotAxis *axis0 = [electionChart0 firstPlotAxis];
     [[axis0 ticksX] setTicksStyle:kTicksLabelsSlanted];
@@ -453,7 +453,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     
     for (int i=0; i<[array count]; i++) {
         NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
-       NSLog(@"hc=%d",ntLateFeeHCFX.hc);
+       NSLog(@"hc=%d=%@",ntLateFeeHCFX.hc,ntLateFeeHCFX.factory);
         [arrayX addObject:ntLateFeeHCFX.factory];
         [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.hc]];
     }

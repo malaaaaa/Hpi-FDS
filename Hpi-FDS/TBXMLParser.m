@@ -192,10 +192,15 @@ static bool ThreadFinished=TRUE;
         [TfFactoryDao deleteAll];
         [self getDate:@"TfFactory" entityClass:@"TfFactory" insertTableName:@"TfFactory"];
     }
-    /******************************滞期费*****************************/
+    /******************************滞期费vb*****************************/
     if ([_Identification isEqualToString:@"LateFee"]) {
+        [VB_LatefeeDao deleteAll];
+        [self getDate:@"VbLateFee" entityClass:@"VB_Latefee" insertTableName:@"VB_Latefee"];
+    }
+    /******************************滞期费tb*****************************/
+    if ([_Identification isEqualToString:@"TbLateFee"]) {
         [TB_LatefeeDao deleteAll];
-        [self getDate:@"VbLateFee" entityClass:@"TB_Latefee" insertTableName:@"TB_Latefee"];
+        [self getDate:@"TbLateFee" entityClass:@"TB_Latefee" insertTableName:@"TB_Latefee"];
     }
     /****************************航运公司份额统计-NTShipCompanyTranShare**************************/
     if ([_Identification isEqualToString:@"TransPorts"]) {

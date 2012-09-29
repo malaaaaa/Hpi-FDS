@@ -109,7 +109,7 @@ static sqlite3 *database;
             if (((TfShipCompany *)[company objectAtIndex:i]).didSelected==YES) {
                 count++;
                 if (count==1) {
-                    [shiptransSubSql appendString:@" AND shipcompanyid in ("];
+                    [shiptransSubSql appendString:@" AND comid in ("];
                 }
                 //如果条件不是第一条
                 if (count!=1) {
@@ -127,7 +127,7 @@ static sqlite3 *database;
 
     [NTLateFeeDMFXDao deleteAll];
     sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"select TFFACTORY.FACTORYNAME,round(SUM(LATEFEE)/sum(LW),2) as tt from TB_LATEFEE Inner Join TFFACTORY On TB_LATEFEE.FACTORYCODE = TFFACTORY.FACTORYCODE where strftime('%%Y-%%m-%%d',tradetime)>='%@' and strftime('%%Y-%%m-%%d',tradetime)<='%@' %@ group by TFFACTORY.FACTORYNAME  ",startDate,endDate,shiptransSubSql];
+    NSString *sql=[NSString stringWithFormat:@"select TFFACTORY.FACTORYNAME,round(SUM(LATEFEE)/sum(LW),2) as tt from TB_LATEFEE Inner Join TFFACTORY On TB_LATEFEE.FACTORYCODE = TFFACTORY.FACTORYCODE where TB_LATEFEE.iscal=1 and strftime('%%Y-%%m-%%d',tradetime)>='%@' and strftime('%%Y-%%m-%%d',tradetime)<='%@' %@ group by TFFACTORY.FACTORYNAME  ",startDate,endDate,shiptransSubSql];
     NSLog(@"执行 InsertByCompany Sql[%@] ",sql);
     
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
@@ -198,7 +198,7 @@ static sqlite3 *database;
     
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
-            NSInteger maxNumber=sqlite3_column_int(statement,0);
+            double maxNumber=sqlite3_column_double(statement,0);
             if (0==maxNumber) {
                 sqlite3_finalize(statement);
                 return YES;

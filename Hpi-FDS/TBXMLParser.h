@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "TBXML.h"
 #import "PubInfo.h"
-#import "TfPortDao.h"
-#import "TB_LatefeeDao.h"
+
+
 @interface TBXMLParser : NSObject{
     NSMutableData *webData;
     NSMutableString *soapResults;

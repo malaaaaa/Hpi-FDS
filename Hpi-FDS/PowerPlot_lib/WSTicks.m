@@ -15,8 +15,8 @@
 
 /** @brief Return the closest decimal power of the leading digit.
  
-    @param x The input number.
-    @return The resulting "nicely" rounded number.
+ @param x The input number.
+ @return The resulting "nicely" rounded number.
  */
 NAFloat loground(NAFloat x);
 
@@ -48,7 +48,7 @@ NAFloat loground(NAFloat x);
         [_minorTicksPosD retain];
         [_labelString retain];
         _majorTicksLen = kMajorTicksLen;
-        _minorTicksLen = kMinorTicksLen;       
+        _minorTicksLen = kMinorTicksLen;
         _labelOffset = kLabelOffset;
     }
     return self;
@@ -80,7 +80,8 @@ NAFloat loground(NAFloat x);
 - (void)autoTicksWithRange:(NARange)aRange
                     number:(NAFloat)labelNum {
     NSParameterAssert([self minorTicksNum] >= 0);
-    NSParameterAssert(NARangeLen(aRange) > 0.0);
+    //romoved by mawp 对于只有一条数据的情况，算出的range=0,导致出错,因此去掉
+    //    NSParameterAssert(NARangeLen(aRange) > 0.0);
     NSParameterAssert(labelNum > 0.0);
     
     NSUInteger i, j;
@@ -88,7 +89,7 @@ NAFloat loground(NAFloat x);
     NAFloat majorTickIncrD = NARangeLen(aRange) / labelNum;
     NAFloat majorTickStartD = aRange.rMin + majorTickIncrD;
     NAFloat minorTickIncrD = majorTickIncrD / (NAFloat)([self minorTicksNum]+1);
-
+    
     /* Reset the current tick information. */
     [[self ticksPosD] removeAllObjects];
     [[self minorTicksPosD] removeAllObjects];
@@ -96,13 +97,13 @@ NAFloat loground(NAFloat x);
     
     NAFloat posD = majorTickStartD;
     for (i=0; i<iLNum; i++) {
-
+        
         /* Fill in the information for the major ticks. */
         [[self ticksPosD] addObject:[NSNumber numberWithFloat:posD]];
         [[self labelString] addObject:@""];
-
+        
         /* Now fill in minor ticks between the major ones.
-           (Do not go beyond the last entry.) */
+         (Do not go beyond the last entry.) */
         if (i < (iLNum-1)) {
             for (j=0; j<[self minorTicksNum]; j++) {
                 posD += minorTickIncrD;
@@ -110,7 +111,7 @@ NAFloat loground(NAFloat x);
             }
         }
         posD += minorTickIncrD;
-    }    
+    }
 }
 
 - (NSInteger)autoNiceTicksWithRange:(NARange)aRange
@@ -130,7 +131,7 @@ NAFloat loground(NAFloat x);
     [[self ticksPosD] removeAllObjects];
     [[self minorTicksPosD] removeAllObjects];
     [[self labelString] removeAllObjects];
-
+    
     NAFloat posD = majorTickStartD; i = 0;
     do {
         
@@ -155,7 +156,7 @@ NAFloat loground(NAFloat x);
 
 - (void)ticksWithNumbers:(NSArray *)positions {
     NSUInteger i, j;
-
+    
     /* Assign major tick positions. */
     [[self minorTicksPosD] removeAllObjects];
     [[self ticksPosD] removeAllObjects];
@@ -184,7 +185,7 @@ NAFloat loground(NAFloat x);
 - (void)ticksWithNumbers:(NSArray *)positions
                   labels:(NSArray *)labels {
     NSParameterAssert([positions count] == [labels count]);
-
+    
     [self ticksWithNumbers:positions];
     [[self labelString] removeAllObjects];
     [[self labelString] addObjectsFromArray:labels];
@@ -208,7 +209,7 @@ NAFloat loground(NAFloat x);
     
     /* Set major ticks labels using a given formatter. */
     for (i=0; i<[self count]; i++) {
-        [[self labelString] 
+        [[self labelString]
          replaceObjectAtIndex:i
          withObject:[formatter
                      stringFromNumber:[NSNumber
@@ -241,7 +242,7 @@ NAFloat loground(NAFloat x) {
                                 [self count],
                                 [self countMinor]];
     
-    return [NSString stringWithString:prtCont]; 
+    return [NSString stringWithString:prtCont];
 }
 
 - (void)dealloc {

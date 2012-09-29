@@ -113,7 +113,7 @@ static sqlite3 *database;
             if (((TfShipCompany *)[company objectAtIndex:i]).didSelected==YES) {
                 count++;
                 if (count==1) {
-                    [shiptransSubSql appendString:@" AND shipcompanyid in ("];
+                    [shiptransSubSql appendString:@" AND comid in ("];
                 }
                 //如果条件不是第一条
                 if (count!=1) {
@@ -131,7 +131,7 @@ static sqlite3 *database;
     
     [NTLateFeeHCFXDao deleteAll];
     sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"select TB_LATEFEE.FACTORYCODE,TFFACTORY.FACTORYNAME,count(TRIPNO) AS TRIPNO,round(SUM(LW/10000),2 ) as LW,round(sum(LATEFEE/1000000) ,2 ) as LATEFEE from TB_LATEFEE Inner Join TFFACTORY On TB_LATEFEE.FACTORYCODE = TFFACTORY.FACTORYCODE where strftime('%%Y-%%m-%%d',tradetime)>='%@' and strftime('%%Y-%%m-%%d',tradetime)<='%@' %@ group by TFFACTORY.fACTORYNAME,TB_LATEFEE.FACTORYCODE  ",startDate,endDate,shiptransSubSql];
+    NSString *sql=[NSString stringWithFormat:@"select TB_LATEFEE.FACTORYCODE,TFFACTORY.FACTORYNAME,count(TRIPNO) AS TRIPNO,round(SUM(LW/10000.0),2 ) as LW,round(sum(LATEFEE/1000000.0) ,2 ) as LATEFEE from TB_LATEFEE Inner Join TFFACTORY On TB_LATEFEE.FACTORYCODE = TFFACTORY.FACTORYCODE where TB_LATEFEE.iscal=1 and strftime('%%Y-%%m-%%d',tradetime)>='%@' and strftime('%%Y-%%m-%%d',tradetime)<='%@' %@ group by TFFACTORY.fACTORYNAME,TB_LATEFEE.FACTORYCODE  ",startDate,endDate,shiptransSubSql];
     NSLog(@"执行 InsertByCompany Sql[%@] ",sql);
     
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

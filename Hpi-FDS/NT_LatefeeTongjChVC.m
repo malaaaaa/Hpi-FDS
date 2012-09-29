@@ -237,7 +237,7 @@ NSDateFormatter *formater1;
     
     NSLog(@"获得NT_LatefeeTongj[%d]",dataQueryVC.dataArray.count);
     //获得所有  不重复的额的电厂名   根据条件
-    NSMutableArray *nameArray=[NT_LatefeeTongjDao getFactoryName:factoryCateLable.text:startTime.text :endTime.text];
+    NSMutableArray *nameArray=[NT_LatefeeTongjDao getFactoryName:factoryCateLable.text :startTime.text :endTime.text];
     NSLog(@"获得电厂名【%d】",[nameArray count]);
     dataSource.data=[[NSMutableArray alloc] init];
     for (int i=0; i<[nameArray  count ]; i++) {
@@ -246,7 +246,7 @@ NSDateFormatter *formater1;
         [dateArray addObject:@"3"];
         [dateArray addObject:[NSString stringWithFormat:@"%@",[nameArray objectAtIndex:i]]];
         
-        NSMutableDictionary *monthAndLatefee=[NT_LatefeeTongjDao getMonthAndLatefee:@"factory":[nameArray objectAtIndex:i]:startTime.text:endTime.text ];
+        NSMutableDictionary *monthAndLatefee=[NT_LatefeeTongjDao getMonthAndLatefee:@"factory" :[nameArray objectAtIndex:i] :startTime.text:endTime.text ];
         NSLog(@"根据电厂名 和时间得到    该电厂【%@】的费用和月份",[nameArray objectAtIndex:i]);
         
         NSMutableArray *arrayKeys=[[  NSMutableArray alloc] init];
@@ -336,7 +336,7 @@ NSDateFormatter *formater1;
         //解析入库
         [xmlParser setISoapNum:1];
         [xmlParser  requestSOAP:@"Factory"];
-       [xmlParser requestSOAP:@"LateFee"];//GetInfo
+       [xmlParser requestSOAP:@"TbLateFee"];//GetInfo
         [self runActivity];
     }
 }

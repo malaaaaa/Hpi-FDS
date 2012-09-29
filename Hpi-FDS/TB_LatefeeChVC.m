@@ -479,12 +479,12 @@ static int  whichButton=0;
     NSLog(@"开始时间为：%@",startTime.text);
     NSLog(@"结束时间为：%@",endTime.text);
 
-    dataQueryVC.dataArray=[TB_LatefeeDao getTB_LateFee:comLabel.text :shipLabel.text :factoryLabel.text :typeLabel.text  :supLable.text :startTime.text :endTime.text] ;
+    dataQueryVC.dataArray=[VB_LatefeeDao getVB_LateFee:comLabel.text :shipLabel.text :factoryLabel.text :typeLabel.text  :supLable.text :startTime.text :endTime.text] ;
     
     
     dataSource.data=[[[NSMutableArray alloc] init] autorelease];
     for (int i=0; i<[dataQueryVC.dataArray  count ]; i++) {
-       TB_Latefee *tblatefee=[dataQueryVC.dataArray objectAtIndex:i];
+       VB_Latefee *tblatefee=[dataQueryVC.dataArray objectAtIndex:i];
         [dataSource.data addObject:[NSArray arrayWithObjects:@"3",
                                     
                                     //列表表题所用字段

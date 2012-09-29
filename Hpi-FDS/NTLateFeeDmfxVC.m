@@ -286,7 +286,7 @@ static WSChart *electionChart=nil;
         [_activity startAnimating];
         [_tbxmlParser setISoapNum:1];
         
-        [_tbxmlParser requestSOAP:@"LateFee"];
+        [_tbxmlParser requestSOAP:@"TbLateFee"];
         [self runActivity];
     }
 	

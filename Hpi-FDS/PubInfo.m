@@ -10,6 +10,7 @@
 #import "UIDevice+IdentifierAddition.h"
 #import "TH_ShipTransDao.h"
 #import "TB_LatefeeDao.h"
+#import "VB_LatefeeDao.h"
 #import "NT_LatefeeTongjDao.h"
 #import "TfPortDao.h"
 
@@ -78,6 +79,8 @@ static NSString *deviceID;
     //新添  tblatefee  
     [TB_LatefeeDao openDataBase ];
     [TB_LatefeeDao initDb];
+    [VB_LatefeeDao openDataBase ];
+    [VB_LatefeeDao initDb];
     
     
     [NT_LatefeeTongjDao openDataBase];

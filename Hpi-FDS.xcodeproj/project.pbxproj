@@ -270,6 +270,8 @@
 		D3A06E7115D0E74C00963BA2 /* WSView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E4515D0E74C00963BA2 /* WSView.m */; };
 		D3A06E7515D0E93500963BA2 /* PortEfficiencyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */; };
 		D3A06E7615D0E93500963BA2 /* PortEfficiencyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */; };
+		D3B9EA9A1613F57C0099E0B1 /* VB_Latefee.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9EA991613F57C0099E0B1 /* VB_Latefee.m */; };
+		D3B9EA9E1613F6320099E0B1 /* VB_LatefeeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9EA9D1613F6320099E0B1 /* VB_LatefeeDao.m */; };
 		D3E522F915F83CA2008756BD /* NTLateFeeDMFX.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */; };
 		D3E522FE15F87410008756BD /* NTLateFeeDmfxVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E522FC15F87410008756BD /* NTLateFeeDmfxVC.m */; };
 		D3E522FF15F87410008756BD /* NTLateFeeDmfxVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */; };
@@ -743,6 +745,10 @@
 		D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortEfficiencyVC.xib; sourceTree = "<group>"; };
 		D3A39CC11601BD7500D60D6D /* ATPagingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATPagingView.h; sourceTree = "<group>"; };
 		D3A39CC21601BD7500D60D6D /* ATPagingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATPagingView.m; sourceTree = "<group>"; };
+		D3B9EA981613F57C0099E0B1 /* VB_Latefee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VB_Latefee.h; sourceTree = "<group>"; };
+		D3B9EA991613F57C0099E0B1 /* VB_Latefee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VB_Latefee.m; sourceTree = "<group>"; };
+		D3B9EA9C1613F6320099E0B1 /* VB_LatefeeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VB_LatefeeDao.h; sourceTree = "<group>"; };
+		D3B9EA9D1613F6320099E0B1 /* VB_LatefeeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VB_LatefeeDao.m; sourceTree = "<group>"; };
 		D3E522F715F83CA2008756BD /* NTLateFeeDMFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeDMFX.h; sourceTree = "<group>"; };
 		D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTLateFeeDMFX.m; sourceTree = "<group>"; };
 		D3E522FB15F8740F008756BD /* NTLateFeeDmfxVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeDmfxVC.h; sourceTree = "<group>"; };
@@ -1252,6 +1258,10 @@
 				D31B512316017E1D00EFB98F /* NTLateFeeHCFX.m */,
 				D3E5B0B6160813B3001FA133 /* NTZxgsjtj.h */,
 				D3E5B0B7160813B3001FA133 /* NTZxgsjtj.m */,
+				D3B9EA981613F57C0099E0B1 /* VB_Latefee.h */,
+				D3B9EA991613F57C0099E0B1 /* VB_Latefee.m */,
+				D3B9EA9C1613F6320099E0B1 /* VB_LatefeeDao.h */,
+				D3B9EA9D1613F6320099E0B1 /* VB_LatefeeDao.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -1871,6 +1881,8 @@
 				D31CF40C1601ED1800B1985B /* ATHorizontalBarChartView.m in Sources */,
 				D3E5B0B316080882001FA133 /* NTZxgsjtjVC.m in Sources */,
 				D3E5B0B8160813B3001FA133 /* NTZxgsjtj.m in Sources */,
+				D3B9EA9A1613F57C0099E0B1 /* VB_Latefee.m in Sources */,
+				D3B9EA9E1613F6320099E0B1 /* VB_LatefeeDao.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

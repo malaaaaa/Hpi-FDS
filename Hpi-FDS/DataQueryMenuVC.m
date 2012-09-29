@@ -127,7 +127,7 @@
             cell.textLabel.text=@"装卸港效率统计";
             break;
         case kMenuSSCBCX:
-            cell.textLabel.text=@"实时船舶查询";
+            cell.textLabel.text=@"船舶动态查询";
             break;
         case kMenuCYJH:
             cell.textLabel.text=@"船运计划";
