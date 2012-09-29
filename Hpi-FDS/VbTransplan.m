@@ -1,6 +1,6 @@
 //
 //  VbTransplan.m
-//  Hpi-FDS
+//  Hpi-FDS/Users/tangbineml/Documents/NewWorkSpace/Hpi-FDS/Hpi-FDS/VbTransplan.m
 //
 //  Created by Hoshino Wei on 12-5-3.
 //  Copyright (c) 2012年 Landscape. All rights reserved.
@@ -10,7 +10,7 @@
 
 @implementation VbTransplan
 @synthesize planCode, planMonth, shipName, factoryCode, factoryName, portCode, portName, tripNo, eTap, eTaf, supplier, coalType, keyValue, keyName, schedule, description, serialNo, facSort;
-@synthesize shipID, eLw, supID, typeID;
+@synthesize shipID, eLw, supID, typeID,heatvalue,sulfur;
 
 - (void)dealloc {
     [planCode release];

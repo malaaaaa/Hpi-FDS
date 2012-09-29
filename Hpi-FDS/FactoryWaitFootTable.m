@@ -7,35 +7,19 @@
 //
 
 #import "FactoryWaitFootTable.h"
- /*
-@implementation MultiTitleDataGridScrollView
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	UITouch *t = [touches anyObject];
-	if([t tapCount] == 1){
-		DataGridComponent *d = (DataGridComponent*)dataGridComponent;
-		int idx = [t locationInView:self].y / d.cellHeight;
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDuration:0.65];
-		for(int i=0;i<[d.dataSource.titles count];i++){
-			UILabel *l = (UILabel*)[dataGridComponent viewWithTag:idx * d.cellHeight + i + 1000];
-			l.alpha = .5;
-		}
-		for(int i=0;i<[d.dataSource.titles count];i++){
-			UILabel *l = (UILabel*)[dataGridComponent viewWithTag:idx * d.cellHeight + i + 1000];
-			l.alpha = 1.0;
-		}
-		[UIView commitAnimations];
-	}
-}
+#import "TransPlanImplement.h"
+#import "PMPeriod.h"
+
+#import "TransPlanImplement.h"
 
 
-
-@end
-*/
 @implementation FactoryWaitFootTable
 MultiTitleDataSource *source;
-
+TransPlanImplement *tpl;
 NSMutableArray *columnWidth1;
+PMCalendarController *pmCC;
+
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -44,6 +28,23 @@ NSMutableArray *columnWidth1;
     }
     return self;
 }
+/*
+-(void)dealloc
+{
+    if (tpl) {
+        [tpl release];
+    }
+    if(pmCC){
+        [pmCC release];
+    }
+    
+    [columnWidth1 release];
+    [source release];
+    [super dealloc];
+}
+*/
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -55,46 +56,29 @@ NSMutableArray *columnWidth1;
 */
 -(void)getColument
 {
-    NSMutableArray *subTitel=[[NSMutableArray alloc] init ];
-    NSMutableArray *columW=[[NSMutableArray alloc] init ];
     columnWidth1=[[NSMutableArray alloc] init ];
  
- //拆分 成每个单元格的宽度
-     NSLog(@"%d",[source.columnWidth count]);
-    
-    
-    
-    for (int i=0; i<[source.columnWidth count]; i++) {
-        
-        if (i>1&&i!=[source.columnWidth count]-1) {
-              //提取  父标题的宽度  数组columnWidth1
-            [columnWidth1 addObject:[source.columnWidth objectAtIndex:i]];
-            
-           subTitel=[source.splitTitle objectAtIndex:i-2];
-            
-            for (int a=0; a<[subTitel count]; a++) {
-                int cW=[[source.columnWidth objectAtIndex:i]integerValue]/[subTitel count];
-                [columW addObject:[NSString stringWithFormat:@"%d",cW]];
-            }
 
-        }else{
-            if (i==1) {
-                [columnWidth1 addObject:[source.columnWidth objectAtIndex:i]];
-            }
-            
-        [columW addObject:[source.columnWidth objectAtIndex:i]];
+     NSLog(@"[source.columnWidth count]%d",[source.columnWidth count]);
+    int a=0;
+    for (int i=1; i<[source.titles  count]; i++) {
+        
+        NSMutableArray  *subT=[source.splitTitle    objectAtIndex:i-1];
+       int fWidth=0;
+         NSLog(@"subT[%d]   ====%d",i,[subT count]);
+        
+        for ( int t=0; t<[subT count]; t++) {
+            fWidth+=[[source.columnWidth objectAtIndex:(t+a)] integerValue    ];
         }
-    } 
-    source.columnWidth=columW;
-    [columW release];  
+        [columnWidth1 addObject:[NSString stringWithFormat:@"%d",fWidth]];
+        a+=[subT count];      
+    }
+
 }
 -(void)layoutSubView:(CGRect)aRect{
     source=(MultiTitleDataSource *)dataSource;
     [self getColument];
-   //   NSLog(@"-----source.splitTitle-------%d", [source.splitTitle count]) ;
-   // NSLog(@"-----source.data-------%d", [source.data count]) ;
-    // NSLog(@"-----source.columnWidth-------%d", [source.columnWidth  count]) ;
-   //  NSLog(@"-----source.titles -------%d", [source.titles  count]) ;
+
 	vLeftContent = [[UIView alloc] initWithFrame:CGRectMake(0, 0,cellWidth, contentHeight)];
 	vRightContent = [[UIView alloc] initWithFrame:CGRectMake(0, 0, aRect.size.width - cellWidth, contentHeight)];
 	
@@ -140,18 +124,17 @@ NSMutableArray *columnWidth1;
 -(void)fillData{
     NSLog(@"source.columnWidth-----%d",[source.columnWidth count]);
     NSLog(@"columnWidth1-----%d",[columnWidth1 count]);
-    
-      NSLog(@"source.splitTitle--------%d",[source.splitTitle count]);
-     NSLog(@"source.titles-----------%d",[source.titles count]);
+    NSLog(@"source.splitTitle--------%d",[source.splitTitle count]);
+    NSLog(@"source.titles-----------%d",[source.titles count]);
     
   	float columnOffset = 0.0;
     //int iColorRed=0;
     float set=0.0;
-    int d=2;
-   	//-------------------填冲标题数据
+    int d=1;
+    //-------------------填冲标题数据
     //第一个单元格   ---------高度  没有二层标题时   *1
     UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth-1, cellHeight*2-1 )];
-    l2.font = [UIFont systemFontOfSize:13.0f];
+    l2.font = [UIFont systemFontOfSize:16.0f];
     l2.text = [source.titles objectAtIndex:0];
     //l2.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
     l2.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbgd"]];
@@ -161,72 +144,31 @@ NSMutableArray *columnWidth1;
     l2.textAlignment = UITextAlignmentCenter;
     [vTopLeft addSubview:l2];
     [l2 release];
-    //一层标题   
-    for(int column = 1;column < [source.titles count];column++){  
-       
-   
-        if (column==[source.titles count]-1) {//最后一个标题  备注
-           
-            float columnWidth = [[source.columnWidth objectAtIndex:d] floatValue];
-            
-            
-            UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1, cellHeight*2-1 )];
-            
-            l.font = [UIFont systemFontOfSize:13.0f];
-            l.text = [source.titles objectAtIndex:column];
-            //l.backgroundColor = [UIColor colorWithRed:0.0/255 green:105.0/255 blue:186.0/255 alpha:1];
-            l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbgd"]];
-            l.textColor = [UIColor whiteColor];
-            l.shadowColor = [UIColor blackColor];
-            l.shadowOffset = CGSizeMake(0, -0.5);
-            l.textAlignment = UITextAlignmentCenter;
-            
-            [vTopRight addSubview:l];
-            [l release];
-
-        }
-        
-        if (column!=[source.titles count]-1)
-         {
-             //父标题 宽度
+   	    //一层标题   
+    for(int column = 1;column < [source.titles count];column++){
+          //父标题 宽度
              int fTitleWidth=[[columnWidth1 objectAtIndex:column-1] integerValue];
              UILabel *l;
-             if (column==1) {
-                  l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, fTitleWidth -1, cellHeight*2-1 )];
-                  l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbgd"]];
-                 set+=fTitleWidth;
-
-             }else
-             {
-                 l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, fTitleWidth -1, cellHeight-1 )];
-                  l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
-             }
-          
-            
-            l.font = [UIFont systemFontOfSize:13.0f];
+            l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, fTitleWidth -1, cellHeight-1 )];
+            l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
+            l.font = [UIFont systemFontOfSize:16.0f];
             l.text = [source.titles objectAtIndex:column];
             //l.backgroundColor = [UIColor colorWithRed:0.0/255 green:105.0/255 blue:186.0/255 alpha:1];
-           
             l.textColor = [UIColor whiteColor];
             l.shadowColor = [UIColor blackColor];
             l.shadowOffset = CGSizeMake(0, -0.5);
             l.textAlignment = UITextAlignmentCenter;
-            
             [vTopRight addSubview:l];
             [l release];
-  
-            if ((column-2)>=0){
+          
                  //循环下一层标题
-                 NSMutableArray *subTitle=[source.splitTitle objectAtIndex:column-2];
+                 NSMutableArray *subTitle=[source.splitTitle objectAtIndex:column-1];
                  for (int i=0; i<[subTitle count]; i++) {
                      int cdw=[[source.columnWidth objectAtIndex:d] integerValue];
                      
                      UILabel *l1 = [[UILabel alloc] initWithFrame:CGRectMake(set, cellHeight, cdw-1, cellHeight-1 )];
                      l1.font = [UIFont systemFontOfSize:13.0f];
-                     
                      l1.text =[subTitle objectAtIndex:i];
-                     
-                     
                      l1.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
                      l1.textColor = [UIColor whiteColor];
                      l1.shadowColor = [UIColor blackColor];
@@ -237,227 +179,117 @@ NSMutableArray *columnWidth1;
                      set+=cdw;
                      [l1 release];
                      d++;
-                     
                    }
-                
-              }
-             
-             
-             columnOffset += fTitleWidth;
-            
+             columnOffset += fTitleWidth; 
         }
                
-    }
-    
-
-
-
-
-//填充数据内容
-//填冲数据内容
-for(int i = 0;i<[source.data count];i++){
-    NSLog(@"填充数据中 .。。。");
-    
-    NSArray *rowData = [source.data objectAtIndex:i];
-    columnOffset = 0.0;
-     int count=2;
-    for(int column=0;column<[source.titles count];column++){
-              
-        UILabel *l;
-        if(column==0){
-             float columnWidth = [[source.columnWidth objectAtIndex:column] floatValue];
-            l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-            l.font = [UIFont systemFontOfSize:14.0f];
-            l.text = [rowData objectAtIndex:column];
-            l.textAlignment = UITextAlignmentCenter;
-            l.tag = i * cellHeight + column + 1000;
+	//填冲数据内容
+	for(int i = 0;i<[source.data count];i++){
+		
+		NSArray *rowData = [source.data objectAtIndex:i];
+		columnOffset = 0.0;
+		
+		for(int column=0;column<[rowData count];column++){
+         
+                float columnWidth = [[source.columnWidth objectAtIndex:column] floatValue];
             
-            if(i % 2 == 0)
-                l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
-            else
-                l.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-            
-             [vLeftContent addSubview:l];
-            
-            
-             [l release];
-        
-        }else
-        {
-              NSMutableArray *subRowdata=[rowData objectAtIndex:column];
-           
-            float columnWidth =0;
-            
-            
-            if(column==1){//计划
-                NSLog(@"计划");
-                  columnWidth = [[columnWidth1 objectAtIndex:column-1] floatValue];
-               /* 
-                UIButton *b=[UIButton buttonWithType:UIButtonTypeCustom] ;
-                b.frame= CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 );
-                
-                b.titleLabel.font = [UIFont systemFontOfSize: 14.0];
-                b.titleLabel.textAlignment=UITextAlignmentCenter;
-                b.tag= i * cellHeight + column + 1000;
+            if (column==[rowData count]-1&&!([[rowData objectAtIndex:[rowData count]-1] isEqualToString:@"合计"]||[[rowData objectAtIndex:[rowData count]-1] isEqualToString:@"共计"])) {
+                UIButton *b=[UIButton buttonWithType:UIButtonTypeCustom ];
+                b.titleLabel.font=[UIFont systemFontOfSize:14.0f];
                 
                 
-                if ([subRowdata count]<=0)
-                [b setTitle:@"" forState:UIControlStateNormal];
-                else
-                [b setTitle:[ NSString stringWithFormat:@"有数据【%d】",[subRowdata count   ]] forState:UIControlStateNormal];
+                b.frame = CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 );
                 
                 if(i % 2 == 0)
-                    [b setBackgroundColor:[UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1]];
+                    b.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
                 else
-                    [b setBackgroundColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];
+                    b.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];   
+                    
+                [b setTitle:@"日历" forState:UIControlStateNormal];
+                b.titleLabel.textAlignment=UITextAlignmentCenter;
+                [b addTarget:self  action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
                 
                 
-                [b addTarget:self action:@selector(onClick3) forControlEvents:UIControlEventTouchUpInside];
+                
+                
                 
                 
                 [vRightContent addSubview:b];
-                [b release];
                 
-                */
+                //[b release];
                 
-                
-                l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-               
-                
+            }else
+            {
+                UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
                 l.font = [UIFont systemFontOfSize:14.0f];
+                l.text = [rowData objectAtIndex:column];
+                
                 l.textAlignment = UITextAlignmentCenter;
                 l.tag = i * cellHeight + column + 1000;
-
-                if ([subRowdata count]<=0)
-                    l.text = @"";
-                    else
-                    l.text = [ NSString stringWithFormat:@"有数据【%d】",[subRowdata count   ]];
-                
-
                 if(i % 2 == 0)
                     l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
                 else
                     l.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-                [vRightContent addSubview:l];
+                
+                
+                if( 0 == column){
+                    l.frame = CGRectMake(columnOffset,  i * cellHeight , columnWidth -1 , cellHeight -1 );
+                    [vLeftContent addSubview:l];
+                }
+                else if(0 < column) {
+                    [vRightContent addSubview:l];
+                    columnOffset += columnWidth;
+                }
                 [l release];
+
+            
+            
             
             }
-           
-            
-            if(column==2)//电厂
-            {
-                 NSLog(@"电厂");
-                 columnWidth = [[columnWidth1 objectAtIndex:column-1] floatValue];
-                int co =0;
-                
-                 for(int t=0;t<[subRowdata count];t++){
-                  
-                     int cw=[[source.columnWidth objectAtIndex:count] integerValue];
-                 
-                     l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset+co, i * cellHeight  , cw-1, cellHeight -1 )];
-                     
-                     
-                     l.font = [UIFont systemFontOfSize:14.0f];
-                     l.text = [subRowdata objectAtIndex:t ];
-                     l.textAlignment = UITextAlignmentCenter;
-                     l.tag = i * cellHeight + column+t + 1000;
-                     
-                     if(i % 2 == 0)
-                         l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
-                     else
-                         l.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-                     
-                     [vRightContent addSubview:l];
-                     [l release];
-                     co+=cw;
-                     count++;
-            
-            
-                }
-            }
-            if (column==3) {//实际
-                
-                 NSLog(@"实际");
-                columnWidth = [[columnWidth1 objectAtIndex:column-1] floatValue];
-                 int co =0;
-                for (int t=0; t<[subRowdata count]; t++) {
-                    NSMutableArray *subArr=[subRowdata objectAtIndex:t];
-                    int cw=[[source.columnWidth objectAtIndex:count] integerValue];
-                    
-                    l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset+co, i * cellHeight  , cw-1, cellHeight -1 )];
-                    
-                    l.font = [UIFont systemFontOfSize:14.0f];
-                    l.textAlignment = UITextAlignmentCenter;
-                    l.tag = i * cellHeight + column+t + 1000;
-                    if ([subArr  count]>0) 
-                       
-                        l.text = [ NSString stringWithFormat:@"有数据【%d】",[subArr count   ]];
-                    else
-                        l.text=@"";
-                       
-                    if(i % 2 == 0)
-                        l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
-                    else
-                        l.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-                    
-                    [vRightContent addSubview:l];
-                    [l release];
-                    co+=cw;
-                    count++;
-                    
-                } 
-            }
-            if (column==4) {
-                
-                  NSLog(@"备注");
-                NSLog(@"==[subRowdata count]============%d",[subRowdata count]);
-               NSLog(@"====count==========%d",count);
-                for (int t=0; t<[subRowdata count]; t++) {
-                    int cw=[[source.columnWidth objectAtIndex:count] integerValue] ;
-  
-                    l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , cw-1, cellHeight -1 )];
-                    
-                    l.font = [UIFont systemFontOfSize:14.0f];
-                    l.text =[subRowdata objectAtIndex:t ];
-                    l.textAlignment = UITextAlignmentCenter;
-                    l.tag = i * cellHeight+t + column + 1000;
-                    
-                    
-                    if(i % 2 == 0)
-                        l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
-                    else
-                        l.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-                    [vRightContent addSubview:l];
-                    [l release];
-                }
-                 NSLog(@"备注  完毕");
                
-            }
-            columnOffset += columnWidth;
-             
-        
-        }  
+           
+                      
+            
+            
+            
+      }
     }
-    NSLog(@"i=======%d",i);
-    
-}
-
-
+		
+		
     
     
 }
 
--(void)onClick3
+-(void)butClick:(id)sender
 {
-
-
-    NSLog(@"哈哈");
-
-
-
-
+    
+     CGSize defaultSize = (CGSize){260, 200};
+    NSLog(@"==============================");
+    
+    NSMutableArray *d=[[NSMutableArray alloc] initWithObjects:@"9" ,@"18",nil];
+    
+    
+    tpl=[[TransPlanImplement alloc] init];
+    pmCC = [[PMCalendarController alloc]init];
+    
+    [pmCC reinitializeWithSize:@"2012-09-20":defaultSize:d];
+  
+    
+    pmCC.delegate = tpl;
+    pmCC.mondayFirstDayOfWeek = YES;
+    
+    //[pmCC presentCalendarFromView:sender permittedArrowDirections:PMCalendarArrowDirectionAny     animated:YES];
+       [pmCC presentCalendarFromRect:[sender frame]
+     inView:[sender superview]
+     permittedArrowDirections:PMCalendarArrowDirectionAny
+     animated:YES];
+    [tpl calendarController:pmCC didChangePeriod:pmCC.period];
+    
+    
+    NSLog(@"初始日历....");
+    
+   
 }
-
 
 //-------------------------------以下为事件处发方法----------------------------------------
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -474,9 +306,6 @@ for(int i = 0;i<[source.data count];i++){
 	[scrollView addSubview:vTopRight];
 	[self addSubview:scrollView];
 }
-
-
-
 
 
 

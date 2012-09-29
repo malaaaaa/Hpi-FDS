@@ -20,7 +20,8 @@
 #import "TfShip.h"
 #import "TfShipDao.h"
 #import "TF_FACTORYCAPACITYDao.h"
-
+#import "TransPlanImpDao.h"
+#import "NT_TransPlanImpDao.h"
 @implementation PubInfo
 static NSString *hostName = @"http://10.2.17.121";     //http://172.16.1.16:84
 static NSString *port = @":82";                  //:82
@@ -119,9 +120,11 @@ static NSString *deviceID;
     [TB_OFFLOADSHIPDao openDataBase ];
     [TB_OFFLOADSHIPDao initDb];
     
+    [TransPlanImpDao openDataBase   ];
     
-    
-    
+    //航运计划临时表
+    [ NT_TransPlanImpDao  openDataBase];
+    [NT_TransPlanImpDao  IntTb];
     
     
     

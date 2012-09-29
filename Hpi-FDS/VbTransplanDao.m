@@ -37,7 +37,7 @@ static sqlite3	*database;
 +(void) initDb
 {	
 	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",
+	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS VbTransplan  (planCode TEXT PRIMARY KEY ",
                          @",planMonth TEXT ",
 						 @",shipID INTEGER ",
@@ -59,7 +59,10 @@ static sqlite3	*database;
                          @",schedule TEXT ",
                          @",description TEXT ",
                          @",serialNo TEXT ",
-                         @",facSort TEXT )"];
+                         @",facSort TEXT ",
+                         @",heatvalue double ",
+                         
+                         @",sulfur double )"];
 	
 	if(sqlite3_exec(database,[createSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
@@ -74,7 +77,7 @@ static sqlite3	*database;
 +(void)insert:(VbTransplan*) vbTransplan
 {
 	NSLog(@"Insert begin VbTransplan");
-	const char *insert="INSERT INTO VbTransplan (planCode,planMonth,shipID,shipName,factoryCode,factoryName,portCode,portName,tripNo,eTap,eTaf,eLw,supID,supplier,typeID,coalType,keyValue,keyName,schedule,description,serialNo,facSort) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	const char *insert="INSERT INTO VbTransplan (planCode,planMonth,shipID,shipName,factoryCode,factoryName,portCode,portName,tripNo,eTap,eTaf,eLw,supID,supplier,typeID,coalType,keyValue,keyName,schedule,description,serialNo,facSort,heatvalue,sulfur) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
 	int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
@@ -127,6 +130,9 @@ static sqlite3	*database;
     sqlite3_bind_text(statement, 20, [vbTransplan.description UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 21, [vbTransplan.serialNo UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 22, [vbTransplan.facSort UTF8String], -1, SQLITE_TRANSIENT);
+    
+    sqlite3_bind_double(statement, 23, vbTransplan.heatvalue);
+    sqlite3_bind_double(statement, 24, vbTransplan.sulfur);
     
 	re=sqlite3_step(statement);
 	if(re!=SQLITE_DONE)
@@ -227,7 +233,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getVbTransplanBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"SELECT planCode,planMonth,shipID,shipName,factoryCode,factoryName,portCode,portName,tripNo,eTap,eTaf,eLw,supID,supplier,typeID,coalType,keyValue,keyName,schedule,description,serialNo,facSort FROM  VbTransplan WHERE %@ ",sql1];
+    NSString *sql=[NSString stringWithFormat:@"SELECT planCode,planMonth,shipID,shipName,factoryCode,factoryName,portCode,portName,tripNo,eTap,eTaf,eLw,supID,supplier,typeID,coalType,keyValue,keyName,schedule,description,serialNo,facSort ,heatvalue,sulfur  FROM  VbTransplan WHERE %@ ",sql1];
     NSLog(@"执行 getVbTransplanBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
@@ -364,6 +370,10 @@ static sqlite3	*database;
                 vbTransplan.facSort = nil;
             else
                 vbTransplan.facSort = [NSString stringWithUTF8String: rowData21];
+            
+            vbTransplan.heatvalue = sqlite3_column_double (statement,22);
+
+             vbTransplan.sulfur = sqlite3_column_double(statement,23);
             
 			[array addObject:vbTransplan];
             [vbTransplan release];

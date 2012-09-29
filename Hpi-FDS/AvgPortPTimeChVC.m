@@ -250,7 +250,7 @@ int currentMonth;
          [tbxmlParser requestSOAP:@"ShipTrans"];
         
         
-        [tbxmlParser  requestSOAP:@"Port"];//tf_port
+      
         
         
        

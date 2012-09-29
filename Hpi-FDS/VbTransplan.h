@@ -32,6 +32,9 @@
     NSString  *description;         //备注
     NSString  *serialNo;            //顺序号
     NSString  *facSort;             //电厂序号1
+    double    heatvalue;//热值
+    double   sulfur;//硫分
+    
 }
 
 @property (nonatomic, retain) NSString  *planCode;
@@ -56,5 +59,7 @@
 @property NSInteger eLw;
 @property NSInteger supID;
 @property NSInteger typeID;
+@property  double heatvalue;
+@property  double  sulfur;
 
 @end

@@ -83,6 +83,9 @@
 		contentWidth = contentWidth + [[dataSource.columnWidth objectAtIndex:0] intValue]  < aRect.size.width 
         ? aRect.size.width : contentWidth;
         
+        
+      
+        
 		//初始化各视图
 		[self layoutSubView:aRect];
 		

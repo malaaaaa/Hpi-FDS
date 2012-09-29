@@ -997,7 +997,7 @@ static  NSMutableArray *columnWidthFTitle;
        /********再uiview 中  填充 内容********完毕***********************/
     detail.view= detailView;
     //设置待显示控制器的范围
-   [detail.view setFrame:CGRectMake(0,0, 910, totalHeight )];
+    [detail.view setFrame:CGRectMake(0,0, 910, totalHeight )];
     //设置待显示控制器视图的尺寸
     detail.contentSizeForViewInPopover = CGSizeMake(910, totalHeight);
     //初始化弹出窗口
@@ -1219,18 +1219,14 @@ static  NSMutableArray *columnWidthFTitle;
                 l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
                 l.font = [UIFont systemFontOfSize:15.0f];
                 l.text = [rowData objectAtIndex:a];
-                
                 l.backgroundColor=[UIColor blackColor];
                 l.textColor=[UIColor whiteColor];
                 l.shadowColor=[UIColor whiteColor   ];
                 l.lineBreakMode = UILineBreakModeCharacterWrap;
-                
-                 l.textAlignment = UITextAlignmentLeft;
+                l.textAlignment = UITextAlignmentLeft;
                 columnOffset += columnWidth;
                 [ds addSubview:l];
                 [l release];
-                
-                
                 columnWidth = [[columWidth1 objectAtIndex:1] floatValue];
                 l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , (totalWidth-columnOffset)-1, cellHeight -1 )];
                 l.backgroundColor=[UIColor blackColor];
@@ -1350,22 +1346,21 @@ static  NSMutableArray *columnWidthFTitle;
         
         [activty startAnimating];
         
-        [tbxmlParser setISoapNum:6];
-        
+        [tbxmlParser setISoapNum:5];
+    
        [tbxmlParser requestSOAP:@"FactoryState"];
        //电厂 
-       [tbxmlParser requestSOAP:@"Factory"];
+      [tbxmlParser requestSOAP:@"Factory"];
         
         //获取电厂机组运行信息    FactoryCapacity
-       [tbxmlParser requestSOAP:@"FactoryCapacity"];
+      [tbxmlParser requestSOAP:@"FactoryCapacity"];
         
         
         
        [ tbxmlParser  requestSOAP:@"OffLoadShip"];
-       [ tbxmlParser  requestSOAP:@"OffLoadFactory"];
-        
-        
-        [tbxmlParser requestSOAP:@"TfShip"];
+      [ tbxmlParser  requestSOAP:@"OffLoadFactory"];
+   
+
 
         [self runActivity];
     }

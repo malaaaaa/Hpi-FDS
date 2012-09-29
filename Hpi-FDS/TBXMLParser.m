@@ -128,9 +128,15 @@ static bool ThreadFinished=TRUE;
 {
     NSLog(@"--------------------------------------------  connectionDidFinishLoading");
     
-    [self parseXML];
+   [self parseXML];
     ThreadFinished = TRUE;
     //    [connection release];
+    
+     //  NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+    
+    
+   //NSLog(@"%@",theXML);
+    
     [webData release];
 }
 /*!
@@ -183,13 +189,7 @@ static bool ThreadFinished=TRUE;
         [self getDate:@"TbFactoryState" entityClass:@"TbFactoryState" insertTableName:@"TbFactoryState"];
     }
     
-    /***************************港口信息基础表  **tf_port****************************/
-    if ([_Identification isEqualToString:@"Port"]) {
-        //全部删除
-        [TfPortDao deleteAll];
-        [self getDate:@"TfPortInfo" entityClass:@"TfPort" insertTableName:@"TF_Port"];
-    }
-    /**************************电厂信息基础表******************************/
+       /**************************电厂信息基础表******************************/
     if ([_Identification isEqualToString:@"Factory"]) {
         //全部删除
         [TfFactoryDao deleteAll];
@@ -285,10 +285,8 @@ static bool ThreadFinished=TRUE;
     }
  
     
-    /****************************TfShip**************************/
-    
+    /****************************TfShip************************GetTfShipInfo**/
     if ([_Identification isEqualToString:@"TfShip"]) {
-        
         //全部删除   GetTfShipInfo
         [TfShipDao deleteAll];
         [self getDate:@"TfShip" entityClass:@"TfShip" insertTableName:@"TfShip"];
@@ -296,10 +294,7 @@ static bool ThreadFinished=TRUE;
     }
 
     
-    
-    
-    
-    
+      
     
     
 
@@ -325,9 +320,30 @@ static bool ThreadFinished=TRUE;
         if (root) {
             
             
-            
+            NSLog(@"elementString1[%@]",elementString1);
+            NSLog(@"elementString2[%@]",elementString2);
             TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
+            
+            /*
+        
+            if ([TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]) {
+                NSLog(@"dddddddddddd");
+            }
+            if ( [TBXML childElementNamed:@"soap:Body" parentElement:root]) {
+                NSLog(@"sssssssssssssss");
+            }
+            
+            
+            
+            NSLog(@"element1[%@]",element1);
+            if (elementNoUsed) {
+                NSLog(@"=================");
+            }
+            */
                 TBXMLElement *element = [TBXML childElementNamed:element1 parentElement:elementNoUsed];
+            
+           //  NSLog(@"element==================");
+            
                 //打开数据库
                	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
                 NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -368,6 +384,14 @@ static bool ThreadFinished=TRUE;
                 outCount=5;
                 
             }
+            if (_Identification==@"TgPort") {
+                outCount=9;
+                
+            }
+            if (_Identification==@"TgShip") {
+                outCount=28;
+              
+            }
             if(_Identification==@"TransPorts"){
                 outCount=7;
                 
@@ -403,20 +427,17 @@ static bool ThreadFinished=TRUE;
                         objc_property_t property = properties[i];
                         NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)]; 
                         NSString *type=[[NSString    alloc] initWithFormat:@"%s",property_getAttributes(property)];
-                        
                         desc = [TBXML childElementNamed:[propertyName uppercaseString] parentElement:element];
                         if (desc != nil) {
                             if ([type rangeOfString:@"NSString"].length!=0) {
                                 sqlite3_bind_text(statement, i+1, [[TBXML textForElement:desc]
                                                                    UTF8String], -1, SQLITE_TRANSIENT);
-                                
                             }
-                          if ([type rangeOfString:@"Ti"].length!=0){
+                          if ([type rangeOfString:@"Ti,"].length!=0){
                                 sqlite3_bind_int(statement, i+1,[[TBXML textForElement:desc] integerValue]);
-                                
                             }
-                         if ([type rangeOfString:@"Td"].length!=0){
-                                sqlite3_bind_double(statement, i+1,[[TBXML textForElement:desc] doubleValue]); 
+                         if ([type rangeOfString:@"Td,"].length!=0){
+                                sqlite3_bind_double(statement, i+1,[[TBXML textForElement:desc] doubleValue]);
                             } 
                         }
                         [propertyName release];

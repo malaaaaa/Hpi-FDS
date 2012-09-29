@@ -280,14 +280,12 @@ endTime.text=endButton.titleLabel.text;
         [reload setTitle:@"同步中...." forState:UIControlStateNormal];
         [activty startAnimating];
         //解析入库
-        [tbxmlParser setISoapNum:1];
-      // [xmlParser setISoapNum:1];
+        [tbxmlParser setISoapNum:2];
         [tbxmlParser requestSOAP:@"Factory"];
         
         
-      [tbxmlParser requestSOAP:@"ShipTrans"];
-       // [xmlParser getTfFactory];
-       // [xmlParser getVbShiptrans];
+         [tbxmlParser requestSOAP:@"ShipTrans"];
+
        
         
         

@@ -184,21 +184,13 @@ DataQueryVC *dataQueryVC;
 
 - (IBAction)portSelect:(id)sender {
     if (self.popover.popoverVisible) {
-        //消失pop
         [self.popover   dismissPopoverAnimated:YES];
     }
  chooseView=[[ChooseView  alloc] init];
-    //初始化  显示大小
  [chooseView .view setFrame:CGRectMake(0, 0, 125, 400)  ];
-//初始化  在pop种显示的大小
     chooseView.contentSizeForViewInPopover=CGSizeMake(125, 400);
-    //初始化弹出窗口
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:chooseView];
     chooseView.popover=pop;
-    
-    
-    
-    // 初始化一个数组（内存，地址）   将该数组的内存和地址  赋给 chooseView.iDArray 来初始化这个属性
     NSMutableArray *Array=[[NSMutableArray alloc] init];
     chooseView.iDArray=Array;
     [chooseView.iDArray addObject:All_];
@@ -209,25 +201,14 @@ DataQueryVC *dataQueryVC;
         [chooseView.iDArray addObject:tgPort.portName];
     }
     chooseView.parentMapView=self;
-    
-        
-    chooseView.type=kChPORT;
-    
-    
-    
-    
+    chooseView.type=kChPORT; 
     self.popover=pop;
     self.popover.delegate=self;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 400);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(315, 38, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    
-    
     [chooseView.tableView reloadData];
-    
-    
-    
     [chooseView release];
     [pop release];
     [Array release];

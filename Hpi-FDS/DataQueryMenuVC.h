@@ -13,7 +13,7 @@
 #import "PortEfficiencyVC.h"
 #import "DataQueryVC.h"
 #import "FactoryWaitDynamicViewController.h"
-
+#import "TransPlanImplement.h"
 
 
 @interface DataQueryMenuVC : UIViewController<UITableViewDataSource,UITableViewDelegate>{
@@ -26,7 +26,7 @@
      FactoryFreightVolumeVC *factoryFreightVolumeVC;
      PortEfficiencyVC *portEfficiencyVC;
     FactoryWaitDynamicViewController *factoryWait;
-    
+    TransPlanImplement *transPI;
     
     DataQueryVC *dataQueryVC;
 }
@@ -41,5 +41,5 @@
 @property(nonatomic,assign) DataQueryVC *dataQueryVC;
 
 @property(nonatomic,assign)   FactoryWaitDynamicViewController *factoryWait;
-
+@property(nonatomic,assign)  TransPlanImplement *transPI;
 @end

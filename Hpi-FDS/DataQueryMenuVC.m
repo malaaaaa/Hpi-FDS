@@ -57,46 +57,53 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.popover dismissPopoverAnimated:YES];
-    [self removeAllSubView];
+  // [self removeAllSubView];
     if (kMenuDCDTCX==[indexPath row]) {
+         [self removeAllSubView];
         vbFactoryTransVC=[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil] ;
         vbFactoryTransVC.view.frame = CGRectMake(0, 40, 1024,661 );
         [parentView addSubview:vbFactoryTransVC.view];
         
     }
     else if (kMenuHYGSFETJ==[indexPath row]){
+         [self removeAllSubView];
         shipCompanyTransShareVC=[[ ShipCompanyTransShareVC alloc ]initWithNibName:@"ShipCompanyTransShareVC" bundle:nil] ;
         shipCompanyTransShareVC.view.frame = CGRectMake(0, 40, 1024,661 );
         [parentView addSubview:shipCompanyTransShareVC.view];
     }
     else if (kMenuDCYLYLTJ==[indexPath row]){
+         [self removeAllSubView];
         factoryFreightVolumeVC=[[ FactoryFreightVolumeVC alloc ]initWithNibName:@"FactoryFreightVolumeVC" bundle:nil] ;
         factoryFreightVolumeVC.view.frame = CGRectMake(0, 40, 1024,661 );
         [parentView addSubview:factoryFreightVolumeVC.view];
     }
     else if (kMenuZXGXLTJ==[indexPath row]){
+         [self removeAllSubView];
         portEfficiencyVC=[[ PortEfficiencyVC alloc ]initWithNibName:@"PortEfficiencyVC" bundle:nil] ;
         portEfficiencyVC.view.frame = CGRectMake(0, 40, 1024,661 );
         [parentView addSubview:portEfficiencyVC.view];
     }
     else if ([indexPath row]==kMenuFactoryWaitState)//电厂靠泊  
     {
+          [self removeAllSubView];
         factoryWait=[[FactoryWaitDynamicViewController   alloc] initWithNibName:@"FactoryWaitDynamicViewController" bundle:nil];
-        
-        
         factoryWait.view.frame = CGRectMake(0, 40, 1024,661 );
         [parentView addSubview:factoryWait.view];
-        
-        
-        
+    }
+    else if ([indexPath row]==kMenuTransPlanimplment)//航运计划执行情况
+    {
+          [self removeAllSubView];
+        transPI=[[ TransPlanImplement   alloc] initWithNibName:@"TransPlanImplement" bundle:nil];
+        transPI.view.frame = CGRectMake(0, 40, 1024,661 );
+        [parentView addSubview:transPI.view];
     }
     
     
     
     
     
-    
     else{
+          [self removeAllSubView];
         dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
         dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
         [dataQueryVC setSegmentIndex:[indexPath row]];
@@ -152,6 +159,9 @@
         case kMenuFactoryWaitState:
             cell.textLabel.text=@"电厂靠泊动态";
             break;
+        case kMenuTransPlanimplment:
+            cell.textLabel.text=@"航运计划执行情况";
+            break;
 
         default:
             break;
@@ -180,6 +190,18 @@
     if(portEfficiencyVC){
         self.portEfficiencyVC=nil;
     }
+if(factoryWait){
+    self.factoryWait=nil;
+    [factoryWait release];
+}
+if(transPI){
+    self.transPI=nil;
+}
+    if(dataQueryVC){
+        self.dataQueryVC=nil;
+    }
+
+    
 }
 
 @end

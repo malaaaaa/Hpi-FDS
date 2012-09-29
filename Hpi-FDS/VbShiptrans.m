@@ -11,9 +11,7 @@
 @implementation VbShiptrans
 
 
-@synthesize shipCompanyId,shipId,supId,typeId,heatValue,lw,lateFee,offEfficiency,facSort;
 
-@synthesize disPatchNo,shipCompany,shipName,tripNo,factoryCode,factoryName,portCode,portName,supplier,coalType,keyValue,keyName,trade,tradeName,stage,stageName,stateCode,stateName,p_AnchorageTime,p_Handle,p_ArrivalTime,p_DepartTime,p_Note,t_Note,f_AnchorageTime,f_ArrivalTime,f_DepartTime,f_Note,schedule,planType,planCode,laycanStart,laycanStop,reciept,shipShift,tradeTime,F_FINISHTIME,iscal;
 
 -(void)dealloc {
     [disPatchNo release];

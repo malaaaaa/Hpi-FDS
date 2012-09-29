@@ -70,6 +70,7 @@ typedef enum{
     kSHIPCOMPANY,
     
     kCOALTYPE,
+    kTypeValue,//重点非重点
     kKEYVALUE,
     kTRADE,
     kSHIPSTAGE,
@@ -95,6 +96,7 @@ typedef enum{
     kMenuGKMJZGSJ, //港口平均装港时间统计
     kMenuFcAvgZXTime,//电厂装卸港时间统计
     kMenuFactoryWaitState,//电厂靠泊动态
+    kMenuTransPlanimplment,//航运计划执行情况
     
     kDataQueryMenu_MAX,//最大数量
 

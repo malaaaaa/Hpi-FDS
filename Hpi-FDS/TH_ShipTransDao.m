@@ -245,18 +245,12 @@ return;
    }
     NSMutableArray *array=[TH_ShipTransDao getTH_ShipTransBySql:query];
     NSLog(@"执行  getTH_ShipTrans 数量[%d]",[array count]);
- 
-    return array;
-    
-    
-    
-
+     return array;
 }
 
 
 +(NSMutableArray *)getTH_ShipTransBySql:(NSString *)sql1
 {
-
     sqlite3_stmt *statement;
     NSString *sql=[NSString  stringWithFormat:@"SELECT recid,statecode,recorddate,statename,portcode,portname,shipname,tripno,factoryname,supplier,coaltype,lw,p_anchoragetime,p_handle ,p_arrivaltime,p_departtime,note  FROM  Th_ShipTrans WHERE %@",sql1];
     

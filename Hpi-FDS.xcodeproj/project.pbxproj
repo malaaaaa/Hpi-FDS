@@ -168,6 +168,13 @@
 		14E4586715622CCD0015258C /* MarketOneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E4586515622CCC0015258C /* MarketOneController.xib */; };
 		2A16D20C15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A16D20A15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m */; };
 		2A16D20D15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */; };
+		2A1D882D16096D5600CC5CAB /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D881E16096D5600CC5CAB /* NSDate+Helpers.m */; };
+		2A1D882E16096D5600CC5CAB /* PMCalendarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D882016096D5600CC5CAB /* PMCalendarBackgroundView.m */; };
+		2A1D882F16096D5600CC5CAB /* PMCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D882316096D5600CC5CAB /* PMCalendarController.m */; };
+		2A1D883016096D5600CC5CAB /* PMCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D882616096D5600CC5CAB /* PMCalendarView.m */; };
+		2A1D883116096D5600CC5CAB /* PMDimmingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D882816096D5600CC5CAB /* PMDimmingView.m */; };
+		2A1D883216096D5600CC5CAB /* PMPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D882A16096D5600CC5CAB /* PMPeriod.m */; };
+		2A1D883316096D5600CC5CAB /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D882C16096D5600CC5CAB /* PMSelectionView.m */; };
 		2A25AB1515C67CD3008500B5 /* TB_LatefeeChDial.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A25AB1315C67CD3008500B5 /* TB_LatefeeChDial.m */; };
 		2A25AB1615C67CD3008500B5 /* TB_LatefeeChDial.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A25AB1415C67CD3008500B5 /* TB_LatefeeChDial.xib */; };
 		2A2FA33415BFF74400B71C7D /* NSString+Verify.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA32C15BFF74400B71C7D /* NSString+Verify.m */; };
@@ -175,6 +182,8 @@
 		2A2FA33615BFF74400B71C7D /* NTShipCompanyTranShareDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */; };
 		2A2FA33715BFF74400B71C7D /* ShipCompanyTransShareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FA33215BFF74400B71C7D /* ShipCompanyTransShareVC.m */; };
 		2A2FA33815BFF74400B71C7D /* ShipCompanyTransShareVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */; };
+		2A3B04A2160033A600A67162 /* TransPlanImpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3B04A1160033A600A67162 /* TransPlanImpModel.m */; };
+		2A3B04A61600457100A67162 /* TransPlanImpDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3B04A51600457100A67162 /* TransPlanImpDao.m */; };
 		2A692C8E15C134D8007A1BE7 /* TB_Latefee.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A692C8B15C134D8007A1BE7 /* TB_Latefee.m */; };
 		2A692C8F15C134D8007A1BE7 /* TB_LatefeeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A692C8D15C134D8007A1BE7 /* TB_LatefeeDao.m */; };
 		2A7B338515B7EE73006B7994 /* TH_ShipTrans.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B338415B7EE73006B7994 /* TH_ShipTrans.m */; };
@@ -187,11 +196,16 @@
 		2A8154DB15C2664D00D4AE2C /* TB_LatefeeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8154DA15C2664D00D4AE2C /* TB_LatefeeChVC.xib */; };
 		2A83FDB815C9392D00E342A6 /* NT_LatefeeTongj.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A83FDB715C9392C00E342A6 /* NT_LatefeeTongj.m */; };
 		2A83FDBC15C93AE100E342A6 /* NT_LatefeeTongjDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A83FDBB15C93AE000E342A6 /* NT_LatefeeTongjDao.m */; };
+		2A8453BD15FF0E05009960CC /* TransPlanImplement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8453BB15FF0E05009960CC /* TransPlanImplement.m */; };
+		2A8453BE15FF0E05009960CC /* TransPlanImplement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8453BC15FF0E05009960CC /* TransPlanImplement.xib */; };
 		2A8CBEEB15DE0B4C00B86257 /* AvgFactoryZXTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */; };
 		2A8D93F015E262C50058EAA8 /* AvgFactoryTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D93EE15E262C50058EAA8 /* AvgFactoryTimeChVC.m */; };
 		2A8D93F115E262C50058EAA8 /* AvgPortPTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D93EF15E262C50058EAA8 /* AvgPortPTimeChVC.m */; };
+		2A8DFEE41611459C00D92354 /* TransPlanImplementDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8DFEE21611459C00D92354 /* TransPlanImplementDetail.m */; };
+		2A8DFEE51611459C00D92354 /* TransPlanImplementDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8DFEE31611459C00D92354 /* TransPlanImplementDetail.xib */; };
 		2A8F1F5215CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */; };
 		2A8F1F5315CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8F1F5115CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib */; };
+		2A9C0B3B1603267D00F52A62 /* NT_TransPlanImpDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C0B3A1603267C00F52A62 /* NT_TransPlanImpDao.m */; };
 		2AA44B2E15D109F5007B499B /* TfPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B2D15D109F3007B499B /* TfPort.m */; };
 		2AA44B3215D10D05007B499B /* TfPortDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B3115D10D03007B499B /* TfPortDao.m */; };
 		2AA44B3C15D11985007B499B /* AvgPortPTimeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */; };
@@ -547,6 +561,23 @@
 		2A16D20915BE9F0900FFF1B5 /* TH_ShipTransDetailCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_ShipTransDetailCV.h; sourceTree = "<group>"; };
 		2A16D20A15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_ShipTransDetailCV.m; sourceTree = "<group>"; };
 		2A16D20B15BE9F0900FFF1B5 /* TH_ShipTransDetailCV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TH_ShipTransDetailCV.xib; sourceTree = "<group>"; };
+		2A1D881D16096D5600CC5CAB /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
+		2A1D881E16096D5600CC5CAB /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
+		2A1D881F16096D5600CC5CAB /* PMCalendarBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarBackgroundView.h; sourceTree = "<group>"; };
+		2A1D882016096D5600CC5CAB /* PMCalendarBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCalendarBackgroundView.m; sourceTree = "<group>"; };
+		2A1D882116096D5600CC5CAB /* PMCalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarConstants.h; sourceTree = "<group>"; };
+		2A1D882216096D5600CC5CAB /* PMCalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarController.h; sourceTree = "<group>"; };
+		2A1D882316096D5600CC5CAB /* PMCalendarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCalendarController.m; sourceTree = "<group>"; };
+		2A1D882416096D5600CC5CAB /* PMCalendarHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarHelpers.h; sourceTree = "<group>"; };
+		2A1D882516096D5600CC5CAB /* PMCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarView.h; sourceTree = "<group>"; };
+		2A1D882616096D5600CC5CAB /* PMCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCalendarView.m; sourceTree = "<group>"; };
+		2A1D882716096D5600CC5CAB /* PMDimmingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMDimmingView.h; sourceTree = "<group>"; };
+		2A1D882816096D5600CC5CAB /* PMDimmingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMDimmingView.m; sourceTree = "<group>"; };
+		2A1D882916096D5600CC5CAB /* PMPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPeriod.h; sourceTree = "<group>"; };
+		2A1D882A16096D5600CC5CAB /* PMPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPeriod.m; sourceTree = "<group>"; };
+		2A1D882B16096D5600CC5CAB /* PMSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMSelectionView.h; sourceTree = "<group>"; };
+		2A1D882C16096D5600CC5CAB /* PMSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSelectionView.m; sourceTree = "<group>"; };
+		2A1D883416096D6600CC5CAB /* PMCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendar.h; sourceTree = "<group>"; };
 		2A25AB1215C67CD2008500B5 /* TB_LatefeeChDial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TB_LatefeeChDial.h; sourceTree = "<group>"; };
 		2A25AB1315C67CD3008500B5 /* TB_LatefeeChDial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TB_LatefeeChDial.m; sourceTree = "<group>"; };
 		2A25AB1415C67CD3008500B5 /* TB_LatefeeChDial.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TB_LatefeeChDial.xib; sourceTree = "<group>"; };
@@ -559,6 +590,10 @@
 		2A2FA33115BFF74400B71C7D /* ShipCompanyTransShareVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipCompanyTransShareVC.h; sourceTree = "<group>"; };
 		2A2FA33215BFF74400B71C7D /* ShipCompanyTransShareVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipCompanyTransShareVC.m; sourceTree = "<group>"; };
 		2A2FA33315BFF74400B71C7D /* ShipCompanyTransShareVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShipCompanyTransShareVC.xib; sourceTree = "<group>"; };
+		2A3B04A0160033A500A67162 /* TransPlanImpModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransPlanImpModel.h; sourceTree = "<group>"; };
+		2A3B04A1160033A600A67162 /* TransPlanImpModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransPlanImpModel.m; sourceTree = "<group>"; };
+		2A3B04A41600457100A67162 /* TransPlanImpDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransPlanImpDao.h; sourceTree = "<group>"; };
+		2A3B04A51600457100A67162 /* TransPlanImpDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransPlanImpDao.m; sourceTree = "<group>"; };
 		2A692C8A15C134D8007A1BE7 /* TB_Latefee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TB_Latefee.h; sourceTree = "<group>"; };
 		2A692C8B15C134D8007A1BE7 /* TB_Latefee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TB_Latefee.m; sourceTree = "<group>"; };
 		2A692C8C15C134D8007A1BE7 /* TB_LatefeeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TB_LatefeeDao.h; sourceTree = "<group>"; };
@@ -578,14 +613,22 @@
 		2A83FDB715C9392C00E342A6 /* NT_LatefeeTongj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_LatefeeTongj.m; sourceTree = "<group>"; };
 		2A83FDBA15C93AE000E342A6 /* NT_LatefeeTongjDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NT_LatefeeTongjDao.h; sourceTree = "<group>"; };
 		2A83FDBB15C93AE000E342A6 /* NT_LatefeeTongjDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_LatefeeTongjDao.m; sourceTree = "<group>"; };
+		2A8453BA15FF0E05009960CC /* TransPlanImplement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransPlanImplement.h; sourceTree = "<group>"; };
+		2A8453BB15FF0E05009960CC /* TransPlanImplement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransPlanImplement.m; sourceTree = "<group>"; };
+		2A8453BC15FF0E05009960CC /* TransPlanImplement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransPlanImplement.xib; sourceTree = "<group>"; };
 		2A8CBEE915DE0B4C00B86257 /* AvgFactoryZXTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgFactoryZXTime.h; sourceTree = "<group>"; };
 		2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryZXTime.m; sourceTree = "<group>"; };
 		2A8D93EE15E262C50058EAA8 /* AvgFactoryTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryTimeChVC.m; sourceTree = "<group>"; };
 		2A8D93EF15E262C50058EAA8 /* AvgPortPTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgPortPTimeChVC.m; sourceTree = "<group>"; };
+		2A8DFEE11611459C00D92354 /* TransPlanImplementDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransPlanImplementDetail.h; sourceTree = "<group>"; };
+		2A8DFEE21611459C00D92354 /* TransPlanImplementDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransPlanImplementDetail.m; sourceTree = "<group>"; };
+		2A8DFEE31611459C00D92354 /* TransPlanImplementDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransPlanImplementDetail.xib; sourceTree = "<group>"; };
 		2A8F1F4F15CA0D7A005C7B62 /* NT_LatefeeTongjChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NT_LatefeeTongjChVC.h; sourceTree = "<group>"; };
 		2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_LatefeeTongjChVC.m; sourceTree = "<group>"; };
 		2A8F1F5115CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NT_LatefeeTongjChVC.xib; sourceTree = "<group>"; };
 		2A8F1F8415CA642D005C7B62 /* ChooseViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseViewDelegate.h; sourceTree = "<group>"; };
+		2A9C0B391603267B00F52A62 /* NT_TransPlanImpDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NT_TransPlanImpDao.h; sourceTree = "<group>"; };
+		2A9C0B3A1603267C00F52A62 /* NT_TransPlanImpDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_TransPlanImpDao.m; sourceTree = "<group>"; };
 		2AA44B2C15D109F2007B499B /* TfPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfPort.h; sourceTree = "<group>"; };
 		2AA44B2D15D109F3007B499B /* TfPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TfPort.m; sourceTree = "<group>"; };
 		2AA44B3015D10D02007B499B /* TfPortDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfPortDao.h; sourceTree = "<group>"; };
@@ -947,6 +990,7 @@
 		057F6C5C152449EA00E0E435 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				2A8453BC15FF0E05009960CC /* TransPlanImplement.xib */,
 				2AD43A8215EB6DED003349DA /* FactoryWaitDynamicViewController.xib */,
 				2ADAEF5415D4F4EB0028C72D /* AvgFactoryTimeChVC.xib */,
 				2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */,
@@ -990,6 +1034,9 @@
 				14BE5D6B154688EF0042C562 /* VBShipDetailController.xib */,
 				14CB7DCD1552877A008097AE /* VBTransChVC.xib */,
 				051B248F153FA2230036557C /* WebViewController.xib */,
+				2A8DFEE11611459C00D92354 /* TransPlanImplementDetail.h */,
+				2A8DFEE21611459C00D92354 /* TransPlanImplementDetail.m */,
+				2A8DFEE31611459C00D92354 /* TransPlanImplementDetail.xib */,
 			);
 			name = Xib;
 			sourceTree = "<group>";
@@ -1072,6 +1119,7 @@
 		059A1B911525510500AB24C4 /* Pub */ = {
 			isa = PBXGroup;
 			children = (
+				2A9770611608746700D56551 /* PMCalendarSrc */,
 				2AC4620515EF358C000B13FC /* FactoryWaitFootTable.h */,
 				2AC4620615EF358C000B13FC /* FactoryWaitFootTable.m */,
 				2AEE18DB15EDECCF00E7167E /* FactoryWaitHeadTable.h */,
@@ -1274,6 +1322,12 @@
 				2AE24EC515F6E3B500C0649F /* TfShip.m */,
 				2AE24EC815F6E76C00C0649F /* TfShipDao.h */,
 				2AE24EC915F6E76C00C0649F /* TfShipDao.m */,
+				2A3B04A0160033A500A67162 /* TransPlanImpModel.h */,
+				2A3B04A1160033A600A67162 /* TransPlanImpModel.m */,
+				2A3B04A41600457100A67162 /* TransPlanImpDao.h */,
+				2A3B04A51600457100A67162 /* TransPlanImpDao.m */,
+				2A9C0B391603267B00F52A62 /* NT_TransPlanImpDao.h */,
+				2A9C0B3A1603267C00F52A62 /* NT_TransPlanImpDao.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -1396,6 +1450,8 @@
 				D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */,
 				2AD43A8015EB6DED003349DA /* FactoryWaitDynamicViewController.h */,
 				2AD43A8115EB6DED003349DA /* FactoryWaitDynamicViewController.m */,
+				2A8453BA15FF0E05009960CC /* TransPlanImplement.h */,
+				2A8453BB15FF0E05009960CC /* TransPlanImplement.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1414,6 +1470,38 @@
 				14BE5D7E1546B7470042C562 /* InfoPlist.strings */,
 			);
 			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		2A9770611608746700D56551 /* PMCalendarSrc */ = {
+			isa = PBXGroup;
+			children = (
+				2A977063160874AA00D56551 /* src */,
+			);
+			name = PMCalendarSrc;
+			sourceTree = "<group>";
+		};
+		2A977063160874AA00D56551 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				2A1D883416096D6600CC5CAB /* PMCalendar.h */,
+				2A1D881D16096D5600CC5CAB /* NSDate+Helpers.h */,
+				2A1D881E16096D5600CC5CAB /* NSDate+Helpers.m */,
+				2A1D881F16096D5600CC5CAB /* PMCalendarBackgroundView.h */,
+				2A1D882016096D5600CC5CAB /* PMCalendarBackgroundView.m */,
+				2A1D882116096D5600CC5CAB /* PMCalendarConstants.h */,
+				2A1D882216096D5600CC5CAB /* PMCalendarController.h */,
+				2A1D882316096D5600CC5CAB /* PMCalendarController.m */,
+				2A1D882416096D5600CC5CAB /* PMCalendarHelpers.h */,
+				2A1D882516096D5600CC5CAB /* PMCalendarView.h */,
+				2A1D882616096D5600CC5CAB /* PMCalendarView.m */,
+				2A1D882716096D5600CC5CAB /* PMDimmingView.h */,
+				2A1D882816096D5600CC5CAB /* PMDimmingView.m */,
+				2A1D882916096D5600CC5CAB /* PMPeriod.h */,
+				2A1D882A16096D5600CC5CAB /* PMPeriod.m */,
+				2A1D882B16096D5600CC5CAB /* PMSelectionView.h */,
+				2A1D882C16096D5600CC5CAB /* PMSelectionView.m */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		D3A06DDD15D0E74C00963BA2 /* PowerPlot_lib */ = {
@@ -1688,6 +1776,8 @@
 				D39E90DB15E60F9800C8CCF4 /* bgtopbgd@2x.png in Resources */,
 				D39E90DC15E60F9800C8CCF4 /* xialax.png in Resources */,
 				2AD43A8415EB6DED003349DA /* FactoryWaitDynamicViewController.xib in Resources */,
+				2A8453BE15FF0E05009960CC /* TransPlanImplement.xib in Resources */,
+				2A8DFEE51611459C00D92354 /* TransPlanImplementDetail.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1879,6 +1969,18 @@
 				2AEF7E3E15F5C21F00B76F4D /* TB_OFFLOADSHIPDao.m in Sources */,
 				2AE24EC615F6E3B500C0649F /* TfShip.m in Sources */,
 				2AE24ECA15F6E76C00C0649F /* TfShipDao.m in Sources */,
+				2A8453BD15FF0E05009960CC /* TransPlanImplement.m in Sources */,
+				2A3B04A2160033A600A67162 /* TransPlanImpModel.m in Sources */,
+				2A3B04A61600457100A67162 /* TransPlanImpDao.m in Sources */,
+				2A9C0B3B1603267D00F52A62 /* NT_TransPlanImpDao.m in Sources */,
+				2A1D882D16096D5600CC5CAB /* NSDate+Helpers.m in Sources */,
+				2A1D882E16096D5600CC5CAB /* PMCalendarBackgroundView.m in Sources */,
+				2A1D882F16096D5600CC5CAB /* PMCalendarController.m in Sources */,
+				2A1D883016096D5600CC5CAB /* PMCalendarView.m in Sources */,
+				2A1D883116096D5600CC5CAB /* PMDimmingView.m in Sources */,
+				2A1D883216096D5600CC5CAB /* PMPeriod.m in Sources */,
+				2A1D883316096D5600CC5CAB /* PMSelectionView.m in Sources */,
+				2A8DFEE41611459C00D92354 /* TransPlanImplementDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
