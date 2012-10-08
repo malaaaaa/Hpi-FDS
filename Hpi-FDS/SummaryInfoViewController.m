@@ -45,15 +45,15 @@
 -(void)loadViewData
 {
     
-//    //动态添加一个按钮
-//    CGRect frame = CGRectMake(330, 80, 100, 70); 
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect]; 
-//    button.frame = frame;
-//    [button setTitle:@"新添加的动态按钮" forState: UIControlStateNormal];  
-//    button.backgroundColor = [UIColor clearColor];  
-//    button.tag = 2000;
-//    [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];  
-//    [self.view addSubview:button];
+    //    //动态添加一个按钮
+    //    CGRect frame = CGRectMake(330, 80, 100, 70);
+    //    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    //    button.frame = frame;
+    //    [button setTitle:@"新添加的动态按钮" forState: UIControlStateNormal];
+    //    button.backgroundColor = [UIColor clearColor];
+    //    button.tag = 2000;
+    //    [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    //    [self.view addSubview:button];
     
     
     int intY = 0;
@@ -66,37 +66,43 @@
             {
                 NSLog(@"=====%d=====",i);
                 if((i+2)%2 == 0)
-                {                
+                {
                     NSMutableArray *array=[TiListinfoDao getTiListinfo:(i+1+1)/2 :j+1];
                     NSLog(@"######%d#######",[array count]);
-                    TiListinfo *tiListinfo=[array objectAtIndex:0];
-                    NSLog(@"shuang");
-                    NSLog(@"**%d**%d**",i+1,j+1);
-                    [self drawLabel:intX :intY :100-1 :60-1 :tiListinfo.title];
-                    intX += 100;
+                    if ([array count]>0) {
+                        TiListinfo *tiListinfo=[array objectAtIndex:0];
+                        NSLog(@"shuang");
+                        NSLog(@"**%d**%d**",i+1,j+1);
+                        [self drawLabel:intX :intY :100-1 :60-1 :tiListinfo.title];
+                        intX += 100;
+                    }
+                    
                 }
                 else
                 {
                     NSMutableArray *array=[TiListinfoDao getTiListinfo:(i+1)/2 :j+1];
-                    TiListinfo *tiListinfo=[array objectAtIndex:0];
-                    NSLog(@"dan");
-                    NSLog(@"**%d**%d**",i+1,j+1);
-                    if(tiListinfo.decLength == 1)
-                    {
-                        [self drawLabel:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.1f",[tiListinfo.dataValue floatValue]]];
+                    if ([array count]>0) {
+                        
+                        TiListinfo *tiListinfo=[array objectAtIndex:0];
+                        NSLog(@"dan");
+                        NSLog(@"**%d**%d**",i+1,j+1);
+                        if(tiListinfo.decLength == 1)
+                        {
+                            [self drawLabel:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.1f",[tiListinfo.dataValue floatValue]]];
+                        }
+                        else if (tiListinfo.decLength == 2) {
+                            [self drawLabel:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.2f",[tiListinfo.dataValue floatValue]]];
+                        }
+                        else if (tiListinfo.decLength == 3) {
+                            [self drawLabel:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.3f",[tiListinfo.dataValue floatValue]]];
+                        }
+                        else {
+                            [self drawLabel:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%d",[tiListinfo.dataValue intValue]]];
+                        }
+                        intX += 60;
                     }
-                    else if (tiListinfo.decLength == 2) {
-                        [self drawLabel:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.2f",[tiListinfo.dataValue floatValue]]];
-                    }
-                    else if (tiListinfo.decLength == 3) {
-                        [self drawLabel:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.3f",[tiListinfo.dataValue floatValue]]];
-                    }
-                    else {
-                        [self drawLabel:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%d",[tiListinfo.dataValue intValue]]];
-                    }
-                    intX += 60;
                 }
-            } 
+            }
         }
         else
         {
@@ -104,35 +110,41 @@
             {
                 NSLog(@"=====%d=====",i);
                 if((i+2)%2 == 0)
-                {                
+                {
                     NSMutableArray *array=[TiListinfoDao getTiListinfo:(i+1+1)/2 :j+1];
-                    NSLog(@"######%d#######",[array count]);
-                    TiListinfo *tiListinfo=[array objectAtIndex:0];
-                    NSLog(@"shuang");
-                    NSLog(@"**%d**%d**",i+1,j+1);
-                    [self drawLabel2:intX :intY :100-1 :60-1 :tiListinfo.title];
-                    intX += 100;
+                    if ([array count]>0) {
+                        
+                        NSLog(@"######%d#######",[array count]);
+                        TiListinfo *tiListinfo=[array objectAtIndex:0];
+                        NSLog(@"shuang");
+                        NSLog(@"**%d**%d**",i+1,j+1);
+                        [self drawLabel2:intX :intY :100-1 :60-1 :tiListinfo.title];
+                        intX += 100;
+                    }
                 }
                 else
                 {
                     NSMutableArray *array=[TiListinfoDao getTiListinfo:(i+1)/2 :j+1];
-                    TiListinfo *tiListinfo=[array objectAtIndex:0];
-                    NSLog(@"dan");
-                    NSLog(@"**%d**%d**",i+1,j+1);
-                    if(tiListinfo.decLength == 1)
-                    {
-                        [self drawLabel2:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.1f",[tiListinfo.dataValue floatValue]]];
+                    if ([array count]>0) {
+                        
+                        TiListinfo *tiListinfo=[array objectAtIndex:0];
+                        NSLog(@"dan");
+                        NSLog(@"**%d**%d**",i+1,j+1);
+                        if(tiListinfo.decLength == 1)
+                        {
+                            [self drawLabel2:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.1f",[tiListinfo.dataValue floatValue]]];
+                        }
+                        else if (tiListinfo.decLength == 2) {
+                            [self drawLabel2:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.2f",[tiListinfo.dataValue floatValue]]];
+                        }
+                        else if (tiListinfo.decLength == 3) {
+                            [self drawLabel2:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.3f",[tiListinfo.dataValue floatValue]]];
+                        }
+                        else {
+                            [self drawLabel2:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%d",[tiListinfo.dataValue intValue]]];
+                        }
+                        intX += 60;
                     }
-                    else if (tiListinfo.decLength == 2) {
-                        [self drawLabel2:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.2f",[tiListinfo.dataValue floatValue]]];
-                    }
-                    else if (tiListinfo.decLength == 3) {
-                        [self drawLabel2:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%.3f",[tiListinfo.dataValue floatValue]]];
-                    }
-                    else {
-                        [self drawLabel2:intX :intY :60-1 :60-1 :[NSString stringWithFormat:@"%d",[tiListinfo.dataValue intValue]]];
-                    }
-                    intX += 60;
                 }
             }
         }
@@ -145,44 +157,44 @@
     
     
     
-//    //创建uilabel
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 60)];
-//    //设置背景色
-//    label.backgroundColor = [UIColor grayColor];
-//    //设置标签文本
-//    label.text = @"海进江发电量";
-//    //设置标签文本字体和字体大小
-//    label.font = [UIFont fontWithName:@"Arial" size:18];
-//    //设置文本对其方式
-//    label.textAlignment = UITextAlignmentCenter;
-//    //文本颜色
-//    label.textColor = [UIColor blueColor];
-//    //文本文字自适应大小
-//    label.adjustsFontSizeToFitWidth = YES;
-//    //文本高亮
-//    label.highlighted = YES;
-//    [self.view addSubview:label];
-//    [label release];
-//    
-//    //创建uilabel
-//    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 60, 60)];
-//    //设置背景色
-//    label1.backgroundColor = [UIColor grayColor];
-//    //设置标签文本
-//    label1.text = @"123.4";
-//    //设置标签文本字体和字体大小
-//    label1.font = [UIFont fontWithName:@"Arial" size:18];
-//    //设置文本对其方式
-//    label1.textAlignment = UITextAlignmentCenter;
-//    //文本颜色
-//    label1.textColor = [UIColor blueColor];
-//    //文本文字自适应大小
-//    label1.adjustsFontSizeToFitWidth = YES;
-//    //文本高亮
-//    label1.highlighted = YES;
-//    [self.view addSubview:label1];
-//    [label1 release];
-//    
+    //    //创建uilabel
+    //    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 60)];
+    //    //设置背景色
+    //    label.backgroundColor = [UIColor grayColor];
+    //    //设置标签文本
+    //    label.text = @"海进江发电量";
+    //    //设置标签文本字体和字体大小
+    //    label.font = [UIFont fontWithName:@"Arial" size:18];
+    //    //设置文本对其方式
+    //    label.textAlignment = UITextAlignmentCenter;
+    //    //文本颜色
+    //    label.textColor = [UIColor blueColor];
+    //    //文本文字自适应大小
+    //    label.adjustsFontSizeToFitWidth = YES;
+    //    //文本高亮
+    //    label.highlighted = YES;
+    //    [self.view addSubview:label];
+    //    [label release];
+    //
+    //    //创建uilabel
+    //    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 60, 60)];
+    //    //设置背景色
+    //    label1.backgroundColor = [UIColor grayColor];
+    //    //设置标签文本
+    //    label1.text = @"123.4";
+    //    //设置标签文本字体和字体大小
+    //    label1.font = [UIFont fontWithName:@"Arial" size:18];
+    //    //设置文本对其方式
+    //    label1.textAlignment = UITextAlignmentCenter;
+    //    //文本颜色
+    //    label1.textColor = [UIColor blueColor];
+    //    //文本文字自适应大小
+    //    label1.adjustsFontSizeToFitWidth = YES;
+    //    //文本高亮
+    //    label1.highlighted = YES;
+    //    [self.view addSubview:label1];
+    //    [label1 release];
+    //
     
 }
 
@@ -230,11 +242,11 @@
 }
 
 //这个是新按钮的响应函数
--(IBAction) buttonClicked:(id)sender {  
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" 
-                                                    message:@"单击了动态按钮！"   
-                                                   delegate:self   
-                                          cancelButtonTitle:@"确定"  
+-(IBAction) buttonClicked:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                    message:@"单击了动态按钮！"
+                                                   delegate:self
+                                          cancelButtonTitle:@"确定"
                                           otherButtonTitles:nil];  
     [alert show];
     [alert release];

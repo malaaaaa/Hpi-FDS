@@ -282,6 +282,23 @@
 
     [tradeButton setTitle:@"贸易性质" forState:UIControlStateNormal];
     [typeButton setTitle:@"电厂类型" forState:UIControlStateNormal];
+    
+    self.endDay = [[[NSDate alloc] init] autorelease];
+    
+    //本年度的一个月
+    NSDateComponents *comp = [[[NSDateComponents alloc]init] autorelease];
+    [comp setMonth:1];
+    NSDateFormatter *yearFormatter =[[NSDateFormatter alloc] init];
+    [yearFormatter setDateFormat:@"yyyy"];
+    [comp setYear:[[yearFormatter stringFromDate:[NSDate date]] integerValue]];
+    NSCalendar *myCal = [[[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    [yearFormatter release];
+    self.startDay=[myCal dateFromComponents:comp] ;
+    
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy-MM"];
+    [_endButton setTitle:[dateFormatter stringFromDate:_endDay] forState:UIControlStateNormal];
+    [_startButton setTitle:[dateFormatter stringFromDate:_startDay] forState:UIControlStateNormal];
 
     
 }

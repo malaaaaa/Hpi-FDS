@@ -254,13 +254,13 @@ NSString* alertMsg;
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
                              "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
                              "<soap12:Body>\n"
-                             "<GetTgPort xmlns=\"http://tempuri.org/\">\n"
+                             "<GetTgPortInfo xmlns=\"http://tempuri.org/\">\n"
                              "<req>\n"
                              "<deviceid>%@</deviceid>\n"
                              "<version>%@</version>\n"
                              "<updatetime>%@</updatetime>\n"
                              "</req>\n"
-                             "</GetTgPort>\n"
+                             "</GetTgPortInfo>\n"
                              "</soap12:Body>\n"
                              "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
     //NSLog(@"soapMessage[%@]",soapMessage);
@@ -322,13 +322,13 @@ NSString* alertMsg;
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
                              "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
                              "<soap12:Body>\n"
-                             "<GetTgFactory xmlns=\"http://tempuri.org/\">\n"
+                             "<GetTgFactoryInfo xmlns=\"http://tempuri.org/\">\n"
                              "<req>\n"
                              "<deviceid>%@</deviceid>\n"
                              "<version>%@</version>\n"
                              "<updatetime>%@</updatetime>\n"
                              "</req>\n"
-                             "</GetTgFactory>\n"
+                             "</GetTgFactoryInfo>\n"
                              "</soap12:Body>\n"
                              "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
@@ -395,13 +395,13 @@ NSString* alertMsg;
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
                              "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
                              "<soap12:Body>\n"
-                             "<GetTgShip xmlns=\"http://tempuri.org/\">\n"
+                             "<GetTgShipInfo xmlns=\"http://tempuri.org/\">\n"
                              "<req>\n"
                              "<deviceid>%@</deviceid>\n"
                              "<version>%@</version>\n"
                              "<updatetime>%@</updatetime>\n"
                              "</req>\n"
-                             "</GetTgShip>\n"
+                             "</GetTgShipInfo>\n"
                              "</soap12:Body>\n"
                              "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
@@ -1133,13 +1133,13 @@ NSString* alertMsg;
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
                              "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
                              "<soap12:Body>\n"
-                             "<GetTmIndexDefine xmlns=\"http://tempuri.org/\">\n"
+                             "<GetTmIndexDefineInfo xmlns=\"http://tempuri.org/\">\n"
                              "<req>\n"
                              "<deviceid>%@</deviceid>\n"
                              "<version>%@</version>\n"
                              "<updatetime>%@</updatetime>\n"
                              "</req>\n"
-                             "</GetTmIndexDefine>\n"
+                             "</GetTmIndexDefineInfo>\n"
                              "</soap12:Body>\n"
                              "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
@@ -1357,7 +1357,6 @@ NSString* alertMsg;
     // 如果连接已经建好，则初始化data
     if( theConnection )
     {
-        [TsFileinfoDao deleteAll];
         webData = [[NSMutableData data] retain];
     }
     else
@@ -1965,7 +1964,7 @@ NSString* alertMsg;
     [xmlParser parse];
     
 //    [connection release];
-    //[webData release];
+    [webData release];
 }
 
 
@@ -4871,13 +4870,14 @@ NSString* alertMsg;
             [soapResults release];
             soapResults = nil;
             if ([TsFileinfoDao tsFileIsDownload:tsFileinfo.fileId]) {
-                tsFileinfo.xzbz=@"1";
+//                tsFileinfo.xzbz=@"1";
             }
             else {
                 tsFileinfo.xzbz=@"0";
+                [TsFileinfoDao delete:tsFileinfo];
+                [TsFileinfoDao insert:tsFileinfo];
             }
-            [TsFileinfoDao delete:tsFileinfo];
-            [TsFileinfoDao insert:tsFileinfo];
+         
             [tsFileinfo release];
             tsFileinfo = nil;
         }

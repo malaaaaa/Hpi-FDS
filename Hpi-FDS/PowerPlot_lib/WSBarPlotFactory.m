@@ -174,8 +174,20 @@
     NSArray *barCols = [cs highlightArray];
     for (WSPlotBar *bar in barPlots) {
         [bar setStyle:kCustomStyleUnified];
-        NAFloat thisWidth = (NARangeLen(datRange) /
-                             ([[[bar dataDelegate] dataD] count] * 2.0));
+        //modified by mawp ，如果只有一条数据，宽度暂时写死
+        //        NAFloat thisWidth = (NARangeLen(datRange) /
+        //                             ([[[bar dataDelegate] dataD] count] * 2.0));
+        NAFloat thisWidth=0.0;
+        if (1==[[[bar dataDelegate] dataD] count]) {
+            thisWidth=100.0;
+        }
+        else
+        {
+            thisWidth = (NARangeLen(datRange) /
+                         ([[[bar dataDelegate] dataD] count] * 2.0));
+        }
+        NSLog(@"thisWidth=%f＝%d",thisWidth,[[[bar dataDelegate] dataD] count]);
+        
         barWidth = fmin(thisWidth, barWidth);
         WSBarProperties *defaults = [bar propDefault];
         [defaults setStyle:kBarFilled];

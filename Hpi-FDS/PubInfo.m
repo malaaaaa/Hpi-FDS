@@ -10,6 +10,7 @@
 #import "UIDevice+IdentifierAddition.h"
 #import "TH_ShipTransDao.h"
 #import "TB_LatefeeDao.h"
+#import "VB_LatefeeDao.h"
 #import "NT_LatefeeTongjDao.h"
 #import "TfPortDao.h"
 #import "FactoryWaitDynamicDao.h"
@@ -85,6 +86,8 @@ static NSString *deviceID;
     //新添  tblatefee  
     [TB_LatefeeDao openDataBase ];
     [TB_LatefeeDao initDb];
+    [VB_LatefeeDao openDataBase ];
+    [VB_LatefeeDao initDb];
     
     
     [NT_LatefeeTongjDao openDataBase];
@@ -138,6 +141,13 @@ static NSString *deviceID;
     [NTFactoryFreightVolumeDao initDb_tmpTable];    
     [PortEfficiencyDao openDataBase];
     [PortEfficiencyDao initDb];
+    [NTLateFeeDMFXDao openDataBase];
+    [NTLateFeeDMFXDao initDb];
+    [NTLateFeeHCFXDao openDataBase];
+    [NTLateFeeHCFXDao initDb];
+    [NTZxgsjtjDao openDataBase];
+    [NTZxgsjtjDao initDb];
+    
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
 	NSString *fileName=[[NSString alloc]initWithFormat:@"%@/data.plist",doc]; 
@@ -493,8 +503,12 @@ static NSString *deviceID;
     
 }
 
-
-
++ (BOOL)checkDeviceRegisterInfo{
+    return YES;
+}
++ (BOOL)checkDeviceVerificationInfo{
+    return YES;
+}
 
 
 

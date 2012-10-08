@@ -101,7 +101,6 @@ static sqlite3 *database;
         NSLog(@"exec begin error");
         return;
     }
-    [NTFactoryFreightVolumeDao deleteAll_tmpTable];
     NSMutableString *shiptransSubSql = [[NSMutableString alloc] init ];
     NSMutableString *factorySubSql = [[NSMutableString alloc] init ];
     
@@ -129,11 +128,11 @@ static sqlite3 *database;
     }
     //是否班轮
     if ([schedule isEqualToString:@"否"]) {
-        [shiptransSubSql appendString:@" AND trade='0' "];
+        [shiptransSubSql appendString:@" AND SCHEDULE='0' "];
         
     }
-    else if ([schedule isEqualToString:@"进口"]) {
-        [shiptransSubSql appendString:@" AND trade='1' "];
+    else if ([schedule isEqualToString:@"是"]) {
+        [shiptransSubSql appendString:@" AND SCHEDULE='1' "];
     }
     //电厂类型
     if (![category isEqualToString:All_]) {
@@ -167,7 +166,7 @@ static sqlite3 *database;
     [factorySubSql release];
     if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
         sqlite3_close(database);
-        NSLog(@"exec commit error");
+        NSLog(@"exec commit error: %s",sqlite3_errmsg(database));
         return;
     }
 

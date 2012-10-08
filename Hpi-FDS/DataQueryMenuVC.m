@@ -98,10 +98,21 @@
         [parentView addSubview:transPI.view];
     }
     
-    
-    
-    
-    
+    else if (kMenuZQFDMFX==[indexPath row]){
+        ntLateFeeDmfxVC=[[ NTLateFeeDmfxVC alloc ]initWithNibName:@"NTLateFeeDmfxVC" bundle:nil] ;
+        ntLateFeeDmfxVC.view.frame = CGRectMake(0, 40, 1024,661 );
+        [parentView addSubview:ntLateFeeDmfxVC.view];
+    }
+    else if (kMenuZQFHCFX==[indexPath row]){
+        ntLateFeeHcfxVC=[[ NTLateFeeHcfxVC alloc ]initWithNibName:@"NTLateFeeHcfxVC" bundle:nil] ;
+        ntLateFeeHcfxVC.view.frame = CGRectMake(0, 40, 1024,661 );
+        [parentView addSubview:ntLateFeeHcfxVC.view];
+    }
+    else if (kMenuZXGSJTJ==[indexPath row]){
+        ntZxgsjtjVC=[[ NTZxgsjtjVC alloc ]initWithNibName:@"NTZxgsjtjVC" bundle:nil] ;
+        ntZxgsjtjVC.view.frame = CGRectMake(0, 40, 1024,661 );
+        [parentView addSubview:ntZxgsjtjVC.view];
+    }
     else{
           [self removeAllSubView];
         dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
@@ -136,7 +147,7 @@
             cell.textLabel.text=@"装卸港效率统计";
             break;
         case kMenuSSCBCX:
-            cell.textLabel.text=@"实时船舶查询";
+            cell.textLabel.text=@"船舶动态查询";
             break;
         case kMenuCYJH:
             cell.textLabel.text=@"船运计划";
@@ -162,7 +173,15 @@
         case kMenuTransPlanimplment:
             cell.textLabel.text=@"航运计划执行情况";
             break;
-
+        case kMenuZQFDMFX:
+            cell.textLabel.text=@"滞期费吨煤分析";
+            break;
+        case kMenuZQFHCFX:
+            cell.textLabel.text=@"滞期费航次分析";
+            break;
+        case kMenuZXGSJTJ:
+            cell.textLabel.text=@"装卸港时间统计";
+            break;
         default:
             break;
     }
@@ -175,7 +194,7 @@
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
+    return 34.0;
 }
 - (void)removeAllSubView{
     if(vbFactoryTransVC){
@@ -201,7 +220,18 @@ if(transPI){
         self.dataQueryVC=nil;
     }
 
-    
+    if(dataQueryVC){
+        self.dataQueryVC=nil;
+    }
+    if(ntLateFeeDmfxVC){
+        self.ntLateFeeDmfxVC=nil;
+    }
+    if(ntLateFeeHcfxVC){
+        self.ntLateFeeHcfxVC=nil;
+    }
+    if(ntZxgsjtjVC){
+        self.ntZxgsjtjVC=nil;
+    }
 }
 
 @end

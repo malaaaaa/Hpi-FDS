@@ -119,7 +119,8 @@ static int  whichButton=0;
     for(int column = 0;column < [dataSource.titles count];column++){
         float columnWidth=[[dataSource.columnWidth objectAtIndex:column ] floatValue];
         
-        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1 , 40+2 )];
+        
         l.font = [UIFont systemFontOfSize:16.0f];
         l.text = [dataSource.titles objectAtIndex:column];
         l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
@@ -478,12 +479,12 @@ static int  whichButton=0;
     NSLog(@"开始时间为：%@",startTime.text);
     NSLog(@"结束时间为：%@",endTime.text);
 
-    dataQueryVC.dataArray=[TB_LatefeeDao getTB_LateFee:comLabel.text :shipLabel.text :factoryLabel.text :typeLabel.text  :supLable.text :startTime.text :endTime.text] ;
+    dataQueryVC.dataArray=[VB_LatefeeDao getVB_LateFee:comLabel.text :shipLabel.text :factoryLabel.text :typeLabel.text  :supLable.text :startTime.text :endTime.text] ;
     
     
     dataSource.data=[[[NSMutableArray alloc] init] autorelease];
     for (int i=0; i<[dataQueryVC.dataArray  count ]; i++) {
-       TB_Latefee *tblatefee=[dataQueryVC.dataArray objectAtIndex:i];
+       VB_Latefee *tblatefee=[dataQueryVC.dataArray objectAtIndex:i];
         [dataSource.data addObject:[NSArray arrayWithObjects:@"3",
                                     
                                     //列表表题所用字段

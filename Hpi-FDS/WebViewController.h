@@ -14,12 +14,14 @@
     IBOutlet UILabel *titleLable;
     IBOutlet UISegmentedControl *segment;
     MemoirListVC *memoirListVC;
+    UILabel *_waitingLable;
 }
 @property (nonatomic,retain) UIWebView *webView;
 @property (nonatomic,retain) UIPopoverController *popover;
 @property (nonatomic,retain) UILabel *titleLable;
 @property (nonatomic,retain) MemoirListVC *memoirListVC;
 @property (nonatomic,retain) UISegmentedControl *segment;
+@property (nonatomic,retain) UILabel *waitingLable;
 +(void)setFileName:(NSString*) theName;
 - (void)viewloadRequest;
 @end

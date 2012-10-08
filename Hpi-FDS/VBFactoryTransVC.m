@@ -134,7 +134,7 @@ static  NSMutableArray *ShipStageArray;
     //填冲标题数据
     for(int column = 0;column < [dataSource.titles count];column++){
         float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
-        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1, 40+2 )];
         l.font = [UIFont systemFontOfSize:16.0f];
         l.text = [dataSource.titles objectAtIndex:column];
         l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];
@@ -706,6 +706,7 @@ static  NSMutableArray *ShipStageArray;
     self.supLabel.hidden=YES;
     self.typeLabel.hidden=YES;
     
+    [self resetArray];
     
     self.startDay = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -834,7 +835,7 @@ static  NSMutableArray *ShipStageArray;
         
         factorytransDeitail.popover = pop;
         
-        pop.popoverContentSize=CGSizeMake(620, 40+shipNum*40);
+        pop.popoverContentSize=CGSizeMake(620, 35+shipNum*40);
         //[pop  presentPopoverFromRect:CGRectMake(200, 470, 0, 0) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
         //permittedArrowDirections:0箭头消失
         [pop  presentPopoverFromRect:CGRectMake(500, 470, 5, 5) inView:self.view permittedArrowDirections:0 animated:YES];

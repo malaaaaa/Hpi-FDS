@@ -37,10 +37,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+ 
     [PubInfo initdata];
     [self customizeAppearance];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    
+  
     // Override point for customization after application launch.
     UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
     UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
@@ -58,8 +59,18 @@
     NSString *deviceUID = [[[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] autorelease];
     NSLog(@"%@",deviceUID); // 输出设备id
     
-
-    
+    NSString *meg=[NSString stringWithFormat:@"标示ID:\n%@",deviceUID];
+    if (NO==[PubInfo checkDeviceRegisterInfo]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"该设备未注册！" message:meg delegate:self cancelButtonTitle:@"退出" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+    }else if(NO==[PubInfo checkDeviceVerificationInfo])
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"消息" message:@"该设备验证失败！" delegate:self cancelButtonTitle:@"退出" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+    }
+ 
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
 //    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
         self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
@@ -70,6 +81,13 @@
     return YES;
 }
 
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        exit(0);
+           }
+	
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
@@ -98,6 +116,8 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    
+  
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -28,7 +28,7 @@ static int iDisplay=0;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"地图", @"1th");
+        self.title = NSLocalizedString(@"地图展示", @"1th");
         self.tabBarItem.image = [UIImage imageNamed:@"map"];
     }
     return self;
@@ -82,19 +82,20 @@ static int iDisplay=0;
 {
     [super viewDidLoad];
     
+    self.xmlParser=[[XMLParser alloc]init] ;
+    
     if([PubInfo.autoUpdate isEqualToString:kYES])
     {
         [self.view addSubview:activity];
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        self.xmlParser=[[[XMLParser alloc]init] autorelease];
-        [xmlParser setISoapNum:3];
-        [xmlParser getTsFileinfo];
-//        [xmlParser getTgPort];
-        [xmlParser getTmIndexinfo];
-//        [xmlParser getTgShip];
-        [xmlParser getVbShiptrans];
-//        [xmlParser getTgFactory];
+        [xmlParser setISoapNum:1];
+        //        [xmlParser getTsFileinfo];
+        //        [xmlParser getTgPort];
+        //        [xmlParser getTmIndexinfo];
+        //        [xmlParser getTgShip];
+        //        [xmlParser getVbShiptrans];
+        //        [xmlParser getTgFactory];
         [xmlParser getTiListinfo];
         [self runActivity];
     }
@@ -105,30 +106,30 @@ static int iDisplay=0;
         [activity removeFromSuperview];
     }
     
-    self.shipIDArray = [[[NSMutableArray alloc]init] autorelease];
-	self.portIDArray = [[[NSMutableArray alloc]init] autorelease];
-    self.factoryIDArray = [[[NSMutableArray alloc]init] autorelease];
+    self.shipIDArray = [[NSMutableArray alloc]init] ;
+	self.portIDArray = [[NSMutableArray alloc]init] ;
+    self.factoryIDArray = [[NSMutableArray alloc]init] ;
     [shipIDArray addObject:All_SHIP];
     [portIDArray addObject:All_PORT];
     [factoryIDArray addObject:All_FCTRY];
-    self.shipCoordinateArray = [[[NSMutableArray alloc]init] autorelease];
-	self.portCoordinateArray = [[[NSMutableArray alloc]init] autorelease];
-    self.factoryCoordinateArray = [[[NSMutableArray alloc]init] autorelease];
+    self.shipCoordinateArray = [[NSMutableArray alloc]init] ;
+	self.portCoordinateArray = [[NSMutableArray alloc]init] ;
+    self.factoryCoordinateArray = [[NSMutableArray alloc]init] ;
     
     
     // Do any additional setup after loading the view from its nib.
     
     CLLocationCoordinate2D theCoordinate;
-    theCoordinate.latitude=29.6955667121; //纬度  
-    theCoordinate.longitude=122.0461133192; //经度  
+    theCoordinate.latitude=29.6955667121; //纬度
+    theCoordinate.longitude=122.0461133192; //经度
     MKCoordinateSpan theSpan = MKCoordinateSpanMake(17,17);//显示比例
-    //定义显示范围 
-    //定义一个区域（使用设置的经度纬度加上一个范围）  
-    MKCoordinateRegion theRegion;  
-    theRegion.center=theCoordinate;  
-    theRegion.span=theSpan; 
-    [mapView setRegion:theRegion];  
-    [mapView setMapType:MKMapTypeHybrid];
+    //定义显示范围
+    //定义一个区域（使用设置的经度纬度加上一个范围）
+    MKCoordinateRegion theRegion;
+    theRegion.center=theCoordinate;
+    theRegion.span=theSpan;
+    [mapView setRegion:theRegion];
+    [mapView setMapType:MKMapTypeStandard];
     mapView.delegate = self;
     mapView.showsUserLocation = YES;
     
@@ -138,23 +139,23 @@ static int iDisplay=0;
     mapViewBig.layer.shadowColor =[UIColor blackColor].CGColor;
     
     CLLocationCoordinate2D theCoordinate1;
-    theCoordinate1.latitude=2.6955667122; //纬度  
-    theCoordinate1.longitude=111.0461133190; //经度 
-    MKCoordinateRegion theRegion1;  
-    theRegion1.center=theCoordinate1;  
+    theCoordinate1.latitude=2.6955667122; //纬度
+    theCoordinate1.longitude=111.0461133190; //经度
+    MKCoordinateRegion theRegion1;
+    theRegion1.center=theCoordinate1;
     MKCoordinateSpan theSpan1 = MKCoordinateSpanMake(60,60);//显示比例
     theRegion1.span=theSpan1;
     //定义显示范围
     //定义一个区域（使用设置的经度纬度加上一个范围)
     [mapViewBig setRegion:theRegion1];
-    [mapViewBig setMapType:MKMapTypeSatellite];
+    [mapViewBig setMapType:MKMapTypeStandard];
     [mapViewBig addSubview:closeButton];
     mapViewBig.delegate = self;
     [mapView addSubview:mapViewBig];
     
     [switchMap addTarget:self action:@selector(switchPress:) forControlEvents:UIControlEventValueChanged];
     [mapView addSubview:switchMap];
-
+    
     if([PubInfo.autoUpdate isEqualToString:kNO])
     {
         [self getFactoryCoordinateArray];
@@ -168,6 +169,23 @@ static int iDisplay=0;
 
 - (void)viewDidUnload
 {
+    self.mapView=nil;
+    self.mapViewBig=nil;
+    self.activity=nil;
+    self.switchMap=nil;
+    self.closeButton=nil;
+    self.shipButton=nil;
+    self.factoryButton=nil;
+    self.portButton=nil;
+    self.updateButton=nil;
+    
+    self.shipIDArray = nil;
+	self.portIDArray = nil;
+    self.factoryIDArray = nil;
+    self.shipCoordinateArray = nil;
+	self.portCoordinateArray = nil;
+    self.factoryCoordinateArray = nil;
+    self.xmlParser=nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -225,7 +243,7 @@ static int iDisplay=0;
     }
     
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -245,7 +263,7 @@ static int iDisplay=0;
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
-
+    
 }
 - (IBAction)chooseFactory:(id)sender
 {
@@ -255,7 +273,7 @@ static int iDisplay=0;
     }
     
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -283,7 +301,7 @@ static int iDisplay=0;
     }
     
     //初始化待显示控制器
-    chooseView=[[ChooseView alloc]init]; 
+    chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
     [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
     //设置待显示控制器视图的尺寸
@@ -303,7 +321,7 @@ static int iDisplay=0;
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
-
+    
 }
 
 - (IBAction)SummaryInfoView:(id)sender
@@ -314,7 +332,7 @@ static int iDisplay=0;
     }
     
     //初始化待显示控制器
-    summaryInfoViewController=[[SummaryInfoViewController alloc]init]; 
+    summaryInfoViewController=[[SummaryInfoViewController alloc]init];
     //设置待显示控制器的范围
     [summaryInfoViewController.view setFrame:CGRectMake(0,0, 960, 300)];
     //设置待显示控制器视图的尺寸
@@ -338,13 +356,13 @@ static int iDisplay=0;
 - (IBAction)listInfoView:(id)sender
 {
     NSLog(@"ship %@  factory %@ port %@",shipButton.titleLabel.text,factoryButton.titleLabel.text,portButton.titleLabel.text);
-
+    
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
     
     //初始化待显示控制器
-    shipInfoViewController=[[ShipInfoViewController alloc]init]; 
+    shipInfoViewController=[[ShipInfoViewController alloc]init];
     //设置待显示控制器的范围
     [shipInfoViewController.view setFrame:CGRectMake(0,0, 600, 500)];
     //设置待显示控制器视图的尺寸
@@ -363,7 +381,7 @@ static int iDisplay=0;
     [self.popover presentPopoverFromRect:CGRectMake(980, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [shipInfoViewController release];
     [pop release];
-
+    
     
 }
 - (IBAction)updateData:(id)sender
@@ -379,11 +397,10 @@ static int iDisplay=0;
         [self.view addSubview:activity];
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        self.xmlParser=[[[XMLParser alloc]init] autorelease];
         [xmlParser setISoapNum:1];
-//        [xmlParser getTgPort];
-//        [xmlParser getTgShip];
-//        [xmlParser getTgFactory];
+        //        [xmlParser getTgPort];
+        //        [xmlParser getTgShip];
+        //        [xmlParser getTgFactory];
         [xmlParser getTiListinfo];
         [self runActivity];
     }
@@ -411,7 +428,7 @@ static int iDisplay=0;
     }
     
     //初始化待显示控制器
-    infoTextViewController=[[InfoTextViewController alloc]init]; 
+    infoTextViewController=[[InfoTextViewController alloc]init];
     //设置待显示控制器的范围
     [infoTextViewController.view setFrame:CGRectMake(0,0, 150, 200)];
     //设置待显示控制器视图的尺寸
@@ -528,18 +545,18 @@ static int iDisplay=0;
     //self.choosePort=@"全部港口";
     for(i=0;i<[array count];i++){
         TgPort *tgPort=(TgPort *)[array objectAtIndex:i];
-//        NSLog(@"portCode=%@", tgPort.portCode);
-//        NSLog(@"shipNum=%d", tgPort.shipNum);
-//        NSLog(@"handleShip=%d", tgPort.handleShip);
-//        NSLog(@"loadShip=%d", tgPort.loadShip);
-//        NSLog(@"transactShip=%d", tgPort.transactShip);
-//        NSLog(@"waitShip=%d", tgPort.waitShip);
-//        NSLog(@"portName=%@", tgPort.portName);
-//        NSLog(@"lon=%@", tgPort.lon);
-//        NSLog(@"lat=%@", tgPort.lat);
+        //        NSLog(@"portCode=%@", tgPort.portCode);
+        //        NSLog(@"shipNum=%d", tgPort.shipNum);
+        //        NSLog(@"handleShip=%d", tgPort.handleShip);
+        //        NSLog(@"loadShip=%d", tgPort.loadShip);
+        //        NSLog(@"transactShip=%d", tgPort.transactShip);
+        //        NSLog(@"waitShip=%d", tgPort.waitShip);
+        //        NSLog(@"portName=%@", tgPort.portName);
+        //        NSLog(@"lon=%@", tgPort.lon);
+        //        NSLog(@"lat=%@", tgPort.lat);
         
         CLLocationCoordinate2D coordinate;
-        coordinate.latitude = [tgPort.lat doubleValue]; //纬度  
+        coordinate.latitude = [tgPort.lat doubleValue]; //纬度
         coordinate.longitude = [tgPort.lon doubleValue]; //经度
         hpiAnnotation *port=[[hpiAnnotation alloc]initWithCoords:coordinate];
         port.title=[tgPort.portName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -568,22 +585,22 @@ static int iDisplay=0;
     //self.chooseFactory=@"全部电厂";
     for(i=0;i<[array count];i++){
         TgFactory *tgFactory=(TgFactory *)[array objectAtIndex:i];
-//        NSLog(@"factoryCode=%@", tgFactory.factoryCode);
-//        NSLog(@"factoryName=%@", tgFactory.factoryName);
-//        NSLog(@"capacitySum=%d", tgFactory.capacitySum);
-//        NSLog(@"description=%@", tgFactory.description);
-//        NSLog(@"impOrt=%d", tgFactory.impOrt);
-//        NSLog(@"impMonth=%d", tgFactory.impMonth);
-//        NSLog(@"impYear=%d", tgFactory.impYear);
-//        NSLog(@"storage=%d", tgFactory.storage);
-//        NSLog(@"conSum=%d", tgFactory.conSum);
-//        NSLog(@"conMonth=%d", tgFactory.conMonth);
-//        NSLog(@"conYear=%d", tgFactory.conYear);
-//        NSLog(@"lon=%@", tgFactory.lon);
-//        NSLog(@"lat=%@", tgFactory.lat);
+        //        NSLog(@"factoryCode=%@", tgFactory.factoryCode);
+        //        NSLog(@"factoryName=%@", tgFactory.factoryName);
+        //        NSLog(@"capacitySum=%d", tgFactory.capacitySum);
+        //        NSLog(@"description=%@", tgFactory.description);
+        //        NSLog(@"impOrt=%d", tgFactory.impOrt);
+        //        NSLog(@"impMonth=%d", tgFactory.impMonth);
+        //        NSLog(@"impYear=%d", tgFactory.impYear);
+        //        NSLog(@"storage=%d", tgFactory.storage);
+        //        NSLog(@"conSum=%d", tgFactory.conSum);
+        //        NSLog(@"conMonth=%d", tgFactory.conMonth);
+        //        NSLog(@"conYear=%d", tgFactory.conYear);
+        //        NSLog(@"lon=%@", tgFactory.lon);
+        //        NSLog(@"lat=%@", tgFactory.lat);
         
         CLLocationCoordinate2D coordinate;
-        coordinate.latitude = [tgFactory.lat doubleValue]; //纬度  
+        coordinate.latitude = [tgFactory.lat doubleValue]; //纬度
         coordinate.longitude = [tgFactory.lon doubleValue]; //经度
         hpiAnnotation *port=[[hpiAnnotation alloc]initWithCoords:coordinate];
         port.title=[tgFactory.factoryName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -614,37 +631,37 @@ static int iDisplay=0;
     //self.chooseShip=@"全部船舶";
     for(i=0;i<[array count];i++){
         TgShip *tgShip=[array objectAtIndex:i];
-//        NSLog(@"shipID=%d", tgShip.shipID);
-//        NSLog(@"shipName=%@", tgShip.shipName);
-//        NSLog(@"comID=%d", tgShip.comID);
-//        NSLog(@"company=%@", tgShip.company);
-//        NSLog(@"portCode=%@", tgShip.portCode);
-//        NSLog(@"portName=%@", tgShip.portName);
-//        NSLog(@"factoryCode=%@", tgShip.factoryCode);
-//        NSLog(@"factoryName=%@", tgShip.factoryName);
-//        NSLog(@"tripNo=%@", tgShip.tripNo);
-//        NSLog(@"supID=%d", tgShip.supID);
-//        NSLog(@"supplier=%@", tgShip.supplier);
-//        NSLog(@"heatValue=%d", tgShip.heatValue);
-//        NSLog(@"lw=%d", tgShip.lw);
-//        NSLog(@"length=%@", tgShip.length);
-//        NSLog(@"width=%@", tgShip.width);
-//        NSLog(@"draft=%@", tgShip.draft);
-//        NSLog(@"eta=%@", tgShip.eta);
-//        NSLog(@"lat=%@", tgShip.lat);
-//        NSLog(@"lon=%@", tgShip.lon);
-//        NSLog(@"sog=%@", tgShip.sog);
-//        NSLog(@"destination=%@", tgShip.destination);
-//        NSLog(@"infoTime=%@", tgShip.infoTime);
-//        NSLog(@"naviStat=%@", tgShip.naviStat);
-//        NSLog(@"online=%@", tgShip.online);
-//        NSLog(@"stage=%@", tgShip.stage);
-//        NSLog(@"stageName=%@", tgShip.stageName);
-//        NSLog(@"statCode=%@", tgShip.statCode);
-//        NSLog(@"statName=%@", tgShip.statName);
+        //        NSLog(@"shipID=%d", tgShip.shipID);
+        //        NSLog(@"shipName=%@", tgShip.shipName);
+        //        NSLog(@"comID=%d", tgShip.comID);
+        //        NSLog(@"company=%@", tgShip.company);
+        //        NSLog(@"portCode=%@", tgShip.portCode);
+        //        NSLog(@"portName=%@", tgShip.portName);
+        //        NSLog(@"factoryCode=%@", tgShip.factoryCode);
+        //        NSLog(@"factoryName=%@", tgShip.factoryName);
+        //        NSLog(@"tripNo=%@", tgShip.tripNo);
+        //        NSLog(@"supID=%d", tgShip.supID);
+        //        NSLog(@"supplier=%@", tgShip.supplier);
+        //        NSLog(@"heatValue=%d", tgShip.heatValue);
+        //        NSLog(@"lw=%d", tgShip.lw);
+        //        NSLog(@"length=%@", tgShip.length);
+        //        NSLog(@"width=%@", tgShip.width);
+        //        NSLog(@"draft=%@", tgShip.draft);
+        //        NSLog(@"eta=%@", tgShip.eta);
+        //        NSLog(@"lat=%@", tgShip.lat);
+        //        NSLog(@"lon=%@", tgShip.lon);
+        //        NSLog(@"sog=%@", tgShip.sog);
+        //        NSLog(@"destination=%@", tgShip.destination);
+        //        NSLog(@"infoTime=%@", tgShip.infoTime);
+        //        NSLog(@"naviStat=%@", tgShip.naviStat);
+        //        NSLog(@"online=%@", tgShip.online);
+        //        NSLog(@"stage=%@", tgShip.stage);
+        //        NSLog(@"stageName=%@", tgShip.stageName);
+        //        NSLog(@"statCode=%@", tgShip.statCode);
+        //        NSLog(@"statName=%@", tgShip.statName);
         
         CLLocationCoordinate2D coordinate;
-        coordinate.latitude = [tgShip.lat doubleValue]; //纬度  
+        coordinate.latitude = [tgShip.lat doubleValue]; //纬度
         coordinate.longitude = [tgShip.lon doubleValue]; //经度
         hpiAnnotation *port=[[hpiAnnotation alloc]initWithCoords:coordinate];
         port.title=[tgShip.shipName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -655,12 +672,15 @@ static int iDisplay=0;
         if ([port.shipStage isEqualToString:@"2"]) {
             port.topImage = [UIImage imageNamed:@"chuanx1.png"];
         }
+        else if([port.shipStat isEqualToString:@"7"]) {
+            port.topImage = [UIImage imageNamed:@"chuanx1.png"];
+        }
         else if([port.shipStat isEqualToString:@"8"]) {
             port.topImage = [UIImage imageNamed:@"chuanx1.png"];
         }
         else
             port.topImage = [UIImage imageNamed:@"chuanxk1.png"];
-
+        
         port.subtitle=[NSString stringWithFormat:@"%d",tgShip.shipID];
         port.subtitle2=[NSString stringWithFormat:@"航运公司 %@\n装运港 %@\n流向电厂 %@\n航次 %@\n供货方 %@\n热值 %d\n载煤量 %d\n船厂 %@\n船宽 %@\n吃水 %@\n预计抵港 %@\n纬度 %@\n经度 %@\n对地速度 %@\n目的地 %@\n接收时间 %@\n",tgShip.company,tgShip.portName,tgShip.factoryName,tgShip.tripNo,tgShip.supplier,tgShip.heatValue,tgShip.lw,tgShip.length,tgShip.width,tgShip.draft,tgShip.eta,tgShip.lat,tgShip.lon,tgShip.sog,tgShip.destination,tgShip.infoTime];
         port.port=tgShip.portName;
@@ -674,7 +694,7 @@ static int iDisplay=0;
     [self displayShip];
 }
 
--(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)portName :(NSString *)factoryName
+-(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(BOOL)move
 {
     int i;
     int a=0;
@@ -704,9 +724,9 @@ static int iDisplay=0;
         for(i=0;i<[shipCoordinateArray count];i++)
         {
             hpiAnnotation *port=[shipCoordinateArray objectAtIndex:i];
-            NSLog(@"shipName[%@]",port.title);
-            NSLog(@"port[%@]",port.port);
-            NSLog(@"factory[%@]",port.factory);
+//            NSLog(@"shipName[%@]",port.title);
+//            NSLog(@"port[%@]",port.port);
+//            NSLog(@"factory[%@]",port.factory);
             if(a==0)
             {
                 if(![shipName isEqualToString:port.title])
@@ -730,15 +750,15 @@ static int iDisplay=0;
             }
             [mapView addAnnotation:port];
             [mapViewBig addAnnotation:port];
-            if (a==0)
+            if (a==0 && move==YES)
             {
                 if([shipName isEqualToString:port.title])
                 {
                     //mapview移动到以当前点作为中心点的位置
                     MKCoordinateRegion theRegion;
                     MKCoordinateSpan theSpan = MKCoordinateSpanMake(6,6);//显示比例
-                    theRegion.center=port.coordinate;  
-                    theRegion.span=theSpan; 
+                    theRegion.center=port.coordinate;
+                    theRegion.span=theSpan;
                     [self.mapView setRegion:theRegion];
                     return;
                 }
@@ -750,7 +770,7 @@ static int iDisplay=0;
 #pragma mark - display 坐标
 - (void)chooseUpdateView
 {
-    [self getShipCoordinateByChoose:shipButton.titleLabel.text :portButton.titleLabel.text :factoryButton.titleLabel.text];
+    [self getShipCoordinateByChoose:shipButton.titleLabel.text :portButton.titleLabel.text :factoryButton.titleLabel.text :YES];
 }
 - (void)displayPort
 {
@@ -759,7 +779,7 @@ static int iDisplay=0;
     NSLog(@"portCoordinateArray [%d]",[portCoordinateArray count]);
     [self.mapView addAnnotations:portCoordinateArray];
     [self.mapViewBig addAnnotations:portCoordinateArray];
-
+    
 }
 
 - (void)displayFactory
@@ -782,24 +802,24 @@ static int iDisplay=0;
 #pragma mark - MapView viewForAnnotation
 - (MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>) annotation{
 	//方法二：using the image as a PlaceMarker to display on map
-    if ([annotation isKindOfClass:[MKUserLocation class]])  
-        return nil;  
-    // 处理我们自定义的Annotation 
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    // 处理我们自定义的Annotation
     if ([annotation isKindOfClass:[hpiAnnotation class]]) {
         hpiAnnotation *myAnnototion= annotation;
         CSLabelAnnotationView *newAnnotation=[[[CSLabelAnnotationView alloc] initWithAnnotation:myAnnototion reuseIdentifier:@"CSLabelAnnotationView"] autorelease];
         
         newAnnotation.canShowCallout=YES;
-
-        UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];  
-//        [rightButton addTarget:self  
-//                        action:@selector(showDetails:)//点击右边的按钮之后，显示另外一个页面  
-//              forControlEvents:UIControlEventTouchUpInside];
+        
+        UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        //        [rightButton addTarget:self
+        //                        action:@selector(showDetails:)//点击右边的按钮之后，显示另外一个页面
+        //              forControlEvents:UIControlEventTouchUpInside];
         newAnnotation.rightCalloutAccessoryView = rightButton;
         
         
-        UIButton* leftButton = [UIButton buttonWithType:UIButtonTypeInfoLight];  
-        newAnnotation.leftCalloutAccessoryView = leftButton;         
+        UIButton* leftButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+        newAnnotation.leftCalloutAccessoryView = leftButton;
         return newAnnotation;
     }
     return nil;
@@ -811,7 +831,7 @@ static int iDisplay=0;
     //NSLog(@"button clicked on annotation title[%@] id[%@] control[%@]]", newAnnotation.title,newAnnotation.subtitle2,control);
     
     //获得当前坐地图标对应的view坐标
-    CGPoint annPoint = [self.mapView convertCoordinate:newAnnotation.coordinate 
+    CGPoint annPoint = [self.mapView convertCoordinate:newAnnotation.coordinate
                                          toPointToView:self.mapView];
     //NSLog(@"%@ Coordinate: %f %f", newAnnotation.title, annPoint.x, annPoint.y);
     iPopX= (int) annPoint.x;
@@ -819,7 +839,7 @@ static int iDisplay=0;
     //NSLog(@"%@ Coordinate: %d %d", newAnnotation.title, iPopX, iPopy);
     self.curTextViewinfo=newAnnotation.subtitle2;
     self.curID=newAnnotation.subtitle;
-    self.curName=newAnnotation.title;		
+    self.curName=newAnnotation.title;
     
     if (control.frame.origin.x>20) {
         NSLog(@"button clicked on annotation right");
@@ -828,16 +848,16 @@ static int iDisplay=0;
     }
     else
     {
-       // NSLog(@"button clicked on annotation left");
+        // NSLog(@"button clicked on annotation left");
         [self showInfo];
     }
-//    
-//    
-//    //mapview移动到以当前点作为中心点的位置
-//    MKCoordinateRegion theRegion=[self.mapView convertRect:self.mapView.frame toRegionFromView:self.mapView];
-//    theRegion.center=newAnnotation.coordinate;  
-//    theRegion.span=theRegion.span; 
-//    [self.mapView setRegion:theRegion];
+    //
+    //
+    //    //mapview移动到以当前点作为中心点的位置
+    //    MKCoordinateRegion theRegion=[self.mapView convertRect:self.mapView.frame toRegionFromView:self.mapView];
+    //    theRegion.center=newAnnotation.coordinate;
+    //    theRegion.span=theRegion.span;
+    //    [self.mapView setRegion:theRegion];
 }
 
 //地图自动缩放。用于在设置过MapAnnotation地标后，执行次函数，就会自动的缩放地图到合适的大小。
@@ -846,9 +866,10 @@ static int iDisplay=0;
     
 }
 
-- (void)mapView:(MKMapView *)mapView1 regionDidChangeAnimated:(BOOL)animated  
+- (void)mapView:(MKMapView *)mapView1 regionDidChangeAnimated:(BOOL)animated
 {
     NSLog(@"self.mapView.region.span %f + %f" ,mapView.region.span.latitudeDelta,mapView.region.span.longitudeDelta);
+
     if((mapView.region.span.longitudeDelta<10.0) && (mapView.region.span.longitudeDelta>0.3) && (iDisplay != 1))
     {
         for (hpiAnnotation *myannotation in portCoordinateArray) {
@@ -860,6 +881,9 @@ static int iDisplay=0;
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
             
             if ([myannotation.shipStage isEqualToString:@"2"]) {
+                myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
+            }
+            else if([myannotation.shipStat isEqualToString:@"7"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
             }
             else if([myannotation.shipStat isEqualToString:@"8"]) {
@@ -880,6 +904,7 @@ static int iDisplay=0;
     }
     if((mapView.region.span.longitudeDelta>=10.0) && (iDisplay != 0))
     {
+
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou1"];
         }
@@ -889,6 +914,9 @@ static int iDisplay=0;
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
             
             if ([myannotation.shipStage isEqualToString:@"2"]) {
+                myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
+            }
+            else if([myannotation.shipStat isEqualToString:@"7"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
             }
             else if([myannotation.shipStat isEqualToString:@"8"]) {
@@ -908,6 +936,7 @@ static int iDisplay=0;
     }
     if((mapView.region.span.longitudeDelta<=0.3) && (iDisplay != 2))
     {
+
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou3"];
         }
@@ -917,6 +946,9 @@ static int iDisplay=0;
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
             
             if ([myannotation.shipStage isEqualToString:@"2"]) {
+                myannotation.topImage = [UIImage imageNamed:@"chuanx3.png"];
+            }
+            else if([myannotation.shipStat isEqualToString:@"7"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx3.png"];
             }
             else if([myannotation.shipStat isEqualToString:@"8"]) {
@@ -934,8 +966,8 @@ static int iDisplay=0;
         [self.mapView addAnnotations:portCoordinateArray];
         iDisplay=2;
     }
-
-
+        [self getShipCoordinateByChoose:shipButton.titleLabel.text :portButton.titleLabel.text :factoryButton.titleLabel.text :NO];
+   
 }
 
 #pragma mark - popoverController
@@ -957,9 +989,13 @@ static int iDisplay=0;
         [activity stopAnimating];
         [activity removeFromSuperview];
         [updateButton setTitle:@"网络同步" forState:UIControlStateNormal];
+        
         [self getFactoryCoordinateArray];
         [self getShipCoordinateArray];
         [self getPortCoordinateArray];
+        [self chooseUpdateView];
+
+        
         return;
     }
     else {
@@ -967,16 +1003,12 @@ static int iDisplay=0;
     }
 }
 
-
-
-
-
 #pragma mark SetSelectValue  Method
 -(void)setLableValue:(NSString *)currentSelectValue
 {
     
     if (chooseView) {
-          
+        
         if (chooseView.type==kPORT) {
             [self.portButton setTitle:currentSelectValue  forState:UIControlStateNormal];
             [self chooseUpdateView];
@@ -987,26 +1019,18 @@ static int iDisplay=0;
             [self chooseUpdateView];
             
         }
-         if (chooseView.type==kSHIP) {
-             [self.shipButton setTitle:currentSelectValue   forState:UIControlStateNormal];
-             [self chooseUpdateView];
-             
-             
-         }
-        
-        
-        
-        
-        
+        if (chooseView.type==kSHIP) {
+            [self.shipButton setTitle:currentSelectValue   forState:UIControlStateNormal];
+            [self chooseUpdateView];
+            
+            
+        }
         
     }
-    
-    
-    
-    
     
 }
 
 
 
 @end
+

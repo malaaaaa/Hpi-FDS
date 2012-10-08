@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12A269</string>
+		<string key="IBDocument.SystemVersion">12B19</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
 		<string key="IBDocument.AppKitVersion">1187</string>
 		<string key="IBDocument.HIToolboxVersion">624.00</string>
@@ -98,7 +98,7 @@
 								<string key="NSFrame">{{542, 20}, {160, 35}}</string>
 								<reference key="NSSuperview" ref="987214039"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="362875541"/>
+								<reference key="NSNextKeyView" ref="822693750"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
@@ -255,7 +255,7 @@
 								<string key="NSFrame">{{723, 20}, {120, 35}}</string>
 								<reference key="NSSuperview" ref="987214039"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="822693750"/>
+								<reference key="NSNextKeyView" ref="49250958"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
@@ -279,10 +279,10 @@
 							<object class="IBUILabel" id="822693750">
 								<reference key="NSNextResponder" ref="987214039"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{719, 20}, {76, 35}}</string>
+								<string key="NSFrame">{{724, 20}, {76, 35}}</string>
 								<reference key="NSSuperview" ref="987214039"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="49250958"/>
+								<reference key="NSNextKeyView" ref="362875541"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -312,10 +312,9 @@
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
-								<string key="IBUINormalTitle">电厂类别</string>
+								<string key="IBUINormalTitle">    电厂类别</string>
 								<reference key="IBUIHighlightedTitleColor" ref="925283574"/>
 								<reference key="IBUINormalTitleColor" ref="925283574"/>
 								<reference key="IBUINormalTitleShadowColor" ref="488659545"/>
@@ -326,7 +325,7 @@
 							<object class="IBUILabel" id="49250958">
 								<reference key="NSNextResponder" ref="987214039"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{845, 20}, {100, 35}}</string>
+								<string key="NSFrame">{{866, 20}, {100, 35}}</string>
 								<reference key="NSSuperview" ref="987214039"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="588573375"/>

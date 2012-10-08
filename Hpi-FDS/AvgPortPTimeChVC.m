@@ -59,57 +59,36 @@ int currentMonth;
     [f setDateFormat:@"yyyy"];
     yeas=[f stringFromDate:[NSDate date]] ;
     [f setDateFormat:@"MM"];
-     currentMonth=[[f stringFromDate:[NSDate date]] intValue];
+    currentMonth=[[f stringFromDate:[NSDate date]] intValue];
     NSDateComponents *comp = [[NSDateComponents alloc]init];
     [comp setMonth:currentMonth-1];
     [comp setDay:31];
     [comp setYear:[yeas intValue]];
     NSCalendar *myCal = [[[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
-   
+    
     NSDate *myDate1 = [myCal dateFromComponents:comp] ;
     [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]] forState:UIControlStateNormal];
-     self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
+    self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
     self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
     [self.startButton setTitle:[NSString stringWithFormat:@"%@-01",yeas] forState:UIControlStateNormal];
-   
+    
     
     [activty removeFromSuperview];
-     tbxmlParser=[[TBXMLParser alloc] init];
+    tbxmlParser=[[TBXMLParser alloc] init];
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
-
-    [ self  getDateSource:self.startTime.text :self.endTime.text :0];
-
-    [comp    release];
-
-    if(source){
-        source=nil;
-        [source release];
-    }
-    if(dc){
-        dc=nil;
-        [dc release];
-    }
     
-   
+    [ self  getDateSource:self.startTime.text :self.endTime.text :0];
+    
+    [comp    release];
 }
 
 -(void)initDC
-{ 
-  if(!dc)
-    {
-        dc=[[DataGridComponent alloc ] init];
-    }
-    if(!dataQueryVC){
-        //初始化 父视图
-        dataQueryVC=(DataQueryVC *)self.parentVC;
-    }
-       
+{
+    
     if(!source){
         source=[[DataGridComponentDataSource alloc] init   ];
-        source.titles=[[[NSMutableArray alloc] init ] autorelease   ];
-        source.data=[[[NSMutableArray alloc] init ] autorelease];
-        source.columnWidth=[[[NSMutableArray alloc] init ] autorelease];
+        source.columnWidth=[[NSMutableArray alloc] init ] ;
     }
 }
 
@@ -119,32 +98,30 @@ int currentMonth;
     [self initDC];
     
     source.titles=[AvgPortPTimeDao getTime:cStartTime :cEndTime];
-  //  NSLog(@"----------source.titles[%d]",[source.titles count]);
-        [source.columnWidth addObject:@"90"];
-        //tites count  不为0
-        for (int t=0; t<[source.titles count]-2; t++) {
-         
-             [ source.columnWidth addObject:[NSString stringWithFormat:@"%d",860/([source.titles count]-2)]];
-        }
-        [ source.columnWidth addObject:@"80"];
-
-        //查询
+    //  NSLog(@"----------source.titles[%d]",[source.titles count]);
+    [source.columnWidth addObject:@"90"];
+    //tites count  不为0
+    for (int t=0; t<[source.titles count]-2; t++) {
+        
+        [ source.columnWidth addObject:[NSString stringWithFormat:@"%d",860/([source.titles count]-2)]];
+    }
+    [ source.columnWidth addObject:@"80"];
+    
+    //查询
     if(initAndSelect==1){
         source.data=[AvgPortPTimeDao getAvgPortDate:startTime.text:endTime.text :source.titles];
         
-      //  NSLog(@"source.data[%d]",[source.data  count]);
+        //  NSLog(@"source.data[%d]",[source.data  count]);
         
-       }
+    }
     //初始化
     dc=[[DataGridComponent alloc] initWithFrame:CGRectMake(0, 0, 1024, 530) data:source];
     
     [source release];
-    
+    dataQueryVC=(DataQueryVC *)self.parentVC;
     [dataQueryVC.listView   addSubview:dc];
-
-    
     [dc release];
-
+    
 }
 
 - (IBAction)startTimeSelect:(id)sender {
@@ -165,7 +142,7 @@ int currentMonth;
     self.popover.popoverContentSize=CGSizeMake(195, 216);
     [self.popover presentPopoverFromRect:CGRectMake(407, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
-
+    
 }
 - (IBAction)endTimeSelect:(id)sender {
     whichButton=2;
@@ -195,25 +172,12 @@ int currentMonth;
     if (![endButton .titleLabel.text isEqualToString:@"结束时间"]) {
         endTime.text=endButton.titleLabel.text;
     }
-    dataQueryVC.dataArray=[[[NSMutableArray  alloc] init ] autorelease];
-
+    
     [ self  getDateSource:self.startTime.text :self.endTime.text :1];
-    
-    if(source){
-        source=nil;
-        [source release];
-
-    }
-    if(dc){
-        dc=nil;
-        [dc release];
-    }
-    
-
     
 }
 - (IBAction)release:(id)sender {
-    //获得当前月份和年份    
+    //获得当前月份和年份
     [f setDateFormat:@"yyyy"];
     yeas=[f stringFromDate:[NSDate date]];
     [f setDateFormat:@"MM"];
@@ -225,13 +189,13 @@ int currentMonth;
     NSCalendar *myCal = [[[NSCalendar alloc ] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     NSDate *myDate1 = [myCal dateFromComponents:comp];
     self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
-     [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]]  forState:UIControlStateNormal];
+    [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]]  forState:UIControlStateNormal];
     self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
     self.startTime.hidden=YES;
     [self.startButton setTitle:[NSString stringWithFormat:@"%@-01",yeas] forState:UIControlStateNormal];
-
+    
     self.endTime.hidden=YES;
-   
+    
     [comp release];
 }
 - (IBAction)reload:(id)sender {
@@ -247,13 +211,7 @@ int currentMonth;
         [activty startAnimating];
         //解析入库
         [tbxmlParser setISoapNum:1];
-         [tbxmlParser requestSOAP:@"ShipTrans"];
-        
-        
-      
-        
-        
-       
+        [tbxmlParser requestSOAP:@"ShipTrans"];
         [self runActivity];
     }
 }
@@ -270,12 +228,12 @@ int currentMonth;
     [self setActivty:nil];
     [self setPopover:nil];
     [self setChooseView:nil];
-    [self setMonthVC:nil]; 
+    [self setMonthVC:nil];
     [reload release];
-    reload = nil; 
+    reload = nil;
 }
 - (void)dealloc {
-  
+    
     if(formater){
         [formater release];
     }
@@ -286,7 +244,7 @@ int currentMonth;
         [dc release];
     }
     if(source){
-    [source release];
+        [source release];
     }
     if(dataQueryVC){
         [dataQueryVC release];
@@ -306,7 +264,7 @@ int currentMonth;
     [super dealloc];
 }
 #pragma  mark  poper delegate Method
--(BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController   
+-(BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
 {
     
     if (monthVC) {
@@ -315,10 +273,10 @@ int currentMonth;
     }
     return YES;
 }
--(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController  
+-(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-   // NSDateFormatter *formater=[[NSDateFormatter alloc] init];
-   
+    // NSDateFormatter *formater=[[NSDateFormatter alloc] init];
+    
     if (whichButton==1) {
         [startButton setTitle:[formater stringFromDate:month] forState:UIControlStateNormal ];
         whichButton=0;
@@ -344,9 +302,9 @@ int currentMonth;
 #pragma mark SetSelectValue  Method
 -(void)setLableValue:(NSString *)currentSelectValue
 {
-   
     
-}   
+    
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

@@ -127,8 +127,10 @@ static bool ThreadFinished=TRUE;
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"--------------------------------------------  connectionDidFinishLoading");
-    
-   [self parseXML];
+//    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+//  NSLog(@"theXML[%@]",theXML);
+//    [theXML release];
+    [self parseXML];
     ThreadFinished = TRUE;
     //    [connection release];
     
@@ -195,10 +197,15 @@ static bool ThreadFinished=TRUE;
         [TfFactoryDao deleteAll];
         [self getDate:@"TfFactory" entityClass:@"TfFactory" insertTableName:@"TfFactory"];
     }
-    /******************************滞期费*****************************/
+    /******************************滞期费vb*****************************/
     if ([_Identification isEqualToString:@"LateFee"]) {
+        [VB_LatefeeDao deleteAll];
+        [self getDate:@"VbLateFee" entityClass:@"VB_Latefee" insertTableName:@"VB_Latefee"];
+    }
+    /******************************滞期费tb*****************************/
+    if ([_Identification isEqualToString:@"TbLateFee"]) {
         [TB_LatefeeDao deleteAll];
-        [self getDate:@"VbLateFee" entityClass:@"TB_Latefee" insertTableName:@"TB_Latefee"];
+        [self getDate:@"TbLateFee" entityClass:@"TB_Latefee" insertTableName:@"TB_Latefee"];
     }
     /****************************航运公司份额统计-NTShipCompanyTranShare**************************/
     if ([_Identification isEqualToString:@"TransPorts"]) {
@@ -293,11 +300,14 @@ static bool ThreadFinished=TRUE;
         
     }
 
-    
-      
-    
-    
-
+    /***********************纪要查看*****-TsFileinfo**************************/
+//    if ([_Identification isEqualToString:@"TsFile"]) {
+//        
+//        //全部删除
+//        [TsFileinfoDao deleteAll];
+//        [self getDate:@"TsFileinfo" entityClass:@"TsFileinfo" insertTableName:@"TsFileinfo"];
+//        
+//    }
     
 }
 #pragma mark -参数：1，xml子节点【TfCoalType】  2，表的对应实体类 3，插入的表名
@@ -445,14 +455,13 @@ static bool ThreadFinished=TRUE;
                     }                
                     re=sqlite3_step(statement);
                     if (re!=SQLITE_DONE) {
-                        NSLog( @"Error: insert VbShiptrans  error with message [%s]  sql[%s]", sqlite3_errmsg(database),[sql UTF8String]);
+                        NSLog( @"Error: insert error with message [%s]  sql[%s]", sqlite3_errmsg(database),[sql UTF8String]);
                         sqlite3_finalize(statement);
                         return;  
                     }else {
                         //NSLog(@"insert shipTrans  SUCCESS");
 
                     }
-               
                 sqlite3_finalize(statement);
                 //element1   :TfCoalType
                 element = [TBXML nextSiblingNamed:element1 searchFromElement:element];
