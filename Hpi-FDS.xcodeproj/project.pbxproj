@@ -201,8 +201,6 @@
 		2A8CBEEB15DE0B4C00B86257 /* AvgFactoryZXTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */; };
 		2A8D93F015E262C50058EAA8 /* AvgFactoryTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D93EE15E262C50058EAA8 /* AvgFactoryTimeChVC.m */; };
 		2A8D93F115E262C50058EAA8 /* AvgPortPTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D93EF15E262C50058EAA8 /* AvgPortPTimeChVC.m */; };
-		2A8DFEE41611459C00D92354 /* TransPlanImplementDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8DFEE21611459C00D92354 /* TransPlanImplementDetail.m */; };
-		2A8DFEE51611459C00D92354 /* TransPlanImplementDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8DFEE31611459C00D92354 /* TransPlanImplementDetail.xib */; };
 		2A8F1F5215CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */; };
 		2A8F1F5315CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8F1F5115CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib */; };
 		2A9C0B3B1603267D00F52A62 /* NT_TransPlanImpDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C0B3A1603267C00F52A62 /* NT_TransPlanImpDao.m */; };
@@ -633,9 +631,6 @@
 		2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryZXTime.m; sourceTree = "<group>"; };
 		2A8D93EE15E262C50058EAA8 /* AvgFactoryTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryTimeChVC.m; sourceTree = "<group>"; };
 		2A8D93EF15E262C50058EAA8 /* AvgPortPTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgPortPTimeChVC.m; sourceTree = "<group>"; };
-		2A8DFEE11611459C00D92354 /* TransPlanImplementDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransPlanImplementDetail.h; sourceTree = "<group>"; };
-		2A8DFEE21611459C00D92354 /* TransPlanImplementDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransPlanImplementDetail.m; sourceTree = "<group>"; };
-		2A8DFEE31611459C00D92354 /* TransPlanImplementDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransPlanImplementDetail.xib; sourceTree = "<group>"; };
 		2A8F1F4F15CA0D7A005C7B62 /* NT_LatefeeTongjChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NT_LatefeeTongjChVC.h; sourceTree = "<group>"; };
 		2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_LatefeeTongjChVC.m; sourceTree = "<group>"; };
 		2A8F1F5115CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NT_LatefeeTongjChVC.xib; sourceTree = "<group>"; };
@@ -1026,6 +1021,9 @@
 		057F6C5C152449EA00E0E435 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */,
+				D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */,
+				D3E5B0B216080881001FA133 /* NTZxgsjtjVC.xib */,
 				2A8453BC15FF0E05009960CC /* TransPlanImplement.xib */,
 				2AD43A8215EB6DED003349DA /* FactoryWaitDynamicViewController.xib */,
 				2ADAEF5415D4F4EB0028C72D /* AvgFactoryTimeChVC.xib */,
@@ -1054,6 +1052,8 @@
 				05D02A65152DD65600BBA0F6 /* MemoirCell.xib */,
 				05D02A59152DD12600BBA0F6 /* MemoirListVC.xib */,
 				D9A8381615B7EF89002D83C2 /* MultipleSelectView.xib */,
+				D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */,
+				D32DCA4F15D791D900FCB6AA /* DataQueryPopVC.xib */,
 				14C1DFCF1553A96F0060DF17 /* PortViewController.xib */,
 				05FC0E7215326CD6007B9D82 /* QueryViewController.xib */,
 				05FC0E7815326D0D007B9D82 /* SetupViewController.xib */,
@@ -1070,9 +1070,6 @@
 				14BE5D6B154688EF0042C562 /* VBShipDetailController.xib */,
 				14CB7DCD1552877A008097AE /* VBTransChVC.xib */,
 				051B248F153FA2230036557C /* WebViewController.xib */,
-				2A8DFEE11611459C00D92354 /* TransPlanImplementDetail.h */,
-				2A8DFEE21611459C00D92354 /* TransPlanImplementDetail.m */,
-				2A8DFEE31611459C00D92354 /* TransPlanImplementDetail.xib */,
 			);
 			name = Xib;
 			sourceTree = "<group>";
@@ -1155,20 +1152,20 @@
 		059A1B911525510500AB24C4 /* Pub */ = {
 			isa = PBXGroup;
 			children = (
+				059A1BA8152551D600AB24C4 /* Http */,
+				D3A06DDD15D0E74C00963BA2 /* PowerPlot_lib */,
+				D3A39CBF1601BD5000D60D6D /* ATView */,
 				2A9770611608746700D56551 /* PMCalendarSrc */,
 				2AC4620515EF358C000B13FC /* FactoryWaitFootTable.h */,
 				2AC4620615EF358C000B13FC /* FactoryWaitFootTable.m */,
 				2AEE18DB15EDECCF00E7167E /* FactoryWaitHeadTable.h */,
 				2AEE18DC15EDECCF00E7167E /* FactoryWaitHeadTable.m */,
-				D3A39CBF1601BD5000D60D6D /* ATView */,
 				D3980FDC15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.h */,
 				D3980FDD15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m */,
 				D35A549F15DC9ED900D55862 /* TBXML.h */,
 				D35A54A015DC9ED900D55862 /* TBXML.m */,
 				D35A54A115DC9ED900D55862 /* TBXMLParser.h */,
 				D35A54A215DC9ED900D55862 /* TBXMLParser.m */,
-				D3A06DDD15D0E74C00963BA2 /* PowerPlot_lib */,
-				059A1BA8152551D600AB24C4 /* Http */,
 				059A1BD7152556A500AB24C4 /* PubInfo.h */,
 				059A1BD8152556A500AB24C4 /* PubInfo.m */,
 				059A1B921525519700AB24C4 /* DataGridComponent.h */,
@@ -1422,10 +1419,8 @@
 				2A8D93EF15E262C50058EAA8 /* AvgPortPTimeChVC.m */,
 				D3F2040115D7A44B00BA6658 /* DataQueryMenuVC.h */,
 				D3F2040215D7A44B00BA6658 /* DataQueryMenuVC.m */,
-				D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */,
 				D32DCA4D15D791D900FCB6AA /* DataQueryPopVC.h */,
 				D32DCA4E15D791D900FCB6AA /* DataQueryPopVC.m */,
-				D32DCA4F15D791D900FCB6AA /* DataQueryPopVC.xib */,
 				14BE5D7A1546B7470042C562 /* DataQueryVC.h */,
 				14BE5D7B1546B7470042C562 /* DataQueryVC.m */,
 				14BE5D7D1546B7470042C562 /* en.lproj */,
@@ -1504,23 +1499,18 @@
 				2ADAEF5215D4F4EB0028C72D /* AvgFactoryTimeChVC.h */,
 				D32DCA4D15D791D900FCB6AA /* DataQueryPopVC.h */,
 				D32DCA4E15D791D900FCB6AA /* DataQueryPopVC.m */,
-				D32DCA4F15D791D900FCB6AA /* DataQueryPopVC.xib */,
 				D3F2040115D7A44B00BA6658 /* DataQueryMenuVC.h */,
 				D3F2040215D7A44B00BA6658 /* DataQueryMenuVC.m */,
-				D3F2040315D7A44B00BA6658 /* DataQueryMenuVC.xib */,
 				2AD43A8015EB6DED003349DA /* FactoryWaitDynamicViewController.h */,
 				2AD43A8115EB6DED003349DA /* FactoryWaitDynamicViewController.m */,
 				2A8453BA15FF0E05009960CC /* TransPlanImplement.h */,
 				2A8453BB15FF0E05009960CC /* TransPlanImplement.m */,
 				D3E522FB15F8740F008756BD /* NTLateFeeDmfxVC.h */,
 				D3E522FC15F87410008756BD /* NTLateFeeDmfxVC.m */,
-				D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */,
 				D31B5126160184C700EFB98F /* NTLateFeeHcfxVC.h */,
 				D31B5127160184C700EFB98F /* NTLateFeeHcfxVC.m */,
-				D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */,
 				D3E5B0B016080881001FA133 /* NTZxgsjtjVC.h */,
 				D3E5B0B116080881001FA133 /* NTZxgsjtjVC.m */,
-				D3E5B0B216080881001FA133 /* NTZxgsjtjVC.xib */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1855,7 +1845,6 @@
 				D39E90DC15E60F9800C8CCF4 /* xialax.png in Resources */,
 				2AD43A8415EB6DED003349DA /* FactoryWaitDynamicViewController.xib in Resources */,
 				2A8453BE15FF0E05009960CC /* TransPlanImplement.xib in Resources */,
-				2A8DFEE51611459C00D92354 /* TransPlanImplementDetail.xib in Resources */,
 				D3E522FF15F87410008756BD /* NTLateFeeDmfxVC.xib in Resources */,
 				D31B512A160184C800EFB98F /* NTLateFeeHcfxVC.xib in Resources */,
 				D3E5B0B416080882001FA133 /* NTZxgsjtjVC.xib in Resources */,
@@ -2062,7 +2051,6 @@
 				2A1D883116096D5600CC5CAB /* PMDimmingView.m in Sources */,
 				2A1D883216096D5600CC5CAB /* PMPeriod.m in Sources */,
 				2A1D883316096D5600CC5CAB /* PMSelectionView.m in Sources */,
-				2A8DFEE41611459C00D92354 /* TransPlanImplementDetail.m in Sources */,
 				D3E522F915F83CA2008756BD /* NTLateFeeDMFX.m in Sources */,
 				D3E522FE15F87410008756BD /* NTLateFeeDmfxVC.m in Sources */,
 				D31B512416017E1D00EFB98F /* NTLateFeeHCFX.m in Sources */,

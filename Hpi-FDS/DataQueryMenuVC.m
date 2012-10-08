@@ -194,7 +194,7 @@
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
+    return 34.0;
 }
 - (void)removeAllSubView{
     if(vbFactoryTransVC){
