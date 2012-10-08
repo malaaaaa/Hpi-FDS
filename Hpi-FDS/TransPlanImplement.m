@@ -275,6 +275,9 @@ int totalColument=0;
 
    
 }
+
+
+
 -(NSMutableArray *)getSourceDate:(SearchModel *)Smodel
 {
     NSMutableArray *date=[[[NSMutableArray alloc] init] autorelease];
@@ -314,6 +317,11 @@ int totalColument=0;
                     
                   //  NSLog(@"d ===月集合。。。。。。。。。。。。。。。==============[%d]",[d count]);
                     [rowdate addObject:d];
+                    
+        
+                    
+                                      
+                    
                     
                     [d release  ];
                     d=[[NSMutableArray alloc] init];
@@ -415,7 +423,7 @@ int totalColument=0;
                     [f setDateFormat:@"MM"];
                     
                     NSDate *tt=[[NSDate alloc] initWithTimeInterval:30*24*60*60 sinceDate:t];
-                     // NSLog(@"============111111111111111111111======================");
+                      //NSLog(@"============111111111111111111111======================");
                     NSString *m=[NSString stringWithFormat:@"%@",  [f stringFromDate:tt]] ;
                     
                    
@@ -471,6 +479,7 @@ int totalColument=0;
                     
                  
                     [dateArr addObject:item.ST_PLANMONTH];
+                     
                     NSMutableArray *dateArr1=[[NSMutableArray alloc] init];
 
                     for (int i = 1; i <= 31; i++)
@@ -567,7 +576,7 @@ int totalColument=0;
                     NSString *monthY=yeas==nil?[NSString  stringWithFormat:@"%@",m]:   [NSString  stringWithFormat:@"%@%@",yeas,m];
                     [f setDateFormat:@"dd"];
                    
-                 //   NSLog(@"============22222222222222222222222222=====================");
+                  //  NSLog(@"============22222222222222222222222222=====================");
                     
               //  NSLog(@"monthY======%@=========item.ST_PLANMONTH ========%@",monthY,item.ST_PLANMONTH);
                     if (  [item.ST_PLANMONTH isEqualToString:monthY]   )
@@ -621,6 +630,7 @@ int totalColument=0;
                     
                    
                     [dateArr addObject:item.ST_PLANMONTH];
+                   
                     NSMutableArray *dateArr1=[[NSMutableArray alloc] init];
                  
                     for (int i = 1; i <= 31; i++)
@@ -788,6 +798,7 @@ int totalColument=0;
                 
                 
                 [dateArr addObject:item.ST_PLANMONTH];
+              
                 NSMutableArray *dateArr1=[[NSMutableArray alloc] init];
               
                 for (int i = 1; i <= 31; i++)
@@ -1178,9 +1189,13 @@ int totalColument=0;
                            
                            [date1 removeAllObjects];
                            
+                           
                            [date1   addObject:[NSString stringWithFormat:@"%f",cellRect.origin.y-[tableView contentOffset].y]];
                          
                            [date1 addObject:dateArr];
+                           
+                        //   NSLog(@"===========%@",[[dateArr objectAtIndex:0] objectAtIndex:0] );
+                           
                            
                            [b setTag: (int)date1 ];
                            [b addTarget:self  action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -1292,8 +1307,19 @@ int totalColument=0;
     return 40;
 }
 
+
+
+
+
+
+
+
 -(void)butClick1:(id)sender
 {
+    
+    [self.view resignFirstResponder];
+    
+    
        NSMutableArray *dateArr;
       clickbutton=1;
 
@@ -1435,9 +1461,11 @@ int totalColument=0;
                 }
             }
              
-              dateStr1=[[[dateTag objectAtIndex:1]    objectAtIndex:i] objectAtIndex:0];
+             
          }
     }
+     dateStr1=[[[dateTag objectAtIndex:1]    objectAtIndex:0] objectAtIndex:0];
+  //  NSLog(@"dateStr1=======================================%@",dateStr1);
     
     [days addObject:@"T"];
     
