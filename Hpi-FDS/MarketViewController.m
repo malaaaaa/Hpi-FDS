@@ -20,13 +20,14 @@
 @synthesize tbxmlParser;
 
 
+
 static NSString *stringType=@"BSPI";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"市场指数", @"3th");
+        self.title = NSLocalizedString(@"市场信息", @"3th");
         self.tabBarItem.image = [UIImage imageNamed:@"market"];
     }
     return self;
@@ -51,6 +52,18 @@ static NSString *stringType=@"BSPI";
     [activity removeFromSuperview];
 
     self.tbxmlParser =[[TBXMLParser alloc] init] ;
+    
+    _listView.layer.masksToBounds=YES;
+    _listView.layer.cornerRadius=2.0;
+    _listView.layer.borderWidth=2.0;
+    _listView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
+    _listView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
+    
+    _buttonView.layer.masksToBounds=YES;
+    _buttonView.layer.cornerRadius=2.0;
+    _buttonView.layer.borderWidth=2.0;
+    _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
+    _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
 }
 
 - (void)viewDidUnload
@@ -112,11 +125,17 @@ static NSString *stringType=@"BSPI";
     NSDate *maxDate=[endDay laterDate:startDay];
     NSDate *minDate=[endDay earlierDate:startDay];
     HpiGraphData *graphData=[[HpiGraphData alloc] init];
-    graphData.pointArray = [[[NSMutableArray alloc]init] autorelease];
-    graphData.pointArray2 = [[[NSMutableArray alloc]init] autorelease];
-    graphData.pointArray3 = [[[NSMutableArray alloc]init] autorelease];
-    graphData.xtitles = [[[NSMutableArray alloc]init] autorelease];
-    graphData.ytitles = [[[NSMutableArray alloc]init] autorelease];
+    graphData.pointArray = [[NSMutableArray alloc] init] ;
+    graphData.pointArray2 = [[NSMutableArray alloc] init] ;
+    graphData.pointArray3 = [[NSMutableArray alloc] init];
+    graphData.xtitles = [[NSMutableArray alloc] init];
+    graphData.ytitles = [[NSMutableArray alloc] init];
+
+//    graphData.pointArray = [[[NSMutableArray alloc]init] autorelease];
+//    graphData.pointArray2 = [[[NSMutableArray alloc]init] autorelease];
+//    graphData.pointArray3 = [[[NSMutableArray alloc]init] autorelease];
+//    graphData.xtitles = [[[NSMutableArray alloc]init] autorelease];
+//    graphData.ytitles = [[[NSMutableArray alloc]init] autorelease];
     NSDate *date=minDate;
     NSMutableArray *array=[TmIndexdefineDao getTmIndexdefineByName:stringType];
     NSLog(@"查询[%d]",[array count]);
@@ -175,12 +194,12 @@ static NSString *stringType=@"BSPI";
         }
         [dateFormatter release];
     }
-    else
+    else{
         [graphData release];
         
         return;
-    
-    //NSLog(@"BSPI 统计共%d天",graphData.xNum);
+    }
+    NSLog(@"BSPI 统计共%d天",graphData.xNum);
     date=minDate;
     for ( int i = 0 ; i < graphData.xNum ; i++ ) {
         //NSLog(@"date %@",date);
@@ -192,6 +211,7 @@ static NSString *stringType=@"BSPI";
             point.x=i;
             point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
             [graphData.pointArray  addObject:point];
+            [point release];
         }
         date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
     }
@@ -208,6 +228,8 @@ static NSString *stringType=@"BSPI";
                 point.x=i;
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray2  addObject:point];
+                [point release];
+
             }
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
@@ -225,6 +247,8 @@ static NSString *stringType=@"BSPI";
                 point.x=i;
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray2  addObject:point];
+                [point release];
+
             }
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
@@ -241,6 +265,8 @@ static NSString *stringType=@"BSPI";
                 point.x=i;
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray2  addObject:point];
+                [point release];
+
             }
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
@@ -257,6 +283,8 @@ static NSString *stringType=@"BSPI";
                 point.x=i;
                 point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
                 [graphData.pointArray3  addObject:point];
+                [point release];
+
             }
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
@@ -267,7 +295,7 @@ static NSString *stringType=@"BSPI";
         graphView =nil;
     }
     //NSLog(@"graphView $$$$$$$$ %d",[graphView retainCount]);
-    self.graphView=[[HpiGraphView alloc] initWithFrame:CGRectMake(50, 120, 924, 550) :graphData];
+    self.graphView=[[HpiGraphView alloc] initWithFrame:CGRectMake(50, 15, 924, 550) :graphData];
     if([stringType isEqualToString:@"BSPI"]){
         graphView.titleLabel.text=@"环渤海价格指数";
     }
@@ -302,7 +330,7 @@ static NSString *stringType=@"BSPI";
     graphView.marginLeft=60;
     graphView.marginTop=80;
     [graphView setNeedsDisplay];
-    [self.view addSubview:graphView];
+    [self.listView addSubview:graphView];
     [graphData release];
 }
 #pragma mark -
@@ -396,6 +424,7 @@ static NSString *stringType=@"BSPI";
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
+        [activity setFrame:CGRectMake(967, 45, 37, 37)];
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];

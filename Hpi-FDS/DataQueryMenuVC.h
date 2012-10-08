@@ -14,7 +14,9 @@
 #import "DataQueryVC.h"
 #import "FactoryWaitDynamicViewController.h"
 #import "TransPlanImplement.h"
-
+#import "NTLateFeeDmfxVC.h"
+#import "NTLateFeeHcfxVC.h"
+#import "NTZxgsjtjVC.h"
 
 @interface DataQueryMenuVC : UIViewController<UITableViewDataSource,UITableViewDelegate>{
     IBOutlet UITableView *tableView;
@@ -29,6 +31,9 @@
     TransPlanImplement *transPI;
     
     DataQueryVC *dataQueryVC;
+    NTLateFeeDmfxVC *ntLateFeeDmfxVC;
+    NTLateFeeHcfxVC *ntLateFeeHcfxVC;
+    NTZxgsjtjVC *ntZxgsjtjVC;
 }
 @property(nonatomic,retain) UITableView *tableView;
 @property(nonatomic,retain) NSMutableArray *iDArray;
@@ -39,7 +44,10 @@
 @property(nonatomic,assign) FactoryFreightVolumeVC *factoryFreightVolumeVC;
 @property(nonatomic,assign) PortEfficiencyVC *portEfficiencyVC;
 @property(nonatomic,assign) DataQueryVC *dataQueryVC;
-
 @property(nonatomic,assign)   FactoryWaitDynamicViewController *factoryWait;
 @property(nonatomic,assign)  TransPlanImplement *transPI;
+@property(nonatomic,assign) NTLateFeeDmfxVC *ntLateFeeDmfxVC;
+@property(nonatomic,assign) NTLateFeeHcfxVC *ntLateFeeHcfxVC;
+@property(nonatomic,assign) NTZxgsjtjVC *ntZxgsjtjVC;
+
 @end

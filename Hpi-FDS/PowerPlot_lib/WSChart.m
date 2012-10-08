@@ -133,7 +133,9 @@
                                      UIViewAutoresizingFlexibleBottomMargin)];
     [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setFont:[self chartTitleFont]];
-    [titleLabel setTextColor:[self chartTitleColor]];
+    //modified by mawp set不好使，只能直接改，不能怪我了
+//    [titleLabel setTextColor:[self chartTitleColor]];
+    [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [self setTitleLabel:titleLabel];
     [self addSubview:[self titleLabel]];

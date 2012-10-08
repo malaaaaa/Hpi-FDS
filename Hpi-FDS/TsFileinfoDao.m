@@ -20,7 +20,7 @@ static sqlite3	*database;
 }
 
 +(void) openDataBase
-{	
+{
 	NSString *file=[self dataFilePath];
 	if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
 	{
@@ -32,7 +32,7 @@ static sqlite3	*database;
 }
 
 +(void) initDb
-{	
+{
 	char *errorMsg;
 	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS TsFileinfo  (fileId INTEGER PRIMARY KEY ",
@@ -56,23 +56,23 @@ static sqlite3	*database;
 
 +(void)insert:(TsFileinfo*) tsFileinfo
 {
-	NSLog(@"Insert begin TsFileinfo");
+    //	NSLog(@"Insert begin TsFileinfo");
 	const char *insert="INSERT INTO TsFileinfo (fileId,fileType,title,filePath,fileName,userName,recordTime,xzbz) values(?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
 	int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
-    if (re != SQLITE_OK) 
+    if (re != SQLITE_OK)
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
-	NSLog(@"fileId=%d", tsFileinfo.fileId);
-	NSLog(@"fileType=%@", tsFileinfo.fileType);
-	NSLog(@"title=%@", tsFileinfo.title);
-	NSLog(@"filePath=%@", tsFileinfo.filePath);
-	NSLog(@"fileName=%@", tsFileinfo.fileName);
-	NSLog(@"userName=%@", tsFileinfo.userName);
-	NSLog(@"recordTime=%@", tsFileinfo.recordTime);
-    NSLog(@"xzbz=%@", tsFileinfo.xzbz);
+    //	NSLog(@"fileId=%d", tsFileinfo.fileId);
+    //	NSLog(@"fileType=%@", tsFileinfo.fileType);
+    //	NSLog(@"title=%@", tsFileinfo.title);
+    //	NSLog(@"filePath=%@", tsFileinfo.filePath);
+    //	NSLog(@"fileName=%@", tsFileinfo.fileName);
+    //	NSLog(@"userName=%@", tsFileinfo.userName);
+    //	NSLog(@"recordTime=%@", tsFileinfo.recordTime);
+    //    NSLog(@"xzbz=%@", tsFileinfo.xzbz);
 	sqlite3_bind_int(statement, 1, tsFileinfo.fileId);
     sqlite3_bind_text(statement, 2, [tsFileinfo.fileType UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 3, [tsFileinfo.title UTF8String], -1, SQLITE_TRANSIENT);
@@ -88,7 +88,7 @@ static sqlite3	*database;
 		NSLog( @"Error: insert TsFileinfo error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
 		sqlite3_finalize(statement);
 		return;
-	}	
+	}
 	sqlite3_finalize(statement);
 	return;
 }
@@ -104,7 +104,7 @@ static sqlite3	*database;
 	}
 	else
 	{
-		NSLog(@"delete success");		
+        //		NSLog(@"delete success");
 	}
 	return;
 }
@@ -120,7 +120,7 @@ static sqlite3	*database;
 	}
 	else
 	{
-		NSLog(@"delete success");		
+		NSLog(@"delete success");
 	}
 	return;
 }
@@ -165,7 +165,7 @@ static sqlite3	*database;
 	}
 	else
 	{
-		NSLog(@"delete success");		
+		NSLog(@"delete success");
 	}
 	return;
 }
@@ -173,20 +173,27 @@ static sqlite3	*database;
 +(BOOL)tsFileHasDownload
 {
     NSString *query=@"SELECT  count(fileId)  FROM  TsFileinfo WHERE xzbz='2' ";
-	NSLog(@"isExist [%@]",query);
+    //	NSLog(@"isExist [%@]",query);
 	sqlite3_stmt	*statement;
 	if(sqlite3_prepare_v2(database,[query UTF8String],-1,&statement,nil)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			char * rowData0=(char *)sqlite3_column_text(statement,0);
 			int num=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease]intValue] ;
-			if(num>0)
+			if(num>0){
+                sqlite3_finalize(statement);
+                
 				return YES;
-			else
-				return  NO;
+            }
+			else{
+                sqlite3_finalize(statement);
+                return  NO;
+            }
 		}
 	}else {
+        sqlite3_finalize(statement);
 		return NO;
 	}
+    sqlite3_finalize(statement);
     return NO;
 }
 
@@ -199,14 +206,22 @@ static sqlite3	*database;
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			char * rowData0=(char *)sqlite3_column_text(statement,0);
 			int num=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease]intValue] ;
-			if(num>0)
+			if(num>0){
+                sqlite3_finalize(statement);
 				return YES;
-			else
+            }
+			else{
+                sqlite3_finalize(statement);
+                
 				return  NO;
+            }
 		}
 	}else {
+        sqlite3_finalize(statement);
 		return NO;
 	}
+    sqlite3_finalize(statement);
+    
     return NO;
 }
 
@@ -218,41 +233,47 @@ static sqlite3	*database;
     NSLog(@"执行 getTsFileinfoBySql [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
+    
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
-			
-            TsFileinfo *tsFileinfo=[[TsFileinfo alloc] init];
-            tsFileinfo.fileId = sqlite3_column_int(statement,0);            
             
+            TsFileinfo *tsFileinfo=[[TsFileinfo alloc] init];
+            
+            tsFileinfo.fileId = sqlite3_column_int(statement,0);
+            
+            //            NSLog(@"tsFileinfo.retaincount=%d",[tsFileinfo retainCount]);
+            //            NSLog(@"tsFileinfo.fileType.retaincount=%d",[tsFileinfo.fileType retainCount]);
             char * rowData1=(char *)sqlite3_column_text(statement,1);
             if (rowData1 == NULL)
                 tsFileinfo.fileType = nil;
             else
-                tsFileinfo.fileType = [NSString stringWithUTF8String: rowData1];    
+                tsFileinfo.fileType = [NSString stringWithUTF8String: rowData1];
             
             char * rowData2=(char *)sqlite3_column_text(statement,2);
             if (rowData2 == NULL)
                 tsFileinfo.title = nil;
             else
-                tsFileinfo.title = [NSString stringWithUTF8String: rowData2];   
+                tsFileinfo.title = [NSString stringWithUTF8String: rowData2];
+            
             
             char * rowData3=(char *)sqlite3_column_text(statement,3);
             if (rowData3 == NULL)
                 tsFileinfo.filePath = nil;
             else
-                tsFileinfo.filePath = [NSString stringWithUTF8String: rowData3];   
+                tsFileinfo.filePath = [NSString stringWithUTF8String: rowData3];
+            
             
             char * rowData4=(char *)sqlite3_column_text(statement,4);
             if (rowData4 == NULL)
                 tsFileinfo.fileName = nil;
             else
-                tsFileinfo.fileName = [NSString stringWithUTF8String: rowData4];            
+                tsFileinfo.fileName = [NSString stringWithUTF8String: rowData4];
             
             char * rowData5=(char *)sqlite3_column_text(statement,5);
             if (rowData5 == NULL)
                 tsFileinfo.userName = nil;
             else
-                tsFileinfo.userName = [NSString stringWithUTF8String: rowData5];  
+                tsFileinfo.userName = [NSString stringWithUTF8String: rowData5];
             
 			char * rowData6=(char *)sqlite3_column_text(statement,6);
             if (rowData6 == NULL)
@@ -266,13 +287,15 @@ static sqlite3	*database;
             else
                 tsFileinfo.xzbz = [NSString stringWithUTF8String: rowData7];
             
-            
 			[array addObject:tsFileinfo];
+            
             [tsFileinfo release];
-		}
+        }
+        sqlite3_finalize(statement);
 	}else {
 		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
 	}
+    
 	return array;
 }
 
@@ -282,14 +305,14 @@ static sqlite3	*database;
 	NSString *updateSql=[NSString stringWithFormat:@"update  TsFileinfo  set xzbz='%@' where FILEID='%d' ",xzbz,fileId];
 	if(sqlite3_exec(database,[updateSql UTF8String],NULL,NULL,NULL)!=SQLITE_OK)
 	{
-		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);		
+		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);
 	}
 	else
 	{
 		NSLog(@"update success");
 		
 	}
-	return;	
+	return;
 }
 
 //zhangcx add
@@ -298,21 +321,21 @@ static sqlite3	*database;
 	NSString *updateSql=@"update TsFileinfo  set xzbz='0' where xzbz='2' ";
 	if(sqlite3_exec(database,[updateSql UTF8String],NULL,NULL,NULL)!=SQLITE_OK)
 	{
-		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);		
+		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);
 	}
 	else
 	{
 		NSLog(@"update success");
 		
 	}
-	return;	
+	return;
 }
 +(void) updateDown
 {
 	NSString *updateSql=@"update TsFileinfo  set xzbz='0' where xzbz='1' ";
 	if(sqlite3_exec(database,[updateSql UTF8String],NULL,NULL,NULL)!=SQLITE_OK)
 	{
-		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);		
+		NSLog( @"Error: update data error with message [%s]  sql[%@]", sqlite3_errmsg(database),updateSql);
 	}
 	else
 	{

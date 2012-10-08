@@ -93,7 +93,7 @@ DataQueryVC *dataQueryVC;
     //填冲标题数据
     for(int column = 0;column < [dataSource.titles count];column++){
         float columnWidth = [[dataSource.columnWidth objectAtIndex:column] floatValue];
-        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth -1, 40+2 )];
+        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1 , 40+2 )];
         l.font = [UIFont systemFontOfSize:16.0f];
         l.text = [dataSource.titles objectAtIndex:column];
         l.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgtopbg"]];

@@ -17,6 +17,7 @@
 @synthesize memoirTableView,popover,listArray,downLoadArray;
 @synthesize xmlParser,networkQueue,processView,stringType;
 @synthesize contentLength,webVC,cellArray;
+@synthesize refreshHeaderView=_refreshHeaderView;
 
 static int cellNum =0;
 #pragma mark -
@@ -77,15 +78,15 @@ static int cellNum =0;
 }
 
 - (void)dealloc {
-    _refreshHeaderView = nil;
+    self.refreshHeaderView = nil;
 	if(memoirTableView)
 		[memoirTableView release];
 	if(popover)
 		[popover release];
-    if(listArray)
+    if(listArray){
 		[listArray release];
-    if (xmlParser)
-        [xmlParser release];
+    }
+
     if(downLoadArray)
 		[downLoadArray release];
     [networkQueue setDelegate:nil];
@@ -93,17 +94,23 @@ static int cellNum =0;
     if(networkQueue)
 		[networkQueue release];
 	networkQueue = nil;
-    
+    self.cellArray=nil;
+    self.stringType=nil;
+
     [super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+
     NSLog(@"viewWillAppear");
+
     [self.listArray removeAllObjects];
     [self.cellArray removeAllObjects];
     cellNum=0;
+
     self.listArray =[TsFileinfoDao getTsFileinfoByType:self.stringType];
+
     for(int i=0;i<[listArray count];i++)
 	{
 		TsFileinfo *tsFile=(TsFileinfo *)[listArray objectAtIndex:i];
@@ -118,7 +125,7 @@ static int cellNum =0;
     // Do any additional setup after loading the view from its nib.
     //self.listArray =[TsFileinfoDao getTsFileinfo];
     //开始初始化下载数组
-	self.cellArray=[[[NSMutableArray alloc]init] autorelease];
+	self.cellArray=[[NSMutableArray alloc]init] ;
     cellNum=0;
     [memoirTableView setSeparatorColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];
 //    for(int i=0;i<[listArray count];i++)
@@ -131,12 +138,14 @@ static int cellNum =0;
     //定义下拉刷新历史记录
 	{
 		[_refreshHeaderView removeFromSuperview];
+
 		_refreshHeaderView=nil;
 		if (_refreshHeaderView == nil) {
 			EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame: CGRectMake(0.0f,-70, 320, 70)];
 			view.delegate = self;
+            
 			[self.memoirTableView addSubview:view];
-			_refreshHeaderView = view;
+			self.refreshHeaderView = view;
 			[view release];
 		}
 	}
@@ -154,10 +163,21 @@ static int cellNum =0;
 }
 
 - (void)viewDidUnload
-{
+{    
+
+//    self.stringType=nil;
+//
+
+    self.listArray=nil;
+    self.cellArray=nil;
+
+//    self.downLoadArray=nil;
+//    self.cellArray=nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -184,7 +204,7 @@ static int cellNum =0;
         [self.popover dismissPopoverAnimated:YES];
     }
     else {
-        
+            
     }
 }
 
@@ -257,9 +277,13 @@ static int cellNum =0;
 {
     if ([xmlParser iSoapNum]==0) {
         if ([xmlParser iSoapTsFileinfoDone]==2) {
-            [listArray removeAllObjects];
-            listArray=nil;
-            listArray =[TsFileinfoDao getTsFileinfoByType:self.stringType];
+
+            [self.listArray removeAllObjects];
+
+//            listArray=nil;
+            self.listArray =[TsFileinfoDao getTsFileinfoByType:self.stringType];
+
+
             [self.cellArray removeAllObjects];
             cellNum=0;
             for(int i=0;i<[listArray count];i++)
@@ -274,12 +298,13 @@ static int cellNum =0;
         //定义下拉刷新历史记录
         {
             [_refreshHeaderView removeFromSuperview];
+
             _refreshHeaderView=nil;
             if (_refreshHeaderView == nil) {
                 EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame: CGRectMake(0.0f,-70, 320, 70)];
                 view.delegate = self;
                 [self.memoirTableView addSubview:view];
-                _refreshHeaderView = view;
+                self.refreshHeaderView = view;
                 [view release];
             }
         }

@@ -13,13 +13,21 @@
 @synthesize fileType, title, filePath, fileName, userName, recordTime,xzbz;
 
 -(void)dealloc {
+    NSLog(@"delllllllllloc");
     [fileType release];
+    fileType=nil;
     [title release];
+    title=nil;
     [filePath release];
+    filePath=nil;
     [fileName release];
+    fileName=nil;
     [userName release];
+    userName=nil;
     [recordTime release];
+    recordTime=nil;
     [xzbz release];
+    xzbz=nil;
     [super dealloc];
 }
 

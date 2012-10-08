@@ -39,7 +39,13 @@
 }
 
 - (void)dealloc {
-    [okimage release];
+    self.okimage=nil;
+    self.backimage=nil;
+    self.iconimage=nil;
+    self.textlabel=nil;
+    self.subtextlabel=nil;
+    self.button=nil;
+    self.processView=nil;
     [super dealloc];
 }
 @end

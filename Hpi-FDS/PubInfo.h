@@ -56,7 +56,12 @@
 #import "PortEfficiency.h"
 #import "TH_ShipTrans.h"
 #import "TH_ShipTransDao.h"
-
+#import "NTLateFeeDMFX.h"
+#import "NTLateFeeHCFX.h"
+#import "NTZxgsjtj.h"
+#import "VB_LatefeeDao.h"
+#import "TB_LatefeeDao.h"
+#import "TfPortDao.h"
 typedef enum{
     kPORT=0,
     kFACTORY,
@@ -97,7 +102,9 @@ typedef enum{
     kMenuFcAvgZXTime,//电厂装卸港时间统计
     kMenuFactoryWaitState,//电厂靠泊动态
     kMenuTransPlanimplment,//航运计划执行情况
-    
+    kMenuZQFDMFX,//滞期费吨煤分析
+    kMenuZQFHCFX,//滞期费航次分析
+    kMenuZXGSJTJ,//装卸港时间统计
     kDataQueryMenu_MAX,//最大数量
 
 } DataQueryMenu;
@@ -126,7 +133,31 @@ typedef enum{
 +(NSString *)deviceID;
 +(NSString *)currTime;
 
+/*!
+ @method +(BOOL)checkDeviceRegisterInfo;
+ @author 马文培
+ @abstract 监测该设备是否注册成功
+ @param 参数说明
+ @result 返回结果
+ */
++(BOOL)checkDeviceRegisterInfo;
+/*!
+ @method +(BOOL)checkDeviceVerificationInfo;
+ @author 马文培
+ @abstract 监测该设备是否登陆验证成功
+ @param 参数说明
+ @result 返回结果
+ */
++(BOOL)checkDeviceVerificationInfo;
+
 //计算两个YYYYMM格式字符串之间月份之差
+/*!
+ @method +(NSInteger)getMonthDifference:(NSString *)startDate :(NSString *)endDate;
+ @author 马文培
+ @abstract 计算两个YYYYMM格式字符串之间月份之差
+ @param startDate 开始时间 endDate 结束时间
+ @result 返回整型的月份
+ */
 +(NSInteger)getMonthDifference:(NSString *)startDate :(NSString *)endDate;
 
 

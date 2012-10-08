@@ -36,6 +36,8 @@
     HpiGraphView *graphView;
     ChooseView *chooseView;
     MarketOneController *marketOneController;
+    IBOutlet UIView *_buttonView;
+    IBOutlet UIView *_listView;
 }
 @property(nonatomic,retain) UISegmentedControl *segment;
 @property(nonatomic,retain) UIPopoverController *popover;
@@ -54,4 +56,6 @@
 @property(nonatomic,retain) HpiGraphView *graphView;
 @property(nonatomic,retain) ChooseView *chooseView;
 @property(nonatomic,retain) MarketOneController *marketOneController;
+@property(nonatomic,retain) UIView *buttonView;
+@property(nonatomic,retain) UIView *listView;
 @end

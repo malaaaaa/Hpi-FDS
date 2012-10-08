@@ -36,7 +36,7 @@ UIAlertView *alert;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"设置", @"6th");
+        self.title = NSLocalizedString(@"系统设置", @"6th");
         self.tabBarItem.image = [UIImage imageNamed:@"setup"];
     }
     return self;
@@ -46,6 +46,10 @@ UIAlertView *alert;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    tableView.layer.masksToBounds=YES;
+    tableView.layer.cornerRadius=5.0;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -129,6 +133,9 @@ UIAlertView *alert;
         [xmlParser getTmIndexdefine];
         [TmIndextypeDao deleteAll];
         [xmlParser getTmIndextype];
+
+
+   
 
         [self runActivity];
 	}
