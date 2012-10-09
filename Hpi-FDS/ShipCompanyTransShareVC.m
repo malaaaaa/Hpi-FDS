@@ -486,17 +486,31 @@ static  NSMutableArray *LegendArray;
             else{
                 if(tgPort.didSelected==YES){
                     ((TgPort *)[PortArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[PortArray count]; i++) {
+                        if(((TgPort *)[PortArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TgPort *)[PortArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
                     ((TgPort *)[PortArray objectAtIndex:indexPathRow]).didSelected=YES;
+                    for (int i=0; i<[PortArray count]; i++) {
+                        if(((TgPort *)[PortArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[PortArray count]-1) {
+                        ((TgPort *)[PortArray objectAtIndex:0]).didSelected=YES;
+                    }
+
                 }
             }
-            for (int i=0; i<[PortArray count]; i++) {
-                if(((TgPort *)[PortArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
-                }
-            }
+           
             //只要有条件选中，附加星号标示
             if (count>0) {
                 [self.portButton setTitle:@"港口(*)" forState:UIControlStateNormal];

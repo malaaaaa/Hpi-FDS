@@ -193,7 +193,7 @@ static sqlite3 *database;
 +(BOOL) isNoData
 {
 	sqlite3_stmt *statement;
-    NSString *sql=@"select  max(latefee) from NTLateFeeDMFX ";
+    NSString *sql=@"select  max(abs(latefee)) from NTLateFeeDMFX ";
     NSLog(@"执行 isNoData [%@] ",sql);
     
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
