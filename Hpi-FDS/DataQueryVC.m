@@ -163,7 +163,7 @@ static NSInteger menuIndex;
     if(menuIndex==kMenuSSCBCX)
 
     {
-        VbShiptrans *vbShiptrans=[dataArray objectAtIndex:indexPath.row];
+        TH_SHIPTRANS_ORI *vbShiptrans=[dataArray objectAtIndex:indexPath.row];
         //初始化待显示控制器
         VBShipDetailController *vbShipDetailController=[[VBShipDetailController alloc]init];
         //设置待显示控制器的范围
@@ -174,18 +174,28 @@ static NSInteger menuIndex;
         UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:vbShipDetailController];
         vbShipDetailController.popover = pop;
         
-        vbShipDetailController.p_AnchorageTime.text = vbShiptrans.p_AnchorageTime;
-        vbShipDetailController.p_Handle.text = vbShiptrans.p_Handle;
-        vbShipDetailController.p_ArrivalTime.text = vbShiptrans.p_ArrivalTime;
-        vbShipDetailController.lw.text =[NSString stringWithFormat:@"%d", vbShiptrans.lw];
-        vbShipDetailController.p_DepartTime.text =vbShiptrans.p_DepartTime;
-        vbShipDetailController.p_Note.text =[self formatInfoDate:vbShiptrans.p_AnchorageTime :vbShiptrans.p_DepartTime];
-        vbShipDetailController.f_AnchorageTime.text = vbShiptrans.f_AnchorageTime;
-        vbShipDetailController.f_ArrivalTime.text = vbShiptrans. f_ArrivalTime;
-        vbShipDetailController.f_DepartTime.text = vbShiptrans.f_DepartTime;
-        vbShipDetailController.f_Note.text =[self formatInfoDate:vbShiptrans.f_AnchorageTime :vbShiptrans.f_DepartTime];
-        vbShipDetailController.lateFee.text = [NSString stringWithFormat:@"%d", vbShiptrans.lateFee];
-        vbShipDetailController.offEfficiency.text = [NSString stringWithFormat:@"%d", vbShiptrans.offEfficiency];
+//        vbShipDetailController.p_AnchorageTime.text = vbShiptrans.P_ANCHORAGETIME;
+        vbShipDetailController.p_AnchorageTime.text = ([vbShiptrans.P_ANCHORAGETIME isEqualToString:@"2000-01-01T00:00:00"])?@"未知":vbShiptrans.P_ANCHORAGETIME;
+//        vbShipDetailController.p_Handle.text = vbShiptrans.P_HANDLE;
+        vbShipDetailController.p_Handle.text = ([vbShiptrans.P_HANDLE isEqualToString:@"2000-01-01T00:00:00"])?@"未知":vbShiptrans.P_HANDLE;
+//        vbShipDetailController.p_ArrivalTime.text = vbShiptrans.P_ARRIVALTIME;
+        vbShipDetailController.p_ArrivalTime.text = ([vbShiptrans.P_ARRIVALTIME isEqualToString:@"2000-01-01T00:00:00"])?@"未知":vbShiptrans.P_ARRIVALTIME;
+        vbShipDetailController.lw.text =[NSString stringWithFormat:@"%d", vbShiptrans.LW];
+//        vbShipDetailController.p_DepartTime.text =vbShiptrans.P_DEPARTTIME;
+        vbShipDetailController.p_DepartTime.text = ([vbShiptrans.P_DEPARTTIME isEqualToString:@"2000-01-01T00:00:00"])?@"未知":vbShiptrans.P_DEPARTTIME;
+        vbShipDetailController.p_Note.text =[self formatInfoDate:vbShiptrans.P_ANCHORAGETIME :vbShiptrans.P_DEPARTTIME];
+//        vbShipDetailController.f_AnchorageTime.text = vbShiptrans.F_ANCHORAGETIME;
+        vbShipDetailController.f_AnchorageTime.text = ([vbShiptrans.F_ANCHORAGETIME isEqualToString:@"2000-01-01T00:00:00"])?@"未知":vbShiptrans.F_ANCHORAGETIME;
+//        vbShipDetailController.f_ArrivalTime.text = vbShiptrans. F_ARRIVALTIME;
+        
+        vbShipDetailController.f_ArrivalTime.text = ([vbShiptrans.F_ARRIVALTIME isEqualToString:@"2000-01-01T00:00:00"])?@"未知":(([vbShiptrans.F_ARRIVALTIME isEqualToString:@"0001-01-01T00:00:00"])?@"未知":vbShiptrans.F_ARRIVALTIME);
+//        vbShipDetailController.f_DepartTime.text = vbShiptrans.F_DEPARTTIME;
+        vbShipDetailController.f_DepartTime.text = ([vbShiptrans.F_DEPARTTIME isEqualToString:@"2000-01-01T00:00:00"])?@"未知":vbShiptrans.F_DEPARTTIME;
+        vbShipDetailController.f_Note.text =[self formatInfoDate:vbShiptrans.F_ANCHORAGETIME :vbShiptrans.F_DEPARTTIME];
+
+//        vbShipDetailController.f_Note.text =([[self formatInfoDate:vbShiptrans.F_ANCHORAGETIME :vbShiptrans.F_DEPARTTIME] isEqualToString:@"2000-01-01T00:00:00"])?@"未知":[self formatInfoDate:vbShiptrans.F_ANCHORAGETIME :vbShiptrans.F_DEPARTTIME];
+        vbShipDetailController.lateFee.text = vbShiptrans.LATEFEE;
+        vbShipDetailController.offEfficiency.text = [NSString stringWithFormat:@"%d", vbShiptrans.OFFEFFICIENCY];
         self.popover = pop;
         self.popover.delegate = self;
         //设置弹出窗口尺寸

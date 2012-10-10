@@ -62,6 +62,7 @@
 #import "VB_LatefeeDao.h"
 #import "TB_LatefeeDao.h"
 #import "TfPortDao.h"
+#import "TH_SHIPTRANS_ORIDAO.h"
 typedef enum{
     kPORT=0,
     kFACTORY,

@@ -224,6 +224,8 @@
 		2AEF7E3815F5B44C00B76F4D /* TB_OFFLOADFACTORY.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF7E3715F5B44B00B76F4D /* TB_OFFLOADFACTORY.m */; };
 		2AEF7E3B15F5C1EE00B76F4D /* TB_OFFLOADFACTORYDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF7E3A15F5C1EE00B76F4D /* TB_OFFLOADFACTORYDao.m */; };
 		2AEF7E3E15F5C21F00B76F4D /* TB_OFFLOADSHIPDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF7E3D15F5C21E00B76F4D /* TB_OFFLOADSHIPDao.m */; };
+		D30E480216241020006B2A57 /* TH_SHIPTRANS_ORI.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E480116241020006B2A57 /* TH_SHIPTRANS_ORI.m */; };
+		D30E48061624178C006B2A57 /* TH_SHIPTRANS_ORIDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E48051624178B006B2A57 /* TH_SHIPTRANS_ORIDAO.m */; };
 		D31B512416017E1D00EFB98F /* NTLateFeeHCFX.m in Sources */ = {isa = PBXBuildFile; fileRef = D31B512316017E1D00EFB98F /* NTLateFeeHCFX.m */; };
 		D31B5129160184C800EFB98F /* NTLateFeeHcfxVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D31B5127160184C700EFB98F /* NTLateFeeHcfxVC.m */; };
 		D31B512A160184C800EFB98F /* NTLateFeeHcfxVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */; };
@@ -674,6 +676,10 @@
 		2AEF7E3A15F5C1EE00B76F4D /* TB_OFFLOADFACTORYDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TB_OFFLOADFACTORYDao.m; sourceTree = "<group>"; };
 		2AEF7E3C15F5C21D00B76F4D /* TB_OFFLOADSHIPDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TB_OFFLOADSHIPDao.h; sourceTree = "<group>"; };
 		2AEF7E3D15F5C21E00B76F4D /* TB_OFFLOADSHIPDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TB_OFFLOADSHIPDao.m; sourceTree = "<group>"; };
+		D30E48001624101F006B2A57 /* TH_SHIPTRANS_ORI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_SHIPTRANS_ORI.h; sourceTree = "<group>"; };
+		D30E480116241020006B2A57 /* TH_SHIPTRANS_ORI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_SHIPTRANS_ORI.m; sourceTree = "<group>"; };
+		D30E48041624178B006B2A57 /* TH_SHIPTRANS_ORIDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_SHIPTRANS_ORIDAO.h; sourceTree = "<group>"; };
+		D30E48051624178B006B2A57 /* TH_SHIPTRANS_ORIDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_SHIPTRANS_ORIDAO.m; sourceTree = "<group>"; };
 		D31B512216017E1D00EFB98F /* NTLateFeeHCFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeHCFX.h; sourceTree = "<group>"; };
 		D31B512316017E1D00EFB98F /* NTLateFeeHCFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTLateFeeHCFX.m; sourceTree = "<group>"; };
 		D31B5126160184C700EFB98F /* NTLateFeeHcfxVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeHcfxVC.h; sourceTree = "<group>"; };
@@ -1316,6 +1322,10 @@
 				2A7B338415B7EE73006B7994 /* TH_ShipTrans.m */,
 				2A7B339415B80DD2006B7994 /* TH_ShipTransDao.h */,
 				2A7B339515B80DD3006B7994 /* TH_ShipTransDao.m */,
+				D30E48001624101F006B2A57 /* TH_SHIPTRANS_ORI.h */,
+				D30E480116241020006B2A57 /* TH_SHIPTRANS_ORI.m */,
+				D30E48041624178B006B2A57 /* TH_SHIPTRANS_ORIDAO.h */,
+				D30E48051624178B006B2A57 /* TH_SHIPTRANS_ORIDAO.m */,
 				D93C154115BCFA67000C43B4 /* NTShipCompanyTranShare.h */,
 				D93C154215BCFA67000C43B4 /* NTShipCompanyTranShare.m */,
 				D93C154415BCFA7D000C43B4 /* NTShipCompanyTranShareDao.h */,
@@ -2060,6 +2070,8 @@
 				D3E5B0B8160813B3001FA133 /* NTZxgsjtj.m in Sources */,
 				D3B9EA9A1613F57C0099E0B1 /* VB_Latefee.m in Sources */,
 				D3B9EA9E1613F6320099E0B1 /* VB_LatefeeDao.m in Sources */,
+				D30E480216241020006B2A57 /* TH_SHIPTRANS_ORI.m in Sources */,
+				D30E48061624178C006B2A57 /* TH_SHIPTRANS_ORIDAO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

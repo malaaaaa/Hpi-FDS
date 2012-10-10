@@ -147,6 +147,8 @@ static NSString *deviceID;
     [NTLateFeeHCFXDao initDb];
     [NTZxgsjtjDao openDataBase];
     [NTZxgsjtjDao initDb];
+    [TH_SHIPTRANS_ORIDAO openDataBase];
+    [TH_SHIPTRANS_ORIDAO initDb];
     
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];

@@ -308,6 +308,14 @@ static bool ThreadFinished=TRUE;
 //        [self getDate:@"TsFileinfo" entityClass:@"TsFileinfo" insertTableName:@"TsFileinfo"];
 //        
 //    }
+    /****************************船舶动态查询**************************/
+    
+    if ([_Identification isEqualToString:@"ThShipTranS"]) {
+        [TH_SHIPTRANS_ORIDAO deleteAll];
+        
+        [self getDate:@"ThShipTranS" entityClass:@"TH_SHIPTRANS_ORI" insertTableName:@"TH_SHIPTRANS_ORI"];
+        
+    }
     
 }
 #pragma mark -参数：1，xml子节点【TfCoalType】  2，表的对应实体类 3，插入的表名
