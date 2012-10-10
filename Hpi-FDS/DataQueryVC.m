@@ -45,6 +45,7 @@
 @synthesize factoryFreightVolumeVC;
 @synthesize portEfficiencyVC;
 @synthesize dataSource;
+@synthesize noteLabel;
 
 //static DataGridComponentDataSource *dataSource;
 
@@ -407,7 +408,10 @@ static NSInteger menuIndex;
         vbShipChVC.view.layer.borderColor=[UIColor blackColor].CGColor;
        vbShipChVC.view.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
 
-        [self.chooseView addSubview:vbShipChVC.view];     
+        [self.chooseView addSubview:vbShipChVC.view];
+        noteLabel.text=@"备注：①红色表示满载在途；②绿色表示受载在途；③黑色色表示其他；④*表示班轮";
+        noteLabel.font=[UIFont fontWithName:@"Arial" size:12];
+        listTableview.frame=CGRectMake(0, 50, 1024, 440);
          NSLog(@"--------实时船舶查询--");
     }
     else if (index==kMenuCYJH)
