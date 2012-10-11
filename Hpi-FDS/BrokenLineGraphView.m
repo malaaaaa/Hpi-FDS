@@ -136,7 +136,7 @@ static sqlite3  *database;
 //        NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
         //将数据转化成坐标系
         CGContextMoveToPoint(context, marginLeft, _rect.size.height-marginBottom);
-//        NSLog(@"graphData.pointArray333.count=%d",[line.pointArray count]);
+        NSLog(@"graphData.pointArray333.count=%d",[line.pointArray count]);
         
         
         for(int i=0;i<[line.pointArray count]; i++){
@@ -145,17 +145,17 @@ static sqlite3  *database;
             if (start == NO) {
                 CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
                 start = YES;
-//                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
             }
             else {
                 CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//                NSLog(@"HpiGraphView drawPoints Line 第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+                NSLog(@"HpiGraphView drawPoints Line 第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
             }
         }
         CGContextStrokePath(context);
         
         CGContextRestoreGState(context);
-        
+        start = NO;
     }
     
 }
@@ -164,7 +164,7 @@ static sqlite3  *database;
 //    NSLog(@"HpiGraphView drawPoints  %d个点需描绘",[data.pointArray count]);
     //    if([data.pointArray count] < 1)
     //        return;
-    BOOL start=NO;
+//    BOOL start=NO;
     char *errorMsg;
     //打开数据库
     NSString *file=[NTShipCompanyTranShareDao dataFilePath];
@@ -202,11 +202,11 @@ static sqlite3  *database;
             BrokenLineGraphPoint *point=[line.pointArray objectAtIndex:i];
             
 //            NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
-            if (start == NO) {
-                start = YES;
-//                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
-            }
-            else {
+//            if (start == NO) {
+//                start = YES;
+////                NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+//            }
+//            else {
                 NTShipCompanyTranShare *companyShare = point.companyShare;
                 NSInteger x=marginLeft+(point.x)*wlength;
                 NSInteger y=_rect.size.height-marginBottom-point.y*hlength;
@@ -232,7 +232,7 @@ static sqlite3  *database;
                 [self addSubview:button];
                 [button release];
                 
-            }
+//            }
         }
         
     }

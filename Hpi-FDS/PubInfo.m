@@ -270,9 +270,9 @@ static NSString *deviceID;
  
     NSInteger monthNum =0;
     NSInteger startYear= [[startDate substringToIndex:4] integerValue];
-    NSInteger startMonth= [[startDate substringFromIndex:5] integerValue];
+    NSInteger startMonth= [[startDate substringFromIndex:4] integerValue];
     NSInteger endYear= [[endDate substringToIndex:4] integerValue];
-    NSInteger endMonth= [[endDate substringFromIndex:5] integerValue];
+    NSInteger endMonth= [[endDate substringFromIndex:4] integerValue];
  
     if ([startDate integerValue]>[endDate integerValue] 
         || (startMonth<1||startMonth>12)
