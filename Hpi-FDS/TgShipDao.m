@@ -200,7 +200,7 @@ static sqlite3	*database;
 
 +(NSMutableArray *) getTgShipSZZTPort:(NSString *)portName
 {
-	NSString *query=[NSString stringWithFormat:@" portName ='%@' AND stage='0' ",portName];
+	NSString *query=[NSString stringWithFormat:@" portName ='%@' AND online='1' AND stage='0' ",portName];
 	NSMutableArray * array=[TgShipDao getTgShipBySql:query];
     NSLog(@"执行 getTgShip 数量[%d] ",[array count]);
 	return array;
@@ -208,7 +208,7 @@ static sqlite3	*database;
 
 +(NSMutableArray *) getTgShipZGPort:(NSString *)portName
 {
-	NSString *query=[NSString stringWithFormat:@" portName ='%@' AND stage='1' ",portName];
+	NSString *query=[NSString stringWithFormat:@" portName ='%@' AND online='1' AND stage='1' ",portName];
 	NSMutableArray * array=[TgShipDao getTgShipBySql:query];
     NSLog(@"执行 getTgShip 数量[%d] ",[array count]);
 	return array;
@@ -216,7 +216,7 @@ static sqlite3	*database;
 
 +(NSMutableArray *) getTgShipZCPort:(NSString *)factoryName
 {
-	NSString *query=[NSString stringWithFormat:@" factoryName ='%@'",factoryName];
+	NSString *query=[NSString stringWithFormat:@" online='1' AND factoryName ='%@'",factoryName];
 	NSMutableArray * array=[TgShipDao getTgShipBySql:query];
     NSLog(@"执行 getTgShip 数量[%d] ",[array count]);
 	return array;
