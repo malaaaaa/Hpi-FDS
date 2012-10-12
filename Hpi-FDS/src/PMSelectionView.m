@@ -117,7 +117,7 @@
             //// selectedRect Drawing
             int thisRowStartCell = 0;
             int thisRowEndCell = 6;
-             NSLog(@"i[%d]",i);
+            // NSLog(@"i[%d]",i);
             if (rowStart == i) 
             {
                 thisRowStartCell = colStart;
@@ -177,8 +177,8 @@
     if (_startIndex != startIndex)
     {
         
-        
-        NSLog(@"setStartIndex[%d",startIndex);
+     
+       // NSLog(@"setStartIndex[%d",startIndex);
         _startIndex = startIndex;
         [self setNeedsDisplay];
     }
@@ -188,7 +188,7 @@
 {
     if (_endIndex != endIndex)
     {
-         NSLog(@"endIndex[%d",endIndex);
+        // NSLog(@"endIndex[%d",endIndex);
         _endIndex = endIndex;
         [self setNeedsDisplay];
     }

@@ -10,7 +10,7 @@
 #import "DataQueryVC.h"
 #import "QueryViewController.h"
 #import "PubInfo.h"
-
+#import "TB_LatefeeDao.h"
 
 
 @interface TB_LatefeeChVC ()
@@ -159,9 +159,9 @@ static int  whichButton=0;
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:chooseView];
     chooseView.popover = pop;
-    chooseView.iDArray=[NSArray arrayWithObjects:All_,@"时代",@"瑞宁",@"华鲁",@"其它",@"福轮总",nil];
+    chooseView.iDArray=[NSArray arrayWithObjects:All_, [[NSMutableArray alloc] initWithObjects:@"时代", @"4",nil] ,[[NSMutableArray alloc] initWithObjects:@"瑞宁", @"5",nil],[[NSMutableArray alloc] initWithObjects:@"华鲁", @"6",nil],[[NSMutableArray alloc] initWithObjects:@"其它", @"7",nil],[[NSMutableArray alloc] initWithObjects:@"福轮总", @"9",nil],nil];
     chooseView.parentMapView=self;
-    chooseView.type=kChCOM;
+    chooseView.type=kChCOM_Latefee;
     self.poper = pop;
     self.poper.delegate = self;
     //设置弹出窗口尺寸
@@ -193,10 +193,17 @@ static int  whichButton=0;
     [chooseView.iDArray addObject:All_];
     for(int i=0;i<[array count];i++){
         TgShip *tgShip=[array objectAtIndex:i];
-        [chooseView.iDArray addObject:tgShip.shipName];
+        
+        NSMutableArray *arr=[[NSMutableArray alloc] init];
+        [arr addObject:tgShip.shipName];
+        [arr addObject:[NSString stringWithFormat:@"%d",tgShip.shipID]];
+        [chooseView.iDArray addObject:arr];
+        [arr  release];
+        
+        
     }
     chooseView.parentMapView=self;
-    chooseView.type=kChSHIP;
+    chooseView.type=kchship_Latefee;
     self.poper = pop;
     self.poper.delegate = self;
     //设置弹出窗口尺寸
@@ -230,10 +237,18 @@ static int  whichButton=0;
     NSMutableArray *array=[TgFactoryDao getTgFactory];
     for(int i=0;i<[array count];i++){
         TgFactory *tgFactory=[array objectAtIndex:i];
-        [chooseView.iDArray addObject:tgFactory.factoryName];
+        
+        NSMutableArray *arr=[[NSMutableArray alloc] init];
+        [arr addObject:tgFactory.factoryName];
+         [arr addObject:tgFactory.factoryCode];
+        
+        [chooseView.iDArray addObject:arr];
+        
+        [arr release];
+        
     }
     chooseView.parentMapView=self;
-    chooseView.type=kChFACTORY;
+    chooseView.type=kChFACTORY_Latefee;
     self.poper = pop;
     self.poper.delegate = self;
     //设置弹出窗口尺寸
@@ -279,7 +294,13 @@ static int  whichButton=0;
     for(int i=0;i<[array count];i++){
         TfCoalType *tfcoal=[array objectAtIndex:i];
         
-        [chooseView.iDArray addObject:tfcoal.COALTYPE];
+        
+        NSMutableArray *arr=[[NSMutableArray alloc] init];
+        [arr addObject:tfcoal.COALTYPE];
+        [arr addObject:[NSString stringWithFormat:@"%d",tfcoal.TYPEID]];
+        
+        [chooseView.iDArray addObject:arr];
+        [arr release];
     }
     
     
@@ -287,7 +308,7 @@ static int  whichButton=0;
     
     
     chooseView.parentMapView=self;
-    chooseView.type=kCOALTYPE;
+    chooseView.type=kCOALTYPE_Latefee;
     self.poper  = pop;
     self.poper .delegate = self;
     //设置弹出窗口尺寸
@@ -326,7 +347,15 @@ static int  whichButton=0;
 
     for(int i=0;i<[array count];i++){
             TfSupplier *tfSupplier=[array objectAtIndex:i];
-            [chooseView.iDArray addObject:tfSupplier.SUPPLIER];
+        
+        
+        NSMutableArray *arr=[[NSMutableArray alloc] init];
+        [arr addObject:tfSupplier.SUPPLIER  ];
+        [arr addObject:[NSString stringWithFormat:@"%d",tfSupplier.SUPID ]];
+        
+        
+            [chooseView.iDArray addObject:arr];
+        [arr release];
             
         }
 
@@ -336,7 +365,7 @@ static int  whichButton=0;
    chooseView.parentMapView=self;
     
     
-    chooseView.type=kSUPPLIER;
+    chooseView.type=kSUPPLIER_Latefee;
     
     
     
@@ -465,30 +494,44 @@ static int  whichButton=0;
 
 
 - (IBAction)query:(id)sender {
+   /*
     NSLog(@"comLable:[%@]",comLabel.text);
+    NSLog(@"comButton==================%@",comButton.titleLabel.text);
     NSLog(@"shipLable   :[%@]",shipLabel.text);
+    NSLog(@"shipButton.titleLabel.text==================%@",shipButton.titleLabel.text);
     NSLog(@"factoryLable   :[%@]",factoryLabel.text);
+        NSLog(@"factoryButton==================%@",factoryButton.titleLabel.text);
     NSLog(@"coalLable   :[%@]",typeLabel.text);
+       NSLog(@"typeButton==================%@",typeButton.titleLabel.text);
     NSLog(@"supLable   :[%@]",supLable .text);
+     NSLog(@"supButton==================%@",supButton.titleLabel.text);*/
+    
     if (![startButton .titleLabel.text isEqualToString:@"开始时间"]) {
         startTime.text=startButton.titleLabel.text;
     }
     if (![endButton .titleLabel.text isEqualToString:@"结束时间"]) {
         endTime.text=endButton.titleLabel.text;
     }
-    NSLog(@"开始时间为：%@",startTime.text);
-    NSLog(@"结束时间为：%@",endTime.text);
+    
+ 
+    
+    
+ //   NSLog(@"开始时间为：%@",startTime.text);
+  //  NSLog(@"结束时间为：%@",endTime.text);
 
-    dataQueryVC.dataArray=[VB_LatefeeDao getVB_LateFee:comLabel.text :shipLabel.text :factoryLabel.text :typeLabel.text  :supLable.text :startTime.text :endTime.text] ;
+    dataQueryVC.dataArray=[TB_LatefeeDao getTB_LateFee:comLabel.text :shipLabel.text :factoryLabel.text :typeLabel.text  :supLable.text :startTime.text :endTime.text] ;
+    
+    //[VB_LatefeeDao getVB_LateFee:comLabel.text :shipLabel.text :factoryLabel.text :typeLabel.text  :supLable.text :startTime.text :endTime.text] ;
     
     
     dataSource.data=[[[NSMutableArray alloc] init] autorelease];
     for (int i=0; i<[dataQueryVC.dataArray  count ]; i++) {
-       VB_Latefee *tblatefee=[dataQueryVC.dataArray objectAtIndex:i];
+       TB_Latefee *tblatefee=[dataQueryVC.dataArray objectAtIndex:i];
+        
         [dataSource.data addObject:[NSArray arrayWithObjects:@"3",
                                     
                                     //列表表题所用字段
-                                       [NSString stringWithFormat:@"%@",tblatefee.COMPANY],                               
+                                    [NSString stringWithFormat:@"%@",tblatefee.COMPANY],                               
                                    
                                     [NSString stringWithFormat:@"%@",tblatefee.SHIPNAME],
                                     
@@ -533,6 +576,10 @@ static int  whichButton=0;
         //解析入库
         [xmlParser setISoapNum:1];
         [xmlParser requestSOAP:@"LateFee"];
+         
+        
+        
+        
 
         //状态
         [self runActivity];
@@ -658,14 +705,17 @@ static int  whichButton=0;
 -(void)setLableValue:(NSString *)currentSelectValue
 {
     if (chooseView) {
-        
-        if (chooseView.type==kChCOM) {
+         
+        if (chooseView.type==kChCOM_Latefee) {
             self.comLabel.text=currentSelectValue;  
             
             
             if (![self.comLabel.text isEqualToString:All_]) {
-                self.comLabel.hidden=NO;
-                [self.comButton setTitle:@"" forState:UIControlStateNormal];
+                
+                NSArray *chunks = [currentSelectValue componentsSeparatedByString: @","];
+                self.comLabel.text=[chunks objectAtIndex:1];
+                self.comLabel.hidden=YES    ;
+                [self.comButton setTitle:[NSString stringWithFormat:@"%@",[chunks objectAtIndex:0]] forState:UIControlStateNormal];
                 
             }else {
                 self.comLabel.hidden=YES;
@@ -674,11 +724,15 @@ static int  whichButton=0;
             
             
         }
-        if (chooseView.type==kChSHIP) {
+        if (chooseView.type==kchship_Latefee) {
             self.shipLabel.text=currentSelectValue;
             if (![self.shipLabel.text isEqualToString:All_]) {
-                self.shipLabel.hidden=NO;
-                [self.shipButton setTitle:@"" forState:UIControlStateNormal];
+                 NSArray *chunks = [currentSelectValue componentsSeparatedByString: @","];
+                
+                self.shipLabel.text=[chunks objectAtIndex:1];
+                
+                self.shipLabel.hidden=YES;
+                [self.shipButton setTitle:[NSString stringWithFormat:@"%@",[chunks objectAtIndex:0]] forState:UIControlStateNormal];
                 
                 
                 
@@ -691,11 +745,13 @@ static int  whichButton=0;
         
         
         
-    if (chooseView.type==kChFACTORY) {
+    if (chooseView.type==kChFACTORY_Latefee) {
         self.factoryLabel.text=currentSelectValue;
         if (![self.factoryLabel.text isEqualToString:All_]) {
-            self.factoryLabel.hidden=NO;
-            [self.factoryButton setTitle:@"" forState:UIControlStateNormal];
+              NSArray *chunks = [currentSelectValue componentsSeparatedByString: @","];
+             self.factoryLabel.text=[chunks objectAtIndex:1];
+            self.factoryLabel.hidden=YES;
+            [self.factoryButton setTitle:[NSString stringWithFormat:@"%@",[chunks objectAtIndex:0]] forState:UIControlStateNormal];
         }else {
             self.factoryLabel.hidden=YES;
             [self.factoryButton setTitle:@"流向电厂" forState:UIControlStateNormal];
@@ -703,11 +759,13 @@ static int  whichButton=0;
        
      }
         
-    if (chooseView.type==kCOALTYPE) {
+    if (chooseView.type==kCOALTYPE_Latefee) {
         self.typeLabel.text=currentSelectValue;
         if (![self.typeLabel.text isEqualToString:All_]) {
-            self.typeLabel.hidden=NO;
-            [self.typeButton setTitle:@"" forState:UIControlStateNormal];
+             NSArray *chunks = [currentSelectValue componentsSeparatedByString: @","];
+            self.typeLabel.text=[chunks objectAtIndex:1];
+            self.typeLabel.hidden=YES   ;
+            [self.typeButton setTitle:[NSString stringWithFormat:@"%@",[chunks objectAtIndex:0]]  forState:UIControlStateNormal];
             
             
         }else {
@@ -718,11 +776,13 @@ static int  whichButton=0;
     }
     
     
-    if (chooseView.type==kSUPPLIER) {
+    if (chooseView.type==kSUPPLIER_Latefee) {
         self.supLable.text=currentSelectValue;
         if (![self.supLable.text isEqualToString:All_]) {
-            self.supLable.hidden=NO;
-            [self.supButton     setTitle:@"" forState:UIControlStateNormal];
+             NSArray *chunks = [currentSelectValue componentsSeparatedByString: @","];
+            self.supLable.text=[chunks objectAtIndex:1];
+            self.supLable.hidden=YES    ;
+            [self.supButton     setTitle:[NSString stringWithFormat:@"%@",[chunks objectAtIndex:0]]   forState:UIControlStateNormal];
         }else {
             self.supLable  .hidden=YES;
             [self.supButton setTitle:@"供货方" forState:UIControlStateNormal  ];
@@ -736,7 +796,6 @@ static int  whichButton=0;
    }
     
     
-    NSLog(@"chooseView 为空");
     
   }
 

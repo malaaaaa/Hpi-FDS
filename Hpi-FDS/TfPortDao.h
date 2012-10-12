@@ -24,7 +24,7 @@
 
 
 
-
++(NSString *)getPortName:(NSString *)portcode;
 
 
 

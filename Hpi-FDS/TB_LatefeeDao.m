@@ -11,6 +11,8 @@
 
 #import "PubInfo.h"
 
+
+
 @implementation TB_LatefeeDao
 static sqlite3  *database;
 +(NSString *)dataFilePath
@@ -245,40 +247,26 @@ sqlite3_bind_int(statement,19, tb_Latefee.LW );
 
 
 }
-+(NSMutableArray *)getTB_LateFee:(NSString *)compoayId :(NSString *)shipId :(NSString *)factoryCode :(NSString *)Typeid :(NSString *)supid :(NSString *)startTime :(NSString *)endTime   
++(NSMutableArray *)getTB_LateFee:(NSString *)compoayId :(NSString *)shipId :(NSString *)factoryCode :(NSString *)Typeid :(NSString *)supid :(NSString *)startTime :(NSString *)endTime
 {
 
     NSString *query=[NSString stringWithFormat:@" 1=1 "];
-    
-    
     if (![compoayId isEqualToString:All_]) {
-        query=[query stringByAppendingFormat:@"  AND company='%@' ",compoayId ];
-        
-        
+        query=[query stringByAppendingFormat:@"  AND comid=%d ",[compoayId integerValue] ];
     }
     if (![shipId isEqualToString:All_]) {
-        query=[query stringByAppendingFormat:@"  AND shipname='%@' ",shipId ];
+        query=[query stringByAppendingFormat:@"  AND shipid=%d ",[shipId integerValue ] ];
     }
 
     if (![factoryCode isEqualToString:All_]) {
-        query=[query stringByAppendingFormat:@"  AND factoryname='%@' ",factoryCode];
+        query=[query stringByAppendingFormat:@"  AND factorycode='%@' ",factoryCode];
     }
-    
-    
-    
-
     if (![Typeid isEqualToString:All_]) {
-        query=[query stringByAppendingFormat:@"  AND coaltype='%@' ",Typeid];
-    }
-    
-    
-    
-    
+        query=[query stringByAppendingFormat:@"  AND typeid=%d ",[Typeid integerValue]];
+    } 
     if (![supid isEqualToString:All_]) {
-        query=[query stringByAppendingFormat:@"  AND supplier='%@' ",supid ];
+        query=[query stringByAppendingFormat:@"  AND supid=%d ",[supid integerValue] ];
     }
-
-
     if (![startTime isEqualToString:All_]) {
         query=[query stringByAppendingFormat:@"  AND tradetime>='%@' ",startTime];
     }
@@ -302,11 +290,6 @@ return array;
     
     NSString *sql=[NSString  stringWithFormat:@"SELECT dispatchno,portcode,portname ,factorycode,factoryname,comid , company, shipid,shipname,feerate,allowperiod,supid,supplier,typeid,coaltype,trade,keyvalue,tripno,lw,tradetime ,p_anchoragetime,p_departtime,p_confirm,p_contime,p_conuser,f_anchoragetime,f_departtime,f_confirm,f_contime,f_conuser,latefee,p_correct,p_note,f_correct,f_note,iscal,currency,exchangrate  FROM  TB_Latefee  WHERE iscal=1  AND %@",sql1];
     
-    
-    
-    
-    
-    
 
     NSLog(@"执行 getTB_LatefeeBySql [%@]",sql);
     NSMutableArray  *array=[[NSMutableArray alloc] init];
@@ -315,55 +298,108 @@ return array;
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         
         while (sqlite3_step(statement)==SQLITE_ROW) {
-            
             TB_Latefee *tbLatefee=[[TB_Latefee alloc] init  ];
-            
-            
             char *rowdata1=(char *)sqlite3_column_text(statement, 0);
             if (rowdata1==NULL) 
                 tbLatefee.DISPATCHNO=nil;
             else 
                 tbLatefee.DISPATCHNO=[NSString stringWithUTF8String:rowdata1];
             
+            
+            
+            
             char *rowdata2=(char *)sqlite3_column_text(statement, 1);
             if (rowdata2==NULL) 
-                tbLatefee.PORTCODE=nil;
+                tbLatefee.PORTCODE=@"";
             else 
                 tbLatefee.PORTCODE=[NSString stringWithUTF8String:rowdata2];
-            
+            /*
             char *rowdata_2=(char *)sqlite3_column_text(statement, 2);
             if (rowdata_2==NULL) 
                 tbLatefee.PORTNAME=nil;
             else 
                 tbLatefee.PORTNAME=[NSString stringWithUTF8String:rowdata_2];
-
+             */
+            tbLatefee.PORTNAME=[TfPortDao getPortName:tbLatefee.PORTCODE];
             
             
             
-
+            
+            
+            
+            
+            
             char *rowdata3=(char *)sqlite3_column_text(statement, 3);
             if (rowdata3==NULL) 
-                tbLatefee.FACTORYCODE=nil;
+                tbLatefee.FACTORYCODE=@"";
             else 
                 tbLatefee.FACTORYCODE=[NSString stringWithUTF8String:rowdata3];
-
+            /*
             char *rowdata_3=(char *)sqlite3_column_text(statement, 4);
             if (rowdata_3==NULL) 
                 tbLatefee.FACTORYNAME=nil;
             else 
-                tbLatefee.FACTORYNAME=[NSString stringWithUTF8String:rowdata_3];   
+                tbLatefee.FACTORYNAME=[NSString stringWithUTF8String:rowdata_3];
+            */
+            if ([[TfFactoryDao getTfFactory:tbLatefee.FACTORYCODE] count] >0) {
+                TfFactory*tff=[[TfFactoryDao getTfFactory:tbLatefee.FACTORYCODE] objectAtIndex:0];
+                tbLatefee.FACTORYNAME=tff.FACTORYNAME  ;
+
+            }else{
+                tbLatefee.FACTORYNAME=@""  ;
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
             tbLatefee.COMID=sqlite3_column_int(statement, 5);
+            /*
             char *rowdata_4=(char *)sqlite3_column_text(statement, 6);
             if (rowdata_4==NULL) 
                 tbLatefee.COMPANY=nil;
             else 
                 tbLatefee.COMPANY=[NSString stringWithUTF8String:rowdata_4];
+             */
+            if ([[TfShipCompanyDao getTfShipCompany:tbLatefee.COMID] count]>0) {
+                TfShipCompany *tfsc=[[TfShipCompanyDao getTfShipCompany:tbLatefee.COMID] objectAtIndex:0];
+                tbLatefee.COMPANY=tfsc.company;
+            }else
+            {
+            tbLatefee.COMPANY=@"";
+            }
+            
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+             
             tbLatefee.SHIPID=sqlite3_column_int(statement, 7);
+            /*
             char *rowdata_5=(char *)sqlite3_column_text(statement, 8);
             if (rowdata_5==NULL) 
                 tbLatefee.SHIPNAME=nil;
             else 
-                tbLatefee.SHIPNAME=[NSString stringWithUTF8String:rowdata_5];
+                tbLatefee.SHIPNAME=[NSString stringWithUTF8String:rowdata_5];*/
+            
+            tbLatefee.SHIPNAME=[TfShipDao getShipName:tbLatefee.SHIPID];
+            
+            
+            
+            
+            
+            
+            
             char *rowdata4=(char *)sqlite3_column_text(statement, 9);
             if (rowdata4==NULL) 
                 tbLatefee.FEERATE=nil;
@@ -374,20 +410,55 @@ return array;
                 tbLatefee.ALLOWPERIOD=nil;
             else 
                 tbLatefee.ALLOWPERIOD=[NSString stringWithUTF8String:rowdata5];
+            
+            
+            
+            
+            
 
             tbLatefee.SUPID=sqlite3_column_int(statement, 11);
+            /*
             char *rowdata_6=(char *)sqlite3_column_text(statement,12);
             if (rowdata_6==NULL) 
                 tbLatefee.SUPPLIER=nil;
             else 
                 tbLatefee.SUPPLIER=[NSString stringWithUTF8String:rowdata_6];
+            */
+            
+            if ([[TfSupplierDao getTfSupplier:tbLatefee.SUPID] count]>0) {
+                
+                TfSupplier *tfs=[[TfSupplierDao getTfSupplier:tbLatefee.SUPID] objectAtIndex:0];
+                tbLatefee.SUPPLIER=tfs.SUPPLIER;
+            }else{
+            tbLatefee.SUPPLIER=@"";
+            }
+          
+            
+            
+            
+            
+            
             
             tbLatefee.TYPEID=sqlite3_column_int(statement, 13);
+            /*
             char *rowdata_7=(char *)sqlite3_column_text(statement,14);
             if (rowdata_7==NULL) 
                 tbLatefee.COALTYPE=nil;
             else 
                 tbLatefee.COALTYPE=[NSString stringWithUTF8String:rowdata_7];
+            */
+            if ([[TfCoalTypeDao getTfCoalType:tbLatefee.TYPEID] count]>0) {
+                TfCoalType *tfss=[[TfCoalTypeDao getTfCoalType:tbLatefee.TYPEID] objectAtIndex:0];
+                tbLatefee.COALTYPE=tfss.COALTYPE;
+            }else
+            {
+             tbLatefee.COALTYPE=@"";
+            }
+           
+            
+            
+            
+            
             char *rowdata6=(char *)sqlite3_column_text(statement,15);
             if (rowdata6==NULL) 
                 tbLatefee.TRADE=nil;

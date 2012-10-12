@@ -122,7 +122,7 @@ sqlite3_bind_text(statement,6, [tfprot.NATIONALTYPE UTF8String], -1,SQLITE_TRANS
     char *errorMsg;
     NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TF_Port  " ];
     if (sqlite3_exec(database, [deletesql UTF8String], NULL, NULL, &errorMsg)!=SQLITE_OK) {
-        NSLog(@"Error: delete TB_Latefee error with message [%s]  sql[%@]", errorMsg,deletesql);
+        NSLog(@"Error: delete TF_Port error with message [%s]  sql[%@]", errorMsg,deletesql);
     }else {
         NSLog(@"delete success")  ;
     }
@@ -130,7 +130,37 @@ sqlite3_bind_text(statement,6, [tfprot.NATIONALTYPE UTF8String], -1,SQLITE_TRANS
     
     
 }
++(NSString *)getPortName:(NSString *)portcode
+{
 
+  sqlite3_stmt *statement;
+    NSString *sql=[NSString  stringWithFormat:@"select portname from TF_Port where portcode='%@' ",portcode];
+    //NSLog(@"执行 getPortName [%@]",sql);
+    NSString *portName;
+    if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
+        
+        while (sqlite3_step(statement)==SQLITE_ROW) {
+            
+            char *rowdata1=(char *)sqlite3_column_text(statement, 0);
+            if (rowdata1==NULL)
+                portName=@"";
+            else
+                portName=[NSString stringWithUTF8String:rowdata1];
+            
+            
+            
+            
+        }
+    
+    }else {
+        NSLog(@"getPortName--- Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+        sqlite3_finalize(statement);
+    }
+    sqlite3_finalize(statement);
+
+    return portName;
+
+}
 
 
 

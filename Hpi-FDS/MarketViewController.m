@@ -40,14 +40,15 @@ static NSString *stringType=@"BSPI";
 	// Do any additional setup after loading the view.
     [segment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
     
-    self.endDay = [[[NSDate alloc] init] autorelease];
+    self.endDay = [[NSDate alloc] init] ;
     //self.startDay = [[NSDate alloc] init];
-    self.startDay = [[[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] autorelease];
+    self.startDay = [[NSDate alloc] initWithTimeIntervalSinceNow: - 24*60*60*366] ;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     [endButton setTitle:[dateFormatter stringFromDate:endDay] forState:UIControlStateNormal];
     [startButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
     [dateFormatter release];
+    
     
     [activity removeFromSuperview];
 
@@ -142,14 +143,53 @@ static NSString *stringType=@"BSPI";
     if ([array count]>0) {
         tmdefine=(TmIndexdefine *)[array objectAtIndex:0];
         NSLog(@"max=[%d] min=[%d]",tmdefine.maxiMum,tmdefine.miniMum);
+        
+        
+        
         if(tmdefine.maxiMum==0)
             tmdefine.maxiMum=tmdefine.miniMum*2.5;
         
-        NSLog(@"max=[%d] min=[%d]",tmdefine.maxiMum,tmdefine.miniMum);
-        graphData.yNum=tmdefine.maxiMum-tmdefine.miniMum;
+       
+        
+               
+        
+        
+        
+        if ([stringType isEqualToString: @"BDI"]) {
+            
+            tmdefine.miniMum=0;
+        }
+        if ([stringType isEqualToString:@"BJ_PRICE"]) {
+              tmdefine.miniMum=0;
+            tmdefine.maxiMum=600;
+        }
+        
+        if ([stringType isEqualToString:@"QHD_GZ"]) {
+            tmdefine.miniMum=0;
+            tmdefine.maxiMum=50;
+
+        }
+        
+        if ([stringType isEqualToString:@"WTI"]) {
+            tmdefine.miniMum=0;
+            tmdefine.maxiMum=150;
+        }
+        if ([stringType isEqualToString:@"HPI4500"]) {
+        
+        }
+        
+        graphData.yNum=tmdefine.maxiMum-tmdefine.miniMum;      
+        
+      NSLog(@"max=[%d] min=[%d]",tmdefine.maxiMum,tmdefine.miniMum);
+        
+        
+         
+        
+        
+        
         for(int i=0;i<6;i++)
         {
-            NSLog(@"tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*(i+1)/6) [%d]",tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5);
+            NSLog(@"tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5 [%d]",tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5);
             if (i==0) {
                 [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",tmdefine.miniMum]];
             }
@@ -157,6 +197,10 @@ static NSString *stringType=@"BSPI";
                 [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5]];
             }
         }
+
+        
+        
+        
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         unsigned int unitFlags = NSDayCalendarUnit;
         NSDateComponents *comps = [gregorian components:unitFlags fromDate:minDate  toDate:maxDate  options:0];
@@ -199,7 +243,7 @@ static NSString *stringType=@"BSPI";
         
         return;
     }
-    NSLog(@"BSPI 统计共%d天",graphData.xNum);
+    NSLog(@"%@ 统计共%d天",stringType,graphData.xNum);
     date=minDate;
     for ( int i = 0 ; i < graphData.xNum ; i++ ) {
         //NSLog(@"date %@",date);
@@ -219,7 +263,7 @@ static NSString *stringType=@"BSPI";
     if([stringType isEqualToString: @"BJ_PRICE"])
     {
         for ( int i = 0 ; i < graphData.xNum ; i++ ) {
-            NSLog(@"date %@",date);
+           // NSLog(@"date %@",date);
             TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:@"BJ_INDEX":date];
             if(tminfo == nil){
             }
@@ -234,6 +278,11 @@ static NSString *stringType=@"BSPI";
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
         }
     }
+    
+    
+    
+    
+    
     date=minDate;
     if([stringType isEqualToString: @"QHD_GZ"])
     {
@@ -403,7 +452,12 @@ static NSString *stringType=@"BSPI";
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:marketOneController];
     marketOneController.popover = pop;
+    
+    
     [marketOneController loadViewData :stringType :startDay :endDay :NULL];
+    
+    
+    
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -428,9 +482,13 @@ static NSString *stringType=@"BSPI";
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [tbxmlParser setISoapNum:1];
+        [tbxmlParser setISoapNum:3];
         
         [tbxmlParser requestSOAP:@"TmIndex"];
+        
+        [tbxmlParser requestSOAP:@"TmIndexDefine"];
+        [tbxmlParser requestSOAP:@"TmIndexType"];
+        
         [self runActivity];
     }
 	

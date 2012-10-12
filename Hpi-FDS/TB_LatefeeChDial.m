@@ -63,7 +63,7 @@ NSMutableDictionary *d3;
         
        //   NSLog(@"-------pfTotalTime:[%@]",pfTotalTime.text);
         
-        fileName.text=@"附件";
+       // fileName.text=@"附件";
     }
   }
 

@@ -134,7 +134,7 @@ static sqlite3	*database;
 
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT SUPID,PID,SUPPLIER,DESCRIPTION,LINKMAN,CONTACT,SORT FROM  TfSupplier WHERE %@ ",sql1];
-    NSLog(@"执行 getTfSupplierBySql [%@] ",sql);
+   // NSLog(@"执行 getTfSupplierBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

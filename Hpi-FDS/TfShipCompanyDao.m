@@ -130,7 +130,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT comid,company,description,linkman,contact FROM  TfShipCompany WHERE %@ ",sql1];
-    NSLog(@"执行 getTfShipCompanyBySql [%@] ",sql);
+    //NSLog(@"执行 getTfShipCompanyBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

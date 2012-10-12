@@ -97,9 +97,9 @@ DataQueryVC *dataQueryVC;
     float columnOffset = 0.0;
     dataSource=[[DataGridComponentDataSource alloc] init];
     
-    dataSource.titles=[ NSArray arrayWithObjects:@"状态",@"港口",@"船名",@"航次",@"航线",@"供货方",@"煤种",@"配载",@"下次航运计划", nil];
+    dataSource.titles=[ NSArray arrayWithObjects:@"状态",@"港口",@"船名",@"航次",@"航线",@"供货方",@"煤种",@"配载", nil];
     
-    dataSource.columnWidth=[NSArray arrayWithObjects:@"80",@"90",@"90",@"90",@"85",@"105",@"90",@"80",@"310",nil];
+    dataSource.columnWidth=[NSArray arrayWithObjects:@"100",@"130",@"130",@"130",@"130",@"165",@"120",@"120",nil];
     animation.type= @"oglFlip";
     [dataQueryVC.labelView.layer addAnimation:animation forKey:@"animation"];
      [dataQueryVC.labelView removeFromSuperview  ];
@@ -332,6 +332,22 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
     
     for (int i=0; i<[dataQueryVC.dataArray  count ]; i++) {
         TH_ShipTrans *shipTrans=[dataQueryVC.dataArray objectAtIndex:i];
+        if ([shipTrans.STATENAME isEqualToString:@"受载在途"]) {
+            shipTrans.STATENAME=@"预到装港";
+        }
+        if ([shipTrans.STATENAME isEqualToString:@"在港在装"]) {
+            shipTrans.STATENAME=@"在港靠装";
+        }
+        if ([shipTrans.STATENAME isEqualToString:@"满载在途"]) {
+            shipTrans.STATENAME=@"满载到厂";
+        }
+        if ([shipTrans.STATENAME isEqualToString:@"卸港待办"]||[shipTrans.STATENAME isEqualToString:@"卸港待靠"]||[shipTrans.STATENAME isEqualToString:@"卸港在卸"]) {
+            shipTrans.STATENAME=@"在厂靠卸";
+        }
+
+        
+        
+        
         [dataSource.data addObject:[NSArray arrayWithObjects:@"3",
                                     
                                     //列表表题所用字段
@@ -343,7 +359,7 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
                                     shipTrans.SUPPLIER,
                                     shipTrans.COALTYPE,
                                     [NSString stringWithFormat:@"%d",shipTrans.LW],
-                                    @"",
+                                   
                                      nil]];
         
         

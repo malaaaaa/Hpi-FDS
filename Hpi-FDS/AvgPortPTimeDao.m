@@ -38,11 +38,11 @@ static sqlite3  *database;
 {
     NSMutableArray *d=[[[NSMutableArray alloc] init] autorelease];
     sqlite3_stmt *statement;
-    NSString *sql= [NSString   stringWithFormat:@"select ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) AS TRADETIME     from VbShiptrans inner join TF_PORT  on TF_PORT.PORTCODE=VbShiptrans.PORTCODE  where   ISCAL=1  and strftime('%@',VbShiptrans.P_ANCHORAGETIME)!='2000' and strftime('%@',VbShiptrans.P_DEPARTTIME)!='2000'  and NATIONALTYPE=0  AND ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) >='%@' AND ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) <='%@'  group by   TRADETIME order by     TRADETIME  ",@"%Y",@"%m",    @"%Y",@"%Y",    @"%Y",@"%m",  startTime,@"%Y",@"%m",endTime];
+    NSString *sql= [NSString   stringWithFormat:@"select ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) AS TRADETIME     from VbShiptrans inner join TF_PORT  on TF_PORT.PORTCODE=VbShiptrans.PORTCODE  where   ISCAL=1  and strftime('%@',VbShiptrans.P_ANCHORAGETIME)!='2000' and strftime('%@',VbShiptrans.P_DEPARTTIME)!='2000'  and NATIONALTYPE=0  AND VbShiptrans.tradetime >='%@' AND VbShiptrans.tradetime <='%@'  group by   TRADETIME order by     TRADETIME  ",@"%Y",@"%m",    @"%Y",@"%Y",    startTime,endTime];
     
     
     
-   //  NSLog(@"执行 getTime [%@]",sql);
+    // NSLog(@"执行 getTime [%@]",sql);
     if (sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         
         [d addObject:@"港口"];
@@ -55,6 +55,8 @@ static sqlite3  *database;
             else
                 time=[NSString stringWithUTF8String:date1];  
             [d addObject:time];
+            
+            
         }
         
         [d addObject:@"平均时间"];
@@ -82,12 +84,14 @@ static sqlite3  *database;
             
         }
     }
-
+    
     if (![startTime isEqualToString:All_]) {
-        query=[query stringByAppendingFormat:@"  AND ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) >='%@' ",@"%Y",@"%m",startTime ];
+        
+        query=[query stringByAppendingFormat:@"  AND VbShiptrans.tradetime >='%@' ",startTime ];
     }
     if (![endTime isEqualToString:All_]) {
-        query=[query stringByAppendingFormat:@"  AND ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) <='%@' ",@"%Y",@"%m",endTime ];
+      //NSLog(@"endTime=======%@",endTime);
+        query=[query stringByAppendingFormat:@"  AND VbShiptrans.tradetime <'%@' ",endTime ];
     }
 
 
@@ -103,9 +107,9 @@ static sqlite3  *database;
 {
 
 sqlite3_stmt *statement;
-    NSString *sql=[NSString  stringWithFormat:@"select LT.PORTNAME ,  %@   round( Round(  AVG( avgTime  ) ,6   ),2)AS   AVGTimeLT FROM (   select VbShiptrans.PORTNAME , ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)))AS  TRADETIME, round( round( total(round(( julianday(VbShiptrans.P_DEPARTTIME)  - julianday(VbShiptrans.P_ANCHORAGETIME)) *24*60 ,13)/1440*VbShiptrans.LW/10000.0) ,13)/total( round( VbShiptrans.LW/10000.0,6)),2)as  avgTime  from VbShiptrans inner join TF_PORT  on TF_PORT.PORTCODE=VbShiptrans.PORTCODE   where   ISCAL=1  and strftime('%@',VbShiptrans.P_ANCHORAGETIME)!='2000'  and strftime('%@',VbShiptrans.P_DEPARTTIME)!='2000'   and TF_PORT.NATIONALTYPE=0  AND %@   group by      VbShiptrans.PORTNAME ,( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)))   order by TRADETIME,avgTime     )  as  LT  GROUP  BY     LT.PORTNAME",sql1,@"%Y",@"%m", @"%Y",@"%Y",sql2,@"%Y",@"%m"];
+    NSString *sql=[NSString  stringWithFormat:@"select LT.PORTNAME ,  %@   round( Round(  AVG( avgTime  ) ,6   ),2)AS   AVGTimeLT FROM (   select VbShiptrans.PORTNAME , ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)))AS  TRADETIME,round( sum(  round( ( julianday(         VbShiptrans.P_DEPARTTIME)  - julianday(VbShiptrans.P_ANCHORAGETIME)) *24*60 ,13)/1440*VbShiptrans.LW/10000.0) /sum( VbShiptrans.LW/10000.0),2)as  avgTime  from VbShiptrans inner join TF_PORT  on TF_PORT.PORTCODE=VbShiptrans.PORTCODE   where   ISCAL=1  and strftime('%@',VbShiptrans.P_ANCHORAGETIME)!='2000'  and strftime('%@',VbShiptrans.P_DEPARTTIME)!='2000'   and TF_PORT.NATIONALTYPE=0  AND %@   group by      VbShiptrans.PORTNAME ,( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100)))   order by TRADETIME,avgTime     )  as  LT  GROUP  BY     LT.PORTNAME",sql1,@"%Y",@"%m", @"%Y",@"%Y",sql2,@"%Y",@"%m"];
 
-  //  NSLog(@"执行 getAvgFactoryDateBySql [%@]",sql);
+  //NSLog(@"执行 getAvgFactoryDateBySql [%@]",sql);
     
     NSMutableArray  *date=[[[NSMutableArray alloc] init] autorelease];
     
@@ -122,7 +126,7 @@ sqlite3_stmt *statement;
                     [arr addObject:[NSString stringWithUTF8String:dated]];
             }
             
-            NSLog(@"arr[%d]",[arr count]);
+           // NSLog(@"arr[%d]",[arr count]);
             
             
             [date addObject:arr];

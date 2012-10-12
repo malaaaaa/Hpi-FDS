@@ -62,24 +62,32 @@
 #import "VB_LatefeeDao.h"
 #import "TB_LatefeeDao.h"
 #import "TfPortDao.h"
+
+#import "TfShipDao.h"
+
 typedef enum{
     kPORT=0,
     kFACTORY,
     kSHIP,
     kChPORT,
     kChFACTORY,
+    kChFACTORY_Latefee,
     kChSHIP,
+    kchship_Latefee,
     kChCOM,
+    kChCOM_Latefee,
     kChSTAT,
     kPORTBUTTON,
     kSHIPCOMPANY,
     
     kCOALTYPE,
+    kCOALTYPE_Latefee,
     kTypeValue,//重点非重点
     kKEYVALUE,
     kTRADE,
     kSHIPSTAGE,
     kSUPPLIER,//14
+    kSUPPLIER_Latefee,
     kshiptransStage,//15
     kfactoryCate,
     kTYPE, //电厂类型

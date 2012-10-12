@@ -46,6 +46,7 @@ static NSString *stringType=@"GKDJL";
     [dateFormatter release];
     
     [activity removeFromSuperview];
+    
     self.tbxmlParser =[[TBXMLParser alloc] init];
     
     _listView.layer.masksToBounds=YES;
@@ -485,6 +486,7 @@ static NSString *stringType=@"GKDJL";
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
+        [activity setFrame:CGRectMake(967, 45, 37, 37)];
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];

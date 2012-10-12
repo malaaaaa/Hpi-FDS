@@ -233,8 +233,29 @@ static bool ThreadFinished=TRUE;
         //全部删除
         [TmIndexinfoDao deleteAll];
         [self getDate:@"TmIndexInfo" entityClass:@"TmIndexinfo" insertTableName:@"TmIndexinfo"];
-        
     }
+    
+    
+    /***************GetTmIndexDefineInfo************市场指数-定义TmIndexdefine**************************/
+    if ([_Identification isEqualToString:@"TmIndexDefine"]) {
+        //全部删除
+        [TmIndexdefineDao deleteAll];
+        [self getDate:@"TmIndexDefine" entityClass:@"TmIndexdefine" insertTableName:@"TmIndexdefine"];
+    }
+    
+    
+    /***********GetTmIndexTypeInfo*****************市场指数类型信息-TmIndexinfo**************************/
+    if ([_Identification isEqualToString:@"TmIndexType"]) {
+        //全部删除
+        [TmIndextypeDao deleteAll];
+        [self getDate:@"TmIndexType" entityClass:@"TmIndextype" insertTableName:@"TmIndextype"];
+    }
+    
+    
+    
+    
+    
+    
     /****************************港口信息-TmCoalinfo**************************/
     if ([_Identification isEqualToString:@"Coal"]) {
         //全部删除
@@ -301,14 +322,15 @@ static bool ThreadFinished=TRUE;
     }
 
     /***********************纪要查看*****-TsFileinfo**************************/
-//    if ([_Identification isEqualToString:@"TsFile"]) {
-//        
-//        //全部删除
-//        [TsFileinfoDao deleteAll];
-//        [self getDate:@"TsFileinfo" entityClass:@"TsFileinfo" insertTableName:@"TsFileinfo"];
-//        
-//    }
-    
+    /*
+   if ([_Identification isEqualToString:@"TsFile"]) {
+        
+        //全部删除
+      [TsFileinfoDao deleteAll];
+       [self getDate:@"TsFileinfo" entityClass:@"TsFileinfo" insertTableName:@"TsFileinfo"];
+       
+   }
+    */
 }
 #pragma mark -参数：1，xml子节点【TfCoalType】  2，表的对应实体类 3，插入的表名
 -(void)getDate :(NSString *)element1  entityClass:(NSString *)className    insertTableName:(NSString *)tableName

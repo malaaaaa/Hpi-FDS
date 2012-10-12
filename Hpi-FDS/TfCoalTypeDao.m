@@ -140,7 +140,7 @@ static sqlite3	*database;
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT TYPEID,COALTYPE,SORT,HEATVALUE,SULFUR FROM  TfCoalType WHERE %@ ",sql1];
     
-    NSLog(@"执行 getTfCoalTypeBySql [%@] ",sql);
+  //  NSLog(@"执行 getTfCoalTypeBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

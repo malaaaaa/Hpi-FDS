@@ -108,7 +108,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
     
     
     
-        NSLog(@"startDate[%@]",startDate);
+      //  NSLog(@"startDate[%@]",startDate);
     
   //  NSLog(@"[f dateFromString:startDate][%@]",[f dateFromString:startDate]);
     
@@ -309,7 +309,14 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
     frm.origin = CGPointOffsetByPoint(frm.origin, arrowOffset);
     self.calendarView.frame = frm;
     
-    arrowPosition = [self.view convertPoint:arrowPosition toView:self.mainView];
+    
+    
+    
+    //arrowPosition = [self.view convertPoint:arrowPosition toView:self.mainView];
+    
+    
+    
+    
     
     if ((_calendarArrowDirection == PMCalendarArrowDirectionUp)
         || (_calendarArrowDirection == PMCalendarArrowDirectionDown))
@@ -356,7 +363,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
     
     
     [self adjustCalendarPositionForPermittedArrowDirections:arrowDirections
-                                          arrowPointsToRect:rectInAppWindow];
+                                         arrowPointsToRect:rectInAppWindow];
 
     [self fullRedraw];
     
@@ -475,7 +482,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
     if ([self.delegate respondsToSelector:@selector(calendarController:didChangePeriod:)])
     {
         
-        NSLog(@"====================%@",newPeriod.startDate);
+       // NSLog(@"====================%@",newPeriod.startDate);
         
         
         [self.delegate calendarController:self didChangePeriod:[newPeriod normalizedPeriod]];

@@ -71,7 +71,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
  
-    [self.parentMapView setLableValue:(NSString *)[self.iDArray objectAtIndex:[indexPath row]]];
+    if (type==kchship_Latefee||type==kChFACTORY_Latefee||type==kChCOM_Latefee||type==kCOALTYPE_Latefee||type==kSUPPLIER_Latefee) {
+        if (indexPath.row==0) {
+            [self.parentMapView setLableValue:(NSString *)[self.iDArray objectAtIndex:[indexPath row]]];
+        }
+        if (indexPath.row>0) {
+             [self.parentMapView setLableValue:[NSString stringWithFormat:@"%@,%@",[[self.iDArray objectAtIndex:[indexPath row]] objectAtIndex:0] ,[[self.iDArray objectAtIndex:[indexPath row]] objectAtIndex:1] ]    ];
+        }
+       
+        
+        
+        
+    }else
+    {
+        
+  [self.parentMapView setLableValue:(NSString *)[self.iDArray objectAtIndex:[indexPath row]]];
+    
+    }
+    
+    
+    
+    
+    
+    
     [self.popover dismissPopoverAnimated:YES];
 }
 
@@ -84,9 +106,29 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
+    if (type==kchship_Latefee||type==kChFACTORY_Latefee||type==kChCOM_Latefee||type==kCOALTYPE_Latefee||type==kSUPPLIER_Latefee   ) {
+        if (indexPath.row==0) {
+            cell.textLabel.text=[iDArray objectAtIndex:[indexPath row]];
+        }
+        if (indexPath.row>0) {
+        
+            NSMutableArray *arrD=[iDArray objectAtIndex:[indexPath row]];
+            cell.textLabel.text=[arrD objectAtIndex:0];
+        }
+        
+        
+       
+        
+      
+    }else{
+       
+        cell.textLabel.text=[iDArray objectAtIndex:[indexPath row]];
+    
+    }
     
     
-    cell.textLabel.text=[iDArray objectAtIndex:[indexPath row]];
+    
+
        
     //cell.textLabel.textColor =[UIColor colorWithRed:38.0/255.0 green:150.0/255.0 blue:200.0/255.0 alpha:1];
     cell.textLabel.textColor =[UIColor whiteColor];

@@ -300,17 +300,19 @@ static NSString *deviceID;
     NSString *str;  
     if (string1&&string2) {
         /**/
+        /*
        NSLog(@"都不为空.........");
         NSLog(@"string1[%d]",string1.count    );
         NSLog(@"days:%@",[string1 objectForKey:@"days"]);
         NSLog(@"hours:%@",[string1 objectForKey:@"hours"]);
        NSLog(@"minutes:%@",[string1 objectForKey:@"minutes"]);
-        
-        
         NSLog(@"string2[%d]",string2.count   );
        NSLog(@"days:%@",[string2 objectForKey:@"days"]);
        NSLog(@"hours:%@",[string2 objectForKey:@"hours"]);
         NSLog(@"minutes:%@",[string2 objectForKey:@"minutes"]);
+        */
+        
+        
         NSInteger mintues=[[string1 objectForKey:@"minutes"] intValue]+[[string2 objectForKey:@"minutes"] intValue];
         if (mintues>60) {
             hadd=mintues/60;
@@ -378,13 +380,13 @@ static NSString *deviceID;
     
     NSString *date=[NSString  stringWithFormat:@"%@",        [formater1 stringFromDate:[formater dateFromString:string]]         ];
     NSString *date1=[NSString  stringWithFormat:@"%@",[formater2 stringFromDate:[formater dateFromString:string]]];
-    NSLog(@"formaDateTime---date--yyyy-MM-dd--:%@",date);
+   // NSLog(@"formaDateTime---date--yyyy-MM-dd--:%@",date);
     if (![date isEqualToString:@"2000/01/01"]&&![date isEqualToString:@"1900/01/01"]&&![date isEqualToString:@"0001/01/01"]) {
         str=[NSString stringWithFormat:@"%@",date1]; 
         return str;
     }else {
         str=[NSString stringWithFormat:@"%@",@"未知"];
-        NSLog(@"未知：%@",date);
+       // NSLog(@"未知：%@",date);
         return  str;
     }
     [date release];
@@ -414,9 +416,9 @@ static NSString *deviceID;
         int hours   = fabs([components hour]);
         int minutes =fabs([components minute]) ;
         
-        NSLog(@"days :%d", days);
-        NSLog(@" hours :%d",hours);
-        NSLog(@" minutes :%d",minutes);
+      //  NSLog(@"days :%d", days);
+        //NSLog(@" hours :%d",hours);
+        //NSLog(@" minutes :%d",minutes);
         
         
         d=[[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",days],@"days",[NSString stringWithFormat:@"%d",hours],@"hours",[NSString stringWithFormat:@"%d",minutes],@"minutes", nil];
@@ -434,8 +436,8 @@ static NSString *deviceID;
 +(NSString *)formatInfoDate:(NSString *)string1 :(NSString *)string2{
     
     NSString * str;
-    NSLog(@"formatInfoDate-string1:【%@】",[self formaDateTime:string1   FormateString:@"yyyy/MM/dd"]);
-    NSLog(@"formatInfoDate-string2:【%@】",[self formaDateTime:string2   FormateString:@"yyyy/MM/dd"]);
+   // NSLog(@"formatInfoDate-string1:【%@】",[self formaDateTime:string1   FormateString:@"yyyy/MM/dd"]);
+   // NSLog(@"formatInfoDate-string2:【%@】",[self formaDateTime:string2   FormateString:@"yyyy/MM/dd"]);
     
     if ([[self formaDateTime:string1   FormateString:@"yyyy/MM/dd"] isEqualToString:@"未知"]||[[self formaDateTime:string2   FormateString:@"yyyy/MM/dd"] isEqualToString:@"未知"]      ) {
         str=[NSString stringWithFormat:@"%@",@"0天0小时0分钟"];
@@ -455,9 +457,9 @@ static NSString *deviceID;
         int hours   = fabs([components hour]);
         int minutes =fabs([components minute]) ;
         
-        NSLog(@"days :%d", days);
-        NSLog(@" hours :%d",hours);
-        NSLog(@" minutes :%d",minutes);
+       // NSLog(@"days :%d", days);
+       // NSLog(@" hours :%d",hours);
+      //  NSLog(@" minutes :%d",minutes);
         [formatter release];
         
         if(days>=0&&hours>=0&&minutes>=0)

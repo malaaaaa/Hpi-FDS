@@ -72,40 +72,49 @@ CGSize innerPadding   = (CGSize){10, 10};
     
     CGFloat width = size.width;
     CGFloat height = size.height;
-    CGPoint startArrowPoint = CGPointZero;
-    CGPoint endArrowPoint = CGPointZero;
-    CGPoint topArrowPoint = CGPointZero;
+    
+    
+    
+   // CGPoint startArrowPoint = CGPointZero;
+   // CGPoint endArrowPoint = CGPointZero;
+   // CGPoint topArrowPoint = CGPointZero;
+    
+    
     CGPoint offset = CGPointMake(shadowPadding, shadowPadding);
     CGPoint tl = CGPointZero;
     width -= shadowPadding * 2;
     height -= shadowPadding * 2;
 
+    
+   
+    
+    
     switch (direction) 
     {
         case PMCalendarArrowDirectionUp: // going from right side to the left
                                          // so start point is a bottom RIGHT point of a triangle ^. this one :)
-            startArrowPoint = CGPointMake(arrowSize.width / 2, arrowSize.height);
-            endArrowPoint = CGPointMake(-arrowSize.width / 2, arrowSize.height);
+          //  startArrowPoint = CGPointMake(arrowSize.width / 2, arrowSize.height);
+           // endArrowPoint = CGPointMake(-arrowSize.width / 2, arrowSize.height);
             offset = CGPointOffset(offset, arrowPosition.x, 0);
             tl.y = arrowSize.height;
             break;
         case PMCalendarArrowDirectionDown: // going from left to right
                                            // so start point is a top LEFT point of a triangle - 'V
-            startArrowPoint = CGPointMake(-arrowSize.width / 2, -arrowSize.height);
-            endArrowPoint = CGPointMake(arrowSize.width / 2, -arrowSize.height);
+          //  startArrowPoint = CGPointMake(-arrowSize.width / 2, -arrowSize.height);
+          //  endArrowPoint = CGPointMake(arrowSize.width / 2, -arrowSize.height);
             offset = CGPointOffset(offset, arrowPosition.x, height + arrowSize.height);
             break;
         case PMCalendarArrowDirectionLeft: // going from top to bottom
                                             // so start point is a top RIGHT point of a triangle - <'
-            startArrowPoint = CGPointMake(arrowSize.height, -arrowSize.width / 2);
-            endArrowPoint = CGPointMake(arrowSize.height, arrowSize.width / 2);
+           // startArrowPoint = CGPointMake(arrowSize.height, -arrowSize.width / 2);
+           // endArrowPoint = CGPointMake(arrowSize.height, arrowSize.width / 2);
             offset = CGPointOffset(offset, 0, arrowPosition.y);
             tl.x = arrowSize.height;
             break;
         case PMCalendarArrowDirectionRight: // going from bottom to top
                                             // so start point is a bottom RIGHT point of a triangle - .>
-            startArrowPoint = CGPointMake(-arrowSize.height, arrowSize.width / 2);
-            endArrowPoint = CGPointMake(-arrowSize.height, -arrowSize.width / 2);
+           // startArrowPoint = CGPointMake(-arrowSize.height, arrowSize.width / 2);
+           // endArrowPoint = CGPointMake(-arrowSize.height, -arrowSize.width / 2);
             offset = CGPointOffset(offset, width + arrowSize.height, arrowPosition.y);
             break;
             
@@ -113,15 +122,15 @@ CGSize innerPadding   = (CGSize){10, 10};
             break;
     }
     
-    startArrowPoint = CGPointOffsetByPoint(startArrowPoint, offset);
-    endArrowPoint = CGPointOffsetByPoint(endArrowPoint, offset);
-    topArrowPoint = CGPointOffsetByPoint(topArrowPoint, offset);
-        
+   // startArrowPoint = CGPointOffsetByPoint(startArrowPoint, offset);
+   // endArrowPoint = CGPointOffsetByPoint(endArrowPoint, offset);
+    //topArrowPoint = CGPointOffsetByPoint(topArrowPoint, offset);
+       /*
     void (^createBezierArrow)(void) = ^{
         [result addLineToPoint: startArrowPoint];
         [result addLineToPoint: topArrowPoint];
         [result addLineToPoint: endArrowPoint];
-    };
+    };*/
     
     // starting from bottom-left corner
     [result moveToPoint: CGPointMake(tl.x + shadowPadding
@@ -137,7 +146,7 @@ CGSize innerPadding   = (CGSize){10, 10};
     if (direction == PMCalendarArrowDirectionDown)
     {
         // draw it if yes
-        createBezierArrow();
+       // createBezierArrow();
     }
     // same steps for bottom-right corner
     [result addLineToPoint: CGPointMake(tl.x + shadowPadding + width - cornerRadius
@@ -150,7 +159,7 @@ CGSize innerPadding   = (CGSize){10, 10};
                    clockwise:NO];
     if (direction == PMCalendarArrowDirectionRight)
     {
-        createBezierArrow();
+       // createBezierArrow();
     }
     // same steps for top-right corner
     [result addLineToPoint: CGPointMake(tl.x + shadowPadding + width
@@ -163,7 +172,7 @@ CGSize innerPadding   = (CGSize){10, 10};
                    clockwise:NO];
     if (direction == PMCalendarArrowDirectionUp)
     {
-        createBezierArrow();
+       // createBezierArrow();
     }
     // same steps for top-left corner
     [result addLineToPoint: CGPointMake(tl.x + shadowPadding + cornerRadius
@@ -176,8 +185,8 @@ CGSize innerPadding   = (CGSize){10, 10};
                    clockwise:NO];
     if (direction == PMCalendarArrowDirectionLeft)
     {
-        createBezierArrow();
-    }    
+        //createBezierArrow();
+    }   
     // return back to the starting point
     [result addLineToPoint: CGPointMake(tl.x + shadowPadding
                                         , tl.y + shadowPadding + height - cornerRadius)];

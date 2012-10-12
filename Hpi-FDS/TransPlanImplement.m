@@ -933,7 +933,7 @@ int totalColument=0;
     
     
     
-    
+    /*
      NSLog(@"comLable:[%@]",comLabel.text);
      NSLog(@"shipLable   :[%@]",shipLabel.text);
      NSLog(@"factoryLable   :[%@]",factoryLabel.text);
@@ -942,7 +942,8 @@ int totalColument=0;
      NSLog(@"typeLabel   :[%@]",typeLabel.text);
      NSLog(@"supLable   :[%@]",supLable .text);
      NSLog(@"startTime [%@] ",startTime.text );
-     NSLog(@"endTime [%@] ",endTime   .text );
+     NSLog(@"endTime [%@] ",endTime   .text );*/
+
    
     
     
@@ -1096,30 +1097,6 @@ int totalColument=0;
        
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 
@@ -1138,27 +1115,22 @@ int totalColument=0;
         [v removeFromSuperview];
     }  
     
-    CGRect cellRect = [tableView rectForRowAtIndexPath:indexPath];
-    
+   CGRect cellRect = [tableView rectForRowAtIndexPath:indexPath];
     float columnOffset = 0.0;
     int cellHeight=40;
     NSArray *rowData = [source.data objectAtIndex:indexPath.row];
     NSString *strMonthFactory1=[rowData  objectAtIndex:0];
   
+    
         for(int column=0;column<[rowData count];column++){
             
             float columnWidth = [[source.columnWidth objectAtIndex:column] floatValue];
             if (   column==[rowData count]-1  &&[[rowData  objectAtIndex:[rowData count]-1] count]!=0) {
-                
                    NSMutableArray *dateArr=[rowData  objectAtIndex:[rowData count]-1];
-                       
+                  
+                
                        if ([strMonthFactory1 isEqualToString:[NSString stringWithFormat:@"%@",@"月"]]) {
-                           NSLog(@"当前 cell行=====================================【%d】",indexPath.row);
-                           
-                           
-                        //   NSLog(@"===============进入月执行情况=============================");
-                           
-                           UIButton *b=[UIButton buttonWithType:UIButtonTypeCustom ];
+                           NSLog(@"当前 cell行=====================================【%d】",indexPath.row);                           UIButton *b=[UIButton buttonWithType:UIButtonTypeCustom ];
                            b.titleLabel.font=[UIFont systemFontOfSize:14.0f];
                            b.frame = CGRectMake(columnOffset, 0 , columnWidth-1, cellHeight -1 );
                            if(indexPath.row % 2 == 0)
@@ -1170,39 +1142,26 @@ int totalColument=0;
                            b.titleLabel.textAlignment=UITextAlignmentCenter;
 
                            
-                           /*
-                           NSLog(@"cellRect.origin.x===========%f",cellRect.origin.x);
-                           NSLog(@"cellRect.origin.y===========%f",cellRect.origin.y);
-                           NSLog(@"cellRect.origin.y-[tableView contentOffset].y=================%f",cellRect.origin.y-[tableView contentOffset].y);
-                           NSLog(@" [tableView contentSize].height======================%f", [tableView contentSize].height);
-                           NSLog(@"[tableView contentOffset].y================%f",[tableView contentOffset].y);
-                           NSLog(@"tableview.contentSize.height=========1=======%f",tableView.contentSize.height);
-                           NSLog(@" tableview.frame.size.height =========2=======%f", tableView.frame.size.height );
-                           NSLog(@"  tableview.contentSize.height - tableview.frame.size.height  =========3=======%f",  tableView.contentSize.height - tableView.frame.size.height  );
-                           */
                            
+                                                    
+                
                            
                            
                           //传递 键值
                           //======================能不能释放==========
                            NSMutableArray *date1=[[NSMutableArray alloc] init];
-                           
                            [date1 removeAllObjects];
                            
                            
-                           [date1   addObject:[NSString stringWithFormat:@"%f",cellRect.origin.y-[tableView contentOffset].y]];
+                           
+                          [date1   addObject:[NSString stringWithFormat:@"%f",cellRect.origin.y-[tableView contentOffset].y]];
+                           
                          
-                           [date1 addObject:dateArr];
                            
-                        //   NSLog(@"===========%@",[[dateArr objectAtIndex:0] objectAtIndex:0] );
-                           
-                           
+                           [date1 addObject:dateArr]; 
                            [b setTag: (int)date1 ];
                            [b addTarget:self  action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
                            [cell addSubview:b];
-                           
-                           
-                           
                             //======================能不能释放==========
                           // [b release];
                            
@@ -1213,7 +1172,7 @@ int totalColument=0;
                            
                            if ([[dateArr objectAtIndex:1] count]>0) {
                                
-                               NSLog(@"日历........");
+                             //  NSLog(@"日历........");
                                UIButton *b=[UIButton buttonWithType:UIButtonTypeCustom ];
                                b.titleLabel.font=[UIFont systemFontOfSize:14.0f];
                                b.frame = CGRectMake(columnOffset, 0 , columnWidth-1, cellHeight -1 );
@@ -1229,7 +1188,11 @@ int totalColument=0;
                                
                                [date1   removeAllObjects];
                                
-                               [date1   addObject:[NSString stringWithFormat:@"%f",cellRect.origin.y-[tableView contentOffset].y]];
+                              [date1   addObject:[NSString stringWithFormat:@"%f",cellRect.origin.y-[tableView contentOffset].y]];
+                               
+                            
+                               
+                               
                                [date1 addObject:dateArr];
                                [b setTag: (int) date1];
                                [b addTarget:self  action:@selector(butClick1:) forControlEvents:UIControlEventTouchUpInside];
@@ -1312,12 +1275,10 @@ int totalColument=0;
 
 
 
-
-
 -(void)butClick1:(id)sender
 {
     
-    [self.view resignFirstResponder];
+    [self.listTableview resignFirstResponder];
     
     
        NSMutableArray *dateArr;
@@ -1331,8 +1292,17 @@ int totalColument=0;
  NSLog(@"butClick1===============================");
  NSMutableArray *dateTag=(NSMutableArray *)[sender  tag];
     
-    float  y=[[dateTag objectAtIndex:0] integerValue];
-    float x=[sender frame   ].origin.x;
+    //float  y=[[dateTag objectAtIndex:0] integerValue];
+    float  y=200;
+    float x=642;
+    
+    
+    //float x=[sender frame   ].origin.x;
+    
+    
+    
+    
+    
     [pmCC.view removeFromSuperview];
     CGSize defaultSize = (CGSize){300, 250};
     //数据
@@ -1456,7 +1426,7 @@ int totalColument=0;
          if ([subM count]>0) {
             for (int t=0; t<[subM count]; t++) {
                 if (t%3==0) {
-                    NSLog(@"检索日期%@",[subM objectAtIndex:t]);
+                   // NSLog(@"检索日期%@",[subM objectAtIndex:t]);
                     [set addObject:[subM objectAtIndex:t]];
                 }
             }
@@ -1474,8 +1444,15 @@ int totalColument=0;
        // NSLog(@"%@",obj);
     }
 
-   float  y=[[dateTag objectAtIndex:0] integerValue];
-   float x=[sender frame   ].origin.x;
+   //float  y=[[dateTag objectAtIndex:0] integerValue];
+   //float x=[sender frame   ].origin.x;
+    
+    
+    float  y=200;
+    float x=642;
+    
+    
+    
     [pmCC.view removeFromSuperview];
     CGSize defaultSize = (CGSize){300, 250};
     
@@ -1773,14 +1750,14 @@ int totalColument=0;
     }
     if(!monthCV)
         monthCV=[[DateViewController alloc] init];
-    [monthCV .view setFrame:CGRectMake(0, 0, 195, 216)];
-    monthCV.contentSizeForViewInPopover=CGSizeMake(195, 216);
+    [monthCV .view setFrame:CGRectMake(0, 0, 175, 216)];
+    monthCV.contentSizeForViewInPopover=CGSizeMake(175, 216);
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover=pop;//没什么用？
     monthCV.selectedDate=self.month;//初始化  属性[[NSDate alloc] init];  也可以不用他来初始化
     self.poper=pop;
     self.poper.delegate=self;
-    self.poper.popoverContentSize=CGSizeMake(195, 216);
+    self.poper.popoverContentSize=CGSizeMake(175, 216);
     [self.poper presentPopoverFromRect:CGRectMake(587, 80, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
@@ -1795,15 +1772,15 @@ int totalColument=0;
     } 
     if(!monthCV)
         monthCV=[[DateViewController alloc] init];
-    [monthCV .view setFrame:CGRectMake(0, 0, 195, 216)];
-    monthCV.contentSizeForViewInPopover=CGSizeMake(195, 216);
+    [monthCV .view setFrame:CGRectMake(0, 0, 175, 216)];
+    monthCV.contentSizeForViewInPopover=CGSizeMake(175, 216);
     
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover=pop;//没什么用？
     monthCV.selectedDate=self.month;//初始化  属性[[NSDate alloc] init];  也可以不用他来初始化
     self.poper=pop;
     self.poper.delegate=self;
-    self.poper.popoverContentSize=CGSizeMake(195, 216);  
+    self.poper.popoverContentSize=CGSizeMake(175, 216);
     [self.poper presentPopoverFromRect:CGRectMake(787, 80, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 
@@ -1875,9 +1852,11 @@ int totalColument=0;
         
         
         //解析入库
-        [xmlParser setISoapNum:2];
+        [xmlParser setISoapNum:3];
         [xmlParser requestSOAP:@"ShipTrans"];
         [xmlParser requestSOAP:@"TransPlan"];
+        [xmlParser requestSOAP:@"TfShip"];
+        
         
         //
               //状态 

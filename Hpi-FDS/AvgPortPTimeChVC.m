@@ -67,6 +67,11 @@ int currentMonth;
     NSCalendar *myCal = [[[NSCalendar alloc ]    initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     
     NSDate *myDate1 = [myCal dateFromComponents:comp] ;
+    myDate1=[[NSDate alloc] initWithTimeInterval:8*60*60-30*24*60*60 sinceDate:myDate1];
+    
+    //NSLog(@"myDate1===================%@",myDate1);
+    // NSLog(@"[formater stringFromDate:myDate1]===================%@",[formater stringFromDate:myDate1]);
+    
     [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]] forState:UIControlStateNormal];
     self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
     self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
@@ -167,13 +172,35 @@ int currentMonth;
 
 - (IBAction)Select:(id)sender {
     if (![startButton .titleLabel.text isEqualToString:@"开始时间"]) {
-        startTime.text=startButton.titleLabel.text;
+      
+        
+        
+        startTime.text=[startButton.titleLabel.text    stringByAppendingString:@"-01"];
     }
     if (![endButton .titleLabel.text isEqualToString:@"结束时间"]) {
-        endTime.text=endButton.titleLabel.text;
+        
+        NSDateFormatter *f=[[NSDateFormatter alloc] init];
+        [f setDateFormat:@"yyyy-MM-dd"];
+        NSDate *end=[f dateFromString:[endButton.titleLabel.text stringByAppendingString:@"-01"]];
+        end=[[NSDate alloc] initWithTimeInterval:8*24*60*60 sinceDate:end];
+        
+        
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:end];
+        NSUInteger numberOfDaysInMonth = range.length;
+ 
+         
+        
+        
+        endTime.text=   [endButton.titleLabel.text stringByAppendingString:[NSString stringWithFormat:@"-%d",numberOfDaysInMonth    ]];
+        [calendar release];
+        
+        
     }
     
     [ self  getDateSource:self.startTime.text :self.endTime.text :1];
+    
+    
     
 }
 - (IBAction)release:(id)sender {
@@ -212,6 +239,8 @@ int currentMonth;
         //解析入库
         [tbxmlParser setISoapNum:1];
         [tbxmlParser requestSOAP:@"ShipTrans"];
+        
+        
         [self runActivity];
     }
 }

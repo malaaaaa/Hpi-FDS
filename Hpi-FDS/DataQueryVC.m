@@ -218,6 +218,10 @@ static NSInteger menuIndex;
         [thShipTransDetail release];
         [pop release];
     }
+    
+    
+    
+    
        if (menuIndex==kMenuZQFMXCX) {
          double  t=0;
         //滞期费合计
@@ -228,18 +232,23 @@ static NSInteger menuIndex;
         TB_LatefeeChDial *tblatefeeDial=[[TB_LatefeeChDial alloc] init]; 
         tblatefeeDial.totalLatefee= [NSString stringWithFormat:@"%.2f",t];
         tblatefeeDial.tblatefee=tblatefee;
-        [tblatefeeDial.view setFrame:CGRectMake(0,0,600,280)];
-        tblatefeeDial.contentSizeForViewInPopover=CGSizeMake(600, 280);
+        [tblatefeeDial.view setFrame:CGRectMake(0,0,600,140)];
+        tblatefeeDial.contentSizeForViewInPopover=CGSizeMake(600, 140);
         UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:tblatefeeDial];
         tblatefeeDial.pop=pop;
         self.popover=pop;
         self.popover.delegate=self;
-        self.popover.popoverContentSize=CGSizeMake(600, 280);
+        self.popover.popoverContentSize=CGSizeMake(600, 140);
         //设置箭头方向
         [self.popover presentPopoverFromRect:CGRectMake(512,430 , 0.5,0.5) inView:self.view   permittedArrowDirections:0 animated:YES];
         [tblatefeeDial release];
         [pop release];
-}
+    }
+    
+    
+    
+    
+    
 }
 /**/
 - (NSString *)formatInfoDate:(NSString *)string1 :(NSString *)string2 {

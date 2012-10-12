@@ -59,10 +59,10 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmIndexinfo *tmIndexinfo=[array objectAtIndex:i];
-            NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
+            //NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmIndexinfo.recordTime,
+                               [tmIndexinfo.recordTime substringWithRange:NSMakeRange(0, 10)],
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo.infoValue floatValue]],
                                 nil]];
             
@@ -79,10 +79,13 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmIndexinfo *tmIndexinfo=[array objectAtIndex:i];
-            NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
+            
+           // NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
+            
+            
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmIndexinfo.recordTime,
+                                [tmIndexinfo.recordTime substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo.infoValue floatValue]],
                                 nil]];
             
@@ -101,7 +104,7 @@
             NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmIndexinfo.recordTime,
+                                [tmIndexinfo.recordTime substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo.infoValue floatValue]],
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo2.infoValue floatValue]],
                                 nil]];
@@ -121,7 +124,7 @@
             NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmIndexinfo.recordTime,
+                                 [tmIndexinfo.recordTime substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo.infoValue floatValue]],
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo2.infoValue floatValue]],
                                 nil]];
@@ -137,10 +140,10 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmIndexinfo *tmIndexinfo=[array objectAtIndex:i];
-            NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
+          //  NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmIndexinfo.recordTime,
+                                [tmIndexinfo.recordTime substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo.infoValue floatValue]],
                                 nil]];
             
@@ -158,10 +161,10 @@
             TmIndexinfo *tmIndexinfo=[array objectAtIndex:i];
             TmIndexinfo *tmIndexinfo2=[array2 objectAtIndex:i];
             TmIndexinfo *tmIndexinfo3=[array3 objectAtIndex:i];
-            NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
+          //  NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmIndexinfo.recordTime,
+                                 [tmIndexinfo.recordTime substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo.infoValue floatValue]],
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo2.infoValue floatValue]],
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo3.infoValue floatValue]],
@@ -177,10 +180,10 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmIndexinfo *tmIndexinfo=[array objectAtIndex:i];
-            NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
+         //   NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmIndexinfo.recordTime,
+                                [tmIndexinfo.recordTime substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo.infoValue floatValue]],
                                 nil]];
             
@@ -194,10 +197,10 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmIndexinfo *tmIndexinfo=[array objectAtIndex:i];
-            NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
+         //   NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmIndexinfo.recordTime,
+                                [tmIndexinfo.recordTime substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo.infoValue floatValue]],
                                 nil]];
             
@@ -211,10 +214,10 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmIndexinfo *tmIndexinfo=[array objectAtIndex:i];
-            NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
+           // NSLog(@" tmIndexinfo [%@][%@]",tmIndexinfo.recordTime,tmIndexinfo.infoValue);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmIndexinfo.recordTime,
+                                 [tmIndexinfo.recordTime substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%.3f",[tmIndexinfo.infoValue floatValue]],
                                 nil]];
             
@@ -230,10 +233,10 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmCoalinfo *tmCoalinfo=[array objectAtIndex:i];
-            NSLog(@" tmCoalinfo [%@][%d]",tmCoalinfo.recordDate,tmCoalinfo.import);
+           // NSLog(@" tmCoalinfo [%@][%d]",tmCoalinfo.recordDate,tmCoalinfo.import);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmCoalinfo.recordDate,
+                                 [tmCoalinfo.recordDate substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%.2f",[[NSString stringWithFormat:@"%d",tmCoalinfo.import] floatValue]/10000],
                                 nil]];
             
@@ -249,10 +252,10 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmCoalinfo *tmCoalinfo=[array objectAtIndex:i];
-            NSLog(@" tmCoalinfo [%@][%d]",tmCoalinfo.recordDate,tmCoalinfo.Export);
+          //  NSLog(@" tmCoalinfo [%@][%d]",tmCoalinfo.recordDate,tmCoalinfo.Export);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmCoalinfo.recordDate,
+                                [tmCoalinfo.recordDate substringWithRange:NSMakeRange(0, 10)] ,
                                 //[NSString stringWithFormat:@"%d",tmCoalinfo.Export],
                                 [NSString stringWithFormat:@"%.2f",[[NSString stringWithFormat:@"%d",tmCoalinfo.Export] floatValue]/10000],
                                 nil]];
@@ -269,10 +272,10 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmCoalinfo *tmCoalinfo=[array objectAtIndex:i];
-            NSLog(@" tmCoalinfo [%@][%d]",tmCoalinfo.recordDate,tmCoalinfo.storage);
+          //  NSLog(@" tmCoalinfo [%@][%d]",tmCoalinfo.recordDate,tmCoalinfo.storage);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmCoalinfo.recordDate,
+                                [tmCoalinfo.recordDate substringWithRange:NSMakeRange(0, 10)] ,
                                 //[NSString stringWithFormat:@"%d",tmCoalinfo.storage],
                                 [NSString stringWithFormat:@"%.2f",[[NSString stringWithFormat:@"%d",tmCoalinfo.storage] floatValue]/10000],
                                 nil]];
@@ -289,10 +292,10 @@
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmShipinfo *tmShipinfo=[array objectAtIndex:i];
-            NSLog(@" tmCoalinfo [%@][%d]",tmShipinfo.recordDate,tmShipinfo.waitShip);
+          //  NSLog(@" tmCoalinfo [%@][%d]",tmShipinfo.recordDate,tmShipinfo.waitShip);
             [ds.data addObject:[NSArray arrayWithObjects:
                                 kBLACK,
-                                tmShipinfo.recordDate,
+                                [tmShipinfo.recordDate substringWithRange:NSMakeRange(0, 10)] ,
                                 [NSString stringWithFormat:@"%d",tmShipinfo.waitShip],
                                 nil]];
             

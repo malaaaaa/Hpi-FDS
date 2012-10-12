@@ -92,6 +92,16 @@
     //NSLog(@"HpiGraphView drawPoints  %d个点需描绘",[data.pointArray count]);
 //    if([data.pointArray count] < 1)
 //        return;
+    
+    
+    
+    NSLog(@"[data.pointArray count]========%d",[data.pointArray count]);
+    NSLog(@"[data.pointArray2 count]========%d",[data.pointArray2 count]);
+    NSLog(@"[data.pointArray3 count]========%d",[data.pointArray3 count]);
+    
+    
+    
+    
     BOOL start=NO;
     CGContextSetRGBStrokeColor(context, 220./255, 11./255, 11./255, 1);//线条颜色
 	CGContextSetAllowsAntialiasing(context, YES);
@@ -103,27 +113,31 @@
     
     float wlength,hlength;
     hlength=(_rect.size.height-marginTop-marginBottom)/data.yNum;
+
     wlength=(_rect.size.width-marginRight-marginLeft)/data.xNum;
-    NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
+   // NSLog(@"HpiGraphView drawPoints hlength[%f]  wlength [%f]",hlength,wlength);
     //将数据转化成坐标系
     CGContextMoveToPoint(context, marginLeft, _rect.size.height-marginBottom);
     for(int i=0;i<[data.pointArray count]; i++){
+        
         HpiPoint *point=[data.pointArray objectAtIndex:i];
-//        NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
+      // NSLog(@"HpiGraphView drawPoints  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
         if (start == NO) {
             CGContextMoveToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
             start = YES;
-//            NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+          // NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
         }
         else {
             CGContextAddLineToPoint(context, marginLeft+(point.x)*wlength, _rect.size.height-marginBottom-point.y*hlength);
-//             NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
+            // NSLog(@"HpiGraphView drawPoints  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
         }
     }
     CGContextStrokePath(context);
-
     CGContextRestoreGState(context);
 
+    
+    
+    
     
     CGContextSetRGBStrokeColor(context, 11.0/255, 220./255, 11./255, 1);//线条颜色
 	CGContextSetAllowsAntialiasing(context, YES);
@@ -133,7 +147,11 @@
 	CGContextSetLineJoin(context, kCGLineJoinMiter);
     CGContextSetRGBStrokeColor(context, 11./255, 220./255, 11./255, 1);//线条颜色
     start = NO;
+    
+    
     for(int i=0;i<[data.pointArray2 count]; i++){
+             
+        
         HpiPoint *point=[data.pointArray2 objectAtIndex:i];
 //        NSLog(@"HpiGraphView drawPoints2  第%d个点  [%d]  [%d]",i+1,point.x,point.y);
         if (start == NO) {
@@ -146,6 +164,10 @@
 //            NSLog(@"HpiGraphView drawPoints2  第%d个点  [%f]  [%f]",i+1,marginLeft+(point.x)*wlength,_rect.size.height-marginBottom-point.y*hlength);
         }
     }
+    
+    
+    
+    
 	CGContextStrokePath(context);
     CGContextRestoreGState(context);
     
