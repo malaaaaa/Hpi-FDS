@@ -100,7 +100,7 @@ static WSChart *electionChart=nil;
     [_endDateCV release];
     [_comButton release];
     [_comLabel release];
-     
+    
     if (ShipCompanyPop==YES) {
         [ShipCompanyArray release];
     }
@@ -258,6 +258,7 @@ static WSChart *electionChart=nil;
 {
     [self generateGraphDate];
     //增加判断，如果Y轴数据全部为0，组件WSChart崩溃，所以不显示
+    
     if ([NTLateFeeDMFXDao isNoData]) {
         UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:@"查询结果为空！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil ];
         [alertView show];
@@ -270,6 +271,8 @@ static WSChart *electionChart=nil;
     else{
         [self loadHpiGraphView];
     }
+    
+    
 }
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
@@ -279,7 +282,7 @@ static WSChart *electionChart=nil;
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSLog(@"aaa");
-    if (buttonIndex == 1) { 
+    if (buttonIndex == 1) {
         NSLog(@"bbb");
         [self.view addSubview:_activity];
         [_reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
@@ -306,7 +309,7 @@ static WSChart *electionChart=nil;
 }
 
 -(void)generateGraphDate{
-      NSLog(@"count=%d", [ShipCompanyArray count]);
+    NSLog(@"count=%d", [ShipCompanyArray count]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
@@ -372,7 +375,7 @@ static WSChart *electionChart=nil;
     return [WSData dataWithValues:arrayY
                       annotations:arrayX];
 }
- 
+
 
 #pragma mark multipleSelectViewdidSelectRow Delegate Method
 -(void)multipleSelectViewdidSelectRow:(NSInteger)indexPathRow
@@ -396,15 +399,28 @@ static WSChart *electionChart=nil;
             else{
                 if(shipCompany.didSelected==YES){
                     ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TfShipCompany *)[ShipCompanyArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
                     ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=YES;
-                }
-            }
-            for (int i=0; i<[ShipCompanyArray count]; i++) {
-                if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[ShipCompanyArray count]-1) {
+                        ((TfShipCompany *)[ShipCompanyArray objectAtIndex:0]).didSelected=YES;
+                    }
+                    
                 }
             }
             //只要有条件选中，附加星号标示

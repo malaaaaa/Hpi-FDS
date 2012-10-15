@@ -486,17 +486,31 @@ static WSChart *electionChart=nil;
             else{
                 if(shipCompany.didSelected==YES){
                     ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TfShipCompany *)[ShipCompanyArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
                     ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=YES;
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[ShipCompanyArray count]-1) {
+                        ((TfShipCompany *)[ShipCompanyArray objectAtIndex:0]).didSelected=YES;
+                    }
+
                 }
             }
-            for (int i=0; i<[ShipCompanyArray count]; i++) {
-                if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
-                }
-            }
+
             //只要有条件选中，附加星号标示
             if (count>0) {
                 [self.comButton setTitle:@"航运公司(*)" forState:UIControlStateNormal];

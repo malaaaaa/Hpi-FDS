@@ -384,4 +384,12 @@ static sqlite3	*database;
 	[array autorelease];
 	return array;
 }
+
+//为地图中船舶相信信息界面中剩余航运计划使用
++(NSMutableArray *) getVbTransplanByTripNO:(NSString *)tripNO ShipID:(NSInteger)shipID
+{
+	NSString *query=[NSString stringWithFormat:@" shipID = %d and tripNO>'%@'",shipID,tripNO];
+	NSMutableArray * array=[VbTransplanDao getVbTransplanBySql:query];
+	return array;
+}
 @end

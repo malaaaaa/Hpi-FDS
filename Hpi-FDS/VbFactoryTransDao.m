@@ -151,7 +151,7 @@ static sqlite3 *database;
 
 
 //查询第一层电厂运行情况
-
+/*
 +(NSMutableArray *) getVbFactoryTransState:(NSMutableArray *)factory 
                                           :(NSDate *)date 
                                           :(NSMutableArray *)shipCompany 
@@ -390,7 +390,265 @@ static sqlite3 *database;
 
 	return array;
 }
+*/
 
++(NSMutableArray *) getVbFactoryTransState:(NSMutableArray *)factory
+                                          :(NSDate *)date
+                                          :(NSMutableArray *)shipCompany
+                                          :(NSMutableArray *)ship
+                                          :(NSMutableArray *)supplier
+                                          :(NSMutableArray *)coalType
+                                          :(NSString *)keyValue
+                                          :(NSString *)trade
+                                          :(NSMutableArray *)shipStage
+{
+    NSMutableString *tmpString = [[NSMutableString alloc] init ];
+    //全部选中的情况下不代入查询条件
+    //电厂
+    if (((TgFactory *)[factory objectAtIndex:0]).didSelected==NO) {
+        int count=0;
+        for (int i=0; i<[factory count]; i++) {
+            if (((TgFactory *)[factory objectAtIndex:i]).didSelected==YES) {
+                count++;
+                if (count==1) {
+                    [tmpString appendString:@" AND F.FactoryCode in ("];
+                }
+                //如果条件不是第一条
+                if (count!=1) {
+                    [tmpString appendString:@","];
+                }
+                [tmpString appendFormat:@"'%@'",((TgFactory *)[factory objectAtIndex:i]).factoryCode];
+            }
+            
+        }
+        if (count>0) {
+            [tmpString appendString:@")"];
+        }
+    }
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *start=[dateFormatter stringFromDate:date];
+    [dateFormatter release];
+    
+	sqlite3_stmt *statement;
+    NSString *sql=[NSString stringWithFormat:@"SELECT f.FACTORYCODE,f.FACTORYNAME,F.CAPACITYSUM, f.description FROM  TfFactory F WHERE 1=1 %@ order by sort",tmpString];
+    NSLog(@"执行 getVbFactoryTransState OuterSql[%@] ",sql);
+    
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+			
+            VbFactoryTrans *vbFactoryTrans=[[VbFactoryTrans alloc] init];
+            
+			char * rowData0=(char *)sqlite3_column_text(statement,0);
+            if (rowData0 == NULL)
+                vbFactoryTrans.FACTORYCODE = nil;
+            else
+                vbFactoryTrans.FACTORYCODE = [NSString stringWithUTF8String: rowData0];
+            
+            char * rowData1=(char *)sqlite3_column_text(statement,1);
+            if (rowData1 == NULL)
+                vbFactoryTrans.DISPATCHNO = nil;
+            else
+                vbFactoryTrans.FACTORYNAME = [NSString stringWithUTF8String: rowData1];
+            
+            char * rowData2=(char *)sqlite3_column_text(statement,2);
+            if (rowData2 == NULL)
+                vbFactoryTrans.CAPACITYSUM = nil;
+            else
+                vbFactoryTrans.CAPACITYSUM = [NSString stringWithUTF8String: rowData2];
+
+            char * rowData3=(char *)sqlite3_column_text(statement,3);
+            if (rowData3 == NULL)
+                vbFactoryTrans.DESCRIPTION = nil;
+            else
+                vbFactoryTrans.DESCRIPTION = [NSString stringWithUTF8String: rowData3];
+            
+            vbFactoryTrans.CONSUM = 0;
+            vbFactoryTrans.STORAGE = 0;
+            vbFactoryTrans.COMPARE=0;
+            vbFactoryTrans.AVALIABLE = 0;
+            vbFactoryTrans.MONTHIMP = 0;
+            vbFactoryTrans.YEARIMP = 0;
+
+            
+            sqlite3_stmt *statement1;
+            NSString *sql1=[NSString stringWithFormat:@"SELECT S.CONSUM,S.STORAGE, S.STORAGE-(select p.storage from TbFactoryState p where p.factorycode='%@' AND strftime('%%Y-%%m-%%d',p.RECORDDATE) =date(strftime('%%Y-%%m-%%d','%@'),'-1 day') ),S.AVALIABLE,S.MONTHIMP,S.YEARIMP FROM  TbFactoryState s WHERE s.factorycode='%@' AND strftime('%%Y-%%m-%%d',s.RECORDDATE) ='%@'  ",vbFactoryTrans.FACTORYCODE,start,vbFactoryTrans.FACTORYCODE,start];
+            NSLog(@"执行 TbFactoryState OuterSql[%@] ",sql1);
+            if(sqlite3_prepare_v2(database,[sql1 UTF8String],-1,&statement1,NULL)==SQLITE_OK){
+                while (sqlite3_step(statement1)==SQLITE_ROW) {
+                    vbFactoryTrans.CONSUM = sqlite3_column_int(statement1,0);
+                    vbFactoryTrans.STORAGE = sqlite3_column_int(statement1,1);
+                    vbFactoryTrans.COMPARE = sqlite3_column_int(statement1,2);
+                    vbFactoryTrans.AVALIABLE = sqlite3_column_int(statement1,3);
+                    vbFactoryTrans.MONTHIMP = sqlite3_column_int(statement1,4);
+                    vbFactoryTrans.YEARIMP = sqlite3_column_int(statement1,5);
+
+                }
+            }else {
+                NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+            }
+             sqlite3_finalize(statement1);
+            
+            {
+                NSMutableString *innerTmpString = [[NSMutableString alloc] init ];
+                
+                //全部选中的情况下不代入查询条件
+                
+                //电厂
+                if (((TfShipCompany *)[shipCompany objectAtIndex:0]).didSelected==NO) {
+                    int count=0;
+                    for (int i=0; i<[shipCompany count]; i++) {
+                        if (((TfShipCompany *)[shipCompany objectAtIndex:i]).didSelected==YES) {
+                            count++;
+                            if (count==1) {
+                                [innerTmpString appendString:@" AND comid in ("];
+                            }
+                            //如果条件不是第一条
+                            if (count!=1) {
+                                [innerTmpString appendString:@","];
+                            }
+                            [innerTmpString appendFormat:@"%d",((TfShipCompany *)[shipCompany objectAtIndex:i]).comid];
+                        }
+                    }
+                    if (count>0) {
+                        [innerTmpString appendString:@")"];
+                    }
+                }
+                
+                //船舶
+                if (((TgShip *)[ship objectAtIndex:0]).didSelected==NO) {
+                    int count=0;
+                    for (int i=0; i<[ship count]; i++) {
+                        if (((TgShip *)[ship objectAtIndex:i]).didSelected==YES) {
+                            count++;
+                            if (count==1) {
+                                [innerTmpString appendString:@" AND shipid in ("];
+                            }
+                            //如果条件不是第一条
+                            if (count!=1) {
+                                [innerTmpString appendString:@","];
+                            }
+                            [innerTmpString appendFormat:@"%d",((TgShip *)[ship objectAtIndex:i]).shipID];
+                        }
+                    }
+                    if (count>0) {
+                        [innerTmpString appendString:@")"];
+                    }
+                }
+                
+                //供货商
+                if (((TfSupplier *)[supplier objectAtIndex:0]).didSelected==NO) {
+                    int count=0;
+                    for (int i=0; i<[supplier count]; i++) {
+                        if (((TfSupplier *)[supplier objectAtIndex:i]).didSelected==YES) {
+                            count++;
+                            if (count==1) {
+                                [innerTmpString appendString:@" AND supid in ("];
+                            }
+                            //如果条件不是第一条
+                            if (count!=1) {
+                                [innerTmpString appendString:@","];
+                            }
+                            [innerTmpString appendFormat:@"%d",((TfSupplier *)[supplier objectAtIndex:i]).SUPID];
+                        }
+                    }
+                    if (count>0) {
+                        [innerTmpString appendString:@")"];
+                    }
+                }
+                
+                //煤种
+                if (((TfCoalType *)[coalType objectAtIndex:0]).didSelected==NO) {
+                    int count=0;
+                    for (int i=0; i<[coalType count]; i++) {
+                        if (((TfCoalType *)[coalType objectAtIndex:i]).didSelected==YES) {
+                            count++;
+                            if (count==1) {
+                                [innerTmpString appendString:@" AND typeid in ("];
+                            }
+                            //如果条件不是第一条
+                            if (count!=1) {
+                                [innerTmpString appendString:@","];
+                            }
+                            [innerTmpString appendFormat:@"%d",((TfCoalType *)[coalType objectAtIndex:i]).TYPEID];
+                        }
+                    }
+                    if (count>0) {
+                        [innerTmpString appendString:@")"];
+                    }
+                }
+                
+                //性质
+                if ([keyValue isEqualToString:@"重点"]) {
+                    [innerTmpString appendString:@" AND keyvalue='1' "];
+                    
+                }
+                else if ([keyValue isEqualToString:@"非重点"]) {
+                    [innerTmpString appendString:@" AND keyvalue='0' "];
+                }
+                
+                //贸易性质
+                if ([trade isEqualToString:@"内贸"]) {
+                    [innerTmpString appendString:@" AND trade='D' "];
+                    
+                }
+                else if ([trade isEqualToString:@"进口"]) {
+                    [innerTmpString appendString:@" AND trade='F' "];
+                }
+                //状态
+                if (((TsShipStage *)[shipStage objectAtIndex:0]).didSelected==NO) {
+                    int count=0;
+                    for (int i=0; i<[shipStage count]; i++) {
+                        if (((TsShipStage *)[shipStage objectAtIndex:i]).didSelected==YES) {
+                            count++;
+                            if (count==1) {
+                                [innerTmpString appendString:@" AND stagecode in ("];
+                            }
+                            //如果条件不是第一条
+                            if (count!=1) {
+                                [innerTmpString appendString:@","];
+                            }
+                            [innerTmpString appendFormat:@"'%@'",((TsShipStage *)[shipStage objectAtIndex:i]).STAGE];
+                        }
+                    }
+                    if (count>0) {
+                        [innerTmpString appendString:@")"];
+                    }
+                }
+                
+                sqlite3_stmt *innerStatement;
+                NSString *innerSql=[NSString stringWithFormat:@"select count(*) from TH_SHIPTRANS_ORI where    FACTORYCODE ='%@'  AND strftime('%%Y-%%m-%%d',RECORDDATE) ='%@' %@",vbFactoryTrans.FACTORYCODE,start,innerTmpString];
+                NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
+                
+                if(sqlite3_prepare_v2(database,[innerSql UTF8String],-1,&innerStatement,NULL)==SQLITE_OK){
+                    while (sqlite3_step(innerStatement)==SQLITE_ROW) {
+                        vbFactoryTrans.SHIPNUM = sqlite3_column_int(innerStatement,0);
+                    }
+                }
+                else {
+                    NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),innerSql);
+                }
+                [innerTmpString release];
+                sqlite3_finalize(innerStatement);
+                
+            }
+            
+			[array addObject:vbFactoryTrans];
+            [vbFactoryTrans release];
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+    [tmpString release];
+    sqlite3_finalize(statement);
+    
+	return array;
+}
+
+
+/*
 //查询第二层船舶运行情况
 +(NSMutableArray *) getVbFactoryTransBySql:(NSString *)querySql
 {
@@ -590,5 +848,5 @@ static sqlite3 *database;
     [query release];
 	return array;
 }
-
+*/
 @end

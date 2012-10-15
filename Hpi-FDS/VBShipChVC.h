@@ -10,7 +10,7 @@
 #import "ChooseView.h"
 #import "PubInfo.h"
 #import "XMLParser.h"
-
+#import "DateViewController.h"
 #import "ChooseViewDelegate.h"
 #import "TBXMLParser.h"
 
@@ -33,7 +33,13 @@
     UIButton *reloadButton;
     UIActivityIndicatorView *activity;
     TBXMLParser *tbxmlParser;
+    UIButton *dateButton;
+    UILabel *dateLabel;
+    DateViewController* startDateCV;
+    NSDate *startDay;
 }
+-(IBAction)startDate:(id)sender;
+
 @property (retain, nonatomic) IBOutlet UIButton *comButton;
 @property (retain, nonatomic) IBOutlet UILabel *comLabel;
 @property (retain, nonatomic) IBOutlet UIButton *shipButton;
@@ -52,5 +58,8 @@
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (retain, nonatomic) IBOutlet UIButton *reloadButton;
 @property (retain, nonatomic) TBXMLParser *tbxmlParser;
-
+@property (retain, nonatomic) IBOutlet UIButton *dateButton;
+@property (retain, nonatomic) IBOutlet UILabel *dateLabel;
+@property(nonatomic,retain) DateViewController *startDateCV;
+@property(nonatomic,retain) NSDate *startDay;
 @end

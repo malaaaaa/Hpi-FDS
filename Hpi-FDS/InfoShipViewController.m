@@ -112,7 +112,7 @@
 }
 
 -(void)loadViewData{
-    int i=0;
+//    int i=0;
     DataGridComponentDataSource *ds = [[DataGridComponentDataSource alloc] init];
 	ds.columnWidth = [NSArray arrayWithObjects:@"100",@"100",@"100",@"100",@"100",@"100",nil];
 	ds.titles = [NSArray arrayWithObjects:@"序号",@"流向",@"装港",@"供货方",@"预计载重",@"预计抵港时间",nil];
@@ -120,16 +120,32 @@
     NSMutableArray *array=[TgShipDao getTgShipByName:shipName];
 
     ds.data=[[NSMutableArray alloc]init];
-
+    
     TgShip *tgShip=[array objectAtIndex:0];
-    [ds.data addObject:[NSArray arrayWithObjects:
-                        kBLACK,
-                        [NSString stringWithFormat:@"%d",i+1],
-                            tgShip.factoryName,
-                            tgShip.portName,
-                            tgShip.supplier,
-                            [NSString stringWithFormat:@"%d",tgShip.lw],
-                            tgShip.eta,nil]];
+    
+    /** 改为剩余航运计划 modified by mawp **/
+    //    [ds.data addObject:[NSArray arrayWithObjects:
+    //                        kBLACK,
+    //                        [NSString stringWithFormat:@"%d",i+1],
+    //                            tgShip.factoryName,
+    //                            tgShip.portName,
+    //                            tgShip.supplier,
+    //                            [NSString stringWithFormat:@"%d",tgShip.lw],
+    //                            tgShip.eta,nil]];
+    NSMutableArray *arrayPlan=[VbTransplanDao getVbTransplanByTripNO:tgShip.tripNo ShipID:tgShip.shipID];
+    
+    for (int i=0; i<[arrayPlan count]; i++) {
+        VbTransplan *vbPlan=[arrayPlan objectAtIndex:i];
+        [ds.data addObject:[NSArray arrayWithObjects:
+                            kBLACK,
+                            [NSString stringWithFormat:@"%d",i+1],
+                            vbPlan.factoryName,
+                            vbPlan.portName,
+                            vbPlan.supplier,
+                            [NSString stringWithFormat:@"%d",vbPlan.eLw],
+                            vbPlan.eTaf,nil]];
+    }
+    
  
     self.labelShipName.text = [NSString stringWithFormat:@"%@", tgShip.shipName];
     self.company.text = [NSString stringWithFormat:@"%@", tgShip.company];
@@ -150,7 +166,7 @@
     self.infoTime.text = [NSString stringWithFormat:@"%@", tgShip.infoTime];
     self.stageName.text = [NSString stringWithFormat:@"%@", tgShip.stageName];
     
-	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 246, 600, 154) data:ds];
+	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 281, 600, 154) data:ds];
 
 //    [ds.data release];
 
