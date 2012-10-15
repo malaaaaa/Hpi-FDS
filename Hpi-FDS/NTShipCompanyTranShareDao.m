@@ -206,7 +206,6 @@ static sqlite3 *database;
     NSInteger monthNum= [PubInfo getMonthDifference:startDate :endDate];
     NSString *year= [startDate substringToIndex:4];
     NSString *month=[startDate substringFromIndex:4];
-    
     for (int i=0; i<monthNum; i++) {
         sqlite3_stmt *statement;
         NSString *sql=[NSString stringWithFormat:@"SELECT sum(lwsum) from NTShipCompanyTranShare where tradeyear='%@' and tradeweek='%@' %@ ",year,month,tmpString];

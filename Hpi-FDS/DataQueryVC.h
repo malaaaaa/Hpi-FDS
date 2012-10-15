@@ -63,7 +63,7 @@
     ShipCompanyTransShareVC *shipCompanyTrnasShareVC;
     FactoryFreightVolumeVC *factoryFreightVolumeVC;
     PortEfficiencyVC *portEfficiencyVC;
-    
+    IBOutlet UILabel *noteLabel;
 }
 
 @property (nonatomic,retain) UISegmentedControl *segment;
@@ -95,7 +95,7 @@
 @property (nonatomic,retain) DataGridComponentDataSource *dataSource;
 @property(nonatomic,retain) FactoryFreightVolumeVC *factoryFreightVolumeVC;
 @property(nonatomic,retain) PortEfficiencyVC *portEfficiencyVC;
-
+@property(nonatomic,retain) UILabel *noteLabel;
 
 //-(void)loadViewData_vb;
 //-(void)loadViewData_tb;

@@ -34,7 +34,10 @@
 @synthesize resetButton;
 @synthesize popover,chooseView,parentVC;
 @synthesize tbxmlParser;
-
+@synthesize dateButton;
+@synthesize dateLabel;
+@synthesize startDateCV;
+@synthesize startDay;
 
 static DataGridComponentDataSource *dataSource;
 //初始化 父视图
@@ -114,6 +117,11 @@ DataQueryVC *dataQueryVC;
         dataSource=nil;
     }
     
+    self.startDay = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
+    [dateFormatter release];
 }
 
 -(void)initSource
@@ -143,6 +151,8 @@ DataQueryVC *dataQueryVC;
     [self setReloadButton:nil];
     [self setActivity:nil];
     self.tbxmlParser =nil;
+    [self setDateButton:nil];
+    [self setDateLabel:nil];
     
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -178,10 +188,40 @@ DataQueryVC *dataQueryVC;
     [popover release];
     [reloadButton release];
     [activity release];
+    [dateButton release];
+    [dateLabel release];
     //    [tbxmlParser release];
     //    tbxmlParser=nil;
     self.tbxmlParser=nil;
     [super dealloc];
+}
+-(IBAction)startDate:(id)sender
+{
+    NSLog(@"startDate");
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    
+    if(!startDateCV)//初始化待显示控制器
+        startDateCV=[[DateViewController alloc]init];
+    //设置待显示控制器的范围
+    [startDateCV.view setFrame:CGRectMake(0,0, 270, 216)];
+    
+    //设置待显示控制器视图的尺寸
+    startDateCV.contentSizeForViewInPopover = CGSizeMake(270, 216);
+    
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:startDateCV];
+    startDateCV.popover = pop;
+    startDateCV.selectedDate=self.startDay;
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(270, 216);
+    
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(90, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [pop release];
 }
 - (IBAction)comAction:(id)sender {
     if (self.popover.popoverVisible) {
@@ -357,7 +397,7 @@ DataQueryVC *dataQueryVC;
 
         [tbxmlParser setISoapNum:1];
         
-        [tbxmlParser requestSOAP:@"ShipTrans"];
+        [tbxmlParser requestSOAP:@"ThShipTranS"];
         [self runActivity];
     }
 	
@@ -373,26 +413,26 @@ DataQueryVC *dataQueryVC;
     // NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
     
     [self initSource];
-    dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
+//    dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
+    dataQueryVC.dataArray=[TH_SHIPTRANS_ORIDAO getThShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text :self.startDay];
     NSLog(@"    dataQueryVC.dataArray [%d]",[    dataQueryVC.dataArray count]);
     dataSource.data=[[NSMutableArray alloc]init] ;
     
     for (int i=0;i<[dataQueryVC.dataArray count];i++) {
-        VbShiptrans *vbShiptrans=[dataQueryVC.dataArray objectAtIndex:i];
-        
+        TH_SHIPTRANS_ORI *vbShiptrans=[dataQueryVC.dataArray objectAtIndex:i];
         [dataSource.data addObject:[NSArray arrayWithObjects:
-                                    ([vbShiptrans.stage isEqualToString:@"0"])?kGREEN:(([vbShiptrans.stage isEqualToString:@"2"])?kRED:kBLACK),
-                                    vbShiptrans.shipCompany,
-                                    ([vbShiptrans.schedule isEqualToString:@"1"])?vbShiptrans.shipName:[NSString stringWithFormat:@"*%@",vbShiptrans.shipName],
-                                    vbShiptrans.tripNo,
-                                    vbShiptrans.factoryName,
-                                    vbShiptrans.portName,
-                                    vbShiptrans.supplier,
-                                    vbShiptrans.keyName,
-                                    [NSString stringWithFormat:@"%d",vbShiptrans.heatValue],
-                                    vbShiptrans.tradeName,
-                                    vbShiptrans.coalType,
-                                    vbShiptrans.stageName,
+                                    ([vbShiptrans.STAGE isEqualToString:@"0"])?kGREEN:(([vbShiptrans.STAGE isEqualToString:@"2"])?kRED:kBLACK),
+                                    vbShiptrans.SHIPCOMPANY,
+                                    ([vbShiptrans.SCHEDULE isEqualToString:@"0"])?vbShiptrans.SHIPNAME:[NSString stringWithFormat:@"*%@",vbShiptrans.SHIPNAME],
+                                    vbShiptrans.TRIPNO,
+                                    vbShiptrans.FACTORYNAME,
+                                    vbShiptrans.PORTNAME,
+                                    vbShiptrans.SUPPLIER,
+                                    vbShiptrans.KEYNAME,
+                                    [NSString stringWithFormat:@"%d",vbShiptrans.HEATVALUE],
+                                    vbShiptrans.TRADENAME,
+                                    vbShiptrans.COALTYPE,
+                                    vbShiptrans.STATENAME,
                                     nil]];
         
         
@@ -427,6 +467,12 @@ DataQueryVC *dataQueryVC;
     self.factoryLabel.hidden=YES;
     self.statLabel.hidden=YES;
     
+    self.startDay = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
+    [dateFormatter release];
+    
     [comButton setTitle:@"航运公司" forState:UIControlStateNormal];
     [statButton setTitle:@"状态" forState:UIControlStateNormal];
     [shipButton setTitle:@"船名" forState:UIControlStateNormal];
@@ -437,6 +483,13 @@ DataQueryVC *dataQueryVC;
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
     NSLog(@"popoverControllerShouldDismissPopover");
+    if (startDateCV){
+        self.startDay=startDateCV.selectedDate;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSLog(@"startDay=%@",[dateFormatter stringFromDate:self.startDay]);
+        [dateFormatter release];
+    }
     return  YES;
 }
 
@@ -444,6 +497,10 @@ DataQueryVC *dataQueryVC;
  */
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
     NSLog(@"popoverControllerDidDismissPopover");
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
+    [dateFormatter release];
 }
 
 #pragma mark activity
@@ -532,27 +589,12 @@ DataQueryVC *dataQueryVC;
                 [self.statButton setTitle:@"状态" forState:UIControlStateNormal];
             }
             
-            
-            
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+      
     }
-    
-    
-    
-    
+   
 }
+
 
 
 @end

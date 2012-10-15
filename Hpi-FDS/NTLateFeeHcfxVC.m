@@ -86,7 +86,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     self.comLabel=nil;
     self.activity=nil;
     self.tbxmlParser =nil;
-     [_shv removeFromSuperview];  
+    [_shv removeFromSuperview];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -108,7 +108,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     [_activity release];
     [_reloadButton release];
     self.tbxmlParser =nil;
-     [_shv removeFromSuperview];  
+    [_shv removeFromSuperview];
     [super dealloc];
     //[factoryArray release];
     
@@ -317,30 +317,30 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     WSData *barData0 = [[self getData_HC] indexedData];
     // Create and configure a bar plot.
     electionChart0 = [WSChart barPlotWithFrame:[self.chartView bounds]
-                                         data:barData0
-                                        style:kChartBarPlain
-                                  colorScheme:kColor_FDS_Gray];
+                                          data:barData0
+                                         style:kChartBarPlain
+                                   colorScheme:kColor_FDS_Gray];
     
     [electionChart0 scaleAllAxisYD:NARangeMake(-10, 70)];
     [electionChart0 scaleAllAxisXD:NARangeMake(-4, [NTLateFeeHCFXDao getFactoryCount]+2)];
     [electionChart0 setAllAxisLocationXD:-1];
     [electionChart0 setAllAxisLocationYD:0];
-
-
+    
+    
     WSPlotAxis *axis0 = [electionChart0 firstPlotAxis];
     [[axis0 ticksX] setTicksStyle:kTicksLabelsSlanted];
     [[axis0 ticksY] setTicksStyle:kTicksLabels];
     [[axis0 ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
-                                     [NSNumber numberWithFloat:0],
-                                     [NSNumber numberWithFloat:10],
-                                     [NSNumber numberWithFloat:20],
-                                     [NSNumber numberWithFloat:30],
-                                     [NSNumber numberWithFloat:40],
-                                     [NSNumber numberWithFloat:50],
+                                      [NSNumber numberWithFloat:0],
+                                      [NSNumber numberWithFloat:10],
+                                      [NSNumber numberWithFloat:20],
+                                      [NSNumber numberWithFloat:30],
+                                      [NSNumber numberWithFloat:40],
+                                      [NSNumber numberWithFloat:50],
                                       [NSNumber numberWithFloat:60],
-                                     nil]
-                             labels:[NSArray arrayWithObjects:@"",
-                                     @"10", @"20", @"30",@"40",@"50",@"60", nil]];
+                                      nil]
+                              labels:[NSArray arrayWithObjects:@"",
+                                      @"10", @"20", @"30",@"40",@"50",@"60", nil]];
     [electionChart0 setChartTitle:NSLocalizedString(@"各电厂航次分析图表", @"")];
     [electionChart0 setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
     
@@ -349,11 +349,11 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     WSData *barData1 = [[self getData_YL] indexedData];
     // Create and configure a bar plot.
     electionChart1 = [WSChart barPlotWithFrame:[self.chartView bounds]
-                                         data:barData1
-                                        style:kChartBarPlain
-                                  colorScheme:kColor_FDS_Gray];
+                                          data:barData1
+                                         style:kChartBarPlain
+                                   colorScheme:kColor_FDS_Gray];
     
-       [electionChart1 scaleAllAxisYD:NARangeMake(-100, 700)];
+    [electionChart1 scaleAllAxisYD:NARangeMake(-100, 700)];
     [electionChart1 scaleAllAxisXD:NARangeMake(-4, [NTLateFeeHCFXDao getFactoryCount]+2)];
     [electionChart1 setAllAxisLocationXD:-1];
     [electionChart1 setAllAxisLocationYD:0];
@@ -362,17 +362,17 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     [[axis1 ticksX] setTicksStyle:kTicksLabelsSlanted];
     [[axis1 ticksY] setTicksStyle:kTicksLabels];
     [[axis1 ticksY] ticksWithNumbers:[NSArray arrayWithObjects:
-                                     [NSNumber numberWithFloat:0],
-                                     [NSNumber numberWithFloat:100],
-                                     [NSNumber numberWithFloat:200],
-                                     [NSNumber numberWithFloat:300],
-                                     [NSNumber numberWithFloat:400],
-                                     [NSNumber numberWithFloat:500],
+                                      [NSNumber numberWithFloat:0],
+                                      [NSNumber numberWithFloat:100],
+                                      [NSNumber numberWithFloat:200],
+                                      [NSNumber numberWithFloat:300],
+                                      [NSNumber numberWithFloat:400],
+                                      [NSNumber numberWithFloat:500],
                                       [NSNumber numberWithFloat:600],
-
-                                     nil]
-                             labels:[NSArray arrayWithObjects:@"",
-                                     @"100", @"200", @"300",@"400",@"500",@"600", nil]];
+                                      
+                                      nil]
+                              labels:[NSArray arrayWithObjects:@"",
+                                      @"100", @"200", @"300",@"400",@"500",@"600", nil]];
     [electionChart1 setChartTitle:NSLocalizedString(@"各电厂运量分析图表", @"")];
     [electionChart1 setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
     
@@ -410,8 +410,8 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     [electionChart2 setChartTitleColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];//词句无效，不知为何
     
     electionChart2.autoresizingMask = 63;
-
-
+    
+    
     NSArray* ds =[NSArray arrayWithObjects:
                   electionChart0,
                   electionChart1,
@@ -419,13 +419,13 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
                   nil];
     
     if (_shv) {
-        [_shv removeFromSuperview];        
+        [_shv removeFromSuperview];
     }
     self.shv=[[[ATHorizontalBarChartView alloc] initWithFrame:CGRectMake(0, 0, 1024, 600)] autorelease];
     
     self.shv.ds = ds;
     [self.chartView addSubview:_shv];
-
+    
     
 }
 
@@ -453,7 +453,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     
     for (int i=0; i<[array count]; i++) {
         NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
-       NSLog(@"hc=%d=%@",ntLateFeeHCFX.hc,ntLateFeeHCFX.factory);
+        NSLog(@"hc=%d=%@",ntLateFeeHCFX.hc,ntLateFeeHCFX.factory);
         [arrayX addObject:ntLateFeeHCFX.factory];
         [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.hc]];
     }
@@ -499,15 +499,28 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
             else{
                 if(shipCompany.didSelected==YES){
                     ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TfShipCompany *)[ShipCompanyArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
                     ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=YES;
-                }
-            }
-            for (int i=0; i<[ShipCompanyArray count]; i++) {
-                if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[ShipCompanyArray count]-1) {
+                        ((TfShipCompany *)[ShipCompanyArray objectAtIndex:0]).didSelected=YES;
+                    }
+                    
                 }
             }
             //只要有条件选中，附加星号标示

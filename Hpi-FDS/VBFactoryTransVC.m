@@ -667,12 +667,13 @@ static  NSMutableArray *ShipStageArray;
                                     kBLACK,
                                     vbFactoryTrans.FACTORYNAME,
                                     vbFactoryTrans.CAPACITYSUM,
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.CONSUM],
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.STORAGE],
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.COMPARE],
+                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.CONSUM/10000.0],
+                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.STORAGE/10000.0],
+//                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0],
+                                    (vbFactoryTrans.COMPARE>0) ? [NSString stringWithFormat:@"+%.2f",vbFactoryTrans.COMPARE/10000.0]: (vbFactoryTrans.COMPARE<0 ? [NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0]:@"0.0"),
                                     [NSString stringWithFormat:@"%d",vbFactoryTrans.AVALIABLE],
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.MONTHIMP],
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.YEARIMP],
+                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.MONTHIMP/10000.0],
+                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.YEARIMP/10000.0],
                                     vbFactoryTrans.DESCRIPTION,
                                     [NSString stringWithFormat:@"%d",vbFactoryTrans.SHIPNUM],
                                     vbFactoryTrans.FACTORYCODE,
@@ -814,14 +815,15 @@ static  NSMutableArray *ShipStageArray;
     if (shipNum>0) {
         detailArray = [[NSMutableArray alloc] init];
         NSString *factoryCode = [[dataSource.data objectAtIndex:[indexPath row]] objectAtIndex:11];
-        detailArray= [VbFactoryTransDao   getVbFactoryTransDetail:factoryCode
+        detailArray= [TH_SHIPTRANS_ORIDAO   getVbFactoryTransDetail:factoryCode
                                                                  :ShipCompanyArray
                                                                  :ShipArray
                                                                  :SupplierArray
                                                                  :CoalTypeArray
                                                                  :keyValueLabel.text
                                                                  :tradeLabel.text
-                                                                 :ShipStageArray];
+                                                                 :ShipStageArray
+                                                                 :self.startDay];
         
         factorytransDeitail = [[VBFactoryTransDetailVC alloc]init];
         factorytransDeitail.iDArray=detailArray;
@@ -1043,17 +1045,31 @@ static  NSMutableArray *ShipStageArray;
             else{
                 if(shipCompany.didSelected==YES){
                     ((TgFactory *)[FactoryArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[FactoryArray count]; i++) {
+                        if(((TgFactory *)[FactoryArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TgFactory *)[FactoryArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
                     ((TgFactory *)[FactoryArray objectAtIndex:indexPathRow]).didSelected=YES;
+                    for (int i=0; i<[FactoryArray count]; i++) {
+                        if(((TgFactory *)[FactoryArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[FactoryArray count]-1) {
+                        ((TgFactory *)[FactoryArray objectAtIndex:0]).didSelected=YES;
+                    }
+
                 }
             }
-            for (int i=0; i<[FactoryArray count]; i++) {
-                if(((TgFactory *)[FactoryArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
-                }
-            }
+          
             //只要有条件选中，附加星号标示
             if (count>0) {
                 [self.factoryButton setTitle:@"电厂(*)" forState:UIControlStateNormal];
@@ -1083,18 +1099,31 @@ static  NSMutableArray *ShipStageArray;
             else{
                 if(shipCompany.didSelected==YES){
                     ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TfShipCompany *)[ShipCompanyArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
                     ((TfShipCompany *)[ShipCompanyArray objectAtIndex:indexPathRow]).didSelected=YES;
+                    for (int i=0; i<[ShipCompanyArray count]; i++) {
+                        if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[ShipCompanyArray count]-1) {
+                        ((TfShipCompany *)[ShipCompanyArray objectAtIndex:0]).didSelected=YES;
+                    }
+
                 }
             }
-            for (int i=0; i<[ShipCompanyArray count]; i++) {
-                if(((TfShipCompany *)[ShipCompanyArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
-                }
-            }
-            //只要有条件选中，附加星号标示
+                      //只要有条件选中，附加星号标示
             if (count>0) {
                 [self.comButton setTitle:@"航运公司(*)" forState:UIControlStateNormal];
             }
@@ -1122,17 +1151,32 @@ static  NSMutableArray *ShipStageArray;
             else{
                 if(ship.didSelected==YES){
                     ((TgShip *)[ShipArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[ShipArray count]; i++) {
+                        if(((TgShip *)[ShipArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TgShip *)[ShipArray objectAtIndex:0]).didSelected=NO;
+
                 }
                 else{
                     ((TgShip *)[ShipArray objectAtIndex:indexPathRow]).didSelected=YES;
+                    for (int i=0; i<[ShipArray count]; i++) {
+                        if(((TgShip *)[ShipArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[ShipArray count]-1) {
+                        ((TgShip *)[ShipArray objectAtIndex:0]).didSelected=YES;
+                    }
+
                 }
             }
-            for (int i=0; i<[ShipArray count]; i++) {
-                if(((TgShip *)[ShipArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
-                }
-            }
+   
             //只要有条件选中，附加星号标示
             if (count>0) {
                 [self.shipButton setTitle:@"船名(*)" forState:UIControlStateNormal];
@@ -1161,17 +1205,31 @@ static  NSMutableArray *ShipStageArray;
             else{
                 if(supplier.didSelected==YES){
                     ((TfSupplier *)[SupplierArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[SupplierArray count]; i++) {
+                        if(((TfSupplier *)[SupplierArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TfSupplier *)[SupplierArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
                     ((TfSupplier *)[SupplierArray objectAtIndex:indexPathRow]).didSelected=YES;
+                    for (int i=0; i<[SupplierArray count]; i++) {
+                        if(((TfSupplier *)[SupplierArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[SupplierArray count]-1) {
+                        ((TfSupplier *)[SupplierArray objectAtIndex:0]).didSelected=YES;
+                    }
+
                 }
             }
-            for (int i=0; i<[SupplierArray count]; i++) {
-                if(((TfSupplier *)[SupplierArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
-                }
-            }
+           
             //只要有条件选中，附加星号标示
             if (count>0) {
                 [self.supButton setTitle:@"供货商(*)" forState:UIControlStateNormal];
@@ -1200,17 +1258,31 @@ static  NSMutableArray *ShipStageArray;
             else{
                 if(coalType.didSelected==YES){
                     ((TfCoalType *)[CoalTypeArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[CoalTypeArray count]; i++) {
+                        if(((TfCoalType *)[CoalTypeArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TfCoalType *)[CoalTypeArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
                     ((TfCoalType *)[CoalTypeArray objectAtIndex:indexPathRow]).didSelected=YES;
+                    for (int i=0; i<[CoalTypeArray count]; i++) {
+                        if(((TfCoalType *)[CoalTypeArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[CoalTypeArray count]-1) {
+                        ((TfCoalType *)[CoalTypeArray objectAtIndex:0]).didSelected=YES;
+                    }
+
                 }
             }
-            for (int i=0; i<[CoalTypeArray count]; i++) {
-                if(((TfCoalType *)[CoalTypeArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
-                }
-            }
+       
             //只要有条件选中，附加星号标示
             if (count>0) {
                 [self.typeButton setTitle:@"煤种(*)" forState:UIControlStateNormal];
@@ -1239,17 +1311,31 @@ static  NSMutableArray *ShipStageArray;
             else{
                 if(shipStage.didSelected==YES){
                     ((TsShipStage *)[ShipStageArray objectAtIndex:indexPathRow]).didSelected=NO;
+                    for (int i=0; i<[ShipStageArray count]; i++) {
+                        if(((TsShipStage *)[ShipStageArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    ((TsShipStage *)[ShipStageArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
                     ((TsShipStage *)[ShipStageArray objectAtIndex:indexPathRow]).didSelected=YES;
+                    for (int i=0; i<[ShipStageArray count]; i++) {
+                        if(((TsShipStage *)[ShipStageArray objectAtIndex:i]).didSelected==YES)
+                        {
+                            count++;
+                        }
+                        
+                    }
+                    if (count>=[ShipStageArray count]-1) {
+                        ((TsShipStage *)[ShipStageArray objectAtIndex:0]).didSelected=YES;
+                    }
+
                 }
             }
-            for (int i=0; i<[ShipStageArray count]; i++) {
-                if(((TsShipStage *)[ShipStageArray objectAtIndex:i]).didSelected==YES)
-                {
-                    count++;
-                }
-            }
+ 
             //只要有条件选中，附加星号标示
             if (count>0) {
                 [self.statButton setTitle:@"状态(*)" forState:UIControlStateNormal];

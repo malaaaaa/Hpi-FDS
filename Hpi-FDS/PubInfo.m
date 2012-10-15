@@ -147,6 +147,8 @@ static NSString *deviceID;
     [NTLateFeeHCFXDao initDb];
     [NTZxgsjtjDao openDataBase];
     [NTZxgsjtjDao initDb];
+    [TH_SHIPTRANS_ORIDAO openDataBase];
+    [TH_SHIPTRANS_ORIDAO initDb];
     
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
@@ -268,9 +270,9 @@ static NSString *deviceID;
  
     NSInteger monthNum =0;
     NSInteger startYear= [[startDate substringToIndex:4] integerValue];
-    NSInteger startMonth= [[startDate substringFromIndex:5] integerValue];
+    NSInteger startMonth= [[startDate substringFromIndex:4] integerValue];
     NSInteger endYear= [[endDate substringToIndex:4] integerValue];
-    NSInteger endMonth= [[endDate substringFromIndex:5] integerValue];
+    NSInteger endMonth= [[endDate substringFromIndex:4] integerValue];
  
     if ([startDate integerValue]>[endDate integerValue] 
         || (startMonth<1||startMonth>12)

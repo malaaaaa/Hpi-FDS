@@ -397,10 +397,10 @@ static int iDisplay=0;
         [self.view addSubview:activity];
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:1];
-        //        [xmlParser getTgPort];
-        //        [xmlParser getTgShip];
-        //        [xmlParser getTgFactory];
+        [xmlParser setISoapNum:4];
+        [xmlParser getTgPort];
+        [xmlParser getTgShip];
+        [xmlParser getTgFactory];
         [xmlParser getTiListinfo];
         [self runActivity];
     }
@@ -562,7 +562,8 @@ static int iDisplay=0;
         port.title=[tgPort.portName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         port.topImage=[UIImage imageNamed:@"gangkou1"];
         port.subtitle=[NSString stringWithFormat:@"%@",tgPort.portCode];
-        port.subtitle2=[NSString stringWithFormat:@"在港数 %d\n已办手续 %d\n在装数 %d\n待靠数 %d\n待办数 %d\n",tgPort.shipNum,tgPort.handleShip,tgPort.loadShip,tgPort.transactShip,tgPort.waitShip];
+//        port.subtitle2=[NSString stringWithFormat:@"在港数 %d\n已办手续 %d\n在装数 %d\n待靠数 %d\n待办数 %d\n",tgPort.shipNum,tgPort.handleShip,tgPort.loadShip,tgPort.transactShip,tgPort.waitShip];
+        port.subtitle2=[NSString stringWithFormat:@"在港数： %d\n在装数： %d\n待靠数： %d\n待办数： %d\n",tgPort.shipNum,tgPort.loadShip,tgPort.transactShip,tgPort.waitShip];
         port.iAnnotationType=kPORT;
         [portCoordinateArray addObject:port];
         [portIDArray addObject:tgPort.portName];
@@ -606,7 +607,7 @@ static int iDisplay=0;
         port.title=[tgFactory.factoryName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         port.topImage=[UIImage imageNamed:@"dianchang1"];
         port.subtitle=[NSString stringWithFormat:@"%@",tgFactory.factoryCode];
-        port.subtitle2=[NSString stringWithFormat:@"机组情况 %@\n总装机 %d\n库存 %d\n日调进 %d\n日耗煤 %d\n月调进 %d\n月耗煤 %d\n年调用 %d\n年耗媒 %d\n",tgFactory.description,tgFactory.capacitySum,tgFactory.storage,tgFactory.impOrt,tgFactory.conSum,tgFactory.impMonth,tgFactory.conMonth,tgFactory.impYear,tgFactory.conYear];
+        port.subtitle2=[NSString stringWithFormat:@"机组情况： %@\n总装机： %d\n库存： %d\n日调进： %d\n日耗煤： %d\n月调进： %d\n月耗煤： %d\n年调用： %d\n年耗煤： %d\n",tgFactory.description,tgFactory.capacitySum,tgFactory.storage,tgFactory.impOrt,tgFactory.conSum,tgFactory.impMonth,tgFactory.conMonth,tgFactory.impYear,tgFactory.conYear];
         //NSLog(@"subtitle[%@]",port.subtitle);
         //NSLog(@"subtitle2[%@]",port.subtitle2);
         port.iAnnotationType=kFACTORY;
@@ -663,6 +664,9 @@ static int iDisplay=0;
         CLLocationCoordinate2D coordinate;
         coordinate.latitude = [tgShip.lat doubleValue]; //纬度
         coordinate.longitude = [tgShip.lon doubleValue]; //经度
+        
+        NSLog(@"%@==latitude=%f",tgShip.shipName,coordinate.latitude);
+        NSLog(@"longitude=%f",coordinate.longitude);
         hpiAnnotation *port=[[hpiAnnotation alloc]initWithCoords:coordinate];
         port.title=[tgShip.shipName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         //port.topTitle=port.title;
@@ -682,7 +686,7 @@ static int iDisplay=0;
             port.topImage = [UIImage imageNamed:@"chuanxk1.png"];
         
         port.subtitle=[NSString stringWithFormat:@"%d",tgShip.shipID];
-        port.subtitle2=[NSString stringWithFormat:@"航运公司 %@\n装运港 %@\n流向电厂 %@\n航次 %@\n供货方 %@\n热值 %d\n载煤量 %d\n船厂 %@\n船宽 %@\n吃水 %@\n预计抵港 %@\n纬度 %@\n经度 %@\n对地速度 %@\n目的地 %@\n接收时间 %@\n",tgShip.company,tgShip.portName,tgShip.factoryName,tgShip.tripNo,tgShip.supplier,tgShip.heatValue,tgShip.lw,tgShip.length,tgShip.width,tgShip.draft,tgShip.eta,tgShip.lat,tgShip.lon,tgShip.sog,tgShip.destination,tgShip.infoTime];
+        port.subtitle2=[NSString stringWithFormat:@"航运公司： %@\n装运港： %@\n流向电厂： %@\n航次： %@\n供货方： %@\n热值： %d\n载煤量： %d\n船厂： %@\n船宽： %@\n吃水： %@\n预计抵港： %@\n纬度： %@\n经度： %@\n对地速度： %@\n目的地： %@\n接收时间： %@\n",tgShip.company,tgShip.portName,tgShip.factoryName,tgShip.tripNo,tgShip.supplier,tgShip.heatValue,tgShip.lw,tgShip.length,tgShip.width,tgShip.draft,tgShip.eta,tgShip.lat,tgShip.lon,tgShip.sog,tgShip.destination,tgShip.infoTime];
         port.port=tgShip.portName;
         port.factory=tgShip.factoryName;
         port.iAnnotationType=kSHIP;

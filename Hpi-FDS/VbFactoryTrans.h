@@ -12,7 +12,6 @@
 @interface VbFactoryTrans : NSObject
 {
     NSString *FACTORYCODE;
-
     NSString *DISPATCHNO;
     NSInteger SHIPID;
     NSString *SHIPNAME;
@@ -27,12 +26,7 @@
     NSString    *_STAGENAME; //船舶状态
     NSInteger elw;
     NSString *T_NOTE;
-    NSString *F_NOTE;
-    
-    
-    
-    
-    
+    NSString *F_NOTE;    
     NSString *FACTORYNAME;
     NSInteger CONSUM;//日耗
     NSInteger STORAGE; //库存
@@ -42,7 +36,6 @@
     NSInteger   YEARIMP;//年调进量
     NSString    *DESCRIPTION_;
     NSInteger   SHIPNUM;    //第一层中标示船舶运行情况用
-  
     NSString *CAPACITYSUM;//装机容量
 }
 @property (nonatomic, retain) NSString *FACTORYCODE;

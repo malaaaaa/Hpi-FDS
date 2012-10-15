@@ -30,13 +30,6 @@
                                           :(NSString *)trade 
                                           :(NSMutableArray *)shipStage;
 
-+(NSMutableArray *) getVbFactoryTransDetail:(NSString *)FactoryCode 
-                                           :(NSMutableArray *)shipCompany 
-                                           :(NSMutableArray *)ship 
-                                           :(NSMutableArray *)supplier 
-                                           :(NSMutableArray *)coalType 
-                                           :(NSString *)keyValue 
-                                           :(NSString *)trade
-                                           :(NSMutableArray *)shipStage;
+
 
 @end
