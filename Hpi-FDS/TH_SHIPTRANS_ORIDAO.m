@@ -447,4 +447,209 @@ static sqlite3  *database;
 	return array;
 }
 
+//电厂动态查询
+//查询第二层船舶运行情况
++(NSMutableArray *) getVbFactoryTransBySql:(NSString *)querySql
+{
+	sqlite3_stmt *statement;
+    NSString *sql=[NSString stringWithFormat:@"select dispatchno,statename,shipname,lw,f_note from TH_SHIPTRANS_ORI where  %@ ",querySql];
+    NSLog(@"执行 getVbFactoryTransBySql [%@] ",sql);
+    
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+			
+            VbFactoryTrans *vbFactoryTrans=[[VbFactoryTrans alloc] init];
+            
+            char * rowData0=(char *)sqlite3_column_text(statement,0);
+            if (rowData0 == NULL)
+                vbFactoryTrans.DISPATCHNO = nil;
+            else
+                vbFactoryTrans.DISPATCHNO = [NSString stringWithUTF8String: rowData0];
+            
+			char * rowData1=(char *)sqlite3_column_text(statement,1);
+            if (rowData1 == NULL)
+                vbFactoryTrans.STATENAME = nil;
+            else
+                vbFactoryTrans.STATENAME = [NSString stringWithUTF8String: rowData1];
+            
+            char * rowData2=(char *)sqlite3_column_text(statement,2);
+            if (rowData2 == NULL)
+                vbFactoryTrans.SHIPNAME = nil;
+            else
+                vbFactoryTrans.SHIPNAME = [NSString stringWithUTF8String: rowData2];
+            
+            vbFactoryTrans.elw = sqlite3_column_int(statement,3);
+            
+            char * rowData4=(char *)sqlite3_column_text(statement,4);
+            if (rowData4 == NULL)
+                vbFactoryTrans.F_NOTE = nil;
+            else
+                vbFactoryTrans.F_NOTE = [NSString stringWithUTF8String: rowData4];
+            
+			[array addObject:vbFactoryTrans];
+            [vbFactoryTrans release];
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+    sqlite3_finalize(statement);
+	return array;
+}
++(NSMutableArray *) getVbFactoryTransDetail:(NSString *)FactoryCode
+                                           :(NSMutableArray *)shipCompany
+                                           :(NSMutableArray *)ship
+                                           :(NSMutableArray *)supplier
+                                           :(NSMutableArray *)coalType
+                                           :(NSString *)keyValue
+                                           :(NSString *)trade
+                                           :(NSMutableArray *)shipStage
+                                           :(NSDate *)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *start=[dateFormatter stringFromDate:date];
+    [dateFormatter release];
+    
+    //查询所有没有结束的船只
+    
+    NSMutableString *query =[[NSMutableString alloc] init];
+    [query appendFormat:@" trim(statecode)<>'b'  AND FACTORYCODE ='%@' AND strftime('%%Y-%%m-%%d',RECORDDATE) ='%@' ",FactoryCode,start];
+    
+    //船厂
+    if (((TfShipCompany *)[shipCompany objectAtIndex:0]).didSelected==NO) {
+        int count=0;
+        for (int i=0; i<[shipCompany count]; i++) {
+            if (((TfShipCompany *)[shipCompany objectAtIndex:i]).didSelected==YES) {
+                count++;
+                if (count==1) {
+                    [query appendString:@" AND comid in ("];
+                }
+                //如果条件不是第一条
+                if (count!=1) {
+                    [query appendString:@","];
+                }
+                [query appendFormat:@"%d",((TfShipCompany *)[shipCompany objectAtIndex:i]).comid];
+                
+            }
+            
+        }
+        if (count>0) {
+            [query appendString:@")"];
+        }
+    }
+    //船舶
+    if (((TgShip *)[ship objectAtIndex:0]).didSelected==NO) {
+        int count=0;
+        for (int i=0; i<[ship count]; i++) {
+            if (((TgShip *)[ship objectAtIndex:i]).didSelected==YES) {
+                count++;
+                if (count==1) {
+                    [query appendString:@" AND shipid in ("];
+                }
+                //如果条件不是第一条
+                if (count!=1) {
+                    [query appendString:@","];
+                }
+                [query appendFormat:@"%d",((TgShip *)[ship objectAtIndex:i]).shipID];
+                
+            }
+            
+        }
+        if (count>0) {
+            [query appendString:@")"];
+        }
+    }
+    //供货商
+    if (((TfSupplier *)[supplier objectAtIndex:0]).didSelected==NO) {
+        int count=0;
+        for (int i=0; i<[supplier count]; i++) {
+            if (((TfSupplier *)[supplier objectAtIndex:i]).didSelected==YES) {
+                count++;
+                if (count==1) {
+                    [query appendString:@" AND supid in ("];
+                }
+                //如果条件不是第一条
+                if (count!=1) {
+                    [query appendString:@","];
+                }
+                [query appendFormat:@"%d",((TfSupplier *)[supplier objectAtIndex:i]).SUPID];
+                
+            }
+            
+        }
+        if (count>0) {
+            [query appendString:@")"];
+        }
+    }
+    
+    //煤种
+    if (((TfCoalType *)[coalType objectAtIndex:0]).didSelected==NO) {
+        int count=0;
+        for (int i=0; i<[coalType count]; i++) {
+            if (((TfCoalType *)[coalType objectAtIndex:i]).didSelected==YES) {
+                count++;
+                if (count==1) {
+                    [query appendString:@" AND typeid in ("];
+                }
+                //如果条件不是第一条
+                if (count!=1) {
+                    [query appendString:@","];
+                }
+                [query appendFormat:@"%d",((TfCoalType *)[coalType objectAtIndex:i]).TYPEID];
+                
+            }
+            
+        }
+        if (count>0) {
+            [query appendString:@")"];
+        }
+    }
+    
+    //性质
+    if ([keyValue isEqualToString:@"重点"]) {
+        [query appendString:@" AND keyvalue='1' "];
+        
+    }
+    else if ([keyValue isEqualToString:@"非重点"]) {
+        [query appendString:@" AND keyvalue='0' "];
+    }
+    
+    //贸易性质
+    if ([trade isEqualToString:@"内贸"]) {
+        [query appendString:@" AND trade='D' "];
+        
+    }
+    else if ([trade isEqualToString:@"进口"]) {
+        [query appendString:@" AND trade='F' "];
+    }
+    
+    //状态
+    if (((TsShipStage *)[shipStage objectAtIndex:0]).didSelected==NO) {
+        int count=0;
+        for (int i=0; i<[shipStage count]; i++) {
+            if (((TsShipStage *)[shipStage objectAtIndex:i]).didSelected==YES) {
+                count++;
+                if (count==1) {
+                    [query appendString:@" AND stagecode in ("];
+                }
+                //如果条件不是第一条
+                if (count!=1) {
+                    [query appendString:@","];
+                }
+                [query appendFormat:@"'%@'",((TsShipStage *)[shipStage objectAtIndex:i]).STAGE];
+                
+            }
+            
+        }
+        if (count>0) {
+            [query appendString:@")"];
+        }
+    }
+    
+	NSMutableArray * array=[TH_SHIPTRANS_ORIDAO getVbFactoryTransBySql:query];
+    NSLog(@"执行 getVbFactoryTransDetail 数量[%d] ",[array count]);
+    [query release];
+	return array;
+}
 @end

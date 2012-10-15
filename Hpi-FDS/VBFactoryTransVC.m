@@ -667,12 +667,13 @@ static  NSMutableArray *ShipStageArray;
                                     kBLACK,
                                     vbFactoryTrans.FACTORYNAME,
                                     vbFactoryTrans.CAPACITYSUM,
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.CONSUM],
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.STORAGE],
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.COMPARE],
+                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.CONSUM/10000.0],
+                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.STORAGE/10000.0],
+//                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0],
+                                    (vbFactoryTrans.COMPARE>0) ? [NSString stringWithFormat:@"+%.2f",vbFactoryTrans.COMPARE/10000.0]: (vbFactoryTrans.COMPARE<0 ? [NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0]:@"0.0"),
                                     [NSString stringWithFormat:@"%d",vbFactoryTrans.AVALIABLE],
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.MONTHIMP],
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.YEARIMP],
+                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.MONTHIMP/10000.0],
+                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.YEARIMP/10000.0],
                                     vbFactoryTrans.DESCRIPTION,
                                     [NSString stringWithFormat:@"%d",vbFactoryTrans.SHIPNUM],
                                     vbFactoryTrans.FACTORYCODE,
@@ -814,14 +815,15 @@ static  NSMutableArray *ShipStageArray;
     if (shipNum>0) {
         detailArray = [[NSMutableArray alloc] init];
         NSString *factoryCode = [[dataSource.data objectAtIndex:[indexPath row]] objectAtIndex:11];
-        detailArray= [VbFactoryTransDao   getVbFactoryTransDetail:factoryCode
+        detailArray= [TH_SHIPTRANS_ORIDAO   getVbFactoryTransDetail:factoryCode
                                                                  :ShipCompanyArray
                                                                  :ShipArray
                                                                  :SupplierArray
                                                                  :CoalTypeArray
                                                                  :keyValueLabel.text
                                                                  :tradeLabel.text
-                                                                 :ShipStageArray];
+                                                                 :ShipStageArray
+                                                                 :self.startDay];
         
         factorytransDeitail = [[VBFactoryTransDetailVC alloc]init];
         factorytransDeitail.iDArray=detailArray;

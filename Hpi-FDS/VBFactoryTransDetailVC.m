@@ -65,7 +65,7 @@ static DataGridComponentDataSource *dataSource;
                                     vbFactoryTrans.STATENAME,
                                     vbFactoryTrans.SHIPNAME,
                                     [NSString stringWithFormat:@"%d",vbFactoryTrans.elw],
-                                    vbFactoryTrans.T_NOTE,
+                                    vbFactoryTrans.F_NOTE,
                                     nil]];
         NSLog(@"shippppp==%@",vbFactoryTrans.SHIPNAME);
         

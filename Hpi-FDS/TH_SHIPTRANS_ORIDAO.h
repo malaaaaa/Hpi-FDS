@@ -19,4 +19,14 @@
 +(NSMutableArray *) getTH_ShipTransBySql:(NSString *)sql1;
 +(void)deleteAll;
 +(NSMutableArray *) getThShiptrans:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(NSString *)stageName :(NSDate *)date;
++(NSMutableArray *) getVbFactoryTransBySql:(NSString *)querySql;
++(NSMutableArray *) getVbFactoryTransDetail:(NSString *)FactoryCode
+                                           :(NSMutableArray *)shipCompany
+                                           :(NSMutableArray *)ship
+                                           :(NSMutableArray *)supplier
+                                           :(NSMutableArray *)coalType
+                                           :(NSString *)keyValue
+                                           :(NSString *)trade
+                                           :(NSMutableArray *)shipStage
+                                           :(NSDate *)date;
 @end
