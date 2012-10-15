@@ -59,17 +59,50 @@ static DataGridComponentDataSource *dataSource;
     dataSource.data=[[[NSMutableArray alloc]init] autorelease];
     for (int i=0;i<[self.iDArray count];i++) {
         VbFactoryTrans *vbFactoryTrans = [iDArray objectAtIndex:i];
-        [dataSource.data addObject:[NSArray arrayWithObjects:
-                                    kBLACK,
-                                    vbFactoryTrans.DISPATCHNO,
-                                    vbFactoryTrans.STATENAME,
-                                    vbFactoryTrans.SHIPNAME,
-                                    [NSString stringWithFormat:@"%d",vbFactoryTrans.elw],
-                                    vbFactoryTrans.F_NOTE,
-                                    nil]];
-        NSLog(@"shippppp==%@",vbFactoryTrans.SHIPNAME);
-        
-        
+        if ([vbFactoryTrans.STAGECODE isEqualToString:@"1"]) {
+            [dataSource.data addObject:[NSArray arrayWithObjects:
+                                        ([vbFactoryTrans.STATECODE isEqualToString:@"6"])?kRED:kBLACK,
+                                        vbFactoryTrans.DISPATCHNO,
+                                        vbFactoryTrans.STATENAME,
+                                        vbFactoryTrans.SHIPNAME,
+                                        [NSString stringWithFormat:@"%d",vbFactoryTrans.elw],
+                                        vbFactoryTrans.P_NOTE,
+                                        nil]];
+
+        }
+        else if ([vbFactoryTrans.STAGECODE isEqualToString:@"2"]) {
+            [dataSource.data addObject:[NSArray arrayWithObjects:
+                                        ([vbFactoryTrans.STATECODE isEqualToString:@"6"])?kRED:kBLACK,
+                                        vbFactoryTrans.DISPATCHNO,
+                                        vbFactoryTrans.STATENAME,
+                                        vbFactoryTrans.SHIPNAME,
+                                        [NSString stringWithFormat:@"%d",vbFactoryTrans.elw],
+                                        vbFactoryTrans.T_NOTE,
+                                        nil]];
+            
+        }
+        else if ([vbFactoryTrans.STAGECODE isEqualToString:@"3"]) {
+            [dataSource.data addObject:[NSArray arrayWithObjects:
+                                        ([vbFactoryTrans.STATECODE isEqualToString:@"6"])?kRED:kBLACK,
+                                        vbFactoryTrans.DISPATCHNO,
+                                        vbFactoryTrans.STATENAME,
+                                        vbFactoryTrans.SHIPNAME,
+                                        [NSString stringWithFormat:@"%d",vbFactoryTrans.elw],
+                                        vbFactoryTrans.F_NOTE,
+                                        nil]];
+
+        }
+        else{
+            [dataSource.data addObject:[NSArray arrayWithObjects:
+                                        ([vbFactoryTrans.STATECODE isEqualToString:@"6"])?kRED:kBLACK,
+                                        vbFactoryTrans.DISPATCHNO,
+                                        vbFactoryTrans.STATENAME,
+                                        vbFactoryTrans.SHIPNAME,
+                                        [NSString stringWithFormat:@"%d",vbFactoryTrans.elw],
+                                        @"",
+                                        nil]];
+
+        }
     }
     NSLog(@"test5==%d",[dataSource.data count]);
     
