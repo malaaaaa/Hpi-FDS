@@ -317,7 +317,7 @@ static sqlite3	*database;
     NSString *sql=[NSString stringWithFormat:@"select   STID,TBFACTORYSTATE.FACTORYCODE,RECORDDATE,IMPORT,EXPORT,STORAGE,CONSUM,AVALIABLE,  monthimp,YEARIMP,ELECGENER,STORAGE7,TRANSNOTE,NOTE, MONTHCONSUM,YEARCONSUM from TBFACTORYSTATE  inner join  TFFACTORY on TFFACTORY.FACTORYCODE=TBFACTORYSTATE.FACTORYCODE  where TFFACTORY. FACTORYNAME='%@'  AND    (          CAST(strftime('%%Y',TBFACTORYSTATE.RECORDDATE) AS  VARCHAR(100)) || '-' || CAST(strftime('%%m',TBFACTORYSTATE.RECORDDATE) AS VARCHAR(100)) || '-' || CAST(strftime('%%d',TBFACTORYSTATE.RECORDDATE) AS VARCHAR(100))      )='%@'",factoryName,time];
     
     
-   // NSLog(@"执行 getStateMode [%@] ",sql);
+    // NSLog(@"执行 getStateMode [%@] ",sql);
     
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         
@@ -353,7 +353,7 @@ static sqlite3	*database;
             
             char * rowData12=(char *)sqlite3_column_text(statement,13);
             if (rowData12 == NULL)
-                tbFactoryState.NOTE = nil;
+                tbFactoryState.NOTE = @"";
             else
                 tbFactoryState.NOTE = [NSString stringWithUTF8String: rowData12];
             
@@ -461,7 +461,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT STID, FACTORYCODE, RECORDDATE, IMPORT, EXPORT, STORAGE, CONSUM, AVALIABLE, MONTHIMP, YEARIMP, ELECGENER, STORAGE7, TRANSNOTE, NOTE, MONTHCONSUM,YEARCONSUM  FROM  tbFactoryState WHERE %@ ",sql1];
-    NSLog(@"执行 getTbFactoryStateBySql [%@] ",sql);
+  // NSLog(@"执行 getTbFactoryStateBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
@@ -505,7 +505,7 @@ static sqlite3	*database;
             
             char * rowData12=(char *)sqlite3_column_text(statement,13);
             if (rowData12 == NULL)
-                tbFactoryState.NOTE = nil;
+                tbFactoryState.NOTE = @"";
             else
                 tbFactoryState.NOTE = [NSString stringWithUTF8String: rowData12];
             

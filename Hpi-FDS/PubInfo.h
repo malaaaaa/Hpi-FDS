@@ -97,25 +97,41 @@ typedef enum{
 
 //数据查询菜单
 typedef enum{
-    kMenuDCDTCX=0, //电厂动态查询
-    kMenuHYGSFETJ, //航运公司份额统计
+     kMenuDCDTCX=0, //电厂动态查询
+     kMenuSSCBCX, //实时船舶查询
+     kMenuFactoryWaitState,//电厂靠泊动态   
+     kMenuCYJH, //船运计划
+   // kDataQueryMenu_MAX,//最大数量
+
+} DataQueryMenu_Select;
+
+
+typedef enum{
+    kMenuHYGSFETJ=0, //航运公司份额统计
     kMenuDCYLYLTJ, //电厂运力运量统计
     kMenuZXGXLTJ, //装卸港效率统计
-    kMenuSSCBCX, //实时船舶查询
-    kMenuCYJH, //船运计划
     kMenuDDRZCX, //调度日志查询
-    kMenuZQFMXCX, //滞期费明细查询
-    kMenuZQFTJ, //滞期费统计
     kMenuGKMJZGSJ, //港口平均装港时间统计
     kMenuFcAvgZXTime,//电厂装卸港时间统计
-    kMenuFactoryWaitState,//电厂靠泊动态
-    kMenuTransPlanimplment,//航运计划执行情况
+    kMenuZXGSJTJ,//装卸港时间统计
+    kMenuTransPlanimplment,//航运计划执行情况     
+    
+    
+}DataQueryMenu_Tj;//查询统计
+typedef enum{ 
+    kMenuZQFMXCX=0, //滞期费明细查询
+    kMenuZQFTJ, //滞期费统计
     kMenuZQFDMFX,//滞期费吨煤分析
     kMenuZQFHCFX,//滞期费航次分析
-    kMenuZXGSJTJ,//装卸港时间统计
-    kDataQueryMenu_MAX,//最大数量
+    
+}DataQueryMenu_Latefee;//滞期费
 
-} DataQueryMenu;
+typedef enum{ 
+    kMenuSelect=0,//实时查询
+    kMenuTJ,//查询统计
+    kMenuLatefee,//滞期费
+} DataQueryMenu_Section;
+
 
 #define All_PORT    @"全部港口"
 #define All_FCTRY   @"全部电厂"

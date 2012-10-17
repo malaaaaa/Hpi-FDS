@@ -89,7 +89,7 @@ static sqlite3	*database;
 
     
     
-  //  NSLog(@" B_OFFLOADSHIPDao     SelectAllByFactoryCode[%@]",sql );
+   //  NSLog(@" B_OFFLOADSHIPDao     SelectAllByFactoryCode[%@]",sql );
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 
@@ -100,20 +100,20 @@ static sqlite3	*database;
                         
             char *rowdata1=(char *)sqlite3_column_text(statement, 1);
             if (rowdata1==NULL)
-                tbShip.FACTORYCODE=nil;
+                tbShip.FACTORYCODE=@"";
             else
                 tbShip.FACTORYCODE=[NSString stringWithUTF8String:rowdata1];
             
             
             char *rowdata2=(char *)sqlite3_column_text(statement, 2);
             if (rowdata2==NULL)
-                tbShip.RECORDDATE=nil;
+                tbShip.RECORDDATE=@"";
             else
                 tbShip.RECORDDATE=[NSString stringWithUTF8String:rowdata2];
 
             char *rowdata3=(char *)sqlite3_column_text(statement,3);
             if (rowdata3==NULL)
-                tbShip.TYPE=nil;
+                tbShip.TYPE=@"";
             else
                 tbShip.TYPE=[NSString stringWithUTF8String:rowdata3];
             
@@ -121,7 +121,7 @@ static sqlite3	*database;
             
             char *rowdata4=(char *)sqlite3_column_text(statement, 5);
             if (rowdata4==NULL)
-                tbShip.EVENTTIME=nil;
+                tbShip.EVENTTIME=@"";
             else
                 tbShip.EVENTTIME=[NSString stringWithUTF8String:rowdata4];
             
@@ -132,21 +132,21 @@ static sqlite3	*database;
             
             char *rowdata5=(char *)sqlite3_column_text(statement,10);
             if (rowdata5==NULL)
-                tbShip.SUPPLIER=nil;
+                tbShip.SUPPLIER=@"";
             else
                 tbShip.SUPPLIER=[NSString stringWithUTF8String:rowdata5];
             
             
             char *rowdata6=(char *)sqlite3_column_text(statement, 11);
             if (rowdata6==NULL)
-                tbShip.TRADENAME=nil;
+                tbShip.TRADENAME=@"";
             else
                 tbShip.TRADENAME=[NSString stringWithUTF8String:rowdata6];
             
             
             char *rowdata7=(char *)sqlite3_column_text(statement, 12);
             if (rowdata7==NULL)
-                tbShip.COALTYPE=nil;
+                tbShip.COALTYPE=@"";
             else
                 tbShip.COALTYPE=[NSString stringWithUTF8String:rowdata7];
             

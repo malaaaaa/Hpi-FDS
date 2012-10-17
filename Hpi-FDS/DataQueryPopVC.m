@@ -64,7 +64,7 @@
 	return YES;
 }
 - (void)dealloc {
-    NSLog(@"dealloc ok");
+   // NSLog(@"dealloc ok");
     [super dealloc];
 }
 -(void)buttonPress:(id)sender
@@ -75,9 +75,9 @@
     //初始化待显示控制器
     menuView=[[DataQueryMenuVC alloc]init];
     //设置待显示控制器的范围
-    [menuView.view setFrame:CGRectMake(0,0, 200, 600)];
+    [menuView.view setFrame:CGRectMake(0,0, 200, 700)];
     //设置待显示控制器视图的尺寸
-    menuView.contentSizeForViewInPopover = CGSizeMake(200, 600);
+    menuView.contentSizeForViewInPopover = CGSizeMake(200, 700);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:menuView];
     menuView.popover = pop;
@@ -85,7 +85,7 @@
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(200, 600);
+    self.popover.popoverContentSize = CGSizeMake(200, 615);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(30, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [menuView.tableView reloadData];
@@ -93,6 +93,6 @@
     [pop release];
     
     
-    NSLog(@"ToolBar Button taped.");
+   // NSLog(@"ToolBar Button taped.");
 }
 @end

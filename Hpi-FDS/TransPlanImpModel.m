@@ -73,7 +73,7 @@
 
     
     [comName release];
-   [shipName release];
+    [ShipId release];
     [portName release];
     [CoalType release];
     

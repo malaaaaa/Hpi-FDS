@@ -85,7 +85,7 @@ static sqlite3	*database;
     sqlite3_stmt *statement;
     NSString *sql=[NSString  stringWithFormat:@"select   ID,TB_OFFLOADFACTORY.FACTORYCODE,RECORDDATE,CONSUM,STORAGE,HEATVALUE,SULFUR,AVALIABLE,MINDEPTH,NOTE from TB_OFFLOADFACTORY  inner join  TFFACTORY on TFFACTORY.FACTORYCODE=TB_OFFLOADFACTORY.FACTORYCODE  where  (          CAST(strftime('%%Y',TB_OFFLOADFACTORY.RECORDDATE) AS  VARCHAR(100)) || '-' || CAST(strftime('%%m',TB_OFFLOADFACTORY.RECORDDATE) AS VARCHAR(100)) || '-' || CAST(strftime('%%d',TB_OFFLOADFACTORY.RECORDDATE) AS VARCHAR(100))      )='%@'and  TFFACTORY.FACTORYNAME='%@'",time,factoryName];
 
-   // NSLog(@"TB_OFFLOADFACTORYDao SelectFactoryByCode [%@]",sql);
+  //  NSLog(@"TB_OFFLOADFACTORYDao SelectFactoryByCode [%@]",sql);
 
     
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
@@ -96,13 +96,13 @@ static sqlite3	*database;
  
             char *rowdata1=(char *)sqlite3_column_text(statement, 1);
             if (rowdata1==NULL)
-                tbFactory.FACTORYCODE=nil;
+                tbFactory.FACTORYCODE=@"";
             else
                 tbFactory.FACTORYCODE=[NSString stringWithUTF8String:rowdata1];
             
             char *rowdata2=(char *)sqlite3_column_text(statement, 2);
             if (rowdata2==NULL)
-                tbFactory.RECORDDATE=nil;
+                tbFactory.RECORDDATE=@"";
             else
                 tbFactory.RECORDDATE=[NSString stringWithUTF8String:rowdata2];
             

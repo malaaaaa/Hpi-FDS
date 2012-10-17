@@ -329,6 +329,10 @@ int totalColument=0;
                     [date addObject:rowdate];
                     [rowdate    release];
                     rowdate=[[NSMutableArray alloc] init];
+                    
+                    //  清空 lstMonthFactory1
+                    [lstMonthFactory1 removeAllObjects];
+                    
                 }
                 if (strMonthFactory2)
                     [lstMonthFactory2 addObject:strMonthFactory2];
@@ -418,31 +422,40 @@ int totalColument=0;
                       NSDateFormatter *f1=[[NSDateFormatter alloc] init];
                      [f1 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                     [f setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                    NSDate *t=[f dateFromString:item.S_ARRIVETIME];
-                   
+                    
+                    
+                    
+                    
+                    
+                    
+                    NSDate *t=[[NSDate alloc] initWithTimeInterval:8*60*60 sinceDate:[f dateFromString:item.S_ARRIVETIME]  ];
+                    NSLog(@"t=======%@",t);
                     [f setDateFormat:@"MM"];
+                    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                    NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:t];
+                    NSUInteger numberOfDaysInMonth = range.length;
+                    NSDate *tt=[[NSDate alloc] initWithTimeInterval:numberOfDaysInMonth*24*60*60 sinceDate:t];
+                    NSLog(@"tt=======%@",tt);
                     
-                    NSDate *tt=[[NSDate alloc] initWithTimeInterval:30*24*60*60 sinceDate:t];
-                      //NSLog(@"============111111111111111111111======================");
-                    NSString *m=[NSString stringWithFormat:@"%@",  [f stringFromDate:tt]] ;
-                    
-                   
+                    NSString *m=[f stringFromDate:tt];
                     [f setDateFormat:@"yyyy"];
                     NSString * yeas=[f stringFromDate:tt];
+                    NSLog(@"============111111111111111111111======================");
+ 
                     
                     NSString *monthY=yeas==nil?[NSString  stringWithFormat:@"%@",m]:[NSString  stringWithFormat:@"%@%@",yeas,m];
                        [f setDateFormat:@"dd"];
                     
-                  //  NSLog(@"monthY======%@=========item.ST_PLANMONTH ========%@",monthY,item.ST_PLANMONTH);
+                    NSLog(@"monthY======%@=========item.ST_PLANMONTH ========%@",monthY,item.ST_PLANMONTH);
                     
                     if ( [item.ST_PLANMONTH isEqualToString: monthY ]  )
                     {
-                        //NSLog(@"==========================进入上月赋值====================================");
+                        NSLog(@"==========================进入上月赋值====================================");
                         
                         strShowDate =[NSString stringWithFormat:@"%@日/%.2f",[f stringFromDate:t] ,(item.T_ELW != 0.0 ? (item.T_ELW / 10000.0): item.ST_ELW != 0? (item.ST_ELW / 10000.0) : 0.00)];
                         blnMonthFlag4 = true;
                         
-                       // NSLog(@"strShowDate========%@",strShowDate);
+                        NSLog(@"strShowDate========%@",strShowDate);
                         
                     } 
 
@@ -464,7 +477,7 @@ int totalColument=0;
                         {
                             intArrive = [[item.S_ARRIVETIME substringWithRange:NSMakeRange(8, 2)] integerValue ];//f
                         }
-                       // NSLog(@"intArrive==========================%d======================",intArrive);
+                        NSLog(@"intArrive==========================%d======================",intArrive);
                     }
                     
                     if (![Stime2 isEqualToString:@"2000-01-01"]&&![ Stime2 isEqualToString:@"0001-01-01"])
@@ -474,7 +487,7 @@ int totalColument=0;
                         {
                             intLeave = [[item.S_LEAVETIME substringWithRange:NSMakeRange(8, 2)] integerValue ];//f
                         }
-                     //   NSLog(@"intLeave==========================%d======================",intLeave);
+                        NSLog(@"intLeave==========================%d======================",intLeave);
                     }
                     
                  
@@ -561,32 +574,40 @@ int totalColument=0;
                     [f1 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                     [f setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                     
-                    NSDate *t=[f dateFromString:item.S_ARRIVETIME];
-                                       [f setDateFormat:@"MM"];
-                    
-                    NSDate *tt=[[NSDate alloc] initWithTimeInterval:30*24*60*60 sinceDate:t];
                     
                     
+                    NSDate *t=[[NSDate alloc] initWithTimeInterval:8*60*60 sinceDate:[f dateFromString:item.S_ARRIVETIME]  ];
+                   // NSLog(@"t=======%@",t);
                     
-                    NSString *m= [NSString stringWithFormat:@"%@",[f stringFromDate:tt] ] ;
+                    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                    NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:t];
+                    NSUInteger numberOfDaysInMonth = range.length;
+
+                    NSDate *tt=[[NSDate alloc] initWithTimeInterval:numberOfDaysInMonth*(24)*60*60 sinceDate:t];
+                    
+                   // NSLog(@"t====T===%@",t);
+                    // NSLog(@"tt=======%@",tt);
+                    NSString *m=[[NSString stringWithFormat:@"%@",tt]  substringWithRange:NSMakeRange(5, 2)];
                     [f setDateFormat:@"yyyy"];
                     NSString * yeas=[f stringFromDate:tt];
 
 
+                    
+                    
                     NSString *monthY=yeas==nil?[NSString  stringWithFormat:@"%@",m]:   [NSString  stringWithFormat:@"%@%@",yeas,m];
                     [f setDateFormat:@"dd"];
                    
-                  //  NSLog(@"============22222222222222222222222222=====================");
+                    NSLog(@"============22222222222222222222222222=====================");
                     
-              //  NSLog(@"monthY======%@=========item.ST_PLANMONTH ========%@",monthY,item.ST_PLANMONTH);
+                //NSLog(@"monthY======%@=========item.ST_PLANMONTH ========%@",monthY,item.ST_PLANMONTH);
                     if (  [item.ST_PLANMONTH isEqualToString:monthY]   )
                     {
-                      /// NSLog(@"==========================进入上月赋值====================================");
+                  //     NSLog(@"==========================进入上月赋值====================================");
                       
-                        strShowDate =[NSString stringWithFormat:@"%@日/%.2f",[f stringFromDate:t] ,(item.T_ELW != 0 ? (item.T_ELW / 10000.0): item.ST_ELW != 0? (item.ST_ELW / 10000.0) : 0.00)];
+                        strShowDate =[NSString stringWithFormat:@"%@日/%.2f",[[NSString stringWithFormat:@"%@",t]  substringWithRange:NSMakeRange(8, 2)] ,(item.T_ELW != 0 ? (item.T_ELW / 10000.0): item.ST_ELW != 0? (item.ST_ELW / 10000.0) : 0.00)];
                         blnMonthFlag5 = true;
                         
-                       // NSLog(@"strShowDate========%@",strShowDate);
+                    //    NSLog(@"strShowDate========%@",strShowDate);
                     }
                  [rowdate  addObject:strShowDate];
                     int intArrive = 0;
@@ -728,31 +749,38 @@ int totalColument=0;
                 NSDateFormatter *f1=[[NSDateFormatter alloc] init];
                 [f1 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                 [f setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-            
-                    NSDate *t=[f dateFromString:item.S_ARRIVETIME];
-                   
-                  [f setDateFormat:@"MM"];
-                    NSDate *tt=[[NSDate alloc] initWithTimeInterval:30*24*60*60 sinceDate:t];
+      
                 
                 
+                
+                NSDate *t=[[NSDate alloc] initWithTimeInterval:8*60*60 sinceDate:[f dateFromString:item.S_ARRIVETIME]  ];
+               // NSLog(@"t=======%@",t);
+                [f setDateFormat:@"MM"];
+                NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:t];
+                NSUInteger numberOfDaysInMonth = range.length;
+                
+                NSDate *tt=[[NSDate alloc] initWithTimeInterval:numberOfDaysInMonth*(24)*60*60 sinceDate:t];
+               // NSLog(@"tt=======%@",tt);
                 NSString *m=[f stringFromDate:tt];
                 [f setDateFormat:@"yyyy"];
                 NSString * yeas=[f stringFromDate:tt];
                 
                 
                 
+                
                 NSString *monthY=yeas==nil?[NSString  stringWithFormat:@"%@",m]:  [NSString  stringWithFormat:@"%@%@",yeas,m];
                     [f setDateFormat:@"dd"];
-                   // NSLog(@"============333333333333333333333333333333=====================");
+                    NSLog(@"============333333333333333333333333333333=====================");
                     
-                   // NSLog(@"monthY======%@=========item.ST_PLANMONTH ========%@",monthY,item.ST_PLANMONTH);
+                  //  NSLog(@"monthY======%@=========item.ST_PLANMONTH ========%@",monthY,item.ST_PLANMONTH);
                     
                     if (  [item.ST_PLANMONTH isEqualToString:monthY]   )
                     {
                         
-                       // NSLog(@"==========================进入上月赋值====================================");
+                      //  NSLog(@"==========================进入上月赋值====================================");
                        // NSLog(@"t========[%@]",t);
-                        strShowDate =[NSString stringWithFormat:@"%@日/%.2f",[f stringFromDate:t] ,item.ST_ELW != 0? (item.ST_ELW / 10000.0) : 0.00];
+                        strShowDate =[NSString stringWithFormat:@"%@日/%.2f",[f stringFromDate:[[NSDate alloc] initWithTimeInterval:-8*60*60 sinceDate:t  ]] ,item.ST_ELW != 0? (item.ST_ELW / 10000.0) : 0.00];
                         blnMonthFlag6 = true;
                         
                         //NSLog(@"strShowDate========%@",strShowDate);
@@ -775,17 +803,20 @@ int totalColument=0;
                     Stime1= [item.S_ARRIVETIME  substringWithRange:NSMakeRange(0, 10)];
                     
                 }
+              //  NSLog(@"Stime1 ========%@",Stime1);
+                
                 if ( ![Stime1 isEqualToString:@"0001-01-01"] &&![Stime1  isEqualToString:@"2000-01-01"]  && !blnMonthFlag6)
                 {
+                   //NSLog(@"====================");
                     if (![item.S_ARRIVETIME isEqualToString:@""])
                     {
                         intArrive = [[item.S_ARRIVETIME substringWithRange:NSMakeRange(8, 2)] integerValue ];//f
                     }
-                 //   NSLog(@"intArrive==========================%d======================",intArrive);
+                   // NSLog(@"intArrive==========================%d======================",intArrive);
                 }
 
                 
-               
+                // NSLog(@"Stime2 ========%@",Stime2);
                 if (![Stime2 isEqualToString:@"2000-01-01"]&&![ Stime2 isEqualToString:@"0001-01-01"])
                 {
 
@@ -793,7 +824,7 @@ int totalColument=0;
                     { 
                      intLeave = [[item.S_LEAVETIME substringWithRange:NSMakeRange(8, 2)] integerValue ];//f
                     }
-               // NSLog(@"intLeave==========================%d======================",intLeave);
+                  //NSLog(@"intLeave==========================%d======================",intLeave);
                 }
                 
                 
@@ -928,12 +959,12 @@ int totalColument=0;
 
 - (IBAction)SelectDate:(id)sender {
     //每次查询都清空数据
-      [date_p removeAllObjects];
+   [date_p removeAllObjects];
    [datedic    removeAllObjects];
     
     
     
-    /*
+   /*
      NSLog(@"comLable:[%@]",comLabel.text);
      NSLog(@"shipLable   :[%@]",shipLabel.text);
      NSLog(@"factoryLable   :[%@]",factoryLabel.text);
@@ -942,13 +973,13 @@ int totalColument=0;
      NSLog(@"typeLabel   :[%@]",typeLabel.text);
      NSLog(@"supLable   :[%@]",supLable .text);
      NSLog(@"startTime [%@] ",startTime.text );
-     NSLog(@"endTime [%@] ",endTime   .text );*/
-
+     NSLog(@"endTime [%@] ",endTime   .text );
+*/
    
     
     
     model=[[SearchModel  alloc] init];
-    model.shipName=shipLabel.text;
+    model.ShipId=shipLabel.text ;
     model.FactoryName=factoryLabel.text;
     model.portName=portLabel.text;
     model.CoalType=coalTypeLabel.text;
@@ -1546,10 +1577,16 @@ int totalColument=0;
     [chooseView.iDArray addObject:All_];
     for(int i=0;i<[array count];i++){
         TgShip *tgShip=[array objectAtIndex:i];
-        [chooseView.iDArray addObject:tgShip.shipName];
+        
+        NSMutableArray *arr=[[NSMutableArray alloc] init];
+        [arr addObject:tgShip.shipName];
+        [arr addObject:[NSString stringWithFormat:@"%d",tgShip.shipID]];
+        [chooseView.iDArray addObject:arr];
+        [arr  release];
+
     }
     chooseView.parentMapView=self;
-    chooseView.type=kChSHIP;
+    chooseView.type=kchship_Latefee;
     self.poper = pop;
     self.poper.delegate = self;
     //设置弹出窗口尺寸
@@ -2056,18 +2093,20 @@ int totalColument=0;
             
             
         }
-        if (chooseView.type==kChSHIP) {
+        if (chooseView.type==kchship_Latefee) {
+
             self.shipLabel.text=currentSelectValue;
             if (![self.shipLabel.text isEqualToString:All_]) {
-                self.shipLabel.hidden=NO;
-                [self.shipButton setTitle:@"" forState:UIControlStateNormal];
+                NSArray *chunks = [currentSelectValue componentsSeparatedByString: @","];
                 
+                self.shipLabel.text=[chunks objectAtIndex:1];
                 
+                self.shipLabel.hidden=YES;
+                [self.shipButton setTitle:[NSString stringWithFormat:@"%@",[chunks objectAtIndex:0]] forState:UIControlStateNormal];
                 
             }else {
                 self.shipLabel.hidden=YES;
-                [self.shipButton setTitle:@"船名" forState:UIControlStateNormal];
-            }
+                [self.shipButton setTitle:@"船名" forState:UIControlStateNormal];            }
             
         }
         

@@ -181,7 +181,7 @@ double    T_ELW;
     NSInteger  PlanMonthS;
     NSInteger  PlanMonthE;
     NSString *comName;
-    NSString *shipName;
+    NSString *ShipId;
     NSString *portName; 
     NSString *CoalType;
     
@@ -197,7 +197,7 @@ double    T_ELW;
 @property NSInteger  PlanMonthS;
 @property NSInteger PlanMonthE;
 @property(nonatomic,retain)NSString *comName;
-@property(nonatomic,retain)NSString *shipName;
+@property (nonatomic,retain)NSString *ShipId;
 @property(nonatomic,retain)NSString *portName;
 @property(nonatomic,retain)NSString *CoalType;
 

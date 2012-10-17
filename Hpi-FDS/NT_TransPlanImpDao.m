@@ -203,8 +203,8 @@ static sqlite3  *database;
      */
     NSString *query=[NSString   stringWithFormat:@"  1=1  "];
     
-    if (![model.shipName isEqualToString:All_]) {
-        query=[query stringByAppendingFormat:@"  AND ST_SHIPNAME='%@' ",model.shipName];
+    if (![ model.ShipId  isEqualToString:All_]) {
+        query=[query stringByAppendingFormat:@"  AND ST_SHIPID=%d ",[model.ShipId integerValue]];
     }
     if (![model.portName isEqualToString:All_]) {
         query=[query stringByAppendingFormat:@"  AND ST_PORTNAME='%@' ",model.portName];
@@ -284,9 +284,10 @@ static sqlite3  *database;
     NSMutableArray *d=[[[NSMutableArray alloc] init] autorelease];
     sqlite3_stmt *statement;
 
-    NSString *sql1=  [NSString   stringWithFormat: @"select   substr(ST_PLANMONTH ,0,7)as ST_PLANMONTH ,ST_IntPlanMonth  , ST_SHIPID   ,ST_SHIPNAME , ST_FACTORYCODE  , ST_FACTORYNAME ,  ST_TRIPNO , ST_PORTCODE , ST_PORTNAME , ST_ARRIVETIME  , ST_LEAVETIME  , ST_COALTYPE ,   ST_SUPPLIER , ST_KEYNAME , ST_ELW  , ST_SORT  , ST_SUPID  , ST_TYPEID  , ST_KEYVALUE ,  S_SHIPID , S_SHIPNAME  , S_FACTORYCODE  ,  S_PORTCODE , S_PORTNAME , S_ARRIVETIME  , S_LEAVETIME ,S_LW  , S_PLANTYPE  ,  T_SHIPID   , T_SHIPNAME , T_FACTORYCODE , T_PORTCODE  , T_PORTNAME ,T_ARRIVETIME , T_LEAVETIME  ,  T_ELW   , T_DESCRIPTION ,S_STAGE , S_HEATVALUE  , S_SULFUR   ,     T_HEATVALUE  ,T_SULFUR   FROM  NT_TransPlanImp  where  %@   order  by  ST_SORT  asc    ,ST_PLANMONTH  desc", sql ];
-
-//  NSLog(@"执行 GetTransPlanImpDataBySql [%@]",sql1);
+    NSString *sql1=  [NSString   stringWithFormat: @"select   substr(ST_PLANMONTH ,0,7)as ST_PLANMONTH ,ST_IntPlanMonth  , ST_SHIPID   ,ST_SHIPNAME , ST_FACTORYCODE  , ST_FACTORYNAME ,  ST_TRIPNO , ST_PORTCODE , ST_PORTNAME , ST_ARRIVETIME  , ST_LEAVETIME  , ST_COALTYPE ,   ST_SUPPLIER , ST_KEYNAME , ST_ELW  , ST_SORT  , ST_SUPID  , ST_TYPEID  , ST_KEYVALUE ,  S_SHIPID , S_SHIPNAME  , S_FACTORYCODE  ,  S_PORTCODE , S_PORTNAME , S_ARRIVETIME  , S_LEAVETIME ,S_LW  , S_PLANTYPE  ,  T_SHIPID   , T_SHIPNAME , T_FACTORYCODE , T_PORTCODE  , T_PORTNAME ,T_ARRIVETIME , T_LEAVETIME  ,  T_ELW   , T_DESCRIPTION ,S_STAGE , S_HEATVALUE  , S_SULFUR   ,     T_HEATVALUE  ,T_SULFUR   FROM  NT_TransPlanImp  where  %@   order  by  ST_PLANMONTH  desc, ST_SORT  asc    ", sql ];
+    
+    
+      NSLog(@"执行 GetTransPlanImpDataBySql [%@]",sql1);
  
    
     if (sqlite3_prepare(database, [sql1 UTF8String], -1, &statement, NULL)==SQLITE_OK) {

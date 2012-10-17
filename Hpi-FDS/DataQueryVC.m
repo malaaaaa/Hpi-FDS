@@ -50,6 +50,10 @@
 //static DataGridComponentDataSource *dataSource;
 
 static NSInteger menuIndex;
+
+
+
+static NSInteger menuSection;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -161,7 +165,7 @@ static NSInteger menuIndex;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
  //    if(segment.selectedSegmentIndex==0)
-    if(menuIndex==kMenuSSCBCX)
+    if(menuIndex==kMenuSSCBCX&&menuSection==kMenuSelect)
 
     {
         TH_SHIPTRANS_ORI *vbShiptrans=[dataArray objectAtIndex:indexPath.row];
@@ -208,7 +212,7 @@ static NSInteger menuIndex;
     }
     
     //新添   调度日志
-        if (menuIndex==kMenuDDRZCX){
+        if (menuIndex==kMenuDDRZCX&&menuSection==kMenuTJ ){
         TH_ShipTrans *thshiptrans=[dataArray objectAtIndex:indexPath.row];
         NSLog(@"%@",thshiptrans.P_ANCHORAGETIME );
         NSLog(@"%@",thshiptrans.P_ARRIVALTIME );
@@ -233,7 +237,7 @@ static NSInteger menuIndex;
     
     
     
-       if (menuIndex==kMenuZQFMXCX) {
+       if (menuIndex==kMenuZQFMXCX&&menuSection==kMenuLatefee) {
          double  t=0;
         //滞期费合计
         for (int i=0; i<[dataArray count]; i++) {
@@ -390,9 +394,10 @@ static NSInteger menuIndex;
 }
 
 //删除segment控件，模拟segmentChanged
--(void)setSegmentIndex:(NSInteger) index
+-(void)setSegmentIndex:(NSInteger) index:(NSInteger )section
 {
     menuIndex=index;
+    menuSection=section;
     if (dataSource) {
         NSLog(@"dataSource不为空 ，清空。。。。。。。。。。。。。。。");
         [dataSource release];
@@ -402,7 +407,7 @@ static NSInteger menuIndex;
     [dataArray removeAllObjects];
     [listTableview reloadData];
     
-    if(index==kMenuSSCBCX)
+    if(index==kMenuSSCBCX&&section==kMenuSelect)
     {
       [self removeSubView];
 
@@ -423,7 +428,7 @@ static NSInteger menuIndex;
         listTableview.frame=CGRectMake(0, 50, 1024, 440);
          NSLog(@"--------实时船舶查询--");
     }
-    else if (index==kMenuCYJH)
+    else if (index==kMenuCYJH&&section==kMenuSelect)
     {
         NSLog(@"船运计划");
         [self removeSubView];
@@ -443,7 +448,7 @@ static NSInteger menuIndex;
         [self.chooseView addSubview:vbTransChVC.view];
           NSLog(@"--------初始船运计划页面--");
           }
-    else if (index==kMenuDDRZCX) {
+    else if (index==kMenuDDRZCX&&section==kMenuTJ) {
         [self removeSubView];
         //新添  调度日志查询
         self.thShipTransVC=[[[TH_ShipTransChVC alloc] initWithNibName:@"TH_ShipTransChVC" bundle:nil] autorelease];
@@ -461,7 +466,7 @@ static NSInteger menuIndex;
         NSLog(@"调度日志.............");
     }
     //新添 滞期费查询
-    else if (index==kMenuZQFMXCX) {
+    else if (index==kMenuZQFMXCX&&section==kMenuLatefee) {
        [self removeSubView];
         self.tblatefeeVC=[[[TB_LatefeeChVC alloc] init] autorelease ];
         tblatefeeVC.parentVC=self;
@@ -482,7 +487,7 @@ static NSInteger menuIndex;
     }
     
     //滞期费  统计
-    else if (index==kMenuZQFTJ) {
+    else if (index==kMenuZQFTJ&&section==kMenuLatefee) {
       [self removeSubView];
         self.latefeeTj=[[[NT_LatefeeTongjChVC alloc] init] autorelease];
         latefeeTj.parentVC=self;
@@ -501,7 +506,7 @@ static NSInteger menuIndex;
     }
     //港口平均装港时间统计
     
-    else if (index==kMenuGKMJZGSJ) {
+    else if (index==kMenuGKMJZGSJ&&section==kMenuTJ) {
        [self removeSubView];
         self.avgTimePort=[[[AvgPortPTimeChVC alloc] init] autorelease];
         avgTimePort.parentVC=self;
@@ -519,7 +524,7 @@ static NSInteger menuIndex;
         
     }
     //电厂装卸港时间统计
-    else if (index==kMenuFcAvgZXTime) {
+    else if (index==kMenuFcAvgZXTime&&section==kMenuTJ) {
    [self removeSubView];
         self.avgTimeZXFactory=[[[AvgFactoryTimeChVC alloc] init] autorelease];
         avgTimeZXFactory.parentVC=self;

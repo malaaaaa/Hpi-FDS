@@ -1227,14 +1227,20 @@ static  NSMutableArray *columnWidthFTitle;
                 columnOffset += columnWidth;
                 [ds addSubview:l];
                 [l release];
+                
                 columnWidth = [[columWidth1 objectAtIndex:1] floatValue];
                 l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , (totalWidth-columnOffset)-1, cellHeight -1 )];
                 l.backgroundColor=[UIColor blackColor];
-                l.textColor=[UIColor whiteColor];
-                l.shadowColor=[UIColor whiteColor   ];
+                l.textColor=[UIColor redColor];
+               // l.shadowColor=[UIColor whiteColor   ];
                 l.lineBreakMode = UILineBreakModeCharacterWrap;
                 l.font = [UIFont systemFontOfSize:15.0f];
                 l.text =[date objectAtIndex:b];
+                
+                
+                NSLog(@"===========%@============%@",[date objectAtIndex:b],[date objectAtIndex:b]==@"*"?@"":[date objectAtIndex:b]);
+                
+             
                 l.textAlignment = UITextAlignmentLeft;
                 [ds addSubview:l];
                 [l release];
@@ -1289,7 +1295,7 @@ static  NSMutableArray *columnWidthFTitle;
     chooseView.popover = pop;
     NSMutableArray *Array=[[NSMutableArray alloc]init];
     chooseView.iDArray=Array;
-    [chooseView.iDArray addObject:All_];
+    //[chooseView.iDArray addObject:All_];
     NSMutableArray *array=[TgFactoryDao getTgFactory];
     for(int i=0;i<[array count];i++){
         TgFactory *tgFactory=[array objectAtIndex:i];
