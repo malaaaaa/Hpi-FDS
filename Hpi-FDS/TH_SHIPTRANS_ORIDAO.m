@@ -452,7 +452,7 @@ static sqlite3  *database;
 +(NSMutableArray *) getVbFactoryTransBySql:(NSString *)querySql
 {
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"select dispatchno,statename,shipname,lw,f_note from TH_SHIPTRANS_ORI where  %@ ",querySql];
+    NSString *sql=[NSString stringWithFormat:@"select dispatchno,statename,shipname,lw,f_note,STATECODE,t_note,p_note,stage from TH_SHIPTRANS_ORI where  %@  order by stage,dispatchno desc ",querySql];
     NSLog(@"执行 getVbFactoryTransBySql [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
@@ -487,6 +487,31 @@ static sqlite3  *database;
             else
                 vbFactoryTrans.F_NOTE = [NSString stringWithUTF8String: rowData4];
             
+            char * rowData5=(char *)sqlite3_column_text(statement,5);
+            if (rowData5 == NULL)
+                vbFactoryTrans.STATECODE = nil;
+            else
+                vbFactoryTrans.STATECODE = [NSString stringWithUTF8String: rowData5];
+            
+            char * rowData6=(char *)sqlite3_column_text(statement,6);
+            if (rowData6 == NULL)
+                vbFactoryTrans.T_NOTE = nil;
+            else
+                vbFactoryTrans.T_NOTE = [NSString stringWithUTF8String: rowData6];
+            
+            char * rowData7=(char *)sqlite3_column_text(statement,7);
+            if (rowData7 == NULL)
+                vbFactoryTrans.P_NOTE = nil;
+            else
+                vbFactoryTrans.P_NOTE = [NSString stringWithUTF8String: rowData7];
+            
+            char * rowData8=(char *)sqlite3_column_text(statement,8);
+            if (rowData8 == NULL)
+                vbFactoryTrans.STAGECODE = nil;
+            else
+                vbFactoryTrans.STAGECODE = [NSString stringWithUTF8String: rowData8];
+
+            
 			[array addObject:vbFactoryTrans];
             [vbFactoryTrans release];
 		}
@@ -514,7 +539,7 @@ static sqlite3  *database;
     //查询所有没有结束的船只
     
     NSMutableString *query =[[NSMutableString alloc] init];
-    [query appendFormat:@" trim(statecode)<>'b'  AND FACTORYCODE ='%@' AND strftime('%%Y-%%m-%%d',RECORDDATE) ='%@' ",FactoryCode,start];
+    [query appendFormat:@" FACTORYCODE ='%@' AND strftime('%%Y-%%m-%%d',RECORDDATE) ='%@' ",FactoryCode,start];
     
     //船厂
     if (((TfShipCompany *)[shipCompany objectAtIndex:0]).didSelected==NO) {

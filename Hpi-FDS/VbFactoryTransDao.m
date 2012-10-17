@@ -475,7 +475,7 @@ static sqlite3 *database;
             
             sqlite3_stmt *statement1;
             NSString *sql1=[NSString stringWithFormat:@"SELECT S.CONSUM,S.STORAGE, S.STORAGE-(select p.storage from TbFactoryState p where p.factorycode='%@' AND strftime('%%Y-%%m-%%d',p.RECORDDATE) =date(strftime('%%Y-%%m-%%d','%@'),'-1 day') ),S.AVALIABLE,S.MONTHIMP,S.YEARIMP FROM  TbFactoryState s WHERE s.factorycode='%@' AND strftime('%%Y-%%m-%%d',s.RECORDDATE) ='%@'  ",vbFactoryTrans.FACTORYCODE,start,vbFactoryTrans.FACTORYCODE,start];
-            NSLog(@"执行 TbFactoryState OuterSql[%@] ",sql1);
+//            NSLog(@"执行 TbFactoryState OuterSql[%@] ",sql1);
             if(sqlite3_prepare_v2(database,[sql1 UTF8String],-1,&statement1,NULL)==SQLITE_OK){
                 while (sqlite3_step(statement1)==SQLITE_ROW) {
                     vbFactoryTrans.CONSUM = sqlite3_column_int(statement1,0);
@@ -620,7 +620,7 @@ static sqlite3 *database;
                 
                 sqlite3_stmt *innerStatement;
                 NSString *innerSql=[NSString stringWithFormat:@"select count(*) from TH_SHIPTRANS_ORI where    FACTORYCODE ='%@'  AND strftime('%%Y-%%m-%%d',RECORDDATE) ='%@' %@",vbFactoryTrans.FACTORYCODE,start,innerTmpString];
-                NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
+//                NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
                 
                 if(sqlite3_prepare_v2(database,[innerSql UTF8String],-1,&innerStatement,NULL)==SQLITE_OK){
                     while (sqlite3_step(innerStatement)==SQLITE_ROW) {

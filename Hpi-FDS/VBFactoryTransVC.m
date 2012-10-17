@@ -650,7 +650,6 @@ static  NSMutableArray *ShipStageArray;
 - (IBAction)queryAction:(id)sender {
     
     [dataSource.data removeAllObjects];
-    //listArray=[VbFactoryTransDao getVbFactoryTrans:[multipleSelectView iDArray]];
     listArray=[VbFactoryTransDao getVbFactoryTransState:FactoryArray
                                                        :self.startDay
                                                        :ShipCompanyArray
@@ -669,7 +668,6 @@ static  NSMutableArray *ShipStageArray;
                                     vbFactoryTrans.CAPACITYSUM,
                                     [NSString stringWithFormat:@"%.2f",vbFactoryTrans.CONSUM/10000.0],
                                     [NSString stringWithFormat:@"%.2f",vbFactoryTrans.STORAGE/10000.0],
-//                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0],
                                     (vbFactoryTrans.COMPARE>0) ? [NSString stringWithFormat:@"+%.2f",vbFactoryTrans.COMPARE/10000.0]: (vbFactoryTrans.COMPARE<0 ? [NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0]:@"0.0"),
                                     [NSString stringWithFormat:@"%d",vbFactoryTrans.AVALIABLE],
                                     [NSString stringWithFormat:@"%.2f",vbFactoryTrans.MONTHIMP/10000.0],
@@ -963,7 +961,6 @@ static  NSMutableArray *ShipStageArray;
             }
             //shipnum字段大于0，显示标示，可以进入下一层
             if (column==[rowData count]-2) {
-                NSLog(@"column=%d",[[rowData objectAtIndex:column] integerValue]);
                 l.text=@"";
                 if ([[rowData objectAtIndex:column] integerValue]>0) {
                     UILabel *imageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, columnWidth-1, 40 -1 )];
