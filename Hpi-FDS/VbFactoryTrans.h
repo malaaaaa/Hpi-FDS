@@ -37,6 +37,7 @@
     NSString    *DESCRIPTION_;
     NSInteger   SHIPNUM;    //第一层中标示船舶运行情况用
     NSString *CAPACITYSUM;//装机容量
+    NSString *P_NOTE;
 }
 @property (nonatomic, retain) NSString *FACTORYCODE;
 
@@ -55,11 +56,6 @@
 @property (nonatomic, retain) NSString *STAGENAME;
 @property (nonatomic, retain) NSString *STATECODE;
 @property (nonatomic, retain) NSString *STATENAME;
-
-
-
-
-
 @property (nonatomic, retain) NSString *FACTORYNAME;
 @property NSInteger CONSUM;
 @property NSInteger STORAGE;
@@ -69,8 +65,7 @@
 @property NSInteger YEARIMP;
 @property (nonatomic, retain) NSString *DESCRIPTION;
 @property NSInteger SHIPNUM;
-
 @property (nonatomic, retain) NSString *CAPACITYSUM;
-
+@property (nonatomic, retain) NSString *P_NOTE;
 
 @end
