@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import <CorePlot/CorePlot.h>
+//#import <CorePlot/CorePlot.h>
 #import "DateViewController.h"
 #import "PubInfo.h"
 #import "HpiGraphData.h"

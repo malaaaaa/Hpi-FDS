@@ -212,7 +212,7 @@ UIAlertView *alert;
                     cell.textLabel.text=[NSString stringWithFormat:@"本地文件数量: %d",[self getFileNum]];
                     break;
                 case 3	:
-                    cell.textLabel.text=@"版本信息: HFDS for iPad  V1.2";
+                    cell.textLabel.text=@"版本信息: HFDS for iPad  V0.9";
                     break;
                     
             }
