@@ -13,7 +13,6 @@
 @synthesize fileType, title, filePath, fileName, userName, recordTime,xzbz;
 
 -(void)dealloc {
-    NSLog(@"delllllllllloc");
     [fileType release];
     fileType=nil;
     [title release];

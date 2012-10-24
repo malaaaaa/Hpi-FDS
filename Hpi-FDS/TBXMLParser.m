@@ -346,6 +346,7 @@ static bool ThreadFinished=TRUE;
     char *errorMsg;
     NSLog(@"start Parser");
     NSError *error = nil;
+    NSLog(@"webData length %d", [webData length]);
     tbxml = [TBXML newTBXMLWithXMLData:webData error:&error];
     
     if (error) {
@@ -515,6 +516,105 @@ static bool ThreadFinished=TRUE;
 
 }
 
+-(void)test
+{
+    char *errorMsg;
+    NSLog(@"start test");
+
+    
+    //打开数据库
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *file= [documentsDirectory stringByAppendingPathComponent:@"database.db"];
+
+    if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
+    {
+        sqlite3_close(database);
+        NSLog(@"open  database error");
+        return;
+    }else
+    {
+        NSLog(@"open  database ");
+        
+    }
+    //为提高数据库写入性能，加入事务控制，批量提交
+    if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
+        sqlite3_close(database);
+        NSLog(@"exec begin error");
+        return;
+    }
+    //动态调用某个类的方法
+    sqlite3_stmt *statement;
+
+/*直接读取Document的文件*/
+/*
+    //创建文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //获取路径
+    //参数NSDocumentDirectory要获取那种路径
+    NSArray *paths1 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory1 = [paths1 objectAtIndex:0];//去处需要的路径
+    //更改到待操作的目录下
+    [fileManager changeCurrentDirectoryPath:[documentsDirectory1 stringByExpandingTildeInPath]];
+    //获取文件路径
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"test.sql"];
+ */
+    /*拷贝工程中的文件到Document目录*/
+
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"test.sql"];
+    if(![fileManager fileExistsAtPath:filePath]) //如果不存在
+    {
+        NSLog(@"test.sql is not exist");
+         NSString *dataPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/test.sql"];//获取程序包中相应文件的路径
+        NSError *error;
+        if([fileManager copyItemAtPath:dataPath toPath:filePath error:&error]) //拷贝
+        {
+            NSLog(@"copy xxx.txt success");
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }
+     NSData *reader = [NSData dataWithContentsOfFile:filePath];
+//    NSData *reader = [NSData dataWithContentsOfFile:path];
+    NSString *a= [[NSString alloc] initWithData:reader
+                                       encoding:NSUTF8StringEncoding];
+    NSArray *b=[a componentsSeparatedByString:@"\n"];
+    NSLog(@"b=%d", [b count]);
+//    NSLog(@"aababab=%@",[[NSString alloc] initWithData:reader
+//                                              encoding:NSUTF8StringEncoding]);
+    for (int i=0; i< [b count]-1; i++) {
+//        NSLog(@"aa=%@", [b objectAtIndex:i]);
+        NSString *sql=[b objectAtIndex:i];
+//        NSString *sql=@"INSERT INTO NTShipCompanyTranShare VALUES (7, '其它', 'HYG', '黄骅港', 2011, 12, 31635); INSERT INTO NTShipCompanyTranShare VALUES (7, '其它', 'HYG', '黄骅港', 2012, '01', 38208); INSERT INTO NTShipCompanyTranShare VALUES (7, '其它', 'HYG', '黄骅港', 2012, '02', 109124);";
+        int re =sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL);
+        if (re!=SQLITE_OK) {
+            NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),[sql UTF8String]);
+        }
+        
+        re=sqlite3_step(statement);
+        if (re!=SQLITE_DONE) {
+            NSLog( @"Error: insert error with message [%s]  sql[%s]", sqlite3_errmsg(database),[sql UTF8String]);
+            sqlite3_finalize(statement);
+            return;
+        }else {
+            //NSLog(@"insert shipTrans  SUCCESS");
+            
+        }
+    }
+    sqlite3_finalize(statement);
+    if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
+        sqlite3_close(database);
+        NSLog(@"exec commit error");
+        return;
+    }
+    sqlite3_close(database);
+    iSoapDone=1;
+    iSoapNum--;
+    NSLog(@"over");
+}
 
 
 -(NSInteger)iSoapDone
