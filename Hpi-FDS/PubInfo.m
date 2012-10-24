@@ -24,14 +24,16 @@
 #import "TransPlanImpDao.h"
 #import "NT_TransPlanImpDao.h"
 @implementation PubInfo
-static NSString *hostName = @"http://10.2.17.121";     //http://172.16.1.16:84
-static NSString *port = @":82";                  //:82
+static NSString *hostName =@"http://10.2.17.121"; //@"http://10.2.17.165";      //http://172.16.1.16:84
+static NSString *port =@":82";     //@":6006";                   //:82
 static NSString *autoUpdate;
 static NSString *baseUrl;
 static NSString *url;
 static NSString *userInfoUrl;
 static NSString *userName;
-static NSString *updateTime;    
+static NSString *updateTime;
+
+static NSString *isSucess;
 static NSString *deviceID;
 
 +(void)initdata
@@ -156,18 +158,21 @@ static NSString *deviceID;
 //	NSArray *tempArray = [[[NSArray alloc] initWithContentsOfFile:fileName] autorelease];
     NSArray *tempArray = [[NSArray alloc] initWithContentsOfFile:fileName] ;
 	//NSLog(@"data=%d",[tempArray count]);
-	if([tempArray count]<3)
+	if([tempArray count]<4)
 	{
         //此处用Analyze工具监测会出现可能内存泄漏的提示，tempArray不能autorelease，否则会崩溃
 		userName=@"weix-test";
         autoUpdate=kNO;
         updateTime=@"2012-04-02 00:00";
+        
+        isSucess=UNO;
 		[PubInfo save];
 	}
 	else {
         userName=[tempArray objectAtIndex:0];
 		autoUpdate=[tempArray objectAtIndex:1];
         updateTime=[tempArray objectAtIndex:2];
+        isSucess=[tempArray objectAtIndex:3];
 	}    
   
 //    [tempArray release];
@@ -179,6 +184,7 @@ static NSString *deviceID;
 						  userName,
                           autoUpdate,
                           updateTime,
+                          isSucess,
 						  nil
 						  ];
 	NSArray *paths= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -220,6 +226,26 @@ static NSString *deviceID;
 	
 	return userName;
 }
+
+
++(NSString *)isSucess
+{
+    return isSucess;
+}
+
++(void)setIsSucess:(NSString *)theissucess
+{
+    [isSucess release];
+	isSucess=theissucess;
+	[isSucess retain];
+}
+
+
+
+
+
+
+
 
 +(void)setAutoUpdate:(NSString*)update
 {

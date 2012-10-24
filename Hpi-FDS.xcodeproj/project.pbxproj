@@ -203,7 +203,10 @@
 		2A8D93F115E262C50058EAA8 /* AvgPortPTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D93EF15E262C50058EAA8 /* AvgPortPTimeChVC.m */; };
 		2A8F1F5215CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */; };
 		2A8F1F5315CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8F1F5115CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib */; };
+		2A8FD6821630F27100075616 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FD6801630F27100075616 /* LoginView.m */; };
+		2A8FD6831630F27100075616 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8FD6811630F27100075616 /* LoginView.xib */; };
 		2A9C0B3B1603267D00F52A62 /* NT_TransPlanImpDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C0B3A1603267C00F52A62 /* NT_TransPlanImpDao.m */; };
+		2A9CED271636943B000DF3E7 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9CED261636943B000DF3E7 /* LoginResponse.m */; };
 		2AA44B2E15D109F5007B499B /* TfPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B2D15D109F3007B499B /* TfPort.m */; };
 		2AA44B3215D10D05007B499B /* TfPortDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA44B3115D10D03007B499B /* TfPortDao.m */; };
 		2AA44B3C15D11985007B499B /* AvgPortPTimeChVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AA44B3A15D11985007B499B /* AvgPortPTimeChVC.xib */; };
@@ -372,7 +375,7 @@
 		05687D9F152E800800ABC7EC /* VbShiptransDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VbShiptransDao.m; sourceTree = "<group>"; };
 		05687DAA152E8AA500ABC7EC /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
 		05687DAB152E8AA500ABC7EC /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
-		057F6C291524490600E0E435 /* Hpi-FDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hpi-FDS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		057F6C291524490600E0E435 /* 燃料调运.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "燃料调运.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		057F6C2D1524490600E0E435 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		057F6C2F1524490600E0E435 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		057F6C311524490600E0E435 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -637,8 +640,13 @@
 		2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_LatefeeTongjChVC.m; sourceTree = "<group>"; };
 		2A8F1F5115CA0D7A005C7B62 /* NT_LatefeeTongjChVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NT_LatefeeTongjChVC.xib; sourceTree = "<group>"; };
 		2A8F1F8415CA642D005C7B62 /* ChooseViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseViewDelegate.h; sourceTree = "<group>"; };
+		2A8FD67F1630F27100075616 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
+		2A8FD6801630F27100075616 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
+		2A8FD6811630F27100075616 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		2A9C0B391603267B00F52A62 /* NT_TransPlanImpDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NT_TransPlanImpDao.h; sourceTree = "<group>"; };
 		2A9C0B3A1603267C00F52A62 /* NT_TransPlanImpDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_TransPlanImpDao.m; sourceTree = "<group>"; };
+		2A9CED251636943B000DF3E7 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
+		2A9CED261636943B000DF3E7 /* LoginResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponse.m; sourceTree = "<group>"; };
 		2AA44B2C15D109F2007B499B /* TfPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfPort.h; sourceTree = "<group>"; };
 		2AA44B2D15D109F3007B499B /* TfPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TfPort.m; sourceTree = "<group>"; };
 		2AA44B3015D10D02007B499B /* TfPortDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TfPortDao.h; sourceTree = "<group>"; };
@@ -944,7 +952,7 @@
 		057F6C2A1524490600E0E435 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				057F6C291524490600E0E435 /* Hpi-FDS.app */,
+				057F6C291524490600E0E435 /* 燃料调运.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1027,6 +1035,7 @@
 		057F6C5C152449EA00E0E435 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				2A8FD6811630F27100075616 /* LoginView.xib */,
 				D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */,
 				D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */,
 				D3E5B0B216080881001FA133 /* NTZxgsjtjVC.xib */,
@@ -1384,6 +1393,8 @@
 				D3B9EA991613F57C0099E0B1 /* VB_Latefee.m */,
 				D3B9EA9C1613F6320099E0B1 /* VB_LatefeeDao.h */,
 				D3B9EA9D1613F6320099E0B1 /* VB_LatefeeDao.m */,
+				2A9CED251636943B000DF3E7 /* LoginResponse.h */,
+				2A9CED261636943B000DF3E7 /* LoginResponse.m */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -1521,6 +1532,8 @@
 				D31B5127160184C700EFB98F /* NTLateFeeHcfxVC.m */,
 				D3E5B0B016080881001FA133 /* NTZxgsjtjVC.h */,
 				D3E5B0B116080881001FA133 /* NTZxgsjtjVC.m */,
+				2A8FD67F1630F27100075616 /* LoginView.h */,
+				2A8FD6801630F27100075616 /* LoginView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1710,7 +1723,7 @@
 			);
 			name = "Hpi-FDS";
 			productName = "Hpi-FDS";
-			productReference = 057F6C291524490600E0E435 /* Hpi-FDS.app */;
+			productReference = 057F6C291524490600E0E435 /* 燃料调运.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1858,6 +1871,7 @@
 				D3E522FF15F87410008756BD /* NTLateFeeDmfxVC.xib in Resources */,
 				D31B512A160184C800EFB98F /* NTLateFeeHcfxVC.xib in Resources */,
 				D3E5B0B416080882001FA133 /* NTZxgsjtjVC.xib in Resources */,
+				2A8FD6831630F27100075616 /* LoginView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2072,6 +2086,8 @@
 				D3B9EA9E1613F6320099E0B1 /* VB_LatefeeDao.m in Sources */,
 				D30E480216241020006B2A57 /* TH_SHIPTRANS_ORI.m in Sources */,
 				D30E48061624178C006B2A57 /* TH_SHIPTRANS_ORIDAO.m in Sources */,
+				2A8FD6821630F27100075616 /* LoginView.m in Sources */,
+				2A9CED271636943B000DF3E7 /* LoginResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2111,7 +2127,8 @@
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2131,6 +2148,8 @@
 					"-all_load",
 					"-lCorePlot",
 				);
+				PROVISIONING_PROFILE = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -2139,10 +2158,11 @@
 		057F6C541524490600E0E435 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"ADDITIONAL_SDKS[arch=*]" = "";
+				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2151,6 +2171,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "04605538-5841-46D3-8C82-B108CCC22F9A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -2160,13 +2182,13 @@
 		057F6C561524490600E0E435 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = "燃料调运";
+				PROVISIONING_PROFILE = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2174,13 +2196,16 @@
 		057F6C571524490600E0E435 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = "燃料调运";
+				PROVISIONING_PROFILE = "04605538-5841-46D3-8C82-B108CCC22F9A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

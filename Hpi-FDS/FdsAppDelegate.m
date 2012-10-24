@@ -17,18 +17,22 @@
 #import "PubInfo.h"
 #import "UIDevice+IdentifierAddition.h"
 #import "DataQueryPopVC.h"
+
+#import "LoginResponse.h"
 @implementation FdsAppDelegate
 
 @synthesize window;
 @synthesize tabBarController;
-
-
+@synthesize login;
+NSString *deviceUID;
 -(void)customizeAppearance{
     //设置底部TabBar
     //[[UITabBar appearance]setSelectionIndicatorImage:[UIImage imageNamed:@"bgbg(3)"]];
 }
 - (void)dealloc
 {
+    [deviceUID release];
+    [login release];
     [window release];
     [tabBarController release];
     [super dealloc];
@@ -37,57 +41,111 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
- 
-    [PubInfo initdata];
-    [self customizeAppearance];
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-  
-    // Override point for customization after application launch.
-    UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
-    UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
-    UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
-    UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
-//    UIViewController *viewController5 = [[[DataQueryVC alloc] initWithNibName:@"DataQueryVC" bundle:nil] autorelease];
-      UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
-    UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
-    //UIViewController *viewController4 = [[[QueryViewController alloc] initWithNibName:@"QueryViewController" bundle:nil] autorelease];
-    //NSString *deviceUDID = [[UIDevice currentDevice] uniqueIdentifier];
-    NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
-    NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
+
+      [PubInfo initdata];
+     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+     NSString *path=[paths   objectAtIndex:0];
+     NSString *fileName=[path  stringByAppendingPathComponent:@"data.plist"];
+     NSArray  *datePlist=[[NSArray alloc] initWithContentsOfFile:fileName];
+     
     
-    //获取设备id号
-    NSString *deviceUID = [[[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] autorelease];
-    NSLog(@"%@",deviceUID); // 输出设备id
-    
-    NSString *meg=[NSString stringWithFormat:@"标示ID:\n%@",deviceUID];
-    if (NO==[PubInfo checkDeviceRegisterInfo]) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"该设备未注册！" message:meg delegate:self cancelButtonTitle:@"退出" otherButtonTitles:nil,nil];
-        [alert show];
-        [alert release];
-    }else if(NO==[PubInfo checkDeviceVerificationInfo])
-    {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"消息" message:@"该设备验证失败！" delegate:self cancelButtonTitle:@"退出" otherButtonTitles:nil,nil];
-        [alert show];
-        [alert release];
+    if ([datePlist count]==4&&![[datePlist objectAtIndex:3] isEqualToString:UYES]) {
+        
+        //网络请求 后台服务  查找该设备id是否 存在    --根据后台结果 修改本地标识  下次可用     不存在 跳转到注册页面...
+      deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
+        
+        NSString *requeStr=[NSString stringWithFormat:@"<GetLoginValadateinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
+                            "<deviceid>%@</deviceid>\n"
+                            "<version>%@</version>\n"
+                            "<updatetime>%@</updatetime>\n"
+                            "</req>\n"
+                            "</GetLoginValadateinfo>\n"
+                            ,deviceUID, @"V1.2",PubInfo.currTime];
+        
+        self.login=[[[LoginView alloc] initWithNibName:@"LoginView" bundle:nil] autorelease];
+        
+        login. method=@"LoginValadate";
+        [login requestSoap:requeStr];
+        [self runWaite];
     }
- 
-    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-//    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+    else
+    {
+        [self customizeAppearance];
+        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+        UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
+        UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
+        UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
+        UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
+        UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
+        UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
+        NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
+        NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
+        
+        self.tabBarController = [[[UITabBarController alloc] init] autorelease];
         self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+        
+        [window addSubview:tabBarController.view];
+        [self.window makeKeyAndVisible];
     
-    [window addSubview:tabBarController.view];
-    [self.window makeKeyAndVisible];
-    
+    }
     return YES;
 }
 
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        exit(0);
-           }
-	
+-(void)Valadate:(LoginResponse *)lr
+{
+    NSLog(@"=================Valadate=========================");
+    //状态(0-接收注册请求；1-发送验证邮件；2-通过验证；3-未通过验证)
+    if ([lr.SBID isEqualToString:deviceUID]&&[lr.STAGE isEqualToString:@"2"]) {
+        //修改本地标识
+        [PubInfo  setIsSucess:UYES];
+        [PubInfo save];
+        
+        [self customizeAppearance];
+        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+        // Override point for customization after application launch.
+        UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
+        UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
+        UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
+        UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
+        UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
+        UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
+        NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
+        NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
+        
+        self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+        self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+        [window addSubview:tabBarController.view];
+        [self.window makeKeyAndVisible];
+        
+       // [self.login release];
+    }
+    else
+    {
+        NSLog(@"---------------------------------");
+        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+        [window addSubview:self.login.view];
+        [self.window makeKeyAndVisible];
+    }
+    
+    
+    
 }
+
+
+
+
+-(void)runWaite
+{
+    if (login.logr) {
+        LoginResponse *lr= login.logr;
+        NSLog(@"runWaite=====%@",login.logr.STAGE);
+        [self Valadate:lr];
+        return;
+    }else {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runWaite) userInfo:NULL repeats:NO];
+    }
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
