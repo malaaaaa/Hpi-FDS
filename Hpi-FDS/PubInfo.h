@@ -140,16 +140,30 @@ typedef enum{
 #define kYES        @"1"
 #define kNO         @"0"
 
+#define UYES    @"1"  //是否 存在该设备号
+#define UNO     @"0"
 
 @interface PubInfo : NSObject
+
+
+
 
 +(void)initdata;
 +(void)save;
 +(NSString *)baseUrl;
 +(NSString *)url;
 +(NSString *)userInfoUrl;
+
 +(NSString *)userName;
 +(void)setUserName:(NSString*) theuserName;
+
+
++(NSString *)isSucess;
++(void)setIsSucess:(NSString*) theissucess;
+
+
+
+
 +(NSString *)autoUpdate;
 +(void)setAutoUpdate:(NSString*) update;
 +(NSString *)updateTime;
