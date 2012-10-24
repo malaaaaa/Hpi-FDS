@@ -127,6 +127,7 @@ static sqlite3	*database;
     NSString *start=[dateFormatter stringFromDate:startDay];
 	NSString *query=[NSString stringWithFormat:@" indexName = '%@' AND recordTime >='%@' AND recordTime <='%@' order by recordTime desc ",indexName,start,end];
 	NSMutableArray * array=[TmIndexinfoDao getTmIndexinfoBySql:query];
+    
     NSLog(@"执行 getTmIndexinfo 数量[%d] ",[array count]);
     [dateFormatter release];
 	return array;
@@ -153,7 +154,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT infoId,indexName,recordTime,infoValue FROM  TmIndexinfo WHERE %@ ",sql1];
- //  NSLog(@"执行 getTmIndexinfoBySql [%@] ",sql);
+   NSLog(@"执行 getTmIndexinfoBySql [%@] ",sql);
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
