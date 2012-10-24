@@ -200,7 +200,7 @@ static sqlite3	*database;
 +(BOOL)tsFileIsDownload:(NSInteger)fileId
 {
     NSString *query=[NSString stringWithFormat:@"SELECT  count(fileId)  FROM  TsFileinfo WHERE fileId = '%d' AND xzbz='1' ",fileId];
-	NSLog(@"isExist [%@]",query);
+//	NSLog(@"isExist [%@]",query);
 	sqlite3_stmt	*statement;
 	if(sqlite3_prepare_v2(database,[query UTF8String],-1,&statement,nil)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {

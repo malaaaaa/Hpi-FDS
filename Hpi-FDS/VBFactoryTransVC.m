@@ -636,10 +636,12 @@ static  NSMutableArray *ShipStageArray;
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [tbxmlParser setISoapNum:2];
+        [tbxmlParser setISoapNum:3];
         
         [tbxmlParser requestSOAP:@"FactoryState"];
        [tbxmlParser requestSOAP:@"FactoryTrans"];
+        [tbxmlParser requestSOAP:@"ThShipTranS"];
+//        [tbxmlParser test];
         
         
         [self runActivity];

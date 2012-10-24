@@ -32,6 +32,6 @@
 -(NSInteger)iSoapDone;
 -(void)setISoapNum:(NSInteger)theNum;
 -(void)parseXML;
-
+-(void)test;
 
 @end
