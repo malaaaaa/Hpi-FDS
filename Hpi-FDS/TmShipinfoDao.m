@@ -149,8 +149,8 @@ static sqlite3	*database;
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *end=[dateFormatter stringFromDate:endDay];
-    NSString *start=[dateFormatter stringFromDate:startDay];
+    NSString *end=[NSString stringWithFormat:@"%@%@",[dateFormatter stringFromDate:endDay],@"T00:00:00"];;
+    NSString *start=[NSString stringWithFormat:@"%@%@",[dateFormatter stringFromDate:startDay],@"T00:00:00"];;
 	NSString *query=[NSString stringWithFormat:@" portCode = '%@' AND recordDate >='%@' AND recordDate <='%@'   order by recordDate  desc",portCode,start,end];
 	NSMutableArray * array=[TmShipinfoDao getTmShipinfoBySql:query];
     NSLog(@"执行 getTmShipinfo 数量[%d] ",[array count]);

@@ -33,9 +33,6 @@ NSString* msg;
 
 UIAlertView *alert;
 static NSString *version = @"V1.2";
-
-
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -50,17 +47,10 @@ static NSString *version = @"V1.2";
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     requestData=[[RequestData alloc] init];
-    self.logr=[[LoginResponse alloc] init   ];
-    
     finish=1;
-    
 }
 
 - (IBAction)ZHUC:(id)sender {
-    
-    [logr release];
-    self.logr=[[LoginResponse alloc] init   ];
-    
     //发送 信息......
     requestData.userName=self.userName.text;
     requestData.emile=self.emile .text;
@@ -68,47 +58,33 @@ static NSString *version = @"V1.2";
     requestData.partName=self.partName .text;
     //获取设备id号
     NSString *deviceUID = [[[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] autorelease];
-
     requestData.strID=deviceUID;
     if ([self.userName.text isEqualToString:@""]&&[self.emile .text isEqualToString:@""]&&[self.Phone .text isEqualToString:@""]&&[self.partName .text isEqualToString:@""]) {
       
-        
-        
-        
     }else
     {
-        
         NSString *requestStr=[NSString stringWithFormat:@"<GetLoginRequestinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
                               "<deviceid>%@</deviceid>\n"
                               "<version>%@</version>\n"
                               "<updatetime>%@</updatetime>\n"
-                              
                               "<usename>%@</usename>\n"
                               "<partname>%@</partname>\n"
                               "<phone>%@</phone>\n"
                               "<emile>%@</emile>\n"
                               "</req>\n"
                               "</GetLoginRequestinfo>\n"
-                              
                               ,requestData.strID, version,PubInfo.currTime,requestData.userName,requestData.partName,requestData.phone,requestData.emile ];
         
         method=@"LoginRequest";//@"LoginRequest";
         [self requestSoap:requestStr];
         //................
         [self runWaite];
-    
-    
-    }
-    
-    
-    
-    
+    }  
    
 }
 -(void)alertMsg:(LoginResponse *)lr
 {
     //  //状态(0-接收注册请求；1-发送验证邮件；2-通过验证；3-未通过验证)
-
     if ([lr.STAGE isEqualToString:@"0"])
         msg=@"注册信息已保存";
     if ([lr.STAGE isEqualToString:@"1"])
@@ -122,10 +98,21 @@ static NSString *version = @"V1.2";
     if ([lr.RETCODE isEqualToString:@"2"])
         msg=@"请求非法";
     
- UIAlertView *   alert1 = [[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-	[alert1 show];
+    if ([lr.RETCODE isEqualToString:@"1"]) {
+        msg=@"注册失败";
+    }
     
-    [alert1 release];
+    
+    NSLog(@"%@======%@",lr.STAGE,msg);
+    
+    
+    
+ UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+	[alert show];
+    
+    [alert release];
+    
+   
 }
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -136,7 +123,10 @@ static NSString *version = @"V1.2";
 
 -(void)runWaite
 {
-    if (self.logr) {
+    if (finish==0) {
+        NSLog(@"logr.STAGE===========================%@",logr.STAGE);
+        
+        
         [self alertMsg:self.logr];
         return;
     }else {
@@ -218,13 +208,15 @@ static NSString *version = @"V1.2";
     
     NSLog(@"%@",result);
     self. Rsdate=result;
-    self.logr=  [self XMLPART:method ];
+  
+    [self XMLPART:method ];
 }
 
 
--( LoginResponse *)XMLPART:(NSString *)element1
+-( void)XMLPART:(NSString *)element1
 {
-    LoginResponse *lr=[[[LoginResponse alloc] init] autorelease];
+     self.logr=[[LoginResponse alloc] init] ;
+    
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
     NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];
     // char *errorMsg;
@@ -245,22 +237,22 @@ static NSString *version = @"V1.2";
                 desc = [TBXML childElementNamed:@"SBID" parentElement:element];
                 if (desc != nil) {
                     
-                   lr.SBID=[TBXML textForElement:desc] ;
-                     NSLog(@"%@",lr.SBID);
+                   self.logr.SBID=[TBXML textForElement:desc] ;
+                     NSLog(@"%@",self.logr.SBID);
                 }
                 desc = [TBXML childElementNamed:@"RETCODE" parentElement:element];
                 if (desc != nil) {
                     
-                   lr.RETCODE=[TBXML textForElement:desc] ;
-                     NSLog(@"%@",lr.RETCODE);
+                   self.logr.RETCODE=[TBXML textForElement:desc] ;
+                     NSLog(@"%@",self.logr.RETCODE);
                 }
                 
                 desc = [TBXML childElementNamed:@"STAGE" parentElement:element];
                 if (desc != nil) {
                     
-                   lr.STAGE=[TBXML textForElement:desc] ;
+                   self.logr.STAGE=[TBXML textForElement:desc] ;
                     
-                    NSLog(@"%@",lr.STAGE);
+                    NSLog(@"%@",self.logr.STAGE);
                 }
                element = [TBXML nextSiblingNamed:@"LoginResponse"  searchFromElement:element];
             }
@@ -268,7 +260,11 @@ static NSString *version = @"V1.2";
         
     }
     finish--;
-    return lr;
+    
+    
+   
+   
+ 
 }
 
 
@@ -305,7 +301,8 @@ static NSString *version = @"V1.2";
     [requestData release];
     [responseDate release];
     [ method release];
-    [logr  release];
+    if (self.logr)
+        [self.logr release];
     [Rsdate release];
     [super dealloc];
 }

@@ -150,11 +150,11 @@ static NSString *stringType=@"GKDJL";
     {
         minY = 0;
         maxY = 180;
-        NSLog(@"max=[%d] min=[%d]",maxY,minY);
+        //NSLog(@"max=[%d] min=[%d]",maxY,minY);
         graphData.yNum=maxY-minY;
         for(int i=0;i<6;i++)
         {
-            NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
+           //NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
             if (i==0) {
                 [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
             }
@@ -167,11 +167,11 @@ static NSString *stringType=@"GKDJL";
     {
         minY = 0;
         maxY = 1000;
-        NSLog(@"max=[%d] min=[%d]",maxY,minY);
+        //NSLog(@"max=[%d] min=[%d]",maxY,minY);
         graphData.yNum=maxY-minY;
         for(int i=0;i<6;i++)
         {
-            NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
+         //  NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
             if (i==0) {
                 [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
             }
@@ -183,7 +183,7 @@ static NSString *stringType=@"GKDJL";
     if([stringType isEqualToString: @"ZGCS"])
     {
         minY = 0;
-        maxY = 500;
+        maxY = 200;
         NSLog(@"max=[%d] min=[%d]",maxY,minY);
         graphData.yNum=maxY-minY;
         for(int i=0;i<6;i++)

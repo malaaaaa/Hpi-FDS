@@ -48,8 +48,12 @@ NSString *deviceUID;
      NSString *fileName=[path  stringByAppendingPathComponent:@"data.plist"];
      NSArray  *datePlist=[[NSArray alloc] initWithContentsOfFile:fileName];
      
+    NSLog(@"=====================================%@",[datePlist objectAtIndex:3]);
+    
+    
     
     if ([datePlist count]==4&&![[datePlist objectAtIndex:3] isEqualToString:UYES]) {
+        
         
         //网络请求 后台服务  查找该设备id是否 存在    --根据后台结果 修改本地标识  下次可用     不存在 跳转到注册页面...
       deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
