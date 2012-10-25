@@ -152,7 +152,7 @@ static sqlite3  *database;
     NSString *sql=[NSString  stringWithFormat:@"SELECT RECID, RECORDDATE, DISPATCHNO, SHIPCOMPANYID, SHIPCOMPANY, SHIPID, SHIPNAME, TRIPNO, FACTORYCODE, FACTORYNAME, PORTCODE, PORTNAME, SUPID, SUPPLIER, TYPEID, COALTYPE, KEYVALUE, KEYNAME, TRADE, TRADENAME, STAGE, STAGENAME, STATECODE, STATENAME, LW, HEATVALUE, P_ANCHORAGETIME, P_HANDLE, P_ARRIVALTIME, P_DEPARTTIME, P_NOTE, T_NOTE, F_ANCHORAGETIME, F_ARRIVALTIME, F_DEPARTTIME, F_NOTE, LATEFEE, OFFEFFICIENCY, SCHEDULE, PLANTYPE, PLANCODE, LAYCANSTART, LAYCANSTOP,RECIEPT,SHIPSHIFT,F_FINISH  FROM  TH_SHIPTRANS_ORI WHERE %@",sql1];
     
     
-    NSLog(@"执行 getTH_ShipTransBySql [%@]",sql);
+  //  NSLog(@"执行 getTH_ShipTransBySql [%@]",sql);
     NSMutableArray  *array=[[[NSMutableArray alloc] init] autorelease];
     
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
@@ -443,7 +443,7 @@ static sqlite3  *database;
     [dateFormatter release];
     
 	NSMutableArray * array=[TH_SHIPTRANS_ORIDAO getTH_ShipTransBySql:query] ;
-    NSLog(@"--------执行 getTH_ShipTransBySql 数量[%d] ",[array count]);
+  //  NSLog(@"--------执行 getTH_ShipTransBySql 数量[%d] ",[array count]);
 	return array;
 }
 
@@ -453,7 +453,7 @@ static sqlite3  *database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"select dispatchno,statename,shipname,lw,f_note,STATECODE,t_note,p_note,stage from TH_SHIPTRANS_ORI where  %@  order by stage,dispatchno desc ",querySql];
-    NSLog(@"执行 getVbFactoryTransBySql [%@] ",sql);
+    //NSLog(@"执行 getVbFactoryTransBySql [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
@@ -673,7 +673,7 @@ static sqlite3  *database;
     }
     
 	NSMutableArray * array=[TH_SHIPTRANS_ORIDAO getVbFactoryTransBySql:query];
-    NSLog(@"执行 getVbFactoryTransDetail 数量[%d] ",[array count]);
+   // NSLog(@"执行 getVbFactoryTransDetail 数量[%d] ",[array count]);
     [query release];
 	return array;
 }

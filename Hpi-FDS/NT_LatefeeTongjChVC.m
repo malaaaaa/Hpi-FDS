@@ -163,7 +163,7 @@ NSDateFormatter *formater1;
 
 - (IBAction)startTimeSelect:(id)sender {
     whichButton=1;
-    NSLog(@"startmonth。。。。。");
+   //NSLog(@"startmonth。。。。。");
     if (self.popover .popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -235,10 +235,10 @@ NSDateFormatter *formater1;
     //没用
     dataQueryVC.dataArray=[NT_LatefeeTongjDao getNT_LatefeeTongj:factoryCateLable.text :startTime.text :endTime.text];
     
-    NSLog(@"获得NT_LatefeeTongj[%d]",dataQueryVC.dataArray.count);
+  //  NSLog(@"获得NT_LatefeeTongj[%d]",dataQueryVC.dataArray.count);
     //获得所有  不重复的额的电厂名   根据条件
     NSMutableArray *nameArray=[NT_LatefeeTongjDao getFactoryName:factoryCateLable.text :startTime.text :endTime.text];
-    NSLog(@"获得电厂名【%d】",[nameArray count]);
+    //NSLog(@"获得电厂名【%d】",[nameArray count]);
     dataSource.data=[[NSMutableArray alloc] init];
     for (int i=0; i<[nameArray  count ]; i++) {
         
@@ -247,7 +247,7 @@ NSDateFormatter *formater1;
         [dateArray addObject:[NSString stringWithFormat:@"%@",[nameArray objectAtIndex:i]]];
         
         NSMutableDictionary *monthAndLatefee=[NT_LatefeeTongjDao getMonthAndLatefee:@"factory" :[nameArray objectAtIndex:i] :startTime.text:endTime.text ];
-        NSLog(@"根据电厂名 和时间得到    该电厂【%@】的费用和月份",[nameArray objectAtIndex:i]);
+      //  NSLog(@"根据电厂名 和时间得到    该电厂【%@】的费用和月份",[nameArray objectAtIndex:i]);
         
         NSMutableArray *arrayKeys=[[  NSMutableArray alloc] init];
         for (NSObject* t in [monthAndLatefee keyEnumerator]) {

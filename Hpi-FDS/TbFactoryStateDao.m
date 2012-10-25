@@ -130,7 +130,11 @@ static sqlite3	*database;
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
             
-            a=   sqlite3_column_int(statement,0);
+           char *rowDate=(char *)sqlite3_column_text(statement,0);
+            if (rowDate==NULL) 
+                a=0.0;
+            else
+            a=  [[NSString stringWithUTF8String: rowDate] doubleValue];
            // NSLog(@"a电厂月调进量[%f] ",a);
         }
         
@@ -162,7 +166,12 @@ static sqlite3	*database;
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
             
-            a=   sqlite3_column_int(statement,0);
+            char *rowDate=(char *)sqlite3_column_text(statement,0);
+            if (rowDate==NULL)
+                a=0.0;
+            else
+                a=  [[NSString stringWithUTF8String: rowDate] doubleValue];
+
            // NSLog(@"a电厂年调进量[%f] ",a);
         }
     }
@@ -191,7 +200,12 @@ static sqlite3	*database;
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
             
-            a=   sqlite3_column_int(statement,0);
+            char *rowDate=(char *)sqlite3_column_text(statement,0);
+            if (rowDate==NULL)
+                a=0.0;
+            else
+                a=  [[NSString stringWithUTF8String: rowDate] doubleValue];
+
           //  NSLog(@"a获取当月最近日期的月累计耗煤量,包含今日[%f] ",a);
         }
     }
@@ -220,7 +234,12 @@ static sqlite3	*database;
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
             
-            a=   sqlite3_column_int(statement,0);
+            char *rowDate=(char *)sqlite3_column_text(statement,0);
+            if (rowDate==NULL)
+                a=0.0;
+            else
+                a=  [[NSString stringWithUTF8String: rowDate] doubleValue];
+
            // NSLog(@"年累计耗用量  GetYearConsum [%f] ",a);
         }
     }

@@ -138,14 +138,14 @@ static sqlite3	*database;
     
 	NSString *query=@" lon <> 0 ";
 	NSMutableArray * array=[TmIndexdefineDao getTmIndexdefineBySql:query];
-    NSLog(@"执行 getTmIndexdefine 数量[%d] ",[array count]);
+    //NSLog(@"执行 getTmIndexdefine 数量[%d] ",[array count]);
 	return array;
 }
 +(NSMutableArray *) getTmIndexdefineBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT indexId,indexName,indexType,maxiMum,miniMum,displayName FROM  TmIndexdefine WHERE %@ ",sql1];
-    NSLog(@"执行 getTmIndexdefineBySql [%@] ",sql);
+   // NSLog(@"执行 getTmIndexdefineBySql [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

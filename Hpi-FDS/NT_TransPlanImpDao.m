@@ -33,7 +33,7 @@ static sqlite3  *database;
 		NSLog(@"open  database error");
 		return;
 	}
-	NSLog(@"open  database succes ....");
+//	NSLog(@"open  database succes ....");
 }
 
 +(void)IntTb
@@ -94,7 +94,7 @@ static sqlite3  *database;
         printf("%s",errorMsg);
         return;
     }else {
-        NSLog(@"create table NT_TransPlanImp seccess");
+      //  NSLog(@"create table NT_TransPlanImp seccess");
     }
 }
 
@@ -108,7 +108,7 @@ static sqlite3  *database;
     if (sqlite3_exec(database, [deletesql UTF8String], NULL, NULL, &errorMsg)!=SQLITE_OK) {
         NSLog(@"Error: delete NT_TransPlanImp error with message [%s]  sql[%@]", errorMsg,deletesql);
     }else {
-        NSLog(@"delete success")  ;
+       // NSLog(@"delete success")  ;
     }
     return;
     
@@ -180,7 +180,7 @@ static sqlite3  *database;
     re = sqlite3_step(statement);
 	if(re!=SQLITE_DONE)
     {
-		NSLog( @"Error: insert NT_TransPlanImp error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
+		//NSLog( @"Error: insert NT_TransPlanImp error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
 		sqlite3_finalize(statement);
 		return;
     }
@@ -229,10 +229,10 @@ static sqlite3  *database;
         query=[query stringByAppendingFormat:@"  AND ST_IntPlanMonth <=%d ",model.PlanMonthE];
     }
     
-    NSLog(@"执行 query=========[%@]",query);
+  //  NSLog(@"执行 query=========[%@]",query);
     
     NSMutableArray *array=[NT_TransPlanImpDao GetNT_TransPlanImpDataBySql:query];
-    NSLog(@"执行  GetTransPlanImpData 数量[%d]",[array count]);
+   // NSLog(@"执行  GetTransPlanImpData 数量[%d]",[array count]);
     
     return array;
 }
@@ -240,14 +240,14 @@ static sqlite3  *database;
 {
     NSMutableArray *list =[TransPlanImpDao GetTransPlanImpDataBySql];
     
-    NSLog(@"getNT_TransPlanImp  list [%d]",[list count]);
+   // NSLog(@"getNT_TransPlanImp  list [%d]",[list count]);
     
   [NT_TransPlanImpDao deleteAll];
      char *errorMsg;
      //为提高数据库写入性能，加入事务控制，批量提交
      if (sqlite3_exec(database, "BEGIN;", 0, 0, &errorMsg)!=SQLITE_OK) {
      sqlite3_close(database);
-     NSLog(@"exec begin error");
+    // NSLog(@"exec begin error");
      return;
      }
     for (int i=0; i<[list count]; i++) {
@@ -256,7 +256,7 @@ static sqlite3  *database;
     }
      if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
        //sqlite3_close(database);
-     NSLog(@"exec commit error");
+    //NSLog(@"exec commit error");
      return;
      }else
      {
@@ -287,7 +287,7 @@ static sqlite3  *database;
     NSString *sql1=  [NSString   stringWithFormat: @"select   substr(ST_PLANMONTH ,0,7)as ST_PLANMONTH ,ST_IntPlanMonth  , ST_SHIPID   ,ST_SHIPNAME , ST_FACTORYCODE  , ST_FACTORYNAME ,  ST_TRIPNO , ST_PORTCODE , ST_PORTNAME , ST_ARRIVETIME  , ST_LEAVETIME  , ST_COALTYPE ,   ST_SUPPLIER , ST_KEYNAME , ST_ELW  , ST_SORT  , ST_SUPID  , ST_TYPEID  , ST_KEYVALUE ,  S_SHIPID , S_SHIPNAME  , S_FACTORYCODE  ,  S_PORTCODE , S_PORTNAME , S_ARRIVETIME  , S_LEAVETIME ,S_LW  , S_PLANTYPE  ,  T_SHIPID   , T_SHIPNAME , T_FACTORYCODE , T_PORTCODE  , T_PORTNAME ,T_ARRIVETIME , T_LEAVETIME  ,  T_ELW   , T_DESCRIPTION ,S_STAGE , S_HEATVALUE  , S_SULFUR   ,     T_HEATVALUE  ,T_SULFUR   FROM  NT_TransPlanImp  where  %@   order  by  ST_PLANMONTH  desc, ST_SORT  asc    ", sql ];
     
     
-      NSLog(@"执行 GetTransPlanImpDataBySql [%@]",sql1);
+   //   NSLog(@"执行 GetTransPlanImpDataBySql [%@]",sql1);
  
    
     if (sqlite3_prepare(database, [sql1 UTF8String], -1, &statement, NULL)==SQLITE_OK) {
@@ -532,7 +532,7 @@ static sqlite3  *database;
     }
     sqlite3_finalize(statement);
     
-    NSLog(@"d==================[%d]",[d count]);
+   // NSLog(@"d==================[%d]",[d count]);
     
     return d;
 }

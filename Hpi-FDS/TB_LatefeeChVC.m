@@ -552,7 +552,7 @@ static int  whichButton=0;
   
     }
     
-    NSLog(@"加载 listTableView");
+  //  NSLog(@"加载 listTableView");
     dataQueryVC.dataSource=dataSource;
     [dataQueryVC.listTableview   reloadData];
     

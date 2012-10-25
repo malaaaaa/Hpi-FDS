@@ -443,13 +443,13 @@ DataQueryVC *dataQueryVC;
         monthLabel.text=monthButton.titleLabel.text;
     }
 
-    NSLog(@"monthLabel.text=[%@]",monthLabel.text);
-    NSLog(@"monthButton=[%@]",monthButton.titleLabel.text);
-    NSLog(@"取时间用month=[%@]",[f stringFromDate:self.month]);
+  //  NSLog(@"monthLabel.text=[%@]",monthLabel.text);
+   // NSLog(@"monthButton=[%@]",monthButton.titleLabel.text);
+   // NSLog(@"取时间用month=[%@]",[f stringFromDate:self.month]);
     
     
     
-    NSLog(@"codeTextField=[%@]",codeTextField.text);
+  //  NSLog(@"codeTextField=[%@]",codeTextField.text);
     if (monthLabel.text!=All_) {
         monthLabel.text=[f stringFromDate:self.month];
       

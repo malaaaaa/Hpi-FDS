@@ -404,18 +404,18 @@ DataQueryVC *dataQueryVC;
 }
 
 - (IBAction)queryAction:(id)sender {
-    NSLog(@"shipLabel=[%@]",shipLabel.text);
-    NSLog(@"comLabel=[%@]",comLabel.text);
-    NSLog(@"portLabel=[%@]",portLabel.text);
-    NSLog(@"factoryLabel=[%@]",factoryLabel.text);
-    NSLog(@"statLabel=[%@]",statLabel.text);
+  // NSLog(@"shipLabel=[%@]",shipLabel.text);
+   // NSLog(@"comLabel=[%@]",comLabel.text);
+    //NSLog(@"portLabel=[%@]",portLabel.text);
+   // NSLog(@"factoryLabel=[%@]",factoryLabel.text);
+   //NSLog(@"statLabel=[%@]",statLabel.text);
     
     // NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
     
     [self initSource];
 //    dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
     dataQueryVC.dataArray=[TH_SHIPTRANS_ORIDAO getThShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text :self.startDay];
-    NSLog(@"    dataQueryVC.dataArray [%d]",[    dataQueryVC.dataArray count]);
+  // NSLog(@"    dataQueryVC.dataArray [%d]",[    dataQueryVC.dataArray count]);
     dataSource.data=[[NSMutableArray alloc]init] ;
     
     for (int i=0;i<[dataQueryVC.dataArray count];i++) {
@@ -487,7 +487,7 @@ DataQueryVC *dataQueryVC;
         self.startDay=startDateCV.selectedDate;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        NSLog(@"startDay=%@",[dateFormatter stringFromDate:self.startDay]);
+       // NSLog(@"startDay=%@",[dateFormatter stringFromDate:self.startDay]);
         [dateFormatter release];
     }
     return  YES;
@@ -496,7 +496,7 @@ DataQueryVC *dataQueryVC;
 /* Called on the delegate when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.
  */
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
-    NSLog(@"popoverControllerDidDismissPopover");
+  //  NSLog(@"popoverControllerDidDismissPopover");
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];

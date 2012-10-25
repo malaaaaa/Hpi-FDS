@@ -23,7 +23,7 @@ static sqlite3  *database;
     NSString *path=[documentsDirectory  stringByAppendingPathComponent: @"database.db"  ];
     
     
-    NSLog(@"VBThShipTrans:path=== %@",path);
+  //  NSLog(@"VBThShipTrans:path=== %@",path);
     return  path;
 }
 
@@ -36,12 +36,12 @@ static sqlite3  *database;
 		NSLog(@"open  Th_ShipTrans error");
 		return;
 	}
-	NSLog(@"open Th_ShipTrans database succes ....");
+	//NSLog(@"open Th_ShipTrans database succes ....");
 }
 +(void)initDb
 {
     
-    NSLog(@"create thshipTrans  。。。。");
+    //NSLog(@"create thshipTrans  。。。。");
     char *errorMsg;
     NSString *createSql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",
                          @"CREATE TABLE IF NOT EXISTS Th_ShipTrans( recid  INTEGER  PRIMARY KEY " , 
@@ -66,7 +66,7 @@ static sqlite3  *database;
     if (sqlite3_exec(database, [createSql UTF8String], NULL, NULL, &errorMsg)!=SQLITE_OK) {
        
         sqlite3_close(database);
-        NSLog(@"create table Th_ShipTrans error");
+      // NSLog(@"create table Th_ShipTrans error");
         printf("%s",errorMsg);
         return;
     
@@ -222,7 +222,7 @@ return;
     NSMutableArray *array=[TH_ShipTransDao getTH_ShipTransBySql:query];
     
     
-    NSLog(@"执行 getTH_ShipTrans 数量【%d】",[array count]);
+   // NSLog(@"执行 getTH_ShipTrans 数量【%d】",[array count]);
     
     return  array;
 
@@ -244,7 +244,7 @@ return;
       query=[query stringByAppendingFormat:@" AND statename='%@'  ",state];
    }
     NSMutableArray *array=[TH_ShipTransDao getTH_ShipTransBySql:query];
-    NSLog(@"执行  getTH_ShipTrans 数量[%d]",[array count]);
+   // NSLog(@"执行  getTH_ShipTrans 数量[%d]",[array count]);
      return array;
 }
 
@@ -255,7 +255,7 @@ return;
     NSString *sql=[NSString  stringWithFormat:@"SELECT recid,statecode,recorddate,statename,portcode,portname,shipname,tripno,factoryname,supplier,coaltype,lw,p_anchoragetime,p_handle ,p_arrivaltime,p_departtime,note  FROM  Th_ShipTrans WHERE %@",sql1];
     
     
-    NSLog(@"执行 getTH_ShipTransBySql [%@]",sql);
+   // NSLog(@"执行 getTH_ShipTransBySql [%@]",sql);
     NSMutableArray  *array=[[[NSMutableArray alloc] init] autorelease];
     
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {

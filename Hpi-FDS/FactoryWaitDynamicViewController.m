@@ -705,11 +705,16 @@ static  NSMutableArray *columnWidthFTitle;
 - (IBAction)selectAction:(id)sender {
     //中间表格
     [ds removeFromSuperview ];
+    
+ 
     data1=[  FactoryWaitDynamicDao getMidDate:month :factoryLable.text];
-    [self getHeadTable:data1:columWidth1];
-    [self.scrool addSubview:ds];
+   
+      [self getHeadTable:data1:columWidth1];
+     [self.scrool addSubview:ds];
     /****************************************/
+  
     source.data=[self getDcSourseData:factoryLable.text];
+    
     [listTableview reloadData];
 }
 
@@ -1129,50 +1134,18 @@ static  NSMutableArray *columnWidthFTitle;
     for (int i=0; i<[data count]; i++) {
        NSArray *rowData = [data objectAtIndex:i];
         NSArray *date=[data1 objectAtIndex:i];
-          float  columnOffset = 0.0;
-        float columnWidth=0.0;
-        int a=0;
-        int b=0;
-        UILabel *l;
-        if (i<2) {
-            for(int column=0;column<[columWidth1 count];column++){
-                if (column%2==0) {//计数列
-                    columnWidth = [[columWidth1 objectAtIndex:column] floatValue];  
-                    l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-                    l.font = [UIFont systemFontOfSize:15.0f];
-                    l.text = [rowData objectAtIndex:a];
-                    l.backgroundColor=[UIColor blackColor];
-                    l.textColor=[UIColor whiteColor];
-                    l.shadowColor=[UIColor whiteColor   ];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
-                    l.textAlignment = UITextAlignmentLeft;
-                    a++;
-                }else
-                {
-                    columnWidth = [[columWidth1 objectAtIndex:column] floatValue];
-                    l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-                    l.font = [UIFont systemFontOfSize:15.0f];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
-                    l.backgroundColor=[UIColor blackColor];
-                    l.textColor=[UIColor whiteColor];
-                    l.shadowColor=[UIColor whiteColor   ];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
-                    l.text =[date objectAtIndex:b];
-                    l.numberOfLines = 3;
-                    l.textAlignment = UITextAlignmentLeft;
-                    b++;
-                }
-                columnOffset += columnWidth;
-                [ds addSubview:l];
-                [l release]; 
-            }
-
-        }else//第3、4行
-        { 
-            if (i==2) {
-                for (int d=0; d<4; d++) {
-                   columnWidth = [[columWidth1 objectAtIndex:d] floatValue];
-                    if (d%2==0) {
+       // NSLog(@"[date count]===========%d",[date count]);
+        if ([date count]>0) {
+            
+            float  columnOffset = 0.0;
+            float columnWidth=0.0;
+            int a=0;
+            int b=0;
+            UILabel *l;
+            if (i<2) {
+                for(int column=0;column<[columWidth1 count];column++){
+                    if (column%2==0) {//计数列
+                        columnWidth = [[columWidth1 objectAtIndex:column] floatValue];
                         l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
                         l.font = [UIFont systemFontOfSize:15.0f];
                         l.text = [rowData objectAtIndex:a];
@@ -1181,73 +1154,112 @@ static  NSMutableArray *columnWidthFTitle;
                         l.textColor=[UIColor whiteColor];
                         l.shadowColor=[UIColor whiteColor   ];
                         l.lineBreakMode = UILineBreakModeCharacterWrap;
-                         l.textAlignment = UITextAlignmentLeft;
+                        l.textAlignment = UITextAlignmentLeft;
                         a++;
                     }else
                     {
-                        if (d!=3) {
-                            l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-                            l.font = [UIFont systemFontOfSize:15.0f];
-                            l.backgroundColor=[UIColor blackColor];
-                            l.textColor=[UIColor whiteColor];
-                            l.shadowColor=[UIColor whiteColor   ];
-                            l.lineBreakMode = UILineBreakModeCharacterWrap;
-                            
-                            l.text =[date objectAtIndex:b];
-                            l.textAlignment = UITextAlignmentLeft;
-                        }else
-                        {
-                            l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , (totalWidth-columnOffset)-1, cellHeight -1 )];
-                            l.font = [UIFont systemFontOfSize:15.0f];
-                            l.backgroundColor=[UIColor blackColor];
-                            l.textColor=[UIColor whiteColor];
-                            l.shadowColor=[UIColor whiteColor   ];
-                            l.lineBreakMode = UILineBreakModeCharacterWrap; 
-                            l.text =[date objectAtIndex:b];
-                            l.textAlignment = UITextAlignmentLeft;
-                        }
-                         b++;
-                   }  
+                        columnWidth = [[columWidth1 objectAtIndex:column] floatValue];
+                        l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
+                        l.font = [UIFont systemFontOfSize:15.0f];
+                        l.lineBreakMode = UILineBreakModeCharacterWrap;
+                        l.backgroundColor=[UIColor blackColor];
+                        l.textColor=[UIColor whiteColor];
+                        l.shadowColor=[UIColor whiteColor   ];
+                        l.lineBreakMode = UILineBreakModeCharacterWrap;
+                        l.text =[date objectAtIndex:b]==NULL ?@"":[date objectAtIndex:b];
+                        l.numberOfLines = 3;
+                        l.textAlignment = UITextAlignmentLeft;
+                        b++;
+                    }
                     columnOffset += columnWidth;
                     [ds addSubview:l];
                     [l release];
                 }
-
-            }else//第四行
+                
+            }else//第3、4行
             {
-                columnWidth = [[columWidth1 objectAtIndex:0] floatValue];
-                l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-                l.font = [UIFont systemFontOfSize:15.0f];
-                l.text = [rowData objectAtIndex:a];
-                l.backgroundColor=[UIColor blackColor];
-                l.textColor=[UIColor whiteColor];
-                l.shadowColor=[UIColor whiteColor   ];
-                l.lineBreakMode = UILineBreakModeCharacterWrap;
-                l.textAlignment = UITextAlignmentLeft;
-                columnOffset += columnWidth;
-                [ds addSubview:l];
-                [l release];
-                
-                columnWidth = [[columWidth1 objectAtIndex:1] floatValue];
-                l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , (totalWidth-columnOffset)-1, cellHeight -1 )];
-                l.backgroundColor=[UIColor blackColor];
-                l.textColor=[UIColor redColor];
-               // l.shadowColor=[UIColor whiteColor   ];
-                l.lineBreakMode = UILineBreakModeCharacterWrap;
-                l.font = [UIFont systemFontOfSize:15.0f];
-                l.text =[date objectAtIndex:b];
-                
-                
-                NSLog(@"===========%@============%@",[date objectAtIndex:b],[date objectAtIndex:b]==@"*"?@"":[date objectAtIndex:b]);
-                
-             
-                l.textAlignment = UITextAlignmentLeft;
-                [ds addSubview:l];
-                [l release];
-
+                if (i==2) {
+                    for (int d=0; d<4; d++) {
+                        columnWidth = [[columWidth1 objectAtIndex:d] floatValue];
+                        if (d%2==0) {
+                            l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
+                            l.font = [UIFont systemFontOfSize:15.0f];
+                            l.text = [rowData objectAtIndex:a];
+                            
+                            l.backgroundColor=[UIColor blackColor];
+                            l.textColor=[UIColor whiteColor];
+                            l.shadowColor=[UIColor whiteColor   ];
+                            l.lineBreakMode = UILineBreakModeCharacterWrap;
+                            l.textAlignment = UITextAlignmentLeft;
+                            a++;
+                        }else
+                        {
+                            if (d!=3) {
+                                l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
+                                l.font = [UIFont systemFontOfSize:15.0f];
+                                l.backgroundColor=[UIColor blackColor];
+                                l.textColor=[UIColor whiteColor];
+                                l.shadowColor=[UIColor whiteColor   ];
+                                l.lineBreakMode = UILineBreakModeCharacterWrap;
+                                
+                                l.text =[date objectAtIndex:b]==nil?@"":[date objectAtIndex:b];
+                                l.textAlignment = UITextAlignmentLeft;
+                            }else
+                            {
+                                l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , (totalWidth-columnOffset)-1, cellHeight -1 )];
+                                l.font = [UIFont systemFontOfSize:15.0f];
+                                l.backgroundColor=[UIColor blackColor];
+                                l.textColor=[UIColor whiteColor];
+                                l.shadowColor=[UIColor whiteColor   ];
+                                l.lineBreakMode = UILineBreakModeCharacterWrap;
+                                l.text =[date objectAtIndex:b]==nil?@"":[date objectAtIndex:b];
+                                l.textAlignment = UITextAlignmentLeft;
+                            }
+                            b++;
+                        }
+                        columnOffset += columnWidth;
+                        [ds addSubview:l];
+                        [l release];
+                    }
+                    
+                }else//第四行
+                {
+                    columnWidth = [[columWidth1 objectAtIndex:0] floatValue];
+                    l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
+                    l.font = [UIFont systemFontOfSize:15.0f];
+                    l.text = [rowData objectAtIndex:a];
+                    l.backgroundColor=[UIColor blackColor];
+                    l.textColor=[UIColor whiteColor];
+                    l.shadowColor=[UIColor whiteColor   ];
+                    l.lineBreakMode = UILineBreakModeCharacterWrap;
+                    l.textAlignment = UITextAlignmentLeft;
+                    columnOffset += columnWidth;
+                    [ds addSubview:l];
+                    [l release];
+                    
+                    columnWidth = [[columWidth1 objectAtIndex:1] floatValue];
+                    l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , (totalWidth-columnOffset)-1, cellHeight -1 )];
+                    l.backgroundColor=[UIColor blackColor];
+                    l.textColor=[UIColor redColor];
+                    // l.shadowColor=[UIColor whiteColor   ];
+                    l.lineBreakMode = UILineBreakModeCharacterWrap;
+                    l.font = [UIFont systemFontOfSize:15.0f];
+                    l.text =[date objectAtIndex:b]==nil?@"":[date objectAtIndex:b];
+                    
+                    
+            //        NSLog(@"===========%@============%@",[date objectAtIndex:b],[date objectAtIndex:b]==@"*"?@"":[date objectAtIndex:b]);
+                    
+                    
+                    l.textAlignment = UITextAlignmentLeft;
+                    [ds addSubview:l];
+                    [l release];
+                    
+                }
             }
-       }
-        [rowData release];
+
+        }
+        
+                [rowData release];
        // [date    release]; 不能释放。。
     }
     

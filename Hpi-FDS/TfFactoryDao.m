@@ -67,9 +67,11 @@ static sqlite3	*database;
     TfFactory *tfFactory=[[[TfFactory   alloc] init] autorelease];
     
     NSString *query=[NSString stringWithFormat:@" FACTORYNAME = '%@'  ORDER BY sort",factoryName];
+    if ([[TfFactoryDao getTfFactoryBySql:query] count]>0) {
+        tfFactory=  [[TfFactoryDao getTfFactoryBySql:query] objectAtIndex:0];
+    }
     
     
-    tfFactory=  [[TfFactoryDao getTfFactoryBySql:query] objectAtIndex:0];
     
     return tfFactory;
     

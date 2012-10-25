@@ -35,7 +35,7 @@ static sqlite3  *database;
 		NSLog(@"open  database error");
 		return;
 	}
-	NSLog(@"open  database succes ....");
+	//NSLog(@"open  database succes ....");
 }
 
 
@@ -382,7 +382,7 @@ static sqlite3  *database;
     }
     sqlite3_finalize(statement);
     
-    NSLog(@"d[%d]",[d count]);
+  //  NSLog(@"d[%d]",[d count]);
     return d;
 }
 

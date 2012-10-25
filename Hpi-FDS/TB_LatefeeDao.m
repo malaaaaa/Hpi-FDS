@@ -24,7 +24,7 @@ static sqlite3  *database;
     NSString *path=[documentsDirectory  stringByAppendingPathComponent: @"database.db"  ];
     
     
-    NSLog(@"database.db:path=== %@",path);
+   //NSLog(@"database.db:path=== %@",path);
     return  path;
 }
 
@@ -37,7 +37,7 @@ static sqlite3  *database;
 		NSLog(@"open  database error");
 		return;
 	}
-	NSLog(@"open  database succes ....");
+	//NSLog(@"open  database succes ....");
 }
 
 +(void)initDb
@@ -97,7 +97,7 @@ static sqlite3  *database;
         return;
         
     }else {
-        NSLog(@"create table TB_Latefee seccess");
+        //NSLog(@"create table TB_Latefee seccess");
     }
 }
 
@@ -110,7 +110,7 @@ static sqlite3  *database;
     if (sqlite3_exec(database, [deletesql UTF8String], NULL, NULL, &errorMsg)!=SQLITE_OK) {
         NSLog(@"Error: delete TB_Latefee error with message [%s]  sql[%@]", errorMsg,deletesql);
     }else {
-        NSLog(@"delete success")  ;
+       //NSLog(@"delete success")  ;
     }
     return;
     
@@ -120,7 +120,7 @@ static sqlite3  *database;
 
 +(void)insert:(TB_Latefee *)tb_Latefee
 {
- NSLog(@"Insert begin TB_Latefee ");
+// NSLog(@"Insert begin TB_Latefee ");
 
 
  const char *insert="INSERT INTO TB_Latefee(dispatchno,portcode ,portname,factorycode,factoryname,comid , company,shipid,shipname,feerate,allowperiod,supid,supplier,typeid,coaltype,trade,keyvalue,tripno,lw,tradetime ,p_anchoragetime,p_departtime,p_confirm,p_contime,p_conuser,f_anchoragetime,f_departtime,f_confirm,f_contime,f_conuser,latefee,p_correct,p_note,f_correct,f_note,iscal,currency,exchangrate)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -196,7 +196,7 @@ sqlite3_bind_int(statement,19, tb_Latefee.LW );
         return;
         
     }else {
-        NSLog(@"insert TB_Latefee  SUCCESS");
+       // NSLog(@"insert TB_Latefee  SUCCESS");
     }
     sqlite3_finalize(statement);
     return;
@@ -205,7 +205,7 @@ sqlite3_bind_int(statement,19, tb_Latefee.LW );
 +(void)delete:(TB_Latefee *)tb_Latefee
 {
 
-    NSLog(@"删除实体........");
+   // NSLog(@"删除实体........");
     
     
     char *errorMsg;
@@ -217,7 +217,7 @@ sqlite3_bind_int(statement,19, tb_Latefee.LW );
         NSLog(@"Error: delete TB_Latefee error with message [%s]  sql[%@]", errorMsg,deletesql);
         
     }else {
-        NSLog(@"delete success")  ;
+      //  NSLog(@"delete success")  ;
     }
     return;
     
@@ -238,7 +238,7 @@ sqlite3_bind_int(statement,19, tb_Latefee.LW );
     NSMutableArray *array=[TB_LatefeeDao getTB_LateFeeBySql:query];
     
     
-    NSLog(@"执行 getTB_LateFee 数量【%d】",[array count]);
+    //NSLog(@"执行 getTB_LateFee 数量【%d】",[array count]);
     
     return  array;
 
@@ -276,7 +276,7 @@ sqlite3_bind_int(statement,19, tb_Latefee.LW );
     }
 
 NSMutableArray *array=[self getTB_LateFeeBySql:query];
-NSLog(@"执行 getTB_LateFee: 数量[%d]",[array count]);
+//NSLog(@"执行 getTB_LateFee: 数量[%d]",[array count]);
 
 return array;
 }
@@ -291,7 +291,7 @@ return array;
     NSString *sql=[NSString  stringWithFormat:@"SELECT dispatchno,portcode,portname ,factorycode,factoryname,comid , company, shipid,shipname,feerate,allowperiod,supid,supplier,typeid,coaltype,trade,keyvalue,tripno,lw,tradetime ,p_anchoragetime,p_departtime,p_confirm,p_contime,p_conuser,f_anchoragetime,f_departtime,f_confirm,f_contime,f_conuser,latefee,p_correct,p_note,f_correct,f_note,iscal,currency,exchangrate  FROM  TB_Latefee  WHERE iscal=1  AND %@",sql1];
     
 
-    NSLog(@"执行 getTB_LatefeeBySql [%@]",sql);
+   // NSLog(@"执行 getTB_LatefeeBySql [%@]",sql);
     NSMutableArray  *array=[[NSMutableArray alloc] init];
 
     

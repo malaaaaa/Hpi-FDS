@@ -304,11 +304,11 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
 
 - (IBAction)query:(id)sender {
     
-    NSLog(@"stagelabel:[%@]",stageLabel.text);
+   // NSLog(@"stagelabel:[%@]",stageLabel.text);
 
-    NSLog(@"monthlable:[%@]",monthLabel.text);
+   // NSLog(@"monthlable:[%@]",monthLabel.text);
     
-    NSLog(@"portlabel:[%@]",portLabel.text);
+    //NSLog(@"portlabel:[%@]",portLabel.text);
     
     NSDateFormatter *formater=[[NSDateFormatter  alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd'T'00:00:00"];

@@ -1716,6 +1716,7 @@
 				057F6C251524490600E0E435 /* Sources */,
 				057F6C261524490600E0E435 /* Frameworks */,
 				057F6C271524490600E0E435 /* Resources */,
+				2A9252221638F64E00ACD0DB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1876,6 +1877,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2A9252221638F64E00ACD0DB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ] || [ \"${PLATFORM_NAME}\" == \"ipados\" ]; then\n/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		057F6C251524490600E0E435 /* Sources */ = {
@@ -2127,8 +2144,8 @@
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2148,8 +2165,6 @@
 					"-all_load",
 					"-lCorePlot",
 				);
-				PROVISIONING_PROFILE = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -2161,8 +2176,8 @@
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2171,8 +2186,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "04605538-5841-46D3-8C82-B108CCC22F9A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -2182,13 +2195,13 @@
 		057F6C561524490600E0E435 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "燃料调运";
-				PROVISIONING_PROFILE = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2197,15 +2210,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "燃料调运";
-				PROVISIONING_PROFILE = "04605538-5841-46D3-8C82-B108CCC22F9A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

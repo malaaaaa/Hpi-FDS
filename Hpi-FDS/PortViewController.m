@@ -453,7 +453,10 @@ static NSString *stringType=@"GKDJL";
 {
     NSMutableArray *array=[TgPortDao getTgPortByPortName:portLabel.text];
     NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
-    TgPort *tgPort=(TgPort *)[array objectAtIndex:0];
+    
+    
+    
+    
     
     //初始化待显示控制器
     marketOneController=[[MarketOneController alloc]init];
@@ -464,8 +467,21 @@ static NSString *stringType=@"GKDJL";
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:marketOneController];
     marketOneController.popover = pop;
-    //    NSLog(@"stringType:%@  portCode:%@",stringType,tgPort.portCode);
-    [marketOneController loadViewData :stringType :startDay :endDay :tgPort.portCode];
+ 
+    if([array count]>0){
+        TgPort *tgPort=(TgPort *)[array objectAtIndex:0];
+        [marketOneController loadViewData :stringType :startDay :endDay :tgPort.portCode];
+    }else
+    {
+     [marketOneController loadViewData :stringType :startDay :endDay :@""];
+    
+    }
+    
+    
+    
+    
+    
+    
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸

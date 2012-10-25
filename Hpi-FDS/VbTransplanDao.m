@@ -18,7 +18,7 @@ static sqlite3	*database;
 	NSString *documentsDirectory = [paths objectAtIndex:0];
 	NSString *path = [documentsDirectory stringByAppendingPathComponent:@"database.db"];
     
-    NSLog(@"VbTransplan:path========%@",path);
+    //NSLog(@"VbTransplan:path========%@",path);
 	return	 path;
 }
 
@@ -28,10 +28,10 @@ static sqlite3	*database;
 	if(sqlite3_open([file UTF8String],&database)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
-		NSLog(@"open VbTransplan error");
+		//NSLog(@"open VbTransplan error");
 		return;
 	}
-	NSLog(@"open VbTransplan database succes ....");
+	//NSLog(@"open VbTransplan database succes ....");
 }
 
 +(void) initDb
@@ -76,7 +76,7 @@ static sqlite3	*database;
 
 +(void)insert:(VbTransplan*) vbTransplan
 {
-	NSLog(@"Insert begin VbTransplan");
+	//NSLog(@"Insert begin VbTransplan");
 	const char *insert="INSERT INTO VbTransplan (planCode,planMonth,shipID,shipName,factoryCode,factoryName,portCode,portName,tripNo,eTap,eTaf,eLw,supID,supplier,typeID,coalType,keyValue,keyName,schedule,description,serialNo,facSort,heatvalue,sulfur) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
@@ -85,28 +85,6 @@ static sqlite3	*database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
-	NSLog(@"planCode=%@", vbTransplan.planCode);
-    NSLog(@"planMonth=%@", vbTransplan.planMonth);
-	NSLog(@"shipID=%d", vbTransplan.shipID);
-    NSLog(@"shipName=%@", vbTransplan.shipName);
-    NSLog(@"factoryCode=%@", vbTransplan.factoryCode);
-    NSLog(@"factoryName=%@", vbTransplan.factoryName);
-    NSLog(@"portCode=%@", vbTransplan.portCode);
-    NSLog(@"portName=%@", vbTransplan.portName);
-    NSLog(@"tripNo=%@", vbTransplan.tripNo);
-    NSLog(@"eTap=%@", vbTransplan.eTap);
-    NSLog(@"eTaf=%@", vbTransplan.eTaf);
-	NSLog(@"eLw=%d", vbTransplan.eLw);
-	NSLog(@"supID=%d", vbTransplan.supID);
-    NSLog(@"supplier=%@", vbTransplan.supplier);
-	NSLog(@"typeID=%d", vbTransplan.typeID);
-    NSLog(@"coalType=%@", vbTransplan.coalType);
-    NSLog(@"keyValue=%@", vbTransplan.keyValue);
-    NSLog(@"keyName=%@", vbTransplan.keyName);
-    NSLog(@"schedule=%@", vbTransplan.schedule);
-    NSLog(@"description=%@", vbTransplan.description);
-    NSLog(@"serialNo=%@", vbTransplan.serialNo);
-    NSLog(@"facSort=%@", vbTransplan.facSort);
     
 	sqlite3_bind_text(statement, 1, [vbTransplan.planCode UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 2, [vbTransplan.planMonth UTF8String], -1, SQLITE_TRANSIENT);
@@ -186,7 +164,7 @@ static sqlite3	*database;
     
 	NSString *query=@" lon <> 0 ";
 	NSMutableArray * array=[VbTransplanDao getVbTransplanBySql:query];
-    NSLog(@"执行 getVbTransplan 数量[%d] ",[array count]);
+   // NSLog(@"执行 getVbTransplan 数量[%d] ",[array count]);
 	return array;
 }
 +(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)coalType:(NSString *)factoryName:(NSString *)dateTime:(NSString *)planCode
@@ -234,7 +212,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT planCode,planMonth,shipID,shipName,factoryCode,factoryName,portCode,portName,tripNo,eTap,eTaf,eLw,supID,supplier,typeID,coalType,keyValue,keyName,schedule,description,serialNo,facSort ,heatvalue,sulfur  FROM  VbTransplan WHERE %@ ",sql1];
-    NSLog(@"执行 getVbTransplanBySql [%@] ",sql);
+   // NSLog(@"执行 getVbTransplanBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
