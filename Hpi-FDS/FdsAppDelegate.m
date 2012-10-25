@@ -32,7 +32,8 @@ NSString *deviceUID;
 - (void)dealloc
 {
     [deviceUID release];
-    [login release];
+    if (self.login)
+        [login release];
     [window release];
     [tabBarController release];
     [super dealloc];
@@ -47,17 +48,10 @@ NSString *deviceUID;
      NSString *path=[paths   objectAtIndex:0];
      NSString *fileName=[path  stringByAppendingPathComponent:@"data.plist"];
      NSArray  *datePlist=[[NSArray alloc] initWithContentsOfFile:fileName];
-     
     NSLog(@"=====================================%@",[datePlist objectAtIndex:3]);
-    
-    
-    
     if ([datePlist count]==4&&![[datePlist objectAtIndex:3] isEqualToString:UYES]) {
-        
-        
         //网络请求 后台服务  查找该设备id是否 存在    --根据后台结果 修改本地标识  下次可用     不存在 跳转到注册页面...
       deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
-        
         NSString *requeStr=[NSString stringWithFormat:@"<GetLoginValadateinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
                             "<deviceid>%@</deviceid>\n"
                             "<version>%@</version>\n"
@@ -67,7 +61,6 @@ NSString *deviceUID;
                             ,deviceUID, @"V1.2",PubInfo.currTime];
         
         self.login=[[[LoginView alloc] initWithNibName:@"LoginView" bundle:nil] autorelease];
-        
         login. method=@"LoginValadate";
         [login requestSoap:requeStr];
         [self runWaite];
@@ -82,8 +75,8 @@ NSString *deviceUID;
         UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
         UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
         UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
-        NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
-        NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
+     //   NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
+     //   NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
         
         self.tabBarController = [[[UITabBarController alloc] init] autorelease];
         self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
@@ -91,7 +84,12 @@ NSString *deviceUID;
         [window addSubview:tabBarController.view];
         [self.window makeKeyAndVisible];
     
+        
+        [self.login release];
+        
     }
+    
+    [datePlist release];
     return YES;
 }
 
@@ -103,7 +101,6 @@ NSString *deviceUID;
         //修改本地标识
         [PubInfo  setIsSucess:UYES];
         [PubInfo save];
-        
         [self customizeAppearance];
         self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
         // Override point for customization after application launch.
@@ -113,19 +110,19 @@ NSString *deviceUID;
         UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
         UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
         UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
-        NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
-        NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
+     //   NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
+       // NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
         
         self.tabBarController = [[[UITabBarController alloc] init] autorelease];
         self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
         [window addSubview:tabBarController.view];
         [self.window makeKeyAndVisible];
         
-       // [self.login release];
+        [self.login release];
     }
     else
     {
-        NSLog(@"---------------------------------");
+        NSLog(@"-------------注册页面--------------------");
         self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
         [window addSubview:self.login.view];
         [self.window makeKeyAndVisible];

@@ -24,7 +24,7 @@
     
     IBOutlet UITextField *emile;
     
-    NSString* Rsdate;
+
 
     RequestData *requestData;
     
@@ -42,7 +42,7 @@
 @property(nonatomic,retain)UITextField *emile;
 @property(nonatomic,retain)  RequestData *requestData;
 
-@property(nonatomic,retain)   NSString* Rsdate;
+
 @property(nonatomic,retain)   NSString *method;
 @property(nonatomic,retain)  NSMutableData *responseDate;
 

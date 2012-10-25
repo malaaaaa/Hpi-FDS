@@ -101,18 +101,10 @@ static NSString *version = @"V1.2";
     if ([lr.RETCODE isEqualToString:@"1"]) {
         msg=@"注册失败";
     }
-    
-    
-    NSLog(@"%@======%@",lr.STAGE,msg);
-    
-    
-    
+    NSLog(@"%@======%@",lr.STAGE,msg);  
  UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
 	[alert show];
-    
     [alert release];
-    
-   
 }
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -125,8 +117,6 @@ static NSString *version = @"V1.2";
 {
     if (finish==0) {
         NSLog(@"logr.STAGE===========================%@",logr.STAGE);
-        
-        
         [self alertMsg:self.logr];
         return;
     }else {
@@ -206,8 +196,8 @@ static NSString *version = @"V1.2";
         [connection release];
       NSString *result = [[NSString alloc] initWithBytes: [responseDate mutableBytes] length:[responseDate length] encoding:NSUTF8StringEncoding];
     
-    NSLog(@"%@",result);
-    self. Rsdate=result;
+     NSLog(@"%@",result);
+   
   
     [self XMLPART:method ];
 }
@@ -278,8 +268,7 @@ static NSString *version = @"V1.2";
     Phone = nil;
     [emile release];
     emile = nil;
-    [Rsdate release];
-    Rsdate =nil;
+
     [responseDate release];
     responseDate=nil;
     [requestData release];
@@ -303,7 +292,7 @@ static NSString *version = @"V1.2";
     [ method release];
     if (self.logr)
         [self.logr release];
-    [Rsdate release];
+
     [super dealloc];
 }
 @end
