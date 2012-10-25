@@ -177,10 +177,10 @@ static NSString *stringType=@"BSPI";
         if ([stringType isEqualToString:@"HPI4500"]) {
         
         }
-        
+       
         graphData.yNum=tmdefine.maxiMum-tmdefine.miniMum;      
         
-      NSLog(@"max=[%d] min=[%d]",tmdefine.maxiMum,tmdefine.miniMum);
+      //NSLog(@"max=[%d] min=[%d]",tmdefine.maxiMum,tmdefine.miniMum);
         
         
          
@@ -189,7 +189,7 @@ static NSString *stringType=@"BSPI";
         
         for(int i=0;i<6;i++)
         {
-            NSLog(@"tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5 [%d]",tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5);
+            //NSLog(@"tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5 [%d]",tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5);
             if (i==0) {
                 [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",tmdefine.miniMum]];
             }

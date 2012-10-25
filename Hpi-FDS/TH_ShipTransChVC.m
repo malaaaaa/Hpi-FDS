@@ -274,8 +274,8 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
 
 
     monthCV=[[DateViewController alloc] init];
-    [monthCV .view setFrame:CGRectMake(0, 0, 195, 216)];
-    monthCV.contentSizeForViewInPopover=CGSizeMake(195, 216);
+    [monthCV .view setFrame:CGRectMake(0, 0, 280, 216)];
+    monthCV.contentSizeForViewInPopover=CGSizeMake(280, 216);
     
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover=pop;//没什么用？
@@ -284,7 +284,7 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
     self.popover=pop;
     self.popover.delegate=self;
     
-    self.popover.popoverContentSize=CGSizeMake(195, 216);
+    self.popover.popoverContentSize=CGSizeMake(280, 216);
     
     [self.popover presentPopoverFromRect:CGRectMake(859, 38, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     

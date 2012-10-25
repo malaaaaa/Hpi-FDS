@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "057F6C281524490600E0E435"
-               BuildableName = "Hpi-FDS.app"
+               BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
                BlueprintName = "Hpi-FDS"
                ReferencedContainer = "container:Hpi-FDS.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "057F6C281524490600E0E435"
-            BuildableName = "Hpi-FDS.app"
+            BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
             BlueprintName = "Hpi-FDS"
             ReferencedContainer = "container:Hpi-FDS.xcodeproj">
          </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "057F6C281524490600E0E435"
-            BuildableName = "Hpi-FDS.app"
+            BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
             BlueprintName = "Hpi-FDS"
             ReferencedContainer = "container:Hpi-FDS.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "057F6C281524490600E0E435"
-            BuildableName = "Hpi-FDS.app"
+            BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
             BlueprintName = "Hpi-FDS"
             ReferencedContainer = "container:Hpi-FDS.xcodeproj">
          </BuildableReference>

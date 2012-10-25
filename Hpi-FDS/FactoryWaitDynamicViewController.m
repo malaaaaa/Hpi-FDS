@@ -1263,9 +1263,9 @@ static  NSMutableArray *columnWidthFTitle;
     if(!monthVC)//初始化待显示控制器
         monthVC=[[DateViewController alloc]init];
     //设置待显示控制器的范围
-    [monthVC.view setFrame:CGRectMake(0,0, 195, 216)];
+    [monthVC.view setFrame:CGRectMake(0,0, 280, 216)];
     //设置待显示控制器视图的尺寸
-    monthVC.contentSizeForViewInPopover = CGSizeMake(195, 216);
+    monthVC.contentSizeForViewInPopover = CGSizeMake(280, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:monthVC];
     monthVC.popover = pop;
@@ -1273,7 +1273,7 @@ static  NSMutableArray *columnWidthFTitle;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(195, 216);
+    self.popover.popoverContentSize = CGSizeMake(280, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(189, 38, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];   

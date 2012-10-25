@@ -97,6 +97,11 @@
         ds.data=[[[NSMutableArray alloc]init] autorelease];
         NSMutableArray *array=[TmIndexinfoDao getTmIndexinfo :stringType :startDay :endDay];
         NSMutableArray *array2=[TmIndexinfoDao getTmIndexinfo :@"BJ_INDEX" :startDay :endDay];
+        
+        
+        
+        
+        
         NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
         for (i=0;i<[array count];i++) {
             TmIndexinfo *tmIndexinfo=[array objectAtIndex:i];
