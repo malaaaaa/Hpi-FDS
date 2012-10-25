@@ -81,6 +81,7 @@ static NSString *version = @"V1.2";
         //................
         [self runWaite];
         [PubInfo setUserName:self.userName.text];
+        [PubInfo save];
         
     }
     
@@ -90,7 +91,7 @@ static NSString *version = @"V1.2";
 {
     //  //状态(0-接收注册请求；1-发送验证邮件；2-通过验证；3-未通过验证)
     if ([lr.STAGE isEqualToString:@"0"])
-        msg=@"注册信息已保存";
+        msg=@"注册信息已保存,请注意查收注册邮件";
     if ([lr.STAGE isEqualToString:@"1"])
         msg=@"请进入注册邮箱激活账号";
     //  if ([lr.STAGE isEqualToString:@"2"])  直接进入程序
