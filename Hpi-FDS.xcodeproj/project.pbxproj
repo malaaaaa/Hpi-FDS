@@ -235,6 +235,7 @@
 		D30F68EC16395A46000793D0 /* reg_input.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68E616395A46000793D0 /* reg_input.png */; };
 		D30F68ED16395A46000793D0 /* reg_input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68E716395A46000793D0 /* reg_input@2x.png */; };
 		D30F68EE16395A46000793D0 /* reg_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68E816395A46000793D0 /* reg_bg@2x.png */; };
+		D30F68F4163967E6000793D0 /* hpilogo3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68F3163967E6000793D0 /* hpilogo3@2x.png */; };
 		D31B512416017E1D00EFB98F /* NTLateFeeHCFX.m in Sources */ = {isa = PBXBuildFile; fileRef = D31B512316017E1D00EFB98F /* NTLateFeeHCFX.m */; };
 		D31B5129160184C800EFB98F /* NTLateFeeHcfxVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D31B5127160184C700EFB98F /* NTLateFeeHcfxVC.m */; };
 		D31B512A160184C800EFB98F /* NTLateFeeHcfxVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */; };
@@ -700,6 +701,7 @@
 		D30F68E616395A46000793D0 /* reg_input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reg_input.png; sourceTree = "<group>"; };
 		D30F68E716395A46000793D0 /* reg_input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_input@2x.png"; sourceTree = "<group>"; };
 		D30F68E816395A46000793D0 /* reg_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_bg@2x.png"; sourceTree = "<group>"; };
+		D30F68F3163967E6000793D0 /* hpilogo3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hpilogo3@2x.png"; path = "../hpilogo3@2x.png"; sourceTree = "<group>"; };
 		D31B512216017E1D00EFB98F /* NTLateFeeHCFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeHCFX.h; sourceTree = "<group>"; };
 		D31B512316017E1D00EFB98F /* NTLateFeeHCFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTLateFeeHCFX.m; sourceTree = "<group>"; };
 		D31B5126160184C700EFB98F /* NTLateFeeHcfxVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeHcfxVC.h; sourceTree = "<group>"; };
@@ -1104,6 +1106,7 @@
 		057F6C5D152449F800E0E435 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				D30F68F3163967E6000793D0 /* hpilogo3@2x.png */,
 				D30F68E316395A46000793D0 /* reg_active.png */,
 				D30F68E416395A46000793D0 /* reg_active@2x.png */,
 				D30F68E516395A46000793D0 /* reg_bg.png */,
@@ -1896,6 +1899,7 @@
 				D30F68EC16395A46000793D0 /* reg_input.png in Resources */,
 				D30F68ED16395A46000793D0 /* reg_input@2x.png in Resources */,
 				D30F68EE16395A46000793D0 /* reg_bg@2x.png in Resources */,
+				D30F68F4163967E6000793D0 /* hpilogo3@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
