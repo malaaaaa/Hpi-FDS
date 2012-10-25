@@ -28,7 +28,7 @@
 @synthesize finish;
 
 NSString* alertMsg;
- 
+
 NSString* msg;
 
 UIAlertView *alert;
@@ -58,9 +58,10 @@ static NSString *version = @"V1.2";
     requestData.partName=self.partName .text;
     //获取设备id号
     NSString *deviceUID = [[[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] autorelease];
+    
     requestData.strID=deviceUID;
     if ([self.userName.text isEqualToString:@""]&&[self.emile .text isEqualToString:@""]&&[self.Phone .text isEqualToString:@""]&&[self.partName .text isEqualToString:@""]) {
-      
+        
     }else
     {
         NSString *requestStr=[NSString stringWithFormat:@"<GetLoginRequestinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
@@ -79,28 +80,33 @@ static NSString *version = @"V1.2";
         [self requestSoap:requestStr];
         //................
         [self runWaite];
-    }  
-   
+        [PubInfo setUserName:self.userName.text];
+        [PubInfo save];
+        
+    }
+    
+    
 }
 -(void)alertMsg:(LoginResponse *)lr
 {
     //  //状态(0-接收注册请求；1-发送验证邮件；2-通过验证；3-未通过验证)
     if ([lr.STAGE isEqualToString:@"0"])
-        msg=@"注册信息已保存";
+        msg=@"注册信息已保存,请注意查收注册邮件";
     if ([lr.STAGE isEqualToString:@"1"])
         msg=@"请进入注册邮箱激活账号";
-  //  if ([lr.STAGE isEqualToString:@"2"])  直接进入程序
+    //  if ([lr.STAGE isEqualToString:@"2"])  直接进入程序
     //    msg=@"请进入注册邮箱激活账号";
     
     if ([lr.STAGE isEqualToString:@"3"])
         msg=@"请重新注册";
-
+    
     if ([lr.RETCODE isEqualToString:@"2"])
         msg=@"请求非法";
     
     if ([lr.RETCODE isEqualToString:@"1"]) {
         msg=@"注册失败";
     }
+
     NSLog(@"%@======%@",lr.STAGE,msg);  
  UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
 	[alert show];
@@ -145,14 +151,14 @@ static NSString *version = @"V1.2";
     if( theConnection )
     {
         NSLog(@"yes connect");
-       
+        
         responseDate = [[NSMutableData data] retain];
     }
     else
     {
         NSLog(@"theConnection is NULL");
     }
-
+    
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -183,29 +189,27 @@ static NSString *version = @"V1.2";
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     NSLog(@"--------------------------------------------ERROR with theConenction");
-       [connection release];
+    [connection release];
     [responseDate release];
-
-       alertMsg = @"无法连接,请检查网络是否正常?";
-       [self msgbox];  
+    
+    alertMsg = @"无法连接,请检查网络是否正常?";
+    [self msgbox];
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"--------------------------------------------  connectionDidFinishLoading");
-        [connection release];
-      NSString *result = [[NSString alloc] initWithBytes: [responseDate mutableBytes] length:[responseDate length] encoding:NSUTF8StringEncoding];
-    
+    [connection release];
+    NSString *result = [[NSString alloc] initWithBytes: [responseDate mutableBytes] length:[responseDate length] encoding:NSUTF8StringEncoding];
+
      NSLog(@"%@",result);
-   
-  
     [self XMLPART:method ];
 }
 
 
 -( void)XMLPART:(NSString *)element1
 {
-     self.logr=[[LoginResponse alloc] init] ;
+    self.logr=[[LoginResponse alloc] init] ;
     
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
     NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];
@@ -227,24 +231,22 @@ static NSString *version = @"V1.2";
                 desc = [TBXML childElementNamed:@"SBID" parentElement:element];
                 if (desc != nil) {
                     
-                   self.logr.SBID=[TBXML textForElement:desc] ;
-                     NSLog(@"%@",self.logr.SBID);
+                    self.logr.SBID=[TBXML textForElement:desc] ;
+                    NSLog(@"%@",self.logr.SBID);
                 }
                 desc = [TBXML childElementNamed:@"RETCODE" parentElement:element];
                 if (desc != nil) {
-                    
-                   self.logr.RETCODE=[TBXML textForElement:desc] ;
-                     NSLog(@"%@",self.logr.RETCODE);
+                    self.logr.RETCODE=[TBXML textForElement:desc] ;
+                    NSLog(@"%@",self.logr.RETCODE);
                 }
                 
                 desc = [TBXML childElementNamed:@"STAGE" parentElement:element];
                 if (desc != nil) {
                     
-                   self.logr.STAGE=[TBXML textForElement:desc] ;
-                    
+                    self.logr.STAGE=[TBXML textForElement:desc] ;
                     NSLog(@"%@",self.logr.STAGE);
                 }
-               element = [TBXML nextSiblingNamed:@"LoginResponse"  searchFromElement:element];
+                element = [TBXML nextSiblingNamed:@"LoginResponse"  searchFromElement:element];
             }
         }
         
@@ -252,9 +254,9 @@ static NSString *version = @"V1.2";
     finish--;
     
     
-   
-   
- 
+    
+    
+    
 }
 
 
@@ -278,9 +280,10 @@ static NSString *version = @"V1.2";
     // e.g. self.myOutlet = nil;
 }
 
+//强制横屏幕显示
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	return YES;
+	return (interfaceOrientation  == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 - (void)dealloc {
     [userName release];

@@ -161,9 +161,9 @@ static NSString *deviceID;
 	if([tempArray count]<4)
 	{
         //此处用Analyze工具监测会出现可能内存泄漏的提示，tempArray不能autorelease，否则会崩溃
-		userName=@"weix-test";
+		userName=@"developer";
         autoUpdate=kNO;
-        updateTime=@"2012-04-02 00:00";
+        updateTime=@"2000-01-01 00:00";
         
         isSucess=UNO;
 		[PubInfo save];
