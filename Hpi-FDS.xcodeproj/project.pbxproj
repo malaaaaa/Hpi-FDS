@@ -643,6 +643,7 @@
 		2A8FD67F1630F27100075616 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
 		2A8FD6801630F27100075616 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
 		2A8FD6811630F27100075616 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
+		2A9252231639707300ACD0DB /* CurrentViewTitel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentViewTitel.h; sourceTree = "<group>"; };
 		2A9C0B391603267B00F52A62 /* NT_TransPlanImpDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NT_TransPlanImpDao.h; sourceTree = "<group>"; };
 		2A9C0B3A1603267C00F52A62 /* NT_TransPlanImpDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NT_TransPlanImpDao.m; sourceTree = "<group>"; };
 		2A9CED251636943B000DF3E7 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
@@ -1192,6 +1193,7 @@
 				D93C154715BD38E9000C43B4 /* NSString+Verify.h */,
 				D93C154815BD38EA000C43B4 /* NSString+Verify.m */,
 				2A8F1F8415CA642D005C7B62 /* ChooseViewDelegate.h */,
+				2A9252231639707300ACD0DB /* CurrentViewTitel.h */,
 				D31CF40A1601ED1800B1985B /* ATHorizontalBarChartView.h */,
 				D31CF40B1601ED1800B1985B /* ATHorizontalBarChartView.m */,
 			);

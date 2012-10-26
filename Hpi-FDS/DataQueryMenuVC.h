@@ -17,12 +17,12 @@
 #import "NTLateFeeDmfxVC.h"
 #import "NTLateFeeHcfxVC.h"
 #import "NTZxgsjtjVC.h"
-
-@interface DataQueryMenuVC : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+#import "CurrentViewTitel.h"
+@interface DataQueryMenuVC : UIViewController<UITableViewDataSource,UITableViewDelegate,CurrentViewTitel>{
     IBOutlet UITableView *tableView;
     NSMutableArray *iDArray;
     UIPopoverController *popover;
-    id parentView;
+    UIViewController <CurrentViewTitel> *parentView;
      VBFactoryTransVC *vbFactoryTransVC;
      ShipCompanyTransShareVC *shipCompanyTransShareVC;
      FactoryFreightVolumeVC *factoryFreightVolumeVC;
@@ -38,7 +38,7 @@
 @property(nonatomic,retain) UITableView *tableView;
 @property(nonatomic,retain) NSMutableArray *iDArray;
 @property(nonatomic,retain) UIPopoverController *popover;
-@property (retain, nonatomic) id parentView;
+@property (retain, nonatomic) UIViewController <CurrentViewTitel> * parentView;
 @property(nonatomic,assign) VBFactoryTransVC *vbFactoryTransVC;
 @property(nonatomic,assign) ShipCompanyTransShareVC *shipCompanyTransShareVC;
 @property(nonatomic,assign) FactoryFreightVolumeVC *factoryFreightVolumeVC;

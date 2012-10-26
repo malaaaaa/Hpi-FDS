@@ -24,6 +24,8 @@ UIAlertView *alert;
 NSString* alertMsg;
 static bool ThreadFinished=TRUE;
 
+
+
 - (void)requestSOAP:(NSString *)identification
 {
     //由于NSURLConnection是异步方式，加入对当前RunLoop的控制，等待其他进程完成解析后再进行下一个请求的调用。
@@ -33,9 +35,11 @@ static bool ThreadFinished=TRUE;
         
     }
     self.Identification=identification;
+    
     //出错
     if (iSoapDone==3) {
-        iSoapNum--;
+       
+       iSoapNum--;
         if (iSoapNum<1) {
             iSoapDone=1;
         }
@@ -114,12 +118,20 @@ static bool ThreadFinished=TRUE;
     //    [connection release];
     [webData release];
     iSoapDone=3;
-    //    alertMsg = @"无法连接,请检查网络是否正常?";
-    //    [self msgbox];
-    //    if (iSoapNum==0) {
-    //        iSoapDone=1;
-    //    }
-    //    iSoapNum=0;
+     //  alertMsg = @"无法连接,请检查网络是否正常?";
+    
+
+       // [self msgbox];
+       
+    
+        
+    
+    
+    /*
+       if (iSoapNum==0) {
+            iSoapDone=1;
+        }
+       iSoapNum=0;*/
     ThreadFinished = TRUE;
     
 }
@@ -130,6 +142,8 @@ static bool ThreadFinished=TRUE;
 //    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
 //  NSLog(@"theXML[%@]",theXML);
 //    [theXML release];
+    //iSoapDone=1;
+    
     [self parseXML];
     ThreadFinished = TRUE;
     //    [connection release];

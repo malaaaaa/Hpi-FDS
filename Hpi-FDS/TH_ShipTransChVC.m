@@ -414,11 +414,6 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
         [xmlParser setISoapNum:1];
         [xmlParser requestSOAP:@"ThShipTrans"];//GetInfo
         //港口
-        
-        
-        
-      
-        
         //状态
       [self runActivety];
     }
@@ -452,6 +447,8 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
 {
 
     if (xmlParser.iSoapNum==0) {
+        NSLog(@"xmlParser.iSoapNum====================");
+        
         [activity stopAnimating];
         
         [activity removeFromSuperview];
@@ -461,7 +458,25 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
         return;
         
         
-    }else {
+    }else if (xmlParser.iSoapDone==3)
+    {
+         NSLog(@"xmlParser.iSoapDone====================");
+        if (activity) {
+            [activity stopAnimating];
+            [activity removeFromSuperview];
+            [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
+        }
+      
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"服务器连接失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil,nil];
+        [alert show];
+        
+        [alert  release];
+        return;
+        
+    }
+
+    
+    else {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivety) userInfo:NULL repeats:NO];
         
     }

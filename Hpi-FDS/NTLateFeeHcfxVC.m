@@ -276,7 +276,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    NSLog(@"aaa");
+   // NSLog(@"aaa");
     if (buttonIndex == 1) {
         NSLog(@"bbb");
         [self.view addSubview:_activity];
@@ -293,10 +293,30 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 -(void)runActivity
 {
     if ([_tbxmlParser iSoapNum]==0) {
+        NSLog(@"_tbxmlParser iSoapNum===============%d=",_tbxmlParser. iSoapNum);
+        
         [_activity stopAnimating];
         [_activity removeFromSuperview];
         [_reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
         return;
+    }
+    else if (_tbxmlParser.iSoapDone==3)
+    {
+        NSLog(@"_tbxmlParser.iSoapDone============%d====",_tbxmlParser.iSoapDone);
+        if (_activity) {
+            [_activity stopAnimating];
+            [_activity removeFromSuperview];
+            [_reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
+        }
+       
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"服务器连接失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil,nil];
+        [alert show];
+        
+        [alert  release];
+       
+        return;
+        
     }
     else {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];

@@ -2070,6 +2070,21 @@ int totalColument=0;
         [reload setTitle:@"网络同步" forState:UIControlStateNormal];
                return;
     }
+    else if (xmlParser.iSoapDone==3)
+    {
+        if (active) {
+            [active stopAnimating];
+            [active removeFromSuperview];
+            [reload setTitle:@"网络同步" forState:UIControlStateNormal];
+        }
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"服务器连接失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil,nil];
+        [alert show];
+        
+        [alert  release];
+        return;
+        
+    }
     else {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
     }
@@ -2181,7 +2196,7 @@ int totalColument=0;
 - (void)calendarController:(PMCalendarController *)calendarController didChangePeriod:(PMPeriod *)newPeriod
 {
     
-    NSLog(@"clickbutton [%d]",clickbutton);
+   // NSLog(@"clickbutton [%d]",clickbutton);
   
     if (clickbutton==1) {
  

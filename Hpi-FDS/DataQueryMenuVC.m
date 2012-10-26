@@ -8,6 +8,7 @@
 
 #import "DataQueryMenuVC.h"
 
+#import "DataQueryPopVC.h"
 @interface DataQueryMenuVC ()
 
 @end
@@ -35,18 +36,13 @@ static  NSMutableArray *actionTitle;
     tableView.allowsSelection=YES;
     [tableView setSeparatorColor:[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1]];
    
-    
-    
-    
-    
-
-    
-    
-    
-    
     actionTitle=[[NSMutableArray alloc ] initWithObjects:@"实时查询",@"查询统计",@"滞期费查询", nil];
     
-    dic=[[NSMutableDictionary alloc] initWithObjectsAndKeys:[[NSMutableArray alloc] initWithObjects:@"电厂动态查询", @"船舶动态查询",@"电厂靠泊动态",@"船运计划",nil],@"0",[[NSMutableArray alloc] initWithObjects:@"航运公司份额统计", @"电厂运力运量统计",@"装卸港效率统计",@"调度日志查询",@"港口平均装港时间统计",@"电厂平均装卸港时间统计",@"装卸港时间统计",@"航运计划执行情况",nil],@"1",[[NSMutableArray alloc] initWithObjects:@"滞期费明细查询", @"滞期费统计",@"滞期费吨煤分析",@"滞期费航次分析",nil],@"2", nil];
+    dic=[[NSMutableDictionary alloc] initWithObjectsAndKeys:[[NSMutableArray alloc] initWithObjects:@"电厂动态查询", @"船舶动态查询",@"电厂靠泊动态",@"航运运计划",nil],@"0",[[NSMutableArray alloc] initWithObjects:@"航运公司份额统计", @"电厂运力运量统计",@"装卸港效率统计",@"调度日志查询",@"港口平均装港时间统计",@"电厂平均装卸港时间统计",@"装卸港时间统计",@"航运计划执行情况",nil],@"1",[[NSMutableArray alloc] initWithObjects:@"滞期费明细查询", @"滞期费统计",@"滞期费吨煤分析",@"滞期费航次分析",nil],@"2", nil];
+    
+    
+     
+    
     
 }
 
@@ -95,30 +91,47 @@ static  NSMutableArray *actionTitle;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.popover dismissPopoverAnimated:YES];
-  // [self removeAllSubView];
-    
+      [self removeAllSubView];
+    NSArray*a=[dic objectForKey:[NSString stringWithFormat:@"%d",indexPath.section] ];
     if (indexPath.section==kMenuSelect) {
         
-        if (indexPath.row==kMenuSSCBCX||indexPath.row==kMenuCYJH) {//实时船舶查询、船运计划
+        if (indexPath.row==kMenuSSCBCX) {//实时船舶查询
+            [self removeAllSubView];
+            dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
+            dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
+           [dataQueryVC setSegmentIndex:[indexPath row]:[indexPath section]]; 
+            [parentView.view addSubview:dataQueryVC.view];
+        }
+        
+        else if (indexPath.row==kMenuCYJH)//船运计划
+        {
             [self removeAllSubView];
             dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
             dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
             [dataQueryVC setSegmentIndex:[indexPath row]:[indexPath section]];
-            [parentView addSubview:dataQueryVC.view];
+            [parentView.view addSubview:dataQueryVC.view];
         }
+
+        
+        
+        
         else if ([indexPath row]==kMenuFactoryWaitState)//电厂靠泊
         {
             [self removeAllSubView];
             factoryWait=[[FactoryWaitDynamicViewController   alloc] initWithNibName:@"FactoryWaitDynamicViewController" bundle:nil];
             factoryWait.view.frame = CGRectMake(0, 40, 1024,661 );
-            [parentView addSubview:factoryWait.view];
+            
+           //[self.parentView setTitelValue:@"2"];
+            
+            [parentView.view addSubview:factoryWait.view];
         }
 
         if (kMenuDCDTCX==[indexPath row]) {//电厂动态查询
             [self removeAllSubView];
             vbFactoryTransVC=[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil] ;
             vbFactoryTransVC.view.frame = CGRectMake(0, 40, 1024,661 );
-            [parentView addSubview:vbFactoryTransVC.view];
+         //[self.parentView setTitelValue:@"3"];
+            [parentView.view addSubview:vbFactoryTransVC.view];
             
         }
         
@@ -132,19 +145,23 @@ static  NSMutableArray *actionTitle;
             [self removeAllSubView];
             shipCompanyTransShareVC=[[ ShipCompanyTransShareVC alloc ]initWithNibName:@"ShipCompanyTransShareVC" bundle:nil] ;
             shipCompanyTransShareVC.view.frame = CGRectMake(0, 40, 1024,661 );
-            [parentView addSubview:shipCompanyTransShareVC.view];
+          //  [self.parentView setTitelValue:@"4"];
+            
+            [parentView.view addSubview:shipCompanyTransShareVC.view];
         }
         else if (kMenuDCYLYLTJ==[indexPath row]){//电厂运力运量统计
             [self removeAllSubView];
             factoryFreightVolumeVC=[[ FactoryFreightVolumeVC alloc ]initWithNibName:@"FactoryFreightVolumeVC" bundle:nil] ;
             factoryFreightVolumeVC.view.frame = CGRectMake(0, 40, 1024,661 );
-            [parentView addSubview:factoryFreightVolumeVC.view];
+            //[self.parentView setTitelValue:@"5"];
+            [parentView.view addSubview:factoryFreightVolumeVC.view];
         }
         else if (kMenuZXGXLTJ==[indexPath row]){//装卸港效率统计
             [self removeAllSubView];
             portEfficiencyVC=[[ PortEfficiencyVC alloc ]initWithNibName:@"PortEfficiencyVC" bundle:nil] ;
             portEfficiencyVC.view.frame = CGRectMake(0, 40, 1024,661 );
-            [parentView addSubview:portEfficiencyVC.view];
+            // [self.parentView setTitelValue:@"6"];
+            [parentView.view addSubview:portEfficiencyVC.view];
         }
        else if (kMenuDDRZCX==[indexPath row]||kMenuGKMJZGSJ==[indexPath row]||kMenuFcAvgZXTime==[indexPath row]){//调度日志查询、港口平均装港时间统计、电厂装卸港时间统计
            
@@ -152,20 +169,26 @@ static  NSMutableArray *actionTitle;
            [self removeAllSubView];
            dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
            dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
-           [dataQueryVC setSegmentIndex:[indexPath row]:[indexPath section]];
-           [parentView addSubview:dataQueryVC.view];
+            [dataQueryVC setSegmentIndex:[indexPath row]:[indexPath section]];
+           
+           
+           
+          //  [self.parentView setTitelValue:@"7"];
+           [parentView.view addSubview:dataQueryVC.view];
         }
        else if (kMenuZXGSJTJ==[indexPath row]){//装卸港时间统计
            ntZxgsjtjVC=[[ NTZxgsjtjVC alloc ]initWithNibName:@"NTZxgsjtjVC" bundle:nil] ;
            ntZxgsjtjVC.view.frame = CGRectMake(0, 40, 1024,661 );
-           [parentView addSubview:ntZxgsjtjVC.view];
+          //[self.parentView setTitelValue:@"8"];
+           [parentView.view addSubview:ntZxgsjtjVC.view];
        }
        else if ([indexPath row]==kMenuTransPlanimplment)//航运计划执行情况
        {
            [self removeAllSubView];
            transPI=[[ TransPlanImplement   alloc] initWithNibName:@"TransPlanImplement" bundle:nil];
            transPI.view.frame = CGRectMake(0, 40, 1024,661 );
-           [parentView addSubview:transPI.view];
+         // [self.parentView setTitelValue:@"9"];
+           [parentView.view addSubview:transPI.view];
        }
     }
     if (indexPath.section==kMenuLatefee) {
@@ -174,23 +197,38 @@ static  NSMutableArray *actionTitle;
             [self removeAllSubView];
             dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
             dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
-            [dataQueryVC setSegmentIndex:[indexPath row]:[indexPath section]];
-            [parentView addSubview:dataQueryVC.view];
+           [dataQueryVC setSegmentIndex:[indexPath row]:[indexPath section]];
+            
+            
+           // [self.parentView setTitelValue:@"10"];
+           
+            [parentView.view addSubview:dataQueryVC.view];
             
             
         }
         else if (kMenuZQFDMFX==[indexPath row]){
             ntLateFeeDmfxVC=[[ NTLateFeeDmfxVC alloc ]initWithNibName:@"NTLateFeeDmfxVC" bundle:nil] ;
             ntLateFeeDmfxVC.view.frame = CGRectMake(0, 40, 1024,661 );
-            [parentView addSubview:ntLateFeeDmfxVC.view];
+         //  [self.parentView setTitelValue:@"11"];
+            [parentView.view addSubview:ntLateFeeDmfxVC.view];
         }
         
         else if (kMenuZQFHCFX==[indexPath row]){
             ntLateFeeHcfxVC=[[ NTLateFeeHcfxVC alloc ]initWithNibName:@"NTLateFeeHcfxVC" bundle:nil] ;
             ntLateFeeHcfxVC.view.frame = CGRectMake(0, 40, 1024,661 );
-            [parentView addSubview:ntLateFeeHcfxVC.view];
+         // [self.parentView setTitelValue:@"12"];
+            [parentView.view  addSubview:ntLateFeeHcfxVC.view];
         }
+        
+        
+        
+        
     }
+    
+    
+      [self.parentView setTitelValue:[a objectAtIndex:indexPath.row]];
+    
+    
 }
 
 // Customize the appearance of table view cells.
@@ -250,5 +288,9 @@ if(transPI){
         self.ntZxgsjtjVC=nil;
     }
 }
+
+
+
+
 
 @end

@@ -638,7 +638,7 @@ static  NSMutableArray *ShipStageArray;
         [activity startAnimating];
         [tbxmlParser setISoapNum:3];
         
-    [tbxmlParser requestSOAP:@"FactoryState"];
+   [tbxmlParser requestSOAP:@"FactoryState"];
       [tbxmlParser requestSOAP:@"FactoryTrans"];
        [tbxmlParser requestSOAP:@"ThShipTranS"];
 //       [tbxmlParser test];
@@ -775,21 +775,38 @@ static  NSMutableArray *ShipStageArray;
     NSLog(@"popoverControllerDidDismissPopover");
 }
 
+-(void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+
+
+}
+
+
 #pragma mark activity
 -(void)runActivity
 {
     if ([tbxmlParser iSoapNum]==0) {
+        NSLog(@"_tbxmlParser iSoapNum===============%d=",tbxmlParser. iSoapNum);
+
+        
         [activity stopAnimating];
         [activity removeFromSuperview];
         [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
         return;
     }
+ 
     else if (tbxmlParser.iSoapDone==3)
     {
-        [activity stopAnimating];
-        [activity removeFromSuperview];
-        [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"服务器连接失败" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        NSLog(@"_tbxmlParser.iSoapDone============%d====",tbxmlParser.iSoapDone);
+        
+        if (activity) {
+            [activity stopAnimating];
+            [activity removeFromSuperview];
+            [reloadButton setTitle:@"网络同步" forState:UIControlStateNormal];
+        }
+       
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"服务器连接失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil,nil];
         [alert show];
 
         [alert  release];

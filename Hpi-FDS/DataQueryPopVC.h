@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "DataQueryMenuVC.h"
-
-@interface DataQueryPopVC : UIViewController<UIPopoverControllerDelegate>{
+#import "CurrentViewTitel.h"
+@interface DataQueryPopVC : UIViewController<UIPopoverControllerDelegate,CurrentViewTitel>{
     UIPopoverController* popover;
     DataQueryMenuVC *menuView;
     VBFactoryTransVC *_vbFactoryTransVC;
+
 }
 @property (retain, nonatomic) UIPopoverController* popover;
 @property (retain,nonatomic) DataQueryMenuVC *menuView;

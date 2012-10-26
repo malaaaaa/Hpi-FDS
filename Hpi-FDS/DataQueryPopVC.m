@@ -15,6 +15,11 @@
 @implementation DataQueryPopVC
 
 
+
+
+UIToolbar* toolBar;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,28 +34,55 @@
 {
     [super viewDidLoad];
     
+    UIBarButtonItem *fixedButton  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace
+                                                                                  target: nil
+                                                                                  action: nil];
+    
     CGFloat width =  self.view.frame.size.width;
-    UIToolbar* toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, width, 40)];
+    toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, width, 40)];
     
     toolBar.barStyle = UIBarButtonItemStyleBordered;
     [toolBar sizeToFit];
-    toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;//这句作用是切换时宽度自适应.
+   // toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;//这句作用是切换时宽度自适应.
+    
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:@"菜单" style:UIBarButtonItemStyleBordered target:self action:@selector(buttonPress:)];
     
-    [toolBar setItems:[NSArray arrayWithObject:barItem]];
     
-    [self.view addSubview:toolBar];
-    [barItem release];
+    UILabel *Titelable=[[UILabel alloc] initWithFrame:CGRectMake(width/2, 0, 180, 40)];
+    Titelable.font = [UIFont systemFontOfSize:14.0f];
+    Titelable.textAlignment = UITextAlignmentCenter;
+    Titelable.text=@"电厂动态查询";
+    Titelable.textColor=[UIColor whiteColor];
+    
+    [Titelable  setBackgroundColor:[UIColor clearColor]];
 
-    [toolBar release];
+    UIBarButtonItem *barItem1=[[UIBarButtonItem alloc] initWithCustomView:Titelable];
+    
+    [Titelable release];
+    
+    barItem1.tintColor= toolBar.tintColor;
+    
+    [toolBar setItems:[[NSArray alloc] initWithObjects:barItem,fixedButton,barItem1, fixedButton,nil]];
+    [self.view addSubview:toolBar];
+    
+    [barItem release];
+    [barItem1 release];
+    
+    
+    
+    [fixedButton release];
     
     _vbFactoryTransVC=[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil] ;
     _vbFactoryTransVC.view.frame = CGRectMake(0, 40, 1024,661 );
     [self.view addSubview:_vbFactoryTransVC.view];
+    
 
     // Do any additional setup after loading the view from its nib.
 }
+
+
+
 
 - (void)viewDidUnload
 {
@@ -65,6 +97,10 @@
 }
 - (void)dealloc {
    // NSLog(@"dealloc ok");
+    [toolBar release];
+    
+    
+ 
     [super dealloc];
 }
 -(void)buttonPress:(id)sender
@@ -81,7 +117,8 @@
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:menuView];
     menuView.popover = pop;
-    menuView.parentView=self.view;
+    menuView.parentView=self;
+    
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -95,4 +132,53 @@
     
    // NSLog(@"ToolBar Button taped.");
 }
+
+
+-(void)setTitelValue:(NSString *)currentSelectTitel
+{
+  //NSLog(@"currentSelectTitel=========%@",currentSelectTitel);
+    
+    [toolBar removeFromSuperview];
+    UIBarButtonItem *fixedButton  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace
+                                                                                     target: nil
+                                                                                     action: nil];
+    
+    CGFloat width =  self.view.frame.size.width;
+ 
+   
+       toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, width, 40)];
+    
+    toolBar.barStyle = UIBarButtonItemStyleBordered;
+    [toolBar sizeToFit];
+   // toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;//这句作用是切换时宽度自适应.
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:@"菜单" style:UIBarButtonItemStyleBordered target:self action:@selector(buttonPress:)];
+    
+    
+    UILabel *Titelable=[[UILabel alloc] initWithFrame:CGRectMake(width/2, 0, 180, 40)];
+    Titelable.font = [UIFont systemFontOfSize:14.0f];
+    Titelable.textAlignment = UITextAlignmentCenter;
+    Titelable.text=currentSelectTitel;
+    Titelable.textColor=[UIColor whiteColor];
+    [Titelable  setBackgroundColor:[UIColor clearColor]];
+    
+    UIBarButtonItem *barItem1=[[UIBarButtonItem alloc] initWithCustomView:Titelable];
+    
+    [Titelable release];
+   
+      barItem1.tintColor= toolBar.tintColor;
+    
+    [toolBar setItems:[[NSArray alloc] initWithObjects:barItem,fixedButton,barItem1, fixedButton,nil]];
+    [self.view addSubview:toolBar];
+    
+    [barItem release];
+    [barItem1 release];
+
+
+
+    [fixedButton release];
+}
+
+
+
+
 @end
