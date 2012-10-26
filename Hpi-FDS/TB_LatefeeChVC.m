@@ -574,8 +574,9 @@ static int  whichButton=0;
         [reload setTitle:@"同步中...." forState:UIControlStateNormal];
         [active startAnimating];
         //解析入库
-        [xmlParser setISoapNum:1];
+        [xmlParser setISoapNum:2];
         [xmlParser requestSOAP:@"LateFee"];
+        [xmlParser requestSOAP:@"TbLateFee"];
          
         
         

@@ -64,7 +64,7 @@ static sqlite3	*database;
 		return;
 		
 	}
-    NSString *createIndexSql=@"create INDEX TbFactoryState_inx1 on TbFactoryState (factorycode asc)  ";
+    NSString *createIndexSql=@"create INDEX IF NOT EXISTS TbFactoryState_inx1 on TbFactoryState (factorycode asc)  ";
     
 	if(sqlite3_exec(database,[createIndexSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{

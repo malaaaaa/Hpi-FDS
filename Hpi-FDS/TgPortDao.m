@@ -123,7 +123,7 @@ static sqlite3	*database;
 	}
 	else
 	{
-		NSLog(@"delete success");
+//		NSLog(@"delete success");
 	}
 	return;
 }
