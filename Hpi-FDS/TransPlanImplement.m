@@ -1170,10 +1170,14 @@ int totalColument=0;
                            else
                                b.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
                            
-                           [b setTitle:@"月执行情况" forState:UIControlStateNormal];
-                           b.titleLabel.textAlignment=UITextAlignmentCenter;
+//                           [b setTitle:@"月执行情况" forState:UIControlStateNormal];
+//                           b.titleLabel.textAlignment=UITextAlignmentCenter;
 
+                           UILabel *imageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 40, 35 )];
+                           imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"rly"]];
                            
+                           [b addSubview:imageLabel];
+                           [imageLabel release];
                            
                                                     
                 
@@ -1212,8 +1216,16 @@ int totalColument=0;
                                    b.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
                                else
                                    b.backgroundColor = [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
-                               [b setTitle:@"日历" forState:UIControlStateNormal];
-                               b.titleLabel.textAlignment=UITextAlignmentCenter;
+                               UILabel *imageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 35, 35 )];
+                               imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"rlt"]];
+                               [b addSubview:imageLabel];
+                               [imageLabel release];
+
+//                               [b setTitle:@"日历" forState:UIControlStateNormal];
+                               //                               b.titleLabel.textAlignment=UITextAlignmentCenter;
+
+        
+                               
                                
                                //======================能不能释放==========
                               NSMutableArray *date1=[[NSMutableArray alloc] init];
@@ -1258,7 +1270,7 @@ int totalColument=0;
                 
                 UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0  , columnWidth-1, cellHeight -1 )];
                 l.font = [UIFont systemFontOfSize:14.0f];
-            
+                l.textColor=[UIColor whiteColor];
                 if (column==[rowData count]-1) {
                  l.text =@"";
                 }
