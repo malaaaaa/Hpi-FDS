@@ -73,10 +73,15 @@ UIToolbar* toolBar;
     
     [fixedButton release];
     
-    _vbFactoryTransVC=[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil] ;
-    _vbFactoryTransVC.view.frame = CGRectMake(0, 40, 1024,661 );
-    [self.view addSubview:_vbFactoryTransVC.view];
+//    _vbFactoryTransVC=[[ VBFactoryTransVC alloc ]initWithNibName:@"VBFactoryTransVC" bundle:nil] ;
+//    _vbFactoryTransVC.view.frame = CGRectMake(0, 40, 1024,661 );
+//    [self.view addSubview:_vbFactoryTransVC.view];
     
+    _dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
+    _dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
+    [_dataQueryVC setSegmentIndex:kMenuSSCBCX:kMenuSelect];
+    [self.view addSubview:_dataQueryVC.view];
+
 
     // Do any additional setup after loading the view from its nib.
 }

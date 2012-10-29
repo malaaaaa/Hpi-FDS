@@ -229,6 +229,13 @@
 		2AEF7E3E15F5C21F00B76F4D /* TB_OFFLOADSHIPDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF7E3D15F5C21E00B76F4D /* TB_OFFLOADSHIPDao.m */; };
 		D30E480216241020006B2A57 /* TH_SHIPTRANS_ORI.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E480116241020006B2A57 /* TH_SHIPTRANS_ORI.m */; };
 		D30E48061624178C006B2A57 /* TH_SHIPTRANS_ORIDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E48051624178B006B2A57 /* TH_SHIPTRANS_ORIDAO.m */; };
+		D30F68E916395A46000793D0 /* reg_active.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68E316395A46000793D0 /* reg_active.png */; };
+		D30F68EA16395A46000793D0 /* reg_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68E416395A46000793D0 /* reg_active@2x.png */; };
+		D30F68EB16395A46000793D0 /* reg_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68E516395A46000793D0 /* reg_bg.png */; };
+		D30F68EC16395A46000793D0 /* reg_input.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68E616395A46000793D0 /* reg_input.png */; };
+		D30F68ED16395A46000793D0 /* reg_input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68E716395A46000793D0 /* reg_input@2x.png */; };
+		D30F68EE16395A46000793D0 /* reg_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68E816395A46000793D0 /* reg_bg@2x.png */; };
+		D30F68F4163967E6000793D0 /* hpilogo3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D30F68F3163967E6000793D0 /* hpilogo3@2x.png */; };
 		D31B512416017E1D00EFB98F /* NTLateFeeHCFX.m in Sources */ = {isa = PBXBuildFile; fileRef = D31B512316017E1D00EFB98F /* NTLateFeeHCFX.m */; };
 		D31B5129160184C800EFB98F /* NTLateFeeHcfxVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D31B5127160184C700EFB98F /* NTLateFeeHcfxVC.m */; };
 		D31B512A160184C800EFB98F /* NTLateFeeHcfxVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */; };
@@ -689,6 +696,13 @@
 		D30E480116241020006B2A57 /* TH_SHIPTRANS_ORI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_SHIPTRANS_ORI.m; sourceTree = "<group>"; };
 		D30E48041624178B006B2A57 /* TH_SHIPTRANS_ORIDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TH_SHIPTRANS_ORIDAO.h; sourceTree = "<group>"; };
 		D30E48051624178B006B2A57 /* TH_SHIPTRANS_ORIDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TH_SHIPTRANS_ORIDAO.m; sourceTree = "<group>"; };
+		D30F68E316395A46000793D0 /* reg_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reg_active.png; sourceTree = "<group>"; };
+		D30F68E416395A46000793D0 /* reg_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_active@2x.png"; sourceTree = "<group>"; };
+		D30F68E516395A46000793D0 /* reg_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reg_bg.png; sourceTree = "<group>"; };
+		D30F68E616395A46000793D0 /* reg_input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reg_input.png; sourceTree = "<group>"; };
+		D30F68E716395A46000793D0 /* reg_input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_input@2x.png"; sourceTree = "<group>"; };
+		D30F68E816395A46000793D0 /* reg_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_bg@2x.png"; sourceTree = "<group>"; };
+		D30F68F3163967E6000793D0 /* hpilogo3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hpilogo3@2x.png"; path = "../hpilogo3@2x.png"; sourceTree = "<group>"; };
 		D31B512216017E1D00EFB98F /* NTLateFeeHCFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeHCFX.h; sourceTree = "<group>"; };
 		D31B512316017E1D00EFB98F /* NTLateFeeHCFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTLateFeeHCFX.m; sourceTree = "<group>"; };
 		D31B5126160184C700EFB98F /* NTLateFeeHcfxVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeHcfxVC.h; sourceTree = "<group>"; };
@@ -1093,6 +1107,13 @@
 		057F6C5D152449F800E0E435 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				D30F68F3163967E6000793D0 /* hpilogo3@2x.png */,
+				D30F68E316395A46000793D0 /* reg_active.png */,
+				D30F68E416395A46000793D0 /* reg_active@2x.png */,
+				D30F68E516395A46000793D0 /* reg_bg.png */,
+				D30F68E616395A46000793D0 /* reg_input.png */,
+				D30F68E716395A46000793D0 /* reg_input@2x.png */,
+				D30F68E816395A46000793D0 /* reg_bg@2x.png */,
 				D39E90D115E60F9800C8CCF4 /* xiangx@2x.png */,
 				D39E90D215E60F9800C8CCF4 /* xiangx.png */,
 				D39E90D315E60F9800C8CCF4 /* bgtopbgd.png */,
@@ -1718,7 +1739,6 @@
 				057F6C251524490600E0E435 /* Sources */,
 				057F6C261524490600E0E435 /* Frameworks */,
 				057F6C271524490600E0E435 /* Resources */,
-				2A9252221638F64E00ACD0DB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1875,26 +1895,17 @@
 				D31B512A160184C800EFB98F /* NTLateFeeHcfxVC.xib in Resources */,
 				D3E5B0B416080882001FA133 /* NTZxgsjtjVC.xib in Resources */,
 				2A8FD6831630F27100075616 /* LoginView.xib in Resources */,
+				D30F68E916395A46000793D0 /* reg_active.png in Resources */,
+				D30F68EA16395A46000793D0 /* reg_active@2x.png in Resources */,
+				D30F68EB16395A46000793D0 /* reg_bg.png in Resources */,
+				D30F68EC16395A46000793D0 /* reg_input.png in Resources */,
+				D30F68ED16395A46000793D0 /* reg_input@2x.png in Resources */,
+				D30F68EE16395A46000793D0 /* reg_bg@2x.png in Resources */,
+				D30F68F4163967E6000793D0 /* hpilogo3@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2A9252221638F64E00ACD0DB /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ] || [ \"${PLATFORM_NAME}\" == \"ipados\" ]; then\n/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		057F6C251524490600E0E435 /* Sources */ = {
@@ -2146,8 +2157,8 @@
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2167,6 +2178,8 @@
 					"-all_load",
 					"-lCorePlot",
 				);
+				PROVISIONING_PROFILE = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -2178,8 +2191,8 @@
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2188,6 +2201,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "04605538-5841-46D3-8C82-B108CCC22F9A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -2197,13 +2212,15 @@
 		057F6C561524490600E0E435 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "燃料调运";
+				PROVISIONING_PROFILE = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2212,13 +2229,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "燃料调运";
+				PROVISIONING_PROFILE = "04605538-5841-46D3-8C82-B108CCC22F9A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

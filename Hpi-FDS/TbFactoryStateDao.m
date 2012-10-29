@@ -64,6 +64,17 @@ static sqlite3	*database;
 		return;
 		
 	}
+    NSString *createIndexSql=@"create INDEX IF NOT EXISTS TbFactoryState_inx1 on TbFactoryState (factorycode asc)  ";
+    
+	if(sqlite3_exec(database,[createIndexSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+	{
+		sqlite3_close(database);
+		NSLog(@"create index TbFactoryState_inx1 error");
+		printf("%s",errorMsg);
+		return;
+		
+	}
+
 }
 /******************电厂靠泊动态 ******************/
 //处理时间  //前一天所在月份的第二天  5/2   5/10

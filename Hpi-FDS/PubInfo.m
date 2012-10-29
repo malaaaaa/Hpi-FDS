@@ -24,8 +24,12 @@
 #import "TransPlanImpDao.h"
 #import "NT_TransPlanImpDao.h"
 @implementation PubInfo
-static NSString *hostName =@"http://10.2.17.121"; //@"http://10.2.17.165";      //http://172.16.1.16:84
-static NSString *port =@":82";     //@":6006";                   //:82
+//测试环境
+static NSString *hostName =@"http://10.2.17.121";
+static NSString *port =@":82";
+//正式环境
+//static NSString *hostName =@"http://192.168.8.50";
+//static NSString *port =@"";
 static NSString *autoUpdate;
 static NSString *baseUrl;
 static NSString *url;
@@ -199,6 +203,7 @@ static NSString *deviceID;
 {
 	baseUrl=[NSString stringWithFormat:@"%@%@/CDSWebService/MobileSys.asmx",hostName,port];
     //baseUrl=@"http://172.16.1.16:84/CDSWebService/MobileSys.asmx";
+    NSLog(@"baseUrl=%@",baseUrl);
 	return baseUrl;	
 }
 
