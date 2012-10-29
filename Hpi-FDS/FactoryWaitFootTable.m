@@ -207,6 +207,7 @@ PMCalendarController *pmCC;
                     
                 [b setTitle:@"日历" forState:UIControlStateNormal];
                 b.titleLabel.textAlignment=UITextAlignmentCenter;
+           
                 [b addTarget:self  action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
                 
                 
