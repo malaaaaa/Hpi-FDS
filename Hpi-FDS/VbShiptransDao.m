@@ -93,7 +93,7 @@ static sqlite3	*database;
 		
 	}else{
     
-        NSLog(@"[%@]",createSql);
+//        NSLog(@"[%@]",createSql);
         NSLog(@"create table VbShiptrans  seccess....................");
     }
 }

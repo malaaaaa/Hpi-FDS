@@ -68,9 +68,9 @@ NSString* alertMsg;
 #pragma Soap alert
 -(void) msgbox
 {
-	alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertMsg delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+	alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
-	[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(performDismiss:) userInfo:nil repeats:NO];
+	[NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(performDismiss:) userInfo:nil repeats:NO];
 }
 -(void) performDismiss:(NSTimer *)timer
 {
@@ -267,6 +267,8 @@ NSString* alertMsg;
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     NSURL *url = [NSURL URLWithString:PubInfo.baseUrl];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+//    NSLog(@"timeout=%f", [urlRequest timeoutInterval]);
+//     [urlRequest setTimeoutInterval:3]; 这招设置超时不好使
     [urlRequest addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [urlRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
     [urlRequest setHTTPMethod:@"POST"];
@@ -1947,10 +1949,10 @@ NSString* alertMsg;
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-//    NSLog(@"3 DONE. Received Bytes: %d", [webData length]);
-    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+    NSLog(@"3 DONE. Received Bytes: %d", [webData length]);
+//    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
 //    NSLog(@"theXML[%@]",theXML);
-    [theXML release];
+//    [theXML release];
     
     //重新加載xmlParser
     if( xmlParser )
@@ -4499,7 +4501,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-//            [TgPortDao delete:tgPort];
+            [TgPortDao delete:tgPort];
             [TgPortDao insert:tgPort];
             [tgPort release];
             tgPort = nil;
@@ -4600,7 +4602,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-//            [TgFactoryDao delete:tgFactory];
+            [TgFactoryDao delete:tgFactory];
             [TgFactoryDao insert:tgFactory];
             [tgFactory release];
             tgFactory = nil;
@@ -4809,7 +4811,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-//            [TgShipDao delete:tgShip];
+            [TgShipDao delete:tgShip];
             [TgShipDao insert:tgShip];
             [tgShip release];
             tgShip = nil;

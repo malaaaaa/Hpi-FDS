@@ -99,10 +99,11 @@ static bool ThreadFinished=TRUE;
 }
 -(void) msgbox
 {
+  
 	alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
     
-	[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(performDismiss:) userInfo:nil repeats:NO];
+	[NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(performDismiss:) userInfo:nil repeats:NO];
     
 }
 -(void) performDismiss:(NSTimer *)timer
@@ -118,20 +119,14 @@ static bool ThreadFinished=TRUE;
     //    [connection release];
     [webData release];
     iSoapDone=3;
-     //  alertMsg = @"无法连接,请检查网络是否正常?";
-    
-
-       // [self msgbox];
-       
-    
-        
-    
-    
-    /*
-       if (iSoapNum==0) {
-            iSoapDone=1;
-        }
-       iSoapNum=0;*/
+    alertMsg = @"无法连接,请检查网络是否正常?";
+    [self msgbox];
+    iSoapDone=1;
+    iSoapNum--;
+    //    if (iSoapNum==0) {
+    //        iSoapDone=1;
+    //    }
+    //    iSoapNum=0;
     ThreadFinished = TRUE;
     
 }
