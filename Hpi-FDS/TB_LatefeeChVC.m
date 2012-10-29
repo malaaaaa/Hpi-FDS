@@ -494,7 +494,7 @@ static int  whichButton=0;
 
 
 - (IBAction)query:(id)sender {
-   /*
+ /*
     NSLog(@"comLable:[%@]",comLabel.text);
     NSLog(@"comButton==================%@",comButton.titleLabel.text);
     NSLog(@"shipLable   :[%@]",shipLabel.text);
