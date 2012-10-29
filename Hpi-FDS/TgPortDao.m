@@ -145,14 +145,14 @@ static sqlite3	*database;
     
 	NSString *query=@" lon <> 0 ";
 	NSMutableArray * array=[TgPortDao getTgPortBySql:query];
-    NSLog(@"执行 getTgPort 数量[%d] ",[array count]);
+  //  NSLog(@"执行 getTgPort 数量[%d] ",[array count]);
 	return array;
 }
 +(NSMutableArray *) getTgPortBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT portCode,shipNum,handleShip,loadShip,transactShip,waitShip,portName,lon,lat FROM  TgPort WHERE %@ ",sql1];
-    NSLog(@"执行 getTgPortBySql [%@] ",sql);
+  //  NSLog(@"执行 getTgPortBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

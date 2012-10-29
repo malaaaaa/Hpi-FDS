@@ -249,7 +249,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,statCode,statName FROM  TgShip WHERE %@ ",sql1];
-    NSLog(@"执行 getTgShipBySql [%@] ",sql);
+   // NSLog(@"执行 getTgShipBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

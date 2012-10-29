@@ -322,7 +322,7 @@ return array;
              */
             tbLatefee.PORTNAME=[TfPortDao getPortName:tbLatefee.PORTCODE];
             
-            
+        
             
             
             
@@ -392,8 +392,16 @@ return array;
             else 
                 tbLatefee.SHIPNAME=[NSString stringWithUTF8String:rowdata_5];*/
             
-            tbLatefee.SHIPNAME=[TfShipDao getShipName:tbLatefee.SHIPID];
-            
+           // tbLatefee.SHIPNAME=[TfShipDao getShipName:tbLatefee.SHIPID];
+            if ([[TgShipDao getTgShip:tbLatefee.SHIPID] count]>0) {
+                TgShip *tgship= [[TgShipDao getTgShip:tbLatefee.SHIPID] objectAtIndex:0];
+                
+                tbLatefee.SHIPNAME=tgship.shipName;
+                
+            }else
+            {
+            tbLatefee.SHIPNAME=@"";
+            }
             
             
             
