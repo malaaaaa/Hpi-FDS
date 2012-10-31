@@ -1266,13 +1266,13 @@ NSString* alertMsg;
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
                              "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
                              "<soap12:Body>\n"
-                             "<GetTmIndexType xmlns=\"http://tempuri.org/\">\n"
+                             "<GetTmIndexTypeInfo xmlns=\"http://tempuri.org/\">\n"
                              "<req>\n"
                              "<deviceid>%@</deviceid>\n"
                              "<version>%@</version>\n"
                              "<updatetime>%@</updatetime>\n"
                              "</req>\n"
-                             "</GetTmIndexType>\n"
+                             "</GetTmIndexTypeInfo>\n"
                              "</soap12:Body>\n"
                              "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
@@ -1950,23 +1950,36 @@ NSString* alertMsg;
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"3 DONE. Received Bytes: %d", [webData length]);
-//    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
-//    NSLog(@"theXML[%@]",theXML);
-//    [theXML release];
+//        NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+//        NSLog(@"theXML[%@]",theXML);
+//        [theXML release];
     
-    //重新加載xmlParser
-    if( xmlParser )
-    {
-        [xmlParser release];
+    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:6 encoding:NSUTF8StringEncoding];
+    //没找到其它办法，通过返回报文前6位字符串判断是否出错，需要验证
+    if ([theXML isEqualToString:@"<html>"]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"调用后台服务出错！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+        iSoapDone=1;
+        iSoapNum=0;
+        
     }
-    
-    xmlParser = [[NSXMLParser alloc] initWithData: webData];
-    [xmlParser setDelegate: self];
-    [xmlParser setShouldResolveExternalEntities: YES];
-    [xmlParser parse];
-    
-//    [connection release];
-    [webData release];
+    else{
+        
+        //重新加載xmlParser
+        if( xmlParser )
+        {
+            [xmlParser release];
+        }
+        
+        xmlParser = [[NSXMLParser alloc] initWithData: webData];
+        [xmlParser setDelegate: self];
+        [xmlParser setShouldResolveExternalEntities: YES];
+        [xmlParser parse];
+        
+        //    [connection release];
+        [webData release];
+    }
 }
 
 

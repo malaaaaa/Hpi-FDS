@@ -49,7 +49,7 @@ NSString *deviceUID;
      NSString *fileName=[path  stringByAppendingPathComponent:@"data.plist"];
      NSArray  *datePlist=[[NSArray alloc] initWithContentsOfFile:fileName];
     NSLog(@"=====================================%@",[datePlist objectAtIndex:3]);
-    if ([datePlist count]==4&&![[datePlist objectAtIndex:3] isEqualToString:UYES]) {
+    if (![[datePlist objectAtIndex:3] isEqualToString:UYES]) {
         //网络请求 后台服务  查找该设备id是否 存在    --根据后台结果 修改本地标识  下次可用     不存在 跳转到注册页面...
       deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
         NSString *requeStr=[NSString stringWithFormat:@"<GetLoginValadateinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
@@ -154,7 +154,19 @@ NSString *deviceUID;
         NSLog(@"runWaite=====%@",login.logr.STAGE);
         [self Valadate:lr];
         return;
-    }else {
+    }
+    else if(YES==login.connectError)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"后台服务器连接失败！\n，请检查网络或修改服务器地址!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];  
+        
+        NSLog(@"-------------注册页面--------------------");
+        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+        [window addSubview:self.login.view];
+        [self.window makeKeyAndVisible];
+    }
+    else {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runWaite) userInfo:NULL repeats:NO];
     }
 }
