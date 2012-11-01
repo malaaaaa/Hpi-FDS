@@ -21,17 +21,20 @@
 @synthesize Phone;
 @synthesize userName;
 @synthesize emile;
+@synthesize server;
 @synthesize requestData;
 @synthesize responseDate;
 @synthesize method;
 @synthesize logr;
 @synthesize finish;
+@synthesize connectError;
 
 NSString* alertMsg;
 
 NSString* msg;
 
 UIAlertView *alert;
+UIAlertView *MailAlert;
 static NSString *version = @"V1.2";
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,6 +51,12 @@ static NSString *version = @"V1.2";
     // Do any additional setup after loading the view from its nib.
     requestData=[[RequestData alloc] init];
     finish=1;
+    connectError=NO;
+    
+    server.clearsOnBeginEditing = NO;//鼠标点上时，不清空
+    server.text=PubInfo.url;
+    server.returnKeyType = UIReturnKeyDone;
+    [server addTarget:self action:@selector(textfieldDone:) forControlEvents:UIControlEventEditingDidEnd];
 }
 
 - (IBAction)ZHUC:(id)sender {
@@ -56,42 +65,52 @@ static NSString *version = @"V1.2";
     requestData.emile=self.emile .text;
     requestData.phone=self.Phone .text;
     requestData.partName=self.partName .text;
+    if ([self.userName.text isEqualToString:@""]&&[self.emile .text isEqualToString:@""]&&[self.Phone .text isEqualToString:@""]&&[self.partName .text isEqualToString:@""]) {
+        return;
+    }
+    //校验邮箱地址是否合法
+    if ([PubInfo validateEmail:requestData.emile]) {
+        [self regist];
+    }
+    else{
+        MailAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"邮箱地址非法，是否提交？" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:@"提交",nil ];
+        [MailAlert show];
+        [MailAlert release];
+
+    }
+       
+}
+-(void)regist{
     //获取设备id号
     NSString *deviceUID = [[[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] autorelease];
     
     requestData.strID=deviceUID;
-    if ([self.userName.text isEqualToString:@""]&&[self.emile .text isEqualToString:@""]&&[self.Phone .text isEqualToString:@""]&&[self.partName .text isEqualToString:@""]) {
-        
-    }else
-    {
-        NSString *requestStr=[NSString stringWithFormat:@"<GetLoginRequestinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
-                              "<deviceid>%@</deviceid>\n"
-                              "<version>%@</version>\n"
-                              "<updatetime>%@</updatetime>\n"
-                              "<usename>%@</usename>\n"
-                              "<partname>%@</partname>\n"
-                              "<phone>%@</phone>\n"
-                              "<emile>%@</emile>\n"
-                              "</req>\n"
-                              "</GetLoginRequestinfo>\n"
-                              ,requestData.strID, version,PubInfo.currTime,requestData.userName,requestData.partName,requestData.phone,requestData.emile ];
-        
-        method=@"LoginRequest";//@"LoginRequest";
-        [self requestSoap:requestStr];
-        //................
-        [self runWaite];
-        [PubInfo setUserName:self.userName.text];
-        [PubInfo save];
-        
-    }
     
+    NSString *requestStr=[NSString stringWithFormat:@"<GetLoginRequestinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
+                          "<deviceid>%@</deviceid>\n"
+                          "<version>%@</version>\n"
+                          "<updatetime>%@</updatetime>\n"
+                          "<usename>%@</usename>\n"
+                          "<partname>%@</partname>\n"
+                          "<phone>%@</phone>\n"
+                          "<emile>%@</emile>\n"
+                          "</req>\n"
+                          "</GetLoginRequestinfo>\n"
+                          ,requestData.strID, version,PubInfo.currTime,requestData.userName,requestData.partName,requestData.phone,requestData.emile ];
+    
+    method=@"LoginRequest";//@"LoginRequest";
+    [self requestSoap:requestStr];
+    //................
+    [self runWaite];
+    [PubInfo setUserName:self.userName.text];
+    [PubInfo save];
     
 }
 -(void)alertMsg:(LoginResponse *)lr
 {
     //  //状态(0-接收注册请求；1-发送验证邮件；2-通过验证；3-未通过验证)
     if ([lr.STAGE isEqualToString:@"0"])
-        msg=@"注册信息已保存,请注意查收注册邮件";
+        msg=@"设备信息已保存。\n请查收内部邮件完成注册或等待管理员注册该设备";
     if ([lr.STAGE isEqualToString:@"1"])
         msg=@"请进入注册邮箱激活账号";
     //  if ([lr.STAGE isEqualToString:@"2"])  直接进入程序
@@ -114,7 +133,15 @@ static NSString *version = @"V1.2";
 }
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex==0) {
+    if (alertView==MailAlert) {
+        if (buttonIndex==0) {
+            NSLog(@"do nothing");
+        }
+        else{
+            [self regist];
+        }
+    }
+    else if (buttonIndex==0) {
         exit(0);
     }
 }
@@ -192,8 +219,9 @@ static NSString *version = @"V1.2";
     [connection release];
     [responseDate release];
     
-    alertMsg = @"无法连接,请检查网络是否正常?";
-    [self msgbox];
+//    alertMsg = @"无法连接,请检查网络是否正常?";
+//    [self msgbox];
+    connectError=YES;
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -270,6 +298,8 @@ static NSString *version = @"V1.2";
     Phone = nil;
     [emile release];
     emile = nil;
+    [server release];
+    server = nil;
 
     [responseDate release];
     responseDate=nil;
@@ -290,6 +320,7 @@ static NSString *version = @"V1.2";
     [partName release];
     [Phone release];
     [emile release];
+    [server release];
     [requestData release];
     [responseDate release];
     [ method release];
@@ -298,6 +329,21 @@ static NSString *version = @"V1.2";
 
     [super dealloc];
 }
+
+- (IBAction)textfieldDone:(id)sender {
+    [PubInfo setHostName:server.text];
+    [PubInfo setPort:@""];
+    [PubInfo save];
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    NSLog(@"textFieldShouldBeginEditing");  //测试用
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"该地址为后台服务器地址\n 请谨慎修改！" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil,nil];
+	[alert show];
+    [alert release];
+    return  YES;
+}
+
 @end
 
 

@@ -18,7 +18,7 @@
 @synthesize tableView,xmlParser,activity;
 //定义 alter类型
 UIAlertView *alert;
-
+UITextField *textField=nil;
 - (void)dealloc {
 	if (tableView) {
 		[tableView release];
@@ -88,7 +88,7 @@ UIAlertView *alert;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if(section == 0) {
-		return 3;
+		return 4;
 	}
 	else {
 		return 4;
@@ -133,6 +133,9 @@ UIAlertView *alert;
         [xmlParser getTmIndexdefine];
         [TmIndextypeDao deleteAll];
         [xmlParser getTmIndextype];
+        
+
+
 
 
    
@@ -194,6 +197,21 @@ UIAlertView *alert;
                     cell.textLabel.text=@"删除本地文件";
                     cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;
+                case 3	:
+                
+                    if (!textField) {
+                        textField = [[UITextField alloc] initWithFrame:CGRectMake(75, 10, 280, 40)];
+                        textField.clearsOnBeginEditing = NO;//鼠标点上时，不清空
+                        textField.text=PubInfo.url;
+                        [cell.contentView addSubview:textField];
+                        cell.textLabel.text=@"服务器: ";
+                        [textField setDelegate: self];
+                        textField.returnKeyType = UIReturnKeyDone;
+                        [textField addTarget:self action:@selector(textfieldDone:) forControlEvents:UIControlEventEditingDidEnd];
+                        [textField release];
+                    }
+
                     break;
 			}
 		}
@@ -324,4 +342,17 @@ UIAlertView *alert;
 	
 }
 
+- (IBAction)textfieldDone:(id)sender {
+    [PubInfo setHostName:textField.text];
+    [PubInfo setPort:@""];
+    [PubInfo save];
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    NSLog(@"textFieldShouldBeginEditing");  //测试用
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"该地址为后台服务器地址\n 请谨慎修改！" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil,nil];
+	[alert show];
+    [alert release];
+    return  YES;
+}
 @end

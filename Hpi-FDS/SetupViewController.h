@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "XMLParser.h"
-@interface SetupViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+#import "PubInfo.h"
+@interface SetupViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
     IBOutlet UITableView *tableView;
     XMLParser *xmlParser;
     UIActivityIndicatorView *activity;
