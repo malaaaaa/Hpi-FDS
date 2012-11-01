@@ -11,7 +11,7 @@
 #import "LoginResponse.h"
 
 @implementation LoginResponse
-
+@synthesize SBID,RETCODE,STAGE,ISHAVE;
 
 
 -(void)dealloc
@@ -20,6 +20,7 @@
     [self .RETCODE release];
     
     [self.STAGE  release];
+      [self .ISHAVE release];
     [super dealloc];
 }
 

@@ -13,7 +13,7 @@
 
 @property(nonatomic,retain)NSString *RETCODE;
 @property(nonatomic,retain)NSString *STAGE;
-
+@property(nonatomic,retain)NSString *ISHAVE;
 
 
 

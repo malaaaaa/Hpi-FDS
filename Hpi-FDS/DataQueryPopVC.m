@@ -52,7 +52,7 @@ UIToolbar* toolBar;
     UILabel *Titelable=[[UILabel alloc] initWithFrame:CGRectMake(width/2, 0, 180, 40)];
     Titelable.font = [UIFont systemFontOfSize:14.0f];
     Titelable.textAlignment = UITextAlignmentCenter;
-    Titelable.text=@"电厂动态查询";
+    Titelable.text=@"船舶动态查询";
     Titelable.textColor=[UIColor whiteColor];
     
     [Titelable  setBackgroundColor:[UIColor clearColor]];

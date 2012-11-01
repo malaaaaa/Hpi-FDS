@@ -274,6 +274,13 @@ static NSString *version = @"V1.2";
                     self.logr.STAGE=[TBXML textForElement:desc] ;
                     NSLog(@"%@",self.logr.STAGE);
                 }
+                desc = [TBXML childElementNamed:@"ISHave" parentElement:element];
+                if (desc != nil) {
+                    
+                    self.logr.ISHAVE=[TBXML textForElement:desc] ;
+                    NSLog(@"%@",self.logr.ISHAVE);
+                }
+
                 element = [TBXML nextSiblingNamed:@"LoginResponse"  searchFromElement:element];
             }
         }

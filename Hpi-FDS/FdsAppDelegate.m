@@ -113,14 +113,6 @@ NSString *deviceUID;
         UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
         UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
         UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
-        
-        
-        
-      
-    
-        
-        
-        
         UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
      //   NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
        // NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
@@ -132,19 +124,51 @@ NSString *deviceUID;
         
         [self.login release];
     }
-    else
+    else 
     {
+     
+        
         NSLog(@"-------------注册页面--------------------");
         self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
         [window addSubview:self.login.view];
         [self.window makeKeyAndVisible];
+        
+        if ([lr.ISHAVE isEqualToString:@"1"]) {
+               NSLog(@"注册。。。。。。。。。。。。。。");
+             UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"注册信息已保存,是否重新注册？" delegate:self cancelButtonTitle:@"重新注册" otherButtonTitles:@"取消", nil];
+               [alert show];
+           [alert  release];
+        }
+
+        
+        
+               
+             
+        
+        
     }
-    
+   
     
     
 }
 
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1) {
+        NSLog(@"取消");
+        exit(0);
+    }
+    if(buttonIndex==0){
+        NSLog(@"重新注册");
+       
 
+
+    }
+
+
+
+
+}
 
 
 -(void)runWaite
