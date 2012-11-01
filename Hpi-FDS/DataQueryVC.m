@@ -17,7 +17,7 @@
 #import "TB_LatefeeChDial.h"
 #import "TB_LatefeeDao.h"
 
-
+#import "VBTransChVCDetail.h"
 #import "DataGridComponent.h"
 
 
@@ -259,11 +259,33 @@ static NSInteger menuSection;
         [tblatefeeDial release];
         [pop release];
     }
-    
-    
-    
-    
-    
+    //航运计划
+      if (menuIndex==kMenuCYJH&&menuSection==kMenuSelect) {
+          NSLog(@"航运计划..........详细");
+          
+          
+          VbTransplan *vbtrans=[dataArray objectAtIndex:indexPath.row];
+          
+        //  NSLog(@"%@",vbtrans.eTap);
+          
+          VBTransChVCDetail *vbtransDetail=[[VBTransChVCDetail alloc] init];
+          vbtransDetail.vbtrans=vbtrans;
+          
+          [vbtransDetail.view setFrame:CGRectMake(0,0,600,34)];
+          vbtransDetail.contentSizeForViewInPopover=CGSizeMake(600, 34);
+          UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:vbtransDetail];
+          vbtransDetail.pop=pop;
+          self.popover=pop;
+          self.popover.delegate=self;
+          self.popover.popoverContentSize=CGSizeMake(600, 34);
+          //设置箭头方向
+          [self.popover presentPopoverFromRect:CGRectMake(512,430 , 0.5,0.5) inView:self.view   permittedArrowDirections:0 animated:YES];
+          [vbtransDetail release];
+          [pop release];
+
+          
+          
+      }
 }
 /**/
 - (NSString *)formatInfoDate:(NSString *)string1 :(NSString *)string2 {
@@ -423,7 +445,7 @@ static NSInteger menuSection;
        vbShipChVC.view.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
 
         [self.chooseView addSubview:vbShipChVC.view];
-        noteLabel.text=@"备注：①红色表示满载在途；②绿色表示受载在途；③黑色色表示其他；④*表示班轮";
+        noteLabel.text=@"备注：①红色表示满载在途；②绿色表示受载在途；③黑色表示其他；④*表示班轮";
         noteLabel.font=[UIFont fontWithName:@"Arial" size:12];
         listTableview.frame=CGRectMake(0, 50, 1024, 440);
          NSLog(@"--------实时船舶查询--");

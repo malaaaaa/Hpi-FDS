@@ -199,6 +199,8 @@
 		2A8453BD15FF0E05009960CC /* TransPlanImplement.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8453BB15FF0E05009960CC /* TransPlanImplement.m */; };
 		2A8453BE15FF0E05009960CC /* TransPlanImplement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8453BC15FF0E05009960CC /* TransPlanImplement.xib */; };
 		2A8CBEEB15DE0B4C00B86257 /* AvgFactoryZXTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */; };
+		2A8D443B163E281E0042D9C5 /* VBTransChVCDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D4439163E281E0042D9C5 /* VBTransChVCDetail.m */; };
+		2A8D443C163E281E0042D9C5 /* VBTransChVCDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8D443A163E281E0042D9C5 /* VBTransChVCDetail.xib */; };
 		2A8D93F015E262C50058EAA8 /* AvgFactoryTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D93EE15E262C50058EAA8 /* AvgFactoryTimeChVC.m */; };
 		2A8D93F115E262C50058EAA8 /* AvgPortPTimeChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D93EF15E262C50058EAA8 /* AvgPortPTimeChVC.m */; };
 		2A8F1F5215CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */; };
@@ -248,8 +250,6 @@
 		D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */; };
 		D35CFE4715D1EB13005FAA17 /* PortEfficiency.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */; };
 		D375A11E163E0F0B00D65F4B /* rlt.png in Resources */ = {isa = PBXBuildFile; fileRef = D375A117163E0F0B00D65F4B /* rlt.png */; };
-		D375A120163E0F0B00D65F4B /* excel.png in Resources */ = {isa = PBXBuildFile; fileRef = D375A119163E0F0B00D65F4B /* excel.png */; };
-		D375A121163E0F0B00D65F4B /* excel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D375A11A163E0F0B00D65F4B /* excel@2x.png */; };
 		D375A122163E0F0B00D65F4B /* rlt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D375A11B163E0F0B00D65F4B /* rlt@2x.png */; };
 		D375A123163E0F0B00D65F4B /* rly.png in Resources */ = {isa = PBXBuildFile; fileRef = D375A11C163E0F0B00D65F4B /* rly.png */; };
 		D375A124163E0F0B00D65F4B /* gk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D375A11D163E0F0B00D65F4B /* gk@2x.png */; };
@@ -648,6 +648,9 @@
 		2A8453BC15FF0E05009960CC /* TransPlanImplement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransPlanImplement.xib; sourceTree = "<group>"; };
 		2A8CBEE915DE0B4C00B86257 /* AvgFactoryZXTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgFactoryZXTime.h; sourceTree = "<group>"; };
 		2A8CBEEA15DE0B4C00B86257 /* AvgFactoryZXTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryZXTime.m; sourceTree = "<group>"; };
+		2A8D4438163E281E0042D9C5 /* VBTransChVCDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBTransChVCDetail.h; sourceTree = "<group>"; };
+		2A8D4439163E281E0042D9C5 /* VBTransChVCDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBTransChVCDetail.m; sourceTree = "<group>"; };
+		2A8D443A163E281E0042D9C5 /* VBTransChVCDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBTransChVCDetail.xib; sourceTree = "<group>"; };
 		2A8D93EE15E262C50058EAA8 /* AvgFactoryTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryTimeChVC.m; sourceTree = "<group>"; };
 		2A8D93EF15E262C50058EAA8 /* AvgPortPTimeChVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgPortPTimeChVC.m; sourceTree = "<group>"; };
 		2A8F1F4F15CA0D7A005C7B62 /* NT_LatefeeTongjChVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NT_LatefeeTongjChVC.h; sourceTree = "<group>"; };
@@ -1066,6 +1069,7 @@
 		057F6C5C152449EA00E0E435 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				2A8D443A163E281E0042D9C5 /* VBTransChVCDetail.xib */,
 				2A8FD6811630F27100075616 /* LoginView.xib */,
 				D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */,
 				D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */,
@@ -1580,6 +1584,8 @@
 				D3E5B0B116080881001FA133 /* NTZxgsjtjVC.m */,
 				2A8FD67F1630F27100075616 /* LoginView.h */,
 				2A8FD6801630F27100075616 /* LoginView.m */,
+				2A8D4438163E281E0042D9C5 /* VBTransChVCDetail.h */,
+				2A8D4439163E281E0042D9C5 /* VBTransChVCDetail.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1778,7 +1784,7 @@
 		057F6C201524490600E0E435 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = Landscape;
 			};
 			buildConfigurationList = 057F6C231524490600E0E435 /* Build configuration list for PBXProject "Hpi-FDS" */;
@@ -1925,13 +1931,12 @@
 				D30F68ED16395A46000793D0 /* reg_input@2x.png in Resources */,
 				D30F68EE16395A46000793D0 /* reg_bg@2x.png in Resources */,
 				D375A11E163E0F0B00D65F4B /* rlt.png in Resources */,
-				D375A120163E0F0B00D65F4B /* excel.png in Resources */,
-				D375A121163E0F0B00D65F4B /* excel@2x.png in Resources */,
 				D375A122163E0F0B00D65F4B /* rlt@2x.png in Resources */,
 				D375A123163E0F0B00D65F4B /* rly.png in Resources */,
 				D375A124163E0F0B00D65F4B /* gk@2x.png in Resources */,
 				D375A129163E0F8800D65F4B /* rly@2x.png in Resources */,
 				D375A12B163E100000D65F4B /* hpilogo3@2x.png in Resources */,
+				2A8D443C163E281E0042D9C5 /* VBTransChVCDetail.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2148,6 +2153,7 @@
 				D30E48061624178C006B2A57 /* TH_SHIPTRANS_ORIDAO.m in Sources */,
 				2A8FD6821630F27100075616 /* LoginView.m in Sources */,
 				2A9CED271636943B000DF3E7 /* LoginResponse.m in Sources */,
+				2A8D443B163E281E0042D9C5 /* VBTransChVCDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

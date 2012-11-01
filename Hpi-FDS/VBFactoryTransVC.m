@@ -10,6 +10,9 @@
 #import "PubInfo.h"
 #import "QueryViewController.h"
 #import "DataQueryVC.h"
+
+#import "TbFactoryStateDao.h"
+
 @interface VBFactoryTransVC ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 
@@ -662,18 +665,41 @@ static  NSMutableArray *ShipStageArray;
                                                        :tradeLabel.text
                                                        :ShipStageArray];
     
+    
+
+    
+    
     for (int i=0;i<[listArray count];i++) {
         VbFactoryTrans *vbFactoryTrans = [listArray objectAtIndex:i];
         [dataSource.data addObject:[NSArray arrayWithObjects:
                                     kBLACK,
                                     vbFactoryTrans.FACTORYNAME,
-                                    vbFactoryTrans.CAPACITYSUM,
+                                   [NSString stringWithFormat:@"%@",vbFactoryTrans.CAPACITYSUM]   ,
                                     [NSString stringWithFormat:@"%.2f",vbFactoryTrans.CONSUM/10000.0],
                                     [NSString stringWithFormat:@"%.2f",vbFactoryTrans.STORAGE/10000.0],
-                                    (vbFactoryTrans.COMPARE>0) ? [NSString stringWithFormat:@"+%.2f",vbFactoryTrans.COMPARE/10000.0]: (vbFactoryTrans.COMPARE<0 ? [NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0]:@"0.0"),
+                                    
+                                    /*
+                                    (vbFactoryTrans.COMPARE>0) ? [NSString stringWithFormat:@"+%.2f",vbFactoryTrans.COMPARE/10000.0]: (vbFactoryTrans.COMPARE<0 ? [NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0]:@"0.0"),*/
+                                   [[NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0]isEqualToString:@"0.00" ]?@"-":[NSString stringWithFormat:@"%.2f",vbFactoryTrans.COMPARE/10000.0]  ,//直接得出  较前日
+                                    
+                                    
                                     [NSString stringWithFormat:@"%d",vbFactoryTrans.AVALIABLE],
-                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.MONTHIMP/10000.0],
-                                    [NSString stringWithFormat:@"%.2f",vbFactoryTrans.YEARIMP/10000.0],
+                                    
+                                    
+                                    /* float monthP=[TbFactoryStateDao GetMonthPort:date :vbFactoryTrans.FACTORYNAME ];
+                                     float yeasP=[TbFactoryStateDao GetYearPort:date :vbFactoryTrans.FACTORYNAME ];
+                                     
+                                     NSLog(@"monthP=======%f",monthP);
+                                     NSLog(@"yeasP=====%f",yeasP);*/
+                                    
+                                    // //月调尽量  年调进量  数据矫正 
+                                    [NSString stringWithFormat:@"%.2f",[TbFactoryStateDao GetMonthPort:self.startDay :vbFactoryTrans.FACTORYNAME ]/10000.0],
+                                    [NSString stringWithFormat:@"%.2f",[TbFactoryStateDao GetYearPort:self.startDay :vbFactoryTrans.FACTORYNAME ]/10000.0],
+                                    
+                                    
+                                    
+                                    
+                                    
                                     vbFactoryTrans.DESCRIPTION,
                                     [NSString stringWithFormat:@"%d",vbFactoryTrans.SHIPNUM],
                                     vbFactoryTrans.FACTORYCODE,

@@ -21,7 +21,7 @@
     NSString  *tripNo;              //航次
     NSString  *eTap;                //预抵装港时间
     NSString  *eTaf;                //预抵卸港时间
-    NSInteger eLw;                  //预计载煤量
+    double eLw;                  //预计载煤量
     NSInteger supID;                //供货方ID
     NSString  *supplier;            //供货方1
     NSInteger typeID;               //煤种ID
@@ -30,7 +30,7 @@
     NSString  *keyName;             //性质名称1
     NSString  *schedule;            //是否班轮
     NSString  *description;         //备注
-    NSString  *serialNo;            //顺序号
+    NSInteger serialNo;            //顺序号
     NSString  *facSort;             //电厂序号1
     double    heatvalue;//热值
     double   sulfur;//硫分
@@ -53,13 +53,13 @@
 @property (nonatomic, retain) NSString  *keyName; 
 @property (nonatomic, retain) NSString  *schedule;
 @property (nonatomic, retain) NSString  *description;
-@property (nonatomic, retain) NSString  *serialNo;
+
 @property (nonatomic, retain) NSString  *facSort;
 @property NSInteger shipID;
-@property NSInteger eLw;
+@property double eLw;
 @property NSInteger supID;
 @property NSInteger typeID;
 @property  double heatvalue;
 @property  double  sulfur;
-
+@property NSInteger serialNo;
 @end

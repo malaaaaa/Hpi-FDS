@@ -5500,7 +5500,8 @@ NSString* alertMsg;
         }
         else if( [elementName isEqualToString:@"SERIALNO"])
         {
-            vbTransplan.serialNo = soapResults;
+            vbTransplan.serialNo = [soapResults
+            integerValue];
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;

@@ -138,9 +138,9 @@ DataQueryVC *dataQueryVC;
     if (!dataSource) {
          dataSource = [[DataGridComponentDataSource alloc] init];
         
-        dataSource.columnWidth = [NSArray arrayWithObjects:@"115",@"75",@"85",@"85",@"80",@"100",@"90",@"90",@"85",@"70",@"75",@"75",nil];
-        dataSource.titles = [NSArray arrayWithObjects:@"计划号",@"计划月份",@"船名",@"流向",@"航次",@"装运港",@"预抵装港",@"预抵卸港",@"预计载煤量",@"煤种",@"供货方",@"类别",nil];
-    }
+        dataSource.columnWidth = [NSArray arrayWithObjects:@"127",@"75",@"85",@"85",@"80",@"100",@"85",@"70", @"73",@"70",@"98",@"75",nil];
+        dataSource.titles = [NSArray arrayWithObjects:@"计划号",@"计划月份",@"船名",@"流向",@"航次",@"装运港",@"预计载煤量",@"煤种",@"热值",@"硫份",@"供货方",@"类别",nil];
+    } 
 }
 
 - (void)viewDidUnload
@@ -467,6 +467,7 @@ DataQueryVC *dataQueryVC;
     
     for (int i=0;i<[dataQueryVC.dataArray count];i++) {
         VbTransplan *transplan=[dataQueryVC.dataArray objectAtIndex:i];
+    
         //船运计划和 电厂动态  没有 状态  stage
         [dataSource.data addObject:[NSArray arrayWithObjects:
                                     @"3",
@@ -478,17 +479,27 @@ DataQueryVC *dataQueryVC;
                                     transplan.tripNo,
                                     transplan.portName,
                                     
-                                   transplan.eTap,
+                                 
+                                //  transplan.eTap,
                                     //格式化时间  [PubInfo formaDateTime:transplan.eTap FormateString:@"yyyy-MM-dd"]  ,
-                                   transplan.eTaf,
+                                  // transplan.eTaf,
                                     
                                     //格式化时间   [PubInfo formaDateTime:transplan.eTaf FormateString:@"yyyy-MM-dd"]  ,
                                     
-                                    
-                                    [NSString stringWithFormat:@"%d",transplan.eLw],
+                                  
+                                    [NSString stringWithFormat:@"%.2f",transplan.eLw],
                                     transplan.coalType,
+                                    
+                                   [ [NSString stringWithFormat:@"%.0f",transplan.heatvalue]isEqualToString:   @"0" ]?@"": [NSString stringWithFormat:@"%.0f",transplan.heatvalue] ,
+                                  
+                                    [[NSString stringWithFormat:@"%.2f",transplan.sulfur]
+                                      isEqualToString:   @"0.00" 
+                                     ]
+                                    ?@"": [NSString stringWithFormat:@"%.2f",transplan.sulfur]  ,
+                                    
                                     transplan.supplier,
                                     transplan.keyName,
+                                
                                     nil ]];
         
         

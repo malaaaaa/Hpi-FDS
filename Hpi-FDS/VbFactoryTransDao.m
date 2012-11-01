@@ -148,18 +148,82 @@ static sqlite3 *database;
 	return;
 }
 
+-(NSString *)getTime
+{
+NSString *datej;
+    /*===================================================*/
+    sqlite3_stmt *statement2;
+    
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]; NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:[NSDate date]]; NSUInteger numberOfDaysInMonth = range.length;//获取当月天数
+    NSDateFormatter *f=[[NSDateFormatter alloc] init ];
+    [f setDateFormat:@"yyyy-MM-01"];
+    NSString *  start =[NSString   stringWithFormat:@"%@%@" ,  [f stringFromDate:[NSDate date]],@"T00:00:00"   ];
+    
+    [f setDateFormat:@"yyyy-MM"];
+    NSString *  end =[NSString   stringWithFormat:@"%@-%d%@" ,  [f stringFromDate:[NSDate date]],numberOfDaysInMonth,@"T23:59:59"   ];
+    NSLog(@"start%@",start);
+    NSLog(@"end%@",end);
+    [f release];
+    //  vbFactoryTrans.COMPARE = sqlite3_column_int(statement1,2);//   为0
+    NSString *sql2=[NSString stringWithFormat:@"Select   date(max( recorddate),'-1 day')||'T00:00:00'         From TbFactoryState where recorddate<= '%@' and recorddate>='%@' and factorycode = 'YH'  order by  recorddate  desc",end,start];
+    NSLog(@"执行 TbFactoryState 较昨日[%@] ",sql2);
+    if(sqlite3_prepare_v2(database,[sql2 UTF8String],-1,&statement2,NULL)==SQLITE_OK){
+        
+        
+        while (sqlite3_step(statement2)==SQLITE_ROW) {
+            
+            char * date=(char *)sqlite3_column_text(statement2, 0);
+            if (date==NULL)
+                datej=@"";
+            else
+                datej=[NSString stringWithUTF8String: date];
+            
+            
+            NSLog(@"datej ========%@",datej);
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+    }
+    
+    /*===================================================*/
+    
+
+
+
+return datej;
+
+
+
+}
+
+
+
+
+
+
 
 
 //查询第一层电厂运行情况
 /*
-+(NSMutableArray *) getVbFactoryTransState:(NSMutableArray *)factory 
-                                          :(NSDate *)date 
-                                          :(NSMutableArray *)shipCompany 
-                                          :(NSMutableArray *)ship 
-                                          :(NSMutableArray *)supplier 
-                                          :(NSMutableArray *)coalType 
-                                          :(NSString *)keyValue 
-                                          :(NSString *)trade 
++(NSMutableArray *) getVbFactoryTransState:(NSMutableArray *)factory
+                                          :(NSDate *)date
+                                          :(NSMutableArray *)shipCompany
+                                          :(NSMutableArray *)ship
+                                          :(NSMutableArray *)supplier
+                                          :(NSMutableArray *)coalType
+                                          :(NSString *)keyValue
+                                          :(NSString *)trade
                                           :(NSMutableArray *)shipStage
 {
     NSMutableString *tmpString = [[NSMutableString alloc] init ];
@@ -433,7 +497,7 @@ static sqlite3 *database;
     
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT f.FACTORYCODE,f.FACTORYNAME,F.CAPACITYSUM, f.description FROM  TfFactory F WHERE 1=1 %@ order by sort",tmpString];
-    NSLog(@"执行 getVbFactoryTransState OuterSql[%@] ",sql);
+  //  NSLog(@"执行 getVbFactoryTransState OuterSql[%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
@@ -469,23 +533,139 @@ static sqlite3 *database;
             vbFactoryTrans.STORAGE = 0;
             vbFactoryTrans.COMPARE=0;
             vbFactoryTrans.AVALIABLE = 0;
-            vbFactoryTrans.MONTHIMP = 0;
-            vbFactoryTrans.YEARIMP = 0;
+            
+           
 
+            
+            /*      // 较前日
+             TB_FACTORYSTATEBFromBase fsYst = new TB_FACTORYSTATEBLL().GetYesterdayModel(list[i].FACTORYCODE);
+             
+             DateTime dtMin = DateHelpers.MonthFirstDay(DateTime.Now);
+             DateTime dtMax = DateHelpers.MonthLastDay(DateTime.Now);
+             
+             
+             Select * From TB_FactoryState Where FactoryCode = @FactoryCode And RecordDate = (Select DATEADD(day,-1,max(recorddate)) From TB_FACTORYSTATE where recorddate<= @dtMax and recorddate>=@dtMin and factorycode = @FactoryCode) 
+             
+             
+             decimal storage = fs.STORAGE;
+             decimal ystStorage = 0;
+             if (fsYst != null)
+             {
+             ystStorage = fsYst.STORAGE;
+             }
+             decimal jqrStorage = storage - ystStorage;
+             string jqrHtml = Math.Abs(jqrStorage / 10000).ToString("0.00");
+             if (jqrStorage > 0)
+             {
+             jqrHtml += "<label style=\"color: red;\">↑</label>";
+             }
+             else if (jqrStorage < 0)
+             {
+             jqrHtml += "<label style=\"color: green;\">↓</label>";
+             }
+             else
+             {
+             jqrHtml = "-";
+             }
+             sb.Append("<td>" + jqrHtml + "</td>");*/
+            
+            
+            
+            
+            
+            
             
             sqlite3_stmt *statement1;
             NSString *sql1=[NSString stringWithFormat:@"SELECT S.CONSUM,S.STORAGE, S.STORAGE-(select p.storage from TbFactoryState p where p.factorycode='%@' AND strftime('%%Y-%%m-%%d',p.RECORDDATE) =date(strftime('%%Y-%%m-%%d','%@'),'-1 day') ),S.AVALIABLE,S.MONTHIMP,S.YEARIMP FROM  TbFactoryState s WHERE s.factorycode='%@' AND strftime('%%Y-%%m-%%d',s.RECORDDATE) ='%@'  ",vbFactoryTrans.FACTORYCODE,start,vbFactoryTrans.FACTORYCODE,start];
-//            NSLog(@"执行 TbFactoryState OuterSql[%@] ",sql1);
+        //   NSLog(@"执行 TbFactoryState OuterSql[%@] ",sql1);
             if(sqlite3_prepare_v2(database,[sql1 UTF8String],-1,&statement1,NULL)==SQLITE_OK){
+                
+                    int ystSTORAGE=0;
+                
                 while (sqlite3_step(statement1)==SQLITE_ROW) {
                     vbFactoryTrans.CONSUM = sqlite3_column_int(statement1,0);
                     vbFactoryTrans.STORAGE = sqlite3_column_int(statement1,1);
-                    vbFactoryTrans.COMPARE = sqlite3_column_int(statement1,2);
+                   
                     vbFactoryTrans.AVALIABLE = sqlite3_column_int(statement1,3);
-                    vbFactoryTrans.MONTHIMP = sqlite3_column_int(statement1,4);
-                    vbFactoryTrans.YEARIMP = sqlite3_column_int(statement1,5);
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                 
+                    
+                    //月调尽量  年调进量  数据矫正 
+                 //   vbFactoryTrans.MONTHIMP =monthP;
+                    //sqlite3_column_int(statement1,4);
+                   // vbFactoryTrans.YEARIMP =yeasP;
+                    //sqlite3_column_int(statement1,5);
+                    
+                 
+                    
+                    NSLog(@"%@",vbFactoryTrans.FACTORYCODE);
+                    
+                    
+                    
+                    
+                    
+                    /*================获得日期===================================*/
+                    sqlite3_stmt *statement2;
+                    NSString *datej;
+                    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]; NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:[NSDate date]]; NSUInteger numberOfDaysInMonth = range.length;//获取当月天数
+                    NSDateFormatter *f=[[NSDateFormatter alloc] init ];
+                    [f setDateFormat:@"yyyy-MM-01"];
+                    NSString *  start =[NSString   stringWithFormat:@"%@%@" ,  [f stringFromDate:[NSDate date]],@"T00:00:00"   ];
+                    
+                    [f setDateFormat:@"yyyy-MM"];
+                    NSString *  end =[NSString   stringWithFormat:@"%@-%d%@" ,  [f stringFromDate:[NSDate date]],numberOfDaysInMonth,@"T23:59:59"   ];
+                    NSLog(@"start%@",start);
+                    NSLog(@"end%@",end);
+                    [f release];
+                    NSString *sql2=[NSString stringWithFormat:@"Select   date(max( recorddate),'-1 day')||'T00:00:00'         From TbFactoryState where recorddate<= '%@' and recorddate>='%@' and factorycode = '%@'  order by  recorddate  desc",end,start,vbFactoryTrans.FACTORYCODE];
+                 //   NSLog(@"执行 TbFactoryState 较昨日[%@] ",sql2);
+                    if(sqlite3_prepare_v2(database,[sql2 UTF8String],-1,&statement2,NULL)==SQLITE_OK){
+                        while (sqlite3_step(statement2)==SQLITE_ROW) {
+                            
+                            char * date=(char *)sqlite3_column_text(statement2, 0);
+                            if (date==NULL)
+                                datej=@"";
+                            else
+                                datej=[NSString stringWithUTF8String: date];
+                            NSLog(@"datej ========%@",datej);
+                            /*******************获得较前日*********************************/
+                            sqlite3_stmt *statement3;
+                            NSString *sql3=[NSString stringWithFormat:@"SELECT STORAGE FROM TbFactoryState  where FACTORYCODE='%@'   AND  RECORDDATE='%@'",vbFactoryTrans.FACTORYCODE,datej];
+                         //   NSLog(@"执行 TbFactoryState 较昨日2[%@] ",sql3);
+                            if(sqlite3_prepare_v2(database,[sql3 UTF8String],-1,&statement3,NULL)==SQLITE_OK){
+                                while (sqlite3_step(statement3)==SQLITE_ROW) {
+                                    ystSTORAGE=sqlite3_column_int(statement3, 0);
+                                }
+                            }
+                            /***********************获得较前日*****************************/
+                        }
+                    }
+                    /*============================获得日期=======================*/
+                    vbFactoryTrans.COMPARE = vbFactoryTrans.STORAGE-ystSTORAGE;//较前日    数据矫正
+                    NSLog(@"%d", vbFactoryTrans.COMPARE);
+                    
+                   
+                    
+                    
+                    vbFactoryTrans.MONTHIMP = 0;
+                    vbFactoryTrans.YEARIMP = 0;
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
 
-                }
+                } 
             }else {
                 NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
             }
@@ -620,7 +800,7 @@ static sqlite3 *database;
                 
                 sqlite3_stmt *innerStatement;
                 NSString *innerSql=[NSString stringWithFormat:@"select count(*) from TH_SHIPTRANS_ORI where    FACTORYCODE ='%@'  AND strftime('%%Y-%%m-%%d',RECORDDATE) ='%@' %@",vbFactoryTrans.FACTORYCODE,start,innerTmpString];
-//                NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
+                NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
                 
                 if(sqlite3_prepare_v2(database,[innerSql UTF8String],-1,&innerStatement,NULL)==SQLITE_OK){
                     while (sqlite3_step(innerStatement)==SQLITE_ROW) {
@@ -647,8 +827,8 @@ static sqlite3 *database;
 	return array;
 }
 
-
 /*
+
 //查询第二层船舶运行情况
 +(NSMutableArray *) getVbFactoryTransBySql:(NSString *)querySql
 {

@@ -58,7 +58,7 @@ static sqlite3	*database;
                          @",keyName TEXT ",
                          @",schedule TEXT ",
                          @",description TEXT ",
-                         @",serialNo TEXT ",
+                         @",serialNo INTEGER ",
                          @",facSort TEXT ",
                          @",heatvalue double ",
                          
@@ -106,7 +106,12 @@ static sqlite3	*database;
     sqlite3_bind_text(statement, 18, [vbTransplan.keyName UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 19, [vbTransplan.schedule UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 20, [vbTransplan.description UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, 21, [vbTransplan.serialNo UTF8String], -1, SQLITE_TRANSIENT);
+    
+    
+    sqlite3_bind_int(statement, 21, vbTransplan.serialNo);
+    
+    
+    
     sqlite3_bind_text(statement, 22, [vbTransplan.facSort UTF8String], -1, SQLITE_TRANSIENT);
     
     sqlite3_bind_double(statement, 23, vbTransplan.heatvalue);
@@ -211,8 +216,8 @@ static sqlite3	*database;
 +(NSMutableArray *) getVbTransplanBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"SELECT planCode,planMonth,shipID,shipName,factoryCode,factoryName,portCode,portName,tripNo,eTap,eTaf,eLw,supID,supplier,typeID,coalType,keyValue,keyName,schedule,description,serialNo,facSort ,heatvalue,sulfur  FROM  VbTransplan WHERE %@ ",sql1];
-   // NSLog(@"执行 getVbTransplanBySql [%@] ",sql);
+    NSString *sql=[NSString stringWithFormat:@"SELECT planCode,planMonth,shipID,shipName,factoryCode,factoryName,portCode,portName,tripNo,eTap,eTaf, round(  eLw/10000.0,2) as eLw,supID,supplier,typeID,coalType,keyValue,keyName,schedule,description,serialNo,facSort ,heatvalue,sulfur  FROM  VbTransplan WHERE %@  order by   planMonth  desc  ,factoryName  asc,  serialNo  desc",sql1];
+  //  NSLog(@"执行 getVbTransplanBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
@@ -294,7 +299,7 @@ static sqlite3	*database;
             
             
             
-            vbTransplan.eLw = sqlite3_column_int(statement,11);
+            vbTransplan.eLw = sqlite3_column_double(statement,11);
             
             vbTransplan.supID = sqlite3_column_int(statement,12);
             
@@ -337,12 +342,8 @@ static sqlite3	*database;
             else
                 vbTransplan.description = [NSString stringWithUTF8String: rowData19];
             
-            char * rowData20=(char *)sqlite3_column_text(statement,20);
-            if (rowData20 == NULL)
-                vbTransplan.serialNo = nil;
-            else
-                vbTransplan.serialNo = [NSString stringWithUTF8String: rowData20];
-            
+            vbTransplan.serialNo=sqlite3_column_int (statement,20);
+                      
             char * rowData21=(char *)sqlite3_column_text(statement,21);
             if (rowData21 == NULL)
                 vbTransplan.facSort = nil;

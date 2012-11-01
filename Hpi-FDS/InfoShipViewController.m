@@ -142,7 +142,7 @@
                             vbPlan.factoryName,
                             vbPlan.portName,
                             vbPlan.supplier,
-                            [NSString stringWithFormat:@"%d",vbPlan.eLw],
+                            [NSString stringWithFormat:@"%.2f",vbPlan.eLw],
                             vbPlan.eTaf,nil]];
     }
     

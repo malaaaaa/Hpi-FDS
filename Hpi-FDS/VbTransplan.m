@@ -9,8 +9,8 @@
 #import "VbTransplan.h"
 
 @implementation VbTransplan
-@synthesize planCode, planMonth, shipName, factoryCode, factoryName, portCode, portName, tripNo, eTap, eTaf, supplier, coalType, keyValue, keyName, schedule, description, serialNo, facSort;
-@synthesize shipID, eLw, supID, typeID,heatvalue,sulfur;
+@synthesize planCode, planMonth, shipName, factoryCode, factoryName, portCode, portName, tripNo, eTap, eTaf, supplier, coalType, keyValue, keyName, schedule, description,  facSort;
+@synthesize shipID,serialNo, eLw, supID, typeID,heatvalue,sulfur;
 
 - (void)dealloc {
     [planCode release];
@@ -29,7 +29,7 @@
     [keyName release];
     [schedule release];
     [description release];
-    [serialNo release];
+    
     [facSort release];
     [super dealloc];
 }
