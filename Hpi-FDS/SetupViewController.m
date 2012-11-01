@@ -15,10 +15,10 @@
 @end
 
 @implementation SetupViewController
-@synthesize tableView,xmlParser,activity;
+@synthesize tableView,xmlParser,activity,serverTextField;
 //定义 alter类型
 UIAlertView *alert;
-UITextField *textField=nil;
+UIAlertView *serverAlert;
 - (void)dealloc {
 	if (tableView) {
 		[tableView release];
@@ -28,6 +28,9 @@ UITextField *textField=nil;
     }
     if (activity) {
         [activity release];
+    }
+    if (serverTextField) {
+        [serverTextField release];
     }
     [super dealloc];
 }
@@ -49,14 +52,13 @@ UITextField *textField=nil;
     
     tableView.layer.masksToBounds=YES;
     tableView.layer.cornerRadius=5.0;
-
+    flag=0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [tableView reloadData];
 }
-
 
 - (void)viewDidUnload
 {
@@ -200,16 +202,16 @@ UITextField *textField=nil;
                     break;
                 case 3	:
                 
-                    if (!textField) {
-                        textField = [[UITextField alloc] initWithFrame:CGRectMake(75, 10, 280, 40)];
-                        textField.clearsOnBeginEditing = NO;//鼠标点上时，不清空
-                        textField.text=PubInfo.url;
-                        [cell.contentView addSubview:textField];
+                    if (!serverTextField) {
+                        serverTextField = [[UITextField alloc] initWithFrame:CGRectMake(75, 10, 280, 40)];
+                        serverTextField.clearsOnBeginEditing = NO;//鼠标点上时，不清空
+                        serverTextField.text=PubInfo.url;
+                        [cell.contentView addSubview:serverTextField];
                         cell.textLabel.text=@"服务器: ";
-                        [textField setDelegate: self];
-                        textField.returnKeyType = UIReturnKeyDone;
-                        [textField addTarget:self action:@selector(textfieldDone:) forControlEvents:UIControlEventEditingDidEnd];
-                        [textField release];
+                        [serverTextField setDelegate: self];
+                        serverTextField.returnKeyType = UIReturnKeyDone;
+                        [serverTextField addTarget:self action:@selector(textfieldDone:) forControlEvents:UIControlEventEditingDidEnd];
+                        [serverTextField release];
                     }
 
                     break;
@@ -339,20 +341,39 @@ UITextField *textField=nil;
     }
     [alert release];
 	alert = NULL;
-	
+    if (serverAlert==alertView) {
+        NSLog(@"dismiss");
+        [self.serverTextField becomeFirstResponder];
+    }
+
 }
 
 - (IBAction)textfieldDone:(id)sender {
-    [PubInfo setHostName:textField.text];
+    [PubInfo setHostName:serverTextField.text];
     [PubInfo setPort:@""];
     [PubInfo save];
+    flag=1;
+    NSLog(@"done");
+
 }
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     NSLog(@"textFieldShouldBeginEditing");  //测试用
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"该地址为后台服务器地址\n 请谨慎修改！" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil,nil];
-	[alert show];
-    [alert release];
+
+
     return  YES;
 }
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    NSLog(@"textFieldDidBeginEditing");
+    if (0==flag) {
+        [self.serverTextField resignFirstResponder];
+        serverAlert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"该地址为后台服务器地址\n 请谨慎修改！" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil,nil];
+        [serverAlert show];
+        [serverAlert release];
+
+    }
+}
+
 @end

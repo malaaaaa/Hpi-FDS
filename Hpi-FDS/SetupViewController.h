@@ -13,9 +13,14 @@
     IBOutlet UITableView *tableView;
     XMLParser *xmlParser;
     UIActivityIndicatorView *activity;
+    UITextField *serverTextField;
+    NSInteger flag;
 }
 
 @property(nonatomic,retain) UITableView *tableView;
 @property(nonatomic,retain) XMLParser *xmlParser;
 @property(nonatomic,retain) UIActivityIndicatorView *activity;
+@property(nonatomic,retain) UITextField *serverTextField;
+
+
 @end
