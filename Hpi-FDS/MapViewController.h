@@ -17,6 +17,7 @@
 #import "ShipInfoViewController.h"
 #import "SummaryInfoViewController.h"
 #import "XMLParser.h"	
+#import "Reachability.h"
 
 #import "ChooseViewDelegate.h"
 

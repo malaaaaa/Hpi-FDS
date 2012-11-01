@@ -23,7 +23,7 @@
     
     
     IBOutlet UITextField *emile;
-    
+    IBOutlet UITextField *server;
 
 
     RequestData *requestData;
@@ -32,7 +32,7 @@
     
     LoginResponse *logr;
     NSString *method;
-    
+    BOOL connectError;
     int finish;
     
 }
@@ -40,6 +40,7 @@
 @property(nonatomic,retain)UITextField *partName;
 @property(nonatomic,retain)UITextField *Phone;
 @property(nonatomic,retain)UITextField *emile;
+@property(nonatomic,retain)UITextField *server;
 @property(nonatomic,retain)  RequestData *requestData;
 
 
@@ -51,6 +52,8 @@
 
 
 @property int finish;
+@property BOOL connectError;
+
 
 -(void)requestSoap:(NSString *)requestStr;
 @end

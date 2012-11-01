@@ -161,7 +161,10 @@ typedef enum{
 +(NSString *)isSucess;
 +(void)setIsSucess:(NSString*) theissucess;
 
-
++(void)setHostName:(NSString*) newHostName;
++(NSString *)hostName;
++(void)setPort:(NSString*) newPort;
++(NSString *)port;
 
 
 +(NSString *)autoUpdate;
@@ -218,5 +221,7 @@ typedef enum{
 //计算两个  string1(yyyy-MM-dd HH:mm:ss) 和string2(yyyy-MM-dd HH:mm:ss)    时间之间的时间段 返回 %d天%d小时%d分钟  如果有一个时间为“未知”   则返回 0天0小时0分钟
 +(NSString *)formatInfoDate  :(NSString *)string1 :(NSString *)string2;
 
+//判断邮箱地址是否合法
++ (BOOL) validateEmail: (NSString *) candidate;
 
 @end

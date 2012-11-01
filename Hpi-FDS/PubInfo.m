@@ -162,7 +162,7 @@ static NSString *deviceID;
 //	NSArray *tempArray = [[[NSArray alloc] initWithContentsOfFile:fileName] autorelease];
     NSArray *tempArray = [[NSArray alloc] initWithContentsOfFile:fileName] ;
 	//NSLog(@"data=%d",[tempArray count]);
-	if([tempArray count]<4)
+	if([tempArray count]<6)
 	{
         //此处用Analyze工具监测会出现可能内存泄漏的提示，tempArray不能autorelease，否则会崩溃
 		userName=@"developer";
@@ -177,6 +177,8 @@ static NSString *deviceID;
 		autoUpdate=[tempArray objectAtIndex:1];
         updateTime=[tempArray objectAtIndex:2];
         isSucess=[tempArray objectAtIndex:3];
+        hostName=[tempArray objectAtIndex:4];
+        port=[tempArray objectAtIndex:5];
 	}    
   
 //    [tempArray release];
@@ -189,6 +191,8 @@ static NSString *deviceID;
                           autoUpdate,
                           updateTime,
                           isSucess,
+                          hostName,
+                          port,
 						  nil
 						  ];
 	NSArray *paths= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -220,11 +224,33 @@ static NSString *deviceID;
 	return userInfoUrl;	
 }
 
++(void)setHostName:(NSString*) newHostName
+{
+    if (hostName!=newHostName) {
+        [hostName release];
+        hostName=[newHostName retain];
+    }
+}
++(NSString *)hostName
+{	
+	return hostName;
+}
++(void)setPort:(NSString*) newPort
+{
+    if (port!=newPort) {
+        [port release];
+        port=[newPort retain];
+    }
+}
++(NSString *)port
+{	
+	return port;
+}
 +(void)setUserName:(NSString*) theName
 {
 	[userName release];
 	userName=theName;
-	[userName retain];
+	[theName retain];
 }
 +(NSString *)userName
 {
@@ -242,7 +268,7 @@ static NSString *deviceID;
 {
     [isSucess release];
 	isSucess=theissucess;
-	[isSucess retain];
+	[theissucess retain];
 }
 
 
@@ -256,7 +282,7 @@ static NSString *deviceID;
 {
 	[autoUpdate release];
 	autoUpdate=update;
-	[autoUpdate retain];
+	[update retain];
 }
 +(NSString *)autoUpdate
 {
@@ -272,7 +298,7 @@ static NSString *deviceID;
 {
 	[updateTime release];
 	updateTime=time;
-	[updateTime retain];
+	[time retain];
 }
 +(NSString *)deviceID
 {
@@ -546,6 +572,12 @@ static NSString *deviceID;
 }
 
 
++ (BOOL) validateEmail: (NSString *) candidate {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    
+    return [emailTest evaluateWithObject:candidate];
+}
 
 
 @end
