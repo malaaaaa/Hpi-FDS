@@ -14,4 +14,7 @@
 @property(nonatomic,retain)NSString *RETCODE;
 @property(nonatomic,retain)NSString *STAGE;
 
+
+
+
 @end
