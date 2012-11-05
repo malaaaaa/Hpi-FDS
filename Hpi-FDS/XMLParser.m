@@ -1950,11 +1950,16 @@ NSString* alertMsg;
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"3 DONE. Received Bytes: %d", [webData length]);
-//        NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
-//        NSLog(@"theXML[%@]",theXML);
-//        [theXML release];
+     
+   // NSString *theXML1 = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+   // NSLog(@"theXML[%@]",theXML1);
+    //[theXML1 release];
     
     NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:6 encoding:NSUTF8StringEncoding];
+    
+    
+   
+    
     //没找到其它办法，通过返回报文前6位字符串判断是否出错，需要验证
     if ([theXML isEqualToString:@"<html>"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"调用后台服务出错！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];

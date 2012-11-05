@@ -65,6 +65,7 @@ static sqlite3	*database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
+    /*
 	NSLog(@"infoId=%d", tiListinfo.infoId);
 	NSLog(@"columns=%d", tiListinfo.columns);
 	NSLog(@"rows=%d", tiListinfo.rows);
@@ -72,7 +73,7 @@ static sqlite3	*database;
 	NSLog(@"dataValue=%@", tiListinfo.dataValue);
 	NSLog(@"decLength=%d", tiListinfo.decLength);
 	NSLog(@"url=%@", tiListinfo.url);
-    
+    */
 	sqlite3_bind_int(statement, 1, tiListinfo.infoId);
     sqlite3_bind_int(statement, 2, tiListinfo.columns);
     sqlite3_bind_int(statement, 3, tiListinfo.rows);
@@ -124,7 +125,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT infoId,columns,rows,title,dataValue,decLength,url FROM  TiListinfo WHERE %@ ",sql1];
-    NSLog(@"执行 getTiListinfoBySql [%@] ",sql);
+   // NSLog(@"执行 getTiListinfoBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

@@ -88,7 +88,7 @@ static sqlite3 *database;
     re=sqlite3_step(statement);
 	if(re!=SQLITE_DONE)
 	{
-		NSLog( @"Error: insert NTLateFeeHCFX error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
+		//NSLog( @"Error: insert NTLateFeeHCFX error with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
 		sqlite3_finalize(statement);
 		return;
 	}
@@ -132,7 +132,8 @@ static sqlite3 *database;
     [NTLateFeeHCFXDao deleteAll];
     sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"select TB_LATEFEE.FACTORYCODE,TFFACTORY.FACTORYNAME,count(TRIPNO) AS TRIPNO,round(SUM(LW/10000.0),2 ) as LW,round(sum(LATEFEE/1000000.0) ,2 ) as LATEFEE from TB_LATEFEE Inner Join TFFACTORY On TB_LATEFEE.FACTORYCODE = TFFACTORY.FACTORYCODE where TB_LATEFEE.iscal=1 and strftime('%%Y-%%m-%%d',tradetime)>='%@' and strftime('%%Y-%%m-%%d',tradetime)<='%@' %@ group by TFFACTORY.fACTORYNAME,TB_LATEFEE.FACTORYCODE  ",startDate,endDate,shiptransSubSql];
-    NSLog(@"执行 InsertByCompany Sql[%@] ",sql);
+    
+    //NSLog(@"执行 InsertByCompany Sql[%@] ",sql);
     
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
         while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -145,13 +146,12 @@ static sqlite3 *database;
             else
                 ntLateFeeHCFX.factory = [NSString stringWithUTF8String: rowData0];
             
-             ntLateFeeHCFX.hc= sqlite3_column_int(statement,2);
+            ntLateFeeHCFX.hc=sqlite3_column_int(statement,2);
             
-             ntLateFeeHCFX.yl= sqlite3_column_double(statement,3);
+            ntLateFeeHCFX.yl=sqlite3_column_double(statement,3);
             
-            ntLateFeeHCFX.latefee= sqlite3_column_double(statement,4);
-            NSLog(@"factory%@",ntLateFeeHCFX.factory);
-            NSLog(@"latefee%f",ntLateFeeHCFX.latefee);
+            ntLateFeeHCFX.latefee=sqlite3_column_double(statement,4);
+
             
             [NTLateFeeHCFXDao insert:ntLateFeeHCFX];
             [ntLateFeeHCFX release];
@@ -173,7 +173,7 @@ static sqlite3 *database;
     NSString *sql=@"select  factory||'('||latefee||')',latefee from NTLateFeeHCFX order by latefee asc";
     //    NSString *sql=@"select  factory,efficiency from PortEfficiency order by efficiency asc";
     
-    NSLog(@"执行 getNTLateFeeHCFXDao [%@] ",sql);
+  //  NSLog(@"执行 getNTLateFeeHCFXDao [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
     
@@ -204,7 +204,7 @@ static sqlite3 *database;
     NSString *sql=@"select  factory||'('||hc||')',hc from NTLateFeeHCFX order by hc asc";
     //    NSString *sql=@"select  factory,efficiency from PortEfficiency order by efficiency asc";
     
-    NSLog(@"执行 getNTLateFeeHCFXDao [%@] ",sql);
+   //NSLog(@"执行 getNTLateFeeHCFXDao [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
     
@@ -235,7 +235,7 @@ static sqlite3 *database;
     NSString *sql=@"select  factory||'('||yl||')',yl from NTLateFeeHCFX order by yl asc";
     //    NSString *sql=@"select  factory,efficiency from PortEfficiency order by efficiency asc";
     
-    NSLog(@"执行 getNTLateFeeHCFXDao [%@] ",sql);
+  //  NSLog(@"执行 getNTLateFeeHCFXDao [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
     
@@ -260,11 +260,66 @@ static sqlite3 *database;
     
 	return array;
 }
++(BOOL)isNoData_HC
+{
+
+    sqlite3_stmt *statement;
+    NSString *sql=@"select  max(HC) from NTLateFeeHCFX ";
+   // NSLog(@"执行 isNoData_HC [%@] ",sql);
+    
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+            double maxNumber=sqlite3_column_double(statement,0);
+            if (0==maxNumber) {
+                sqlite3_finalize(statement);
+                return YES;
+            }
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+    sqlite3_finalize(statement);
+	return NO;
+
+
+
+ 
+}
++(BOOL)isNoData_YL
+{
+    
+    sqlite3_stmt *statement;
+    NSString *sql=@"select  max(YL) from NTLateFeeHCFX ";
+   //NSLog(@"执行 isNoData_YL [%@] ",sql);
+    
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+            double maxNumber=sqlite3_column_double(statement,0);
+            if (0==maxNumber) {
+                sqlite3_finalize(statement);
+                return YES;
+            }
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+    sqlite3_finalize(statement);
+	return NO;
+    
+    
+    
+    
+}
+
+
+
+
+
 +(BOOL) isNoData_LATEFEE
 {
 	sqlite3_stmt *statement;
     NSString *sql=@"select  max(latefee) from NTLateFeeHCFX ";
-    NSLog(@"执行 isNoData [%@] ",sql);
+   // NSLog(@"执行 isNoData_LATEFEE [%@] ",sql);
     
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -280,6 +335,9 @@ static sqlite3 *database;
     sqlite3_finalize(statement);
 	return NO;
 }
+
+
+
 +(NSInteger) getFactoryCount
 {
 	sqlite3_stmt *statement;

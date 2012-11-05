@@ -7,6 +7,8 @@
 //
 
 #import "NTLateFeeHcfxVC.h"
+#import "NTLateFeeHCFX.h"
+
 @interface NTLateFeeHcfxVC ()
 
 @end
@@ -256,8 +258,10 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 -(IBAction)queryData:(id)sender
 {
     [self generateGraphDate];
+    
+    
     //增加判断，如果Y轴数据全部为0，组件WSChart崩溃，所以不显示
-    if ([NTLateFeeHCFXDao isNoData_LATEFEE]) {
+    if ([NTLateFeeHCFXDao isNoData_LATEFEE]&&[NTLateFeeHCFXDao isNoData_YL]&&[NTLateFeeHCFXDao isNoData_HC]) {
         UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"提示" message:@"查询结果为空！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil ];
         [alertView show];
         [alertView release];
@@ -268,6 +272,9 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     else{
         [self loadHpiGraphView];
     }
+    
+   
+    
 }
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
@@ -278,7 +285,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
    // NSLog(@"aaa");
     if (buttonIndex == 1) {
-        NSLog(@"bbb");
+       // NSLog(@"bbb");
         [self.view addSubview:_activity];
         [_reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [_activity startAnimating];
@@ -293,7 +300,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 -(void)runActivity
 {
     if ([_tbxmlParser iSoapNum]==0) {
-        NSLog(@"_tbxmlParser iSoapNum===============%d=",_tbxmlParser. iSoapNum);
+       // NSLog(@"_tbxmlParser iSoapNum===============%d=",_tbxmlParser. iSoapNum);
         
         [_activity stopAnimating];
         [_activity removeFromSuperview];
@@ -302,7 +309,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
     }
     else if (_tbxmlParser.iSoapDone==3)
     {
-        NSLog(@"_tbxmlParser.iSoapDone============%d====",_tbxmlParser.iSoapDone);
+       // NSLog(@"_tbxmlParser.iSoapDone============%d====",_tbxmlParser.iSoapDone);
         if (_activity) {
             [_activity stopAnimating];
             [_activity removeFromSuperview];
@@ -324,7 +331,7 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 }
 
 -(void)generateGraphDate{
-    NSLog(@"count=%d", [ShipCompanyArray count]);
+  //  NSLog(@"count=%d", [ShipCompanyArray count]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
@@ -451,51 +458,128 @@ static WSChart *electionChart2=nil; //第三张滞期费图表
 
 - (WSData *)getData_LATEFEE {
     
-    NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_LATEFEE];
-    NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
-    NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
     
-    for (int i=0; i<[array count]; i++) {
-        NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
-        //        NSLog(@"factory=%@",portEfficiency.factory);
-        [arrayX addObject:ntLateFeeHCFX.factory];
-        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.latefee]];
+    if ([NTLateFeeHCFXDao isNoData_LATEFEE]) {//全为0的情况
+        
+        NSLog(@"全为00");
+        
+        NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_LATEFEE];
+        NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
+        
+        for (int i=0; i<[array count]; i++) {
+            NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+            //        NSLog(@"factory=%@",portEfficiency.factory);
+            [arrayX addObject:ntLateFeeHCFX.factory];
+            
+            
+            
+            [arrayY addObject:[NSNumber numberWithDouble:.0000000000000000000000001]];
+        }
+       // NSLog(@"arrayYcount=%d",[arrayY count]);
+        return [WSData dataWithValues:arrayY
+                          annotations:arrayX];
+        
+    }else
+    {
+        NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_LATEFEE];
+        NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
+        
+        for (int i=0; i<[array count]; i++) {
+            NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+            //        NSLog(@"factory=%@",portEfficiency.factory);
+            [arrayX addObject:ntLateFeeHCFX.factory];
+            
+            
+            
+            [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.latefee]];
+        }
+        //NSLog(@"arrayYcount=%d",[arrayY count]);
+        return [WSData dataWithValues:arrayY
+                          annotations:arrayX];
+    
+    
+    
     }
-    NSLog(@"arrayYcount=%d",[arrayY count]);
-    return [WSData dataWithValues:arrayY
-                      annotations:arrayX];
+    
+    
+   
 }
 - (WSData *)getData_HC {
-    
-    NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_HC];
-    NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
-    NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
-    
-    for (int i=0; i<[array count]; i++) {
-        NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
-        NSLog(@"hc=%d=%@",ntLateFeeHCFX.hc,ntLateFeeHCFX.factory);
-        [arrayX addObject:ntLateFeeHCFX.factory];
-        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.hc]];
+    if ([NTLateFeeHCFXDao isNoData_HC]) {
+        NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_HC];
+        NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
+        
+        for (int i=0; i<[array count]; i++) {
+            NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+            //NSLog(@"hc=%d=%@",ntLateFeeHCFX.hc,ntLateFeeHCFX.factory);
+            [arrayX addObject:ntLateFeeHCFX.factory];
+            [arrayY addObject:[NSNumber numberWithDouble:0.00000000000000000000000001]];
+        }
+       // NSLog(@"arrayYcount=%d",[arrayY count]);
+        return [WSData dataWithValues:arrayY
+                          annotations:arrayX];
+
     }
-    NSLog(@"arrayYcount=%d",[arrayY count]);
-    return [WSData dataWithValues:arrayY
-                      annotations:arrayX];
+    else
+    {
+    
+        NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_HC];
+        NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
+        
+        for (int i=0; i<[array count]; i++) {
+            NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+           // NSLog(@"hc=%d=%@",ntLateFeeHCFX.hc,ntLateFeeHCFX.factory);
+            [arrayX addObject:ntLateFeeHCFX.factory];
+            [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.hc]];
+        }
+      //  NSLog(@"arrayYcount=%d",[arrayY count]);
+        return [WSData dataWithValues:arrayY
+                          annotations:arrayX];
+    
+    }
+    
+    
 }
 - (WSData *)getData_YL {
+    if ([NTLateFeeHCFXDao isNoData_YL]) {
+        NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_YL];
+        NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
+        
+        for (int i=0; i<[array count]; i++) {
+            NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+            //        NSLog(@"factory=%@",portEfficiency.factory);
+            [arrayX addObject:ntLateFeeHCFX.factory];
+            [arrayY addObject:[NSNumber numberWithDouble:0.00000000000000001]];
+        }
+      //  NSLog(@"arrayYcount=%d",[arrayY count]);
+        return [WSData dataWithValues:arrayY
+                          annotations:arrayX];
+    }else
+    {
     
-    NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_YL];
-    NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
-    NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *array = [NTLateFeeHCFXDao getNTLateFeeHCFX_YL];
+        NSMutableArray *arrayX = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *arrayY = [[[NSMutableArray alloc] init] autorelease];
+        
+        for (int i=0; i<[array count]; i++) {
+            NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
+            //        NSLog(@"factory=%@",portEfficiency.factory);
+            [arrayX addObject:ntLateFeeHCFX.factory];
+            [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.yl]];
+        }
+       // NSLog(@"arrayYcount=%d",[arrayY count]);
+        return [WSData dataWithValues:arrayY
+                          annotations:arrayX];
     
-    for (int i=0; i<[array count]; i++) {
-        NTLateFeeHCFX *ntLateFeeHCFX= [array objectAtIndex:i];
-        //        NSLog(@"factory=%@",portEfficiency.factory);
-        [arrayX addObject:ntLateFeeHCFX.factory];
-        [arrayY addObject:[NSNumber numberWithDouble:ntLateFeeHCFX.yl]];
     }
-    NSLog(@"arrayYcount=%d",[arrayY count]);
-    return [WSData dataWithValues:arrayY
-                      annotations:arrayX];
+    
+    
+   
 }
 #pragma mark multipleSelectViewdidSelectRow Delegate Method
 -(void)multipleSelectViewdidSelectRow:(NSInteger)indexPathRow

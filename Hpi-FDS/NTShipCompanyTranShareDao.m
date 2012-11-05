@@ -57,7 +57,7 @@ static sqlite3 *database;
 	char *errorMsg;
 	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS TMP_NTShipCompanyTranShare  (TAG INTEGER PRIMARY KEY  ",
-						 @",COMID TEXT ",
+						 @",COMID INTEGER ",
                          @",COMPANY TEXT ",
                          @",TRADEYEAR TEXT ",
                          @",TRADEWEEK TEXT ",
@@ -183,6 +183,7 @@ static sqlite3 *database;
     [NTShipCompanyTranShareDao deleteAll_tmpTable];
     NSMutableString *tmpString = [[NSMutableString alloc] init ];
     NSInteger   sumLW=0;
+
     if ([portCode count]>0) {
         int count=0;
         for (int i=0; i<[portCode count]; i++) {
@@ -206,25 +207,40 @@ static sqlite3 *database;
     NSInteger monthNum= [PubInfo getMonthDifference:startDate :endDate];
     NSString *year= [startDate substringToIndex:4];
     NSString *month=[startDate substringFromIndex:4];
+    //.................
+    NSInteger  shiDai=0;
+    NSInteger riNing=0;
+    NSInteger huaLU=0;
+    NSInteger qiTa=0;
+    NSInteger flZhong=0;
+    NSInteger zHai=0;
+    
+    NSInteger total=0;
+    
     for (int i=0; i<monthNum; i++) {
         sqlite3_stmt *statement;
         NSString *sql=[NSString stringWithFormat:@"SELECT sum(lwsum) from NTShipCompanyTranShare where tradeyear='%@' and tradeweek='%@' %@ ",year,month,tmpString];
-//       NSLog(@"执行 InsertByPortCode Sql[%@] ",sql);
+   //   NSLog(@"执行 InsertByPortCode Sql[%@] ",sql);
         
         if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
             while (sqlite3_step(statement)==SQLITE_ROW) {
                 
-                sumLW= sqlite3_column_int(statement,0);
+                sumLW+= sqlite3_column_int(statement,0);
                 
             }
         }
         if (sumLW>0) {
+           
+            NSString *TRADEYEAR;
+            NSString *TRADEWEEK;
+            NSMutableArray *cmParyArr=[[NSMutableArray alloc] initWithObjects:@"时代",@"瑞宁",@"华鲁", @"其它",@"福轮总",@"中海",nil];
             
+            NSMutableArray *arr=[[NSMutableArray alloc] init];
             sql=[NSString stringWithFormat:@"select comid,company,tradeyear,tradeweek,sum(lwsum) from NTShipCompanyTranShare where tradeyear='%@' and tradeweek='%@' %@ group by comid,company,tradeyear,tradeweek",year,month,tmpString];
-//            NSLog(@"执行 InsertByPortCode Sql[%@] ",sql);
+            //NSLog(@"执行 InsertByPortCode Sql[%@] ",sql);
             if(sqlite3_prepare_v2(database,[sql     UTF8String],-1,&statement,NULL)==SQLITE_OK){
                 while (sqlite3_step(statement)==SQLITE_ROW) {
-                    
+                   
                     
                     NTShipCompanyTranShare *ntShipCompanyTranShare=[[NTShipCompanyTranShare alloc] init];
                     
@@ -237,21 +253,57 @@ static sqlite3 *database;
                     else
                         ntShipCompanyTranShare.COMPANY = [NSString stringWithUTF8String: rowData1];
                     
+                    if (ntShipCompanyTranShare.COMPANY!=nil )
+                        [arr    addObject: ntShipCompanyTranShare.COMPANY];
+                    
+                    
                     char * rowData2=(char *)sqlite3_column_text(statement,2);
                     if (rowData2 == NULL)
                         ntShipCompanyTranShare.TRADEYEAR = nil;
                     else
                         ntShipCompanyTranShare.TRADEYEAR = [NSString stringWithUTF8String: rowData2];
                     
+                    TRADEYEAR=ntShipCompanyTranShare.TRADEYEAR;
+                    
+                    
                     char * rowData3=(char *)sqlite3_column_text(statement,3);
                     if (rowData3 == NULL)
                         ntShipCompanyTranShare.TRADEWEEK = nil;
                     else
                         ntShipCompanyTranShare.TRADEWEEK = [NSString stringWithUTF8String: rowData3];
-                    
+                    TRADEWEEK=ntShipCompanyTranShare.TRADEWEEK;
+
                     ntShipCompanyTranShare.LWSUM   =  sqlite3_column_int(statement,4);
                     
-                    float percent=(float)ntShipCompanyTranShare.LWSUM/sumLW;
+                    if (ntShipCompanyTranShare.COMPANY!=nil &&[ntShipCompanyTranShare.COMPANY isEqualToString:@"时代"]) {
+                        shiDai+=ntShipCompanyTranShare.LWSUM ;
+                        total=shiDai;  
+                    }else if (ntShipCompanyTranShare.COMPANY!=nil &&[ntShipCompanyTranShare.COMPANY isEqualToString:@"瑞宁"])
+                    {
+                        riNing+=ntShipCompanyTranShare.LWSUM ;
+                        total=riNing;  
+                    }else if (ntShipCompanyTranShare.COMPANY!=nil &&[ntShipCompanyTranShare.COMPANY isEqualToString:@"华鲁"])
+                    {
+                        huaLU+=ntShipCompanyTranShare.LWSUM ;
+                        total=huaLU;
+                        
+                    }else if (ntShipCompanyTranShare.COMPANY!=nil &&[ntShipCompanyTranShare.COMPANY isEqualToString:@"其它"])
+                    {
+                        qiTa+=ntShipCompanyTranShare.LWSUM ;
+                        total=qiTa; 
+                    }else if (ntShipCompanyTranShare.COMPANY!=nil &&[ntShipCompanyTranShare.COMPANY isEqualToString:@"福轮总"])
+                    {
+                        flZhong+=ntShipCompanyTranShare.LWSUM ;
+                        total=flZhong; 
+                    }else if (ntShipCompanyTranShare.COMPANY!=nil &&[ntShipCompanyTranShare.COMPANY isEqualToString:@"中海"])
+                    {  
+                        zHai+=ntShipCompanyTranShare.LWSUM ;
+                        total=zHai;
+                    }
+                    //数据矫正............  
+                    //当前月加前几个月
+                    float percent=(float)total/sumLW;
+                    
                     //保留三位小数
                     //                    NSLog(@"%0.3f",percent);
                     ntShipCompanyTranShare.PERCENT =[NSString stringWithFormat:@"%0.1f", percent*100];
@@ -261,6 +313,58 @@ static sqlite3 *database;
                     
                 }
             }
+            if ([arr count]>0) {
+                for (int i=0; i<[cmParyArr count]; i++) {
+                    
+                    if (![arr containsObject:[cmParyArr objectAtIndex:i]]) {
+                        //插入数据
+                        //定死     要从数据库查......
+                        NTShipCompanyTranShare *ntShipCompanyTranShare=[[NTShipCompanyTranShare alloc] init];
+                        float percent=0.0;
+                        if ([[cmParyArr objectAtIndex:i] isEqualToString:@"时代"]) {
+                            ntShipCompanyTranShare.COMID=4;
+                            ntShipCompanyTranShare.COMPANY=@"时代";
+                            
+                            percent=(float)shiDai/sumLW;
+                            
+                        }else if ([[cmParyArr objectAtIndex:i] isEqualToString:@"瑞宁"])
+                        {
+                            ntShipCompanyTranShare.COMID=5;
+                            ntShipCompanyTranShare.COMPANY=@"瑞宁";
+                            percent=(float)riNing/sumLW;
+                        }else if ([[cmParyArr objectAtIndex:i] isEqualToString:@"华鲁"])
+                        {
+                            ntShipCompanyTranShare.COMID=6;
+                            ntShipCompanyTranShare.COMPANY=@"华鲁";
+                            percent=(float)huaLU/sumLW;
+                            
+                        }else if ([[cmParyArr objectAtIndex:i] isEqualToString:@"其它"])
+                        {
+                            ntShipCompanyTranShare.COMID=7;
+                            ntShipCompanyTranShare.COMPANY=@"其它";
+                            percent=(float)qiTa/sumLW;
+                        }else if ([[cmParyArr objectAtIndex:i] isEqualToString:@"福轮总"])
+                        {
+                            ntShipCompanyTranShare.COMID=9;
+                            ntShipCompanyTranShare.COMPANY=@"福轮总";
+                            percent=(float)flZhong/sumLW;
+                        }else if ([[cmParyArr objectAtIndex:i] isEqualToString:@"中海"])
+                        {
+                            ntShipCompanyTranShare.COMID=12;
+                            ntShipCompanyTranShare.COMPANY=@"中海";
+                            percent=(float)zHai/sumLW;
+                        }
+                        ntShipCompanyTranShare.TRADEYEAR=TRADEYEAR;
+                        ntShipCompanyTranShare.TRADEWEEK = TRADEWEEK;
+                        ntShipCompanyTranShare.LWSUM =0;
+                        ntShipCompanyTranShare.PERCENT =[NSString stringWithFormat:@"%0.1f", percent*100];
+                        [NTShipCompanyTranShareDao insert_tmpTable:ntShipCompanyTranShare];
+                        [ntShipCompanyTranShare release]; 
+                    }
+                }
+            }
+            [cmParyArr release];
+            [arr release];
             
         }
         
@@ -285,7 +389,7 @@ static sqlite3 *database;
         NSLog(@"exec commit error");
         return;
     }
-    NSLog(@"insert over");
+   // NSLog(@"insert over");
 }
 +(NTShipCompanyTranShare *) getTransShareByComid:(NSInteger)comid Year:(NSString *)year Month:(NSString *)month
 {
@@ -293,7 +397,7 @@ static sqlite3 *database;
     NTShipCompanyTranShare *transShare=[[[NTShipCompanyTranShare alloc] init] autorelease];
     
     NSString *sql=[NSString stringWithFormat:@"SELECT company,percent,tag FROM  TMP_NTShipCompanyTranShare WHERE comid=%d and tradeyear='%@' and tradeweek='%@' ",comid,year,month];
-    //NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
+   // NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			

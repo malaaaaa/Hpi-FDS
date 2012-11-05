@@ -65,8 +65,13 @@
     NSLog(@"查询 %@ 在厂信息 %d条记录",self.factoryName,[array count]);
     
     ds.data=[[[NSMutableArray alloc]init] autorelease];
+        
     for (i=0;i<[array count];i++) {
-        TgShip *tgShip=[array objectAtIndex:i];
+         TgShip *tgShip=[array objectAtIndex:i];
+
+       
+        
+       
         [ds.data addObject:[NSArray arrayWithObjects:
                             kBLACK,
                             [NSString stringWithFormat:@"   %d - %@",i+1,
@@ -77,9 +82,14 @@
                             [NSString stringWithFormat:@"%d",tgShip.heatValue],
                             [NSString stringWithFormat:@"%d",tgShip.lw],
                             tgShip.statName,
-                            tgShip.eta,nil]];
+                           tgShip.eta,nil]];
+        
+       
+        
         
     }
+    
+    
 	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 35, 600, 175) data:ds];
 	[ds release];
 	[self.view addSubview:grid];

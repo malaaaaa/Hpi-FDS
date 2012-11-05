@@ -63,13 +63,14 @@ static sqlite3	*database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
+    /*
 	NSLog(@"infoId=%d", tmShipinfo.infoId);
 	NSLog(@"portCode=%@", tmShipinfo.portCode);
 	NSLog(@"recordDate=%@", tmShipinfo.recordDate);
 	NSLog(@"waitShip=%d", tmShipinfo.waitShip);
     NSLog(@"transactShip=%d", tmShipinfo.transactShip);
     NSLog(@"loadShip=%d", tmShipinfo.loadShip);
-    
+    */
     sqlite3_bind_int(statement, 1, tmShipinfo.infoId);
 	sqlite3_bind_text(statement, 2, [tmShipinfo.portCode UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 3, [tmShipinfo.recordDate UTF8String], -1, SQLITE_TRANSIENT);

@@ -20,4 +20,24 @@
 @synthesize PERCENT=_PERCENT;
 @synthesize X=_X;
 @synthesize Y=_Y;
+
+
+
+
+
+-(void)dealloc
+{
+
+
+
+
+
+    [super dealloc];
+}
+
+
+
+
+
+
 @end

@@ -224,6 +224,10 @@ NAFloat loground(NAFloat x);
     for (i=0; i<[strings count]; i++) {
         [positions addObject:[NSNumber numberWithInt:i]];
     }
+    
+    NSLog(@"strings=========%@",strings);
+    
+    
     [self ticksWithNumbers:positions labels:strings];
 }
 

@@ -62,11 +62,12 @@ static sqlite3	*database;
     {
         NSLog( @"Error: failed to prepare statement with message [%s]  sql[%s]", sqlite3_errmsg(database),insert);
     }
+    /*
 	NSLog(@"infoId=%d", tmIndexinfo.infoId);
 	NSLog(@"indexName=%@", tmIndexinfo.indexName);
 	NSLog(@"recordTime=%@", tmIndexinfo.recordTime);
 	NSLog(@"infoValue=%@", tmIndexinfo.infoValue);
-    
+    */
     sqlite3_bind_int(statement, 1, tmIndexinfo.infoId);
 	sqlite3_bind_text(statement, 2, [tmIndexinfo.indexName UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 3, [tmIndexinfo.recordTime UTF8String], -1, SQLITE_TRANSIENT);

@@ -42,6 +42,10 @@
 +(NSMutableArray *) getNTLateFeeHCFX_YL;
 
 +(BOOL) isNoData_LATEFEE;
++(BOOL)isNoData_HC;
++(BOOL)isNoData_YL;
+
+
 +(NSInteger) getFactoryCount;
 
 

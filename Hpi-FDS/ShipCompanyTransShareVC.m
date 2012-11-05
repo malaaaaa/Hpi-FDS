@@ -362,7 +362,7 @@ static  NSMutableArray *LegendArray;
     graphData.xtitles = [[NSMutableArray alloc]init];
     graphData.ytitles = [[NSMutableArray alloc]init];
     int minY = 0;
-    int maxY = 100;
+    int maxY = 50;
     
     graphData.yNum=(maxY-minY)*10;
     for(int i=0;i<6;i++)

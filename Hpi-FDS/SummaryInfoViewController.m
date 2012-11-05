@@ -14,7 +14,7 @@
 
 @implementation SummaryInfoViewController
 @synthesize popover;
-
+@synthesize scroll;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,9 +32,19 @@
 
 - (void)viewDidUnload
 {
+
     [super viewDidUnload];
+     
+    [scroll release];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+-(void)dealloc
+{
+    [scroll release];
+
+  
+    [super dealloc];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -54,7 +64,11 @@
     //    button.tag = 2000;
     //    [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
     //    [self.view addSubview:button];
-    
+    self.scroll=[[DataGridScrollView alloc] initWithFrame:CGRectMake(0, 0, 960, 300)];
+    self.scroll.pagingEnabled=NO;
+    self.scroll.delegate=self;
+    CGSize newSize=CGSizeMake(1120, 300);
+    [self.scroll setContentSize:newSize];
     
     int intY = 0;
     for(int j = 0; j < 5; j++)
@@ -62,7 +76,7 @@
         int intX = 0;
         if ((j+2)%2 != 0)
         {
-            for(int i = 0; i < 12; i++)
+            for(int i = 0; i < 14; i++)
             {
                 NSLog(@"=====%d=====",i);
                 if((i+2)%2 == 0)
@@ -70,11 +84,27 @@
                     NSMutableArray *array=[TiListinfoDao getTiListinfo:(i+1+1)/2 :j+1];
                     NSLog(@"######%d#######",[array count]);
                     if ([array count]>0) {
-                        TiListinfo *tiListinfo=[array objectAtIndex:0];
-                        NSLog(@"shuang");
-                        NSLog(@"**%d**%d**",i+1,j+1);
-                        [self drawLabel:intX :intY :100-1 :60-1 :tiListinfo.title];
-                        intX += 100;
+                        if (i==10) {
+                            TiListinfo *tiListinfo=[array objectAtIndex:0];
+                            NSLog(@"shuang");
+                            NSLog(@"**%d**%d**",i+1,j+1);
+                            [self drawLabel:intX :intY :140-1 :60-1 :tiListinfo.title];
+                            intX += 140;
+                        }else
+                        {
+                        
+                        
+                            TiListinfo *tiListinfo=[array objectAtIndex:0];
+                            NSLog(@"shuang");
+                            NSLog(@"**%d**%d**",i+1,j+1);
+                            [self drawLabel:intX :intY :100-1 :60-1 :tiListinfo.title];
+                            intX += 100;
+                        
+                        
+                        }
+                        
+                        
+                        
                     }
                     
                 }
@@ -106,7 +136,7 @@
         }
         else
         {
-            for(int i = 0; i < 12; i++)
+            for(int i = 0; i < 14; i++)
             {
                 NSLog(@"=====%d=====",i);
                 if((i+2)%2 == 0)
@@ -114,16 +144,43 @@
                     NSMutableArray *array=[TiListinfoDao getTiListinfo:(i+1+1)/2 :j+1];
                     if ([array count]>0) {
                         
-                        NSLog(@"######%d#######",[array count]);
-                        TiListinfo *tiListinfo=[array objectAtIndex:0];
-                        NSLog(@"shuang");
-                        NSLog(@"**%d**%d**",i+1,j+1);
-                        [self drawLabel2:intX :intY :100-1 :60-1 :tiListinfo.title];
-                        intX += 100;
+                        if (i==10) {
+                            NSLog(@"######%d#######",[array count]);
+                            TiListinfo *tiListinfo=[array objectAtIndex:0];
+                            NSLog(@"shuang");
+                            NSLog(@"**%d**%d**",i+1,j+1);
+                            [self drawLabel2:intX :intY :140-1 :60-1 :tiListinfo.title];
+                            intX += 140;
+ 
+                            
+                        }else{
+                        
+                        
+                            NSLog(@"######%d#######",[array count]);
+                            TiListinfo *tiListinfo=[array objectAtIndex:0];
+                            NSLog(@"shuang");
+                            NSLog(@"**%d**%d**",i+1,j+1);
+                            [self drawLabel2:intX :intY :100-1 :60-1 :tiListinfo.title];
+                            intX += 100;
+                        
+                        
+                        }
+                        
+                        
+                        
+                        
+                       
                     }
                 }
                 else
                 {
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     NSMutableArray *array=[TiListinfoDao getTiListinfo:(i+1)/2 :j+1];
                     if ([array count]>0) {
                         
@@ -154,7 +211,7 @@
     
     
     
-    
+    [self.view addSubview:self.scroll];
     
     
     //    //创建uilabel
@@ -195,11 +252,16 @@
     //    [self.view addSubview:label1];
     //    [label1 release];
     //
-    
+     
 }
 
 - (void)drawLabel :(NSInteger)intX :(NSInteger)intY :(NSInteger)intWidth :(NSInteger)intHeight :(NSString *)text
 {
+ 
+    
+    
+    
+    
     //创建uilabel
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(intX, intY, intWidth, intHeight)];
     //设置背景色
@@ -216,7 +278,13 @@
     label.adjustsFontSizeToFitWidth = YES;
     //文本高亮
     label.highlighted = YES;
-    [self.view addSubview:label];
+    
+    
+    
+    [self.scroll addSubview:label];
+    
+    
+    
     [label release];
 }
 - (void)drawLabel2 :(NSInteger)intX :(NSInteger)intY :(NSInteger)intWidth :(NSInteger)intHeight :(NSString *)text
@@ -237,7 +305,9 @@
     label.adjustsFontSizeToFitWidth = YES;
     //文本高亮
     label.highlighted = YES;
-    [self.view addSubview:label];
+    
+    
+     [self.scroll addSubview:label];
     [label release];
 }
 
