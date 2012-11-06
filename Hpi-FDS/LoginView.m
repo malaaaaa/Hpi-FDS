@@ -35,6 +35,7 @@ NSString* msg;
 
 UIAlertView *alert;
 UIAlertView *MailAlert;
+UIAlertView *serverAlert;
 static NSString *version = @"V1.2";
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,6 +58,8 @@ static NSString *version = @"V1.2";
     server.text=PubInfo.url;
     server.returnKeyType = UIReturnKeyDone;
     [server addTarget:self action:@selector(textfieldDone:) forControlEvents:UIControlEventEditingDidEnd];
+    flag=0;
+
 }
 
 - (IBAction)ZHUC:(id)sender {
@@ -73,7 +76,7 @@ static NSString *version = @"V1.2";
         [self regist];
     }
     else{
-        MailAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"邮箱地址非法，是否提交？" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:@"提交",nil ];
+        MailAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"邮箱地址为空或格式非法\n是否提交？" delegate:self cancelButtonTitle:@"重新输入" otherButtonTitles:@"提交",nil ];
         [MailAlert show];
         [MailAlert release];
 
@@ -141,8 +144,15 @@ static NSString *version = @"V1.2";
             [self regist];
         }
     }
-    else if (buttonIndex==0) {
-        exit(0);
+    if (alertView==alert) {
+        if (buttonIndex==0) {
+            exit(0);
+        }
+    }
+    if (alertView==serverAlert)
+    {
+        NSLog(@"dismiss");
+        [self.server becomeFirstResponder];
     }
 }
 
@@ -219,8 +229,9 @@ static NSString *version = @"V1.2";
     [connection release];
     [responseDate release];
     
-//    alertMsg = @"无法连接,请检查网络是否正常?";
-//    [self msgbox];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"连接失败！请检查服务器地址" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+    [alert show];
+    [alert release];
     connectError=YES;
 }
 
@@ -229,16 +240,27 @@ static NSString *version = @"V1.2";
     NSLog(@"--------------------------------------------  connectionDidFinishLoading");
     [connection release];
     NSString *result = [[NSString alloc] initWithBytes: [responseDate mutableBytes] length:[responseDate length] encoding:NSUTF8StringEncoding];
-
-     NSLog(@"%@",result);
-    [self XMLPART:method ];
+    
+    NSLog(@"login%@",result);
+    NSString *theXML = [[NSString alloc] initWithBytes: [responseDate mutableBytes] length:6 encoding:NSUTF8StringEncoding];
+    //没找到其它办法，通过返回报文前6位字符串判断是否出错，需要验证
+    if ([theXML isEqualToString:@"<html>"]||result==Nil) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"调用后台服务出错！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+        finish--;
+        
+    }
+    else{
+        [self XMLPART:method ];
+    }
 }
 
 
 -( void)XMLPART:(NSString *)element1
 {
-    self.logr=[[LoginResponse alloc] init] ;
-    
+
+    self.logr=[[LoginResponse alloc] init];
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
     NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];
     // char *errorMsg;
@@ -341,14 +363,24 @@ static NSString *version = @"V1.2";
     [PubInfo setHostName:server.text];
     [PubInfo setPort:@""];
     [PubInfo save];
+     flag=1;
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     NSLog(@"textFieldShouldBeginEditing");  //测试用
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"该地址为后台服务器地址\n 请谨慎修改！" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil,nil];
-	[alert show];
-    [alert release];
+   
     return  YES;
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    NSLog(@"textFieldDidBeginEditing");
+    if (0==flag) {
+        [self.server resignFirstResponder];
+        serverAlert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"该地址为后台服务器地址\n 请谨慎修改！" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil,nil];
+        [serverAlert show];
+        [serverAlert release];
+        
+    }
 }
 
 @end
