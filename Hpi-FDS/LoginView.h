@@ -34,7 +34,7 @@
     NSString *method;
     BOOL connectError;
     int finish;
-    
+     NSInteger flag;
 }
 @property(nonatomic,retain)UITextField *userName;
 @property(nonatomic,retain)UITextField *partName;
