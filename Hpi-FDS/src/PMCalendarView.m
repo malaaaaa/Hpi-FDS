@@ -349,23 +349,7 @@
         [f1 setDateFormat:@"MM"];
         [f setDateFormat:@"yyyy-MM-dd 00:00:00 +0000"];
      // NSLog(@"_currentDate ---------========== %@",_currentDate);
-   
-        
-    
-    
-    
-    
-        
-        
-        if (![[ f1 stringFromDate:  [[NSDate alloc]initWithTimeInterval:8*60*60 sinceDate: _currentDate ] ] isEqualToString:[f1 stringFromDate:[NSDate date]]]) {
-            
-            
-          // NSLog(@"当前月份============%@",[ f1 stringFromDate:  [[NSDate alloc]initWithTimeInterval:8*60*60 sinceDate:  _currentDate ] ]);
-            
-          //  NSLog(@"=======现在月份=====%@=========",[f1 stringFromDate:[NSDate date]]);
-            
-          //  NSLog(@"============bu相等=========");
-            
+     
             
         if (a<=2) {
             if (startIndex>0) {
@@ -376,21 +360,7 @@
                 
             }                 
         }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-                    
-   }
+
         
         [f release];
         [f1 release];

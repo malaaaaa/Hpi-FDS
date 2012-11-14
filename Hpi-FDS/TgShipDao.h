@@ -20,6 +20,7 @@
 +(void) delete:(TgShip*) tgShip;
 +(NSMutableArray *) getTgShip:(NSInteger)ShipID;
 +(NSMutableArray *) getTgShip;
++(NSMutableArray *) getTgShip_All;
 +(NSMutableArray *) getTgShipBySql:(NSString *)sql;
 +(NSMutableArray *) getTgShipZGPort:(NSString *)portName;
 +(NSMutableArray *) getTgShipSZZTPort:(NSString *)portName;

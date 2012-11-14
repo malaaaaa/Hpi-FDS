@@ -66,7 +66,7 @@
 #import "TH_SHIPTRANS_ORIDAO.h"
 
 typedef enum{
-    kPORT=0,
+    kPORT=0, //TG_PORT
     kFACTORY,
     kSHIP,
     kChPORT,
@@ -92,6 +92,7 @@ typedef enum{
     kfactoryCate,
     kTYPE, //电厂类型
     kSCHEDULE, //班轮
+    kPORT_F //TF_PORT
 } CoordinateType;
 
 

@@ -17,19 +17,14 @@
     NSString *UPLOAD;
     NSString *DOWNLOAD;
     NSString *NATIONALTYPE;
-
-
-
-
+    BOOL didSelected;
 }
 @property (nonatomic,retain)NSString *PORTCODE;
 @property (nonatomic,retain)NSString *PORTNAME;
 @property (nonatomic,retain) NSString *SORT;
 @property (nonatomic,retain)   NSString *UPLOAD;
 @property (nonatomic,retain)NSString *DOWNLOAD;
-
 @property (nonatomic,retain)NSString *NATIONALTYPE;
-
-
+@property (assign) BOOL didSelected;
 
 @end

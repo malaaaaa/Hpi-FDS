@@ -187,7 +187,7 @@ static sqlite3 *database;
     if ([portCode count]>0) {
         int count=0;
         for (int i=0; i<[portCode count]; i++) {
-            if (((TgPort *)[portCode objectAtIndex:i]).didSelected) {
+            if (((TfPort *)[portCode objectAtIndex:i]).didSelected) {
                 count++;
                 if (count==1) {
                     [tmpString appendString:@" AND PORTCODE in ("];
@@ -196,7 +196,7 @@ static sqlite3 *database;
                 if (count!=1) {
                     [tmpString appendString:@","];
                 }
-                [tmpString appendFormat:@"'%@'",((TgPort *)[portCode objectAtIndex:i]).portCode];
+                [tmpString appendFormat:@"'%@'",((TfPort *)[portCode objectAtIndex:i]).PORTCODE];
             }
         }
         if (count>0) {

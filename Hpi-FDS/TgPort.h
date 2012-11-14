@@ -6,17 +6,6 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-//create table TG_PORT 
-//(
-// PORTCODE             varchar(10)          not null,
-// SHIPNUM              numeric              not null,
-// HANDLESHIP           numeric              not null,
-// WAITSHIP             numeric              not null,
-// TRANSACTSHIP         numeric              not null,
-// LOADSHIP             numeric              not null,
-// constraint PK_TG_PORT primary key (PORTCODE)
-// )
-
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 

@@ -146,16 +146,16 @@ static  NSMutableArray *LegendArray;
     
     if ( PortPop==NO) { 
         PortArray=[[NSMutableArray alloc]init];
-        TgPort *allPort =  [[TgPort alloc] init];
-        allPort.portCode=All_;
-        allPort.portName=All_;
+        TfPort *allPort =  [[TfPort alloc] init];
+        allPort.PORTCODE=All_;
+        allPort.PORTNAME=All_;
         
         [PortArray addObject:allPort];
         [allPort release];
-        NSMutableArray *array=[TgPortDao getTgPort];
+        NSMutableArray *array=[TfPortDao getTfPort];
         for(int i=0;i<[array count];i++){
-            TgPort *tgPort=[array objectAtIndex:i];
-            [PortArray addObject:tgPort];
+            TfPort *tfPort=[array objectAtIndex:i];
+            [PortArray addObject:tfPort];
             
         }
         PortPop=YES;
@@ -164,7 +164,7 @@ static  NSMutableArray *LegendArray;
     _multipleSelectView.iDArray=PortArray;
     
     _multipleSelectView.parentMapView=self;
-    _multipleSelectView.type=kPORT;
+    _multipleSelectView.type=kPORT_F;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -362,7 +362,8 @@ static  NSMutableArray *LegendArray;
     graphData.xtitles = [[NSMutableArray alloc]init];
     graphData.ytitles = [[NSMutableArray alloc]init];
     int minY = 0;
-    int maxY = 50;
+//    int maxY = 50;
+    int maxY = 100;
     
     graphData.yNum=(maxY-minY)*10;
     for(int i=0;i<6;i++)
@@ -484,44 +485,44 @@ static  NSMutableArray *LegendArray;
 {
     if (_multipleSelectView) {
         
-        if (_multipleSelectView.type==kPORT) {
+        if (_multipleSelectView.type==kPORT_F) {
             NSInteger count = 0;
-            TgPort *tgPort = [PortArray objectAtIndex:indexPathRow];
-            if ([tgPort.portName isEqualToString:All_]) {
-                if(tgPort.didSelected==YES){
+            TfPort *tfPort = [PortArray objectAtIndex:indexPathRow];
+            if ([tfPort.PORTNAME isEqualToString:All_]) {
+                if(tfPort.didSelected==YES){
                     for (int i=0; i<[PortArray count]; i++) {
-                        ((TgPort *)[PortArray objectAtIndex:i]).didSelected=NO;
+                        ((TfPort *)[PortArray objectAtIndex:i]).didSelected=NO;
                     }
                 }
                 else {
                     for (int i=0; i<[PortArray count]; i++) {
-                        ((TgPort *)[PortArray objectAtIndex:i]).didSelected=YES;
+                        ((TfPort *)[PortArray objectAtIndex:i]).didSelected=YES;
                     }
                 }
             }
             else{
-                if(tgPort.didSelected==YES){
-                    ((TgPort *)[PortArray objectAtIndex:indexPathRow]).didSelected=NO;
+                if(tfPort.didSelected==YES){
+                    ((TfPort *)[PortArray objectAtIndex:indexPathRow]).didSelected=NO;
                     for (int i=0; i<[PortArray count]; i++) {
-                        if(((TgPort *)[PortArray objectAtIndex:i]).didSelected==YES)
+                        if(((TfPort *)[PortArray objectAtIndex:i]).didSelected==YES)
                         {
                             count++;
                         }
                         
                     }
-                    ((TgPort *)[PortArray objectAtIndex:0]).didSelected=NO;
+                    ((TfPort *)[PortArray objectAtIndex:0]).didSelected=NO;
                 }
                 else{
-                    ((TgPort *)[PortArray objectAtIndex:indexPathRow]).didSelected=YES;
+                    ((TfPort *)[PortArray objectAtIndex:indexPathRow]).didSelected=YES;
                     for (int i=0; i<[PortArray count]; i++) {
-                        if(((TgPort *)[PortArray objectAtIndex:i]).didSelected==YES)
+                        if(((TfPort *)[PortArray objectAtIndex:i]).didSelected==YES)
                         {
                             count++;
                         }
                         
                     }
                     if (count>=[PortArray count]-1) {
-                        ((TgPort *)[PortArray objectAtIndex:0]).didSelected=YES;
+                        ((TfPort *)[PortArray objectAtIndex:0]).didSelected=YES;
                     }
 
                 }

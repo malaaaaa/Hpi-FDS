@@ -1245,6 +1245,8 @@
 		059A1B95152551A100AB24C4 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
+				2A2FA32F15BFF74400B71C7D /* NTShipCompanyTranShareDao.h */,
+				2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */,
 				D37F60D315E4B81200E6741A /* AvgPortPTimeDao.m */,
 				D37F60D415E4B81200E6741A /* AvgPortPTimeDao.h */,
 				D37F60D515E4B81200E6741A /* AvgFactoryZXTimeDao.m */,
@@ -1515,8 +1517,6 @@
 				2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */,
 				2A2FA32D15BFF74400B71C7D /* NTShipCompanyTranShare.h */,
 				2A2FA32E15BFF74400B71C7D /* NTShipCompanyTranShare.m */,
-				2A2FA32F15BFF74400B71C7D /* NTShipCompanyTranShareDao.h */,
-				2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */,
 				D3A06E7215D0E93300963BA2 /* PortEfficiencyVC.h */,
 				D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */,
 				14C1DFCD1553A96F0060DF17 /* PortViewController.h */,

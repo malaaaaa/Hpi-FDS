@@ -2233,7 +2233,7 @@ int totalColument=0;
         
         if ([date_p count]>1) {
             if ([[date_p objectAtIndex:1]length]>0) {
-                Month=[[[date_p  objectAtIndex:1] substringFromIndex:5] integerValue];
+                Month=[[[date_p  objectAtIndex:1] substringFromIndex:4] integerValue];
                 // NSLog(@"=======当前计划月份===Month==========%d",Month );
             }
         }

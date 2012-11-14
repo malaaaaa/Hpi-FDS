@@ -162,13 +162,70 @@ sqlite3_bind_text(statement,6, [tfprot.NATIONALTYPE UTF8String], -1,SQLITE_TRANS
 
 }
 
++(NSMutableArray *) getTfPort
+{
+    
+	NSString *query=@" 1=1 ";
+	NSMutableArray * array=[TfPortDao getTfPortBySql:query];
+    //  NSLog(@"执行 getTfPort 数量[%d] ",[array count]);
+	return array;
+}
++(NSMutableArray *) getTfPortBySql:(NSString *)sql1
+{
+	sqlite3_stmt *statement;
+    NSString *sql=[NSString stringWithFormat:@"SELECT portCode,portName, sort,upload,download,nationaltype FROM  Tf_Port WHERE %@ ",sql1];
+    //  NSLog(@"执行 getTfPortBySql [%@] ",sql);
+    
+	NSMutableArray *array=[[NSMutableArray alloc]init];
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+			
+            TfPort *tfPort=[[TfPort alloc] init];
+			char * rowData0=(char *)sqlite3_column_text(statement,0);
+            if (rowData0 == NULL)
+                tfPort.PORTCODE = nil;
+            else
+                tfPort.PORTCODE = [NSString stringWithUTF8String: rowData0];
+            
+            char * rowData1=(char *)sqlite3_column_text(statement,1);
+            if (rowData1 == NULL)
+                tfPort.PORTNAME = nil;
+            else
+                tfPort.PORTNAME = [NSString stringWithUTF8String: rowData1];
+            
+            char * rowData2=(char *)sqlite3_column_text(statement,2);
+            if (rowData2 == NULL)
+                tfPort.SORT = nil;
+            else
+                tfPort.SORT = [NSString stringWithUTF8String: rowData2];
+            
+            char * rowData3=(char *)sqlite3_column_text(statement,3);
+            if (rowData3 == NULL)
+                tfPort.UPLOAD = nil;
+            else
+                tfPort.UPLOAD = [NSString stringWithUTF8String: rowData3];
+            
+            char * rowData4=(char *)sqlite3_column_text(statement,4);
+            if (rowData4 == NULL)
+                tfPort.DOWNLOAD = nil;
+            else
+                tfPort.DOWNLOAD = [NSString stringWithUTF8String: rowData4];
+            
+            char * rowData5=(char *)sqlite3_column_text(statement,5);
+            if (rowData5 == NULL)
+                tfPort.NATIONALTYPE = nil;
+            else
+                tfPort.NATIONALTYPE = [NSString stringWithUTF8String: rowData5];
 
-
-
-
-
-
-
-
+            
+			[array addObject:tfPort];
+            [tfPort release];
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+	[array autorelease];
+	return array;
+}
 
 @end
