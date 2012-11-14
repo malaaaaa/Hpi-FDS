@@ -318,11 +318,6 @@ int totalColument=0;
                   //  NSLog(@"d ===月集合。。。。。。。。。。。。。。。==============[%d]",[d count]);
                     [rowdate addObject:d];
                     
-        
-                    
-                                      
-                    
-                    
                     [d release  ];
                     d=[[NSMutableArray alloc] init];
                     
@@ -422,10 +417,6 @@ int totalColument=0;
                       NSDateFormatter *f1=[[NSDateFormatter alloc] init];
                      [f1 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                     [f setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                    
-                    
-                    
-                    
                     
                     
                     NSDate *t=[[NSDate alloc] initWithTimeInterval:8*60*60 sinceDate:[f dateFromString:item.S_ARRIVETIME]  ];
@@ -1431,13 +1422,17 @@ int totalColument=0;
 
    
     
-    NSDateFormatter *f=[[NSDateFormatter alloc] init];
+    NSDateFormatter *f=[[NSDateFormatter alloc] init]
+    ;
+    
+     NSLog(@"dateStr:%@",dateStr);
+    
     [f setDateFormat:@"yyyyMM01 00:00:00 +0000"];
     NSDate *a=[f dateFromString:dateStr];
     [f setDateFormat:@"yyyy-MM-dd"];
     
     dateStr=  [f stringFromDate:[[NSDate alloc]initWithTimeInterval:8*60*60 sinceDate:a]];
-     
+    NSLog(@"dateStr:%@",dateStr);
     
     pmCC = [[PMCalendarController alloc]init];
     [pmCC reinitializeWithSize:dateStr:defaultSize:days];
@@ -2216,30 +2211,29 @@ int totalColument=0;
         NSString *currentSelect=   [NSString stringWithFormat:@"%@"
                                     , [newPeriod.startDate dateStringWithFormat:@"yyyy-MM-dd"]
                                     ];
+        //NSLog(@"currentSelect:%@",currentSelect);
         NSInteger DD= [[currentSelect    substringFromIndex:8] integerValue];
-        NSInteger mm=[[currentSelect substringWithRange:NSMakeRange(5, 2)] integerValue];
-           
+        NSInteger mm=[[currentSelect substringWithRange:NSMakeRange(5, 2)] integerValue];   
      NSMutableArray *   date=[datedic objectForKey:[NSString stringWithFormat:@"%d",DD]];
+        
+        
       //  NSLog(@"当前日期 共有======计划详细=======%d=============【%d】条数据==========%@",[[date_p objectAtIndex:0] count],[date_p count],[date_p objectAtIndex:1]);
-        if ([date_p count]>0) {
-            for (int  a=0; a<[[date_p objectAtIndex:0] count]; a++) {
-                // NSLog(@"====================%@",[[date_p objectAtIndex:0] objectAtIndex:a]);
-            }
-        }
         
-      //   NSLog(@"=======当前计划月份== 月===========%@",[date_p objectAtIndex:1] );
-        
+
        int  Month=0;
-        
         if ([date_p count]>1) {
             if ([[date_p objectAtIndex:1]length]>0) {
-                Month=[[[date_p  objectAtIndex:1] substringFromIndex:5] integerValue];
-                // NSLog(@"=======当前计划月份===Month==========%d",Month );
+            //    NSLog(@"=========%@",[date_p objectAtIndex:1]);
+                Month=[[[date_p  objectAtIndex:1] substringFromIndex:4] integerValue];
+             //    NSLog(@"=======当前计划月份===Month==========%d",Month );
             }
         }
         
-       // NSLog(@"=======mm====%d==========Month==%d",mm,Month);
-        if ([date count]>0&&mm==Month&&mm!=0&&Month!=0) {   
+        
+        
+      //  NSLog(@"====在日历上选中的日期  月份===mm====%d==========Month=当前日历的月份=%d",mm,Month);
+       // NSLog(@"%d",[date count]);
+        if ([date count]>0&&mm==Month  &&mm!=0&&Month!=0) {  //
         int cellHeight=40;
         int totalHeight=0;
         int totalWight=430;
