@@ -873,6 +873,7 @@ static  NSMutableArray *ShipStageArray;
         
         [factorytransDeitail.view setFrame:CGRectMake(0,0, 125, 620)];
         factorytransDeitail.contentSizeForViewInPopover = CGSizeMake(125, 620);
+
         factorytransDeitail.parentView = self;
         
         //初始化弹出窗口
@@ -880,9 +881,7 @@ static  NSMutableArray *ShipStageArray;
         
         factorytransDeitail.popover = pop;
         
-        pop.popoverContentSize=CGSizeMake(620, 35+shipNum*40);
-        //[pop  presentPopoverFromRect:CGRectMake(200, 470, 0, 0) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
-        //permittedArrowDirections:0箭头消失
+        pop.popoverContentSize=CGSizeMake(620, 40+shipNum*40);
         [pop  presentPopoverFromRect:CGRectMake(500, 470, 5, 5) inView:self.view permittedArrowDirections:0 animated:YES];
         
         
