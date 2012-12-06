@@ -28,7 +28,7 @@
 static NSString *hostName =@"http://10.2.17.121";
 static NSString *port =@":82";
 //正式环境
-//static NSString *hostName =@"http://192.168.8.50";
+//static NSString *hostName =@"http://cds.hpi.com.cn";
 //static NSString *port =@"";
 static NSString *autoUpdate;
 static NSString *baseUrl;

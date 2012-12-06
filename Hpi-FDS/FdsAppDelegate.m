@@ -24,6 +24,7 @@
 @synthesize window;
 @synthesize tabBarController;
 @synthesize login;
+@synthesize logr;
 NSString *deviceUID;
 -(void)customizeAppearance{
     //设置底部TabBar
@@ -32,124 +33,35 @@ NSString *deviceUID;
 - (void)dealloc
 {
     [deviceUID release];
-    if (self.login)
+    if (self.login){
         [login release];
+        login=nil;
+    }
     [window release];
+    window=nil;
     [tabBarController release];
+    tabBarController=nil;
     [super dealloc];
 }
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
-      [PubInfo initdata];
-     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-     NSString *path=[paths   objectAtIndex:0];
-     NSString *fileName=[path  stringByAppendingPathComponent:@"data.plist"];
-     NSArray  *datePlist=[[NSArray alloc] initWithContentsOfFile:fileName];
-    NSLog(@"=====================================%@",[datePlist objectAtIndex:3]);
-    if (![[datePlist objectAtIndex:3] isEqualToString:UYES]) {
-        //网络请求 后台服务  查找该设备id是否 存在    --根据后台结果 修改本地标识  下次可用     不存在 跳转到注册页面...
-      deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
-        NSString *requeStr=[NSString stringWithFormat:@"<GetLoginValadateinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
-                            "<deviceid>%@</deviceid>\n"
-                            "<version>%@</version>\n"
-                            "<updatetime>%@</updatetime>\n"
-                            "</req>\n"
-                            "</GetLoginValadateinfo>\n"
-                            ,deviceUID, @"V1.2",PubInfo.currTime];
-        
-        self.login=[[[LoginView alloc] initWithNibName:@"LoginView" bundle:nil] autorelease];
-        login. method=@"LoginValadate";
-        [login requestSoap:requeStr];
-        [self runWaite];
-    }
-    else
-    {
-        [self customizeAppearance];
-        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-        UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
-        UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
-        UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
-        UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
-        UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
-      
-        
-        
-        
-        UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
-     //   NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
-     //   NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
-        
-        self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-        self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
-        
-        [window addSubview:tabBarController.view];
-        [self.window makeKeyAndVisible];
     
-        
-        [self.login release];
-        
-    }
+    [PubInfo initdata];
+    self.logr=[[[LoginResponse alloc] init] autorelease];
+    [self showMainPage];
     
-    [datePlist release];
+    
+    //    取消本地验证策略
+    //    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //    NSString *path=[paths   objectAtIndex:0];
+    //    NSString *fileName=[path  stringByAppendingPathComponent:@"data.plist"];
+    //    NSArray  *datePlist=[[NSArray alloc] initWithContentsOfFile:fileName];
+    //    NSLog(@"=====================================%@",[datePlist objectAtIndex:3]);
+    //    if (![[datePlist objectAtIndex:3] isEqualToString:UYES]) {
+    
     return YES;
-}
-
--(void)Valadate:(LoginResponse *)lr
-{
-    NSLog(@"=================Valadate=========================");
-    //状态(0-接收注册请求；1-发送验证邮件；2-通过验证；3-未通过验证)
-    if ([lr.SBID isEqualToString:deviceUID]&&[lr.STAGE isEqualToString:@"2"]) {
-        //修改本地标识
-        [PubInfo  setIsSucess:UYES];
-        [PubInfo save];
-        [self customizeAppearance];
-        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-        // Override point for customization after application launch.
-        UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
-        UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
-        UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
-        UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
-        UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
-        UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
-     //   NSLog(@"设备ID-1 %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
-       // NSLog(@"设备ID-2 %@",[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]);
-        
-        self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-        self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
-        [window addSubview:tabBarController.view];
-        [self.window makeKeyAndVisible];
-        
-        [self.login release];
-    }
-    else 
-    {
-     
-        
-        NSLog(@"-------------注册页面--------------------");
-        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-        [window addSubview:self.login.view];
-        [self.window makeKeyAndVisible];
-        
-        if ([lr.ISHAVE isEqualToString:@"1"]) {
-               NSLog(@"注册。。。。。。。。。。。。。。");
-             UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"注册信息已保存,是否重新注册？" delegate:self cancelButtonTitle:@"重新注册" otherButtonTitles:@"取消", nil];
-               [alert show];
-           [alert  release];
-        }
-
-        
-        
-               
-             
-        
-        
-    }
-   
-    
-    
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -160,40 +72,9 @@ NSString *deviceUID;
     }
     if(buttonIndex==0){
         NSLog(@"重新注册");
-       
-
-
-    }
-
-
-
-
-}
-
-
--(void)runWaite
-{
-    if (login.logr) {
-        LoginResponse *lr= login.logr;
-        NSLog(@"runWaite=====%@",login.logr.STAGE);
-        [self Valadate:lr];
-        return;
-    }
-    else if(YES==login.connectError)
-    {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"后台服务器连接失败！\n请检查网络或修改服务器地址!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
-        [alert show];
-        [alert release];  
-        
-        NSLog(@"-------------注册页面--------------------");
-        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-        [window addSubview:self.login.view];
-        [self.window makeKeyAndVisible];
-    }
-    else {
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runWaite) userInfo:NULL repeats:NO];
     }
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -206,7 +87,7 @@ NSString *deviceUID;
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     /*
-     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
 }
@@ -223,8 +104,20 @@ NSString *deviceUID;
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    if (FALSE==[self validateFromServer]) {
+        [self showLoginPage];
+        if ([self.logr.ISHAVE isEqualToString:@"1"]) {
+            NSLog(@"注册。。。。。。。。。。。。。。");
+            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"注册信息已保存,是否重新注册？" delegate:self cancelButtonTitle:@"重新注册" otherButtonTitles:@"取消", nil];
+            [alert show];
+            [alert  release];
+        }
+    }
+    else{
+        [self removeLoginPage];
+    }
     
-  
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -250,4 +143,142 @@ NSString *deviceUID;
  }
  */
 
+- (BOOL) validateFromServer{
+    deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
+    NSString *requestStr=[NSString stringWithFormat:@"<GetLoginValadateinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
+                          "<deviceid>%@</deviceid>\n"
+                          "<version>%@</version>\n"
+                          "<updatetime>%@</updatetime>\n"
+                          "</req>\n"
+                          "</GetLoginValadateinfo>\n"
+                          ,deviceUID, @"V1.2",PubInfo.currTime];
+    
+    NSString *soapMessage =[NSString stringWithFormat:
+                            @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                            "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                            "<soap12:Body>\n  %@ </soap12:Body>\n"
+                            "</soap12:Envelope>\n",requestStr ];
+    
+    NSLog(@"soapMessage[%@]",soapMessage);
+    
+    // 初始化请求
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 设置URL
+    [request setURL:[NSURL URLWithString:PubInfo.baseUrl]];
+    // 设置HTTP方法
+    [request setHTTPMethod:@"POST"];
+    // 发送同步请求
+    NSError *connectError=nil;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request
+                                               returningResponse:nil error:&connectError];
+    if (connectError) {
+        NSLog(@"aaaaaa");
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"后台服务器连接失败！\n请检查网络或修改服务器地址!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+        return FALSE;
+    }
+    
+    //            NSString *theXML = [[NSString alloc] initWithBytes: [returnData mutableBytes] length:[returnData length] encoding:NSUTF8StringEncoding];
+    //        NSLog(@"xml=%@",theXML);
+    
+    NSString *element1=@"LoginValadate";
+    NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
+    NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];
+    // char *errorMsg;
+    NSError *error = nil;
+    TBXML * tbxml = [TBXML newTBXMLWithXMLData:returnData error:&error];
+    if (error) {
+        NSLog(@"Error! %@ %@", [error localizedDescription], [error userInfo]);
+        
+    }else {
+        TBXMLElement * root = tbxml.rootXMLElement;
+        //=======================================
+        if (root) {
+            TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
+            
+            TBXMLElement *element = [TBXML childElementNamed:@"LoginResponse" parentElement:elementNoUsed];
+            TBXMLElement * desc;
+            while (element != nil) {
+                desc = [TBXML childElementNamed:@"SBID" parentElement:element];
+                if (desc != nil) {
+                    
+                    self.logr.SBID=[TBXML textForElement:desc] ;
+                    NSLog(@"%@",self.logr.SBID);
+                }
+                desc = [TBXML childElementNamed:@"RETCODE" parentElement:element];
+                if (desc != nil) {
+                    self.logr.RETCODE=[TBXML textForElement:desc] ;
+                    NSLog(@"%@",self.logr.RETCODE);
+                }
+                
+                desc = [TBXML childElementNamed:@"STAGE" parentElement:element];
+                if (desc != nil) {
+                    
+                    self.logr.STAGE=[TBXML textForElement:desc] ;
+                    NSLog(@"%@",self.logr.STAGE);
+                }
+                desc = [TBXML childElementNamed:@"ISHave" parentElement:element];
+                if (desc != nil) {
+                    
+                    self.logr.ISHAVE=[TBXML textForElement:desc] ;
+                    NSLog(@"%@",self.logr.ISHAVE);
+                }
+                
+                element = [TBXML nextSiblingNamed:@"LoginResponse"  searchFromElement:element];
+            }
+        }
+        
+    }
+    // 释放对象
+    
+    [request release];
+    
+    //所有状态不为已注册，包括没有上传注册信息的设备都认为不可用
+    if (![self.logr.STAGE isEqualToString:@"2"]) {
+        
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
+- (void)showMainPage{
+    NSLog(@"-------------主页面--------------------");
+    //    [self customizeAppearance];
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    
+    UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
+    UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
+    UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
+    UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
+    UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
+    UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
+    
+    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+    
+    [window addSubview:tabBarController.view];
+    [self.window makeKeyAndVisible];
+    
+}
+
+- (void)showLoginPage{
+    NSLog(@"-------------注册页面--------------------");
+    self.login=[[[LoginView alloc] initWithNibName:@"LoginView" bundle:nil] autorelease];
+    [self.tabBarController.view addSubview:self.login.view];
+    
+}
+- (void)removeLoginPage{
+    NSLog(@"-------------remove注册页面--------------------");
+    if (self.login) {
+        [self.login.view removeFromSuperview];
+        self.login=nil;
+    }
+}
 @end

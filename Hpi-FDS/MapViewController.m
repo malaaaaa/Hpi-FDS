@@ -88,9 +88,9 @@ static int iDisplay=0;
     switch ([r currentReachabilityStatus]) {
         case NotReachable:
             NSLog(@"没有网络");
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"无互联网连接，地图使用受限！" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil,nil];
-            [alert show];
-            [alert release];
+//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"无互联网连接，地图使用受限！" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil,nil];
+//            [alert show];
+//            [alert release];
             break;
         case ReachableViaWWAN:
 			NSLog(@"3g网络");

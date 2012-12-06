@@ -11,19 +11,14 @@
 @interface FdsAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
     UIWindow *window;
     UITabBarController *tabBarController;
-    
     LoginView *login;
-    
+    LoginResponse *logr;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
-
-
 @property(nonatomic,retain)LoginView *login;
+@property(nonatomic,retain)    LoginResponse *logr;
 
-
-
--(void)runWaite;
 
 @end

@@ -800,7 +800,7 @@ return datej;
                 
                 sqlite3_stmt *innerStatement;
                 NSString *innerSql=[NSString stringWithFormat:@"select count(*) from TH_SHIPTRANS_ORI where    FACTORYCODE ='%@'  AND strftime('%%Y-%%m-%%d',RECORDDATE) ='%@' %@",vbFactoryTrans.FACTORYCODE,start,innerTmpString];
-                NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
+//                NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
                 
                 if(sqlite3_prepare_v2(database,[innerSql UTF8String],-1,&innerStatement,NULL)==SQLITE_OK){
                     while (sqlite3_step(innerStatement)==SQLITE_ROW) {

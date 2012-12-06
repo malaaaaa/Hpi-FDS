@@ -181,7 +181,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT infoId,portCode,recordDate,import,Export,storage FROM  TmCoalinfo WHERE %@    ",sql1];
-    NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
+//    NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
