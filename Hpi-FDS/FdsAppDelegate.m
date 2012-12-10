@@ -26,6 +26,8 @@
 @synthesize login;
 @synthesize logr;
 NSString *deviceUID;
+UIAlertView *VersionAlert;
+UIAlertView *RegistAlert;
 -(void)customizeAppearance{
     //设置底部TabBar
     //[[UITabBar appearance]setSelectionIndicatorImage:[UIImage imageNamed:@"bgbg(3)"]];
@@ -52,7 +54,6 @@ NSString *deviceUID;
     self.logr=[[[LoginResponse alloc] init] autorelease];
     [self showMainPage];
     
-    
     //    取消本地验证策略
     //    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     //    NSString *path=[paths   objectAtIndex:0];
@@ -66,12 +67,23 @@ NSString *deviceUID;
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex==1) {
-        NSLog(@"取消");
-        exit(0);
+    if (alertView==RegistAlert) {
+        
+        
+        if (buttonIndex==1) {
+            NSLog(@"取消");
+            exit(0);
+        }
+        if(buttonIndex==0){
+            NSLog(@"重新注册");
+        }
     }
-    if(buttonIndex==0){
-        NSLog(@"重新注册");
+    else if (alertView==VersionAlert)
+    {
+        if(buttonIndex==0){
+            NSLog(@"退出重新安装");
+            exit(0);
+        }
     }
 }
 
@@ -90,6 +102,7 @@ NSString *deviceUID;
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -97,6 +110,7 @@ NSString *deviceUID;
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -104,14 +118,22 @@ NSString *deviceUID;
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-    if (FALSE==[self validateFromServer]) {
+    BOOL valid = [self validateFromServer];
+    //注册未完成设备或被禁用设备
+    if (FALSE==valid) {
         [self showLoginPage];
         if ([self.logr.ISHAVE isEqualToString:@"1"]) {
             NSLog(@"注册。。。。。。。。。。。。。。");
-            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"注册信息已保存,是否重新注册？" delegate:self cancelButtonTitle:@"重新注册" otherButtonTitles:@"取消", nil];
-            [alert show];
-            [alert  release];
+            RegistAlert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"注册信息已保存,是否重新注册？" delegate:self cancelButtonTitle:@"重新注册" otherButtonTitles:@"取消", nil];
+            [RegistAlert show];
+            [RegistAlert  release];
         }
+    }
+    //当前应用版本低，不可用
+    else if ([self.logr.RETCODE isEqualToString:@"3"]) {
+        VersionAlert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"有新程序发布 请重新安装！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [VersionAlert show];
+        [VersionAlert release];
     }
     else{
         [self removeLoginPage];
@@ -151,7 +173,7 @@ NSString *deviceUID;
                           "<updatetime>%@</updatetime>\n"
                           "</req>\n"
                           "</GetLoginValadateinfo>\n"
-                          ,deviceUID, @"V1.2",PubInfo.currTime];
+                          ,deviceUID, version,PubInfo.currTime];
     
     NSString *soapMessage =[NSString stringWithFormat:
                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
@@ -177,15 +199,14 @@ NSString *deviceUID;
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request
                                                returningResponse:nil error:&connectError];
     if (connectError) {
-        NSLog(@"aaaaaa");
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"后台服务器连接失败！\n请检查网络或修改服务器地址!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
         [alert show];
         [alert release];
         return FALSE;
     }
     
-    //            NSString *theXML = [[NSString alloc] initWithBytes: [returnData mutableBytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-    //        NSLog(@"xml=%@",theXML);
+//    NSString *theXML = [[NSString alloc] initWithBytes: [returnData mutableBytes] length:[returnData length] encoding:NSUTF8StringEncoding];
+//    NSLog(@"xml=%@",theXML);
     
     NSString *element1=@"LoginValadate";
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
@@ -275,10 +296,10 @@ NSString *deviceUID;
     
 }
 - (void)removeLoginPage{
-    NSLog(@"-------------remove注册页面--------------------");
     if (self.login) {
         [self.login.view removeFromSuperview];
         self.login=nil;
     }
 }
+
 @end

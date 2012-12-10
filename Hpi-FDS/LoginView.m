@@ -36,7 +36,7 @@ NSString* msg;
 UIAlertView *alert;
 UIAlertView *MailAlert;
 UIAlertView *serverAlert;
-static NSString *version = @"V1.2";
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -127,6 +127,9 @@ static NSString *version = @"V1.2";
     
     if ([lr.RETCODE isEqualToString:@"1"]) {
         msg=@"注册失败";
+    }
+    if ([lr.RETCODE isEqualToString:@"3"]) {
+        msg=@"客户端版本低，请重新安装应用";
     }
 
     NSLog(@"%@======%@",lr.STAGE,msg);  

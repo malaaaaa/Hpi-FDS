@@ -12,7 +12,7 @@
 
 #import "PubInfo.h"
 
-static NSString *version = @"V1.2";
+
 static int iSoap;
 static int iSoapTgPortDone=0;
 static int iSoapTgFactoryDone=0;
