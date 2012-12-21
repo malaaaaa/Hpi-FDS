@@ -48,8 +48,10 @@ NSString *deviceUID;
      NSString *path=[paths   objectAtIndex:0];
      NSString *fileName=[path  stringByAppendingPathComponent:@"data.plist"];
      NSArray  *datePlist=[[NSArray alloc] initWithContentsOfFile:fileName];
-    NSLog(@"=====================================%@",[datePlist objectAtIndex:3]);
+    NSLog(@"===================================================%@",[datePlist objectAtIndex:3]);
     if (![[datePlist objectAtIndex:3] isEqualToString:UYES]) {
+        NSLog(@"不等于   uyes");
+        
         //网络请求 后台服务  查找该设备id是否 存在    --根据后台结果 修改本地标识  下次可用     不存在 跳转到注册页面...
       deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
         NSString *requeStr=[NSString stringWithFormat:@"<GetLoginValadateinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
@@ -58,7 +60,7 @@ NSString *deviceUID;
                             "<updatetime>%@</updatetime>\n"
                             "</req>\n"
                             "</GetLoginValadateinfo>\n"
-                            ,deviceUID, @"V1.2",PubInfo.currTime];
+                            ,deviceUID, @"1.2",PubInfo.currTime];
         
         self.login=[[[LoginView alloc] initWithNibName:@"LoginView" bundle:nil] autorelease];
         login. method=@"LoginValadate";
@@ -67,6 +69,8 @@ NSString *deviceUID;
     }
     else
     {
+        NSLog(@"直接加载");
+        
         [self customizeAppearance];
         self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
         UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
@@ -101,6 +105,9 @@ NSString *deviceUID;
 {
     NSLog(@"=================Valadate=========================");
     //状态(0-接收注册请求；1-发送验证邮件；2-通过验证；3-未通过验证)
+    
+    NSLog(@"lr.STAGE[%@]",lr.STAGE);
+    
     if ([lr.SBID isEqualToString:deviceUID]&&[lr.STAGE isEqualToString:@"2"]) {
         //修改本地标识
         [PubInfo  setIsSucess:UYES];
@@ -132,6 +139,8 @@ NSString *deviceUID;
         self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
         [window addSubview:self.login.view];
         [self.window makeKeyAndVisible];
+        
+        NSLog(@"lr.ISHAVE[%@]",lr.ISHAVE);
         
         if ([lr.ISHAVE isEqualToString:@"1"]) {
                NSLog(@"注册。。。。。。。。。。。。。。");
