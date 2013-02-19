@@ -131,7 +131,13 @@ NSDateFormatter *f;
     }
     [ self  getDateSource:self.startTime.text :self.endTime.text:factoryCateLable.text :1];
     [poll drain];
-
+    [activty stopAnimating];
+    [activty removeFromSuperview];
+}
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activty];
+    [activty startAnimating];
 }
 
 - (IBAction)endTimeSelect:(id)sender {

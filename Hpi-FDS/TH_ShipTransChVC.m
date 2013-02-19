@@ -369,7 +369,16 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
       [dataQueryVC.listTableview   reloadData];
   
   [formater release];
+    
+    [activity stopAnimating];
+    [activity removeFromSuperview];
 }
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activity];
+    [activity startAnimating];
+}
+
 
 - (IBAction)reset:(id)sender {
     self.stageLabel.text=All_;

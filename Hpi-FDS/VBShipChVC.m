@@ -451,9 +451,14 @@ DataQueryVC *dataQueryVC;
         [dataSource release];
         dataSource=nil;
     }
-    
+    [activity stopAnimating];
+    [activity removeFromSuperview];
 }
-
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activity];
+    [activity startAnimating];
+}
 - (IBAction)resetAction:(id)sender {
     
     self.shipLabel.text =All_;

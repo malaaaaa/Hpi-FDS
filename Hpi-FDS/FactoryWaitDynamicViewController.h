@@ -18,55 +18,39 @@
 
 @interface FactoryWaitDynamicViewController : UIViewController<UIPopoverControllerDelegate  ,ChooseViewDelegate,UIScrollViewDelegate,UITabBarDelegate,UITableViewDataSource>
 { 
-UIPopoverController *popover;
-ChooseView *chooseView;
- DateViewController *monthVC;
-   TBXMLParser *tbxmlParser; 
-     NSDate *month;  
-
-   UILabel *factoryLable; 
+    UIPopoverController *popover;
+    ChooseView *chooseView;
+    DateViewController *monthVC;
+    TBXMLParser *tbxmlParser;
+    NSDate *month;
+    
+    UILabel *factoryLable;
     UIButton *factoryButton;
-     UILabel *startTime;
+    UILabel *startTime;
     UIButton *startButton;
     UIActivityIndicatorView *activty;
-     UIButton *reload;
+    UIButton *reload;
     UIView *scrool;
     UIView *dcView;
- 
-   DataGridScrollView *ds;
+    
+    DataGridScrollView *ds;
     
     UIView *TitleView;
     
     UITableView *listTableview;
     
-     MultiTitleDataSource *source;
+    MultiTitleDataSource *source;
     
-     UIView *cView;
+    UIView *cView;
     
 }
 
 
-
-
-
-
 @property (retain, nonatomic)IBOutlet   UIView *cView;
-
 @property (retain, nonatomic)MultiTitleDataSource *source;
 @property (retain, nonatomic)IBOutlet   UIView *TitleView;
 @property (retain, nonatomic)IBOutlet   UITableView *listTableview;
-
-
-
-
-
-
-
-
-
 @property (retain, nonatomic)DataGridScrollView *ds;
-
-
 @property (retain, nonatomic)NSDate *month;
 @property (retain, nonatomic) TBXMLParser *tbxmlParser;
 @property (retain, nonatomic) DateViewController *monthVC;

@@ -39,7 +39,7 @@
     UILabel *dateLabel; 
     DateViewController* startDateCV;
     NSDate *startDay;
-    UIButton *queryButton;
+    IBOutlet UIButton *queryButton;
     UIButton *resetButton;
     UIPopoverController* popover;
     ChooseView *chooseView;
@@ -68,8 +68,7 @@
 - (IBAction)keyValueAction:(id)sender;
 - (IBAction)tradeAction:(id)sender;
 - (IBAction)shipStageAction:(id)sender;
-
-
+- (IBAction)touchDownAction:(id)sender;
 
 
 @property (retain, nonatomic) IBOutlet UIButton *factoryButton;

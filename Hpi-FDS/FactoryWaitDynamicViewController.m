@@ -716,9 +716,16 @@ static  NSMutableArray *columnWidthFTitle;
     source.data=[self getDcSourseData:factoryLable.text];
     
     [listTableview reloadData];
+    
+    [activty stopAnimating];
+    [activty removeFromSuperview];
 }
 
-
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activty];
+    [activty startAnimating];
+}
 
 
 #pragma mark -

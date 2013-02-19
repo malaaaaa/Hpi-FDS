@@ -180,6 +180,11 @@ static  NSMutableArray *ShipStageArray;
     
 }
 
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activity];
+    [activity startAnimating];
+}
 - (void)viewDidUnload
 {
     
@@ -665,10 +670,6 @@ static  NSMutableArray *ShipStageArray;
                                                        :tradeLabel.text
                                                        :ShipStageArray];
     
-    
-
-    
-    
     for (int i=0;i<[listArray count];i++) {
         VbFactoryTrans *vbFactoryTrans = [listArray objectAtIndex:i];
         [dataSource.data addObject:[NSArray arrayWithObjects:
@@ -707,8 +708,8 @@ static  NSMutableArray *ShipStageArray;
         
     }
     [listTableview reloadData];
-    
-    
+    [activity stopAnimating];
+    [activity removeFromSuperview];
     
 }
 

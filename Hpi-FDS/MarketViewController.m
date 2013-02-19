@@ -440,6 +440,13 @@ static NSString *stringType=@"BSPI";
 -(IBAction)queryData:(id)sender
 {
     [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activity];
+    [activity startAnimating];
 }
 -(IBAction)dataTable:(id)sender
 {

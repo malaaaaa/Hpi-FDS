@@ -995,9 +995,14 @@ int totalColument=0;
     [self.listTableview reloadData  ];
      
     [model release];
-    
+    [active stopAnimating];
+    [active removeFromSuperview];
 }
-
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:active];
+    [active startAnimating];
+}
 
 #pragma mark -
 #pragma mark tableview

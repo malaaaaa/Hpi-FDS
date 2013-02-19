@@ -260,20 +260,20 @@
 - (IBAction)queryAction:(id)sender {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMM"];
-    NSLog(@"type=%@",typeLabel.text);
-    NSLog(@"trade1=%@",tradeLabel.text);
     [NTFactoryFreightVolumeDao InsertByTrade:tradeLabel.text Type:typeLabel.text StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
-    NSLog(@"trade2=%@",tradeLabel.text);
 
     [dateFormatter release];
-    NSLog(@"trade3=%@",tradeLabel.text);
 
     [self loadViewData];
-    NSLog(@"trade4=%@",tradeLabel.text);
 
-    
+    [activity stopAnimating];
+    [activity removeFromSuperview];
 }
-
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activity];
+    [activity startAnimating];
+}
 - (IBAction)resetAction:(id)sender {
     self.tradeLabel.text=All_;
     self.tradeLabel.hidden=YES;
