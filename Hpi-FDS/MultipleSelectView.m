@@ -165,7 +165,21 @@
         
         
         cell.textLabel.text=((TgPort *)[iDArray objectAtIndex:[indexPath row]]).portName;
-        if (((TsShipStage *)[self.iDArray objectAtIndex:[indexPath row]]).didSelected==YES) {
+        if (((TgPort *)[self.iDArray objectAtIndex:[indexPath row]]).didSelected==YES) {
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+            
+        }
+        else {
+            
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+        
+    }
+    else if (self.type==kPORT_F){
+        
+        
+        cell.textLabel.text=((TfPort *)[iDArray objectAtIndex:[indexPath row]]).PORTNAME;
+        if (((TfPort *)[self.iDArray objectAtIndex:[indexPath row]]).didSelected==YES) {
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
             
         }

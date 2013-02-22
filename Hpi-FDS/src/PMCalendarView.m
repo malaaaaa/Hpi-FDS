@@ -342,6 +342,7 @@
         NSDateFormatter *f1=[[NSDateFormatter alloc] init];
         [f1 setDateFormat:@"MM"];
         [f setDateFormat:@"yyyy-MM-dd 00:00:00 +0000"];
+
     
     
     // NSLog(@"_currentDate ---------========== %@",_currentDate);
@@ -349,14 +350,17 @@
         
             
         if (a<3) {
+
             if (startIndex>0) {
                 startIndex=[[NSString stringWithFormat:@"-%d",startIndex] integerValue];
             }
             if (endIndex>0) {
                 endIndex=[[NSString stringWithFormat:@"-%d",endIndex] integerValue];
                 
-            }                 
+            }
+
         }            
+
         
         [f release];
         [f1 release];

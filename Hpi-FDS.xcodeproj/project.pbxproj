@@ -390,9 +390,9 @@
 		05687DAA152E8AA500ABC7EC /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
 		05687DAB152E8AA500ABC7EC /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
 		057F6C291524490600E0E435 /* 燃料调运.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "燃料调运.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		057F6C2D1524490600E0E435 /* UIKit.framework */ = {isa = PBXFileReference; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		057F6C2F1524490600E0E435 /* Foundation.framework */ = {isa = PBXFileReference; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		057F6C311524490600E0E435 /* CoreGraphics.framework */ = {isa = PBXFileReference; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		057F6C2D1524490600E0E435 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		057F6C2F1524490600E0E435 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		057F6C311524490600E0E435 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		057F6C351524490600E0E435 /* Hpi-FDS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hpi-FDS-Info.plist"; sourceTree = "<group>"; };
 		057F6C371524490600E0E435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		057F6C391524490600E0E435 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -418,14 +418,14 @@
 		05903B851532D36300BEC4BD /* download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@2x.png"; sourceTree = "<group>"; };
 		05903B861532D36300BEC4BD /* market@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "market@2x.png"; sourceTree = "<group>"; };
 		05903B871532D36400BEC4BD /* market.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = market.png; sourceTree = "<group>"; };
-		05933B9E1524557B00EE32A2 /* CFNetwork.framework */ = {isa = PBXFileReference; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		05933B9F1524557C00EE32A2 /* libsqlite3.dylib */ = {isa = PBXFileReference; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		05933BA01524557C00EE32A2 /* libxml2.dylib */ = {isa = PBXFileReference; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		05933BA11524557C00EE32A2 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
-		05933BA21524557C00EE32A2 /* MapKit.framework */ = {isa = PBXFileReference; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		05933BA31524557C00EE32A2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		05933BA41524557C00EE32A2 /* QuartzCore.framework */ = {isa = PBXFileReference; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		05933BA51524557C00EE32A2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		05933B9E1524557B00EE32A2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		05933B9F1524557C00EE32A2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		05933BA01524557C00EE32A2 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		05933BA11524557C00EE32A2 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		05933BA21524557C00EE32A2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		05933BA31524557C00EE32A2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		05933BA41524557C00EE32A2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		05933BA51524557C00EE32A2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		059A1B6B152539DC00AB24C4 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		059A1B6C152539DC00AB24C4 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		059A1B6D152539DC00AB24C4 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
@@ -676,7 +676,7 @@
 		2ACF794515F0A02C00FB6BB6 /* TF_FACTORYCAPACITY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TF_FACTORYCAPACITY.m; sourceTree = "<group>"; };
 		2ACF794715F0A88A00FB6BB6 /* TF_FACTORYCAPACITYDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TF_FACTORYCAPACITYDao.h; sourceTree = "<group>"; };
 		2ACF794815F0A88B00FB6BB6 /* TF_FACTORYCAPACITYDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TF_FACTORYCAPACITYDao.m; sourceTree = "<group>"; };
-		2AD43A6915EAFA22003349DA /* libobjc.A.dylib */ = {isa = PBXFileReference; name = libobjc.A.dylib; path = usr/lib/libobjc.A.dylib; sourceTree = SDKROOT; };
+		2AD43A6915EAFA22003349DA /* libobjc.A.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libobjc.A.dylib; path = usr/lib/libobjc.A.dylib; sourceTree = SDKROOT; };
 		2AD43A8015EB6DED003349DA /* FactoryWaitDynamicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryWaitDynamicViewController.h; sourceTree = "<group>"; };
 		2AD43A8115EB6DED003349DA /* FactoryWaitDynamicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryWaitDynamicViewController.m; sourceTree = "<group>"; };
 		2AD43A8215EB6DED003349DA /* FactoryWaitDynamicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FactoryWaitDynamicViewController.xib; sourceTree = "<group>"; };
@@ -1245,6 +1245,8 @@
 		059A1B95152551A100AB24C4 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
+				2A2FA32F15BFF74400B71C7D /* NTShipCompanyTranShareDao.h */,
+				2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */,
 				D37F60D315E4B81200E6741A /* AvgPortPTimeDao.m */,
 				D37F60D415E4B81200E6741A /* AvgPortPTimeDao.h */,
 				D37F60D515E4B81200E6741A /* AvgFactoryZXTimeDao.m */,
@@ -1515,8 +1517,6 @@
 				2A8F1F5015CA0D7A005C7B62 /* NT_LatefeeTongjChVC.m */,
 				2A2FA32D15BFF74400B71C7D /* NTShipCompanyTranShare.h */,
 				2A2FA32E15BFF74400B71C7D /* NTShipCompanyTranShare.m */,
-				2A2FA32F15BFF74400B71C7D /* NTShipCompanyTranShareDao.h */,
-				2A2FA33015BFF74400B71C7D /* NTShipCompanyTranShareDao.m */,
 				D3A06E7215D0E93300963BA2 /* PortEfficiencyVC.h */,
 				D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */,
 				14C1DFCD1553A96F0060DF17 /* PortViewController.h */,
@@ -2187,8 +2187,8 @@
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2209,7 +2209,10 @@
 					"-all_load",
 					"-lCorePlot",
 				);
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
+				SEPARATE_STRIP = YES;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2220,8 +2223,8 @@
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -2231,7 +2234,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				New_Setting = "";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
+				SEPARATE_STRIP = YES;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2240,16 +2246,16 @@
 		057F6C561524490600E0E435 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "燃料调运";
-				PROVISIONING_PROFILE = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7DD5ED59-BDC8-4088-9D73-C4494303FC65";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2258,16 +2264,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"ADDITIONAL_SDKS[arch=*]" = "${HOME}/Library/SDKs/CorePlotSDK/${PLATFORM_NAME}.sdk";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HUANENG POWER INTERNATIONAL,INC./";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "燃料调运";
-				PROVISIONING_PROFILE = "04605538-5841-46D3-8C82-B108CCC22F9A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

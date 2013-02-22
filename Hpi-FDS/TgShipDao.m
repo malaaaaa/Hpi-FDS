@@ -197,6 +197,14 @@ static sqlite3	*database;
     NSLog(@"执行 getTgShip 数量[%d] ",[array count]);
 	return array;
 }
++(NSMutableArray *) getTgShip_All
+{
+    
+	NSString *query=@"1=1 order by shipname";
+	NSMutableArray * array=[TgShipDao getTgShipBySql:query];
+    NSLog(@"执行 getTgShip 数量[%d] ",[array count]);
+	return array;
+}
 
 +(NSMutableArray *) getTgShipSZZTPort:(NSString *)portName
 {

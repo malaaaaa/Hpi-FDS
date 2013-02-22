@@ -11,6 +11,7 @@
 @implementation TfPort
 
 @synthesize  PORTCODE,PORTNAME,SORT,UPLOAD,DOWNLOAD,NATIONALTYPE;
+@synthesize didSelected;
 -(void)dealloc
 {
     [PORTCODE release];

@@ -249,7 +249,7 @@ DataQueryVC *dataQueryVC;
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:chooseView];
     chooseView.popover = pop;
-    NSMutableArray *array=[TgShipDao getTgShip];
+    NSMutableArray *array=[TgShipDao getTgShip_All];
     NSMutableArray *Array=[[NSMutableArray alloc]init];
     chooseView.iDArray=Array;
     [chooseView.iDArray addObject:All_];

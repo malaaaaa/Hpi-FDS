@@ -14,23 +14,11 @@
 +(NSString *) dataFilePath;
 +(void) openDataBase;
 +(void) initDb;
-
 +(void) insert:(TfPort *) tfprot;
 +(void) delete:(TfPort *) tfprot;
-
 +(void)deleteAll;
-
-
-
-
-
 +(NSString *)getPortName:(NSString *)portcode;
-
-
-
-
-
-
-
++(NSMutableArray *) getTfPort;
++(NSMutableArray *) getTfPortBySql:(NSString *)sql1;
 
 @end

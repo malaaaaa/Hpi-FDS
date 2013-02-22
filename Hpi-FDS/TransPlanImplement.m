@@ -2223,9 +2223,11 @@ int totalColument=0;
        int  Month=0;
         if ([date_p count]>1) {
             if ([[date_p objectAtIndex:1]length]>0) {
+
             //    NSLog(@"=========%@",[date_p objectAtIndex:1]);
                 Month=[[[date_p  objectAtIndex:1] substringFromIndex:4] integerValue];
              //    NSLog(@"=======当前计划月份===Month==========%d",Month );
+
             }
         }
         

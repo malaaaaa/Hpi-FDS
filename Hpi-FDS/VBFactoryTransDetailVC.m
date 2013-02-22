@@ -94,7 +94,7 @@ static DataGridComponentDataSource *dataSource;
         }
         else{
             [dataSource.data addObject:[NSArray arrayWithObjects:
-                                        ([vbFactoryTrans.STATECODE isEqualToString:@"6"])?kRED:kBLACK,
+                                        ([vbFactoryTrans.STATECODE isEqualToString:@"6"])?kRED:([vbFactoryTrans.STATECODE isEqualToString:@"1"])?kGREEN:kBLACK,
                                         vbFactoryTrans.DISPATCHNO,
                                         vbFactoryTrans.STATENAME,
                                         vbFactoryTrans.SHIPNAME,
@@ -105,15 +105,15 @@ static DataGridComponentDataSource *dataSource;
         }
     }
     NSLog(@"test5==%d",[dataSource.data count]);
-    
     [self.view addSubview:labelView];
+
     [listTableview reloadData];
-    
     
 }
 
 - (void)viewDidUnload
 {
+    [dataSource release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
