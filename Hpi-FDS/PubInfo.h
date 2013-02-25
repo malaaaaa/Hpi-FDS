@@ -145,8 +145,8 @@ typedef enum{
 #define UYES    @"1"  //是否 存在该设备号
 #define UNO     @"0"
 
-@interface PubInfo : NSObject
 
+@interface PubInfo : NSObject
 
 
 
@@ -173,6 +173,10 @@ typedef enum{
 +(void)setAutoUpdate:(NSString*) update;
 +(NSString *)updateTime;
 +(void)setUpdateTime:(NSString*) time;
++(NSString *)mmpUpdateTime;
++(void)setMmpUpdateTime:(NSString*) time;
++(NSString *)reportUpdateTime;
++(void)setReportUpdateTime:(NSString*) time;
 +(NSString *)deviceID;
 +(NSString *)currTime;
 

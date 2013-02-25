@@ -21,5 +21,6 @@
 +(NSMutableArray *) getTiListinfo: (NSInteger)infoId;
 +(NSMutableArray *) getTiListinfo :(NSInteger)columns :(NSInteger)rows;
 +(NSMutableArray *) getTiListinfoBySql:(NSString *)sql;
++(void)deleteAll;
 
 @end

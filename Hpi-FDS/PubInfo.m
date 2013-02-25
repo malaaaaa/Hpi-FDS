@@ -36,8 +36,12 @@ static NSString *baseUrl;
 static NSString *url;
 static NSString *userInfoUrl;
 static NSString *userName;
+//基础数据更新时间
 static NSString *updateTime;
-
+//地图市场港口数据更新时间
+static NSString *mmpUpdateTime;
+//数据查询模块更新时间
+static NSString *reportUpdateTime;
 static NSString *isSucess;
 static NSString *deviceID;
 
@@ -163,13 +167,14 @@ static NSString *deviceID;
 //	NSArray *tempArray = [[[NSArray alloc] initWithContentsOfFile:fileName] autorelease];
     NSArray *tempArray = [[NSArray alloc] initWithContentsOfFile:fileName] ;
 	//NSLog(@"data=%d",[tempArray count]);
-	if([tempArray count]<6)
+	if([tempArray count]<8)
 	{
         //此处用Analyze工具监测会出现可能内存泄漏的提示，tempArray不能autorelease，否则会崩溃
 		userName=@"developer";
         autoUpdate=kNO;
         updateTime=@"2000-01-01 00:00";
-        
+        mmpUpdateTime=@"2000-01-01 00:00";
+        reportUpdateTime=@"2000-01-01 00:00";
         isSucess=UNO;
 		[PubInfo save];
 	}
@@ -180,7 +185,9 @@ static NSString *deviceID;
         isSucess=[tempArray objectAtIndex:3];
         hostName=[tempArray objectAtIndex:4];
         port=[tempArray objectAtIndex:5];
-	}    
+        mmpUpdateTime=[tempArray objectAtIndex:6];
+        reportUpdateTime=[tempArray objectAtIndex:7];
+	}
   
 //    [tempArray release];
     [fileName release];
@@ -194,6 +201,8 @@ static NSString *deviceID;
                           isSucess,
                           hostName,
                           port,
+                          mmpUpdateTime,
+                          reportUpdateTime,
 						  nil
 						  ];
 	NSArray *paths= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -299,6 +308,26 @@ static NSString *deviceID;
 {
 	[updateTime release];
 	updateTime=time;
+	[time retain];
+}
++(NSString *)mmpUpdateTime;
+{
+	return mmpUpdateTime;
+}
++(void)setMmpUpdateTime:(NSString*) time
+{
+	[mmpUpdateTime release];
+	mmpUpdateTime=time;
+	[time retain];
+}
++(NSString *)reportUpdateTime;
+{
+	return reportUpdateTime;
+}
++(void)setReportUpdateTime:(NSString*) time
+{
+	[reportUpdateTime release];
+	reportUpdateTime=time;
 	[time retain];
 }
 +(NSString *)deviceID

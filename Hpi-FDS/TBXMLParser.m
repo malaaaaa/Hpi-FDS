@@ -17,7 +17,7 @@
 @synthesize Identification=_Identification;
 
 static int iSoapDone=1; //1未开始 0进行中 3出错
-static int iSoapNum=0;
+int iSoapNum=0;
 static sqlite3  *database;
 UIAlertView *alert;
 NSString* alertMsg;
@@ -29,7 +29,6 @@ static bool ThreadFinished=TRUE;
 {
     //由于NSURLConnection是异步方式，加入对当前RunLoop的控制，等待其他进程完成解析后再进行下一个请求的调用。
     while(!ThreadFinished) {
-        //        NSLog(@"runloop");
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
         
     }
@@ -349,6 +348,13 @@ static bool ThreadFinished=TRUE;
         [self getDate:@"ThShipTranS" entityClass:@"TH_SHIPTRANS_ORI" insertTableName:@"TH_SHIPTRANS_ORI"];
         
     }
+      /****************************地图**************************/
+    if ([_Identification isEqualToString:@"List"]) {
+        [TiListinfoDao deleteAll];
+        
+        [self getDate:@"TiListInfo" entityClass:@"TiListinfo" insertTableName:@"TiListinfo"];
+        
+    }
 }
 #pragma mark -参数：1，xml子节点【TfCoalType】  2，表的对应实体类 3，插入的表名
 -(void)getDate :(NSString *)element1  entityClass:(NSString *)className    insertTableName:(NSString *)tableName
@@ -455,6 +461,10 @@ static bool ThreadFinished=TRUE;
                 
                 outCount=13;
             }
+            if (_Identification==@"TiListInfo") {
+                
+                outCount=7;
+            }
             for (int i = 0; i < outCount; i++) {
                 objc_property_t property = properties[i];
                 NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)];
@@ -517,10 +527,6 @@ static bool ThreadFinished=TRUE;
             NSLog(@"-----------%@-----------commit over  ",_Identification);
             iSoapDone=1;
             iSoapNum--;
-        
-            
-        
-        
         
        }
 
@@ -626,6 +632,7 @@ static bool ThreadFinished=TRUE;
     sqlite3_close(database);
     iSoapDone=1;
     iSoapNum--;
+    
     NSLog(@"over");
 }
 
@@ -642,4 +649,6 @@ static bool ThreadFinished=TRUE;
 {
     iSoapNum=theNum;
 }
+
+
 @end
