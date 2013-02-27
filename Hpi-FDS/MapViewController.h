@@ -16,9 +16,10 @@
 #import "InfoShipViewController.h"
 #import "ShipInfoViewController.h"
 #import "SummaryInfoViewController.h"
+#import "PortInfoBehaviourVC.h"
 #import "XMLParser.h"	
 #import "Reachability.h"
-
+#import "TBXMLParser.h"
 #import "ChooseViewDelegate.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate,UITableViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate,ChooseViewDelegate>{
@@ -37,7 +38,8 @@
     InfoShipViewController *infoShipViewController;
     ShipInfoViewController *shipInfoViewController;
     SummaryInfoViewController *summaryInfoViewController;
-    
+    PortInfoBehaviourVC *portInfoBehaviourVC;
+
     //多选栏
     NSMutableArray *portIDArray;
 	NSMutableArray *factoryIDArray;
@@ -56,6 +58,8 @@
     NSString *curID;
     
     XMLParser *xmlParser;
+    TBXMLParser *tbxmlParser;
+
 }
 @property(nonatomic, retain) MKMapView *mapView;
 @property(nonatomic, retain) MKMapView *mapViewBig;
@@ -82,12 +86,14 @@
 @property (retain,nonatomic)ShipInfoViewController *shipInfoViewController;
 @property (retain,nonatomic)InfoShipViewController *infoShipViewController;
 @property (retain,nonatomic)SummaryInfoViewController *summaryInfoViewController;
+@property (retain,nonatomic)PortInfoBehaviourVC *portInfoBehaviourVC;
 @property (retain,nonatomic) UIPopoverController* popover;
 @property (copy,nonatomic) NSString *curTextViewinfo;
 @property (copy,nonatomic) NSString *curName;
 @property (copy,nonatomic) NSString *curID;
 
 @property (retain,nonatomic)XMLParser *xmlParser;
+@property (retain, nonatomic) TBXMLParser *tbxmlParser;
 
 -(void)displayPort;
 -(void)getPortCoordinateArray;
@@ -96,5 +102,6 @@
 -(void)displayShip;
 -(void)getShipCoordinateArray;
 -(void)chooseUpdateView;
--(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(BOOL)move;
+//-(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(BOOL)move;
+-(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)companyName :(BOOL)move;
 @end

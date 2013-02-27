@@ -293,6 +293,24 @@ static bool ThreadFinished=TRUE;
         [self getDate:@"TgFactory" entityClass:@"TgFactory" insertTableName:@"TgFactory"];
         
     }
+    /***********************船舶信息*****-**************************/
+    //tgShip
+    if ([_Identification isEqualToString:@"TgShip"]) {
+        
+        //全部删除 TgShipDao
+        [TgShipDao deleteAll];
+        [self getDate:@"TgShip" entityClass:@"TgShip" insertTableName:@"TgShip"];
+        
+    }
+    /***********************港口信息*****-**************************/
+    //tgFactory
+    if ([_Identification isEqualToString:@"TgPort"]) {
+        
+        //全部删除 TgPortDao
+        [TgPortDao deleteAll];
+        [self getDate:@"TgPort" entityClass:@"TgPort" insertTableName:@"TgPort"];
+        
+    }
  
   /******************获取电厂机组运行信息**********TF_FACTORYCAPACITY**************************/
     
@@ -330,6 +348,13 @@ static bool ThreadFinished=TRUE;
         //全部删除   GetTfShipInfo
         [TfShipDao deleteAll];
         [self getDate:@"TfShip" entityClass:@"TfShip" insertTableName:@"TfShip"];
+        
+    }
+    /****************************TfShip************************GetTfShipInfo**/
+    if ([_Identification isEqualToString:@"Port"]) {
+        //全部删除   TfPortDao
+        [TfPortDao deleteAll];
+        [self getDate:@"TfPortInfo" entityClass:@"TfPort" insertTableName:@"Tf_Port"];
         
     }
 
@@ -441,14 +466,6 @@ static bool ThreadFinished=TRUE;
                 outCount=5;
                 
             }
-            if (_Identification==@"TgPort") {
-                outCount=9;
-                
-            }
-            if (_Identification==@"TgShip") {
-                outCount=28;
-              
-            }
             if(_Identification==@"TransPorts"){
                 outCount=7;
                 
@@ -461,9 +478,21 @@ static bool ThreadFinished=TRUE;
                 
                 outCount=13;
             }
+            if (_Identification==@"TgShip") {
+                
+                outCount=29;
+            }
+            if (_Identification==@"TgPort") {
+                
+                outCount=9;
+            }
             if (_Identification==@"TiListInfo") {
                 
                 outCount=7;
+            }
+            if (_Identification==@"Port") {
+                
+                outCount=6;
             }
             for (int i = 0; i < outCount; i++) {
                 objc_property_t property = properties[i];

@@ -239,6 +239,9 @@
 		D31B512A160184C800EFB98F /* NTLateFeeHcfxVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */; };
 		D31CF4071601D2DD00B1985B /* ATPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A39CC21601BD7500D60D6D /* ATPagingView.m */; };
 		D31CF40C1601ED1800B1985B /* ATHorizontalBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CF40B1601ED1800B1985B /* ATHorizontalBarChartView.m */; };
+		D3290C3C16DDAA6800A03158 /* PortInfoBehaviourVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3290C3A16DDAA6800A03158 /* PortInfoBehaviourVC.m */; };
+		D3290C3D16DDAA6800A03158 /* PortInfoBehaviourVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3290C3B16DDAA6800A03158 /* PortInfoBehaviourVC.xib */; };
+		D3290C4116DDAC7B00A03158 /* PortBehaviour.m in Sources */ = {isa = PBXBuildFile; fileRef = D3290C4016DDAC7B00A03158 /* PortBehaviour.m */; };
 		D32DCA5015D791D900FCB6AA /* DataQueryPopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D32DCA4E15D791D900FCB6AA /* DataQueryPopVC.m */; };
 		D32DCA5115D791D900FCB6AA /* DataQueryPopVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32DCA4F15D791D900FCB6AA /* DataQueryPopVC.xib */; };
 		D35A54A315DC9ED900D55862 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = D35A54A015DC9ED900D55862 /* TBXML.m */; };
@@ -310,6 +313,8 @@
 		D3A06E7115D0E74C00963BA2 /* WSView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E4515D0E74C00963BA2 /* WSView.m */; };
 		D3A06E7515D0E93500963BA2 /* PortEfficiencyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A06E7315D0E93400963BA2 /* PortEfficiencyVC.m */; };
 		D3A06E7615D0E93500963BA2 /* PortEfficiencyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */; };
+		D3A3EA6516DCB94900CB9E74 /* chuanoffline.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3EA6316DCB94900CB9E74 /* chuanoffline.png */; };
+		D3A3EA6616DCB94900CB9E74 /* chuanoffline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3EA6416DCB94900CB9E74 /* chuanoffline@2x.png */; };
 		D3B9EA9A1613F57C0099E0B1 /* VB_Latefee.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9EA991613F57C0099E0B1 /* VB_Latefee.m */; };
 		D3B9EA9E1613F6320099E0B1 /* VB_LatefeeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9EA9D1613F6320099E0B1 /* VB_LatefeeDao.m */; };
 		D3E522F915F83CA2008756BD /* NTLateFeeDMFX.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */; };
@@ -716,6 +721,11 @@
 		D31B5128160184C800EFB98F /* NTLateFeeHcfxVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NTLateFeeHcfxVC.xib; sourceTree = "<group>"; };
 		D31CF40A1601ED1800B1985B /* ATHorizontalBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATHorizontalBarChartView.h; sourceTree = "<group>"; };
 		D31CF40B1601ED1800B1985B /* ATHorizontalBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATHorizontalBarChartView.m; sourceTree = "<group>"; };
+		D3290C3916DDAA6800A03158 /* PortInfoBehaviourVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortInfoBehaviourVC.h; sourceTree = "<group>"; };
+		D3290C3A16DDAA6800A03158 /* PortInfoBehaviourVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortInfoBehaviourVC.m; sourceTree = "<group>"; };
+		D3290C3B16DDAA6800A03158 /* PortInfoBehaviourVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortInfoBehaviourVC.xib; sourceTree = "<group>"; };
+		D3290C3F16DDAC7B00A03158 /* PortBehaviour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortBehaviour.h; sourceTree = "<group>"; };
+		D3290C4016DDAC7B00A03158 /* PortBehaviour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortBehaviour.m; sourceTree = "<group>"; };
 		D32DCA4D15D791D900FCB6AA /* DataQueryPopVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataQueryPopVC.h; sourceTree = "<group>"; };
 		D32DCA4E15D791D900FCB6AA /* DataQueryPopVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataQueryPopVC.m; sourceTree = "<group>"; };
 		D32DCA4F15D791D900FCB6AA /* DataQueryPopVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataQueryPopVC.xib; sourceTree = "<group>"; };
@@ -861,6 +871,8 @@
 		D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortEfficiencyVC.xib; sourceTree = "<group>"; };
 		D3A39CC11601BD7500D60D6D /* ATPagingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATPagingView.h; sourceTree = "<group>"; };
 		D3A39CC21601BD7500D60D6D /* ATPagingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATPagingView.m; sourceTree = "<group>"; };
+		D3A3EA6316DCB94900CB9E74 /* chuanoffline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chuanoffline.png; sourceTree = "<group>"; };
+		D3A3EA6416DCB94900CB9E74 /* chuanoffline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chuanoffline@2x.png"; sourceTree = "<group>"; };
 		D3B9EA981613F57C0099E0B1 /* VB_Latefee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VB_Latefee.h; sourceTree = "<group>"; };
 		D3B9EA991613F57C0099E0B1 /* VB_Latefee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VB_Latefee.m; sourceTree = "<group>"; };
 		D3B9EA9C1613F6320099E0B1 /* VB_LatefeeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VB_LatefeeDao.h; sourceTree = "<group>"; };
@@ -1065,6 +1077,7 @@
 		057F6C5C152449EA00E0E435 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				D3290C3B16DDAA6800A03158 /* PortInfoBehaviourVC.xib */,
 				2A8D443A163E281E0042D9C5 /* VBTransChVCDetail.xib */,
 				2A8FD6811630F27100075616 /* LoginView.xib */,
 				D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */,
@@ -1127,6 +1140,8 @@
 				D3E625E816420543007AC300 /* hpilogo3@2x.png */,
 				D3E625E21642048A007AC300 /* excel.png */,
 				D3E625E31642048A007AC300 /* excel@2x.png */,
+				D3A3EA6316DCB94900CB9E74 /* chuanoffline.png */,
+				D3A3EA6416DCB94900CB9E74 /* chuanoffline@2x.png */,
 				D375A128163E0F8800D65F4B /* rly@2x.png */,
 				D375A117163E0F0B00D65F4B /* rlt.png */,
 				D375A11B163E0F0B00D65F4B /* rlt@2x.png */,
@@ -1268,6 +1283,8 @@
 				D93C154415BCFA7D000C43B4 /* NTShipCompanyTranShareDao.h */,
 				D93C154515BCFA7E000C43B4 /* NTShipCompanyTranShareDao.m */,
 				D35CFE4515D1EB13005FAA17 /* PortEfficiency.h */,
+				D3290C3F16DDAC7B00A03158 /* PortBehaviour.h */,
+				D3290C4016DDAC7B00A03158 /* PortBehaviour.m */,
 				D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */,
 				2A692C8A15C134D8007A1BE7 /* TB_Latefee.h */,
 				2A692C8B15C134D8007A1BE7 /* TB_Latefee.m */,
@@ -1499,6 +1516,8 @@
 				059A272315270D400068CFDA /* InfoFactoryViewController.m */,
 				059A271C1526F8610068CFDA /* InfoPortVewController.h */,
 				059A271D1526F8610068CFDA /* InfoPortVewController.m */,
+				D3290C3916DDAA6800A03158 /* PortInfoBehaviourVC.h */,
+				D3290C3A16DDAA6800A03158 /* PortInfoBehaviourVC.m */,
 				058A69CF152B66A000854C45 /* InfoShipViewController.h */,
 				058A69D0152B66A000854C45 /* InfoShipViewController.m */,
 				058A69C9152B534A00854C45 /* InfoTextViewController.h */,
@@ -1931,6 +1950,9 @@
 				D3E625E51642048A007AC300 /* excel@2x.png in Resources */,
 				D3E625E916420543007AC300 /* hpilogo3@2x.png in Resources */,
 				D3E625EB16420548007AC300 /* hpilogo3.png in Resources */,
+				D3A3EA6516DCB94900CB9E74 /* chuanoffline.png in Resources */,
+				D3A3EA6616DCB94900CB9E74 /* chuanoffline@2x.png in Resources */,
+				D3290C3D16DDAA6800A03158 /* PortInfoBehaviourVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2148,6 +2170,8 @@
 				2A8FD6821630F27100075616 /* LoginView.m in Sources */,
 				2A9CED271636943B000DF3E7 /* LoginResponse.m in Sources */,
 				2A8D443B163E281E0042D9C5 /* VBTransChVCDetail.m in Sources */,
+				D3290C3C16DDAA6800A03158 /* PortInfoBehaviourVC.m in Sources */,
+				D3290C4116DDAC7B00A03158 /* PortBehaviour.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

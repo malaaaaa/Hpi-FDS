@@ -118,6 +118,7 @@ UIAlertView *RegistAlert;
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    /*
     BOOL valid = [self validateFromServer];
     //注册未完成设备或被禁用设备
     if (FALSE==valid) {
@@ -138,7 +139,7 @@ UIAlertView *RegistAlert;
     else{
         [self removeLoginPage];
     }
-    
+    */
     
 }
 

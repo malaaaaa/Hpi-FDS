@@ -12,7 +12,7 @@
 @synthesize comID,heatValue,lw,shipID,supID;
 @synthesize company,factoryCode,factoryName,portCode,eta,lat,lon,sog;
 @synthesize draft,stage,width,length,online,tripNo,infoTime,naviStat,portName;
-@synthesize shipName,statCode,statName,supplier,stageName,destination;
+@synthesize shipName,statCode,statName,supplier,stageName,destination,isOwn;
 @synthesize didSelected;
 - (void)dealloc {
     [shipName release];
@@ -38,6 +38,7 @@
     [stageName release];
     [statCode release];
     [statName release];
+    [isOwn release];
     [super dealloc];
 }
 

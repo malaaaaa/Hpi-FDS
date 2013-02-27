@@ -604,6 +604,7 @@ static bool parserFlag=FALSE;
     [xmlParser getTmIndexdefine];
     [TmIndextypeDao deleteAll];
     [xmlParser getTmIndextype];
+
 }
 
 @end

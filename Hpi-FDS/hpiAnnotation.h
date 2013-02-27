@@ -22,6 +22,8 @@
     UIImage*  topImage;
     NSString* shipStat;
     NSString* shipStage;
+    NSString* company; //航运公司
+    NSString* online; //是否在线
 } 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;
@@ -34,6 +36,8 @@
 @property (nonatomic, retain) UIImage *topImage;
 @property (nonatomic, copy) NSString *shipStat;
 @property (nonatomic, copy) NSString *shipStage;
+@property (nonatomic, copy) NSString *company;
+@property (nonatomic, copy) NSString *online;
 
 -(id) initWithCoords:(CLLocationCoordinate2D) coords;
 @end

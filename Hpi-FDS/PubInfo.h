@@ -64,6 +64,7 @@
 #import "TfPortDao.h"
 #import "TfShipDao.h"
 #import "TH_SHIPTRANS_ORIDAO.h"
+#import "PortBehaviour.h"
 
 static NSString *version = @"1.0";
 typedef enum{
@@ -141,7 +142,8 @@ typedef enum{
 #define All_        @"全部"
 #define kYES        @"1"
 #define kNO         @"0"
-
+#define ONLINE_SHIP    @"在线船舶"
+#define OFFLINE_SHIP    @"离线船舶"
 #define UYES    @"1"  //是否 存在该设备号
 #define UNO     @"0"
 

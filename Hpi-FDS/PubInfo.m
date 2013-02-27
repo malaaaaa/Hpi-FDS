@@ -25,12 +25,12 @@
 #import "NT_TransPlanImpDao.h"
 @implementation PubInfo
 //测试环境
-//static NSString *hostName =@"http://10.2.17.121";
-//static NSString *port =@":82";
+static NSString *hostName =@"http://10.2.17.121";
+static NSString *port =@":82";
 
 //正式环境
-static NSString *hostName =@"http://cds.hpi.com.cn";
-static NSString *port =@"";
+//static NSString *hostName =@"http://cds.hpi.com.cn";
+//static NSString *port =@"";
 static NSString *autoUpdate;
 static NSString *baseUrl;
 static NSString *url;
@@ -160,6 +160,7 @@ static NSString *deviceID;
     [NTZxgsjtjDao initDb];
     [TH_SHIPTRANS_ORIDAO openDataBase];
     [TH_SHIPTRANS_ORIDAO initDb];
+    [PortBehaviourDao openDataBase];
     
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];

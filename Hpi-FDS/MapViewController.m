@@ -17,9 +17,10 @@
 @synthesize mapView,mapViewBig,activity,closeButton,switchMap,shipButton,factoryButton,portButton,updateButton;
 @synthesize shipIDArray,portIDArray,factoryIDArray;
 @synthesize shipCoordinateArray,portCoordinateArray,factoryCoordinateArray;
-@synthesize infoPortVewController,popover,infoTextViewController,infoFactoryViewController,shipInfoViewController,infoShipViewController,summaryInfoViewController;
+@synthesize infoPortVewController,popover,infoTextViewController,infoFactoryViewController,shipInfoViewController,infoShipViewController,summaryInfoViewController,portInfoBehaviourVC;
 @synthesize chooseView,curID,curName,curTextViewinfo;
 @synthesize xmlParser;
+@synthesize tbxmlParser;
 
 static int iCloseOpen=0;
 static int iPopX=0,iPopy=0;
@@ -73,6 +74,8 @@ static int iDisplay=0;
     if (xmlParser) {
         [xmlParser release];
     }
+    self.tbxmlParser=nil;
+
     [super dealloc];
 }
 
@@ -82,6 +85,8 @@ static int iDisplay=0;
 {
     [super viewDidLoad];
     
+    self.tbxmlParser =[[TBXMLParser alloc] init];
+
     //检测网络
     Reachability *r = [Reachability reachabilityWithHostName:@"www.apple.com"];
 
@@ -129,7 +134,7 @@ static int iDisplay=0;
     self.shipIDArray = [[NSMutableArray alloc]init] ;
 	self.portIDArray = [[NSMutableArray alloc]init] ;
     self.factoryIDArray = [[NSMutableArray alloc]init] ;
-    [shipIDArray addObject:All_SHIP];
+    [shipIDArray addObject:ONLINE_SHIP];
     [portIDArray addObject:All_PORT];
     [factoryIDArray addObject:All_FCTRY];
     self.shipCoordinateArray = [[NSMutableArray alloc]init] ;
@@ -159,11 +164,14 @@ static int iDisplay=0;
     mapViewBig.layer.shadowColor =[UIColor blackColor].CGColor;
     
     CLLocationCoordinate2D theCoordinate1;
-    theCoordinate1.latitude=2.6955667122; //纬度
-    theCoordinate1.longitude=111.0461133190; //经度
+//    theCoordinate1.latitude=2.6955667122; //纬度
+//    theCoordinate1.longitude=111.0461133190; //经度
+    theCoordinate1.latitude=5.878332; //纬度
+    theCoordinate1.longitude=133.857422; //经度
     MKCoordinateRegion theRegion1;
     theRegion1.center=theCoordinate1;
-    MKCoordinateSpan theSpan1 = MKCoordinateSpanMake(60,60);//显示比例
+//    MKCoordinateSpan theSpan1 = MKCoordinateSpanMake(60,60);//显示比例
+    MKCoordinateSpan theSpan1 = MKCoordinateSpanMake(30,30);//显示比例
     theRegion1.span=theSpan1;
     //定义显示范围
     //定义一个区域（使用设置的经度纬度加上一个范围)
@@ -182,9 +190,9 @@ static int iDisplay=0;
         [self getShipCoordinateArray];
         [self getPortCoordinateArray];
     }
-    self.shipButton.titleLabel.text=All_SHIP;
-    self.portButton.titleLabel.text=All_PORT;
-    self.factoryButton.titleLabel.text=All_FCTRY;
+//    self.shipButton.titleLabel.text=All_SHIP;
+//    self.portButton.titleLabel.text=All_PORT;
+//    self.factoryButton.titleLabel.text=All_FCTRY;
 }
 
 - (void)viewDidUnload
@@ -206,6 +214,8 @@ static int iDisplay=0;
 	self.portCoordinateArray = nil;
     self.factoryCoordinateArray = nil;
     self.xmlParser=nil;
+    self.tbxmlParser=nil;
+
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -316,6 +326,9 @@ static int iDisplay=0;
 }
 - (IBAction)chooseShip:(id)sender
 {
+    [self.factoryButton setTitle:OFFLINE_SHIP   forState:UIControlStateNormal];
+    [self getShipCoordinateArray];
+    
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -323,9 +336,9 @@ static int iDisplay=0;
     //初始化待显示控制器
     chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围
-    [chooseView.view setFrame:CGRectMake(0,0, 125, 400)];
+    [chooseView.view setFrame:CGRectMake(0,0, 125, 570)];
     //设置待显示控制器视图的尺寸
-    chooseView.contentSizeForViewInPopover = CGSizeMake(125, 400);
+    chooseView.contentSizeForViewInPopover = CGSizeMake(125, 570);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:chooseView];
     chooseView.popover = pop;
@@ -335,9 +348,9 @@ static int iDisplay=0;
     chooseView.parentMapView=self;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(125, 400);
+    self.popover.popoverContentSize = CGSizeMake(125, 570);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(500, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(300, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
@@ -366,13 +379,13 @@ static int iDisplay=0;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(960, 300);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(880, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(700, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [summaryInfoViewController release];
     [pop release];
     
     
 }
-
+/*
 - (IBAction)listInfoView:(id)sender
 {
     NSLog(@"ship %@  factory %@ port %@",shipButton.titleLabel.text,factoryButton.titleLabel.text,portButton.titleLabel.text);
@@ -404,6 +417,35 @@ static int iDisplay=0;
     
     
 }
+*/
+- (IBAction)portInfoView:(id)sender
+{    
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    
+    //初始化待显示控制器
+    portInfoBehaviourVC=[[PortInfoBehaviourVC alloc]init];
+    //设置待显示控制器的范围
+    [portInfoBehaviourVC.view setFrame:CGRectMake(0,0, 340, 316)];
+    //设置待显示控制器视图的尺寸
+    portInfoBehaviourVC.contentSizeForViewInPopover = CGSizeMake(340, 316);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:portInfoBehaviourVC];
+    portInfoBehaviourVC.popover = pop;
+    portInfoBehaviourVC.infoLabel.text=@"港口动态";
+    self.popover = pop;
+    self.popover.delegate = self;
+    [portInfoBehaviourVC loadViewData];
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(340, 316);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(800, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [portInfoBehaviourVC release];
+    [pop release];
+    
+    
+}
 - (IBAction)updateData:(id)sender
 {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
@@ -417,14 +459,23 @@ static int iDisplay=0;
         [self.view addSubview:activity];
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:4];
-//        [TgPortDao deleteAll];
-        [xmlParser getTgPort];
-//        [TgShipDao deleteAll];
-        [xmlParser getTgShip];
-//        [TgFactoryDao deleteAll];
-        [xmlParser getTgFactory];
-        [xmlParser getTiListinfo];
+        [tbxmlParser setISoapNum:7];
+        
+        [tbxmlParser requestSOAP:@"TgPort"];
+        [tbxmlParser requestSOAP:@"TgShip"];
+        [tbxmlParser requestSOAP:@"TgFactory"];
+        [tbxmlParser requestSOAP:@"List"];
+        [tbxmlParser requestSOAP:@"Coal"];
+        [tbxmlParser requestSOAP:@"Ship"];
+        [tbxmlParser requestSOAP:@"Port"];
+
+
+
+//        [xmlParser setISoapNum:4];
+//        [xmlParser getTgPort];
+//        [xmlParser getTgShip];
+//        [xmlParser getTgFactory];
+//        [xmlParser getTiListinfo];
         [self runActivity];
     }
 	
@@ -651,7 +702,8 @@ static int iDisplay=0;
     [self.mapViewBig removeAnnotations:shipCoordinateArray];
     [shipCoordinateArray removeAllObjects];
     [shipIDArray removeAllObjects];
-    [shipIDArray addObject:All_SHIP];
+    [shipIDArray addObject:ONLINE_SHIP];
+//    [shipIDArray addObject:All_SHIP];
     //self.chooseShip=@"全部船舶";
     for(i=0;i<[array count];i++){
         TgShip *tgShip=[array objectAtIndex:i];
@@ -695,23 +747,77 @@ static int iDisplay=0;
         //port.topTitle=port.title;
         port.shipStat=tgShip.statCode;
         port.shipStage=tgShip.stage;
-        
-        if ([port.shipStage isEqualToString:@"2"]) {
-            port.topImage = [UIImage imageNamed:@"chuanx1.png"];
-        }
-        else if([port.shipStat isEqualToString:@"7"]) {
-            port.topImage = [UIImage imageNamed:@"chuanx1.png"];
-        }
-        else if([port.shipStat isEqualToString:@"8"]) {
-            port.topImage = [UIImage imageNamed:@"chuanx1.png"];
-        }
-        else
-            port.topImage = [UIImage imageNamed:@"chuanxk1.png"];
-        
-        port.subtitle=[NSString stringWithFormat:@"%d",tgShip.shipID];
-        port.subtitle2=[NSString stringWithFormat:@"航运公司： %@\n装运港： %@\n流向电厂： %@\n航次： %@\n供货方： %@\n热值： %d\n载煤量： %d\n船厂： %@\n船宽： %@\n吃水： %@\n预计抵港： %@\n纬度： %@\n经度： %@\n对地速度： %@\n目的地： %@\n接收时间： %@\n",tgShip.company,tgShip.portName,tgShip.factoryName,tgShip.tripNo,tgShip.supplier,tgShip.heatValue,tgShip.lw,tgShip.length,tgShip.width,tgShip.draft,tgShip.eta,tgShip.lat,tgShip.lon,tgShip.sog,tgShip.destination,tgShip.infoTime];
+        port.online=tgShip.online;
+//        //属于自己船舶公司的船且不在线那么认为不在线
+//  NSLog(@"MMMMMAAAAA%@,%@",tgShip.isOwn,tgShip.online);
+//        if ([tgShip.isOwn isEqualToString:@"1"] && [tgShip.online isEqualToString:@"0"])
+//        {
+//            NSLog(@"OKKK");
+//            port.ISONLINE=NO;
+//            port.topImage = [UIImage imageNamed:@"chuanoffline.png"];
+//        } else{
+            if ([port.shipStage isEqualToString:@"2"]) {
+       
+                port.topImage = [UIImage imageNamed:@"chuanx1.png"];
+            }
+            else if([port.shipStat isEqualToString:@"7"]) {
+                port.topImage = [UIImage imageNamed:@"chuanx1.png"];
+            }
+            else if([port.shipStat isEqualToString:@"8"]) {
+                port.topImage = [UIImage imageNamed:@"chuanx1.png"];
+            }
+            else
+                port.topImage = [UIImage imageNamed:@"chuanxk1.png"];
+//        }
+
+        port.subtitle=[NSString stringWithFormat:@"%@",tgShip.tripNo];
+//        port.subtitle2=[NSString stringWithFormat:@"航运公司： %@\n装运港： %@\n流向电厂： %@\n航次： %@\n供货方： %@\n热值： %d\n载煤量： %d\n船厂： %@\n船宽： %@\n吃水： %@\n预计抵港： %@\n纬度： %@\n经度： %@\n对地速度： %@\n目的地： %@\n接收时间： %@\n",tgShip.company,tgShip.portName,tgShip.factoryName,tgShip.tripNo,tgShip.supplier,tgShip.heatValue,tgShip.lw,tgShip.length,tgShip.width,tgShip.draft,tgShip.eta,tgShip.lat,tgShip.lon,tgShip.sog,tgShip.destination,tgShip.infoTime];
         port.port=tgShip.portName;
         port.factory=tgShip.factoryName;
+        port.company=tgShip.company;
+        port.iAnnotationType=kSHIP;
+        [shipCoordinateArray addObject:port];
+        [shipIDArray addObject:tgShip.shipName];
+        [port release];
+    }
+    //[array release];
+    [self displayShip];
+}
+-(void)getShipCoordinateArray_Offline
+{
+    int i;
+    NSMutableArray *array=[TgShipDao getTgShip_Offline];
+    NSLog(@"船舶数量 =%d",[array count]);
+    [self.mapView removeAnnotations:shipCoordinateArray];
+    [self.mapViewBig removeAnnotations:shipCoordinateArray];
+    [shipCoordinateArray removeAllObjects];
+    [shipIDArray removeAllObjects];
+    [shipIDArray addObject:ONLINE_SHIP];
+    //    [shipIDArray addObject:All_SHIP];
+    //self.chooseShip=@"全部船舶";
+    for(i=0;i<[array count];i++){
+        TgShip *tgShip=[array objectAtIndex:i];
+        
+        CLLocationCoordinate2D coordinate;
+        coordinate.latitude = [tgShip.lat doubleValue]; //纬度
+        coordinate.longitude = [tgShip.lon doubleValue]; //经度
+        
+        NSLog(@"%@==latitude=%f",tgShip.shipName,coordinate.latitude);
+        NSLog(@"longitude=%f",coordinate.longitude);
+        hpiAnnotation *port=[[hpiAnnotation alloc]initWithCoords:coordinate];
+        port.title=[tgShip.shipName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        //port.topTitle=port.title;
+        port.shipStat=tgShip.statCode;
+        port.shipStage=tgShip.stage;
+        port.online=tgShip.online;
+        //属于自己船舶公司的船且不在线那么认为不在线
+        port.topImage = [UIImage imageNamed:@"chuanoffline.png"];
+
+        port.subtitle=[NSString stringWithFormat:@"%@",tgShip.tripNo];
+//        port.subtitle2=[NSString stringWithFormat:@"航运公司： %@\n装运港： %@\n流向电厂： %@\n航次： %@\n供货方： %@\n热值： %d\n载煤量： %d\n船厂： %@\n船宽： %@\n吃水： %@\n预计抵港： %@\n纬度： %@\n经度： %@\n对地速度： %@\n目的地： %@\n接收时间： %@\n",tgShip.company,tgShip.portName,tgShip.factoryName,tgShip.tripNo,tgShip.supplier,tgShip.heatValue,tgShip.lw,tgShip.length,tgShip.width,tgShip.draft,tgShip.eta,tgShip.lat,tgShip.lon,tgShip.sog,tgShip.destination,tgShip.infoTime];
+        port.port=tgShip.portName;
+        port.factory=tgShip.factoryName;
+        port.company=tgShip.company;
         port.iAnnotationType=kSHIP;
         [shipCoordinateArray addObject:port];
         [shipIDArray addObject:tgShip.shipName];
@@ -721,6 +827,7 @@ static int iDisplay=0;
     [self displayShip];
 }
 
+/* 去掉港口电厂筛选条件 2013.02.26
 -(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(BOOL)move
 {
     int i;
@@ -793,11 +900,78 @@ static int iDisplay=0;
         }
     }
 }
+*/
+-(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)companyName :(BOOL)move
+{
+    int i;
+    int a=0;
+    int b=0;
+    NSLog(@"搜索的船舶 shipName[%@]companyName[%@]",shipName,companyName);
+    NSLog(@"地图船舶数量 =%d",[shipCoordinateArray count]);
+    
+    if ([shipName isEqualToString:ONLINE_SHIP]){
+        a=1;
+    }
+    if ([companyName isEqualToString:OFFLINE_SHIP]){
+        b=1;
+    }
+    NSLog(@"搜索船舶abc shipName[%d]companyName[%d]",a,b);
+    if(a==1 && b==1 )
+    {
+        [self displayShip];
+    }
+    else
+    {
+        [self.mapView removeAnnotations:shipCoordinateArray];
+        [self.mapViewBig removeAnnotations:shipCoordinateArray];
+        for(i=0;i<[shipCoordinateArray count];i++)
+        {
+            hpiAnnotation *port=[shipCoordinateArray objectAtIndex:i];
+        
+            //            NSLog(@"port[%@]",port.port);
+            //            NSLog(@"factory[%@]",port.factory);
+            if(a==0)
+            {
+                if(![shipName isEqualToString:port.title])
+                {
+                    continue;
+                }
+            }
+            if(b==0)
+            {
+                if(![companyName isEqualToString:port.company])
+                {
+                    continue;
+                }
+//                if ([companyName isEqualToString:port.company] && port.ISONLINE)
+//                {
+//                    continue;
+//                }
+            }
 
+            [mapView addAnnotation:port];
+            [mapViewBig addAnnotation:port];
+            if (a==0 && move==YES)
+            {
+                if([shipName isEqualToString:port.title])
+                {
+                    //mapview移动到以当前点作为中心点的位置
+                    MKCoordinateRegion theRegion;
+                    MKCoordinateSpan theSpan = MKCoordinateSpanMake(6,6);//显示比例
+                    theRegion.center=port.coordinate;
+                    theRegion.span=theSpan;
+                    [self.mapView setRegion:theRegion];
+                    return;
+                }
+            }
+        }
+    }
+}
 #pragma mark - display 坐标
 - (void)chooseUpdateView
 {
-    [self getShipCoordinateByChoose:shipButton.titleLabel.text :portButton.titleLabel.text :factoryButton.titleLabel.text :YES];
+//    [self getShipCoordinateByChoose:shipButton.titleLabel.text :portButton.titleLabel.text :factoryButton.titleLabel.text :YES];
+    [self getShipCoordinateByChoose:shipButton.titleLabel.text :factoryButton.titleLabel.text  :YES];
 }
 - (void)displayPort
 {
@@ -844,9 +1018,12 @@ static int iDisplay=0;
         //              forControlEvents:UIControlEventTouchUpInside];
         newAnnotation.rightCalloutAccessoryView = rightButton;
         
-        
-        UIButton* leftButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-        newAnnotation.leftCalloutAccessoryView = leftButton;
+        //船舶去掉左侧信息按钮，因为重复
+        if(kSHIP!=myAnnototion.iAnnotationType)
+        {
+            UIButton* leftButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+            newAnnotation.leftCalloutAccessoryView = leftButton;
+        }
         return newAnnotation;
     }
     return nil;
@@ -863,7 +1040,7 @@ static int iDisplay=0;
     //NSLog(@"%@ Coordinate: %f %f", newAnnotation.title, annPoint.x, annPoint.y);
     iPopX= (int) annPoint.x;
     iPopy= (int) annPoint.y;
-    //NSLog(@"%@ Coordinate: %d %d", newAnnotation.title, iPopX, iPopy);
+//    NSLog(@"%@ Coordinate: %d %d %@=%@", newAnnotation.title, iPopX, iPopy,self.curID,self.curTextViewinfo);
     self.curTextViewinfo=newAnnotation.subtitle2;
     self.curID=newAnnotation.subtitle;
     self.curName=newAnnotation.title;
@@ -899,25 +1076,30 @@ static int iDisplay=0;
 
     if((mapView.region.span.longitudeDelta<10.0) && (mapView.region.span.longitudeDelta>0.3) && (iDisplay != 1))
     {
+        /*
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou"];
         }
         for (hpiAnnotation *myannotation in factoryCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"dianchang"];
         }
+         */
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
-            
-            if ([myannotation.shipStage isEqualToString:@"2"]) {
-                myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
+            if ([myannotation.online isEqualToString:@"1"]) {
+                
+                
+                if ([myannotation.shipStage isEqualToString:@"2"]) {
+                    myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
+                }
+                else if([myannotation.shipStat isEqualToString:@"7"]) {
+                    myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
+                }
+                else if([myannotation.shipStat isEqualToString:@"8"]) {
+                    myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
+                }
+                else
+                    myannotation.topImage = [UIImage imageNamed:@"chuanxk.png"];
             }
-            else if([myannotation.shipStat isEqualToString:@"7"]) {
-                myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
-            }
-            else if([myannotation.shipStat isEqualToString:@"8"]) {
-                myannotation.topImage = [UIImage imageNamed:@"chuanx.png"];
-            }
-            else
-                myannotation.topImage = [UIImage imageNamed:@"chuanxk.png"];
             myannotation.topTitle=myannotation.title;
         }
         [self.mapView removeAnnotations:shipCoordinateArray];
@@ -931,26 +1113,29 @@ static int iDisplay=0;
     }
     if((mapView.region.span.longitudeDelta>=10.0) && (iDisplay != 0))
     {
-
+/*
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou1"];
         }
         for (hpiAnnotation *myannotation in factoryCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"dianchang1"];
         }
+ */
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
-            
-            if ([myannotation.shipStage isEqualToString:@"2"]) {
-                myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
+            if ([myannotation.online isEqualToString:@"1"]) {
+                
+                if ([myannotation.shipStage isEqualToString:@"2"]) {
+                    myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
+                }
+                else if([myannotation.shipStat isEqualToString:@"7"]) {
+                    myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
+                }
+                else if([myannotation.shipStat isEqualToString:@"8"]) {
+                    myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
+                }
+                else
+                    myannotation.topImage = [UIImage imageNamed:@"chuanxk1.png"];
             }
-            else if([myannotation.shipStat isEqualToString:@"7"]) {
-                myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
-            }
-            else if([myannotation.shipStat isEqualToString:@"8"]) {
-                myannotation.topImage = [UIImage imageNamed:@"chuanx1.png"];
-            }
-            else
-                myannotation.topImage = [UIImage imageNamed:@"chuanxk1.png"];
             myannotation.topTitle=@"";
         }
         [self.mapView removeAnnotations:shipCoordinateArray];
@@ -963,13 +1148,14 @@ static int iDisplay=0;
     }
     if((mapView.region.span.longitudeDelta<=0.3) && (iDisplay != 2))
     {
-
+/*
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou3"];
         }
         for (hpiAnnotation *myannotation in factoryCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"dianchang3"];
         }
+ */
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
             
             if ([myannotation.shipStage isEqualToString:@"2"]) {
@@ -993,7 +1179,7 @@ static int iDisplay=0;
         [self.mapView addAnnotations:portCoordinateArray];
         iDisplay=2;
     }
-        [self getShipCoordinateByChoose:shipButton.titleLabel.text :portButton.titleLabel.text :factoryButton.titleLabel.text :NO];
+        [self getShipCoordinateByChoose:shipButton.titleLabel.text  :factoryButton.titleLabel.text :NO];
    
 }
 
@@ -1010,6 +1196,26 @@ static int iDisplay=0;
 }
 
 #pragma mark activity
+-(void)runActivity
+{
+    if ([tbxmlParser iSoapNum]==0) {
+        [activity stopAnimating];
+        [activity removeFromSuperview];
+        [updateButton setTitle:@"网络同步" forState:UIControlStateNormal];
+        
+        [self getFactoryCoordinateArray];
+        [self getShipCoordinateArray];
+        [self getPortCoordinateArray];
+        [self chooseUpdateView];
+        
+        
+        return;
+    }
+    else {
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
+    }
+}
+/*
 -(void)runActivity
 {
     if ([xmlParser iSoapNum]==0) {
@@ -1029,26 +1235,38 @@ static int iDisplay=0;
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
     }
 }
-
+*/
 #pragma mark SetSelectValue  Method
 -(void)setLableValue:(NSString *)currentSelectValue
 {
     
     if (chooseView) {
+//        
+//        if (chooseView.type==kPORT) {
+//            [self.portButton setTitle:currentSelectValue  forState:UIControlStateNormal];
+//            [self chooseUpdateView];
+//        }
         
-        if (chooseView.type==kPORT) {
-            [self.portButton setTitle:currentSelectValue  forState:UIControlStateNormal];
-            [self chooseUpdateView];
-        }
-        
-        if (chooseView.type==kFACTORY) {
+        if (chooseView.type==kSHIPCOMPANY) {
+            if (![currentSelectValue isEqualToString:OFFLINE_SHIP]) {
+                [self getShipCoordinateArray_Offline];
+                [shipIDArray removeAllObjects];
+                [shipIDArray addObject:ONLINE_SHIP];
+                [self.shipButton setTitle:ONLINE_SHIP   forState:UIControlStateNormal];
+
+            }
+            else{
+                [self getShipCoordinateArray];
+            }
             [self.factoryButton setTitle:currentSelectValue   forState:UIControlStateNormal];
             [self chooseUpdateView];
             
         }
         if (chooseView.type==kSHIP) {
+
             [self.shipButton setTitle:currentSelectValue   forState:UIControlStateNormal];
             [self chooseUpdateView];
+            
             
             
         }
@@ -1057,7 +1275,35 @@ static int iDisplay=0;
     
 }
 
+- (IBAction)comButtonSelect:(id)sender {
+    NSLog(@"abc");
 
+    if (self.popover.popoverVisible) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    //初始化待显示控制器
+    chooseView=[[ChooseView alloc]init];
+    //设置待显示控制器的范围
+    [chooseView.view setFrame:CGRectMake(0,0, 125, 180)];
+    //设置待显示控制器视图的尺寸
+    chooseView.contentSizeForViewInPopover = CGSizeMake(125, 180);
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:chooseView];
+    chooseView.popover = pop;
+    chooseView.iDArray=[NSArray arrayWithObjects:OFFLINE_SHIP,@"时代",@"瑞宁",@"华鲁",nil];
+    chooseView.parentMapView=self;
+    chooseView.type=kSHIPCOMPANY;
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(125, 180);
+    //显示，其中坐标为箭头的坐标以及尺寸
+    [self.popover presentPopoverFromRect:CGRectMake(120, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [chooseView.tableView reloadData];
+    [chooseView release];
+    [pop release];
+    NSLog(@"edc");
+}
 
 @end
 

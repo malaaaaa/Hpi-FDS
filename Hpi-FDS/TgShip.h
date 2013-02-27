@@ -71,6 +71,7 @@
     NSString *stageName;    //阶段说明
     NSString *statCode;     //状态编码
     NSString *statName;     //状态说明
+    NSString *isOwn;
     BOOL    didSelected;
 }
 @property (nonatomic,retain) NSString *shipName;
@@ -96,6 +97,7 @@
 @property (nonatomic,retain) NSString *stageName;
 @property (nonatomic,retain) NSString *statCode;
 @property (nonatomic,retain) NSString *statName;
+@property (nonatomic,retain) NSString *isOwn;
 
 @property NSInteger shipID;
 @property NSInteger comID;
