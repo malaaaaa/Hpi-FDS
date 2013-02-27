@@ -125,7 +125,7 @@ static NSString *fileName;
     
     //再dev_tangb 上 我已更改
     
-    [webView setBackgroundColor:[UIColor whiteColor]];
+   
     
 }
 
@@ -227,7 +227,7 @@ static NSString *fileName;
    
 
    // [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-
+ [webView setBackgroundColor:[UIColor whiteColor]];
     [webView loadRequest:request];
 
     self.titleLable.text=fileName;
