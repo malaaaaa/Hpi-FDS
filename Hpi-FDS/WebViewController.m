@@ -123,7 +123,7 @@ static NSString *fileName;
     [doubleTapGesture release];
     [singleTapGesture release];
     
-    
+    //再dev_tangb 上 我已更改
     
     [webView setBackgroundColor:[UIColor whiteColor]];
     
