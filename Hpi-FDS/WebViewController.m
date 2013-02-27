@@ -134,8 +134,8 @@ static NSString *fileName;
    CGPoint touchPoint = [sender locationInView:self.webView];
     //...
    // NSLog(@"这是个Single.....");
-    NSLog(@"touchPoint.x>>>>>>>>>>>>>>%f",touchPoint.x);
-      NSLog(@"touchPoint.y>>>>>>>>>>>>>>%f",touchPoint.y);
+   // NSLog(@"touchPoint.x>>>>>>>>>>>>>>%f",touchPoint.x);
+     // NSLog(@"touchPoint.y>>>>>>>>>>>>>>%f",touchPoint.y);
     
     
    
