@@ -34,7 +34,7 @@
 @synthesize resetButton;
 @synthesize popover,chooseView,parentVC;
 @synthesize tbxmlParser;
-@synthesize dateButton;
+//@synthesize dateButton;
 @synthesize dateLabel;
 @synthesize startDateCV;
 @synthesize startDay;
@@ -68,7 +68,23 @@ DataQueryVC *dataQueryVC;
     self.comLabel.hidden=YES;
     self.portLabel.hidden=YES;
     self.factoryLabel.hidden=YES;
+    
+    
     self.statLabel.hidden=YES;
+    
+    
+    
+    //只查当天数据..
+  //  [dateButton removeFromSuperview];
+    
+    
+ 
+     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+
+    self.dateLabel.text=[dateFormatter stringFromDate:[NSDate date]];
+     [dateFormatter release];
+
     
     
     dataQueryVC=self.parentVC;
@@ -118,10 +134,10 @@ DataQueryVC *dataQueryVC;
     }
     
     self.startDay = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
-    [dateFormatter release];
+   // NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+   // [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+  //  [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
+   // [dateFormatter release];
 }
 
 -(void)initSource
@@ -151,7 +167,7 @@ DataQueryVC *dataQueryVC;
     [self setReloadButton:nil];
     [self setActivity:nil];
     self.tbxmlParser =nil;
-    [self setDateButton:nil];
+   // [self setDateButton:nil];
     [self setDateLabel:nil];
     
     [super viewDidUnload];
@@ -188,13 +204,15 @@ DataQueryVC *dataQueryVC;
     [popover release];
     [reloadButton release];
     [activity release];
-    [dateButton release];
+   // [dateButton release];
     [dateLabel release];
     //    [tbxmlParser release];
     //    tbxmlParser=nil;
     self.tbxmlParser=nil;
     [super dealloc];
 }
+
+/*
 -(IBAction)startDate:(id)sender
 {
     NSLog(@"startDate");
@@ -222,7 +240,7 @@ DataQueryVC *dataQueryVC;
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(90, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
-}
+}*/
 - (IBAction)comAction:(id)sender {
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
@@ -414,6 +432,10 @@ DataQueryVC *dataQueryVC;
     
     [self initSource];
 //    dataQueryVC.dataArray=[VbShiptransDao getVbShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text];
+    
+    
+  //  NSLog(@"startDay:%@",startDay);
+    
     dataQueryVC.dataArray=[TH_SHIPTRANS_ORIDAO getThShiptrans:comLabel.text :shipLabel.text :portLabel.text :factoryLabel.text :statLabel.text :self.startDay];
   // NSLog(@"    dataQueryVC.dataArray [%d]",[    dataQueryVC.dataArray count]);
     dataSource.data=[[NSMutableArray alloc]init] ;
@@ -451,9 +473,14 @@ DataQueryVC *dataQueryVC;
         [dataSource release];
         dataSource=nil;
     }
-    
+    [activity stopAnimating];
+    [activity removeFromSuperview];
 }
-
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activity];
+    [activity startAnimating];
+}
 - (IBAction)resetAction:(id)sender {
     
     self.shipLabel.text =All_;
@@ -468,10 +495,10 @@ DataQueryVC *dataQueryVC;
     self.statLabel.hidden=YES;
     
     self.startDay = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
-    [dateFormatter release];
+   // NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+   // [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    //[dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
+   // [dateFormatter release];
     
     [comButton setTitle:@"航运公司" forState:UIControlStateNormal];
     [statButton setTitle:@"状态" forState:UIControlStateNormal];
@@ -480,6 +507,9 @@ DataQueryVC *dataQueryVC;
     [portButton setTitle:@"装运港" forState:UIControlStateNormal];
     
 }
+
+
+/*
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
     NSLog(@"popoverControllerShouldDismissPopover");
@@ -493,15 +523,14 @@ DataQueryVC *dataQueryVC;
     return  YES;
 }
 
-/* Called on the delegate when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.
- */
+
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
   //  NSLog(@"popoverControllerDidDismissPopover");
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
     [dateFormatter release];
-}
+}*/
 
 #pragma mark activity
 -(void)runActivity

@@ -200,9 +200,15 @@ int currentMonth;
     
     [ self  getDateSource:self.startTime.text :self.endTime.text :1];
     
-    
-    
+    [activty stopAnimating];
+    [activty removeFromSuperview];
 }
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activty];
+    [activty startAnimating];
+}
+
 - (IBAction)release:(id)sender {
     //获得当前月份和年份
     [f setDateFormat:@"yyyy"];

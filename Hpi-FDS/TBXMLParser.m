@@ -18,7 +18,6 @@
 
 static int iSoapDone=1; //1未开始 0进行中 3出错
 static int iSoapNum=0;
-static NSString *version = @"V1.2";
 static sqlite3  *database;
 UIAlertView *alert;
 NSString* alertMsg;

@@ -227,8 +227,14 @@ NSDateFormatter *formater1;
    [dataQueryVC.listTableview   reloadData];
     
    [looPool drain];
+    [activty stopAnimating];
+    [activty removeFromSuperview];
 }
-
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activty];
+    [activty startAnimating];
+}
 -(void)loadLatefeeTongjChVC
 {
 

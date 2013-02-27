@@ -36,7 +36,7 @@ NSString* msg;
 UIAlertView *alert;
 UIAlertView *MailAlert;
 UIAlertView *serverAlert;
-static NSString *version = @"1.2";
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -128,9 +128,14 @@ static NSString *version = @"1.2";
     if ([lr.RETCODE isEqualToString:@"1"]) {
         msg=@"注册失败";
     }
+    if ([lr.RETCODE isEqualToString:@"3"]) {
+        msg=@"客户端版本低，请重新安装应用";
+    }
 
     NSLog(@"%@======%@",lr.STAGE,msg);  
- UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+// UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    alert = [[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+
 	[alert show];
     [alert release];
 }

@@ -440,6 +440,13 @@ static NSString *stringType=@"BSPI";
 -(IBAction)queryData:(id)sender
 {
     [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:activity];
+    [activity startAnimating];
 }
 -(IBAction)dataTable:(id)sender
 {
@@ -540,6 +547,9 @@ static NSString *stringType=@"BSPI";
         NSLog(@"WTI");
         stringType=@"WTI";
     }
+    
+    /*  去掉*/
+    /*
     else if (segment.selectedSegmentIndex==5)
     {
         NSLog(@"华能指导价");
@@ -559,7 +569,7 @@ static NSString *stringType=@"BSPI";
     {
         NSLog(@"DESARA");
         stringType=@"DESARA";
-    }
+    }*/
     
     [self loadHpiGraphView];
 }

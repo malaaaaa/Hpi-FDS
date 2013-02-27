@@ -15,6 +15,6 @@
 @property(nonatomic,retain)NSString *STAGE;
 @property(nonatomic,retain)NSString *ISHAVE;
 
-
+@property(nonatomic,retain)NSString * regMsg;
 
 @end

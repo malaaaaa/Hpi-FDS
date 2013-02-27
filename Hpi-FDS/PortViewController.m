@@ -447,8 +447,19 @@ static NSString *stringType=@"GKDJL";
 -(IBAction)queryData:(id)sender
 {
     [self loadHpiGraphView];
-}
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}   
+- (IBAction)touchDownAction:(id)sender
+{
+    NSLog(@"touchle");
 
+    [activity setFrame:CGRectMake(967, 45, 37, 37)];
+    [self.view addSubview:activity];
+    [activity setHidden:NO];
+    [activity startAnimating];
+    
+}
 -(IBAction)dataTable:(id)sender
 {
     NSMutableArray *array=[TgPortDao getTgPortByPortName:portLabel.text];
@@ -558,6 +569,9 @@ static NSString *stringType=@"GKDJL";
     }
     
     [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+
 }
 
 #pragma mark activity

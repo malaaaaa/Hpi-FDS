@@ -346,8 +346,15 @@ static  NSMutableArray *LegendArray;
 {    
     [self generateGraphDate];
     [self loadHpiGraphView];
+    
+    [_activity stopAnimating];
+    [_activity removeFromSuperview];
 }
-
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:_activity];
+    [_activity startAnimating];
+}
 -(void)generateGraphDate{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMM"];

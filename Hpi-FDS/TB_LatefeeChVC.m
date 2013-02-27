@@ -555,9 +555,14 @@ static int  whichButton=0;
   //  NSLog(@"加载 listTableView");
     dataQueryVC.dataSource=dataSource;
     [dataQueryVC.listTableview   reloadData];
-    
-   }
-
+    [active stopAnimating];
+    [active removeFromSuperview];
+}
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:active];
+    [active startAnimating];
+}
 - (IBAction)reload:(id)sender {
     
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间"  delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步", nil];

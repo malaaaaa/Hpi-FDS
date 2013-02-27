@@ -12,7 +12,7 @@
 
 #import "PubInfo.h"
 
-static NSString *version = @"V1.2";
+
 static int iSoap;
 static int iSoapTgPortDone=0;
 static int iSoapTgFactoryDone=0;
@@ -4889,7 +4889,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-            if ([TsFileinfoDao tsFileIsDownload:tsFileinfo.fileId]) {
+            if ([TsFileinfoDao tsFileIsDownload:tsFileinfo.fileId]) {//判断改文件是否已下载....
 //                tsFileinfo.xzbz=@"1";
             }
             else {

@@ -271,9 +271,17 @@ static WSChart *electionChart=nil;
     else{
         [self loadHpiGraphView];
     }
-    
+    [_activity stopAnimating];
+    [_activity removeFromSuperview];
     
 }
+
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:_activity];
+    [_activity startAnimating];
+}
+
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];

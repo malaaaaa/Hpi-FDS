@@ -232,7 +232,8 @@ UIAlertView *serverAlert;
                     cell.textLabel.text=[NSString stringWithFormat:@"本地文件数量: %d",[self getFileNum]];
                     break;
                 case 3	:
-                    cell.textLabel.text=@"版本信息: 华能燃料调运系统 for iPad  V0.9";
+                    
+                    cell.textLabel.text=[NSString stringWithFormat:@"版本信息: 华能燃料调运系统 for iPad  V%@",version];
                     break;
                     
             }

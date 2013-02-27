@@ -453,7 +453,7 @@ static sqlite3  *database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"select dispatchno,statename,shipname,lw,f_note,STATECODE,t_note,p_note,stage from TH_SHIPTRANS_ORI where  %@  order by stage,dispatchno desc ",querySql];
-    //NSLog(@"执行 getVbFactoryTransBySql [%@] ",sql);
+    NSLog(@"执行 getVbFactoryTransBySql [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

@@ -33,7 +33,12 @@
     float contentLength;//大小(BIT)
     id webVC;
     NSString *stringType;
+    
+   
+    NSFileManager * fm ;
+    
 }
+
 @property (nonatomic,retain) UITableView *memoirTableView;
 @property (nonatomic,retain) UIPopoverController *popover;
 @property (nonatomic,retain) NSMutableArray *listArray;

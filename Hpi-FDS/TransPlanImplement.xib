@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1498</string>
@@ -585,7 +585,7 @@
 								<int key="IBUIStyle">0</int>
 								<object class="NSColor" key="IBUIColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MSAwLjgwMDAwMDAxMTkgMC40MDAwMDAwMDYAA</bytes>
+									<bytes key="NSRGB">MC4xNDkwMTk2MDc4IDAuNDQ3MDU4ODIzNSAwLjY3MDU4ODIzNTMAA</bytes>
 								</object>
 							</object>
 						</array>
@@ -608,6 +608,7 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{0, 1}, {1024, 80}}</string>
 								<reference key="NSSuperview" ref="325967837"/>
+								<reference key="NSNextKeyView" ref="704156661"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
@@ -620,6 +621,7 @@
 										<int key="NSvFlags">274</int>
 										<string key="NSFrameSize">{1024, 406}</string>
 										<reference key="NSSuperview" ref="704156661"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -634,12 +636,14 @@
 								</array>
 								<string key="NSFrame">{{0, 84}, {1024, 406}}</string>
 								<reference key="NSSuperview" ref="325967837"/>
+								<reference key="NSNextKeyView" ref="1031238981"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 						</array>
 						<string key="NSFrame">{{0, 176}, {1024, 490}}</string>
 						<reference key="NSSuperview" ref="183735153"/>
+						<reference key="NSNextKeyView" ref="761672310"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -953,6 +957,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">touchDownAction:</string>
+						<reference key="source" ref="121342521"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">1</int>
+					</object>
+					<int key="connectionID">73</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">realse:</string>
 						<reference key="source" ref="184098110"/>
 						<reference key="destination" ref="841351856"/>
@@ -1220,7 +1233,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">72</int>
+			<int key="maxID">73</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

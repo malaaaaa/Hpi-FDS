@@ -172,7 +172,9 @@ static sqlite3	*database;
    // NSLog(@"执行 getVbTransplan 数量[%d] ",[array count]);
 	return array;
 }
-+(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)coalType:(NSString *)factoryName:(NSString *)dateTime:(NSString *)planCode
+//:(NSString *)coalType    :(NSString *)planCode   去掉没种 和  计划单号 查询条件
+
++(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName:(NSString *)dateTime
 {
     NSString *query=@" 1=1  ";
     
@@ -183,9 +185,12 @@ static sqlite3	*database;
     if(![portName isEqualToString:All_])
         query=[query stringByAppendingFormat:@" AND portName ='%@' ",portName];
     
+    
+    
+    /*
     if (![coalType isEqualToString:All_]) {
         query=[query stringByAppendingFormat:@"AND coalType='%@' ",coalType];
-    }
+    }*/
     
     if(![factoryName isEqualToString:All_])
         query=[query stringByAppendingFormat:@" AND factoryName ='%@' ",factoryName];
@@ -197,11 +202,11 @@ static sqlite3	*database;
         query=[query stringByAppendingFormat:@"AND planMonth='%@' ",dateTime];
     
     
-    
+     /*
     if ([planCode length]!=0||planCode==nil) {
         query=[query stringByAppendingFormat:@"AND planCode='%@' ",planCode];
         
-    }
+    }*/
     
     
     

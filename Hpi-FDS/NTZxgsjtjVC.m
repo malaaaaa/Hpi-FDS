@@ -19,6 +19,8 @@ static WSChart *electionChart0=nil; //第一张合计柱状图
 static WSChart *electionChart1=nil; //第二张装港柱状图
 static WSChart *electionChart2=nil; //第三张卸港柱状图
 
+@synthesize activity=_activity;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -335,6 +337,13 @@ static WSChart *electionChart2=nil; //第三张卸港柱状图
     else{
         [self loadHpiGraphView];
     }
+    [_activity stopAnimating];
+    [_activity removeFromSuperview];
+}
+- (IBAction)touchDownAction:(id)sender
+{
+    [self.view addSubview:_activity];
+    [_activity startAnimating];
 }
 - (IBAction)reloadAction:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
