@@ -133,6 +133,7 @@ static bool ThreadFinished=TRUE;
 {
     NSLog(@"--------------------------------------------  connectionDidFinishLoading");
 //    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+//    NSLog(@"theXML[%@]",theXML);
      NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:6 encoding:NSUTF8StringEncoding];
     //没找到其它办法，通过返回报文前6位字符串判断是否出错，需要验证
     if ([theXML isEqualToString:@"<html>"]) {

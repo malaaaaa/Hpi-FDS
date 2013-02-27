@@ -114,14 +114,23 @@ static int iDisplay=0;
         [self.view addSubview:activity];
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
-        [xmlParser setISoapNum:1];
+        [tbxmlParser setISoapNum:7];
+        
+        [tbxmlParser requestSOAP:@"TgPort"];
+        [tbxmlParser requestSOAP:@"TgShip"];
+        [tbxmlParser requestSOAP:@"TgFactory"];
+        [tbxmlParser requestSOAP:@"List"];
+        [tbxmlParser requestSOAP:@"Coal"];
+        [tbxmlParser requestSOAP:@"Ship"];
+        [tbxmlParser requestSOAP:@"Port"];
+//        [xmlParser setISoapNum:1];
         //        [xmlParser getTsFileinfo];
         //        [xmlParser getTgPort];
         //        [xmlParser getTmIndexinfo];
         //        [xmlParser getTgShip];
         //        [xmlParser getVbShiptrans];
         //        [xmlParser getTgFactory];
-        [xmlParser getTiListinfo];
+//        [xmlParser getTiListinfo];
         [self runActivity];
     }
     else {
@@ -433,7 +442,7 @@ static int iDisplay=0;
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:portInfoBehaviourVC];
     portInfoBehaviourVC.popover = pop;
-    portInfoBehaviourVC.infoLabel.text=@"港口动态";
+//    portInfoBehaviourVC.infoLabel.text=@"港口动态";
     self.popover = pop;
     self.popover.delegate = self;
     [portInfoBehaviourVC loadViewData];
