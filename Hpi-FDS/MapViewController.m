@@ -592,15 +592,15 @@ static int iDisplay=0;
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
         [tbxmlParser setISoapNum:7];
-        
         [tbxmlParser requestSOAP:@"TgPort"];
+        
         [tbxmlParser requestSOAP:@"TgShip"];
+     
         [tbxmlParser requestSOAP:@"TgFactory"];
         [tbxmlParser requestSOAP:@"List"];
         [tbxmlParser requestSOAP:@"Coal"];
         [tbxmlParser requestSOAP:@"Ship"];
         [tbxmlParser requestSOAP:@"Port"];
-
 
 
 //        [xmlParser setISoapNum:4];
@@ -877,7 +877,7 @@ static int iDisplay=0;
         hpiAnnotation *port=[[hpiAnnotation alloc]initWithCoords:coordinate];
         port.title=[tgShip.shipName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         //port.topTitle=port.title;
-        port.shipStat=tgShip.statCode;
+        port.shipStat=tgShip.stateCode;
         port.shipStage=tgShip.stage;
         port.online=tgShip.online;
 //        //属于自己船舶公司的船且不在线那么认为不在线
@@ -939,7 +939,7 @@ static int iDisplay=0;
         hpiAnnotation *port=[[hpiAnnotation alloc]initWithCoords:coordinate];
         port.title=[tgShip.shipName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         //port.topTitle=port.title;
-        port.shipStat=tgShip.statCode;
+        port.shipStat=tgShip.stateCode;
         port.shipStage=tgShip.stage;
         port.online=tgShip.online;
         //属于自己船舶公司的船且不在线那么认为不在线

@@ -132,9 +132,9 @@ static bool ThreadFinished=TRUE;
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"--------------------------------------------  connectionDidFinishLoading");
-//    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
-//    NSLog(@"theXML[%@]",theXML);
-     NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:6 encoding:NSUTF8StringEncoding];
+    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+   // NSLog(@"theXML[%@]",theXML);
+    // NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:6 encoding:NSUTF8StringEncoding];
     //没找到其它办法，通过返回报文前6位字符串判断是否出错，需要验证
     if ([theXML isEqualToString:@"<html>"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"调用后台服务出错！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
@@ -403,26 +403,10 @@ static bool ThreadFinished=TRUE;
         if (root) {
             
             
-            NSLog(@"elementString1[%@]",elementString1);
-            NSLog(@"elementString2[%@]",elementString2);
+           // NSLog(@"elementString1[%@]",elementString1);
+           // NSLog(@"elementString2[%@]",elementString2);
             TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
             
-            /*
-        
-            if ([TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]) {
-                NSLog(@"dddddddddddd");
-            }
-            if ( [TBXML childElementNamed:@"soap:Body" parentElement:root]) {
-                NSLog(@"sssssssssssssss");
-            }
-            
-            
-            
-            NSLog(@"element1[%@]",element1);
-            if (elementNoUsed) {
-                NSLog(@"=================");
-            }
-            */
                 TBXMLElement *element = [TBXML childElementNamed:element1 parentElement:elementNoUsed];
             
            //  NSLog(@"element==================");
@@ -455,6 +439,8 @@ static bool ThreadFinished=TRUE;
                 objc_property_t *properties = class_copyPropertyList(LenderClass, &outCount);
                 NSString *columName=@" ";
                 NSString *columValue=@" ";
+            
+            //实际有用的 实体字段  count[和数据库字段一致的 属性]
             if (_Identification==@"OffLoadFactory") {
                 
                 outCount=10;
@@ -498,17 +484,21 @@ static bool ThreadFinished=TRUE;
             for (int i = 0; i < outCount; i++) {
                 objc_property_t property = properties[i];
                 NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)];
+               // NSLog(@"propertyName:>>>>>>>>>>>>>>>%@",propertyName);
                 columName=[columName stringByAppendingFormat:@"%@,",propertyName];//多一个
                 columValue=[columValue stringByAppendingFormat:@"%@",@"?,"];//多一个
                 [propertyName release];
             }
             columName=[columName substringWithRange:NSMakeRange(0,[columName length]-1)];
             columValue=[columValue substringWithRange:NSMakeRange(0,[columValue length]-1)];
+            
+           // NSLog(@"较正过的columName:>>>>>>>>>>%@",columName);
+           // NSLog(@"较正过的columValue:>>>>>>>>>>%@",columValue);
+            
             TBXMLElement * desc;
             NSString *sql=[NSString stringWithFormat:@"INSERT INTO %@ (%@) values(%@)",tableName,columName,columValue];
-            NSLog(@"==============sql[%@]",sql);
-                while (element != nil) {
-                    
+           // NSLog(@"==============sql[%@]",sql);
+                while (element != nil) {    
                     int re =sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL);
                     if (re!=SQLITE_OK) {
                         NSLog(@"Error: failed to prepare statement with message [%s]  sql[%s]",sqlite3_errmsg(database),[sql UTF8String]);
@@ -518,8 +508,11 @@ static bool ThreadFinished=TRUE;
                         objc_property_t property = properties[i];
                         NSString *propertyName=[[NSString alloc] initWithFormat:@"%s",property_getName(property)]; 
                         NSString *type=[[NSString    alloc] initWithFormat:@"%s",property_getAttributes(property)];
+                        
+                       // NSLog(@"确定属性类型:%@---%@",propertyName,type);
                         desc = [TBXML childElementNamed:[propertyName uppercaseString] parentElement:element];
                         if (desc != nil) {
+                            
                             if ([type rangeOfString:@"NSString"].length!=0) {
                                 sqlite3_bind_text(statement, i+1, [[TBXML textForElement:desc]
                                                                    UTF8String], -1, SQLITE_TRANSIENT);
@@ -529,7 +522,7 @@ static bool ThreadFinished=TRUE;
                             }
                          if ([type rangeOfString:@"Td,"].length!=0){
                                 sqlite3_bind_double(statement, i+1,[[TBXML textForElement:desc] doubleValue]);
-                            } 
+                            }
                         }
                         [propertyName release];
                         [type release];
@@ -540,20 +533,23 @@ static bool ThreadFinished=TRUE;
                         sqlite3_finalize(statement);
                         return;  
                     }else {
-                        //NSLog(@"insert shipTrans  SUCCESS");
+                       // NSLog(@"insert %@  SUCCESS",_Identification);
 
-                    }
+                    }   
                 sqlite3_finalize(statement);
                 //element1   :TfCoalType
                 element = [TBXML nextSiblingNamed:element1 searchFromElement:element];
             }
-            
             if (sqlite3_exec(database, "COMMIT;", 0, 0, &errorMsg)!=SQLITE_OK) {
                 sqlite3_close(database);
                 NSLog(@"exec commit error");
                 return;
             }
+            
+            //释放 属性列表.....
+            free(properties);
             sqlite3_close(database);
+            
             NSLog(@"-----------%@-----------commit over  ",_Identification);
             iSoapDone=1;
             iSoapNum--;

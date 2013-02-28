@@ -69,9 +69,16 @@
     NSString *online;       //是否在线
     NSString *stage;        //0-空船在途 1-在港 2-满载在途 3-在厂 4-结束
     NSString *stageName;    //阶段说明
-    NSString *statCode;     //状态编码
-    NSString *statName;     //状态说明
+    NSString *stateCode;     //状态编码
+    NSString *stateName;     //状态说明
+    
+    
+    
+    
     NSString *isOwn;
+    
+    
+    
     BOOL    didSelected;
 }
 @property (nonatomic,retain) NSString *shipName;
@@ -95,8 +102,8 @@
 @property (nonatomic,retain) NSString *online;
 @property (nonatomic,retain) NSString *stage;
 @property (nonatomic,retain) NSString *stageName;
-@property (nonatomic,retain) NSString *statCode;
-@property (nonatomic,retain) NSString *statName;
+@property (nonatomic,retain) NSString *stateCode;
+@property (nonatomic,retain) NSString *stateName;
 @property (nonatomic,retain) NSString *isOwn;
 
 @property NSInteger shipID;

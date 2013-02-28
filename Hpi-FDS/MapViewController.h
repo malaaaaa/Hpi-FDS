@@ -68,6 +68,7 @@
     IBOutlet UIButton *infoBut; 
     IBOutlet UIView *mainVW;
     WebViewController *wbvc;
+
 }
 
 @property(nonatomic,retain)UIButton *infoBut;
@@ -92,7 +93,7 @@
 @property(nonatomic, retain) NSMutableArray *portCoordinateArray;
 @property(nonatomic, retain) NSMutableArray *factoryCoordinateArray;
 @property(nonatomic, retain) NSMutableArray *shipCoordinateArray;
-
+	
 @property (retain,nonatomic)NSMutableArray *portIDArray;
 @property (retain,nonatomic)NSMutableArray *factoryIDArray;
 @property (retain,nonatomic)NSMutableArray *shipIDArray;

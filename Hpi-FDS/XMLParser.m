@@ -4827,7 +4827,7 @@ NSString* alertMsg;
         
         else if( [elementName isEqualToString:@"STATECODE"])
         {
-            tgShip.statCode = soapResults;
+            tgShip.stateCode = soapResults;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
@@ -4835,7 +4835,7 @@ NSString* alertMsg;
         
         else if( [elementName isEqualToString:@"STATENAME"])
         {
-            tgShip.statName = soapResults;
+            tgShip.stateName = soapResults;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;

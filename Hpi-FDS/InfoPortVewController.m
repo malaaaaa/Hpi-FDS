@@ -82,9 +82,9 @@
                             tgShip.supplier,
                             [NSString stringWithFormat:@"%d",tgShip.lw],
                             tgShip.eta,
-                            [tgShip.statCode isEqualToString:@"2"]?@"Y":@"",
-                            [tgShip.statCode isEqualToString:@"3"]?@"Y":@"",
-                            [tgShip.statCode isEqualToString:@"4"]?@"Y":@"",
+                            [tgShip.stateCode isEqualToString:@"2"]?@"Y":@"",
+                            [tgShip.stateCode isEqualToString:@"3"]?@"Y":@"",
+                            [tgShip.stateCode isEqualToString:@"4"]?@"Y":@"",
                             nil]];
     }
 	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 61, 600, 175) data:ds];
