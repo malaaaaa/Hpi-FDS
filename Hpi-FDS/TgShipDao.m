@@ -204,7 +204,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTgShip_Offline
 {
     
-	NSString *query=@" online = '0' and isown='1' ";
+	NSString *query=@" online = '0' and isown='true' ";
     
 	NSMutableArray * array=[TgShipDao getTgShipBySql:query];
     NSLog(@"执行 getTgShip 数量[%d] ",[array count]);
