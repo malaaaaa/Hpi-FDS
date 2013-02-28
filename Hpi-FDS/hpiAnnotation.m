@@ -11,7 +11,7 @@
 @implementation hpiAnnotation
 
 @synthesize coordinate,subtitle,iAnnotationType,title,subtitle2,port,factory,topTitle,topImage;
-@synthesize shipStat,shipStage;
+@synthesize shipStat,shipStage,company,online;
 
 - (id) initWithCoords:(CLLocationCoordinate2D) coords{
     
@@ -45,6 +45,10 @@
         [shipStat release];
     if(!shipStage)
         [shipStage release];
+    if(!shipStage)
+        [company release];
+    if(!online)
+        [online release];
 	[super dealloc];
 }
 @end

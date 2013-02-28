@@ -108,7 +108,21 @@ static sqlite3	*database;
 	}
 	return;
 }
-
++(void)deleteAll
+{
+    
+    
+    char *errorMsg;
+    NSString *deletesql=[NSString stringWithFormat:@"DELETE FROM  TiListinfo  " ];
+    if (sqlite3_exec(database, [deletesql UTF8String], NULL, NULL, &errorMsg)!=SQLITE_OK) {
+        NSLog(@"Error: delete TiListinfo error with message [%s]  sql[%@]", errorMsg,deletesql);
+    }else {
+        // NSLog(@"delete success")  ;
+    }
+    return;
+    
+    
+}
 +(NSMutableArray *) getTiListinfo:(NSInteger)infoId
 {
 	NSString *query=[NSString stringWithFormat:@" infoId = '%d' ",infoId];

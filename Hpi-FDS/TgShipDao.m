@@ -34,7 +34,7 @@ static sqlite3	*database;
 +(void) initDb
 {	
 	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",
+	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS TgShip  (shipID INTEGER PRIMARY KEY ",
                          @",shipName TEXT ",
 						 @",comID INTEGER ",
@@ -61,8 +61,9 @@ static sqlite3	*database;
                          @",online TEXT ",
                          @",stage TEXT ",
                          @",stageName TEXT ",
-                         @",statCode TEXT ",
-						 @",statName TEXT )"];
+                         @",stateCode TEXT ",
+                          @",stateName TEXT ",
+						 @",isOwn TEXT )"];
 	if(sqlite3_exec(database,[createSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
@@ -76,7 +77,8 @@ static sqlite3	*database;
 +(void)insert:(TgShip*) tgShip
 {
 //	NSLog(@"Insert begin tgShip");
-	const char *insert="INSERT INTO TgShip (shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,statCode,statName) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	const char *insert=
+    "INSERT INTO TgShip (shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,stateCode,stateName,isOwn) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
 	int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
@@ -139,8 +141,9 @@ static sqlite3	*database;
     sqlite3_bind_text(statement, 24,[tgShip.online UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 25,[tgShip.stage UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, 26,[tgShip.stageName UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, 27,[tgShip.statCode UTF8String], -1, SQLITE_TRANSIENT);
-	sqlite3_bind_text(statement, 28,[tgShip.statName UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, 27,[tgShip.stateCode UTF8String], -1, SQLITE_TRANSIENT);
+	sqlite3_bind_text(statement, 28,[tgShip.stateName UTF8String], -1, SQLITE_TRANSIENT);
+	sqlite3_bind_text(statement, 29,[tgShip.isOwn UTF8String], -1, SQLITE_TRANSIENT);
     
 	re = sqlite3_step(statement);
 	if(re!=SQLITE_DONE)
@@ -193,6 +196,16 @@ static sqlite3	*database;
 {
     
 	NSString *query=@" online = '1' ";
+
+	NSMutableArray * array=[TgShipDao getTgShipBySql:query];
+    NSLog(@"执行 getTgShip 数量[%d] ",[array count]);
+	return array;
+}
++(NSMutableArray *) getTgShip_Offline
+{
+    
+	NSString *query=@" online = '0' and isown='1' ";
+    
 	NSMutableArray * array=[TgShipDao getTgShipBySql:query];
     NSLog(@"执行 getTgShip 数量[%d] ",[array count]);
 	return array;
@@ -256,7 +269,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTgShipBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"SELECT shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,statCode,statName FROM  TgShip WHERE %@ ",sql1];
+    NSString *sql=[NSString stringWithFormat:@"SELECT shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,stateCode,stateName,isOwn FROM  TgShip WHERE %@ ",sql1];
    // NSLog(@"执行 getTgShipBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
@@ -401,16 +414,22 @@ static sqlite3	*database;
             
             char * rowData26=(char *)sqlite3_column_text(statement,26);
             if (rowData26 == NULL)
-                tgShip.statCode = nil;
+                tgShip.stateCode = nil;
             else
-                tgShip.statCode = [NSString stringWithUTF8String: rowData26];
+                tgShip.stateCode = [NSString stringWithUTF8String: rowData26];
             
             char * rowData27=(char *)sqlite3_column_text(statement,27);
             if (rowData27 == NULL)
-                tgShip.statName = nil;
+                tgShip.stateName = nil;
             else
-                tgShip.statName = [NSString stringWithUTF8String: rowData27];
+                tgShip.stateName = [NSString stringWithUTF8String: rowData27];
             
+            char * rowData28=(char *)sqlite3_column_text(statement,28);
+            if (rowData28 == NULL)
+                tgShip.isOwn = nil;
+            else
+                tgShip.isOwn = [NSString stringWithUTF8String: rowData28];
+
 			[array addObject:tgShip];
             [tgShip release];
 		}

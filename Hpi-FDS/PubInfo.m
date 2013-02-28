@@ -25,19 +25,23 @@
 #import "NT_TransPlanImpDao.h"
 @implementation PubInfo
 //测试环境
-//static NSString *hostName =@"http://10.2.17.121";
-//static NSString *port =@":82";
+static NSString *hostName =@"http://10.2.17.121";
+static NSString *port =@":82";
 
 //正式环境
-static NSString *hostName =@"http://cds.hpi.com.cn";
-static NSString *port =@"";
+//static NSString *hostName =@"http://cds.hpi.com.cn";
+//static NSString *port =@"";
 static NSString *autoUpdate;
 static NSString *baseUrl;
 static NSString *url;
 static NSString *userInfoUrl;
 static NSString *userName;
+//基础数据更新时间
 static NSString *updateTime;
-
+//地图市场港口数据更新时间
+static NSString *mmpUpdateTime;
+//数据查询模块更新时间
+static NSString *reportUpdateTime;
 static NSString *isSucess;
 static NSString *deviceID;
 
@@ -156,6 +160,7 @@ static NSString *deviceID;
     [NTZxgsjtjDao initDb];
     [TH_SHIPTRANS_ORIDAO openDataBase];
     [TH_SHIPTRANS_ORIDAO initDb];
+    [PortBehaviourDao openDataBase];
     
 	NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *doc=[paths objectAtIndex:0];
@@ -163,13 +168,14 @@ static NSString *deviceID;
 //	NSArray *tempArray = [[[NSArray alloc] initWithContentsOfFile:fileName] autorelease];
     NSArray *tempArray = [[NSArray alloc] initWithContentsOfFile:fileName] ;
 	//NSLog(@"data=%d",[tempArray count]);
-	if([tempArray count]<6)
+	if([tempArray count]<8)
 	{
         //此处用Analyze工具监测会出现可能内存泄漏的提示，tempArray不能autorelease，否则会崩溃
 		userName=@"developer";
         autoUpdate=kNO;
         updateTime=@"2000-01-01 00:00";
-        
+        mmpUpdateTime=@"2000-01-01 00:00";
+        reportUpdateTime=@"2000-01-01 00:00";
         isSucess=UNO;
 		[PubInfo save];
 	}
@@ -180,7 +186,9 @@ static NSString *deviceID;
         isSucess=[tempArray objectAtIndex:3];
         hostName=[tempArray objectAtIndex:4];
         port=[tempArray objectAtIndex:5];
-	}    
+        mmpUpdateTime=[tempArray objectAtIndex:6];
+        reportUpdateTime=[tempArray objectAtIndex:7];
+	}
   
 //    [tempArray release];
     [fileName release];
@@ -194,6 +202,8 @@ static NSString *deviceID;
                           isSucess,
                           hostName,
                           port,
+                          mmpUpdateTime,
+                          reportUpdateTime,
 						  nil
 						  ];
 	NSArray *paths= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -299,6 +309,26 @@ static NSString *deviceID;
 {
 	[updateTime release];
 	updateTime=time;
+	[time retain];
+}
++(NSString *)mmpUpdateTime;
+{
+	return mmpUpdateTime;
+}
++(void)setMmpUpdateTime:(NSString*) time
+{
+	[mmpUpdateTime release];
+	mmpUpdateTime=time;
+	[time retain];
+}
++(NSString *)reportUpdateTime;
+{
+	return reportUpdateTime;
+}
++(void)setReportUpdateTime:(NSString*) time
+{
+	[reportUpdateTime release];
+	reportUpdateTime=time;
 	[time retain];
 }
 +(NSString *)deviceID

@@ -81,7 +81,7 @@
                             tgShip.supplier,
                             [NSString stringWithFormat:@"%d",tgShip.heatValue],
                             [NSString stringWithFormat:@"%d",tgShip.lw],
-                            tgShip.statName,
+                            tgShip.stateName,
                            tgShip.eta,nil]];
         
        

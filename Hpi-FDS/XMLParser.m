@@ -1951,12 +1951,12 @@ NSString* alertMsg;
 {
     NSLog(@"3 DONE. Received Bytes: %d", [webData length]);
      
-   // NSString *theXML1 = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
-   // NSLog(@"theXML[%@]",theXML1);
-    //[theXML1 release];
+//    NSString *theXML1 = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+//    NSLog(@"theXML[%@]",theXML1);
+//    [theXML1 release];
     
     NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:6 encoding:NSUTF8StringEncoding];
-    
+
     
    
     
@@ -2406,6 +2406,16 @@ NSString* alertMsg;
             }
             recordResults = YES;
         }
+        
+        else if( [elementName isEqualToString:@"ISOWN"])
+        {
+            if(!soapResults)
+            {
+                soapResults = [[NSMutableString alloc] init];
+            }
+            recordResults = YES;
+        }
+
     }
     
     //解析Fileinfo
@@ -4817,7 +4827,7 @@ NSString* alertMsg;
         
         else if( [elementName isEqualToString:@"STATECODE"])
         {
-            tgShip.statCode = soapResults;
+            tgShip.stateCode = soapResults;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
@@ -4825,7 +4835,19 @@ NSString* alertMsg;
         
         else if( [elementName isEqualToString:@"STATENAME"])
         {
-            tgShip.statName = soapResults;
+            tgShip.stateName = soapResults;
+            recordResults = FALSE;
+            [soapResults release];
+            soapResults = nil;
+        }
+        else if( [elementName isEqualToString:@"ISOWN"])
+        {
+            if ([soapResults isEqualToString:@"true"]) {
+                tgShip.isOwn=@"1";
+            }
+            else{
+                tgShip.isOwn=@"0";
+            }
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
@@ -4834,6 +4856,7 @@ NSString* alertMsg;
             [tgShip release];
             tgShip = nil;
         }
+
     }
     
     //解析Fileinfo
