@@ -547,6 +547,9 @@ static NSString *stringType=@"BSPI";
         NSLog(@"WTI");
         stringType=@"WTI";
     }
+    
+    /*  去掉*/
+    /*
     else if (segment.selectedSegmentIndex==5)
     {
         NSLog(@"华能指导价");
@@ -566,7 +569,7 @@ static NSString *stringType=@"BSPI";
     {
         NSLog(@"DESARA");
         stringType=@"DESARA";
-    }
+    }*/
     
     [self loadHpiGraphView];
 }

@@ -132,9 +132,31 @@ static sqlite3	*database;
 	return array;
 }
 
+
+
+
+//下载文件
 +(NSMutableArray *) getTsFileinfoByType:(NSString *)type
 {
-	NSString *query=[NSString stringWithFormat:@" fileType = '%@' ",type];
+    
+    
+    //增加 限制条件   7天以内
+    NSDateFormatter *df=[[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd"];
+    NSString *startTime=[df stringFromDate:[NSDate date]];
+    
+    NSLog(@"startTime:%@",startTime);
+    NSDate *end=[[NSDate alloc] initWithTimeInterval:-7*24*60*60 sinceDate:[NSDate date]];
+    
+    NSString *endTime=[df stringFromDate:end];
+      NSLog(@"endTime:%@",endTime);
+    
+    [df release];
+    [end release];
+    
+    
+    
+	NSString *query=[NSString stringWithFormat:@" fileType = '%@' and   recordTime <='%@T00:00:00'   and     recordTime >='%@T00:00:00'  ",type,startTime,endTime];
 	NSMutableArray * array=[TsFileinfoDao getTsFileinfoBySql:query];
 	return array;
 }

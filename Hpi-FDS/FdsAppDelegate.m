@@ -68,6 +68,7 @@ UIAlertView *RegistAlert;
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (alertView==RegistAlert) {
+
         
         
         if (buttonIndex==1) {
@@ -80,11 +81,23 @@ UIAlertView *RegistAlert;
     }
     else if (alertView==VersionAlert)
     {
-        if(buttonIndex==0){
-            NSLog(@"退出重新安装");
-            exit(0);
+        if(buttonIndex==0){         
+          //  NSLog(@"更新");
+            if (self.logr.regMsg.length>0&&self.logr.regMsg) {
+                
+                NSString *url=self.logr.regMsg;
+                //[NSString stringWithFormat:@"http://10.2.17.121/install.html"];
+                // NSLog(@"url>>>>>>>>>>>>>%@",url);
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+                
+            }
+             exit(0);
+            
+            
         }
     }
+    
+    
 }
 
 
@@ -131,7 +144,10 @@ UIAlertView *RegistAlert;
     }
     //当前应用版本低，不可用
     else if ([self.logr.RETCODE isEqualToString:@"3"]) {
-        VersionAlert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"有新程序发布 请重新安装！" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        VersionAlert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"程序版本更新 请下载安装！" delegate:self cancelButtonTitle:@"更新" otherButtonTitles:nil,nil];
+        
+       
+        
         [VersionAlert show];
         [VersionAlert release];
     }
@@ -205,8 +221,8 @@ UIAlertView *RegistAlert;
         return FALSE;
     }
     
-//    NSString *theXML = [[NSString alloc] initWithBytes: [returnData mutableBytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-//    NSLog(@"xml=%@",theXML);
+   // NSString *theXML = [[NSString alloc] initWithBytes: [returnData mutableBytes] length:[returnData length] encoding:NSUTF8StringEncoding];
+  // NSLog(@"xml=%@",theXML);
     
     NSString *element1=@"LoginValadate";
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
@@ -220,35 +236,47 @@ UIAlertView *RegistAlert;
     }else {
         TBXMLElement * root = tbxml.rootXMLElement;
         //=======================================
-        if (root) {
-            TBXMLElement *elementNoUsed = [TBXML childElementNamed:@"retinfo" parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
-            
-            TBXMLElement *element = [TBXML childElementNamed:@"LoginResponse" parentElement:elementNoUsed];
+        if (root) {// @"retinfo"
+            TBXMLElement *elementNoUsed = [TBXML childElementNamed: @"retinfo"  parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
+            //@"LoginResponse"
+            TBXMLElement *element = [TBXML childElementNamed:@"LoginResponse"    parentElement:elementNoUsed];
             TBXMLElement * desc;
             while (element != nil) {
                 desc = [TBXML childElementNamed:@"SBID" parentElement:element];
                 if (desc != nil) {
                     
                     self.logr.SBID=[TBXML textForElement:desc] ;
-                    NSLog(@"%@",self.logr.SBID);
+                   // NSLog(@"%@",self.logr.SBID);
                 }
                 desc = [TBXML childElementNamed:@"RETCODE" parentElement:element];
                 if (desc != nil) {
                     self.logr.RETCODE=[TBXML textForElement:desc] ;
-                    NSLog(@"%@",self.logr.RETCODE);
+                   // NSLog(@"%@",self.logr.RETCODE);
                 }
+                
+                
+                desc = [TBXML childElementNamed:@"REGMsg" parentElement:element];
+                if (desc != nil) {
+                 self.logr.regMsg=   [TBXML textForElement:desc];
+                   // NSLog(@"[TBXML textForElement:desc] >>>>>>>>>>>>>>>%@",self.logr.regMsg );
+                }
+                
+                
+                
+                
+                
                 
                 desc = [TBXML childElementNamed:@"STAGE" parentElement:element];
                 if (desc != nil) {
                     
                     self.logr.STAGE=[TBXML textForElement:desc] ;
-                    NSLog(@"%@",self.logr.STAGE);
+                   // NSLog(@"%@",self.logr.STAGE);
                 }
                 desc = [TBXML childElementNamed:@"ISHave" parentElement:element];
                 if (desc != nil) {
                     
                     self.logr.ISHAVE=[TBXML textForElement:desc] ;
-                    NSLog(@"%@",self.logr.ISHAVE);
+                  //  NSLog(@"%@",self.logr.ISHAVE);
                 }
                 
                 element = [TBXML nextSiblingNamed:@"LoginResponse"  searchFromElement:element];
@@ -275,11 +303,22 @@ UIAlertView *RegistAlert;
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
     UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
-    UIViewController *viewController2 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
+   
     UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
     UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
     UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
+    
     UIViewController *viewController6 = [[[SetupViewController alloc] initWithNibName:@"SetupViewController" bundle:nil] autorelease];
+    
+    /*纪要查看*/
+    // UIViewController *viewController7 = [[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil] autorelease];
+    
+    
+    
+    //新添 电厂动态
+    UIViewController *viewController2=[[[FactoryWaitDynamicViewController alloc] initWithNibName:@"FactoryWaitDynamicViewController" bundle:nil] autorelease    ];
+    
+    
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];

@@ -22,13 +22,22 @@
     UILabel *shipLabel;
     UIButton *portButton;
     UILabel *portLabel;
-    UIButton *typeButton;
-    UILabel *typeLabel;
+    
+    
+  //  UIButton *typeButton;
+    //UILabel *typeLabel;
+    
+    
+    
     UIButton *factoryButton;
     UILabel *factoryLabel;
     UIButton *monthButton;
     UILabel *monthLabel;
-    UITextField *codeTextField;
+    
+    
+   // UITextField *codeTextField;
+    
+    
     UIButton *queryButton;
     UIButton *resetButton;
     UIPopoverController* popover;
@@ -48,13 +57,24 @@
 @property (retain, nonatomic) IBOutlet UILabel *shipLabel;
 @property (retain, nonatomic) IBOutlet UIButton *portButton;
 @property (retain, nonatomic) IBOutlet UILabel *portLabel;
-@property (retain, nonatomic) IBOutlet UIButton *typeButton;
-@property (retain, nonatomic) IBOutlet UILabel *typeLabel;
+
+
+
+//@property (retain, nonatomic) IBOutlet UIButton *typeButton;
+//@property (retain, nonatomic) IBOutlet UILabel *typeLabel;
+
+
+
+
 @property (retain, nonatomic) IBOutlet UIButton *factoryButton;
 @property (retain, nonatomic) IBOutlet UILabel *factoryLabel;
 @property (retain, nonatomic) IBOutlet UIButton *monthButton;
 @property (retain, nonatomic) IBOutlet UILabel *monthLabel;
-@property (retain, nonatomic) IBOutlet UITextField *codeTextField;
+
+
+//@property (retain, nonatomic) IBOutlet UITextField *codeTextField;
+
+
 @property (retain, nonatomic) IBOutlet UIButton *queryButton;
 @property (retain, nonatomic) IBOutlet UIButton *resetButton;
 @property (retain, nonatomic) UIPopoverController* popover;

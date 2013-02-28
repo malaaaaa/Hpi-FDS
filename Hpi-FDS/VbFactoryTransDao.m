@@ -493,11 +493,14 @@ return datej;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *start=[dateFormatter stringFromDate:date];
+    
+   // NSLog(@"start %@",start);
+    
     [dateFormatter release];
     
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT f.FACTORYCODE,f.FACTORYNAME,F.CAPACITYSUM, f.description FROM  TfFactory F WHERE 1=1 %@ order by sort",tmpString];
-  //  NSLog(@"执行 getVbFactoryTransState OuterSql[%@] ",sql);
+   //NSLog(@"执行 getVbFactoryTransState OuterSql[%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

@@ -13,6 +13,12 @@
 #import "XMLParser.h"
 #import "CSLabelAnnotationView.h"
 
+
+
+
+
+
+
 @implementation MapViewController
 @synthesize mapView,mapViewBig,activity,closeButton,switchMap,shipButton,factoryButton,portButton,updateButton;
 @synthesize shipIDArray,portIDArray,factoryIDArray;
@@ -21,6 +27,13 @@
 @synthesize chooseView,curID,curName,curTextViewinfo;
 @synthesize xmlParser;
 @synthesize tbxmlParser;
+
+
+@synthesize infoBut;
+@synthesize mainVW;
+@synthesize wbvc;
+
+
 
 static int iCloseOpen=0;
 static int iPopX=0,iPopy=0;
@@ -44,6 +57,14 @@ static int iDisplay=0;
 }
 
 - (void)dealloc {
+    
+    [infoBut release    ];
+    [mainVW release];
+    [wbvc release];
+    
+    
+    
+    
     [mapView release];
     [mapViewBig release];
     [switchMap release];
@@ -75,7 +96,8 @@ static int iDisplay=0;
         [xmlParser release];
     }
     self.tbxmlParser=nil;
-
+    [infoBut release];
+    [mainVW release];
     [super dealloc];
 }
 
@@ -206,6 +228,15 @@ static int iDisplay=0;
 
 - (void)viewDidUnload
 {
+    
+    
+    infoBut=nil;
+    mainVW=nil;
+    wbvc=nil;
+    
+    
+    
+    
     self.mapView=nil;
     self.mapViewBig=nil;
     self.activity=nil;
@@ -225,6 +256,10 @@ static int iDisplay=0;
     self.xmlParser=nil;
     self.tbxmlParser=nil;
 
+    [infoBut release];
+    infoBut = nil;
+    [mainVW release];
+    mainVW = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -238,8 +273,62 @@ static int iDisplay=0;
 
 #pragma mark -
 #pragma mark Actions
+/*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
+- (IBAction)infoButAction:(id)sender {
+    
+    MemoirListVC *memoirListVC=[[MemoirListVC alloc]init];
+    if (!self.wbvc)
+        self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+    
+    
+    
+    
+
+    memoirListVC.webVC=self.wbvc;
+    [memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
+    //设置待显示控制器视图的尺寸
+    memoirListVC.contentSizeForViewInPopover = CGSizeMake(320, 484);
+
+    
+    //初始化弹出窗口
+    UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:memoirListVC];
+    memoirListVC.popover = pop;
+
+    self.popover = pop;
+    self.popover.delegate = self;
+    //设置弹出窗口尺寸
+    self.popover.popoverContentSize = CGSizeMake(320, 484);
+    
+    
+    
+    memoirListVC.stringType=@"NOTICE";
+    [self.popover presentPopoverFromRect:CGRectMake(955, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+
+    [pop release];
+  //先加载  webView
+    
+    
+    [self.mainVW addSubview:wbvc.view];
+    [wbvc.view bringSubviewToFront:self.mainVW];
+    
+    [memoirListVC release];
+    
+    
+}
+
+
+
+
+
+
+/*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
 - (IBAction)closeOpenMapview:(id)sender
 {
+    
+    if (self.wbvc ) {
+        [self.wbvc.view removeFromSuperview];
+    }
+    
     if (iCloseOpen==0) {
         [closeButton setImage:[UIImage imageNamed:@"jia.png"] forState:UIControlStateNormal];
         CATransition *animation = [CATransition animation];
@@ -276,6 +365,11 @@ static int iDisplay=0;
 }
 - (IBAction)choosePort:(id)sender
 {
+    
+    if (self.wbvc ) {
+    [self.wbvc.view removeFromSuperview];
+    }
+
     NSLog(@"[popover retainCount] = %d",[popover retainCount]);
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
@@ -306,6 +400,13 @@ static int iDisplay=0;
 }
 - (IBAction)chooseFactory:(id)sender
 {
+    
+    if (self.wbvc ) {
+        [self.wbvc.view removeFromSuperview];
+    }
+    
+    
+    
     NSLog(@"[popover retainCount] = %d",[popover retainCount]);
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
@@ -338,6 +439,10 @@ static int iDisplay=0;
     [self.factoryButton setTitle:OFFLINE_SHIP   forState:UIControlStateNormal];
     [self getShipCoordinateArray];
     
+    if (self.wbvc ) {
+        [self.wbvc.view removeFromSuperview];
+    }
+    
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -369,6 +474,13 @@ static int iDisplay=0;
 - (IBAction)SummaryInfoView:(id)sender
 {
     
+    NSLog(@"摘要......");
+    if (self.wbvc ) {
+          [self.wbvc.view removeFromSuperview];
+    }
+  
+    
+    
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -397,6 +509,11 @@ static int iDisplay=0;
 /*
 - (IBAction)listInfoView:(id)sender
 {
+    
+    if (self.wbvc ) {
+        [self.wbvc.view removeFromSuperview];
+    }
+    
     NSLog(@"ship %@  factory %@ port %@",shipButton.titleLabel.text,factoryButton.titleLabel.text,portButton.titleLabel.text);
     
     if (self.popover.popoverVisible) {
@@ -457,6 +574,12 @@ static int iDisplay=0;
 }
 - (IBAction)updateData:(id)sender
 {
+    
+    
+    if (self.wbvc ) {
+        [self.wbvc.view removeFromSuperview];
+    }
+    
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络同步需要等待一段时间" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"开始同步",nil];
 	[alert show];
     [alert release];
@@ -1290,6 +1413,10 @@ static int iDisplay=0;
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
+    if (self.wbvc ) {
+        [self.wbvc.view removeFromSuperview];
+    }
+
     //初始化待显示控制器
     chooseView=[[ChooseView alloc]init];
     //设置待显示控制器的范围

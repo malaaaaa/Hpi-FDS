@@ -28,7 +28,7 @@
 
 @synthesize activty;
 @synthesize tbxmlParser;
-@synthesize startButton;
+//@synthesize startButton;
 @synthesize startTime;
 @synthesize factoryButton;
 @synthesize factoryLable;
@@ -52,6 +52,11 @@ static  NSMutableArray *columnWidthFTitle;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        self.title = NSLocalizedString(@"电厂动态", @"2th");
+        self.tabBarItem.image = [UIImage imageNamed:@"download"];
+        
+        
     }
     return self;
 }
@@ -73,6 +78,11 @@ static  NSMutableArray *columnWidthFTitle;
     [activty removeFromSuperview];
     self.factoryLable.hidden=YES;
     
+    
+    //去掉时间控件  只显示当日
+    self.month=[NSDate date];
+      
+    
    
     //为视图增加边框
     dcView.layer.masksToBounds=YES;
@@ -81,13 +91,26 @@ static  NSMutableArray *columnWidthFTitle;
     dcView.layer.borderColor=[[UIColor colorWithRed:50.0/255 green:50.0/255 blue:50.0/255 alpha:1]CGColor];
     dcView.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     
-   // dcView.center=CGPointMake(512,352);//修改
+    
+    
+    
+   // dcView.center=CGPointMake(512,350);//修改
+    
+    
+    
     
     cView.layer.masksToBounds=YES;
     cView.layer.cornerRadius=2.0;
     cView.layer.borderWidth=2.0;
+    
     cView.layer.borderColor=[UIColor blackColor].CGColor;
-    cView.backgroundColor=[UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
+    
+    
+    cView.backgroundColor=
+    [UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+    
+    
+    //[UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
     [listTableview setSeparatorColor:[UIColor clearColor]];
     listTableview.backgroundColor = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:71.0/255 alpha:1];
     
@@ -703,9 +726,12 @@ static  NSMutableArray *columnWidthFTitle;
 
 
 - (IBAction)selectAction:(id)sender {
+    NSLog(@"查询");
+    
     //中间表格
     [ds removeFromSuperview ];
-    
+    NSLog(@"month:%@",self.month);
+    NSLog(@"self.startTime.text:%@",self.startTime.text);
  
     data1=[  FactoryWaitDynamicDao getMidDate:month :factoryLable.text];
    
@@ -1154,31 +1180,44 @@ static  NSMutableArray *columnWidthFTitle;
                     if (column%2==0) {//计数列
                         columnWidth = [[columWidth1 objectAtIndex:column] floatValue];
                         l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-                        l.font = [UIFont systemFontOfSize:15.0f];
+                        
                         l.text = [rowData objectAtIndex:a];
                         
-                        l.backgroundColor=[UIColor blackColor];
-                        l.textColor=[UIColor whiteColor];
-                        l.shadowColor=[UIColor whiteColor   ];
-                        l.lineBreakMode = UILineBreakModeCharacterWrap;
-                        l.textAlignment = UITextAlignmentLeft;
+                        
+                       
                         a++;
                     }else
                     {
                         columnWidth = [[columWidth1 objectAtIndex:column] floatValue];
                         l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-                        l.font = [UIFont systemFontOfSize:15.0f];
-                        l.lineBreakMode = UILineBreakModeCharacterWrap;
-                        l.backgroundColor=[UIColor blackColor];
-                        l.textColor=[UIColor whiteColor];
-                        l.shadowColor=[UIColor whiteColor   ];
-                        l.lineBreakMode = UILineBreakModeCharacterWrap;
+                    
                         l.text =[date objectAtIndex:b]==NULL ?@"":[date objectAtIndex:b];
-                        l.numberOfLines = 3;
-                        l.textAlignment = UITextAlignmentLeft;
+                        //l.numberOfLines = 3;
+                     
                         b++;
                     }
                     columnOffset += columnWidth;
+                    
+                    
+                    
+                    
+                    
+                    
+                    l.font = [UIFont systemFontOfSize:15.0f];
+                    l.textColor=[UIColor whiteColor];
+                    l.shadowColor=[UIColor blackColor   ];
+                    l.lineBreakMode = UILineBreakModeCharacterWrap;
+                    l.textAlignment = UITextAlignmentLeft;
+                    l.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+                    //[UIColor blackColor];//设置颜色...
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     [ds addSubview:l];
                     [l release];
                 }
@@ -1190,41 +1229,40 @@ static  NSMutableArray *columnWidthFTitle;
                         columnWidth = [[columWidth1 objectAtIndex:d] floatValue];
                         if (d%2==0) {
                             l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-                            l.font = [UIFont systemFontOfSize:15.0f];
                             l.text = [rowData objectAtIndex:a];
-                            
-                            l.backgroundColor=[UIColor blackColor];
-                            l.textColor=[UIColor whiteColor];
-                            l.shadowColor=[UIColor whiteColor   ];
-                            l.lineBreakMode = UILineBreakModeCharacterWrap;
-                            l.textAlignment = UITextAlignmentLeft;
                             a++;
                         }else
                         {
                             if (d!=3) {
                                 l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-                                l.font = [UIFont systemFontOfSize:15.0f];
-                                l.backgroundColor=[UIColor blackColor];
-                                l.textColor=[UIColor whiteColor];
-                                l.shadowColor=[UIColor whiteColor   ];
-                                l.lineBreakMode = UILineBreakModeCharacterWrap;
-                                
                                 l.text =[date objectAtIndex:b]==nil?@"":[date objectAtIndex:b];
-                                l.textAlignment = UITextAlignmentLeft;
+                                
                             }else
                             {
                                 l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , (totalWidth-columnOffset)-1, cellHeight -1 )];
-                                l.font = [UIFont systemFontOfSize:15.0f];
-                                l.backgroundColor=[UIColor blackColor];
-                                l.textColor=[UIColor whiteColor];
-                                l.shadowColor=[UIColor whiteColor   ];
-                                l.lineBreakMode = UILineBreakModeCharacterWrap;
                                 l.text =[date objectAtIndex:b]==nil?@"":[date objectAtIndex:b];
-                                l.textAlignment = UITextAlignmentLeft;
+
                             }
                             b++;
                         }
                         columnOffset += columnWidth;
+                        
+                        
+                        
+                        
+                        l.font = [UIFont systemFontOfSize:15.0f];
+                        l.textColor=[UIColor whiteColor];
+                        l.shadowColor=[UIColor blackColor   ];
+                        l.lineBreakMode = UILineBreakModeCharacterWrap;
+                        l.textAlignment = UITextAlignmentLeft;
+                         l.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+                        //[UIColor blackColor];
+                        
+                        
+                        
+                        
+                        
+                        
                         [ds addSubview:l];
                         [l release];
                     }
@@ -1233,31 +1271,46 @@ static  NSMutableArray *columnWidthFTitle;
                 {
                     columnWidth = [[columWidth1 objectAtIndex:0] floatValue];
                     l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
-                    l.font = [UIFont systemFontOfSize:15.0f];
+                   
                     l.text = [rowData objectAtIndex:a];
-                    l.backgroundColor=[UIColor blackColor];
+                    
+                    
+                    
+                    
+                    
+                     l.font = [UIFont systemFontOfSize:15.0f];
                     l.textColor=[UIColor whiteColor];
-                    l.shadowColor=[UIColor whiteColor   ];
+                    l.shadowColor=[UIColor blackColor   ];
                     l.lineBreakMode = UILineBreakModeCharacterWrap;
                     l.textAlignment = UITextAlignmentLeft;
+                    
+                    
+                    
+                    
+                    
                     columnOffset += columnWidth;
+                    l.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+                    //[UIColor blackColor];
                     [ds addSubview:l];
                     [l release];
                     
                     columnWidth = [[columWidth1 objectAtIndex:1] floatValue];
                     l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , (totalWidth-columnOffset)-1, cellHeight -1 )];
-                    l.backgroundColor=[UIColor blackColor];
-                    l.textColor=[UIColor redColor];
-                    // l.shadowColor=[UIColor whiteColor   ];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
-                    l.font = [UIFont systemFontOfSize:15.0f];
                     l.text =[date objectAtIndex:b]==nil?@"":[date objectAtIndex:b];
                     
                     
-            //        NSLog(@"===========%@============%@",[date objectAtIndex:b],[date objectAtIndex:b]==@"*"?@"":[date objectAtIndex:b]);
-                    
                     
                     l.textAlignment = UITextAlignmentLeft;
+                    l.textColor=[UIColor redColor];
+                    l.shadowColor=[UIColor blackColor   ];
+                    l.lineBreakMode = UILineBreakModeCharacterWrap;
+                    l.font = [UIFont systemFontOfSize:15.0f];
+                    
+                    
+                    
+                    
+                    l.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
+                    //[UIColor blackColor];
                     [ds addSubview:l];
                     [l release];
                     
@@ -1273,7 +1326,7 @@ static  NSMutableArray *columnWidthFTitle;
   [data    release];
 }
 
-
+/*
 - (IBAction)timeAction:(id)sender {
     
     if (self.popover.popoverVisible) {
@@ -1296,7 +1349,7 @@ static  NSMutableArray *columnWidthFTitle;
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(189, 38, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];   
-}
+}*/
 
 - (IBAction)factoryAction:(id)sender {
     if (self.popover.popoverVisible) {
@@ -1402,7 +1455,7 @@ static  NSMutableArray *columnWidthFTitle;
     
     [ds release];
     [activty release]   ;
-    [startButton release];
+   // [startButton release];
     [startTime release];
     [factoryButton release];
     [factoryLable    release];
@@ -1446,7 +1499,7 @@ static  NSMutableArray *columnWidthFTitle;
     [month release];
     [tbxmlParser release];
     [activty release]   ;
-    [startButton release];
+    //[startButton release];
     [startTime release];
     [factoryButton release];
     [factoryLable    release];
@@ -1514,6 +1567,8 @@ static  NSMutableArray *columnWidthFTitle;
 
 */
 
+
+/*    时间控件
 #pragma mark - popoverController
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
     if (monthVC)
@@ -1521,8 +1576,8 @@ static  NSMutableArray *columnWidthFTitle;
     return  YES;
 }
 
-/* Called on the delegate when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.
- */
+ Called on the delegate when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.
+ 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -1530,7 +1585,7 @@ static  NSMutableArray *columnWidthFTitle;
     self.startTime.text=[dateFormatter stringFromDate:month];
     [dateFormatter release];
 }
-
+*/
 
 
 

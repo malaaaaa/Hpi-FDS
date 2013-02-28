@@ -35,7 +35,7 @@
     UILabel *statLabel;
     UIButton *supButton; //供货商
     UILabel *supLabel; 
-    UIButton *dateButton; 
+  //  UIButton *dateButton;
     UILabel *dateLabel; 
     DateViewController* startDateCV;
     NSDate *startDay;
@@ -60,7 +60,7 @@
 - (IBAction)factoryAction:(id)sender;
 - (IBAction)queryAction:(id)sender;
 - (IBAction)reloadAction:(id)sender;
--(IBAction)startDate:(id)sender;
+//-(IBAction)startDate:(id)sender;
 - (IBAction)shipCompanyAction:(id)sender;
 - (IBAction)shipAction:(id)sender;
 - (IBAction)supplierAction:(id)sender;
@@ -87,7 +87,7 @@
 @property (retain, nonatomic) IBOutlet UILabel *statLabel;
 @property (retain, nonatomic) IBOutlet UIButton *supButton;
 @property (retain, nonatomic) IBOutlet UILabel *supLabel;
-@property (retain, nonatomic) IBOutlet UIButton *dateButton;
+//@property (retain, nonatomic) IBOutlet UIButton *dateButton;
 @property (retain, nonatomic) IBOutlet UILabel *dateLabel;
 @property (retain, nonatomic) IBOutlet UIButton *queryButton;
 @property (retain, nonatomic) IBOutlet UIButton *resetButton;

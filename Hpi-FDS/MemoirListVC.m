@@ -17,6 +17,11 @@
 @synthesize memoirTableView,popover,listArray,downLoadArray;
 @synthesize xmlParser,networkQueue,processView,stringType;
 @synthesize contentLength,webVC,cellArray;
+
+
+
+
+
 @synthesize refreshHeaderView=_refreshHeaderView;
 
 static int cellNum =0;
@@ -53,6 +58,7 @@ static int cellNum =0;
 #pragma mark -
 #pragma mark EGORefreshTableHeaderDelegate Methods
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    //下拉时加载数据..
 	[self reloadTableViewDataSource];
 	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
 	
@@ -78,6 +84,7 @@ static int cellNum =0;
 }
 
 - (void)dealloc {
+
     self.refreshHeaderView = nil;
 	if(memoirTableView)
 		[memoirTableView release];
@@ -97,13 +104,19 @@ static int cellNum =0;
     self.cellArray=nil;
     self.stringType=nil;
 
+    
+    
+    [self.webVC release],self.webVC=nil;
+    
+    
+    
     [super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 
-    NSLog(@"viewWillAppear");
+    NSLog(@"viewWillAppear");//从 这个tableview 掉转到 另一个 view 时被调用
 
     [self.listArray removeAllObjects];
     [self.cellArray removeAllObjects];
@@ -149,17 +162,27 @@ static int cellNum =0;
 			[view release];
 		}
 	}
-    self.networkQueue=[[[ASINetworkQueue alloc]init] autorelease];
-	[networkQueue setShowAccurateProgress:YES];
-	//[networkQueue go];
+  	self.downLoadArray=[[[NSMutableArray alloc]init] autorelease];
     
-	self.downLoadArray=[[[NSMutableArray alloc]init] autorelease];
-	//[networkQueue setDownloadProgressDelegate: self.processView ]; // 设置 queue 进度条
-    [networkQueue setDelegate:self];
-	[networkQueue setRequestDidFinishSelector:@selector(requestDone:)];
-	[networkQueue setRequestDidFailSelector:@selector(requestWentWrong:)];
-	[networkQueue setQueueDidFinishSelector:@selector(queueDone)];
-
+    
+    if (! networkQueue ) {
+        networkQueue = [[ ASINetworkQueue alloc ] init ];
+    }
+    
+    //[ networkQueue reset ]; // 队列清零
+    // [ networkQueue setDownloadProgressDelegate : progress_total ]; // 设置 queue 进度条
+    [ networkQueue setShowAccurateProgress : YES ]; // 进度精确显示
+    [ networkQueue setDelegate : self ]; // 设置队列的代理对象
+    
+    if ( fm == nil ) {
+        fm =[ NSFileManager defaultManager ];
+    }
+    
+    
+    
+    
+    
+    
 }
 
 - (void)viewDidUnload
@@ -198,10 +221,18 @@ static int cellNum =0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TsFileinfo *tsFile=[listArray objectAtIndex:indexPath.row];
-    if ([tsFile.xzbz isEqualToString:@"1"]) {
-        [WebViewController setFileName:tsFile.fileName];
-        [(WebViewController*)self.webVC viewloadRequest];
-        [self.popover dismissPopoverAnimated:YES];
+    if ([tsFile.xzbz isEqualToString:@"1"]) {//1为 下载完成..
+        
+        
+            //在本地Documents下加载  下载到的文件
+            [WebViewController setFileName:tsFile.fileName];
+        //设置 加载状态.
+     WebViewController*wbs=   (WebViewController*)self.webVC;
+         
+         [wbs  viewloadRequest];
+            [self.popover dismissPopoverAnimated:YES];
+             
+       
     }
     else {
             
@@ -227,37 +258,132 @@ static int cellNum =0;
 #pragma mark action
 -(void) stratDownload:(MemoirCell *)cell
 {
+    NSLog(@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    //self.networkQueue=[[ASINetworkQueue alloc]init] ;
+	//[networkQueue setShowAccurateProgress:NO];//    取消  进度条
+	//[networkQueue go];
+	//[networkQueue setDownloadProgressDelegate: self.processView ]; // 设置 queue 进度条
+    //[networkQueue setDelegate:self];
+    
+   //[networkQueue setShouldCancelAllRequestsOnFailure:NO];
+
+	//[networkQueue setRequestDidFinishSelector:@selector(requestDone:)];
+	//[networkQueue setRequestDidFailSelector:@selector(requestWentWrong:)];
+	//[networkQueue setQueueDidFinishSelector:@selector(queueDone)];
+    
+    // NSString *tempPath=[NSString stringWithFormat:@"%@.tmp",path];
+    // NSLog(@"临时文件路径=[%@]",tempPath);
+    //[request setDownloadProgressDelegate : progress_file2 ]; // 文件 2 的下载进度条
+    // [request setUserInfo :[ NSDictionary dictionaryWithObject :file2 forKey : @"TargetPath" ]];
+    
+    //设置文件保存路径
+    //[request setDownloadDestinationPath:path];
+    /*
+     //设置临时文件路径
+     [request setTemporaryFileDownloadPath:tempPath];
+     //设置是是否支持断点下载
+     [request setAllowResumeForFileDownloads:YES];
+     //设置进度条的代理,
+     
+     //cell.processView =[[[UIProgressView alloc]init]autorelease];//已初始化 没有用..
+     
+     // NSLog(@"cell.processView=[%@]",cell.processView);
+     [request setDownloadProgressDelegate:nil];
+     */
+    /*
+     
+     [request setDidFinishSelector:@selector(requestDone:)];
+     [request setDidFailSelector:@selector(requestWentWrong:)];
+     
+     //  取得响应报头信息
+     [request setDidReceiveResponseHeadersSelector:@selector(didReceiveResponseHeaders:)];
+     //添加到ASINetworkQueue队列去下载
+     [self.networkQueue addOperation:request];
+     [networkQueue go];
+     */
+    
+    
+
+    
+    
+    
+    
+    
+    
+    NSLog(@"开始下载文件......");
+     
     [cell retain];
     TsFileinfo *tsFile=cell.data;
     NSString * url=[NSString stringWithFormat:@"%@%@%@",PubInfo.url,tsFile.filePath,tsFile.fileName];
     NSLog(@"url=%@",url);
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Files"];
     [[NSFileManager defaultManager]createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
     
     NSString *path = [documentsDirectory stringByAppendingPathComponent:[tsFile.fileName stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
-    NSString *tempPath=[NSString stringWithFormat:@"%@.tmp",path];
-    //NSLog(@"path=[%@]",path);
+   // NSLog(@"文件保存路径=[%@]",path);
+
     
-    //设置文件保存路径
-    [request setDownloadDestinationPath:path];
-    //设置临时文件路径
-    [request setTemporaryFileDownloadPath:tempPath];
-    //设置是是否支持断点下载
-    [request setAllowResumeForFileDownloads:YES];
-    //设置进度条的代理,
-    cell.processView =[[[UIProgressView alloc]init]autorelease];
-    NSLog(@"cell.processView=[%@]",cell.processView);
-    [request setDownloadProgressDelegate:cell.processView];
-    //设置基本信息
+
+    NSFileHandle *fh2;
+    __block uint fSize2= 0 ; // 以 B 为单位，记录已下载的文件大小 , 需要声明为块可写
+    if ( [ fm createFileAtPath :path contents : nil attributes : nil ]){
+        fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
+    }
+    
+    
+   ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+       //设置基本信息
     [request setUsername:[NSString stringWithFormat:@"%d",cell.index]];
     [request setTimeOutSeconds:120];
-    [request setDidReceiveResponseHeadersSelector:@selector(didReceiveResponseHeaders:)];
-    //添加到ASINetworkQueue队列去下载
-    [self.networkQueue addOperation:request];
-    [networkQueue go];
-    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateUI:) userInfo:cell repeats:NO];
+    [request setCompletionBlock :^( void ){
+        
+        assert (fh2);
+        // 关闭 file2
+        [fh2 closeFile ];
+        NSLog(@"已下载完成....");
+
+        NSLog(@"request Done ok 第%@个",request.username);
+        
+        MemoirCell *cell=[self.cellArray objectAtIndex:[request.username intValue]];
+        TsFileinfo *tsFile=cell.data;
+        tsFile.xzbz=@"1";
+        NSLog(@"request Done ok name[%@]",tsFile.fileName);
+        [TsFileinfoDao updateTsFileXzbz:tsFile.fileId :@"1"];
+        cell.button.enabled=FALSE;
+        cell.button.hidden=YES;
+        cell.okimage.hidden=NO;
+        cell.backimage.frame = CGRectMake( 0.0f,  0.0f, 320, 50.0f);
+        cell.backimage.backgroundColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1];
+        [memoirTableView reloadData];   
+        
+    }];
+    // 使用 failed 块，在下载失败时做一些事情
+    [request setFailedBlock :^( void ){
+        NSLog ( @"download failed !" );
+    }];
+    // 使用 received 块，在接受到数据时做一些事情
+    [request setDataReceivedBlock :^( NSData * data){
+        
+        fSize2+=data. length ;
+        
+        NSLog(@"data.length:%d",[data length ]);
+        
+        
+        //设置进度条
+        //[ status_file2 setText :[ NSString stringWithFormat : @"%.1f K" ,fSize2/ 1000.0 ]];
+        //[ status_total setText :[ NSString stringWithFormat : @"%.0f %%" , progress_total . progress * 100 ]];
+        
+        if (fh2!= nil ) {
+            [fh2 seekToEndOfFile ];
+            [fh2 writeData :data];
+        }
+    }];
+    [ networkQueue addOperation :request];
+    [ networkQueue go ]; // 队列任务开始
+    
+    
+      //[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateUI:) userInfo:cell repeats:NO];
     [cell release];
 }
 //下载书籍
@@ -325,7 +451,13 @@ static int cellNum =0;
 
 - (void)requestDone:(ASIHTTPRequest *)request
 {
+    
+    
+    
+    
     NSLog(@"request Done ok 第%@个",request.username);
+    
+    
     MemoirCell *cell=[self.cellArray objectAtIndex:[request.username intValue]];
     TsFileinfo *tsFile=cell.data;
     tsFile.xzbz=@"1";
@@ -347,6 +479,13 @@ static int cellNum =0;
 
 - (void)didReceiveResponseHeaders:(ASIHTTPRequest *)request
 {
+    NSLog(@"request.responseHeaders:>>>>>>>>>>>>>>>>>>>>>>>>>>>%@",request.responseHeaders);
+    
+    
+    
+    
+    
+    
     NSLog(@"didReceiveResponseHeaders  request.responseHeaders %@",[request.responseHeaders valueForKey:@"Content-Length"]);
 	self.contentLength = self.contentLength + ([[request.responseHeaders valueForKey:@"Content-Length"] floatValue]/1024/1024);
 	NSLog(@"didReceiveResponseHeaders  self.contentLength %f",self.contentLength);
@@ -366,6 +505,13 @@ static int cellNum =0;
         }
     }
 }
+
+
+
+
+
+
+
 
 - (UITableViewCell *)CreateDownCell: (TsFileinfo *)tsFile
 {

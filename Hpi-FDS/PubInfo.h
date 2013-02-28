@@ -102,7 +102,7 @@ typedef enum{
 typedef enum{
      kMenuDCDTCX=0, //电厂动态查询
      kMenuSSCBCX, //实时船舶查询
-     kMenuFactoryWaitState,//电厂靠泊动态   
+    // kMenuFactoryWaitState,//电厂靠泊动态
      kMenuCYJH, //船运计划
    // kDataQueryMenu_MAX,//最大数量
 

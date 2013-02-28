@@ -246,7 +246,7 @@ UIAlertView *serverAlert;
     [connection release];
     NSString *result = [[NSString alloc] initWithBytes: [responseDate mutableBytes] length:[responseDate length] encoding:NSUTF8StringEncoding];
     
-    NSLog(@"login%@",result);
+    NSLog(@"login===================%@",result);
     NSString *theXML = [[NSString alloc] initWithBytes: [responseDate mutableBytes] length:6 encoding:NSUTF8StringEncoding];
     //没找到其它办法，通过返回报文前6位字符串判断是否出错，需要验证
     if ([theXML isEqualToString:@"<html>"]||result==Nil) {

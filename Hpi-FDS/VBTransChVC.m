@@ -27,13 +27,15 @@
 @synthesize shipLabel;
 @synthesize portButton;
 @synthesize portLabel;
-@synthesize typeButton;
-@synthesize typeLabel;
+
+//@synthesize typeButton;
+//@synthesize typeLabel;
+
 @synthesize factoryButton;
 @synthesize factoryLabel;
 @synthesize monthButton;
 @synthesize monthLabel;
-@synthesize codeTextField;
+//@synthesize codeTextField;
 @synthesize queryButton;
 @synthesize resetButton;
 @synthesize popover,chooseView,parentVC,month,monthCV;
@@ -60,7 +62,7 @@ DataQueryVC *dataQueryVC;
     self.shipLabel.text =All_;
     self.comLabel.text=All_;
     self.portLabel.text=All_;
-    self.typeLabel.text=All_;
+    //self.typeLabel.text=All_;
     self.factoryLabel.text=All_;
     self.monthLabel.text=All_;
     [activity removeFromSuperview];
@@ -70,7 +72,7 @@ DataQueryVC *dataQueryVC;
     self.shipLabel.hidden=YES;
     self.comLabel.hidden=YES;
     self.portLabel.hidden=YES;
-    self.typeLabel.hidden=YES;
+   // self.typeLabel.hidden=YES;
     self.factoryLabel.hidden=YES;
     self.monthLabel.hidden=YES;
     
@@ -151,13 +153,13 @@ DataQueryVC *dataQueryVC;
     [self setShipLabel:nil];
     [self setPortButton:nil];
     [self setPortLabel:nil];
-    [self setTypeButton:nil];
-    [self setTypeLabel:nil];
+   // [self setTypeButton:nil];
+    //[self setTypeLabel:nil];
     [self setFactoryButton:nil];
     [self setFactoryLabel:nil];
     [self setMonthButton:nil];
     [self setMonthLabel:nil];
-    [self setCodeTextField:nil];
+  //  [self setCodeTextField:nil];
     [self setQueryButton:nil];
     [self setResetButton:nil];
     [self setReloadButton:nil];
@@ -190,13 +192,13 @@ DataQueryVC *dataQueryVC;
     [shipLabel release];
     [portButton release];
     [portLabel release];
-    [typeButton release];
-    [typeLabel release];
+   // [typeButton release];
+   // [typeLabel release];
     [factoryButton release];
     [factoryLabel release];
     [monthButton release];
     [monthLabel release];
-    [codeTextField release];
+   // [codeTextField release];
     [queryButton release];
     [resetButton release];
     [popover release];
@@ -306,6 +308,8 @@ DataQueryVC *dataQueryVC;
     [pop release];
     [Array release];
 }
+
+/*
 - (IBAction)typeAction:(id)sender {
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
@@ -342,7 +346,7 @@ DataQueryVC *dataQueryVC;
     [chooseView release];
     [pop release];
     [Array release];
-}
+}*/
 
 - (IBAction)factoryAction:(id)sender {
     if (self.popover.popoverVisible) {
@@ -373,7 +377,7 @@ DataQueryVC *dataQueryVC;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 400);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(904, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(708, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
@@ -381,17 +385,45 @@ DataQueryVC *dataQueryVC;
 }
 -(IBAction)monthButton:(id)sender
 {
-    NSLog(@"month");
+   // NSLog(@"month");
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
     
     if(!monthCV)//初始化待显示控制器
-        monthCV=[[DateViewController alloc]init]; 
+        monthCV=[[DateViewController alloc]init];
+    
+    
+    /*======================设置选择器范围=========================*/
+    NSDateFormatter *myFormatter = [[NSDateFormatter alloc] init];
+    NSDate *date = [NSDate date];
+
+    
+    [myFormatter setDateFormat:@"yyyy"];
+    
+    NSString *dateS=   [NSString stringWithFormat:@"01/01/%d", [[myFormatter stringFromDate:date] integerValue]];
+    
+    
+     [myFormatter setDateFormat:@"dd/MM/yyyy"];
+     monthCV.minDate=[myFormatter dateFromString:dateS];//最小日期..
+    
+  
+    
+     monthCV.maxDate=date;//最大日期
+    
+    [myFormatter     release];
+    /*===============================================*/
+
+    
+    
+    
+    
+    
+    
     //设置待显示控制器的范围
-    [monthCV.view setFrame:CGRectMake(0,0, 195, 216)];
+    [monthCV.view setFrame:CGRectMake(0,0, 165, 216)];
     //设置待显示控制器视图的尺寸
-    monthCV.contentSizeForViewInPopover = CGSizeMake(195, 216);
+    monthCV.contentSizeForViewInPopover = CGSizeMake(165, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover = pop;
@@ -399,9 +431,9 @@ DataQueryVC *dataQueryVC;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(195, 216);
+    self.popover.popoverContentSize = CGSizeMake(165, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(110, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];    
+    [self.popover presentPopoverFromRect:CGRectMake(904, 30 , 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 
@@ -460,7 +492,14 @@ DataQueryVC *dataQueryVC;
       NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc]init];
     
       [self initSource];
-    dataQueryVC.dataArray=[VbTransplanDao getVbTransplan:comLabel.text :shipLabel.text :portLabel.text :typeLabel.text :factoryLabel.text :monthLabel.text:codeTextField.text];
+    //:typeLabel.text   :codeTextField.text
+    
+    NSLog(@"%@",comLabel.text);
+    NSLog(@"%@",shipLabel.text);
+    NSLog(@"%@",portLabel.text);
+     NSLog(@"%@",factoryLabel.text );
+     NSLog(@"%@",monthLabel.text );
+    dataQueryVC.dataArray=[VbTransplanDao getVbTransplan:comLabel.text :shipLabel.text :portLabel.text  :factoryLabel.text :monthLabel.text];
   
     
     dataSource.data=[[[NSMutableArray alloc]init] autorelease];
@@ -533,23 +572,23 @@ DataQueryVC *dataQueryVC;
     self.comLabel.text=All_;
     self.shipLabel.text =All_;
     self.portLabel.text=All_;
-    self.typeLabel.text=All_;
+   // self.typeLabel.text=All_;
     self.factoryLabel.text=All_;
     self.monthLabel.text=All_;
     self.comLabel.hidden=YES;
     self.shipLabel.hidden=YES;
     self.portLabel.hidden=YES;
-    self.typeLabel.hidden=YES;
+   // self.typeLabel.hidden=YES;
     self.factoryLabel.hidden=YES;
     self.monthLabel.hidden=YES;
     
     [comButton setTitle:@"航运公司" forState:UIControlStateNormal];
     [shipButton setTitle:@"船名" forState:UIControlStateNormal];
     [portButton setTitle:@"装运港" forState:UIControlStateNormal];
-    [typeButton setTitle:@"煤种" forState:UIControlStateNormal];
+   // [typeButton setTitle:@"煤种" forState:UIControlStateNormal];
     [factoryButton setTitle:@"流向" forState:UIControlStateNormal];
     [monthButton setTitle:@"月份" forState:UIControlStateNormal];
-    [codeTextField setText:@""];
+    //[codeTextField setText:@""];
     
 }
 
@@ -645,7 +684,7 @@ DataQueryVC *dataQueryVC;
             }
 
         }
-        
+       /*
         if (chooseView.type==kCOALTYPE) {
             self.typeLabel.text=currentSelectValue;
             if (![self.typeLabel.text isEqualToString:All_]) {
@@ -659,7 +698,7 @@ DataQueryVC *dataQueryVC;
             }
 
         
-        }
+        }*/
          if (chooseView.type==kChFACTORY) {
             self.factoryLabel.text =currentSelectValue;
              if (![ self.factoryLabel.text isEqualToString:All_]) {

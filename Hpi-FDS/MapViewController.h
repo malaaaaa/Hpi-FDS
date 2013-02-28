@@ -22,6 +22,10 @@
 #import "TBXMLParser.h"
 #import "ChooseViewDelegate.h"
 
+
+
+#import "WebViewController.h"
+#import "MemoirListVC.h"
 @interface MapViewController : UIViewController <MKMapViewDelegate,UITableViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate,ChooseViewDelegate>{
     IBOutlet MKMapView *mapView;
     IBOutlet MKMapView *mapViewBig;
@@ -60,7 +64,21 @@
     XMLParser *xmlParser;
     TBXMLParser *tbxmlParser;
 
+    /*添加 信息栏 按钮*/
+    IBOutlet UIButton *infoBut; 
+    IBOutlet UIView *mainVW;
+    WebViewController *wbvc;
 }
+
+@property(nonatomic,retain)UIButton *infoBut;
+@property(nonatomic,retain) UIView *mainVW;
+@property(nonatomic,retain)  WebViewController *wbvc;
+
+
+
+
+
+
 @property(nonatomic, retain) MKMapView *mapView;
 @property(nonatomic, retain) MKMapView *mapViewBig;
 @property(nonatomic, retain) UIButton *closeButton;

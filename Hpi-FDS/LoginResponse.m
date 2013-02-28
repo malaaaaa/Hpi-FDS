@@ -12,13 +12,13 @@
 
 @implementation LoginResponse
 @synthesize SBID,RETCODE,STAGE,ISHAVE;
-
+@synthesize regMsg;
 
 -(void)dealloc
 {
     [self.SBID release];
     [self .RETCODE release];
-    
+    [self.regMsg release];
     [self.STAGE  release];
       [self .ISHAVE release];
     [super dealloc];

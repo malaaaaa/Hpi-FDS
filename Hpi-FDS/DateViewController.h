@@ -16,6 +16,10 @@
 @property(nonatomic,retain) UIPopoverController *popover;
 @property(nonatomic,retain) UIDatePicker *picker;
 @property(nonatomic,retain) NSDate *selectedDate;
+
+
+@property(nonatomic,retain)NSDate *minDate;
+@property(nonatomic,retain)NSDate *maxDate;
 -(IBAction)datePickerValueChanged: (id)sender;
 @end
 

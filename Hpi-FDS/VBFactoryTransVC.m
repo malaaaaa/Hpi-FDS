@@ -38,7 +38,7 @@
 @synthesize statLabel;
 @synthesize supButton;
 @synthesize supLabel;
-@synthesize dateButton;
+//@synthesize dateButton;
 @synthesize dateLabel;
 @synthesize queryButton;
 @synthesize resetButton;
@@ -50,7 +50,9 @@
 @synthesize factorytransDeitail;
 @synthesize listView;
 @synthesize startDateCV;
+
 @synthesize startDay;
+
 @synthesize tbxmlParser;
 @synthesize buttonView;
 
@@ -92,6 +94,21 @@ static  NSMutableArray *ShipStageArray;
     self.tradeLabel.text=All_;
     self.statLabel.text=All_;
     self.supLabel.text=All_;
+    //只查当天数据..
+    
+    self.startDay = [NSDate date];//[[NSDate alloc] initWithTimeInterval:-5*24*60*60 sinceDate:[NSDate date]];
+    
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+       [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+       self.dateLabel.text=[dateFormatter stringFromDate:    self.startDay];
+       [dateFormatter release];
+    
+    
+    
+      //测试 日期
+    
+    
+    
     
     self.factoryLabel.hidden=YES;
     self.shipLabel.hidden=YES;
@@ -105,10 +122,7 @@ static  NSMutableArray *ShipStageArray;
     
     self.tbxmlParser =[[TBXMLParser alloc] init];
     
-    //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    //    self.dateLabel.text=[dateFormatter stringFromDate:[NSDate date]];
-    //    [dateFormatter release];
+
     
     //factoryArray= [[NSMutableArray alloc] init];
     
@@ -171,11 +185,11 @@ static  NSMutableArray *ShipStageArray;
     
     // [self.view addSubview:labelView];
     
-    self.startDay = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
-    [dateFormatter release];
+  
+   // NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+   // [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+   // [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
+  //  [dateFormatter release];
     
     
 }
@@ -206,7 +220,7 @@ static  NSMutableArray *ShipStageArray;
     [self setStatLabel:nil];
     [self setSupButton:nil];
     [self setSupLabel:nil];
-    [self setDateButton:nil];
+   // [self setDateButton:nil];
     [self setDateLabel:nil];
     [self setQueryButton:nil];
     [self setResetButton:nil];
@@ -238,7 +252,7 @@ static  NSMutableArray *ShipStageArray;
     [statLabel release];
     [supButton release];
     [supLabel release];
-    [dateButton release];
+  // [dateButton release];
     [dateLabel release];
     [queryButton release];
     [resetButton release];
@@ -267,6 +281,9 @@ static  NSMutableArray *ShipStageArray;
     [super dealloc];
 }
 
+
+
+/*
 -(IBAction)startDate:(id)sender
 {
     NSLog(@"startDate");
@@ -294,7 +311,7 @@ static  NSMutableArray *ShipStageArray;
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(730, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
-}
+}*/
 - (IBAction)factoryAction:(id)sender {
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
@@ -659,6 +676,10 @@ static  NSMutableArray *ShipStageArray;
 
 - (IBAction)queryAction:(id)sender {
     
+   // NSLog(@"%@",self.startDay);
+    
+    
+    
     [dataSource.data removeAllObjects];
     listArray=[VbFactoryTransDao getVbFactoryTransState:FactoryArray
                                                        :self.startDay
@@ -737,10 +758,10 @@ static  NSMutableArray *ShipStageArray;
     [self resetArray];
     
     self.startDay = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
-    [dateFormatter release];
+   // NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+   // [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+  //  [dateButton setTitle:[dateFormatter stringFromDate:startDay] forState:UIControlStateNormal];
+    //[dateFormatter release];
     
     [factoryButton setTitle:@"电厂" forState:UIControlStateNormal];
     [comButton setTitle:@"航运公司" forState:UIControlStateNormal];
@@ -780,6 +801,8 @@ static  NSMutableArray *ShipStageArray;
     }
 }
 #pragma mark - popoverController
+/*
+
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController{
     NSLog(@"popoverControllerShouldDismissPopover");
     if (startDateCV){
@@ -792,8 +815,7 @@ static  NSMutableArray *ShipStageArray;
     return  YES;
 }
 
-/* Called on the delegate when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.
- */
+
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -801,7 +823,7 @@ static  NSMutableArray *ShipStageArray;
     [dateFormatter release];
     NSLog(@"popoverControllerDidDismissPopover");
 }
-
+*/
 -(void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

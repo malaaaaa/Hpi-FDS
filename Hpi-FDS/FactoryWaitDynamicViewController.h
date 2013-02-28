@@ -26,8 +26,10 @@
     
     UILabel *factoryLable;
     UIButton *factoryButton;
+    
     UILabel *startTime;
-    UIButton *startButton;
+    //UIButton *startButton;
+    
     UIActivityIndicatorView *activty;
     UIButton *reload;
     UIView *scrool;
@@ -59,7 +61,7 @@
 @property (retain, nonatomic)  IBOutlet   UIView *dcView;
 @property (retain, nonatomic)  IBOutlet  UIView *scrool;
 @property (retain, nonatomic)  IBOutlet UIButton *reload;
-@property (retain, nonatomic) IBOutlet UIButton *startButton;
+//@property (retain, nonatomic) IBOutlet UIButton *startButton;
 @property (retain, nonatomic) IBOutlet UILabel *startTime;
 @property (retain, nonatomic) IBOutlet UIButton *factoryButton;
 @property (retain, nonatomic) IBOutlet UILabel *factoryLable;

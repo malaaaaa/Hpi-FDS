@@ -4912,7 +4912,7 @@ NSString* alertMsg;
             recordResults = FALSE;
             [soapResults release];
             soapResults = nil;
-            if ([TsFileinfoDao tsFileIsDownload:tsFileinfo.fileId]) {
+            if ([TsFileinfoDao tsFileIsDownload:tsFileinfo.fileId]) {//判断改文件是否已下载....
 //                tsFileinfo.xzbz=@"1";
             }
             else {
