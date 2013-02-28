@@ -69,12 +69,13 @@
     IBOutlet UIView *mainVW;
     WebViewController *wbvc;
 
+    IBOutlet UIButton *fileShow;
 }
 
 @property(nonatomic,retain)UIButton *infoBut;
 @property(nonatomic,retain) UIView *mainVW;
 @property(nonatomic,retain)  WebViewController *wbvc;
-
+@property(nonatomic,retain)UIButton *fileShow;
 
 
 

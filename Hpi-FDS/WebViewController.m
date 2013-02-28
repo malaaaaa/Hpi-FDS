@@ -8,7 +8,7 @@
 
 #import "WebViewController.h"
 @implementation WebViewController
-@synthesize webView,popover,titleLable,memoirListVC;
+@synthesize webView1,popover,titleLable,memoirListVC;
 
 @synthesize infoButton;
 @synthesize FileLoadStatus;
@@ -65,7 +65,7 @@ static NSString *fileName;
     
     
    // [segment release];
-    [webView release];
+    [webView1 release];
     [popover release];
     [titleLable release];
     [memoirListVC release];
@@ -94,7 +94,7 @@ static NSString *fileName;
     self.waitingLable.backgroundColor=[UIColor clearColor];
     self.waitingLable.text=@"文档正在加载中，请稍等...";
     self.waitingLable.font = [UIFont systemFontOfSize:30.0f];
-    webView.scalesPageToFit =  YES;
+    webView1.scalesPageToFit =  YES;
    // segment.momentary = YES;
     
     
@@ -104,7 +104,7 @@ static NSString *fileName;
     singleTapGesture.numberOfTouchesRequired  = 1;
     
     singleTapGesture.delegate=self;
-    [self.webView.scrollView addGestureRecognizer:singleTapGesture];
+    [self.webView1.scrollView addGestureRecognizer:singleTapGesture];
     
     
     
@@ -114,7 +114,7 @@ static NSString *fileName;
     doubleTapGesture.numberOfTouchesRequired = 1;
     doubleTapGesture.delegate=self;
     
-    [self.webView.scrollView addGestureRecognizer:doubleTapGesture];
+    [self.webView1.scrollView addGestureRecognizer:doubleTapGesture];
     // 关键在这一行，双击手势确定监测失败才会触发单击手势的相应操作
     [singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
     
@@ -131,7 +131,7 @@ static NSString *fileName;
 
 
 -(void)handleSingleTap:(UIGestureRecognizer *)sender{
-   CGPoint touchPoint = [sender locationInView:self.webView];
+   CGPoint touchPoint = [sender locationInView:self.webView1];
     //...
    // NSLog(@"这是个Single.....");
    // NSLog(@"touchPoint.x>>>>>>>>>>>>>>%f",touchPoint.x);
@@ -154,15 +154,14 @@ static NSString *fileName;
                 UIView*sub=   [MapsubVW objectAtIndex:i];
                 if (!sub.hidden){
                  sub .hidden=YES;
-                    infoButton.hidden=NO;
+            
                 }else{
                     
                      if (touchPoint.y>=40) //获取坐标
                      {
                       sub .hidden=NO;
                      }
-                    
-                    infoButton.hidden=YES;
+
                 } 
             }
         }
@@ -188,7 +187,7 @@ static NSString *fileName;
 
 - (void)viewDidUnload
 {
-    //self.webView=nil;
+    self.webView1=nil;
     self.titleLable=nil;
     
     
@@ -208,56 +207,49 @@ static NSString *fileName;
 {
     
    NSLog(@">>>>>>>>>>>>加载文件>>>>>>>>>>>>>>>");
-    
-    
-    
-    FileLoadStatus=0;
-    
+  FileLoadStatus=0;
+      [webView1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *docPath = [documentsDirectory stringByAppendingString:[NSString stringWithFormat: @"/Files/%@",fileName]];
-    //NSLog(@"####docPath# [%@]",docPath);
+    NSLog(@"####docPath# [%@]",docPath);
     
     NSURL *url = [NSURL fileURLWithPath:docPath];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]];
-
    
 
-   // [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
- [webView setBackgroundColor:[UIColor whiteColor]];
-    [webView loadRequest:request];
+   
+    
+    
+  
+  
+ 
+    [webView1 setBackgroundColor:[UIColor whiteColor]];
+    [webView1 loadRequest:request];
 
     self.titleLable.text=fileName;
 //    webView.alpha=1;
     
-    NSLog(@"web加载完毕");
-    
     FileLoadStatus=1;//加载完毕
-     NSLog(@"接受web单击事件...");
-    if (self.webView) {
-        NSLog(@"yes");
-    }else
-    {
-        NSLog(@"no");
-    }
-    
-    
+
     
     
     
 }
 - (void )webViewDidStartLoad:(UIWebView  *)webView
 {
-    [self.webView.scrollView addSubview:_waitingLable];
+    NSLog(@"开始加载文件>>>>>>>>");
+    //NSLog(@"%@",webView.request.URL);
+ 
     
+    [self.webView1.scrollView addSubview:_waitingLable];
 }
 - (void )webViewDidFinishLoad:(UIWebView  *)webView
 {
+     NSLog(@"加载文件完毕>>>>>>>>");
     [_waitingLable removeFromSuperview];
-
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
