@@ -113,7 +113,7 @@ typedef enum{
     kMenuHYGSFETJ=0, //航运公司份额统计
     kMenuDCYLYLTJ, //电厂运力运量统计
     kMenuZXGXLTJ, //装卸港效率统计
-    kMenuDDRZCX, //调度日志查询
+//    kMenuDDRZCX, //调度日志查询
     kMenuGKMJZGSJ, //港口平均装港时间统计
     kMenuFcAvgZXTime,//电厂装卸港时间统计
     kMenuZXGSJTJ,//装卸港时间统计

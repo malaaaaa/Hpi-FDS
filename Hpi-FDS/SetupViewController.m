@@ -199,7 +199,7 @@ static bool parserFlag=FALSE;
                         [cell addSubview:reportProgressview];
                         parserFlag=TRUE;
                         [reportProgressview setFrame:CGRectMake(31, 32, 362, 3)];
-                        reportRequestNum=13;
+                        reportRequestNum=14;
                         [reportTbxmlParser setISoapNum:reportRequestNum];
                         
                         
@@ -238,7 +238,8 @@ static bool parserFlag=FALSE;
                         
                         [reportTbxmlParser requestSOAP:@"TransPorts"];
                         [self runActivity_report];
-                        
+                        [reportTbxmlParser requestSOAP:@"ThShipTranS"];
+                        [self runActivity_report];
                         [reportTbxmlParser requestSOAP:@"TransPlan"];
                         [self runActivity_report];
                         break;
