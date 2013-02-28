@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MemoirListVC.h"
 @interface WebViewController : UIViewController<UIWebViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate>{
-    IBOutlet UIWebView *webView;
+    IBOutlet UIWebView *webView1;
     UIPopoverController *popover;
     IBOutlet UILabel *titleLable;
     
@@ -28,7 +28,7 @@
 
 
 
-@property (nonatomic,retain) UIWebView *webView;
+@property (nonatomic,retain) UIWebView *webView1;
 @property (nonatomic,retain) UIPopoverController *popover;
 @property (nonatomic,retain) UILabel *titleLable;
 @property (nonatomic,retain) MemoirListVC *memoirListVC;

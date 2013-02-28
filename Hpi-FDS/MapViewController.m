@@ -28,7 +28,7 @@
 @synthesize xmlParser;
 @synthesize tbxmlParser;
 
-
+@synthesize fileShow;
 @synthesize infoBut;
 @synthesize mainVW;
 @synthesize wbvc;
@@ -61,7 +61,7 @@ static int iDisplay=0;
     [infoBut release    ];
     [mainVW release];
     [wbvc release];
-    
+    [fileShow release];
     
     
     
@@ -98,6 +98,7 @@ static int iDisplay=0;
     self.tbxmlParser=nil;
     [infoBut release];
     [mainVW release];
+    [fileShow release];
     [super dealloc];
 }
 
@@ -230,7 +231,7 @@ static int iDisplay=0;
 - (void)viewDidUnload
 {
     
-    
+    fileShow=nil;
     infoBut=nil;
     mainVW=nil;
     wbvc=nil;
@@ -261,6 +262,8 @@ static int iDisplay=0;
     infoBut = nil;
     [mainVW release];
     mainVW = nil;
+    [fileShow release];
+    fileShow = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -274,23 +277,141 @@ static int iDisplay=0;
 
 #pragma mark -
 #pragma mark Actions
-/*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
-- (IBAction)infoButAction:(id)sender {
+/*++++++++++++++++++++++++++++新添 文件查看 按钮++++++++++++++++++++++++++++++*/
+- (IBAction)FileShowAction:(id)sender {
+    //if (self.wbvc) {
+      //   [self.wbvc release];self.wbvc=nil;
+    //}
     
-    MemoirListVC *memoirListVC=[[MemoirListVC alloc]init];
-    if (!self.wbvc)
+    
+    
+    if (!self.wbvc){
+        NSLog(@"初始web");
         self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+        [self.mainVW addSubview:wbvc.view];
+   }
+   
+   
+        [wbvc.view bringSubviewToFront:self.mainVW];
+    NSDateFormatter *formater=[[NSDateFormatter alloc] init];
+    
+    [formater setDateFormat:@"yyyy-MM-dd"];
+    NSString *fileName=
+    //[[NSString alloc] initWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];//释放..
+    [NSString stringWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];
+    
+    [formater release];
+    
+   // NSLog(@"filename:%@",fileName);
     
     
+    //调运信息表(2012-02-28).xls
+   NSString * url=  [NSString stringWithFormat:@"http://10.2.17.121:82/fileupload/IPAD_Factory/%@",fileName ];
+   
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Files"];
+    [[NSFileManager defaultManager]createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:[fileName stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]  ];
+    
+    
+    
+    
+    NSFileHandle *fh2;
+    __block uint fSize2= 0 ; // 以 B 为单位，记录已下载的文件大小 , 需要声明为块可写
+    if ( [[ NSFileManager defaultManager ] fileExistsAtPath:path]) {
+        NSLog(@"存在");
+        
+        
+         fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
+/*
+        NSError *error;
+        if ([[ NSFileManager defaultManager ] removeItemAtPath:path error:&error] != YES)
+        {
+            NSLog(@"Unable to delete file: %@", [error localizedDescription]);
+        }else
+        {
+            NSLog(@"已删除f....");
+        }*/
+        
+    }else
+    {
+        NSLog(@"不存在");
+        
+        if ( [ [ NSFileManager defaultManager ] createFileAtPath :path contents : nil attributes : nil ]){
+            fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
+        }
+    } 
+
+     //  ASINetworkQueue *networkQueue = [[ ASINetworkQueue alloc ] init ];
+    //[ networkQueue setShowAccurateProgress : NO ]; // 进度精确显示
+    //[ networkQueue setDelegate : self ]; // 设置队列的代理对象
+    
+    
+    NSLog(@"开始请求................");
+
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    //设置基本信息
+  
+    [request setTimeOutSeconds:120];
+    [request setCompletionBlock :^( void ){
+        assert (fh2);
+        // 关闭 file2
+        [fh2 closeFile ];
+          NSLog(@"已下载完成....");
+        //下载完成....加载
+        [WebViewController setFileName:fileName];
+        //设置 加载状态.
+        [self.wbvc  viewloadRequest];
+         
+    }];
+    // 使用 failed 块，在下载失败时做一些事情
+    [request setFailedBlock :^( void ){
+        NSLog ( @"download failed !" );
+    }];
+    // 使用 received 块，在接受到数据时做一些事情
+    [request setDataReceivedBlock :^( NSData * data){
+        fSize2+=data. length ;
+       NSLog(@"data.length:%d",fSize2 );
+        
+        if (fh2!= nil ) {
+            [fh2 seekToEndOfFile ];
+            [fh2 writeData :data];
+        }
+
+        
+    }];
+    
+    [request start];
+
     
     
 
+}
+/*++++++++++++++++++++++++++++新添  文件查看  按钮++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
+- (IBAction)infoButAction:(id)sender {
+   // if (self.wbvc ) {
+        //[self.wbvc.view removeFromSuperview];
+     //   [self.wbvc release];self.wbvc=nil;
+    //}
+     
+    
+    
+    
+    MemoirListVC *memoirListVC=[[MemoirListVC alloc]init];
+    if (!self.wbvc){
+        self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+        [self.mainVW addSubview:wbvc.view];
+           }
+    
+    
+     [wbvc.view bringSubviewToFront:self.mainVW];
+    
     memoirListVC.webVC=self.wbvc;
     [memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
     //设置待显示控制器视图的尺寸
     memoirListVC.contentSizeForViewInPopover = CGSizeMake(320, 484);
-
-    
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:memoirListVC];
     memoirListVC.popover = pop;
@@ -299,22 +420,16 @@ static int iDisplay=0;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 484);
-    
-    
-    
     memoirListVC.stringType=@"NOTICE";
-    [self.popover presentPopoverFromRect:CGRectMake(955, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(880, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 
     [pop release];
   //先加载  webView
     
     
-    [self.mainVW addSubview:wbvc.view];
-    [wbvc.view bringSubviewToFront:self.mainVW];
+   
     
     [memoirListVC release];
-    
-    
 }
 
 
