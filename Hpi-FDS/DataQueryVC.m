@@ -212,6 +212,7 @@ static NSInteger menuSection;
     }
     
     //新添   调度日志
+    /*
         if (menuIndex==kMenuDDRZCX&&menuSection==kMenuTJ ){
         TH_ShipTrans *thshiptrans=[dataArray objectAtIndex:indexPath.row];
         NSLog(@"%@",thshiptrans.P_ANCHORAGETIME );
@@ -234,7 +235,7 @@ static NSInteger menuSection;
         [pop release];
     }
     
-    
+    */
     
     
        if (menuIndex==kMenuZQFMXCX&&menuSection==kMenuLatefee) {
@@ -470,6 +471,7 @@ static NSInteger menuSection;
         [self.chooseView addSubview:vbTransChVC.view];
           NSLog(@"--------初始船运计划页面--");
           }
+    /*
     else if (index==kMenuDDRZCX&&section==kMenuTJ) {
         [self removeSubView];
         //新添  调度日志查询
@@ -487,6 +489,7 @@ static NSInteger menuSection;
         [self.chooseView addSubview:thShipTransVC.view];
         NSLog(@"调度日志.............");
     }
+     */
     //新添 滞期费查询
     else if (index==kMenuZQFMXCX&&section==kMenuLatefee) {
        [self removeSubView];

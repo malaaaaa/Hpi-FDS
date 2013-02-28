@@ -149,7 +149,6 @@
 						<string key="NSFrameSize">{1024, 50}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:569</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -232,7 +231,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUITitleShadowOffset">{0, -0.5}</string>
-						<string key="IBUINormalTitle">摘要</string>
+						<string key="IBUINormalTitle">调运概况</string>
 						<reference key="IBUIHighlightedTitleColor" ref="124930437"/>
 						<reference key="IBUINormalTitleColor" ref="124930437"/>
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="212506851">
@@ -278,7 +277,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUITitleShadowOffset">{0, -0.5}</string>
-						<string key="IBUINormalTitle">在途船舶</string>
+						<string key="IBUINormalTitle">港口动态</string>
 						<reference key="IBUIHighlightedTitleColor" ref="124930437"/>
 						<reference key="IBUINormalTitleColor" ref="124930437"/>
 						<reference key="IBUINormalTitleShadowColor" ref="212506851"/>

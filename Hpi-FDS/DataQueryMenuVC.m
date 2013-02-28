@@ -38,8 +38,8 @@ static  NSMutableArray *actionTitle;
    
     actionTitle=[[NSMutableArray alloc ] initWithObjects:@"实时查询",@"查询统计",@"滞期费查询", nil];
    // @"电厂靠泊动态",
-    dic=[[NSMutableDictionary alloc] initWithObjectsAndKeys:[[NSMutableArray alloc] initWithObjects:@"实时电厂动态", @"实时船舶动态",@"航运计划",nil],@"0",[[NSMutableArray alloc] initWithObjects:@"航运公司份额统计", @"电厂运力运量统计",@"装卸港效率统计",@"调度日志查询",@"港口平均装港时间统计",@"电厂平均装卸港时间统计",@"装卸港时间统计",@"航运计划执行情况",nil],@"1",[[NSMutableArray alloc] initWithObjects:@"滞期费明细查询", @"滞期费统计",@"滞期费吨煤分析",@"滞期费航次分析",nil],@"2", nil];
-    
+//    dic=[[NSMutableDictionary alloc] initWithObjectsAndKeys:[[NSMutableArray alloc] initWithObjects:@"实时电厂动态", @"实时船舶动态",@"航运计划",nil],@"0",[[NSMutableArray alloc] initWithObjects:@"航运公司份额统计", @"电厂运力运量统计",@"装卸港效率统计",@"调度日志查询",@"港口平均装港时间统计",@"电厂平均装卸港时间统计",@"装卸港时间统计",@"航运计划执行情况",nil],@"1",[[NSMutableArray alloc] initWithObjects:@"滞期费明细查询", @"滞期费统计",@"滞期费吨煤分析",@"滞期费航次分析",nil],@"2", nil];
+     dic=[[NSMutableDictionary alloc] initWithObjectsAndKeys:[[NSMutableArray alloc] initWithObjects:@"实时电厂动态", @"实时船舶动态",@"航运计划",nil],@"0",[[NSMutableArray alloc] initWithObjects:@"航运公司份额统计", @"电厂运力运量统计",@"装卸港效率统计",@"港口平均装港时间统计",@"电厂平均装卸港时间统计",@"装卸港时间统计",@"航运计划执行情况",nil],@"1",[[NSMutableArray alloc] initWithObjects:@"滞期费明细查询", @"滞期费统计",@"滞期费吨煤分析",@"滞期费航次分析",nil],@"2", nil];
     
      
     
@@ -163,8 +163,9 @@ static  NSMutableArray *actionTitle;
             // [self.parentView setTitelValue:@"6"];
             [parentView.view addSubview:portEfficiencyVC.view];
         }
-       else if (kMenuDDRZCX==[indexPath row]||kMenuGKMJZGSJ==[indexPath row]||kMenuFcAvgZXTime==[indexPath row]){//调度日志查询、港口平均装港时间统计、电厂装卸港时间统计
-           
+//       else if (kMenuDDRZCX==[indexPath row]||kMenuGKMJZGSJ==[indexPath row]||kMenuFcAvgZXTime==[indexPath row]){//调度日志查询、港口平均装港时间统计、电厂装卸港时间统计
+        else if (kMenuGKMJZGSJ==[indexPath row]||kMenuFcAvgZXTime==[indexPath row]){//调度日志查询、港口平均装港时间统计、电厂装卸港时间统计
+ 
            
            [self removeAllSubView];
            dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
