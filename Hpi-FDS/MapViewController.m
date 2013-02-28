@@ -136,6 +136,7 @@ static int iDisplay=0;
         [self.view addSubview:activity];
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
+        [xmlParser getTsFileinfo];
         [tbxmlParser setISoapNum:7];
         
         [tbxmlParser requestSOAP:@"TgPort"];
@@ -500,7 +501,7 @@ static int iDisplay=0;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(960, 300);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(700, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(900, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [summaryInfoViewController release];
     [pop release];
     
@@ -591,6 +592,8 @@ static int iDisplay=0;
         [self.view addSubview:activity];
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
+        [xmlParser getTsFileinfo];
+
         [tbxmlParser setISoapNum:7];
         [tbxmlParser requestSOAP:@"TgPort"];
         
@@ -1205,7 +1208,8 @@ static int iDisplay=0;
 - (void)mapView:(MKMapView *)mapView1 regionDidChangeAnimated:(BOOL)animated
 {
     NSLog(@"self.mapView.region.span %f + %f" ,mapView.region.span.latitudeDelta,mapView.region.span.longitudeDelta);
-
+    //暂时不放大
+    return;
     if((mapView.region.span.longitudeDelta<10.0) && (mapView.region.span.longitudeDelta>0.3) && (iDisplay != 1))
     {
         /*
