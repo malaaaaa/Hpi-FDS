@@ -281,26 +281,20 @@ static int iDisplay=0;
 #pragma mark Actions
 /*++++++++++++++++++++++++++++新添 文件查看 按钮++++++++++++++++++++++++++++++*/
 - (IBAction)FileShowAction:(id)sender {
-    //if (self.wbvc) {
-    //   [self.wbvc release];self.wbvc=nil;
-    //}
-    
-    
     
     if (!self.wbvc){
         NSLog(@"初始web");
         self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+        
     }
     [self.mainVW addSubview:wbvc.view];
     
     
     NSDateFormatter *formater=[[NSDateFormatter alloc] init];
-    
     [formater setDateFormat:@"yyyy-MM-dd"];
     NSString *fileName=
     //[[NSString alloc] initWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];//释放..
     [NSString stringWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];
-    
     [formater release];
     
     
@@ -318,36 +312,19 @@ static int iDisplay=0;
     
     NSFileHandle *fh2;
     __block uint fSize2= 0 ; // 以 B 为单位，记录已下载的文件大小 , 需要声明为块可写
-    if ( [[ NSFileManager defaultManager ] fileExistsAtPath:path]) {
-        NSLog(@"存在");
-        
-        
-        fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
-        
-        // NSError *error;
-        //if ([[ NSFileManager defaultManager ] removeItemAtPath:path error:&error] != YES)
-        //{
-        //  NSLog(@"Unable to delete file: %@", [error localizedDescription]);
-        //}else
-        //{
-        //  NSLog(@"已删除f....");
-        //}
-        
-    }else
+    
+    
+    if ( ![[ NSFileManager defaultManager ] fileExistsAtPath:path])
     {
-        NSLog(@"不存在");
-        
-        if ( [ [ NSFileManager defaultManager ] createFileAtPath :path contents : nil attributes : nil ]){
-            fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
-        }
+        //NSLog(@"不存在");
+        [ [ NSFileManager defaultManager ] createFileAtPath :path contents : nil attributes : nil ];
     }
+    fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
+    [fh2 truncateFileAtOffset:0];//清空原来文件.
+    //  NSLog(@"开始请求................");
     
-    //  ASINetworkQueue *networkQueue = [[ ASINetworkQueue alloc ] init ];
-    //[ networkQueue setShowAccurateProgress : NO ]; // 进度精确显示
-    //[ networkQueue setDelegate : self ]; // 设置队列的代理对象
     
     
-    NSLog(@"开始请求................");
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
     //设置基本信息
@@ -398,10 +375,8 @@ static int iDisplay=0;
         self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
     }
     [self.mainVW addSubview:wbvc.view];
-    
-    
     [wbvc.view bringSubviewToFront:self.mainVW];
-    
+  
     memoirListVC.webVC=self.wbvc;
     [memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
     //设置待显示控制器视图的尺寸

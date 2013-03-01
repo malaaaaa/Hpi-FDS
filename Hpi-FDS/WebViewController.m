@@ -264,9 +264,9 @@ static int a=0;
 {
     
   
-  //  if (loadCount==1) {//限制只加载一次
-       // NSLog(@"开始加载文件>>>>>>>>");
-        //NSLog(@"%@",webView.request.URL);
+    //if (loadCount==1) {//限制只加载一次
+      //  NSLog(@"开始加载文件>>>>>>>>");
+      //  NSLog(@"%@",webView.request.URL);
         [self.webView1.scrollView addSubview:_waitingLable];
         loadCount--;
     //}
@@ -277,12 +277,12 @@ static int a=0;
 {
     
   //if (loadCount==0) {
-     //NSLog(@"加载文件完毕>>>>>>>>");
+    // NSLog(@"加载文件完毕>>>>>>>>");
     [_waitingLable removeFromSuperview];
       loadCount--;
        
      
-  //}
+ // }
     
 }
 
