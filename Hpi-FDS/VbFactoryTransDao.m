@@ -580,7 +580,7 @@ return datej;
             
             sqlite3_stmt *statement1;
             NSString *sql1=[NSString stringWithFormat:@"SELECT S.CONSUM,S.STORAGE, S.STORAGE-(select p.storage from TbFactoryState p where p.factorycode='%@' AND strftime('%%Y-%%m-%%d',p.RECORDDATE) =date(strftime('%%Y-%%m-%%d','%@'),'-1 day') ),S.AVALIABLE,S.MONTHIMP,S.YEARIMP FROM  TbFactoryState s WHERE s.factorycode='%@' AND strftime('%%Y-%%m-%%d',s.RECORDDATE) ='%@'  ",vbFactoryTrans.FACTORYCODE,start,vbFactoryTrans.FACTORYCODE,start];
-        //   NSLog(@"执行 TbFactoryState OuterSql[%@] ",sql1);
+          NSLog(@"执行 TbFactoryState OuterSql[%@] ",sql1);
             if(sqlite3_prepare_v2(database,[sql1 UTF8String],-1,&statement1,NULL)==SQLITE_OK){
                 
                     int ystSTORAGE=0;
@@ -621,6 +621,10 @@ return datej;
                     [f setDateFormat:@"yyyy-MM-01"];
                     NSString *  start =[NSString   stringWithFormat:@"%@%@" ,  [f stringFromDate:[NSDate date]],@"T00:00:00"   ];
                     
+//                    [f setDateFormat:@"yyyy-MM-dd"];
+//                    NSDate *date1=[[NSDate alloc] initWithTimeInterval:-1*24*60*60 sinceDate:[NSDate date]];
+//                    start = [f stringFromDate:date1];
+
                     [f setDateFormat:@"yyyy-MM"];
                     NSString *  end =[NSString   stringWithFormat:@"%@-%d%@" ,  [f stringFromDate:[NSDate date]],numberOfDaysInMonth,@"T23:59:59"   ];
                     NSLog(@"start%@",start);

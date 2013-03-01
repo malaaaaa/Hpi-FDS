@@ -138,7 +138,7 @@ static int iDisplay=0;
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
         [xmlParser getTsFileinfo];
-        [tbxmlParser setISoapNum:7];
+        [tbxmlParser setISoapNum:8];
         
         [tbxmlParser requestSOAP:@"TgPort"];
         [tbxmlParser requestSOAP:@"TgShip"];
@@ -147,6 +147,8 @@ static int iDisplay=0;
         [tbxmlParser requestSOAP:@"Coal"];
         [tbxmlParser requestSOAP:@"Ship"];
         [tbxmlParser requestSOAP:@"Port"];
+        //船舶剩余航运计划
+        [tbxmlParser requestSOAP:@"TransPlan"];
 //        [xmlParser setISoapNum:1];
         //        [xmlParser getTsFileinfo];
         //        [xmlParser getTgPort];
@@ -709,7 +711,7 @@ static int iDisplay=0;
         [activity startAnimating];
         [xmlParser getTsFileinfo];
 
-        [tbxmlParser setISoapNum:7];
+        [tbxmlParser setISoapNum:8];
         [tbxmlParser requestSOAP:@"TgPort"];
         
         [tbxmlParser requestSOAP:@"TgShip"];
@@ -719,7 +721,8 @@ static int iDisplay=0;
         [tbxmlParser requestSOAP:@"Coal"];
         [tbxmlParser requestSOAP:@"Ship"];
         [tbxmlParser requestSOAP:@"Port"];
-
+        //船舶剩余航运计划
+        [tbxmlParser requestSOAP:@"TransPlan"];
 
 //        [xmlParser setISoapNum:4];
 //        [xmlParser getTgPort];
@@ -1323,19 +1326,20 @@ static int iDisplay=0;
 - (void)mapView:(MKMapView *)mapView1 regionDidChangeAnimated:(BOOL)animated
 {
     NSLog(@"self.mapView.region.span %f + %f" ,mapView.region.span.latitudeDelta,mapView.region.span.longitudeDelta);
-    //暂时不放大
-    return;
+
     if((mapView.region.span.longitudeDelta<10.0) && (mapView.region.span.longitudeDelta>0.3) && (iDisplay != 1))
     {
-        /*
+        
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou"];
         }
         for (hpiAnnotation *myannotation in factoryCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"dianchang"];
         }
-         */
+        
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
+            //暂时不放大
+            break;
             if ([myannotation.online isEqualToString:@"1"]) {
                 
                 
@@ -1364,15 +1368,17 @@ static int iDisplay=0;
     }
     if((mapView.region.span.longitudeDelta>=10.0) && (iDisplay != 0))
     {
-/*
+
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou1"];
         }
         for (hpiAnnotation *myannotation in factoryCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"dianchang1"];
         }
- */
+
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
+            //暂时不放大
+            break;
             if ([myannotation.online isEqualToString:@"1"]) {
                 
                 if ([myannotation.shipStage isEqualToString:@"2"]) {
@@ -1408,7 +1414,8 @@ static int iDisplay=0;
         }
  */
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
-            
+            //暂时不放大
+            break;
             if ([myannotation.shipStage isEqualToString:@"2"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx3.png"];
             }
@@ -1430,7 +1437,8 @@ static int iDisplay=0;
         [self.mapView addAnnotations:portCoordinateArray];
         iDisplay=2;
     }
-        [self getShipCoordinateByChoose:shipButton.titleLabel.text  :factoryButton.titleLabel.text :NO];
+    //不刷新
+//        [self getShipCoordinateByChoose:shipButton.titleLabel.text  :factoryButton.titleLabel.text :NO];
    
 }
 
