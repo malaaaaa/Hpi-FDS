@@ -294,7 +294,7 @@ static int iDisplay=0;
     [formater setDateFormat:@"yyyy-MM-dd"];
     NSString *fileName=
     //[[NSString alloc] initWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];//释放..
-    [NSString stringWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];
+    [NSString stringWithFormat:@"调运信息表(%@).xlsx",[formater stringFromDate:[NSDate date]]];
     [formater release];
     
     
