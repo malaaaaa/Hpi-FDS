@@ -369,7 +369,6 @@ static int iDisplay=0;
 /*++++++++++++++++++++++++++++新添  文件查看  按钮++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
 - (IBAction)infoButAction:(id)sender {
-
     MemoirListVC *memoirListVC=[[MemoirListVC alloc]init];
     if (!self.wbvc){
         self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
@@ -390,7 +389,7 @@ static int iDisplay=0;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 484);
     memoirListVC.stringType=@"NOTICE";
-    [self.popover presentPopoverFromRect:CGRectMake(880, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(980, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
     [pop release];
     //先加载  webView

@@ -104,6 +104,8 @@ int currentMonth;
     
     source.titles=[AvgPortPTimeDao getTime:cStartTime :cEndTime];
     //  NSLog(@"----------source.titles[%d]",[source.titles count]);
+    [source.columnWidth removeAllObjects];
+
     [source.columnWidth addObject:@"90"];
     //tites count  不为0
     for (int t=0; t<[source.titles count]-2; t++) {
