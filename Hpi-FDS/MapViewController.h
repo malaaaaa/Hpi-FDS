@@ -21,7 +21,7 @@
 #import "Reachability.h"
 #import "TBXMLParser.h"
 #import "ChooseViewDelegate.h"
-
+#import "PubInfo.h"
 
 
 #import "WebViewController.h"

@@ -306,8 +306,7 @@ static int iDisplay=0;
     
     
     //调运信息表(2012-02-28).xls
-    NSString * url=  [NSString stringWithFormat:@"http://10.2.17.121:82/fileupload/IPAD_Factory/%@",fileName ];
-    
+    NSString * url=  [NSString stringWithFormat:@"%@%@/fileupload/IPAD_Factory/%@",  PubInfo.hostName, PubInfo.port,fileName ];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Files"];
     [[NSFileManager defaultManager]createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
