@@ -138,7 +138,7 @@ static int iDisplay=0;
         [updateButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
         [xmlParser getTsFileinfo];
-        [tbxmlParser setISoapNum:7];
+        [tbxmlParser setISoapNum:8];
         
         [tbxmlParser requestSOAP:@"TgPort"];
         [tbxmlParser requestSOAP:@"TgShip"];
@@ -147,6 +147,8 @@ static int iDisplay=0;
         [tbxmlParser requestSOAP:@"Coal"];
         [tbxmlParser requestSOAP:@"Ship"];
         [tbxmlParser requestSOAP:@"Port"];
+        //船舶剩余航运计划
+        [tbxmlParser requestSOAP:@"TransPlan"];
 //        [xmlParser setISoapNum:1];
         //        [xmlParser getTsFileinfo];
         //        [xmlParser getTgPort];
@@ -279,33 +281,27 @@ static int iDisplay=0;
 #pragma mark Actions
 /*++++++++++++++++++++++++++++新添 文件查看 按钮++++++++++++++++++++++++++++++*/
 - (IBAction)FileShowAction:(id)sender {
-    //if (self.wbvc) {
-      //   [self.wbvc release];self.wbvc=nil;
-    //}
-    
-    
     
     if (!self.wbvc){
         NSLog(@"初始web");
         self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
-      
-   }
+        
+    }
     [self.mainVW addSubview:wbvc.view];
-
-    NSDateFormatter *formater=[[NSDateFormatter alloc] init];
     
+    
+    NSDateFormatter *formater=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd"];
     NSString *fileName=
     //[[NSString alloc] initWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];//释放..
     [NSString stringWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];
-    
     [formater release];
     
-
+    
     
     //调运信息表(2012-02-28).xls
-   NSString * url=  [NSString stringWithFormat:@"http://10.2.17.121:82/fileupload/IPAD_Factory/%@",fileName ];
-   
+    NSString * url=  [NSString stringWithFormat:@"http://10.2.17.121:82/fileupload/IPAD_Factory/%@",fileName ];
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Files"];
     [[NSFileManager defaultManager]createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
@@ -317,53 +313,36 @@ static int iDisplay=0;
     
     NSFileHandle *fh2;
     __block uint fSize2= 0 ; // 以 B 为单位，记录已下载的文件大小 , 需要声明为块可写
-    if ( [[ NSFileManager defaultManager ] fileExistsAtPath:path]) {
-        NSLog(@"存在");
-        
-        
-         fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
-
-       // NSError *error;
-        //if ([[ NSFileManager defaultManager ] removeItemAtPath:path error:&error] != YES)
-        //{
-          //  NSLog(@"Unable to delete file: %@", [error localizedDescription]);
-        //}else
-        //{
-          //  NSLog(@"已删除f....");
-        //}
-        
-    }else
+    
+    
+    if ( ![[ NSFileManager defaultManager ] fileExistsAtPath:path])
     {
-        NSLog(@"不存在");
-        
-        if ( [ [ NSFileManager defaultManager ] createFileAtPath :path contents : nil attributes : nil ]){
-            fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
-        }
-    } 
-
-     //  ASINetworkQueue *networkQueue = [[ ASINetworkQueue alloc ] init ];
-    //[ networkQueue setShowAccurateProgress : NO ]; // 进度精确显示
-    //[ networkQueue setDelegate : self ]; // 设置队列的代理对象
+        //NSLog(@"不存在");
+        [ [ NSFileManager defaultManager ] createFileAtPath :path contents : nil attributes : nil ];
+    }
+    fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
+    [fh2 truncateFileAtOffset:0];//清空原来文件.
+    //  NSLog(@"开始请求................");
     
     
-    NSLog(@"开始请求................");
-
+    
+    
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
     //设置基本信息
-  
+    
     [request setTimeOutSeconds:120];
     [request setCompletionBlock :^( void ){
         assert (fh2);
         // 关闭 file2
         [fh2 closeFile ];
-          NSLog(@"已下载完成....");
+        NSLog(@"已下载完成....");
         //下载完成....加载
         [WebViewController setFileName:fileName];
         //设置 加载状态.
         [self.wbvc  viewloadRequest];
         
-         [wbvc.view bringSubviewToFront:self.mainVW];
-         
+        [wbvc.view bringSubviewToFront:self.mainVW];
+        
     }];
     // 使用 failed 块，在下载失败时做一些事情
     [request setFailedBlock :^( void ){
@@ -372,32 +351,31 @@ static int iDisplay=0;
     // 使用 received 块，在接受到数据时做一些事情
     [request setDataReceivedBlock :^( NSData * data){
         fSize2+=data. length ;
-       NSLog(@"data.length:%d",fSize2 );
+        NSLog(@"data.length:%d",fSize2 );
         
         if (fh2!= nil ) {
             [fh2 seekToEndOfFile ];
             [fh2 writeData :data];
         }
-
+        
         
     }];
     
     [request start];
-
     
     
-
+    
+    
 }
 /*++++++++++++++++++++++++++++新添  文件查看  按钮++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
 - (IBAction)infoButAction:(id)sender {
+
     MemoirListVC *memoirListVC=[[MemoirListVC alloc]init];
     if (!self.wbvc){
         self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
-       
-        }
+    }
     [self.mainVW addSubview:wbvc.view];
-    
     [wbvc.view bringSubviewToFront:self.mainVW];
   
     memoirListVC.webVC=self.wbvc;
@@ -407,16 +385,16 @@ static int iDisplay=0;
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:memoirListVC];
     memoirListVC.popover = pop;
-
+    
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 484);
     memoirListVC.stringType=@"NOTICE";
     [self.popover presentPopoverFromRect:CGRectMake(880, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-
+    
     [pop release];
-  //先加载  webView
+    //先加载  webView
     
     
    
@@ -701,7 +679,7 @@ static int iDisplay=0;
         [activity startAnimating];
         [xmlParser getTsFileinfo];
 
-        [tbxmlParser setISoapNum:7];
+        [tbxmlParser setISoapNum:8];
         [tbxmlParser requestSOAP:@"TgPort"];
         
         [tbxmlParser requestSOAP:@"TgShip"];
@@ -711,7 +689,8 @@ static int iDisplay=0;
         [tbxmlParser requestSOAP:@"Coal"];
         [tbxmlParser requestSOAP:@"Ship"];
         [tbxmlParser requestSOAP:@"Port"];
-
+        //船舶剩余航运计划
+        [tbxmlParser requestSOAP:@"TransPlan"];
 
 //        [xmlParser setISoapNum:4];
 //        [xmlParser getTgPort];
@@ -1315,19 +1294,20 @@ static int iDisplay=0;
 - (void)mapView:(MKMapView *)mapView1 regionDidChangeAnimated:(BOOL)animated
 {
     NSLog(@"self.mapView.region.span %f + %f" ,mapView.region.span.latitudeDelta,mapView.region.span.longitudeDelta);
-    //暂时不放大
-    return;
+
     if((mapView.region.span.longitudeDelta<10.0) && (mapView.region.span.longitudeDelta>0.3) && (iDisplay != 1))
     {
-        /*
+        
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou"];
         }
         for (hpiAnnotation *myannotation in factoryCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"dianchang"];
         }
-         */
+        
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
+            //暂时不放大
+            break;
             if ([myannotation.online isEqualToString:@"1"]) {
                 
                 
@@ -1356,15 +1336,17 @@ static int iDisplay=0;
     }
     if((mapView.region.span.longitudeDelta>=10.0) && (iDisplay != 0))
     {
-/*
+
         for (hpiAnnotation *myannotation in portCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"gangkou1"];
         }
         for (hpiAnnotation *myannotation in factoryCoordinateArray) {
             myannotation.topImage=[UIImage imageNamed:@"dianchang1"];
         }
- */
+
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
+            //暂时不放大
+            break;
             if ([myannotation.online isEqualToString:@"1"]) {
                 
                 if ([myannotation.shipStage isEqualToString:@"2"]) {
@@ -1400,7 +1382,8 @@ static int iDisplay=0;
         }
  */
         for (hpiAnnotation *myannotation in shipCoordinateArray) {
-            
+            //暂时不放大
+            break;
             if ([myannotation.shipStage isEqualToString:@"2"]) {
                 myannotation.topImage = [UIImage imageNamed:@"chuanx3.png"];
             }
@@ -1422,7 +1405,8 @@ static int iDisplay=0;
         [self.mapView addAnnotations:portCoordinateArray];
         iDisplay=2;
     }
-        [self getShipCoordinateByChoose:shipButton.titleLabel.text  :factoryButton.titleLabel.text :NO];
+    //不刷新
+//        [self getShipCoordinateByChoose:shipButton.titleLabel.text  :factoryButton.titleLabel.text :NO];
    
 }
 

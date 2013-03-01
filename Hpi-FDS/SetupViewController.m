@@ -156,7 +156,7 @@ static bool parserFlag=FALSE;
                         
                     }
                     //        [xmlParser setISoapNum:11];
-                    baseRequestNum=11;
+                    baseRequestNum=8;
                     [xmlParser setISoapNum:baseRequestNum];
                     [self processBaseData];
                     
@@ -169,7 +169,7 @@ static bool parserFlag=FALSE;
                         [cell addSubview:mmpProgressview];
                         parserFlag=TRUE;
                         [mmpProgressview setFrame:CGRectMake(31, 32, 362, 3)];
-                        mmpRequestNum=4;
+                        mmpRequestNum=8;
                         [mmpTbxmlParser setISoapNum:mmpRequestNum];
                         
                         //多次调用runActivity_mmp 是为了避免异步下mmpTbxmlParser.iSoapNum值异常
@@ -184,6 +184,18 @@ static bool parserFlag=FALSE;
                         
                         [mmpTbxmlParser requestSOAP:@"Ship"];
                         [self runActivity_mmp];
+                        [mmpTbxmlParser requestSOAP:@"TgPort"];
+                        [self runActivity_mmp];
+
+                        [mmpTbxmlParser requestSOAP:@"TgShip"];
+                        [self runActivity_mmp];
+
+                        [mmpTbxmlParser requestSOAP:@"TgFactory"];
+                        [self runActivity_mmp];
+                        
+                        [mmpTbxmlParser requestSOAP:@"TransPlan"];
+                        [self runActivity_mmp];
+
                     }
                     else{
                         cellAlert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请等待当前数据同步结束..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
@@ -199,7 +211,7 @@ static bool parserFlag=FALSE;
                         [cell addSubview:reportProgressview];
                         parserFlag=TRUE;
                         [reportProgressview setFrame:CGRectMake(31, 32, 362, 3)];
-                        reportRequestNum=14;
+                        reportRequestNum=13;
                         [reportTbxmlParser setISoapNum:reportRequestNum];
                         
                         
@@ -227,12 +239,6 @@ static bool parserFlag=FALSE;
                         [reportTbxmlParser requestSOAP:@"TmIndex"];
                         [self runActivity_report];
                         
-                        [reportTbxmlParser requestSOAP:@"TmIndexDefine"];
-                        [self runActivity_report];
-                        
-                        [reportTbxmlParser requestSOAP:@"TmIndexType"];
-                        [self runActivity_report];
-                        
                         [reportTbxmlParser requestSOAP:@"TbLateFee"];
                         [self runActivity_report];
                         
@@ -241,6 +247,8 @@ static bool parserFlag=FALSE;
                         [reportTbxmlParser requestSOAP:@"ThShipTranS"];
                         [self runActivity_report];
                         [reportTbxmlParser requestSOAP:@"TransPlan"];
+                        [self runActivity_report];
+                        [reportTbxmlParser requestSOAP:@"TfShip"];
                         [self runActivity_report];
                         break;
                     }
@@ -595,12 +603,6 @@ static bool parserFlag=FALSE;
     [xmlParser getTfSupplier];
     [TsShipStageDao deleteAll];
     [xmlParser getTsShipStage];
-    [TgFactoryDao deleteAll];
-    [xmlParser getTgFactory];
-    [TgPortDao deleteAll];
-    [xmlParser getTgPort];
-    [TgShipDao deleteAll];
-    [xmlParser getTgShip];
     [TmIndexdefineDao deleteAll];
     [xmlParser getTmIndexdefine];
     [TmIndextypeDao deleteAll];

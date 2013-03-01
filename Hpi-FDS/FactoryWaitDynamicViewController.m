@@ -54,7 +54,7 @@ static  NSMutableArray *columnWidthFTitle;
         // Custom initialization
         
         self.title = NSLocalizedString(@"电厂动态", @"2th");
-        self.tabBarItem.image = [UIImage imageNamed:@"download"];
+        self.tabBarItem.image = [UIImage imageNamed:@"factory"];
         
         
     }

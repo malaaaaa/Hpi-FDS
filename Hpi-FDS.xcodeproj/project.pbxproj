@@ -260,6 +260,8 @@
 		D37A3E1615C90318002B48F8 /* NTFactoryFreightVolumeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A3E1515C90318002B48F8 /* NTFactoryFreightVolumeDao.m */; };
 		D37F60D715E4B81200E6741A /* AvgPortPTimeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F60D315E4B81200E6741A /* AvgPortPTimeDao.m */; };
 		D37F60D815E4B81200E6741A /* AvgFactoryZXTimeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F60D515E4B81200E6741A /* AvgFactoryZXTimeDao.m */; };
+		D388571416E04219001C9299 /* factory.png in Resources */ = {isa = PBXBuildFile; fileRef = D388571216E04219001C9299 /* factory.png */; };
+		D388571516E04219001C9299 /* factory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D388571316E04219001C9299 /* factory@2x.png */; };
 		D3980FDE15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3980FDD15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m */; };
 		D39E90D715E60F9800C8CCF4 /* xiangx@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D39E90D115E60F9800C8CCF4 /* xiangx@2x.png */; };
 		D39E90D815E60F9800C8CCF4 /* xiangx.png in Resources */ = {isa = PBXBuildFile; fileRef = D39E90D215E60F9800C8CCF4 /* xiangx.png */; };
@@ -754,6 +756,8 @@
 		D37F60D415E4B81200E6741A /* AvgPortPTimeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgPortPTimeDao.h; sourceTree = "<group>"; };
 		D37F60D515E4B81200E6741A /* AvgFactoryZXTimeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvgFactoryZXTimeDao.m; sourceTree = "<group>"; };
 		D37F60D615E4B81200E6741A /* AvgFactoryZXTimeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvgFactoryZXTimeDao.h; sourceTree = "<group>"; };
+		D388571216E04219001C9299 /* factory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = factory.png; sourceTree = "<group>"; };
+		D388571316E04219001C9299 /* factory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "factory@2x.png"; sourceTree = "<group>"; };
 		D3980FDC15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTitleDataGridComponent.h; sourceTree = "<group>"; };
 		D3980FDD15DCBE2E00CB9B4E /* MultiTitleDataGridComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiTitleDataGridComponent.m; sourceTree = "<group>"; };
 		D39E90D115E60F9800C8CCF4 /* xiangx@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xiangx@2x.png"; sourceTree = "<group>"; };
@@ -1136,6 +1140,8 @@
 		057F6C5D152449F800E0E435 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				D388571216E04219001C9299 /* factory.png */,
+				D388571316E04219001C9299 /* factory@2x.png */,
 				D3E625EA16420548007AC300 /* hpilogo3.png */,
 				D3E625E816420543007AC300 /* hpilogo3@2x.png */,
 				D3E625E21642048A007AC300 /* excel.png */,
@@ -1954,6 +1960,8 @@
 				D3A3EA6516DCB94900CB9E74 /* chuanoffline.png in Resources */,
 				D3A3EA6616DCB94900CB9E74 /* chuanoffline@2x.png in Resources */,
 				D3290C3D16DDAA6800A03158 /* PortInfoBehaviourVC.xib in Resources */,
+				D388571416E04219001C9299 /* factory.png in Resources */,
+				D388571516E04219001C9299 /* factory@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

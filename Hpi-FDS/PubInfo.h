@@ -66,7 +66,7 @@
 #import "TH_SHIPTRANS_ORIDAO.h"
 #import "PortBehaviour.h"
 
-static NSString *version = @"1.0";
+static NSString *version = @"1.2";
 typedef enum{
     kPORT=0, //TG_PORT
     kFACTORY,

@@ -97,7 +97,8 @@ static  NSMutableArray *ShipStageArray;
     //只查当天数据..
     
     self.startDay = [NSDate date];//[[NSDate alloc] initWithTimeInterval:-5*24*60*60 sinceDate:[NSDate date]];
-    
+//    self.startDay = [[NSDate alloc] initWithTimeInterval:-1*24*60*60 sinceDate:[NSDate date]];
+
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
        self.dateLabel.text=[dateFormatter stringFromDate:    self.startDay];
