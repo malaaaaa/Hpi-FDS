@@ -288,11 +288,10 @@ static int iDisplay=0;
     if (!self.wbvc){
         NSLog(@"初始web");
         self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
-        [self.mainVW addSubview:wbvc.view];
+      
    }
-   
-   
-       
+    [self.mainVW addSubview:wbvc.view];
+
     NSDateFormatter *formater=[[NSDateFormatter alloc] init];
     
     [formater setDateFormat:@"yyyy-MM-dd"];
@@ -392,19 +391,15 @@ static int iDisplay=0;
 /*++++++++++++++++++++++++++++新添  文件查看  按钮++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
 - (IBAction)infoButAction:(id)sender {
-     
-    
-    
-    
     MemoirListVC *memoirListVC=[[MemoirListVC alloc]init];
     if (!self.wbvc){
         self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
-        [self.mainVW addSubview:wbvc.view];
-           }
+       
+        }
+    [self.mainVW addSubview:wbvc.view];
     
-    
-     [wbvc.view bringSubviewToFront:self.mainVW];
-    
+    [wbvc.view bringSubviewToFront:self.mainVW];
+  
     memoirListVC.webVC=self.wbvc;
     [memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
     //设置待显示控制器视图的尺寸
