@@ -91,7 +91,7 @@ static sqlite3  *database;
 
     NSString *sql=[NSString  stringWithFormat:@"select shipname from TfShip where shipid='%@'",[NSString stringWithFormat:@"%d" ,shipID]];
 
-     //   NSLog(@"执行 getShipName [%@]",sql);
+        NSLog(@"执行 getShipName [%@]",sql);
     
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         while (sqlite3_step(statement)==SQLITE_ROW) {

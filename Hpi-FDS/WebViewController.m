@@ -9,14 +9,13 @@
 #import "WebViewController.h"
 @implementation WebViewController
 @synthesize webView1,popover,titleLable,memoirListVC;
-
+@synthesize loadCount;
 @synthesize infoButton;
 @synthesize FileLoadStatus;
 //,segment
 static NSString *fileName;
 
-
-
+static int a=0;
 
 +(void)setFileName:(NSString*) theName
 {
@@ -40,6 +39,7 @@ static NSString *fileName;
         
        // NSLog(@"FileLoadStatus已初始");
          FileLoadStatus=0;
+        loadCount=0;
     }
     return self;
 }
@@ -97,7 +97,10 @@ static NSString *fileName;
     webView1.scalesPageToFit =  YES;
    // segment.momentary = YES;
     
+ 
     
+    
+   
     //self.view.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self   action:@selector(handleSingleTap:)];
     singleTapGesture.numberOfTapsRequired = 1;
@@ -123,7 +126,7 @@ static NSString *fileName;
     [doubleTapGesture release];
     [singleTapGesture release];
     
-    //再dev_tangb 上 我已更改
+   
     
    
     
@@ -206,50 +209,81 @@ static NSString *fileName;
 - (void)viewloadRequest
 {
     
-   NSLog(@">>>>>>>>>>>>加载文件>>>>>>>>>>>>>>>");
+ //  NSLog(@">>>>>>>>>>>>加载文件>>>>>>>>>>>>>>>");
   FileLoadStatus=0;
-      [webView1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+   [webView1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    
+    a=0;
+   self.loadCount=0;//没执行一次viewloadRequest  为一次加载..
+    
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *docPath = [documentsDirectory stringByAppendingString:[NSString stringWithFormat: @"/Files/%@",fileName]];
-    NSLog(@"####docPath# [%@]",docPath);
-    
+   // NSLog(@"####docPath# [%@]",docPath);
     NSURL *url = [NSURL fileURLWithPath:docPath];
-    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-   
-
-   
-    
-    
-  
-  
  
     [webView1 setBackgroundColor:[UIColor whiteColor]];
     [webView1 loadRequest:request];
-
+    
     self.titleLable.text=fileName;
 //    webView.alpha=1;
-    
     FileLoadStatus=1;//加载完毕
+    self.loadCount=1;
+}
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
 
     
+    //NSLog(@"+++++++++++++++++");
     
     
+    return YES;
+
+
+
+
 }
+
+
+
+
+
+
+
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+
+  // NSLog(@"加载失败.........");
+
+}
+
 - (void )webViewDidStartLoad:(UIWebView  *)webView
 {
-    NSLog(@"开始加载文件>>>>>>>>");
-    //NSLog(@"%@",webView.request.URL);
- 
     
-    [self.webView1.scrollView addSubview:_waitingLable];
+  
+  //  if (loadCount==1) {//限制只加载一次
+       // NSLog(@"开始加载文件>>>>>>>>");
+        //NSLog(@"%@",webView.request.URL);
+        [self.webView1.scrollView addSubview:_waitingLable];
+        loadCount--;
+    //}
+     
+   
 }
 - (void )webViewDidFinishLoad:(UIWebView  *)webView
 {
-     NSLog(@"加载文件完毕>>>>>>>>");
+    
+  //if (loadCount==0) {
+     //NSLog(@"加载文件完毕>>>>>>>>");
     [_waitingLable removeFromSuperview];
+      loadCount--;
+       
+     
+  //}
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

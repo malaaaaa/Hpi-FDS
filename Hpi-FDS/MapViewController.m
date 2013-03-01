@@ -294,7 +294,7 @@ static int iDisplay=0;
    }
    
    
-        [wbvc.view bringSubviewToFront:self.mainVW];
+       
     NSDateFormatter *formater=[[NSDateFormatter alloc] init];
     
     [formater setDateFormat:@"yyyy-MM-dd"];
@@ -304,8 +304,7 @@ static int iDisplay=0;
     
     [formater release];
     
-   // NSLog(@"filename:%@",fileName);
-    
+
     
     //调运信息表(2012-02-28).xls
    NSString * url=  [NSString stringWithFormat:@"http://10.2.17.121:82/fileupload/IPAD_Factory/%@",fileName ];
@@ -326,15 +325,15 @@ static int iDisplay=0;
         
         
          fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
-/*
-        NSError *error;
-        if ([[ NSFileManager defaultManager ] removeItemAtPath:path error:&error] != YES)
-        {
-            NSLog(@"Unable to delete file: %@", [error localizedDescription]);
-        }else
-        {
-            NSLog(@"已删除f....");
-        }*/
+
+       // NSError *error;
+        //if ([[ NSFileManager defaultManager ] removeItemAtPath:path error:&error] != YES)
+        //{
+          //  NSLog(@"Unable to delete file: %@", [error localizedDescription]);
+        //}else
+        //{
+          //  NSLog(@"已删除f....");
+        //}
         
     }else
     {
@@ -365,6 +364,8 @@ static int iDisplay=0;
         [WebViewController setFileName:fileName];
         //设置 加载状态.
         [self.wbvc  viewloadRequest];
+        
+         [wbvc.view bringSubviewToFront:self.mainVW];
          
     }];
     // 使用 failed 块，在下载失败时做一些事情
@@ -393,10 +394,6 @@ static int iDisplay=0;
 /*++++++++++++++++++++++++++++新添  文件查看  按钮++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
 - (IBAction)infoButAction:(id)sender {
-   // if (self.wbvc ) {
-        //[self.wbvc.view removeFromSuperview];
-     //   [self.wbvc release];self.wbvc=nil;
-    //}
      
     
     

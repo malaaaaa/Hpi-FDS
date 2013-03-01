@@ -22,11 +22,15 @@
     int  FileLoadStatus;
     MemoirListVC *memoirListVC;
     UILabel *_waitingLable;
+    
+    
+    int loadCount;
+    
 }
 
 @property   int FileLoadStatus;
 
-
+@property   int loadCount;
 
 @property (nonatomic,retain) UIWebView *webView1;
 @property (nonatomic,retain) UIPopoverController *popover;

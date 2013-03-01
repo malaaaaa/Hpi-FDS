@@ -73,7 +73,7 @@ static  NSMutableArray *columnWidthFTitle;
     [dateFormatter stringFromDate:month]; 
     self.factoryLable.text=@"玉环";
     [self.factoryButton setTitle:@"玉环" forState:UIControlStateNormal];
-     self.startTime.text=[dateFormatter  stringFromDate:[NSDate date]];
+    
     self.tbxmlParser=[[TBXMLParser alloc] init] ;
     [activty removeFromSuperview];
     self.factoryLable.hidden=YES;
@@ -81,7 +81,8 @@ static  NSMutableArray *columnWidthFTitle;
     
     //去掉时间控件  只显示当日
     self.month=[NSDate date];
-      
+    //[[NSDate alloc] initWithTimeInterval:-24*60*60 sinceDate:[NSDate date]];
+       self.startTime.text=[dateFormatter  stringFromDate: self.month];
     
    
     //为视图增加边框
@@ -797,7 +798,7 @@ static  NSMutableArray *columnWidthFTitle;
     if ([arr_P count]>0) { 
         for (int i=0; i<[arr_P count]; i++) {  
             [Dataildate_p    addObject:[arr_P objectAtIndex:i]];   
-        }   
+        }
     }
     [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:@"实际抵厂船舶", nil]];
     [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:@"抵达长江口",@"锚地",@"靠卸",@"完货",@"离港",nil]];
