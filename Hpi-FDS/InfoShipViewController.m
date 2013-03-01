@@ -143,7 +143,7 @@
                             vbPlan.portName,
                             vbPlan.supplier,
                             [NSString stringWithFormat:@"%.2f",vbPlan.eLw],
-                            [vbPlan.eTaf substringToIndex:10],nil]];
+                            [vbPlan.eTap substringToIndex:10],nil]];
     }
     
  
