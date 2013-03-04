@@ -207,12 +207,7 @@ static sqlite3	*database;
         query=[query stringByAppendingFormat:@"AND planCode='%@' ",planCode];
         
     }*/
-    
-    
-    
-    
-    
-    
+
 	NSMutableArray * array=[VbTransplanDao getVbTransplanBySql:query];
    // NSLog(@"执行  getVbTransplanBySql 数量[%d] ",[array count]);
 	return array;
@@ -222,7 +217,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT planCode,planMonth,shipID,shipName,factoryCode,factoryName,portCode,portName,tripNo,eTap,eTaf, round(  eLw/10000.0,2) as eLw,supID,supplier,typeID,coalType,keyValue,keyName,schedule,description,serialNo,facSort ,heatvalue,sulfur  FROM  VbTransplan WHERE %@  order by   planMonth  desc  ,factoryName  asc,  serialNo  desc",sql1];
-  //  NSLog(@"执行 getVbTransplanBySql [%@] ",sql);
+//    NSLog(@"执行 getVbTransplanBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
@@ -294,16 +289,7 @@ static sqlite3	*database;
                 vbTransplan.eTaf = nil;
             else
                 vbTransplan.eTaf = [NSString stringWithUTF8String: rowData10];
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+                   
             vbTransplan.eLw = sqlite3_column_double(statement,11);
             
             vbTransplan.supID = sqlite3_column_int(statement,12);
@@ -372,7 +358,7 @@ static sqlite3	*database;
 //为地图中船舶相信信息界面中剩余航运计划使用
 +(NSMutableArray *) getVbTransplanByTripNO:(NSString *)tripNO ShipID:(NSInteger)shipID
 {
-	NSString *query=[NSString stringWithFormat:@" shipID = %d and tripNO>'%@'",shipID,tripNO];
+	NSString *query=[NSString stringWithFormat:@" shipID = %d and round(tripNO)>%@",shipID,tripNO];
 	NSMutableArray * array=[VbTransplanDao getVbTransplanBySql:query];
 	return array;
 }

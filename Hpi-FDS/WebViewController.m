@@ -347,9 +347,6 @@ static int a=0;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 484);
-    
-    
-    
     self.memoirListVC.stringType=@"NOTICE";
     [self.popover presentPopoverFromRect:CGRectMake(950, 20, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     

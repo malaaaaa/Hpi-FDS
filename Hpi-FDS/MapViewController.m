@@ -294,14 +294,13 @@ static int iDisplay=0;
     [formater setDateFormat:@"yyyy-MM-dd"];
     NSString *fileName=
     //[[NSString alloc] initWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];//释放..
-    [NSString stringWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];
+    [NSString stringWithFormat:@"调运信息表(%@).xlsx",[formater stringFromDate:[NSDate date]]];
     [formater release];
     
     
     
     //调运信息表(2012-02-28).xls
-    NSString * url=  [NSString stringWithFormat:@"http://10.2.17.121:82/fileupload/IPAD_Factory/%@",fileName ];
-    
+    NSString * url=  [NSString stringWithFormat:@"%@%@/fileupload/IPAD_Factory/%@",  PubInfo.hostName, PubInfo.port,fileName ];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Files"];
     [[NSFileManager defaultManager]createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
@@ -370,7 +369,6 @@ static int iDisplay=0;
 /*++++++++++++++++++++++++++++新添  文件查看  按钮++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
 - (IBAction)infoButAction:(id)sender {
-
     MemoirListVC *memoirListVC=[[MemoirListVC alloc]init];
     if (!self.wbvc){
         self.wbvc=[[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
@@ -391,7 +389,7 @@ static int iDisplay=0;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(320, 484);
     memoirListVC.stringType=@"NOTICE";
-    [self.popover presentPopoverFromRect:CGRectMake(880, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(980, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
     [pop release];
     //先加载  webView
