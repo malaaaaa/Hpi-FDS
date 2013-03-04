@@ -94,6 +94,9 @@ static int a=0;
     self.waitingLable.backgroundColor=[UIColor clearColor];
     self.waitingLable.text=@"文档正在加载中，请稍等...";
     self.waitingLable.font = [UIFont systemFontOfSize:30.0f];
+    
+    
+    
     webView1.scalesPageToFit =  YES;
    // segment.momentary = YES;
     
@@ -263,15 +266,15 @@ static int a=0;
 - (void )webViewDidStartLoad:(UIWebView  *)webView
 {
     
-  
+    
     //if (loadCount==1) {//限制只加载一次
-      //  NSLog(@"开始加载文件>>>>>>>>");
-      //  NSLog(@"%@",webView.request.URL);
-        [self.webView1.scrollView addSubview:_waitingLable];
-        loadCount--;
+    //  NSLog(@"开始加载文件>>>>>>>>");
+    //  NSLog(@"%@",webView.request.URL);
+    [self.webView1.scrollView addSubview:_waitingLable];
+    loadCount--;
     //}
-     
-   
+    
+    
 }
 - (void )webViewDidFinishLoad:(UIWebView  *)webView
 {
