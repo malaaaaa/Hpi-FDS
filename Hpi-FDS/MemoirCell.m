@@ -9,11 +9,11 @@
 #import "MemoirCell.h"
 
 @implementation MemoirCell
-@synthesize backimage,okimage;
+@synthesize backimage;//,okimage;
 @synthesize iconimage;
 @synthesize textlabel;
 @synthesize subtextlabel;
-@synthesize	button;
+//@synthesize	button;
 @synthesize delegate;
 @synthesize data;
 @synthesize processView,index;
@@ -29,22 +29,24 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
+
+
+/*
 -(IBAction)buttonAction:(id)sender
 {
 	NSLog(@"button action");
 	[self.delegate buttonAction:self];
-}
+}*/
 
 - (void)dealloc {
-    self.okimage=nil;
+    //self.okimage=nil;
     self.backimage=nil;
     self.iconimage=nil;
     self.textlabel=nil;
     self.subtextlabel=nil;
-    self.button=nil;
+    //self.button=nil;
     self.processView=nil;
     [super dealloc];
 }

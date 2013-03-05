@@ -7,23 +7,29 @@
 //
 
 #import "WebViewController.h"
+
+
 @implementation WebViewController
 @synthesize webView1,popover,titleLable,memoirListVC;
-@synthesize loadCount;
+@synthesize loadCount,type;
 @synthesize infoButton;
 @synthesize FileLoadStatus;
 //,segment
-static NSString *fileName;
+static TsFileinfo *fileinfo;
 
 static int a=0;
 
-+(void)setFileName:(NSString*) theName
++(void)setFileName:(TsFileinfo*)tsFile
 {
     
-    if (fileName!=theName) {
-        [fileName release];
-        fileName = [theName retain];
-    }
+     
+        
+    
+    
+    //if (fileName!=theName) {
+        [fileinfo release];
+        fileinfo = [tsFile retain];
+    //}
 //	[fileName release];
 //	fileName=theName;
 //	[fileName retain];
@@ -40,6 +46,8 @@ static int a=0;
        // NSLog(@"FileLoadStatus已初始");
          FileLoadStatus=0;
         loadCount=0;
+        
+        type=0;
     }
     return self;
 }
@@ -63,7 +71,7 @@ static int a=0;
 - (void)dealloc {
     
     
-    
+    [fileinfo release];
    // [segment release];
     [webView1 release];
     [popover release];
@@ -99,7 +107,7 @@ static int a=0;
     
     webView1.scalesPageToFit =  YES;
    // segment.momentary = YES;
-    
+    webView1.autoresizingMask = UIViewAutoresizingFlexibleWidth;
  
     
     
@@ -211,50 +219,48 @@ static int a=0;
 
 - (void)viewloadRequest
 {
-    
- //  NSLog(@">>>>>>>>>>>>加载文件>>>>>>>>>>>>>>>");
+
   FileLoadStatus=0;
    [webView1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-    
+ 
+
     a=0;
    self.loadCount=0;//没执行一次viewloadRequest  为一次加载..
     
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *docPath = [documentsDirectory stringByAppendingString:[NSString stringWithFormat: @"/Files/%@",fileName]];
-   // NSLog(@"####docPath# [%@]",docPath);
-    NSURL *url = [NSURL fileURLWithPath:docPath];
+    NSURL *url=nil;
+    if (type==2) {//调用信息附件查看
+        
+      
+         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+         NSString *documentsDirectory = [paths objectAtIndex:0];
+         NSString *docPath =
+         [documentsDirectory stringByAppendingString:[NSString stringWithFormat: @"/Files/%@",fileinfo.fileName]];
+       //  NSLog(@"####docPath# [%@]",docPath);
+        
+        url=[NSURL fileURLWithPath:docPath  ];
+        
+    type=0;//重置
+        
+   }else{
+
+       url =
+       [NSURL URLWithString:[NSString stringWithFormat:@"%@%@ConvertToHtml/%@.html",   PubInfo.url,fileinfo.filePath,  [NSString stringWithFormat:@"%d",fileinfo.fileId]  ]    ];
+       
+       
+      // NSLog(@"fileUrl:%@",url );
+   }
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
- 
     [webView1 setBackgroundColor:[UIColor whiteColor]];
     [webView1 loadRequest:request];
-    
-    self.titleLable.text=fileName;
-//    webView.alpha=1;
+    self.titleLable.text=fileinfo.fileName;
+
     FileLoadStatus=1;//加载完毕
     self.loadCount=1;
 }
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-
-    
-    //NSLog(@"+++++++++++++++++");
-    
-    
     return YES;
-
-
-
-
 }
-
-
-
-
-
-
-
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
@@ -262,10 +268,15 @@ static int a=0;
   // NSLog(@"加载失败.........");
 
 }
-
+static NSDate *currentDateStr1;
 - (void )webViewDidStartLoad:(UIWebView  *)webView
 {
     
+   
+
+   currentDateStr1 = [NSDate date];
+    //输出格式为：2010-10-27 10:22:13
+    //NSLog(@"记录加载开始时间:%@",currentDateStr1);
     
     //if (loadCount==1) {//限制只加载一次
     //  NSLog(@"开始加载文件>>>>>>>>");
@@ -278,13 +289,15 @@ static int a=0;
 }
 - (void )webViewDidFinishLoad:(UIWebView  *)webView
 {
-    
+   
+   // NSTimeInterval a=[currentDateStr1 timeIntervalSinceNow];
+    // NSLog(@"记录加载结束时间:%@",[NSDate date  ]);
+   // NSLog(@"记录加载文件的时间间隔:%f",a);
+
   //if (loadCount==0) {
     // NSLog(@"加载文件完毕>>>>>>>>");
     [_waitingLable removeFromSuperview];
       loadCount--;
-       
-     
  // }
     
 }
