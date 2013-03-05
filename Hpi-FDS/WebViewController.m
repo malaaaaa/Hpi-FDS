@@ -252,6 +252,27 @@ static int a=0;
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [webView1 setBackgroundColor:[UIColor whiteColor]];
     [webView1 loadRequest:request];
+    
+    /*======================禁止webView露出底色============================*/
+    double sv= [[[UIDevice currentDevice] systemVersion] doubleValue];
+     NSLog(@"sv:%f",sv);
+    if (sv>5.00) {
+        //After iOS 5
+        webView1.scrollView.bounces = NO;
+    }else
+    {
+        //Before iOS 5
+        for (id subview in webView1.subviews){
+            if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+                ((UIScrollView *)subview).bounces = NO;
+        }
+    }
+    
+   /*======================禁止webView露出底色============================*/
+    
+        
+    
+    
     self.titleLable.text=fileinfo.fileName;
 
     FileLoadStatus=1;//加载完毕
