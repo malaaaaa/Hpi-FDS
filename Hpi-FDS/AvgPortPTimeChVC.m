@@ -74,7 +74,9 @@ int currentMonth;
     
     [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]] forState:UIControlStateNormal];
     self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
-    self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
+//    self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
+    self.startTime.text=[NSString stringWithFormat:@"%@-01-01",yeas];
+
     [self.startButton setTitle:[NSString stringWithFormat:@"%@-01",yeas] forState:UIControlStateNormal];
     
     
@@ -103,7 +105,9 @@ int currentMonth;
     [self initDC];
     
     source.titles=[AvgPortPTimeDao getTime:cStartTime :cEndTime];
-    //  NSLog(@"----------source.titles[%d]",[source.titles count]);
+    NSLog(@"----------start[%@][%@]",cStartTime,cEndTime);
+
+      NSLog(@"----------source.titles[%d]",[source.titles count]);
     [source.columnWidth removeAllObjects];
 
     [source.columnWidth addObject:@"90"];

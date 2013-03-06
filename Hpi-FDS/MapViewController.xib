@@ -249,7 +249,7 @@
 					<object class="IBUIActivityIndicatorView" id="388715748">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{490, 7}, {37, 37}}</string>
+						<string key="NSFrame">{{456, 5}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1038435698"/>
@@ -292,6 +292,7 @@
 						<string key="NSFrame">{{924, 7}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">108</int>
@@ -310,10 +311,10 @@
 					<object class="IBUIButton" id="1038435698">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{541, 8}, {80, 35}}</string>
+						<string key="NSFrame">{{508, 7}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="13990594"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">105</int>
@@ -322,25 +323,6 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUITitleShadowOffset">{0, -0.5}</string>
 						<string key="IBUINormalTitle">网络同步</string>
-						<reference key="IBUIHighlightedTitleColor" ref="124930437"/>
-						<reference key="IBUINormalTitleColor" ref="124930437"/>
-						<reference key="IBUINormalTitleShadowColor" ref="212506851"/>
-						<reference key="IBUINormalBackgroundImage" ref="258675623"/>
-						<reference key="IBUIFontDescription" ref="12652584"/>
-						<reference key="IBUIFont" ref="1040952743"/>
-					</object>
-					<object class="IBUIButton" id="400169928">
-						<reference key="NSNextResponder" ref="766721923"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{660, 7}, {80, 35}}</string>
-						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">调运信息表</string>
 						<reference key="IBUIHighlightedTitleColor" ref="124930437"/>
 						<reference key="IBUINormalTitleColor" ref="124930437"/>
 						<reference key="IBUINormalTitleShadowColor" ref="212506851"/>
@@ -460,14 +442,6 @@
 					<int key="connectionID">54</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">fileShow</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="400169928"/>
-					</object>
-					<int key="connectionID">73</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">portInfoView:</string>
 						<reference key="source" ref="13990594"/>
@@ -530,15 +504,6 @@
 					</object>
 					<int key="connectionID">65</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">FileShowAction:</string>
-						<reference key="source" ref="400169928"/>
-						<reference key="destination" ref="841351856"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">74</int>
-				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -567,12 +532,11 @@
 							<reference ref="972899080"/>
 							<reference ref="546871267"/>
 							<reference ref="568125372"/>
-							<reference ref="388715748"/>
-							<reference ref="1038435698"/>
 							<reference ref="14739015"/>
 							<reference ref="274292567"/>
 							<reference ref="13990594"/>
-							<reference ref="400169928"/>
+							<reference ref="388715748"/>
+							<reference ref="1038435698"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -651,11 +615,6 @@
 						<reference key="object" ref="388715748"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">72</int>
-						<reference key="object" ref="400169928"/>
-						<reference key="parent" ref="766721923"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -684,7 +643,6 @@
 				<real value="0.0" key="57.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="63.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>

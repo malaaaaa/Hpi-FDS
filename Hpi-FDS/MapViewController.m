@@ -293,14 +293,14 @@ static int iDisplay=0;
     NSDateFormatter *formater=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd"];
     NSString *fileName=
-    //[[NSString alloc] initWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];//释放..
-    [NSString stringWithFormat:@"调运信息表(%@).xlsx",[formater stringFromDate:[NSDate date]]];
+    [NSString stringWithFormat:@"船舶调运动态表(%@).xlsx",[formater stringFromDate:[NSDate date]]];
     [formater release];
     
     
     
-    //调运信息表(2012-02-28).xls
+    //船舶调运动态表(2012-02-28).xls
     NSString * url=  [NSString stringWithFormat:@"%@%@/fileupload/IPAD_Factory/%@",  PubInfo.hostName, PubInfo.port,fileName ];
+    NSLog(@"url=%@",url);
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Files"];
     [[NSFileManager defaultManager]createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];

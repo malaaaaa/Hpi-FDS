@@ -41,8 +41,7 @@ static sqlite3  *database;
     NSString *sql= [NSString   stringWithFormat:@"select ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) AS TRADETIME     from VbShiptrans inner join TF_PORT  on TF_PORT.PORTCODE=VbShiptrans.PORTCODE  where   ISCAL=1  and strftime('%@',VbShiptrans.P_ANCHORAGETIME)!='2000' and strftime('%@',VbShiptrans.P_DEPARTTIME)!='2000'  and NATIONALTYPE=0  AND VbShiptrans.tradetime >='%@' AND VbShiptrans.tradetime <='%@'  group by   TRADETIME order by     TRADETIME  ",@"%Y",@"%m",    @"%Y",@"%Y",    startTime,endTime];
     
     
-    
-    // NSLog(@"执行 getTime [%@]",sql);
+    NSLog(@"执行 getTime [%@]",sql);
     if (sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         
         [d addObject:@"港口"];
