@@ -293,7 +293,7 @@ static int iDisplay=0;
     NSDateFormatter *formater=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd"];
     NSString *fileName=
-    [NSString stringWithFormat:@"船舶调运动态表(%@).xlsx",[formater stringFromDate:[NSDate date]]];
+    [NSString stringWithFormat:@"船舶调运动态表(%@).xls",[formater stringFromDate:[NSDate date]]];
     [formater release];
     
     
