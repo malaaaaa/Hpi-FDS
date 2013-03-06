@@ -42,7 +42,7 @@ static sqlite3  *database;
     
     
     
-    // NSLog(@"执行 getTime [%@]",sql);
+     //NSLog(@"执行 getTime [%@]",sql);
     if (sqlite3_prepare(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         
         [d addObject:@"港口"];
