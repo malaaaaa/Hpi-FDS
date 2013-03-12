@@ -132,9 +132,9 @@ static bool ThreadFinished=TRUE;
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"--------------------------------------------  connectionDidFinishLoading");
-    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
+//    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:[webData length] encoding:NSUTF8StringEncoding];
    // NSLog(@"theXML[%@]",theXML);
-    // NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:6 encoding:NSUTF8StringEncoding];
+    NSString *theXML = [[NSString alloc] initWithBytes: [webData mutableBytes] length:6 encoding:NSUTF8StringEncoding];
     //没找到其它办法，通过返回报文前6位字符串判断是否出错，需要验证
     if ([theXML isEqualToString:@"<html>"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"调用后台服务出错！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];

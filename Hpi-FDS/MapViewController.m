@@ -1404,7 +1404,7 @@ static int iDisplay=0;
         iDisplay=2;
     }
     //不刷新
-//        [self getShipCoordinateByChoose:shipButton.titleLabel.text  :factoryButton.titleLabel.text :NO];
+    [self getShipCoordinateByChoose:shipButton.titleLabel.text  :factoryButton.titleLabel.text :NO];
    
 }
 

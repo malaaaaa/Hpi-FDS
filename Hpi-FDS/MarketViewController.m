@@ -205,7 +205,7 @@ static NSString *stringType=@"BSPI";
         unsigned int unitFlags = NSDayCalendarUnit;
         NSDateComponents *comps = [gregorian components:unitFlags fromDate:minDate  toDate:maxDate  options:0];
         graphData.xNum = [comps day]+1;
-        
+        [gregorian release];
         int a,b,c;
         a=graphData.xNum/9;
         b=graphData.xNum%9;
@@ -234,7 +234,7 @@ static NSString *stringType=@"BSPI";
             {
                 [graphData.xtitles addObject:[dateFormatter stringFromDate:date]];
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
         }
         [dateFormatter release];
     }
@@ -257,7 +257,7 @@ static NSString *stringType=@"BSPI";
             [graphData.pointArray  addObject:point];
             [point release];
         }
-        date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
+        date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
     }
     date=minDate;
     if([stringType isEqualToString: @"BJ_PRICE"])
@@ -275,7 +275,7 @@ static NSString *stringType=@"BSPI";
                 [point release];
 
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
         }
     }
     
@@ -299,7 +299,7 @@ static NSString *stringType=@"BSPI";
                 [point release];
 
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
         }
     }
     date=minDate;
@@ -317,7 +317,7 @@ static NSString *stringType=@"BSPI";
                 [point release];
 
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
         }
     }
     date=minDate;
@@ -335,7 +335,7 @@ static NSString *stringType=@"BSPI";
                 [point release];
 
             }
-            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)];
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
         }
     }
     if (graphView) {
