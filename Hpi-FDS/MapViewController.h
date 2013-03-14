@@ -70,14 +70,19 @@
     WebViewController *wbvc;
 
     IBOutlet UIButton *fileShow;
+    IBOutlet UIImageView *_topView;
+    IBOutlet UIButton *_portBehaviourButton;
+    IBOutlet UIButton *_transportButton;
+
 }
 
 @property(nonatomic,retain)UIButton *infoBut;
 @property(nonatomic,retain) UIView *mainVW;
 @property(nonatomic,retain)  WebViewController *wbvc;
 @property(nonatomic,retain)UIButton *fileShow;
-
-
+@property(nonatomic,retain)UIImageView *topView;
+@property(nonatomic,retain)UIButton *portBehaviourButton;
+@property(nonatomic,retain)UIButton *transportButton;
 
 
 
@@ -124,4 +129,6 @@
 -(void)chooseUpdateView;
 //-(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(BOOL)move;
 -(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)companyName :(BOOL)move;
+- (void)reStoreMapRegion;
+- (void)reStoreBigMapRegion;
 @end

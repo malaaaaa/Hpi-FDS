@@ -302,7 +302,9 @@ UIAlertView *RegistAlert;
     //    [self customizeAppearance];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
-    UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
+//    UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
+    self.mapVC=[[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
+
    
     UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
     UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
@@ -321,8 +323,9 @@ UIAlertView *RegistAlert;
     
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
-    
+//    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+      self.tabBarController.viewControllers = [NSArray arrayWithObjects:self.mapVC, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+    self.tabBarController.delegate=self;
     [window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];
     
@@ -339,6 +342,51 @@ UIAlertView *RegistAlert;
         [self.login.view removeFromSuperview];
         self.login=nil;
     }
+}
+//tabBar标签切换代理事件
+-(void) tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    
+    NSLog(@"mala selected %d",self.tabBarController.selectedIndex);
+    switch (self.tabBarController.selectedIndex) {
+            //处理“地图展示”模块
+        case 0:
+            if (self.mapVC) {
+                
+                if (self.mapVC.wbvc ) {
+                    [self.mapVC.wbvc.view removeFromSuperview];
+                }
+                //mapVC会自动隐藏子视图，此时需解禁
+                self.mapVC.topView.hidden=NO;
+                self.mapVC.factoryButton.hidden=NO;
+                self.mapVC.shipButton.hidden=NO;
+                self.mapVC.activity.hidden=NO;
+                self.mapVC.updateButton.hidden=NO;
+                self.mapVC.fileShow.hidden=NO;
+                self.mapVC.portBehaviourButton.hidden=NO;
+                self.mapVC.transportButton.hidden=NO;
+                self.mapVC.infoBut.hidden=NO;
+                
+                //恢复控件为默认值
+                [self.mapVC.shipButton setTitle:ONLINE_SHIP forState:UIControlStateNormal];
+                [self.mapVC.factoryButton setTitle:OFFLINE_SHIP forState:UIControlStateNormal];
+                
+                //恢复地图视野范围
+                [self.mapVC reStoreMapRegion];
+                [self.mapVC reStoreBigMapRegion];
+
+                
+                //刷新
+                [self.mapVC getFactoryCoordinateArray];
+                [self.mapVC getPortCoordinateArray];
+                [self.mapVC getShipCoordinateArray];
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 @end

@@ -179,16 +179,7 @@ static int iDisplay=0;
     
     // Do any additional setup after loading the view from its nib.
     
-    CLLocationCoordinate2D theCoordinate;
-    theCoordinate.latitude=29.6955667121; //纬度
-    theCoordinate.longitude=122.0461133192; //经度
-    MKCoordinateSpan theSpan = MKCoordinateSpanMake(17,17);//显示比例
-    //定义显示范围
-    //定义一个区域（使用设置的经度纬度加上一个范围）
-    MKCoordinateRegion theRegion;
-    theRegion.center=theCoordinate;
-    theRegion.span=theSpan;
-    [mapView setRegion:theRegion];
+    [self reStoreMapRegion];
     [mapView setMapType:MKMapTypeStandard];
     mapView.delegate = self;
     mapView.showsUserLocation = YES;
@@ -198,19 +189,7 @@ static int iDisplay=0;
     mapViewBig.layer.shadowRadius =0.5;
     mapViewBig.layer.shadowColor =[UIColor blackColor].CGColor;
     
-    CLLocationCoordinate2D theCoordinate1;
-//    theCoordinate1.latitude=2.6955667122; //纬度
-//    theCoordinate1.longitude=111.0461133190; //经度
-    theCoordinate1.latitude=5.878332; //纬度
-    theCoordinate1.longitude=133.857422; //经度
-    MKCoordinateRegion theRegion1;
-    theRegion1.center=theCoordinate1;
-//    MKCoordinateSpan theSpan1 = MKCoordinateSpanMake(60,60);//显示比例
-    MKCoordinateSpan theSpan1 = MKCoordinateSpanMake(30,30);//显示比例
-    theRegion1.span=theSpan1;
-    //定义显示范围
-    //定义一个区域（使用设置的经度纬度加上一个范围)
-    [mapViewBig setRegion:theRegion1];
+    [self reStoreBigMapRegion];
     [mapViewBig setMapType:MKMapTypeStandard];
     [mapViewBig addSubview:closeButton];
     mapViewBig.delegate = self;
@@ -572,9 +551,9 @@ static int iDisplay=0;
     //初始化待显示控制器
     summaryInfoViewController=[[SummaryInfoViewController alloc]init];
     //设置待显示控制器的范围
-    [summaryInfoViewController.view setFrame:CGRectMake(0,0, 960, 300)];
+    [summaryInfoViewController.view setFrame:CGRectMake(0,0, 1010, 300)];
     //设置待显示控制器视图的尺寸
-    summaryInfoViewController.contentSizeForViewInPopover = CGSizeMake(960, 300);
+    summaryInfoViewController.contentSizeForViewInPopover = CGSizeMake(1010, 300);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:summaryInfoViewController];
     summaryInfoViewController.popover = pop;
@@ -582,7 +561,7 @@ static int iDisplay=0;
     self.popover.delegate = self;
     [summaryInfoViewController loadViewData];
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(960, 300);
+    self.popover.popoverContentSize = CGSizeMake(1010, 300);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(900, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [summaryInfoViewController release];
@@ -1533,6 +1512,34 @@ static int iDisplay=0;
     [pop release];
     NSLog(@"edc");
 }
+#pragma mark -
+#pragma mark 恢复大地图视野范围
+- (void)reStoreMapRegion{
+    CLLocationCoordinate2D theCoordinate;
+    theCoordinate.latitude=29.6955667121; //纬度
+    theCoordinate.longitude=122.0461133192; //经度
+    MKCoordinateSpan theSpan = MKCoordinateSpanMake(17,17);//显示比例
+    //定义显示范围
+    //定义一个区域（使用设置的经度纬度加上一个范围）
+    MKCoordinateRegion theRegion;
+    theRegion.center=theCoordinate;
+    theRegion.span=theSpan;
+    [mapView setRegion:theRegion];
+}
 
+#pragma mark -
+#pragma mark 恢复小地图视野范围
+- (void)reStoreBigMapRegion{
+    CLLocationCoordinate2D theCoordinate;
+    theCoordinate.latitude=5.878332; //纬度
+    theCoordinate.longitude=133.857422; //经度
+    MKCoordinateRegion theRegion;
+    theRegion.center=theCoordinate;
+    MKCoordinateSpan theSpan = MKCoordinateSpanMake(30,30);//显示比例
+    theRegion.span=theSpan;
+    //定义显示范围
+    //定义一个区域（使用设置的经度纬度加上一个范围)
+    [mapViewBig setRegion:theRegion];
+}
 @end
 
