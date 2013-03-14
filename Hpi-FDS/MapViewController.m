@@ -1137,7 +1137,7 @@ static int iDisplay=0;
             }
             if(b==0)
             {
-                if(![companyName isEqualToString:port.company])
+                if(![companyName isEqualToString:@"全部离线船舶"]&&![companyName isEqualToString:port.company])
                 {
                     continue;
                 }
@@ -1498,7 +1498,7 @@ static int iDisplay=0;
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:chooseView];
     chooseView.popover = pop;
-    chooseView.iDArray=[NSArray arrayWithObjects:OFFLINE_SHIP,@"时代",@"瑞宁",@"华鲁",nil];
+    chooseView.iDArray=[NSArray arrayWithObjects:@"全部离线船舶",@"时代",@"瑞宁",@"华鲁",nil];
     chooseView.parentMapView=self;
     chooseView.type=kSHIPCOMPANY;
     self.popover = pop;
