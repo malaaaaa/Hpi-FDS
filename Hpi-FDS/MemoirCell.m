@@ -9,7 +9,8 @@
 #import "MemoirCell.h"
 
 @implementation MemoirCell
-@synthesize backimage,okimage;
+@synthesize backimage;//,okimage;
+@synthesize okimage;
 @synthesize iconimage;
 @synthesize textlabel;
 @synthesize subtextlabel;
@@ -29,9 +30,11 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
+
+
+
 -(IBAction)buttonAction:(id)sender
 {
 	NSLog(@"button action");

@@ -53,5 +53,5 @@
 @property (nonatomic,copy) NSString *stringType;
 @property (nonatomic,retain) EGORefreshTableHeaderView *refreshHeaderView;
 
--(void) stratDownload:(MemoirCell *)cell;
+//-(void) stratDownload:(MemoirCell *)cell;
 @end

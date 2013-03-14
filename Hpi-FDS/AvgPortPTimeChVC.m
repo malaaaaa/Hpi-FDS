@@ -74,9 +74,9 @@ int currentMonth;
     
     [self.endButton setTitle:[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]] forState:UIControlStateNormal];
     self.endTime.text=[NSString stringWithFormat:@"%@",[formater stringFromDate:myDate1]];
-//    self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
-    self.startTime.text=[NSString stringWithFormat:@"%@-01-01",yeas];
 
+    self.startTime.text=[NSString stringWithFormat:@"%@-01",yeas];
+    
     [self.startButton setTitle:[NSString stringWithFormat:@"%@-01",yeas] forState:UIControlStateNormal];
     
     
@@ -85,9 +85,33 @@ int currentMonth;
     self.startTime.hidden=YES;
     self.endTime.hidden=YES;
     
+
+    
+   /*组织时间搜索条件   其实月份的第一天  到结束月份的最后一天*/
+    
+    if (![startButton .titleLabel.text isEqualToString:@"开始时间"]) {
+        startTime.text=[startButton.titleLabel.text    stringByAppendingString:@"-01"];
+    }
+    if (![endButton .titleLabel.text isEqualToString:@"结束时间"]) {
+        
+        NSDateFormatter *f=[[NSDateFormatter alloc] init];
+        [f setDateFormat:@"yyyy-MM-dd"];
+        NSDate *end=[f dateFromString:[endButton.titleLabel.text stringByAppendingString:@"-01"]];
+        end=[[NSDate alloc] initWithTimeInterval:8*24*60*60 sinceDate:end];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:end];
+        NSUInteger numberOfDaysInMonth = range.length;
+        endTime.text=   [endButton.titleLabel.text stringByAppendingString:[NSString stringWithFormat:@"-%d",numberOfDaysInMonth    ]];
+        [calendar release];
+    }
+
     [ self  getDateSource:self.startTime.text :self.endTime.text :0];
     
     [comp    release];
+    
+    
+  //  NSLog(@"LOAD......");
+    
 }
 
 -(void)initDC
@@ -102,27 +126,33 @@ int currentMonth;
 
 -(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSInteger)initAndSelect
 {
+       // NSLog(@"getDateSource 开始");
+    
     [self initDC];
     
     source.titles=[AvgPortPTimeDao getTime:cStartTime :cEndTime];
-    NSLog(@"----------start[%@][%@]",cStartTime,cEndTime);
 
-      NSLog(@"----------source.titles[%d]",[source.titles count]);
+    //  NSLog(@"----------source.titles[%d]",[source.titles count]);
     [source.columnWidth removeAllObjects];
 
     [source.columnWidth addObject:@"90"];
     //tites count  不为0
     for (int t=0; t<[source.titles count]-2; t++) {
         
+      //  NSLog(@"%@",[NSString stringWithFormat:@"%d",860/([source.titles count]-2)]);
+        
         [ source.columnWidth addObject:[NSString stringWithFormat:@"%d",860/([source.titles count]-2)]];
     }
     [ source.columnWidth addObject:@"80"];
+    
+  //  NSLog(@"[source.columnWidth count]:%d",[source.columnWidth count]);
+    
     
     //查询
     if(initAndSelect==1){
         source.data=[AvgPortPTimeDao getAvgPortDate:startTime.text:endTime.text :source.titles];
         
-        //  NSLog(@"source.data[%d]",[source.data  count]);
+       //  NSLog(@"source.data[%d]",[source.data  count]);
         
     }
     //初始化
@@ -133,54 +163,56 @@ int currentMonth;
     [dataQueryVC.listView   addSubview:dc];
     [dc release];
     
+    
+    
+   // NSLog(@"getDateSource 结束");
+    
+    
 }
 
 - (IBAction)startTimeSelect:(id)sender {
     whichButton=1;
-    NSLog(@"startmonth。。。。。");
+   // NSLog(@"startmonth。。。。。");
     if (self.popover .popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
     if(!monthVC)
         monthVC=[[DateViewController alloc] init];
-    [monthVC .view setFrame:CGRectMake(0, 0, 195, 216)];
-    monthVC.contentSizeForViewInPopover=CGSizeMake(195, 216);
+    [monthVC .view setFrame:CGRectMake(0, 0, 175, 216)];
+    monthVC.contentSizeForViewInPopover=CGSizeMake(175, 216);
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthVC];
     monthVC.popover=pop;//没什么用？
     monthVC.selectedDate=self.month;//初始化  属性[[NSDate alloc] init];  也可以不用他来初始化
     self.popover=pop;
     self.popover.delegate=self;
-    self.popover.popoverContentSize=CGSizeMake(195, 216);
+    self.popover.popoverContentSize=CGSizeMake(175, 216);
     [self.popover presentPopoverFromRect:CGRectMake(407, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
     
 }
 - (IBAction)endTimeSelect:(id)sender {
     whichButton=2;
-    NSLog(@"endmonth。。。。。");
+  //  NSLog(@"endmonth。。。。。");
     if (self.popover .popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
     if(!monthVC)
         monthVC=[[DateViewController alloc] init];
-    [monthVC .view setFrame:CGRectMake(0, 0, 195, 216)];
-    monthVC.contentSizeForViewInPopover=CGSizeMake(195, 216);
+    [monthVC .view setFrame:CGRectMake(0, 0, 175, 216)];
+    monthVC.contentSizeForViewInPopover=CGSizeMake(175, 216);
     
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthVC];
     monthVC.popover=pop;//没什么用？
     monthVC.selectedDate=self.month;//初始化  属性[[NSDate alloc] init];  也可以不用他来初始化
     self.popover=pop;
     self.popover.delegate=self;
-    self.popover.popoverContentSize=CGSizeMake(195, 216);
+    self.popover.popoverContentSize=CGSizeMake(175, 216);
     [self.popover presentPopoverFromRect:CGRectMake(767,40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
 
 - (IBAction)Select:(id)sender {
     if (![startButton .titleLabel.text isEqualToString:@"开始时间"]) {
-      
-        
-        
         startTime.text=[startButton.titleLabel.text    stringByAppendingString:@"-01"];
     }
     if (![endButton .titleLabel.text isEqualToString:@"结束时间"]) {
@@ -309,7 +341,7 @@ int currentMonth;
 {
     
     if (monthVC) {
-        NSLog(@"monthCV 不为空。。。");
+    //NSLog(@"monthCV 不为空。。。");
         self.month=monthVC.selectedDate;
     }
     return YES;

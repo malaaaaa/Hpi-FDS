@@ -79,7 +79,15 @@ UIToolbar* toolBar;
     
     _dataQueryVC=[[ DataQueryVC alloc ]initWithNibName:@"DataQueryVC" bundle:nil] ;
     _dataQueryVC.view.frame = CGRectMake(0, 40, 1024,661 );
+    
+    
+    
     [_dataQueryVC setSegmentIndex:kMenuSSCBCX:kMenuSelect];
+    
+    
+    
+    
+    
     [self.view addSubview:_dataQueryVC.view];
 
 

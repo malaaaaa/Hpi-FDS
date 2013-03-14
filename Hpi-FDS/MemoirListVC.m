@@ -221,11 +221,11 @@ static int cellNum =0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TsFileinfo *tsFile=[listArray objectAtIndex:indexPath.row];
-    if ([tsFile.xzbz isEqualToString:@"1"]) {//1为 下载完成..
+  //  if ([tsFile.xzbz isEqualToString:@"1"]) {//1为 下载完成..
         
         
             //在本地Documents下加载  下载到的文件
-            [WebViewController setFileName:tsFile.fileName];
+            [WebViewController setFileName:tsFile  ];
         //设置 加载状态.
      WebViewController*wbs=   (WebViewController*)self.webVC;
          
@@ -233,10 +233,8 @@ static int cellNum =0;
             [self.popover dismissPopoverAnimated:YES];
              
        
-    }
-    else {
-            
-    }
+   // }
+   
 }
 
 // Customize the appearance of table view cells.
@@ -253,56 +251,14 @@ static int cellNum =0;
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { 
     return 50;
-} 
+}
+
+
 #pragma mark -
 #pragma mark action
 -(void) stratDownload:(MemoirCell *)cell
 {
     NSLog(@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    //self.networkQueue=[[ASINetworkQueue alloc]init] ;
-	//[networkQueue setShowAccurateProgress:NO];//    取消  进度条
-	//[networkQueue go];
-	//[networkQueue setDownloadProgressDelegate: self.processView ]; // 设置 queue 进度条
-    //[networkQueue setDelegate:self];
-    
-   //[networkQueue setShouldCancelAllRequestsOnFailure:NO];
-
-	//[networkQueue setRequestDidFinishSelector:@selector(requestDone:)];
-	//[networkQueue setRequestDidFailSelector:@selector(requestWentWrong:)];
-	//[networkQueue setQueueDidFinishSelector:@selector(queueDone)];
-    
-    // NSString *tempPath=[NSString stringWithFormat:@"%@.tmp",path];
-    // NSLog(@"临时文件路径=[%@]",tempPath);
-    //[request setDownloadProgressDelegate : progress_file2 ]; // 文件 2 的下载进度条
-    // [request setUserInfo :[ NSDictionary dictionaryWithObject :file2 forKey : @"TargetPath" ]];
-    
-    //设置文件保存路径
-    //[request setDownloadDestinationPath:path];
-    /*
-     //设置临时文件路径
-     [request setTemporaryFileDownloadPath:tempPath];
-     //设置是是否支持断点下载
-     [request setAllowResumeForFileDownloads:YES];
-     //设置进度条的代理,
-     
-     //cell.processView =[[[UIProgressView alloc]init]autorelease];//已初始化 没有用..
-     
-     // NSLog(@"cell.processView=[%@]",cell.processView);
-     [request setDownloadProgressDelegate:nil];
-     */
-    /*
-     
-     [request setDidFinishSelector:@selector(requestDone:)];
-     [request setDidFailSelector:@selector(requestWentWrong:)];
-     
-     //  取得响应报头信息
-     [request setDidReceiveResponseHeadersSelector:@selector(didReceiveResponseHeaders:)];
-     //添加到ASINetworkQueue队列去下载
-     [self.networkQueue addOperation:request];
-     [networkQueue go];
-     */
-    
-    
 
     
     
@@ -330,7 +286,7 @@ static int cellNum =0;
     if ( [ fm createFileAtPath :path contents : nil attributes : nil ]){
         fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
     }
-    
+     [fh2 truncateFileAtOffset:0];//清空原来文件.
     
    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
        //设置基本信息
@@ -392,7 +348,7 @@ static int cellNum =0;
 	NSLog(@"zhangcx buttonAction start");
     MemoirCell *cell=(MemoirCell *)send;
 	[cell retain];
-    cell.button.hidden=YES;
+   cell.button.hidden=YES;
     TsFileinfo *tsFile=cell.data;
 	tsFile.xzbz=@"2";
     [TsFileinfoDao updateTsFileXzbz:tsFile.fileId :tsFile.xzbz];
@@ -441,6 +397,9 @@ static int cellNum =0;
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reloadTableView) userInfo:NULL repeats:NO];
     }
 }
+
+
+/*
 #pragma mark
 #pragma download file
 //下载文件
@@ -507,7 +466,7 @@ static int cellNum =0;
 }
 
 
-
+*/
 
 
 
@@ -523,12 +482,17 @@ static int cellNum =0;
 	cell.delegate=self;
     cell.data=tsFile;
     //NSLog(@"filePath[%@]",[NSString stringWithFormat:@"%@%@%@",PubInfo.url,tsFile.filePath,tsFile.fileName]);
+    
+    
+    
+    
     if ([tsFile.xzbz isEqualToString:@"1"]) {
         cell.button.enabled=FALSE;
         cell.button.hidden=YES;
-        cell.okimage.hidden=NO;
+        //cell.okimage.hidden=NO;
     }
     else if([tsFile.xzbz isEqualToString:@"2"]) {
+        
         cell.button.enabled=FALSE;
         cell.button.hidden=YES;
         cell.okimage.hidden=YES;

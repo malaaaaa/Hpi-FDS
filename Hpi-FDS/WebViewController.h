@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MemoirListVC.h"
+
+#import "PubInfo.h"
+
 @interface WebViewController : UIViewController<UIWebViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate>{
     IBOutlet UIWebView *webView1;
     UIPopoverController *popover;
@@ -26,12 +29,15 @@
     
     int loadCount;
     
+    
+    int type;
+    
 }
 
 @property   int FileLoadStatus;
 
 @property   int loadCount;
-
+@property   int type;
 @property (nonatomic,retain) UIWebView *webView1;
 @property (nonatomic,retain) UIPopoverController *popover;
 @property (nonatomic,retain) UILabel *titleLable;
@@ -43,7 +49,7 @@
 @property (nonatomic,retain) UIButton *infoButton;
 
 @property (nonatomic,retain) UILabel *waitingLable;
-+(void)setFileName:(NSString*) theName;
++(void)setFileName:(TsFileinfo*) tsFile;
 
 
 

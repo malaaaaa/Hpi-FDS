@@ -216,10 +216,7 @@ static int iDisplay=0;
     infoBut=nil;
     mainVW=nil;
     wbvc=nil;
-    
-    
-    
-    
+  
     self.mapView=nil;
     self.mapViewBig=nil;
     self.activity=nil;
@@ -271,20 +268,19 @@ static int iDisplay=0;
     
     NSDateFormatter *formater=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd"];
-    NSString *fileName=
-    [NSString stringWithFormat:@"船舶调运动态表(%@).xls",[formater stringFromDate:[NSDate date]]];
+
+    TsFileinfo *tsf=[[TsFileinfo alloc] init] ;
+    
+    tsf.fileName=[NSString stringWithFormat:@"船舶调运动态表(%@).xls",[formater stringFromDate:[NSDate date]]];
     [formater release];
     
-    
-    
     //船舶调运动态表(2012-02-28).xls
-    NSString * url=  [NSString stringWithFormat:@"%@%@/fileupload/IPAD_Factory/%@",  PubInfo.hostName, PubInfo.port,fileName ];
-    NSLog(@"url=%@",url);
+    NSString * url=  [NSString stringWithFormat:@"%@%@/fileupload/IPAD_Factory/%@",  PubInfo.hostName, PubInfo.port,tsf.fileName ];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Files"];
     [[NSFileManager defaultManager]createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
     
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:[fileName stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]  ];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:[tsf.fileName stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]  ];
     
     
     
@@ -314,13 +310,17 @@ static int iDisplay=0;
         // 关闭 file2
         [fh2 closeFile ];
         NSLog(@"已下载完成....");
+
         //下载完成....加载
-        [WebViewController setFileName:fileName];
+        [WebViewController setFileName:tsf];
+        
+        self.wbvc.type=2;//标识 调运信息表...
+        
         //设置 加载状态.
         [self.wbvc  viewloadRequest];
         
         [wbvc.view bringSubviewToFront:self.mainVW];
-        
+        [tsf release];//
     }];
     // 使用 failed 块，在下载失败时做一些事情
     [request setFailedBlock :^( void ){
@@ -329,7 +329,7 @@ static int iDisplay=0;
     // 使用 received 块，在接受到数据时做一些事情
     [request setDataReceivedBlock :^( NSData * data){
         fSize2+=data. length ;
-        NSLog(@"data.length:%d",fSize2 );
+       // NSLog(@"data.length:%d",fSize2 );
         
         if (fh2!= nil ) {
             [fh2 seekToEndOfFile ];
@@ -542,8 +542,6 @@ static int iDisplay=0;
           [self.wbvc.view removeFromSuperview];
     }
   
-    
-    
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -608,7 +606,11 @@ static int iDisplay=0;
 }
 */
 - (IBAction)portInfoView:(id)sender
-{    
+{
+    if (self.wbvc ) {
+        [self.wbvc.view removeFromSuperview];
+    }
+    
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
