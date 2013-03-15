@@ -452,7 +452,7 @@ static sqlite3  *database;
 +(NSMutableArray *) getVbFactoryTransBySql:(NSString *)querySql
 {
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"select dispatchno,statename,shipname,lw,f_note,STATECODE,t_note,p_note,stage from TH_SHIPTRANS_ORI where  %@  order by stage,dispatchno desc ",querySql];
+    NSString *sql=[NSString stringWithFormat:@"select dispatchno,statename,shipname,lw,f_note,STATECODE,t_note,p_note,stage,factoryname from TH_SHIPTRANS_ORI where  %@  order by stage,dispatchno desc ",querySql];
     NSLog(@"执行 getVbFactoryTransBySql [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
@@ -510,7 +510,12 @@ static sqlite3  *database;
                 vbFactoryTrans.STAGECODE = nil;
             else
                 vbFactoryTrans.STAGECODE = [NSString stringWithUTF8String: rowData8];
-
+            
+            char * rowData9=(char *)sqlite3_column_text(statement,9);
+            if (rowData9 == NULL)
+                vbFactoryTrans.FACTORYNAME = nil;
+            else
+                vbFactoryTrans.FACTORYNAME = [NSString stringWithUTF8String: rowData9];
             
 			[array addObject:vbFactoryTrans];
             [vbFactoryTrans release];

@@ -35,8 +35,10 @@ static DataGridComponentDataSource *dataSource;
     // Do any additional setup after loading the view from its nib.
     dataSource = [[DataGridComponentDataSource alloc] init];
     //(20.20.985.42)
-    dataSource.columnWidth = [NSArray arrayWithObjects:@"120",@"100",@"120",@"120",@"160",nil];
-    dataSource.titles = [NSArray arrayWithObjects:@"调度单号",@"状态",@"船名",@"载重（吨）",@"备注",nil];
+    VbFactoryTrans *factoryTrans = [iDArray objectAtIndex:0];
+    NSString *curFactory = [NSString stringWithFormat:@"(%@)调度单号",factoryTrans.FACTORYNAME];
+    dataSource.columnWidth = [NSArray arrayWithObjects:@"150",@"100",@"120",@"120",@"160",nil];
+    dataSource.titles = [NSArray arrayWithObjects:curFactory,@"状态",@"船名",@"载重（吨）",@"备注",nil];
     float columnOffset = 0.0;
     [labelView removeFromSuperview];
     //填冲标题数据

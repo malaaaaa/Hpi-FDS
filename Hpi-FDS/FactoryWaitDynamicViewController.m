@@ -786,11 +786,14 @@ static  NSMutableArray *columnWidthFTitle;
      //1  计划    7  实际
     int totalHeight=0;
     int cellHeight=30;
-   
+
     NSMutableArray *Dataildate_p=[[NSMutableArray alloc] init];
     NSMutableArray *Dataildate_sj=[[NSMutableArray alloc] init];
     NSMutableArray *DatailWidth=[[NSMutableArray alloc] init];
-    [Dataildate_p  addObject:[[NSMutableArray alloc] initWithObjects:@"计划抵厂船舶", nil]];
+    NSString *PlanTitle = [NSString stringWithFormat:@"%@日 计划抵厂船舶",[rowDate objectAtIndex:0]];
+    NSString *ActualTitle = [NSString stringWithFormat:@"%@日 实际抵厂船舶",[rowDate objectAtIndex:0]];
+
+    [Dataildate_p  addObject:[[NSMutableArray alloc] initWithObjects:PlanTitle, nil]];
     [DatailWidth  addObject:[[NSMutableArray alloc] initWithObjects:@"910", nil]];
     [Dataildate_p  addObject:[[NSMutableArray alloc] initWithObjects:@"船名",@"载量(万吨)", @"热值/硫分",@"吃水(m)",@"供货方",@"煤种", nil]];
     [DatailWidth  addObject:[[NSMutableArray alloc] initWithObjects:@"160",@"100" ,@"180",@"155",@"155",@"160",nil]];
@@ -800,7 +803,7 @@ static  NSMutableArray *columnWidthFTitle;
             [Dataildate_p    addObject:[arr_P objectAtIndex:i]];   
         }
     }
-    [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:@"实际抵厂船舶", nil]];
+    [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:ActualTitle, nil]];
     [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:@"抵达长江口",@"锚地",@"靠卸",@"完货",@"离港",nil]];
      [DatailWidth  addObject:[[NSMutableArray alloc] initWithObjects:@"198",@"198" ,@"198",@"158",@"158",nil]];
       [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:@"船名",@"载重",@"时间",@"船名",@"载重",@"时间",@"船名",@"载重",@"时间",@"船名",@"时间",@"船名",@"时间",nil]];
@@ -1078,6 +1081,7 @@ static  NSMutableArray *columnWidthFTitle;
     NSMutableArray *ARR_tbFactory=[rowData1 objectAtIndex:2];
     NSMutableArray *ARR_cd=[rowData1 objectAtIndex:3];
      NSMutableArray *ARR_note=[rowData1 objectAtIndex:4];
+    NSLog(@"mawp=%@",[rowData1 objectAtIndex:0]);
     [rowData    addObject:[rowData1 objectAtIndex:0]];
     if ([ARR_P count]>0) {
       
@@ -1107,6 +1111,7 @@ static  NSMutableArray *columnWidthFTitle;
             float columnWidth = [[source.columnWidth objectAtIndex:column] floatValue];;
             UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1, 40 -1 )];
             l.font = [UIFont systemFontOfSize:14.0f];
+            l.textColor=[UIColor whiteColor];
         
         if ( [[rowData objectAtIndex:column] isEqualToString:@"YES"] ) {
             UILabel *imageLabel;
@@ -1116,7 +1121,7 @@ static  NSMutableArray *columnWidthFTitle;
             {
              imageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, columnWidth-1, 40 -1 )];
             }
-            imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"xiangx"]];
+            imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"chuanxk"]];
             [l addSubview:imageLabel];
             [imageLabel release];
             l.text =@"";
@@ -1135,10 +1140,11 @@ static  NSMutableArray *columnWidthFTitle;
             columnOffset += columnWidth;
             [l release];
         }
-
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
-    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
+    
+    [cell setSelectionStyle:UITableViewCellAccessoryNone];
+//    cell.accessoryType = UITableViewCellAccessoryNone;
+//    cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
+//    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
     
     
     [rowData release];
