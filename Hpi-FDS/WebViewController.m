@@ -395,7 +395,7 @@ static NSDate *currentDateStr1;
     
     
       [pop release];
-    
+
 }
 
 
@@ -447,5 +447,8 @@ static NSDate *currentDateStr1;
     [pop release];
     
  }*/
-
+#pragma mark 刷新页面为空白
+-(void)FreshWebViewToBlank{
+    [webView1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+}
 @end

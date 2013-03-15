@@ -15,6 +15,9 @@
     LoginView *login;
     LoginResponse *logr;
     MapViewController *_mapVC;
+    UIImageView *zView;//Z图片ImageView
+    UIImageView *fView;//F图片ImageView
+    UIView *rView;//图片的UIView
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

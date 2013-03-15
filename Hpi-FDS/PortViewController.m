@@ -573,7 +573,34 @@ static NSString *stringType=@"GKDJL";
     [activity removeFromSuperview];
 
 }
-
+-(IBAction)GKDJL:(id)sender
+{
+    stringType=@"GKDJL";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+-(IBAction)GKDCL:(id)sender
+{
+    stringType=@"GKDCL";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+-(IBAction)GKCML:(id)sender
+{
+    stringType=@"GKCML";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+-(IBAction)ZGCS:(id)sender
+{
+    stringType=@"ZGCS";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
 #pragma mark activity
 -(void)runActivity
 {

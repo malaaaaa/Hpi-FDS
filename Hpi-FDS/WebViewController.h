@@ -55,4 +55,6 @@
 
 
 - (void)viewloadRequest;
+-(void)FreshWebViewToBlank;
+
 @end

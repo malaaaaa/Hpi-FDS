@@ -68,7 +68,7 @@ UIAlertView *RegistAlert;
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (alertView==RegistAlert) {
-
+        
         
         
         if (buttonIndex==1) {
@@ -76,13 +76,14 @@ UIAlertView *RegistAlert;
             exit(0);
         }
         if(buttonIndex==0){
+            [self moveToUpSide];
             NSLog(@"重新注册");
         }
     }
     else if (alertView==VersionAlert)
     {
-        if(buttonIndex==0){         
-          //  NSLog(@"更新");
+        if(buttonIndex==0){
+            //  NSLog(@"更新");
             if (self.logr.regMsg.length>0&&self.logr.regMsg) {
                 
                 NSString *url=self.logr.regMsg;
@@ -91,7 +92,7 @@ UIAlertView *RegistAlert;
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
                 
             }
-             exit(0);
+            exit(0);
             
             
         }
@@ -146,7 +147,7 @@ UIAlertView *RegistAlert;
     else if ([self.logr.RETCODE isEqualToString:@"3"]) {
         VersionAlert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"程序版本更新 请下载安装！" delegate:self cancelButtonTitle:@"更新" otherButtonTitles:nil,nil];
         
-       
+        
         
         [VersionAlert show];
         [VersionAlert release];
@@ -221,8 +222,8 @@ UIAlertView *RegistAlert;
         return FALSE;
     }
     
-   // NSString *theXML = [[NSString alloc] initWithBytes: [returnData mutableBytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-  // NSLog(@"xml=%@",theXML);
+    // NSString *theXML = [[NSString alloc] initWithBytes: [returnData mutableBytes] length:[returnData length] encoding:NSUTF8StringEncoding];
+    // NSLog(@"xml=%@",theXML);
     
     NSString *element1=@"LoginValadate";
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
@@ -246,37 +247,32 @@ UIAlertView *RegistAlert;
                 if (desc != nil) {
                     
                     self.logr.SBID=[TBXML textForElement:desc] ;
-                   // NSLog(@"%@",self.logr.SBID);
+                    // NSLog(@"%@",self.logr.SBID);
                 }
                 desc = [TBXML childElementNamed:@"RETCODE" parentElement:element];
                 if (desc != nil) {
                     self.logr.RETCODE=[TBXML textForElement:desc] ;
-                   // NSLog(@"%@",self.logr.RETCODE);
+                    // NSLog(@"%@",self.logr.RETCODE);
                 }
                 
                 
                 desc = [TBXML childElementNamed:@"REGMsg" parentElement:element];
                 if (desc != nil) {
-                 self.logr.regMsg=   [TBXML textForElement:desc];
-                   // NSLog(@"[TBXML textForElement:desc] >>>>>>>>>>>>>>>%@",self.logr.regMsg );
+                    self.logr.regMsg=   [TBXML textForElement:desc];
+                    // NSLog(@"[TBXML textForElement:desc] >>>>>>>>>>>>>>>%@",self.logr.regMsg );
                 }
-                
-                
-                
-                
-                
-                
+                         
                 desc = [TBXML childElementNamed:@"STAGE" parentElement:element];
                 if (desc != nil) {
                     
                     self.logr.STAGE=[TBXML textForElement:desc] ;
-                   // NSLog(@"%@",self.logr.STAGE);
+                    // NSLog(@"%@",self.logr.STAGE);
                 }
                 desc = [TBXML childElementNamed:@"ISHave" parentElement:element];
                 if (desc != nil) {
                     
                     self.logr.ISHAVE=[TBXML textForElement:desc] ;
-                  //  NSLog(@"%@",self.logr.ISHAVE);
+                    //  NSLog(@"%@",self.logr.ISHAVE);
                 }
                 
                 element = [TBXML nextSiblingNamed:@"LoginResponse"  searchFromElement:element];
@@ -302,10 +298,10 @@ UIAlertView *RegistAlert;
     //    [self customizeAppearance];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
-//    UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
+    //    UIViewController *viewController1 = [[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
     self.mapVC=[[[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil] autorelease];
-
-   
+    
+    
     UIViewController *viewController3 = [[[MarketViewController alloc] initWithNibName:@"MarketViewController" bundle:nil] autorelease];
     UIViewController *viewController4 = [[[PortViewController alloc] initWithNibName:@"PortViewController" bundle:nil] autorelease];
     UIViewController *viewController5 = [[[DataQueryPopVC alloc] initWithNibName:@"DataQueryPopVC" bundle:nil] autorelease];
@@ -323,12 +319,48 @@ UIAlertView *RegistAlert;
     
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-//    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
-      self.tabBarController.viewControllers = [NSArray arrayWithObjects:self.mapVC, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+    //    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:self.mapVC, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
     self.tabBarController.delegate=self;
     [window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];
     
+    
+//    NSLog(@"mmmmm=%@",NSStringFromCGRect(self.window.frame));
+    
+    
+    fView =[[UIImageView alloc]initWithFrame:self.window.frame];//初始化fView
+    fView.image=[UIImage imageNamed:@"f.png"];//图片f.png 到fView
+    
+    //    zView=[[UIImageView alloc]initWithFrame:self.window.frame];//初始化zView
+    //原点坐标在竖屏的左上角，因此横屏下需要转化
+    zView=[[UIImageView alloc]initWithFrame:CGRectMake(20, 0, 748, 1024)];//初始化zView
+    zView.image=[UIImage imageNamed:@"z.png"];//图片z.png 到zView
+    UIDevice *device = [UIDevice currentDevice] ;
+    switch (device.orientation) {
+        case UIDeviceOrientationLandscapeLeft:
+            //图片旋转180度
+            zView.transform=CGAffineTransformMakeRotation(3.14159265358979323846264338327950288);
+            
+            break;
+        default: break;
+    }
+    
+    rView=[[UIView alloc]initWithFrame:self.window.frame];//初始化rView
+    //    rView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.window.frame.size.height, self.window.frame.size.width)];
+    //    [rView addSubview:fView];//add 到rView
+    [rView addSubview:zView];//add 到rView
+    
+    //单击事件触发，视图上移
+    zView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(UesrClicked)];
+    [zView addGestureRecognizer:singleTap];
+    [singleTap release];
+    
+    
+    [self.window addSubview:rView];//add 到window
+    
+    //    [self performSelector:@selector(TheAnimation) withObject:nil afterDelay:5];//5秒后执行TheAnimation
 }
 
 - (void)showLoginPage{
@@ -374,7 +406,7 @@ UIAlertView *RegistAlert;
                 //恢复地图视野范围
                 [self.mapVC reStoreMapRegion];
                 [self.mapVC reStoreBigMapRegion];
-
+                
                 
                 //刷新
                 [self.mapVC getFactoryCoordinateArray];
@@ -388,5 +420,69 @@ UIAlertView *RegistAlert;
     }
     
 }
+- (void)TheAnimation{
+    
+    CATransition *animation = [CATransition animation];
+    animation.delegate = self;
+    animation.duration = 0.7 ;  // 动画持续时间(秒)
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type = kCATransitionFade;//淡入淡出效果
+    
+    //    NSUInteger f = [[rView subviews] indexOfObject:fView];
+    //    NSUInteger z = [[rView subviews] indexOfObject:zView];
+    //    [rView exchangeSubviewAtIndex:z withSubviewAtIndex:f];
+    
+    [[rView layer] addAnimation:animation forKey:@"animation"];
+    
+    [self performSelector:@selector(ToUpSide) withObject:nil afterDelay:10];//10秒后执行TheAnimation
+}
 
+#pragma mark - 上升效果
+- (void)ToUpSide {
+    
+    [self moveToUpSide];//向上拉界面
+    
+}
+
+- (void)moveToUpSide {
+    
+    UIDevice *device = [UIDevice currentDevice] ;
+    
+	switch (device.orientation) {
+            
+        case UIDeviceOrientationLandscapeLeft:
+            [UIView animateWithDuration:0.7 //速度0.7秒
+                             animations:^{//修改rView坐标
+                                 rView.frame = CGRectMake(self.window.frame.size.width,
+                                                          self.window.frame.origin.y,
+                                                          self.window.frame.size.width,
+                                                          self.window.frame.size.height);
+                                 
+                                 
+                             }
+                             completion:^(BOOL finished){
+                             }];
+            
+            break;
+        default:
+            [UIView animateWithDuration:0.7 //速度0.7秒
+                             animations:^{//修改rView坐标
+                                 rView.frame = CGRectMake(-self.window.frame.size.width,
+                                                          self.window.frame.origin.y,
+                                                          self.window.frame.size.width,
+                                                          self.window.frame.size.height);
+                                 
+                             }
+                             completion:^(BOOL finished){
+                             }];
+            
+            break;
+	}
+    
+    
+}
+#pragma mark 点击图片
+- (void)UesrClicked{
+    [self ToUpSide];
+}
 @end

@@ -221,19 +221,19 @@ static int cellNum =0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TsFileinfo *tsFile=[listArray objectAtIndex:indexPath.row];
-  //  if ([tsFile.xzbz isEqualToString:@"1"]) {//1为 下载完成..
+    if ([tsFile.xzbz isEqualToString:@"1"]) {//1为 下载完成..
         
         
-            //在本地Documents下加载  下载到的文件
-            [WebViewController setFileName:tsFile  ];
+        //在本地Documents下加载  下载到的文件
+        [WebViewController setFileName:tsFile  ];
         //设置 加载状态.
-     WebViewController*wbs=   (WebViewController*)self.webVC;
-         
-         [wbs  viewloadRequest];
-            [self.popover dismissPopoverAnimated:YES];
-             
-       
-   // }
+        WebViewController*wbs=   (WebViewController*)self.webVC;
+        
+        [wbs  viewloadRequest];
+        [self.popover dismissPopoverAnimated:YES];
+        
+        
+    }
    
 }
 

@@ -354,7 +354,8 @@ static int iDisplay=0;
     }
     [self.mainVW addSubview:wbvc.view];
     [wbvc.view bringSubviewToFront:self.mainVW];
-  
+    [wbvc FreshWebViewToBlank];
+
     memoirListVC.webVC=self.wbvc;
     [memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
     //设置待显示控制器视图的尺寸
@@ -377,6 +378,7 @@ static int iDisplay=0;
    
     
     [memoirListVC release];
+
 }
 
 

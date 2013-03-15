@@ -38,6 +38,7 @@ static NSString *stringType=@"BSPI";
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+
     [segment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
     
     self.endDay = [[NSDate alloc] init] ;
@@ -65,6 +66,10 @@ static NSString *stringType=@"BSPI";
     _buttonView.layer.borderWidth=2.0;
     _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
     _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
+    
+    stringType=@"BSPI";
+    [self loadHpiGraphView];
+
 }
 
 - (void)viewDidUnload
@@ -445,6 +450,7 @@ static NSString *stringType=@"BSPI";
 }
 - (IBAction)touchDownAction:(id)sender
 {
+    NSLog(@"touchdown");
     [self.view addSubview:activity];
     [activity startAnimating];
 }
@@ -485,7 +491,7 @@ static NSString *stringType=@"BSPI";
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [activity setFrame:CGRectMake(967, 45, 37, 37)];
+        [activity setFrame:CGRectMake(967, 40, 37, 37)];
         [self.view addSubview:activity];
         [reloadButton setTitle:@"同步中..." forState:UIControlStateNormal];
         [activity startAnimating];
@@ -521,6 +527,8 @@ static NSString *stringType=@"BSPI";
 //根据选择，显示不同类型的坐标点
 -(void)segmentChanged:(id) sender
 {
+//    [self.view addSubview:activity];
+//    [activity startAnimating];
     //BSPI
     if(segment.selectedSegmentIndex==0)
     {
@@ -572,6 +580,8 @@ static NSString *stringType=@"BSPI";
     }*/
     
     [self loadHpiGraphView];
+//    [activity stopAnimating];
+//    [activity removeFromSuperview];
 }
 
 #pragma mark activity
@@ -586,5 +596,47 @@ static NSString *stringType=@"BSPI";
     else {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(runActivity) userInfo:NULL repeats:NO];
     }
+}
+//为解决头疼的状态栏，不得已，把segmentControl改成了按钮实现
+//因为segmentControl 无法捕获 Touch Down 事件
+-(IBAction)BSPI:(id)sender
+{
+    NSLog(@"BSPI");
+    stringType=@"BSPI";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+-(IBAction)BDI:(id)sender
+{
+    NSLog(@"BDI");
+    stringType=@"BDI";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+-(IBAction)BJ:(id)sender
+{
+    NSLog(@"BJ");
+    stringType=@"BJ_PRICE";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+-(IBAction)CCBFJ:(id)sender
+{
+    NSLog(@"CCBFJ");
+    stringType=@"QHD_GZ";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+-(IBAction)WTI:(id)sender
+{
+    NSLog(@"WTI");
+    stringType=@"WTI";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
 }
 @end
