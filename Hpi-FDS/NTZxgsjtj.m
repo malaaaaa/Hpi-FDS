@@ -151,7 +151,7 @@ static sqlite3 *database;
     [NTZxgsjtjDao deleteAll];
     sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"Select FACTORYCODE,FACTORYNAME, IfNULL(avgZG,0) as avgZG, IfNULL(avgXG,0) as avgXG, IfNULL(avgZG,0) + IfNULL(avgXG,0) as avgLT, (IfNULL(PLw,0) + IfNULL(FLw,0)) as LW From ( select FACTORYNAME,FACTORYCODE, (select round(sum(((strftime('%%s',P_DEPARTTIME )-strftime('%%s',P_ANCHORAGETIME)))/86400.0*vbshiptrans.LW/10000.0)/sum(vbshiptrans.LW/10000.0),2) as avgZG from vbshiptrans  where vbshiptrans.FACTORYCODE = tf.FACTORYCODE  and ISCAL=1 and P_ANCHORAGETIME!='2000-01-01T00:00:00' and P_DEPARTTIME!='2000-01-01T00:00:00' %@) as avgZG,  (select round(sum(((strftime('%%s',F_FINISHTIME)-strftime('%%s',F_ANCHORAGETIME)))/86400.0*vbshiptrans.LW/10000.0)/sum(vbshiptrans.LW/10000.0),2) as avgXG from vbshiptrans  where vbshiptrans.FACTORYCODE = tf.FACTORYCODE  and ISCAL=1 and F_FINISHTIME!='2000-01-01T00:00:00' and F_ANCHORAGETIME!='2000-01-01T00:00:00' %@) as avgXG, (Select SUM(LW/10000.0) as PLw From vbshiptrans where FACTORYCODE = tf.FACTORYCODE and ISCAL=1 and TRADE='D' %@) as PLw, (Select SUM(LW/10000.0) as FLw From vbshiptrans where FACTORYCODE = tf.FACTORYCODE and ISCAL=1 and TRADE='F' %@) as FLw from TFFACTORY tf %@) a  ",shiptransSubSql,shiptransSubSql,shiptransSubSql,shiptransSubSql,categorySubSql];
-    NSLog(@"执行 InsertByCompany Sql[%@] ",sql);
+   // NSLog(@"执行 InsertByCompany Sql[%@] ",sql);
     
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
         while (sqlite3_step(statement)==SQLITE_ROW) {
