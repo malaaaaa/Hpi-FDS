@@ -384,7 +384,19 @@ static NSString *stringType=@"BSPI";
     graphView.marginLeft=60;
     graphView.marginTop=80;
     [graphView setNeedsDisplay];
+    
+
     [self.listView addSubview:graphView];
+    
+    /****/
+    CATransition *animation = [CATransition animation];
+    animation.delegate = self;
+    animation.duration = 0.8 ;  // 动画持续时间(秒)
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type=@"oglFlip";
+     [[self.listView layer] addAnimation:animation forKey:@"animation"];
+    /****/
+    
     [graphData release];
 }
 #pragma mark -

@@ -1431,22 +1431,17 @@ static  NSMutableArray *columnWidthFTitle;
         
         [activty startAnimating];
         
-        [tbxmlParser setISoapNum:5];
-    
-       [tbxmlParser requestSOAP:@"FactoryState"];
-       //电厂 
-      [tbxmlParser requestSOAP:@"Factory"];
+        [tbxmlParser setISoapNum:6];
         
+        [tbxmlParser requestSOAP:@"FactoryState"];
+        //电厂
+        [tbxmlParser requestSOAP:@"Factory"];
         //获取电厂机组运行信息    FactoryCapacity
-      [tbxmlParser requestSOAP:@"FactoryCapacity"];
-        
-        
-        
-       [ tbxmlParser  requestSOAP:@"OffLoadShip"];
-      [ tbxmlParser  requestSOAP:@"OffLoadFactory"];
+        [tbxmlParser requestSOAP:@"FactoryCapacity"];
+        [tbxmlParser requestSOAP:@"TfShip"];
+        [ tbxmlParser  requestSOAP:@"OffLoadShip"];
+        [ tbxmlParser  requestSOAP:@"OffLoadFactory"];
    
-
-
         [self runActivity];
     }
 	
