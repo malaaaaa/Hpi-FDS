@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "057F6C281524490600E0E435"
-               BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
+               BuildableName = "FDS.app"
                BlueprintName = "Hpi-FDS"
                ReferencedContainer = "container:Hpi-FDS.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "057F6C281524490600E0E435"
-            BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
+            BuildableName = "FDS.app"
             BlueprintName = "Hpi-FDS"
             ReferencedContainer = "container:Hpi-FDS.xcodeproj">
          </BuildableReference>
@@ -47,12 +47,13 @@
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      enableOpenGLFrameCaptureMode = "0"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "057F6C281524490600E0E435"
-            BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
+            BuildableName = "FDS.app"
             BlueprintName = "Hpi-FDS"
             ReferencedContainer = "container:Hpi-FDS.xcodeproj">
          </BuildableReference>
@@ -70,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "057F6C281524490600E0E435"
-            BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
+            BuildableName = "FDS.app"
             BlueprintName = "Hpi-FDS"
             ReferencedContainer = "container:Hpi-FDS.xcodeproj">
          </BuildableReference>

@@ -13,6 +13,7 @@
 #import "XMLParser.h"
 #import "ASINetworkQueue.h"
 #import "ASIHTTPRequest.h"
+#import "TBXML.h"
 @interface MemoirListVC : UIViewController<
     UITableViewDataSource,
     UITableViewDelegate,

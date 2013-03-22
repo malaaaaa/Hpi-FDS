@@ -259,13 +259,6 @@ static int cellNum =0;
 -(void) stratDownload:(MemoirCell *)cell
 {
     NSLog(@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
-    
-    
-    
-    
-    
-    
     NSLog(@"开始下载文件......");
      
     [cell retain];
@@ -313,6 +306,14 @@ static int cellNum =0;
         cell.backimage.backgroundColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1];
         [memoirTableView reloadData];   
         
+        //更新后台
+//        if (![self SendFILEIDToServer:[NSString stringWithFormat:@"%d",tsFile.fileId]]) {
+//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"服务器更新推送信息失败！\n请联系管理员!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+//            [alert show];
+//            [alert release];
+//        }
+//        BadgeNumber=303;
+        BadgeNumber--;
     }];
     // 使用 failed 块，在下载失败时做一些事情
     [request setFailedBlock :^( void ){
@@ -529,6 +530,90 @@ static int cellNum =0;
     }
     cell.accessoryType = UITableViewCellAccessoryNone;
     return cell;
+}
+#pragma mark 将FILEID发送至后台
+- (BOOL) SendFILEIDToServer:(NSString *)fileID{
+    
+    NSString *reg=[[NSString  alloc] init];
+    NSString *requestStr=[NSString stringWithFormat:@"<GetSendFILEIDinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
+                          "<token>%@</token>\n"
+                          "<fileid>%@</fileid>\n"
+                          "</req>\n"
+                          "</GetSendFILEIDinfo>\n"
+                          , _token,fileID];
+    
+    NSString *soapMessage =[NSString stringWithFormat:
+                            @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                            "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                            "<soap12:Body>\n  %@ </soap12:Body>\n"
+                            "</soap12:Envelope>\n",requestStr ];
+    
+    NSLog(@"soapMessage[%@]",soapMessage);
+    
+    // 初始化请求
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 设置URL
+    [request setURL:[NSURL URLWithString:PubInfo.baseUrl]];
+    // 设置HTTP方法
+    [request setHTTPMethod:@"POST"];
+    // 发送同步请求
+    NSError *connectError=nil;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request
+                                               returningResponse:nil error:&connectError];
+    if (connectError) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"后台服务器连接失败！\n请检查网络或修改服务器地址!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+        return FALSE;
+    }
+    //    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    //    NSLog(@"%@",theXML);
+    NSString *element1=@"SendFILEID";
+    NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
+    NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];
+    // char *errorMsg;
+    NSError *error = nil;
+    TBXML * tbxml = [TBXML newTBXMLWithXMLData:returnData error:&error];
+    if (error) {
+        NSLog(@"Error! %@ %@", [error localizedDescription], [error userInfo]);
+        
+    }else {
+        TBXMLElement * root = tbxml.rootXMLElement;
+        //=======================================
+        if (root) {// @"retinfo"
+            TBXMLElement *elementNoUsed = [TBXML childElementNamed: @"retinfo"  parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
+            //@"LoginResponse"
+            TBXMLElement *element = [TBXML childElementNamed:@"SendFILEID"    parentElement:elementNoUsed];
+            TBXMLElement * desc;
+            while (element != nil) {
+                desc = [TBXML childElementNamed:@"REG" parentElement:element];
+                if (desc != nil) {
+                    
+                    reg=[TBXML textForElement:desc] ;
+                }
+                
+                element = [TBXML nextSiblingNamed:@"SendFILEID"  searchFromElement:element];
+            }
+        }
+        
+    }
+    // 释放对象
+    [request release];
+    
+    //返回值为0代表正常
+    if (![reg isEqualToString:@"0"]) {
+        
+        [reg release];
+        return FALSE;
+    }
+    [reg release];
+    
+    return TRUE;
 }
 
 @end

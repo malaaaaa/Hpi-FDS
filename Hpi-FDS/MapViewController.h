@@ -22,7 +22,7 @@
 #import "TBXMLParser.h"
 #import "ChooseViewDelegate.h"
 #import "PubInfo.h"
-
+#import "JSBadgeView/JSBadgeView.h"
 
 #import "WebViewController.h"
 #import "MemoirListVC.h"
@@ -73,7 +73,8 @@
     IBOutlet UIImageView *_topView;
     IBOutlet UIButton *_portBehaviourButton;
     IBOutlet UIButton *_transportButton;
-
+    UIImageView *_badgeSuperView;
+    JSBadgeView *_badgeView;
 }
 
 @property(nonatomic,retain)UIButton *infoBut;
@@ -83,8 +84,8 @@
 @property(nonatomic,retain)UIImageView *topView;
 @property(nonatomic,retain)UIButton *portBehaviourButton;
 @property(nonatomic,retain)UIButton *transportButton;
-
-
+@property(nonatomic,retain)UIImageView *badgeSuperView;
+@property(nonatomic,retain)JSBadgeView *badgeView;
 
 @property(nonatomic, retain) MKMapView *mapView;
 @property(nonatomic, retain) MKMapView *mapViewBig;

@@ -35,6 +35,7 @@ UIAlertView *RegistAlert;
 - (void)dealloc
 {
     [deviceUID release];
+    deviceUID=nil;
     if (self.login){
         [login release];
         login=nil;
@@ -49,18 +50,15 @@ UIAlertView *RegistAlert;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+    deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
     [PubInfo initdata];
     self.logr=[[[LoginResponse alloc] init] autorelease];
+    
     [self showMainPage];
     
-    //    取消本地验证策略
-    //    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //    NSString *path=[paths   objectAtIndex:0];
-    //    NSString *fileName=[path  stringByAppendingPathComponent:@"data.plist"];
-    //    NSArray  *datePlist=[[NSArray alloc] initWithContentsOfFile:fileName];
-    //    NSLog(@"=====================================%@",[datePlist objectAtIndex:3]);
-    //    if (![[datePlist objectAtIndex:3] isEqualToString:UYES]) {
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+     UIRemoteNotificationTypeAlert|
+     UIRemoteNotificationTypeSound];
     
     return YES;
 }
@@ -112,6 +110,7 @@ UIAlertView *RegistAlert;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [application setApplicationIconBadgeNumber:BadgeNumber];
     /*
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -132,6 +131,7 @@ UIAlertView *RegistAlert;
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    NSLog(@"validateFromServer");
     BOOL valid = [self validateFromServer];
     //注册未完成设备或被禁用设备
     if (FALSE==valid) {
@@ -183,7 +183,7 @@ UIAlertView *RegistAlert;
  */
 
 - (BOOL) validateFromServer{
-    deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
+//    deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
     NSString *requestStr=[NSString stringWithFormat:@"<GetLoginValadateinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
                           "<deviceid>%@</deviceid>\n"
                           "<version>%@</version>\n"
@@ -398,6 +398,7 @@ UIAlertView *RegistAlert;
                 self.mapVC.portBehaviourButton.hidden=NO;
                 self.mapVC.transportButton.hidden=NO;
                 self.mapVC.infoBut.hidden=NO;
+                self.mapVC.badgeSuperView.hidden=NO;
                 
                 //恢复控件为默认值
                 [self.mapVC.shipButton setTitle:ONLINE_SHIP forState:UIControlStateNormal];
@@ -485,4 +486,125 @@ UIAlertView *RegistAlert;
 - (void)UesrClicked{
     [self ToUpSide];
 }
+#pragma mark -
+#pragma mark 通知中心消息处理
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    const unsigned *tokenBytes = [deviceToken bytes];
+    _token = [[NSString alloc] initWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
+                        ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
+                        ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
+                        ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+    NSLog(@"My token is: %@", _token);
+//     [application setApplicationIconBadgeNumber:101];
+    //发送Token至后台服务器
+//    if (![self SendTokenToServer]) {
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"推送令牌提交失败！\n请联系管理员!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+//        [alert show];
+//        [alert release];
+//    }
+
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@" didReceiveRemoteNotification userInfo=%@",userInfo);
+    
+    //    [PFPush handlePush:userInfo];
+}
+- (void)application:(UIApplication *)application
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    if ([error code] == 3010) {
+        NSLog(@"Push notifications don't work in the simulator!");
+    } else {
+        NSLog(@"didFailToRegisterForRemoteNotificationsWithError: %@", error);
+    }
+}
+#pragma mark 将token发送至后台
+- (BOOL) SendTokenToServer{
+
+    NSString *reg=[[NSString  alloc] init];
+    NSString *requestStr=[NSString stringWithFormat:@"<GetSendTokeninfo xmlns=\"http://tempuri.org/\">\n <req>\n"
+                          "<deviceid>%@</deviceid>\n"
+                          "<token>%@</token>\n"
+                          "</req>\n"
+                          "</GetSendTokeninfo>\n"
+                          ,deviceUID, _token];
+    
+    NSString *soapMessage =[NSString stringWithFormat:
+                            @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                            "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                            "<soap12:Body>\n  %@ </soap12:Body>\n"
+                            "</soap12:Envelope>\n",requestStr ];
+    
+    NSLog(@"soapMessage[%@]",soapMessage);
+    
+    // 初始化请求
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 设置URL
+    [request setURL:[NSURL URLWithString:PubInfo.baseUrl]];
+    // 设置HTTP方法
+    [request setHTTPMethod:@"POST"];
+    // 发送同步请求
+    NSError *connectError=nil;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request
+                                               returningResponse:nil error:&connectError];
+    if (connectError) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"后台服务器连接失败！\n请检查网络或修改服务器地址!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+        return FALSE;
+    }
+//    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@",theXML);
+    NSString *element1=@"SendToken";
+    NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
+    NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];
+    // char *errorMsg;
+    NSError *error = nil;
+    TBXML * tbxml = [TBXML newTBXMLWithXMLData:returnData error:&error];
+    if (error) {
+        NSLog(@"Error! %@ %@", [error localizedDescription], [error userInfo]);
+        
+    }else {
+        TBXMLElement * root = tbxml.rootXMLElement;
+        //=======================================
+        if (root) {// @"retinfo"
+            TBXMLElement *elementNoUsed = [TBXML childElementNamed: @"retinfo"  parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
+            //@"LoginResponse"
+            TBXMLElement *element = [TBXML childElementNamed:@"SendToken"    parentElement:elementNoUsed];
+            TBXMLElement * desc;
+            while (element != nil) {
+                desc = [TBXML childElementNamed:@"REG" parentElement:element];
+                if (desc != nil) {
+            
+                    reg=[TBXML textForElement:desc] ;
+                }
+                               
+                element = [TBXML nextSiblingNamed:@"SendToken"  searchFromElement:element];
+            }
+        }
+        
+    }
+    // 释放对象
+    [request release];
+    
+    //返回值为0代表正常
+    if (![reg isEqualToString:@"0"]) {
+        
+        [reg release];
+        return FALSE;
+    }
+    [reg release];
+
+    return TRUE;
+}
+
 @end

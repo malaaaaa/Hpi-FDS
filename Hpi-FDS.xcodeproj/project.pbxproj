@@ -258,6 +258,7 @@
 		D35ACFE515C7D84400F53AAD /* FactoryFreightVolumeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D35ACFE315C7D84200F53AAD /* FactoryFreightVolumeVC.m */; };
 		D35ACFE615C7D84400F53AAD /* FactoryFreightVolumeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */; };
 		D35CFE4715D1EB13005FAA17 /* PortEfficiency.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */; };
+		D361B41016FB0C85000AC961 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D361B40F16FB0C85000AC961 /* JSBadgeView.m */; };
 		D3735EC116F2CC3600728FA6 /* z.png in Resources */ = {isa = PBXBuildFile; fileRef = D3735EBF16F2CC3600728FA6 /* z.png */; };
 		D3735EC316F2E07100728FA6 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D9489716F2B68B00373A24 /* Default-Landscape@2x~ipad.png */; };
 		D3735EC716F327F100728FA6 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D3735EC616F327F000728FA6 /* Default-Landscape~ipad.png */; };
@@ -397,7 +398,7 @@
 		05687D9F152E800800ABC7EC /* VbShiptransDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VbShiptransDao.m; sourceTree = "<group>"; };
 		05687DAA152E8AA500ABC7EC /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
 		05687DAB152E8AA500ABC7EC /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
-		057F6C291524490600E0E435 /* 燃料调运.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "燃料调运.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		057F6C291524490600E0E435 /* FDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FDS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		057F6C2D1524490600E0E435 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		057F6C2F1524490600E0E435 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		057F6C311524490600E0E435 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -750,6 +751,8 @@
 		D35ACFE415C7D84300F53AAD /* FactoryFreightVolumeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FactoryFreightVolumeVC.xib; sourceTree = "<group>"; };
 		D35CFE4515D1EB13005FAA17 /* PortEfficiency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortEfficiency.h; sourceTree = "<group>"; };
 		D35CFE4615D1EB13005FAA17 /* PortEfficiency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortEfficiency.m; sourceTree = "<group>"; };
+		D361B40E16FB0C85000AC961 /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
+		D361B40F16FB0C85000AC961 /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		D3735EBF16F2CC3600728FA6 /* z.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = z.png; sourceTree = "<group>"; };
 		D3735EC616F327F000728FA6 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		D3735EC816F327F800728FA6 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
@@ -1006,7 +1009,7 @@
 		057F6C2A1524490600E0E435 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				057F6C291524490600E0E435 /* 燃料调运.app */,
+				057F6C291524490600E0E435 /* FDS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1234,6 +1237,7 @@
 		059A1B911525510500AB24C4 /* Pub */ = {
 			isa = PBXGroup;
 			children = (
+				D361B40D16FB0C85000AC961 /* JSBadgeView */,
 				059A1BA8152551D600AB24C4 /* Http */,
 				D3A06DDD15D0E74C00963BA2 /* PowerPlot_lib */,
 				D3A39CBF1601BD5000D60D6D /* ATView */,
@@ -1660,6 +1664,15 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		D361B40D16FB0C85000AC961 /* JSBadgeView */ = {
+			isa = PBXGroup;
+			children = (
+				D361B40E16FB0C85000AC961 /* JSBadgeView.h */,
+				D361B40F16FB0C85000AC961 /* JSBadgeView.m */,
+			);
+			path = JSBadgeView;
+			sourceTree = "<group>";
+		};
 		D3A06DDD15D0E74C00963BA2 /* PowerPlot_lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1797,7 +1810,7 @@
 			);
 			name = "Hpi-FDS";
 			productName = "Hpi-FDS";
-			productReference = 057F6C291524490600E0E435 /* 燃料调运.app */;
+			productReference = 057F6C291524490600E0E435 /* FDS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2184,6 +2197,7 @@
 				D33442BC16F1A7A6003A8A1C /* PortBehaviour.m in Sources */,
 				D33442C116F1A92D003A8A1C /* PortInfoBehaviourVC.m in Sources */,
 				D33442C216F1A92D003A8A1C /* VBTransChVCDetail.m in Sources */,
+				D361B41016FB0C85000AC961 /* JSBadgeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2274,15 +2288,15 @@
 		057F6C561524490600E0E435 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fujun zhao (2TZJ29WGXG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: wenpei ma (A7EB3445LE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: wenpei ma (A7EB3445LE)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PRODUCT_NAME = "燃料调运";
-				PROVISIONING_PROFILE = "A1B59968-3190-45CA-8CA0-1D4E7219BF55";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A1B59968-3190-45CA-8CA0-1D4E7219BF55";
+				PRODUCT_NAME = FDS;
+				PROVISIONING_PROFILE = "6961585A-74DA-4744-8D2C-46D355FD6384";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6961585A-74DA-4744-8D2C-46D355FD6384";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2297,7 +2311,7 @@
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PRODUCT_NAME = "燃料调运";
+				PRODUCT_NAME = FDS;
 				PROVISIONING_PROFILE = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				WRAPPER_EXTENSION = app;
@@ -2348,7 +2362,7 @@
 					"-all_load",
 					"-lCorePlot",
 				);
-				PRODUCT_NAME = "燃料调运";
+				PRODUCT_NAME = FDS;
 				PROVISIONING_PROFILE = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
 				WRAPPER_EXTENSION = app;

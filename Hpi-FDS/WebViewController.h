@@ -10,7 +10,7 @@
 #import "MemoirListVC.h"
 
 #import "PubInfo.h"
-
+#import "JSBadgeView/JSBadgeView.h"
 @interface WebViewController : UIViewController<UIWebViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate>{
     IBOutlet UIWebView *webView1;
     UIPopoverController *popover;

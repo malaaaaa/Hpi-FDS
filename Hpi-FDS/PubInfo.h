@@ -67,6 +67,8 @@
 #import "PortBehaviour.h"
 
 static NSString *version = @"1.2";
+NSString *_token;
+NSInteger BadgeNumber;
 typedef enum{
     kPORT=0, //TG_PORT
     kFACTORY,

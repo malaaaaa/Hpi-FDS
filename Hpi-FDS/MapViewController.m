@@ -99,6 +99,9 @@ static int iDisplay=0;
     [infoBut release];
     [mainVW release];
     [fileShow release];
+    
+    self.badgeSuperView=nil;
+    self.badgeView=nil;
     [super dealloc];
 }
 
@@ -207,6 +210,17 @@ static int iDisplay=0;
 //    self.shipButton.titleLabel.text=All_SHIP;
 //    self.portButton.titleLabel.text=All_PORT;
 //    self.factoryButton.titleLabel.text=All_FCTRY;
+    //增加Badge显示
+    self.badgeSuperView = [[UIImageView alloc] initWithFrame:CGRectIntegral(CGRectMake(infoBut.frame.origin.x+65,
+                                                                                infoBut.frame.origin.y-13,
+                                                                                16,
+                                                                                16))];
+    self.badgeView = [[JSBadgeView alloc] initWithParentView:_badgeSuperView alignment:JSBadgeViewAlignmentBottomLeft];
+//    BadgeNumber=2;
+    _badgeView.badgeText = [NSString stringWithFormat:@"%d", BadgeNumber];
+
+    [self.view addSubview:_badgeSuperView];
+//    [self.view sendSubviewToBack:rectangle];
 }
 
 - (void)viewDidUnload
@@ -242,6 +256,8 @@ static int iDisplay=0;
     mainVW = nil;
     [fileShow release];
     fileShow = nil;
+    self.badgeSuperView=nil;
+    self.badgeView=nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
