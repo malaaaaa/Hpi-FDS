@@ -14,7 +14,9 @@
 
 @implementation DataQueryPopVC
 
-
+@synthesize _dataQueryVC=_dataQueryVC;
+@synthesize popover=popover;
+@synthesize menuView=menuView;
 
 
 UIToolbar* toolBar;
@@ -51,7 +53,7 @@ UIToolbar* toolBar;
     
     UILabel *Titelable=[[UILabel alloc] initWithFrame:CGRectMake(width/2, 0, 180, 40)];
     Titelable.font = [UIFont systemFontOfSize:14.0f];
-    Titelable.textAlignment = UITextAlignmentCenter;
+    Titelable.textAlignment = NSTextAlignmentCenter;
     Titelable.text=@"实时船舶动态";
     Titelable.textColor=[UIColor whiteColor];
     
@@ -169,7 +171,7 @@ UIToolbar* toolBar;
     
     UILabel *Titelable=[[UILabel alloc] initWithFrame:CGRectMake(width/2, 0, 180, 40)];
     Titelable.font = [UIFont systemFontOfSize:14.0f];
-    Titelable.textAlignment = UITextAlignmentCenter;
+    Titelable.textAlignment = NSTextAlignmentCenter;
     Titelable.text=currentSelectTitel;
     Titelable.textColor=[UIColor whiteColor];
     [Titelable  setBackgroundColor:[UIColor clearColor]];

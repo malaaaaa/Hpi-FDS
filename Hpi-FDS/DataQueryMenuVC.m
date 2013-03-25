@@ -16,6 +16,19 @@
 @implementation DataQueryMenuVC
 @synthesize parentView;
 @synthesize tableView;
+@synthesize vbFactoryTransVC;
+@synthesize ntLateFeeDmfxVC;
+@synthesize ntLateFeeHcfxVC;
+@synthesize iDArray;
+@synthesize popover;
+@synthesize ntZxgsjtjVC;
+@synthesize shipCompanyTransShareVC;
+@synthesize factoryFreightVolumeVC;
+@synthesize factoryWait;
+@synthesize transPI;
+@synthesize dataQueryVC;
+@synthesize portEfficiencyVC;
+
 
 static  NSMutableArray *actionTitle;
  static NSMutableDictionary *dic;

@@ -51,7 +51,7 @@ static DataGridComponentDataSource *dataSource;
 		l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-		l.textAlignment = UITextAlignmentCenter;
+		l.textAlignment = NSTextAlignmentCenter;
         [self.labelView addSubview:l];
 		[l release];
         columnOffset += columnWidth;
@@ -181,7 +181,7 @@ static DataGridComponentDataSource *dataSource;
             l.font = [UIFont systemFontOfSize:14.0f];
             NSLog(@"l.text=%@",[rowData objectAtIndex:column]);
             l.text = [rowData objectAtIndex:column];
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             l.tag = 40 + column + 1000;
             if(indexPath.row % 2 == 0)
                 l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];

@@ -49,7 +49,7 @@
     //    chooseView.layer.borderColor=[[UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1]CGColor];  
     chooseView.backgroundColor=[UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1];
     
-    //为视图增加边框      
+    //为视图增加边框
     listView.layer.masksToBounds=YES;      
     listView.layer.cornerRadius=10.0;      
     listView.layer.borderWidth=10.0;      

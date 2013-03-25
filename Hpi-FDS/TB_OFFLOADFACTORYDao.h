@@ -18,7 +18,7 @@
 +(void) initDb;
 +(void) deleteAll;
 
-+(TB_OFFLOADFACTORY *)SelectFactoryByCode:(NSString *)factoryName:(NSString *)time;
++(TB_OFFLOADFACTORY *)SelectFactoryByCode:(NSString *)factoryName :(NSString *)time;
 
 
 

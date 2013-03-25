@@ -80,8 +80,13 @@
 
 - (NSString *) uniqueDeviceIdentifier{
     NSString *macaddress = [[UIDevice currentDevice] macaddress];
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-    
+//    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    /**
+     为什么注释掉上句改成此句呢，说来话长..... 
+     因为 中文,bundleIdentifier,太随意了，Bundle DisplayName,通知中心,不想重新注册.....等等等等,Shit!
+                                    modified by mawp 2013.03.22
+    **/
+    NSString *bundleIdentifier=@"cn.com.hpi.app.----";
     NSString *stringToHash = [NSString stringWithFormat:@"%@%@",macaddress,bundleIdentifier];
     NSString *uniqueIdentifier = [stringToHash stringFromMD5];
     

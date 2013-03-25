@@ -14,6 +14,15 @@
 
 @implementation PortEfficiencyVC
 
+@synthesize typeButton=typeButton;
+@synthesize typeLabel=typeLabel;
+@synthesize scheduleButton=scheduleButton;
+@synthesize scheduleLabel=scheduleLabel;
+@synthesize comButton=comButton;
+@synthesize comLabel=comLabel;
+@synthesize parentVC=parentVC;
+@synthesize chooseView=chooseView;
+
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
 static WSChart *electionChart=nil;
@@ -229,7 +238,7 @@ static WSChart *electionChart=nil;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 400);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(_comButton.frame.origin.x+85, _comButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(comButton.frame.origin.x+85, comButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [_multipleSelectView.tableView reloadData];
     [_multipleSelectView release];
     [pop release];
@@ -256,7 +265,7 @@ static WSChart *electionChart=nil;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 150);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(_scheduleButton.frame.origin.x+85, _scheduleButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(scheduleButton.frame.origin.x+85, scheduleButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
@@ -283,7 +292,7 @@ static WSChart *electionChart=nil;
     //设置弹出窗口尺寸
     self.popover.popoverContentSize = CGSizeMake(125, 250);
     //显示，其中坐标为箭头的坐标以及尺寸
-    [self.popover presentPopoverFromRect:CGRectMake(_typeButton.frame.origin.x+85, _typeButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(typeButton.frame.origin.x+85, typeButton.frame.origin.y+25, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [chooseView.tableView reloadData];
     [chooseView release];
     [pop release];
@@ -397,14 +406,14 @@ static WSChart *electionChart=nil;
     }
 }
 -(void)generateGraphDate{
-    NSLog(@"_scheduleLabel=%@",_scheduleLabel.text);
-    NSLog(@"_typeLabel=%@",_typeLabel.text);
+    NSLog(@"_scheduleLabel=%@",scheduleLabel.text);
+    NSLog(@"_typeLabel=%@",typeLabel.text);
     NSLog(@"count=%d", [ShipCompanyArray count]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSLog(@"startDay=%@",[dateFormatter stringFromDate:self.startDay]);
     
-    [PortEfficiencyDao InsertByCompany:ShipCompanyArray Schedule:_scheduleLabel.text Category:_typeLabel.text StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
+    [PortEfficiencyDao InsertByCompany:ShipCompanyArray Schedule:scheduleLabel.text Category:typeLabel.text StartDate:[dateFormatter stringFromDate:self.startDay] EndDate:[dateFormatter stringFromDate:self.endDay]];
     
     [dateFormatter release];
 }
@@ -475,7 +484,7 @@ static WSChart *electionChart=nil;
         if (chooseView.type==kTYPE) {
             
             self.typeLabel.text =currentSelectValue;
-            self.typeLabel.textAlignment=UITextAlignmentCenter;
+            self.typeLabel.textAlignment=NSTextAlignmentCenter;
             if (![self.typeLabel.text isEqualToString:All_]) {
                 self.typeLabel.hidden=NO;
                 [self.typeButton setTitle:@"" forState:UIControlStateNormal];

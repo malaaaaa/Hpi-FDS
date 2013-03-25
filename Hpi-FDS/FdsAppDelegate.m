@@ -183,14 +183,14 @@ UIAlertView *RegistAlert;
  */
 
 - (BOOL) validateFromServer{
-//    deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
+
     NSString *requestStr=[NSString stringWithFormat:@"<GetLoginValadateinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
                           "<deviceid>%@</deviceid>\n"
                           "<version>%@</version>\n"
                           "<updatetime>%@</updatetime>\n"
                           "</req>\n"
                           "</GetLoginValadateinfo>\n"
-                          ,deviceUID, version,PubInfo.currTime];
+                          ,deviceUID,  PubInfo.version,PubInfo.currTime];
     
     NSString *soapMessage =[NSString stringWithFormat:
                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
@@ -322,7 +322,8 @@ UIAlertView *RegistAlert;
     //    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:self.mapVC, viewController2,viewController3,viewController4,viewController5,viewController6,nil];
     self.tabBarController.delegate=self;
-    [window addSubview:tabBarController.view];
+//    [window addSubview:tabBarController.view];
+    self.window.rootViewController=tabBarController;
     [self.window makeKeyAndVisible];
     
     

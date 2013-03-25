@@ -66,7 +66,7 @@
 #import "TH_SHIPTRANS_ORIDAO.h"
 #import "PortBehaviour.h"
 
-static NSString *version = @"1.2";
+//static NSString *version = @"1.2";
 NSString *_token;
 NSInteger BadgeNumber;
 typedef enum{
@@ -183,6 +183,7 @@ typedef enum{
 +(void)setReportUpdateTime:(NSString*) time;
 +(NSString *)deviceID;
 +(NSString *)currTime;
++(NSString *)version;
 
 /*!
  @method +(BOOL)checkDeviceRegisterInfo;
@@ -215,7 +216,7 @@ typedef enum{
 
 
 //计算两个 时间段[%d天%d小时%d分钟]  [%d天%d小时%d分钟]的和       返回[%d天%d小时%d分钟]字符串      string1/string2  [days,@"days",hours,@"hours",minutes,@"minutes"]  
-+(NSString *)getTotalTime:(NSMutableDictionary *)string1:(NSMutableDictionary *)string2 ;
++(NSString *)getTotalTime:(NSMutableDictionary *)string1 :(NSMutableDictionary *)string2 ;
 
 
 //从数据库时间（string）里格式化 字符串时间   返回formateStr @"yyyy/MM/dd"格式字符串  或  “未知”    

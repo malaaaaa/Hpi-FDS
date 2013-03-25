@@ -15,7 +15,7 @@
 +(void) openDataBase;
 
 
-+(NSMutableArray *)getMidDate:(NSDate *)stringTime:(NSString *)factoryName;
++(NSMutableArray *)getMidDate:(NSDate *)stringTime :(NSString *)factoryName;
 
 
 

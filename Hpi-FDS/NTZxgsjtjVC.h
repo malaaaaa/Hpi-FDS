@@ -15,7 +15,7 @@
 #import "DateViewController.h"
 #import "PowerPlot_lib/PowerPlot.h"
 #import "ATHorizontalBarChartView.h"
-
+#import <QuartzCore/QuartzCore.h>
 @interface NTZxgsjtjVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIPopoverController *_popover;
     DateViewController *_startDateCV;

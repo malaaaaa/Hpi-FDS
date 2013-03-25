@@ -127,7 +127,7 @@ static int  whichButton=0;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         
         [dataQueryVC.labelView addSubview:l];
         [l release];

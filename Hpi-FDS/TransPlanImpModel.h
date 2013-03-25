@@ -24,31 +24,31 @@
     NSString *S_COALTYPE;
     NSString *S_SUPPLIER;
     NSString *S_KEYNAME;
-
+    
     double S_LW;
     NSString *S_PLANTYPE;
     NSString *S_STAGE;
-    NSString *   S_HEATVALUE;  
+    NSString *   S_HEATVALUE;
     NSString *   S_SULFUR;
     
     //航运计划
     NSString *T_PLANMONTH;
     NSInteger  T_SHIPID;
- NSString *   T_SHIPNAME;
-   NSString * T_FACTORYCODE;
- NSString *   T_FACTORYNAME;
- NSString *   T_TRIPNO;
-  NSString * T_PORTCODE;
-   NSString * T_PORTNAME;
- NSString *   T_ARRIVETIME;
-  NSString *  T_LEAVETIME;
- NSString *   T_COALTYPE;
- NSString *   T_SUPPLIER;
- NSString *   T_KEYNAME;
-double    T_ELW;
- NSString *   T_DESCRIPTION;
- NSString *   T_HEATVALUE;
-  NSString *   T_SULFUR;
+    NSString *   T_SHIPNAME;
+    NSString * T_FACTORYCODE;
+    NSString *   T_FACTORYNAME;
+    NSString *   T_TRIPNO;
+    NSString * T_PORTCODE;
+    NSString * T_PORTNAME;
+    NSString *   T_ARRIVETIME;
+    NSString *  T_LEAVETIME;
+    NSString *   T_COALTYPE;
+    NSString *   T_SUPPLIER;
+    NSString *   T_KEYNAME;
+    double    T_ELW;
+    NSString *   T_DESCRIPTION;
+    NSString *   T_HEATVALUE;
+    NSString *   T_SULFUR;
     //实际航运与航运计划
     /// 航运月份
     NSInteger ST_IntPlanMonth;
@@ -61,11 +61,11 @@ double    T_ELW;
     /// 电厂编号
     NSString *  ST_FACTORYCODE;
     /// 电厂名称
-     NSString * ST_FACTORYNAME;
+    NSString * ST_FACTORYNAME;
     /// 航次
-   NSString * ST_TRIPNO;
+    NSString * ST_TRIPNO;
     /// 港口编号
-   NSString * ST_PORTCODE;
+    NSString * ST_PORTCODE;
     /// 港口名称
     NSString * ST_PORTNAME;
     /// 到港时间
@@ -73,7 +73,7 @@ double    T_ELW;
     /// 离港时间
     NSString * ST_LEAVETIME;
     /// 煤
-     NSString * ST_COALTYPE;
+    NSString * ST_COALTYPE;
     /// 供货方
     NSString * ST_SUPPLIER;
     /// 贸易性质
@@ -83,12 +83,12 @@ double    T_ELW;
     /// 电厂排序
     NSInteger ST_SORT;
     /// 供货方ID
-   NSInteger ST_SUPID;
+    NSInteger ST_SUPID;
     /// 煤种ID
     NSInteger ST_TYPEID;
     /// 性质ID
     NSInteger ST_KEYVALUE;
-
+    
     
 }
 
@@ -136,7 +136,7 @@ double    T_ELW;
 //实际航运与航运计划
 @property   NSInteger ST_IntPlanMonth;
 @property(nonatomic,retain)NSString *  ST_PLANMONTH;
- @property  NSInteger ST_SHIPID;
+@property  NSInteger ST_SHIPID;
 @property(nonatomic,retain)NSString *  ST_SHIPNAME;
 @property(nonatomic,retain)NSString *  ST_FACTORYCODE;
 @property(nonatomic,retain)NSString * ST_FACTORYNAME;
@@ -150,10 +150,10 @@ double    T_ELW;
 @property(nonatomic,retain)NSString * ST_COALTYPE;
 @property(nonatomic,retain)NSString * ST_SUPPLIER;
 @property(nonatomic,retain)NSString * ST_KEYNAME;
- @property  double ST_ELW;//50
+@property  double ST_ELW;//50
 @property   NSInteger ST_SORT;
- @property  NSInteger ST_SUPID;
- @property  NSInteger ST_TYPEID;
+@property  NSInteger ST_SUPID;
+@property  NSInteger ST_TYPEID;
 @property   NSInteger ST_KEYVALUE;//54
 
 
@@ -182,16 +182,16 @@ double    T_ELW;
     NSInteger  PlanMonthE;
     NSString *comName;
     NSString *ShipId;
-    NSString *portName; 
+    NSString *portName;
     NSString *CoalType;
     
-   
+    
     NSString *FactoryName;
     NSString *Supplier;
     
-     NSString *KeyV;
+    NSString *KeyV;
     
-     NSString *Trade;
+    NSString *Trade;
 }
 
 @property NSInteger  PlanMonthS;

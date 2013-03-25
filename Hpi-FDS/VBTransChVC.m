@@ -121,7 +121,7 @@ DataQueryVC *dataQueryVC;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [dataQueryVC.labelView addSubview:l];
         [l release];
         columnOffset += columnWidth;
@@ -482,7 +482,7 @@ DataQueryVC *dataQueryVC;
     
     
   //  NSLog(@"codeTextField=[%@]",codeTextField.text);
-    if (monthLabel.text!=All_) {
+    if (![monthLabel.text isEqualToString:All_]) {
         monthLabel.text=[f stringFromDate:self.month];
       
     }

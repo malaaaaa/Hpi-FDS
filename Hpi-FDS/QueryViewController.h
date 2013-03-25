@@ -10,6 +10,7 @@
 #import "VBShipChVC.h"
 #import "TBShipChVC.h"
 #import "DataGridComponent.h"
+#import <QuartzCore/QuartzCore.h>
 @interface QueryViewController : UIViewController
 {
     IBOutlet UISegmentedControl *segment;

@@ -131,7 +131,7 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:[self frame]];
     [titleLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth |
                                      UIViewAutoresizingFlexibleBottomMargin)];
-    [titleLabel setTextAlignment:UITextAlignmentCenter];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setFont:[self chartTitleFont]];
     //modified by mawp set不好使，只能直接改，不能怪我了
 //    [titleLabel setTextColor:[self chartTitleColor]];
@@ -144,7 +144,7 @@
     UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:[self frame]];
     [subTitleLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth |
                                         UIViewAutoresizingFlexibleTopMargin)];
-    [subTitleLabel setTextAlignment:UITextAlignmentCenter];
+    [subTitleLabel setTextAlignment:NSTextAlignmentCenter];
     [subTitleLabel setFont:[self subTitleFont]];
     [subTitleLabel setTextColor:[self subTitleColor]];
     [subTitleLabel setBackgroundColor:[UIColor clearColor]];

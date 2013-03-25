@@ -99,7 +99,7 @@ NSDateFormatter *f;
 
 
 
--(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSString *)facotryCate:(NSInteger)initAndSelect
+-(void)getDateSource:(NSString *)cStartTime :(NSString *)cEndTime :(NSString *)facotryCate :(NSInteger)initAndSelect
 {
     [self initDC];
     source.titles=[AvgFactoryZXTimeDao getTimeTitle1:startTime.text :endTime.text:All_];

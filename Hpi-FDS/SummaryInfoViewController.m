@@ -274,7 +274,7 @@
     //设置标签文本字体和字体大小
     label.font = [UIFont fontWithName:@"Arial" size:18];
     //设置文本对其方式
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     //文本颜色
     label.textColor = [UIColor whiteColor];
     //文本文字自适应大小
@@ -301,7 +301,7 @@
     //设置标签文本字体和字体大小
     label.font = [UIFont fontWithName:@"Arial" size:18];
     //设置文本对其方式
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     //文本颜色
     label.textColor = [UIColor whiteColor];
     //文本文字自适应大小

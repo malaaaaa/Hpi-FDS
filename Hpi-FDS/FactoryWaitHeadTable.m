@@ -119,13 +119,13 @@
             l.font = [UIFont systemFontOfSize:15.0f];
             l.text = [[dataSource.titles objectAtIndex:0] objectAtIndex:a];
             
-            l.lineBreakMode = UILineBreakModeCharacterWrap;
+            l.lineBreakMode = NSLineBreakByCharWrapping;
             
             l.backgroundColor=[UIColor blackColor];
             l.textColor=[UIColor whiteColor];
             l.shadowColor=[UIColor whiteColor   ];
 
-            l.textAlignment = UITextAlignmentLeft;
+            l.textAlignment = NSTextAlignmentLeft;
 
              a++;
             
@@ -133,7 +133,7 @@
         {
             l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0  , columnWidth-1, cellHeight -1 )];
             l.font = [UIFont systemFontOfSize:15.0f];
-            l.lineBreakMode = UILineBreakModeCharacterWrap;
+            l.lineBreakMode = NSLineBreakByCharWrapping;
             
             l.backgroundColor=[UIColor blackColor];
             l.textColor=[UIColor whiteColor];
@@ -143,7 +143,7 @@
             l.text =@"2＃机组 （7/16） 备用";
             l.numberOfLines = 3;
             
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
         }
 
         if( 0 == column){
@@ -179,10 +179,10 @@
                     l.backgroundColor=[UIColor blackColor];
                     l.textColor=[UIColor whiteColor];
                     l.shadowColor=[UIColor whiteColor   ];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
+                    l.lineBreakMode = NSLineBreakByCharWrapping;
                     
 
-                    l.textAlignment = UITextAlignmentLeft;
+                    l.textAlignment = NSTextAlignmentLeft;
                     a++;
                 }else
                 {
@@ -190,17 +190,17 @@
                    
                     l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset,0, columnWidth-1, cellHeight -1 )];
                     l.font = [UIFont systemFontOfSize:15.0f];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
+                    l.lineBreakMode = NSLineBreakByCharWrapping;
                     
                     l.backgroundColor=[UIColor blackColor];
                     l.textColor=[UIColor whiteColor];
                     l.shadowColor=[UIColor whiteColor   ];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
+                    l.lineBreakMode = NSLineBreakByCharWrapping;
                     
                     l.text =@"备用";
                     l.numberOfLines = 3;
                     
-                    l.textAlignment = UITextAlignmentCenter;
+                    l.textAlignment = NSTextAlignmentCenter;
                    
                 }
                 if( 0 == column){
@@ -238,8 +238,8 @@
                         l.backgroundColor=[UIColor blackColor];
                         l.textColor=[UIColor whiteColor];
                         l.shadowColor=[UIColor whiteColor   ];
-                        l.lineBreakMode = UILineBreakModeCharacterWrap;
-                        l.textAlignment = UITextAlignmentLeft;
+                        l.lineBreakMode = NSLineBreakByCharWrapping;
+                        l.textAlignment = NSTextAlignmentCenter;
                         a++;
                     }else
                     {
@@ -249,10 +249,10 @@
                             l.backgroundColor=[UIColor blackColor];
                             l.textColor=[UIColor whiteColor];
                             l.shadowColor=[UIColor whiteColor   ];
-                            l.lineBreakMode = UILineBreakModeCharacterWrap;
+                            l.lineBreakMode = NSLineBreakByCharWrapping;
                             
                             l.text =@"暂无";
-                            l.textAlignment = UITextAlignmentCenter;
+                            l.textAlignment = NSTextAlignmentCenter;
                         }else
                         {
                             l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, (i-1)  * cellHeight  , (contentWidth-columnOffset)-1, cellHeight -1 )];
@@ -261,10 +261,10 @@
                             l.backgroundColor=[UIColor blackColor];
                             l.textColor=[UIColor whiteColor];
                             l.shadowColor=[UIColor whiteColor   ];
-                            l.lineBreakMode = UILineBreakModeCharacterWrap;
+                            l.lineBreakMode = NSLineBreakByCharWrapping;
                             
                             l.text =@"暂无";
-                            l.textAlignment = UITextAlignmentCenter;
+                            l.textAlignment = NSTextAlignmentCenter;
                         }
                     }
                     if( 0 == d){
@@ -289,9 +289,9 @@
                 l.backgroundColor=[UIColor blackColor];
                 l.textColor=[UIColor whiteColor];
                 l.shadowColor=[UIColor whiteColor   ];
-                l.lineBreakMode = UILineBreakModeCharacterWrap;
+                l.lineBreakMode = NSLineBreakByCharWrapping;
                 
-                l.textAlignment = UITextAlignmentLeft;
+                l.textAlignment = NSTextAlignmentLeft;
               
                 
                 
@@ -308,12 +308,12 @@
                 l.backgroundColor=[UIColor blackColor];
                 l.textColor=[UIColor whiteColor];
                 l.shadowColor=[UIColor whiteColor   ];
-                l.lineBreakMode = UILineBreakModeCharacterWrap;
+                l.lineBreakMode = NSLineBreakByCharWrapping;
                 
                 
                 l.font = [UIFont systemFontOfSize:15.0f];
                 l.text =@"暂无";
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 
                 
                 [vRightContent addSubview:l];

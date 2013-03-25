@@ -20,7 +20,7 @@
 +(NSMutableArray *) getVbTransplan:(NSString *)planCode;
 +(NSMutableArray *) getVbTransplan;
 //:(NSString *)planCode    :(NSString *)coalType
-+(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName:(NSString *)dateTime;
++(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(NSString *)dateTime;
 
 
 +(NSMutableArray *) getVbTransplanBySql:(NSString *)sql;

@@ -86,12 +86,12 @@
 
 #pragma mark - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone {
-    CGColorRef quartzColor = CGColorCreateCopy([self CGColor]);
-    UIColor *copy = [(UIColor *)[[self class] allocWithZone:zone] initWithCGColor:quartzColor];
-    CGColorRelease(quartzColor);
-    
-    return copy;
-}
+//- (id)copyWithZone:(NSZone *)zone {
+//    CGColorRef quartzColor = CGColorCreateCopy([self CGColor]);
+//    UIColor *copy = [(UIColor *)[[self class] allocWithZone:zone] initWithCGColor:quartzColor];
+//    CGColorRelease(quartzColor);
+//    
+//    return copy;
+//}
 
 @end

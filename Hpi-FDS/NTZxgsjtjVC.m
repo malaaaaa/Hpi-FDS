@@ -13,6 +13,7 @@
 @end
 
 @implementation NTZxgsjtjVC
+@synthesize parentVC;
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
 static WSChart *electionChart0=nil; //第一张合计柱状图
@@ -659,7 +660,7 @@ static WSChart *electionChart2=nil; //第三张卸港柱状图
         if (_chooseView.type==kTYPE) {
             
             self.typeLabel.text =currentSelectValue;
-            self.typeLabel.textAlignment=UITextAlignmentCenter;
+            self.typeLabel.textAlignment=NSTextAlignmentCenter;
             if (![self.typeLabel.text isEqualToString:All_]) {
                 self.typeLabel.hidden=NO;
                 [self.typeButton setTitle:@"" forState:UIControlStateNormal];

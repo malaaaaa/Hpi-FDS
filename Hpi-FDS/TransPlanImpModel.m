@@ -10,6 +10,60 @@
 
 @implementation TransPlanImpModel
 
+@synthesize S_SHIPID;
+@synthesize S_FACTORYCODE;
+@synthesize S_SHIPNAME;
+@synthesize S_FACTORYNAME;
+@synthesize S_PORTCODE;
+@synthesize S_PORTNAME;
+@synthesize S_TRIPNO;
+@synthesize S_ARRIVETIME;
+@synthesize ST_SUPID;
+@synthesize ST_TYPEID;
+@synthesize ST_KEYNAME;
+@synthesize ST_KEYVALUE;
+@synthesize ST_COALTYPE;
+@synthesize ST_SUPPLIER;
+@synthesize ST_ELW;
+@synthesize ST_SORT;
+@synthesize S_PLANMONTH;
+@synthesize ST_PORTCODE;
+@synthesize ST_PORTNAME;
+@synthesize ST_ARRIVETIME;
+@synthesize ST_LEAVETIME;
+@synthesize ST_SHIPID;
+@synthesize ST_SHIPNAME;
+@synthesize ST_FACTORYCODE;
+@synthesize ST_FACTORYNAME;
+@synthesize ST_TRIPNO;
+@synthesize T_DESCRIPTION;
+@synthesize S_SUPPLIER;
+@synthesize T_HEATVALUE;
+@synthesize S_COALTYPE;
+@synthesize S_LEAVETIME;
+@synthesize T_SULFUR;
+@synthesize ST_IntPlanMonth;
+@synthesize S_LW;
+@synthesize S_KEYNAME;
+@synthesize ST_PLANMONTH;
+@synthesize S_HEATVALUE;
+@synthesize S_STAGE;
+@synthesize T_COALTYPE;
+@synthesize T_SUPPLIER;
+@synthesize S_PLANTYPE;
+@synthesize T_PLANMONTH;
+@synthesize T_KEYNAME;
+@synthesize T_ELW;
+@synthesize S_SULFUR;
+@synthesize T_FACTORYCODE;
+@synthesize T_FACTORYNAME;
+@synthesize T_SHIPID;
+@synthesize T_SHIPNAME;
+@synthesize T_LEAVETIME;
+@synthesize T_ARRIVETIME;
+@synthesize T_PORTCODE;
+@synthesize T_PORTNAME;
+@synthesize T_TRIPNO;
 
 
 
@@ -67,6 +121,17 @@
 
 @end
 @implementation SearchModel
+
+@synthesize PlanMonthE;
+@synthesize PlanMonthS;
+@synthesize Trade;
+@synthesize KeyV;
+@synthesize Supplier;
+@synthesize FactoryName;
+@synthesize CoalType;
+@synthesize portName;
+@synthesize ShipId;
+@synthesize comName;
 
 -(void)dealloc
 {

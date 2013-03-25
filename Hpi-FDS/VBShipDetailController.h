@@ -25,18 +25,18 @@
 }
 
 @property (nonatomic,retain) UIPopoverController *popover;
-@property (retain, nonatomic) IBOutlet UILabel *p_AnchorageTime;
-@property (retain, nonatomic) IBOutlet UILabel *p_Handle;
-@property (retain, nonatomic) IBOutlet UILabel *p_ArrivalTime;
-@property (retain, nonatomic) IBOutlet UILabel *lw;
-@property (retain, nonatomic) IBOutlet UILabel *p_DepartTime;
-@property (retain, nonatomic) IBOutlet UILabel *p_Note;
-@property (retain, nonatomic) IBOutlet UILabel *f_AnchorageTime;
-@property (retain, nonatomic) IBOutlet UILabel *f_ArrivalTime;
-@property (retain, nonatomic) IBOutlet UILabel *f_DepartTime;
-@property (retain, nonatomic) IBOutlet UILabel *f_Note;
-@property (retain, nonatomic) IBOutlet UILabel *lateFee;
-@property (retain, nonatomic) IBOutlet UILabel *offEfficiency;
+@property (retain, nonatomic)  UILabel *p_AnchorageTime;
+@property (retain, nonatomic)  UILabel *p_Handle;
+@property (retain, nonatomic)  UILabel *p_ArrivalTime;
+@property (retain, nonatomic)  UILabel *lw;
+@property (retain, nonatomic)  UILabel *p_DepartTime;
+@property (retain, nonatomic)  UILabel *p_Note;
+@property (retain, nonatomic)  UILabel *f_AnchorageTime;
+@property (retain, nonatomic)  UILabel *f_ArrivalTime;
+@property (retain, nonatomic)  UILabel *f_DepartTime;
+@property (retain, nonatomic)  UILabel *f_Note;
+@property (retain, nonatomic)  UILabel *lateFee;
+@property (retain, nonatomic)  UILabel *offEfficiency;
 
 -(void)loadViewData;
 @end

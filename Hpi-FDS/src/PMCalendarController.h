@@ -28,7 +28,7 @@
 @interface PMCalendarController : UIViewController <PMCalendarViewDelegate>
 
 
--(void)reinitializeWithSize:(NSString *)a:(CGSize) size:(NSMutableArray *)zxDate;
+-(void)reinitializeWithSize:(NSString *)a :(CGSize)size :(NSMutableArray *)zxDate;
 
 /**
  * Creates calendar controller with given size. Arrow is NOT includeed in this size.

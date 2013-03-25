@@ -25,7 +25,7 @@
         titleLabel.textColor =[UIColor whiteColor];
         titleLabel.shadowColor =[UIColor blackColor];
         titleLabel.shadowOffset= CGSizeMake(-1, -1);
-        titleLabel.textAlignment = UITextAlignmentCenter;
+        titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:titleLabel];
     }
 
@@ -63,9 +63,9 @@
 		[l setTextColor:[UIColor colorWithRed:171./255 green:171./255 blue:171./255 alpha:1]];
         l.backgroundColor=[UIColor clearColor];
         l.text=[data.xtitles objectAtIndex:i];
-        l.minimumFontSize = 10.0;
+//        l.minimumFontSize = 10.0;
         l.adjustsFontSizeToFitWidth = YES;
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [self addSubview:l];
         [l release];
     }
@@ -80,9 +80,9 @@
 		[l setTextColor:[UIColor colorWithRed:171./255 green:171./255 blue:171./255 alpha:1]];
         l.backgroundColor=[UIColor clearColor];
         l.text=[data.ytitles objectAtIndex:i];
-        l.minimumFontSize = 10.0;
+//        l.minimumFontSize = 10.0;
         l.adjustsFontSizeToFitWidth = YES;
-        l.textAlignment = UITextAlignmentRight;
+        l.textAlignment = NSTextAlignmentCenter;
         [self addSubview:l];
         [l release];
     }

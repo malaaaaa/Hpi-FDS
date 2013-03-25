@@ -13,6 +13,7 @@
 @end
 
 @implementation NTLateFeeDmfxVC
+@synthesize parentVC;
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
 static WSChart *electionChart=nil;

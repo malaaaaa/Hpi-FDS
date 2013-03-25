@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11G63b</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<int key="IBDocument.SystemTarget">1552</int>
+		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1498</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -48,6 +48,7 @@
 								<string key="NSFrame">{{424, 70}, {180, 35}}</string>
 								<reference key="NSSuperview" ref="149446193"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="1050461273"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -493,6 +494,7 @@
 								<string key="NSFrame">{{630, 71}, {180, 35}}</string>
 								<reference key="NSSuperview" ref="149446193"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="168442704"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -930,7 +932,6 @@
 						<int key="objectID">71</int>
 						<reference key="object" ref="149446193"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="532371409"/>
 							<reference ref="62264130"/>
 							<reference ref="646752628"/>
 							<reference ref="160623253"/>
@@ -950,6 +951,7 @@
 							<reference ref="793711609"/>
 							<reference ref="168442704"/>
 							<reference ref="1050461273"/>
+							<reference ref="532371409"/>
 						</array>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -1127,7 +1129,6 @@
 						<string key="keyValueAction:">id</string>
 						<string key="queryAction:">id</string>
 						<string key="reloadAction:">id</string>
-						<string key="resetAction:">id</string>
 						<string key="shipAction:">id</string>
 						<string key="shipCompanyAction:">id</string>
 						<string key="shipStageAction:">id</string>
@@ -1154,10 +1155,6 @@
 						</object>
 						<object class="IBActionInfo" key="reloadAction:">
 							<string key="name">reloadAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="resetAction:">
-							<string key="name">resetAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="shipAction:">
@@ -1325,7 +1322,7 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
+			<real value="1552" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
@@ -1333,6 +1330,6 @@
 			<string key="ann.png">{62, 29}</string>
 			<string key="xiala.png">{180, 35}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1498</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

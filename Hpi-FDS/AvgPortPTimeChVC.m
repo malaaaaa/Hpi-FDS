@@ -124,7 +124,7 @@ int currentMonth;
 }
 
 
--(void)getDateSource:(NSString *)cStartTime:(NSString *)cEndTime:(NSInteger)initAndSelect
+-(void)getDateSource:(NSString *)cStartTime :(NSString *)cEndTime :(NSInteger)initAndSelect
 {
        // NSLog(@"getDateSource 开始");
     

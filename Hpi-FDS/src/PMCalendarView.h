@@ -49,7 +49,7 @@
 
 
 
--(id)initInstence:(CGRect)frame:(NSMutableArray *)zxDate;//初始方法
+-(id)initInstence:(CGRect)frame :(NSMutableArray *)zxDate;//初始方法
 
 @end
 

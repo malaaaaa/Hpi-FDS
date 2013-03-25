@@ -56,7 +56,7 @@ static bool ThreadFinished=TRUE;
                              "</req>\n"
                              "</Get%@Info>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",_Identification,PubInfo.deviceID,version,PubInfo.currTime,_Identification];
+                             "</soap12:Envelope>\n",_Identification,PubInfo.deviceID,PubInfo.version,PubInfo.currTime,_Identification];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -441,43 +441,43 @@ static bool ThreadFinished=TRUE;
                 NSString *columValue=@" ";
             
             //实际有用的 实体字段  count[和数据库字段一致的 属性]
-            if (_Identification==@"OffLoadFactory") {
+            if ([_Identification isEqual:@"OffLoadFactory"]) {
                 
                 outCount=10;
             }
 
-            if (_Identification==@"FactoryTrans") {
+            if ([_Identification isEqual:@"FactoryTrans"]) {
                 outCount=16;
             }
-            if (_Identification==@"CoalType") {
+            if ([_Identification isEqual:@"CoalType"]) {
                 outCount=5;
                 
             }
-            if(_Identification==@"TransPorts"){
+            if([_Identification isEqual:@"TransPorts"]){
                 outCount=7;
                 
             }
-            if(_Identification==@"YunLi"){
+            if([_Identification isEqual:@"YunLi"]){
                 
                 outCount=6;
             }
-            if (_Identification==@"TgFactory") {
+            if ([_Identification isEqual:@"TgFactory"]) {
                 
                 outCount=13;
             }
-            if (_Identification==@"TgShip") {
+            if ([_Identification isEqual:@"TgShip"]) {
                 
                 outCount=29;
             }
-            if (_Identification==@"TgPort") {
+            if ([_Identification isEqual:@"TgPort"]) {
                 
                 outCount=9;
             }
-            if (_Identification==@"TiListInfo") {
+            if ([_Identification isEqual:@"TiListInfo"]) {
                 
                 outCount=7;
             }
-            if (_Identification==@"Port") {
+            if ([_Identification isEqual:@"Port"]) {
                 
                 outCount=6;
             }

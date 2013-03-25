@@ -34,7 +34,7 @@ static sqlite3  *database;
 	}
 	//NSLog(@"open  database succes ....");
 }
-+(NSMutableArray *)getTime:(NSString *)startTime:(NSString *)endTime
++(NSMutableArray *)getTime :(NSString *)startTime :(NSString *)endTime
 {
     NSMutableArray *d=[[[NSMutableArray alloc] init] autorelease];
     sqlite3_stmt *statement;

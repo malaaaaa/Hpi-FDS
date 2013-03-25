@@ -209,7 +209,7 @@ int totalColument=0;
     l2.textColor = [UIColor whiteColor];
     l2.shadowColor = [UIColor blackColor];
     l2.shadowOffset = CGSizeMake(0, -0.5);
-    l2.textAlignment = UITextAlignmentCenter;
+    l2.textAlignment = NSTextAlignmentCenter;
     [TitleView addSubview:l2];
     [l2 release];
     //一层标题
@@ -225,7 +225,7 @@ int totalColument=0;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [TitleView addSubview:l];
         [l release];
         
@@ -241,7 +241,7 @@ int totalColument=0;
             l1.textColor = [UIColor whiteColor];
             l1.shadowColor = [UIColor blackColor];
             l1.shadowOffset = CGSizeMake(0, -0.5);
-            l1.textAlignment = UITextAlignmentCenter;
+            l1.textAlignment = NSTextAlignmentCenter;
             
             [TitleView addSubview:l1];
             set+=cdw;
@@ -1051,7 +1051,7 @@ int totalColument=0;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [detailView addSubview:l];
         [l release];
         //二层标题....
@@ -1064,7 +1064,7 @@ int totalColument=0;
             l.textColor = [UIColor whiteColor];
             l.shadowColor = [UIColor blackColor];
             l.shadowOffset = CGSizeMake(0, -0.5);
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             [detailView addSubview:l];
             [l release];
             
@@ -1093,7 +1093,7 @@ int totalColument=0;
                 l.textColor = [UIColor whiteColor];
                 l.shadowColor = [UIColor blackColor];
                 l.shadowOffset = CGSizeMake(0, -0.5);
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 [detailView addSubview:l];
                 [l release];
                 
@@ -1248,7 +1248,7 @@ int totalColument=0;
                                UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0  , columnWidth-1, cellHeight -1 )];
                                l.font = [UIFont systemFontOfSize:14.0f];
                                l.text =@"";
-                               l.textAlignment = UITextAlignmentCenter;
+                               l.textAlignment = NSTextAlignmentCenter;
                                l.tag = indexPath.row * cellHeight + column + 1000;
                                if(indexPath.row % 2 == 0)
                                    l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
@@ -1280,7 +1280,7 @@ int totalColument=0;
                     
                 }
 
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 l.tag = indexPath.row * cellHeight + column + 1000;
                 if(indexPath.row % 2 == 0)
                     l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
@@ -2266,7 +2266,7 @@ int totalColument=0;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [detailView addSubview:l];
         [l release];
         //二层标题....
@@ -2279,7 +2279,7 @@ int totalColument=0;
             l.textColor = [UIColor whiteColor];
             l.shadowColor = [UIColor blackColor];
             l.shadowOffset = CGSizeMake(0, -0.5);
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             [detailView addSubview:l];
             [l release];
             
@@ -2309,7 +2309,7 @@ int totalColument=0;
                 l.textColor = [UIColor whiteColor];
                 l.shadowColor = [UIColor blackColor];
                 l.shadowOffset = CGSizeMake(0, -0.5);
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 [detailView addSubview:l];
                 [l release];
                 
@@ -2333,7 +2333,7 @@ int totalColument=0;
                 l.textColor = [UIColor whiteColor];
                 l.shadowColor = [UIColor blackColor];
                 l.shadowOffset = CGSizeMake(0, -0.5);
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 [detailView addSubview:l];
                 [l release];
                 //二层标题....
@@ -2347,7 +2347,7 @@ int totalColument=0;
                     l.textColor = [UIColor whiteColor];
                     l.shadowColor = [UIColor blackColor];
                     l.shadowOffset = CGSizeMake(0, -0.5);
-                    l.textAlignment = UITextAlignmentCenter;
+                    l.textAlignment = NSTextAlignmentCenter;
                     [detailView addSubview:l];
                     [l release];
                     
@@ -2371,7 +2371,7 @@ int totalColument=0;
                         l.textColor = [UIColor whiteColor];
                         l.shadowColor = [UIColor blackColor];
                         l.shadowOffset = CGSizeMake(0, -0.5);
-                        l.textAlignment = UITextAlignmentCenter;
+                        l.textAlignment = NSTextAlignmentCenter;
                         [detailView addSubview:l];
                         [l release];
                         columOffset+=columnWidth;

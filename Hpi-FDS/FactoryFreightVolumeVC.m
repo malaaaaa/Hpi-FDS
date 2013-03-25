@@ -392,7 +392,7 @@
     titleLabel.center=CGPointMake(480, 20);
     titleLabel.text=@"电厂运量运力查询";
     titleLabel.textColor=[UIColor whiteColor];
-    titleLabel.textAlignment=UITextAlignmentCenter;
+    titleLabel.textAlignment=NSTextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:18.0f];
     titleLabel.backgroundColor=[UIColor colorWithRed:39.0/255 green:39.0/255 blue:39.0/255 alpha:1];
     [self.listView addSubview:titleLabel];

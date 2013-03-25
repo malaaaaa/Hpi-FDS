@@ -14,7 +14,7 @@
 #import "PowerPlot_lib/PowerPlot.h"
 #import "ChooseView.h"
 #import "ChooseViewDelegate.h"
-
+#import <QuartzCore/QuartzCore.h>
 
 @interface PortEfficiencyVC : UIViewController<UIPopoverControllerDelegate,ChooseViewDelegate>{
     UIPopoverController *_popover;

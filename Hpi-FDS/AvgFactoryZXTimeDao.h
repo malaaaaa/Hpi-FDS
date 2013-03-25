@@ -15,12 +15,12 @@
 +(NSString *)dataFilePath;
 +(void) openDataBase;
 
-+(NSMutableArray *)getTimeTitleBySql1:(NSString *)sql1:(NSString *)sql2;
++(NSMutableArray *)getTimeTitleBySql1:(NSString *)sql1 :(NSString *)sql2;
 
-+(NSMutableArray *)getTimeTitle1:(NSString *)startTime:(NSString *)endTime:(NSString *)factoryCate;
++(NSMutableArray *)getTimeTitle1:(NSString *)startTime :(NSString *)endTime :(NSString *)factoryCate;
 
-+(NSMutableArray *)getAvgFactoryDate:(NSString *)startTime:(NSString*)endTime:(NSString *)factoryCate:(NSMutableArray *)titleTime;
-+(NSMutableArray *)getAvgFactoryDateBySql:(NSString *)sql1:(NSString *)sql2    titleTimeCount:(NSInteger)count;
++(NSMutableArray *)getAvgFactoryDate:(NSString *)startTime :(NSString*)endTime :(NSString *)factoryCate :(NSMutableArray *)titleTime;
++(NSMutableArray *)getAvgFactoryDateBySql:(NSString *)sql1 :(NSString *)sql2    titleTimeCount:(NSInteger)count;
 
 
 @end

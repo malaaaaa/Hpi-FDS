@@ -15,9 +15,9 @@
 
 #pragma mark - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone {
-    return [[UIFont fontWithName:[self fontName]
-                            size:[self pointSize]] retain];
-}
+//- (id)copyWithZone:(NSZone *)zone {
+//    return [[UIFont fontWithName:[self fontName]
+//                            size:[self pointSize]] retain];
+//}
 
 @end

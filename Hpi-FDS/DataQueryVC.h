@@ -99,7 +99,7 @@
 
 //-(void)loadViewData_vb;
 //-(void)loadViewData_tb;
--(void)setSegmentIndex:(NSInteger) index:(NSInteger )section;
+-(void)setSegmentIndex:(NSInteger)index :(NSInteger )section;
 
 
 @end
