@@ -47,7 +47,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{24, 20}, {180, 35}}</string>
 								<reference key="NSSuperview" ref="702648534"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1026632922"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -83,7 +82,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{255, 20}, {180, 35}}</string>
 								<reference key="NSSuperview" ref="702648534"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="385903499"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -115,7 +113,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{285, 20}, {120, 35}}</string>
 								<reference key="NSSuperview" ref="702648534"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="465705067"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -137,7 +134,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{562, 19}, {80, 35}}</string>
 								<reference key="NSSuperview" ref="702648534"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="62779647"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -160,7 +156,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{652, 19}, {80, 35}}</string>
 								<reference key="NSSuperview" ref="702648534"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="254083978"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -181,7 +176,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{754, 18}, {72, 37}}</string>
 								<reference key="NSSuperview" ref="702648534"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="343004584"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -202,7 +196,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{856, 18}, {37, 37}}</string>
 								<reference key="NSSuperview" ref="702648534"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="932985166"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -217,7 +210,6 @@
 						</array>
 						<string key="NSFrameSize">{1024, 150}</string>
 						<reference key="NSSuperview" ref="623020056"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="51299116"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -235,7 +227,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{1024, 127}</string>
 								<reference key="NSSuperview" ref="932985166"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="460417613"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -249,7 +240,6 @@
 										<int key="NSvFlags">274</int>
 										<string key="NSFrameSize">{1024, 80}</string>
 										<reference key="NSSuperview" ref="460417613"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="548810337"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -259,7 +249,6 @@
 										<int key="NSvFlags">274</int>
 										<string key="NSFrame">{{0, 81}, {1024, 398}}</string>
 										<reference key="NSSuperview" ref="460417613"/>
-										<reference key="NSWindow"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<object class="NSColor" key="IBUIBackgroundColor">
 											<int key="NSColorSpace">3</int>
@@ -278,7 +267,6 @@
 								</array>
 								<string key="NSFrame">{{0, 120}, {1024, 530}}</string>
 								<reference key="NSSuperview" ref="932985166"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="638896834"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -286,7 +274,6 @@
 						</array>
 						<string key="NSFrame">{{0, 100}, {1024, 652}}</string>
 						<reference key="NSSuperview" ref="623020056"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="633803965"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -298,7 +285,6 @@
 				</array>
 				<string key="NSFrameSize">{1024, 750}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="702648534"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -598,72 +584,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">64</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">FactoryWaitDynamicViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="TitleView">UIView</string>
-						<string key="activty">UIActivityIndicatorView</string>
-						<string key="cView">UIView</string>
-						<string key="dcView">UIView</string>
-						<string key="factoryButton">UIButton</string>
-						<string key="factoryLable">UILabel</string>
-						<string key="listTableview">UITableView</string>
-						<string key="reload">UIButton</string>
-						<string key="scrool">UIView</string>
-						<string key="startTime">UILabel</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="TitleView">
-							<string key="name">TitleView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="activty">
-							<string key="name">activty</string>
-							<string key="candidateClassName">UIActivityIndicatorView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="cView">
-							<string key="name">cView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dcView">
-							<string key="name">dcView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="factoryButton">
-							<string key="name">factoryButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="factoryLable">
-							<string key="name">factoryLable</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="listTableview">
-							<string key="name">listTableview</string>
-							<string key="candidateClassName">UITableView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="reload">
-							<string key="name">reload</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="scrool">
-							<string key="name">scrool</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="startTime">
-							<string key="name">startTime</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/FactoryWaitDynamicViewController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">

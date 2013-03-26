@@ -1558,9 +1558,14 @@ static int iDisplay=0;
 #pragma mark 恢复大地图视野范围
 - (void)reStoreMapRegion{
     CLLocationCoordinate2D theCoordinate;
+//    theCoordinate.latitude=29.6955667121; //纬度
+//    theCoordinate.longitude=122.0461133192; //经度
+//    MKCoordinateSpan theSpan = MKCoordinateSpanMake(17,17);//显示比例
+      //高德地图调整
     theCoordinate.latitude=29.6955667121; //纬度
     theCoordinate.longitude=122.0461133192; //经度
-    MKCoordinateSpan theSpan = MKCoordinateSpanMake(17,17);//显示比例
+    MKCoordinateSpan theSpan = MKCoordinateSpanMake(32,32);//显示比例
+
     //定义显示范围
     //定义一个区域（使用设置的经度纬度加上一个范围）
     MKCoordinateRegion theRegion;
@@ -1573,11 +1578,14 @@ static int iDisplay=0;
 #pragma mark 恢复小地图视野范围
 - (void)reStoreBigMapRegion{
     CLLocationCoordinate2D theCoordinate;
+//    theCoordinate.latitude=5.878332; //纬度
+//    theCoordinate.longitude=133.857422; //经度
+    //高德地图调整
     theCoordinate.latitude=5.878332; //纬度
-    theCoordinate.longitude=133.857422; //经度
+    theCoordinate.longitude=127.857422; //经度
     MKCoordinateRegion theRegion;
     theRegion.center=theCoordinate;
-    MKCoordinateSpan theSpan = MKCoordinateSpanMake(30,30);//显示比例
+    MKCoordinateSpan theSpan = MKCoordinateSpanMake(50,50);//显示比例
     theRegion.span=theSpan;
     //定义显示范围
     //定义一个区域（使用设置的经度纬度加上一个范围)

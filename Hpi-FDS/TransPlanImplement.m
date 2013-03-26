@@ -1800,14 +1800,14 @@ int totalColument=0;
     }
     if(!monthCV)
         monthCV=[[DateViewController alloc] init];
-    [monthCV .view setFrame:CGRectMake(0, 0, 175, 216)];
-    monthCV.contentSizeForViewInPopover=CGSizeMake(175, 216);
+    [monthCV .view setFrame:CGRectMake(0, 0, 260, 216)];
+    monthCV.contentSizeForViewInPopover=CGSizeMake(260, 216);
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover=pop;//没什么用？
     monthCV.selectedDate=self.month;//初始化  属性[[NSDate alloc] init];  也可以不用他来初始化
     self.poper=pop;
     self.poper.delegate=self;
-    self.poper.popoverContentSize=CGSizeMake(175, 216);
+    self.poper.popoverContentSize=CGSizeMake(260, 216);
     [self.poper presentPopoverFromRect:CGRectMake(587, 80, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
@@ -1822,15 +1822,15 @@ int totalColument=0;
     } 
     if(!monthCV)
         monthCV=[[DateViewController alloc] init];
-    [monthCV .view setFrame:CGRectMake(0, 0, 175, 216)];
-    monthCV.contentSizeForViewInPopover=CGSizeMake(175, 216);
+    [monthCV .view setFrame:CGRectMake(0, 0, 260, 216)];
+    monthCV.contentSizeForViewInPopover=CGSizeMake(260, 216);
     
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover=pop;//没什么用？
     monthCV.selectedDate=self.month;//初始化  属性[[NSDate alloc] init];  也可以不用他来初始化
     self.poper=pop;
     self.poper.delegate=self;
-    self.poper.popoverContentSize=CGSizeMake(175, 216);
+    self.poper.popoverContentSize=CGSizeMake(260, 216);
     [self.poper presentPopoverFromRect:CGRectMake(787, 80, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 

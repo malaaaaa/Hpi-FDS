@@ -411,9 +411,9 @@ static NSString *stringType=@"GKDJL";
     if(!startDateCV)//初始化待显示控制器
         startDateCV=[[DateViewController alloc]init];
     //设置待显示控制器的范围
-    [startDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [startDateCV.view setFrame:CGRectMake(0,0, 260, 216)];
     //设置待显示控制器视图的尺寸
-    startDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    startDateCV.contentSizeForViewInPopover = CGSizeMake(260, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:startDateCV];
     startDateCV.popover = pop;
@@ -421,7 +421,7 @@ static NSString *stringType=@"GKDJL";
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(260, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(350, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];    [pop release];
 }
@@ -439,9 +439,9 @@ static NSString *stringType=@"GKDJL";
         endDateCV.selectedDate=self.endDay;
     }
     //设置待显示控制器的范围
-    [endDateCV.view setFrame:CGRectMake(0,0, 320, 216)];
+    [endDateCV.view setFrame:CGRectMake(0,0, 260, 216)];
     //设置待显示控制器视图的尺寸
-    endDateCV.contentSizeForViewInPopover = CGSizeMake(320, 216);
+    endDateCV.contentSizeForViewInPopover = CGSizeMake(260, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:endDateCV];
     endDateCV.popover = pop;
@@ -449,7 +449,7 @@ static NSString *stringType=@"GKDJL";
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 216);
+    self.popover.popoverContentSize = CGSizeMake(260, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(610, 90, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];

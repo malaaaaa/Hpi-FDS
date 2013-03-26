@@ -26,7 +26,6 @@
 - (void)viewDidLoad
 {
     NSDateFormatter *myFormatter = [[NSDateFormatter alloc] init];
-    
     if (maxDate&&minDate) {
         NSLog(@"都不为空..");
         
@@ -41,15 +40,11 @@
         [picker setMinimumDate:DfminDate];
         NSDate *DfmaxDate = [NSDate date];
         [picker setMaximumDate:DfmaxDate];
-        
+
        
     }
     
-    
-    
-    
-    
-    
+
     NSDate *initialDate = [NSDate date]; 
     [picker setDate:initialDate animated:YES];
     

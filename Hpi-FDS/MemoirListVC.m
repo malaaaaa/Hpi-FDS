@@ -585,8 +585,8 @@ static int cellNum =0;
         [alert release];
         return FALSE;
     }
-    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    NSLog(@"%@",theXML);
+//    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@",theXML);
     NSString *element1=@"SendFILEID";
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
     NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];

@@ -222,8 +222,8 @@ UIAlertView *RegistAlert;
         return FALSE;
     }
     
-    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    NSLog(@"%@",theXML);
+//    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@",theXML);
     
     NSString *element1=@"LoginValadate";
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
@@ -563,8 +563,8 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
         [alert release];
         return FALSE;
     }
-    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    NSLog(@"%@",theXML);
+//    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@",theXML);
     NSString *element1=@"SendToken";
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
     NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];

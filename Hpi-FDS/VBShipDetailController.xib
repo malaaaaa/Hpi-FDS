@@ -46,7 +46,7 @@
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4wNTg4MjM1Mjk0MSAwLjE2ODYyNzQ1MSAwLjI1MDk4MDM5MjIAA</bytes>
+							<bytes key="NSRGB">MC4zMzk4NjM2Nzk4IDAuMzM5ODYzNjc5OCAwLjMzOTg2MzY3OTgAA</bytes>
 						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
