@@ -222,8 +222,8 @@ UIAlertView *RegistAlert;
         return FALSE;
     }
     
-    // NSString *theXML = [[NSString alloc] initWithBytes: [returnData mutableBytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-    // NSLog(@"xml=%@",theXML);
+    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",theXML);
     
     NSString *element1=@"LoginValadate";
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
@@ -335,13 +335,14 @@ UIAlertView *RegistAlert;
     
     //    zView=[[UIImageView alloc]initWithFrame:self.window.frame];//初始化zView
     //原点坐标在竖屏的左上角，因此横屏下需要转化
-    zView=[[UIImageView alloc]initWithFrame:CGRectMake(20, 0, 748, 1024)];//初始化zView
+    zView=[[UIImageView alloc]initWithFrame:CGRectMake(20, 0, self.window.frame.size.width-20, self.window.frame.size.height)];//初始化zView
     zView.image=[UIImage imageNamed:@"z.png"];//图片z.png 到zView
-    UIDevice *device = [UIDevice currentDevice] ;
-    switch (device.orientation) {
+
+    switch (self.tabBarController.interfaceOrientation) {
         case UIDeviceOrientationLandscapeLeft:
             //图片旋转180度
-            zView.transform=CGAffineTransformMakeRotation(3.14159265358979323846264338327950288);
+            [zView setFrame:CGRectMake(0, 0, self.window.frame.size.width-20, self.window.frame.size.height)];
+            zView.transform=CGAffineTransformMakeRotation(PI);
             
             break;
         default: break;
@@ -448,9 +449,7 @@ UIAlertView *RegistAlert;
 
 - (void)moveToUpSide {
     
-    UIDevice *device = [UIDevice currentDevice] ;
-    
-	switch (device.orientation) {
+	switch (self.tabBarController.interfaceOrientation) {
             
         case UIDeviceOrientationLandscapeLeft:
             [UIView animateWithDuration:0.7 //速度0.7秒
@@ -494,17 +493,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     const unsigned *tokenBytes = [deviceToken bytes];
     _token = [[NSString alloc] initWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
-                        ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
-                        ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
-                        ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+              ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
+              ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
+              ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
     NSLog(@"My token is: %@", _token);
-//     [application setApplicationIconBadgeNumber:101];
+    //     [application setApplicationIconBadgeNumber:101];
     //发送Token至后台服务器
-//    if (![self SendTokenToServer]) {
-//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"推送令牌提交失败！\n请联系管理员!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
-//        [alert show];
-//        [alert release];
-//    }
+    
+    if (![self SendTokenToServer]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"推送令牌提交失败！\n请联系管理员!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+    }
 
 }
 
@@ -525,8 +525,8 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 }
 #pragma mark 将token发送至后台
 - (BOOL) SendTokenToServer{
-
-    NSString *reg=[[NSString  alloc] init];
+    
+    NSString *reg;
     NSString *requestStr=[NSString stringWithFormat:@"<GetSendTokeninfo xmlns=\"http://tempuri.org/\">\n <req>\n"
                           "<deviceid>%@</deviceid>\n"
                           "<token>%@</token>\n"
@@ -563,11 +563,12 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
         [alert release];
         return FALSE;
     }
-//    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-//    NSLog(@"%@",theXML);
+    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",theXML);
     NSString *element1=@"SendToken";
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
     NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];
+    NSLog(@"elementString1===%@",elementString1);
     // char *errorMsg;
     NSError *error = nil;
     TBXML * tbxml = [TBXML newTBXMLWithXMLData:returnData error:&error];
@@ -578,19 +579,11 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
         TBXMLElement * root = tbxml.rootXMLElement;
         //=======================================
         if (root) {// @"retinfo"
-            TBXMLElement *elementNoUsed = [TBXML childElementNamed: @"retinfo"  parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
-            //@"LoginResponse"
-            TBXMLElement *element = [TBXML childElementNamed:@"SendToken"    parentElement:elementNoUsed];
-            TBXMLElement * desc;
-            while (element != nil) {
-                desc = [TBXML childElementNamed:@"REG" parentElement:element];
-                if (desc != nil) {
-            
-                    reg=[TBXML textForElement:desc] ;
-                }
-                               
-                element = [TBXML nextSiblingNamed:@"SendToken"  searchFromElement:element];
+            TBXMLElement *element = [TBXML childElementNamed: @"retcode"  parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
+            if (element != nil) {
+                reg=[TBXML textForElement:element] ;
             }
+            NSLog(@"reg=%@",reg);
         }
         
     }
@@ -599,12 +592,9 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
     
     //返回值为0代表正常
     if (![reg isEqualToString:@"0"]) {
-        
-        [reg release];
         return FALSE;
     }
-    [reg release];
-
+    
     return TRUE;
 }
 

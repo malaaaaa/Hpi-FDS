@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MemoirListVC.h"
+@class MemoirListVC;
 
 #import "PubInfo.h"
 #import "JSBadgeView/JSBadgeView.h"

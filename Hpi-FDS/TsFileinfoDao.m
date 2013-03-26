@@ -247,6 +247,40 @@ static sqlite3	*database;
     return NO;
 }
 
+#pragma mark 获取未下载数量
++(NSInteger)getUnDownloadNums:(NSString *)type
+{
+    NSInteger *num;
+    //增加 限制条件   7天以内
+    NSDateFormatter *df=[[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd"];
+    NSString *startTime=[df stringFromDate:[NSDate date]];
+    
+    NSLog(@"startTime:%@",startTime);
+    NSDate *end=[[NSDate alloc] initWithTimeInterval:-7*24*60*60 sinceDate:[NSDate date]];
+    
+    NSString *endTime=[df stringFromDate:end];
+    NSLog(@"endTime:%@",endTime);
+    
+    [df release];
+    [end release];
+    
+    NSString *query=[NSString stringWithFormat:@"SELECT  count(fileId)  FROM  TsFileinfo WHERE fileType = '%@' and   recordTime <='%@T00:00:00'   and     recordTime >='%@T00:00:00' and  xzbz='0' ",type,startTime,endTime];
+    //	NSLog(@"isExist [%@]",query);
+	sqlite3_stmt	*statement;
+	if(sqlite3_prepare_v2(database,[query UTF8String],-1,&statement,nil)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+			char * rowData0=(char *)sqlite3_column_text(statement,0);
+			num=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease]intValue] ;
+					}
+	}else {
+        sqlite3_finalize(statement);
+		return -1;
+	}
+    sqlite3_finalize(statement);
+    return num;
+}
+
 
 +(NSMutableArray *) getTsFileinfoBySql:(NSString *)sql1
 {

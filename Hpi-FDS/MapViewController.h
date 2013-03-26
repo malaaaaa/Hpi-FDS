@@ -21,12 +21,15 @@
 #import "Reachability.h"
 #import "TBXMLParser.h"
 #import "ChooseViewDelegate.h"
+#import "SuperViewDelegate.h"
 #import "PubInfo.h"
 #import "JSBadgeView/JSBadgeView.h"
-
 #import "WebViewController.h"
 #import "MemoirListVC.h"
-@interface MapViewController : UIViewController <MKMapViewDelegate,UITableViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate,ChooseViewDelegate>{
+
+@class WebViewController;
+
+@interface MapViewController : UIViewController <MKMapViewDelegate,UITableViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate,ChooseViewDelegate,SuperViewDelegate>{
     IBOutlet MKMapView *mapView;
     IBOutlet MKMapView *mapViewBig;
     IBOutlet UIActivityIndicatorView *activity;
@@ -77,15 +80,15 @@
     JSBadgeView *_badgeView;
 }
 
-@property(nonatomic,retain)UIButton *infoBut;
+@property(nonatomic,retain) UIButton *infoBut;
 @property(nonatomic,retain) UIView *mainVW;
-@property(nonatomic,retain)  WebViewController *wbvc;
-@property(nonatomic,retain)UIButton *fileShow;
-@property(nonatomic,retain)UIImageView *topView;
-@property(nonatomic,retain)UIButton *portBehaviourButton;
-@property(nonatomic,retain)UIButton *transportButton;
-@property(nonatomic,retain)UIImageView *badgeSuperView;
-@property(nonatomic,retain)JSBadgeView *badgeView;
+@property(nonatomic,retain) WebViewController *wbvc;
+@property(nonatomic,retain) UIButton *fileShow;
+@property(nonatomic,retain) UIImageView *topView;
+@property(nonatomic,retain) UIButton *portBehaviourButton;
+@property(nonatomic,retain) UIButton *transportButton;
+@property(nonatomic,retain) UIImageView *badgeSuperView;
+@property(nonatomic,retain) JSBadgeView *badgeView;
 
 @property(nonatomic, retain) MKMapView *mapView;
 @property(nonatomic, retain) MKMapView *mapViewBig;

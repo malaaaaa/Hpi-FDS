@@ -148,7 +148,7 @@ typedef enum{
 #define OFFLINE_SHIP    @"离线船舶"
 #define UYES    @"1"  //是否 存在该设备号
 #define UNO     @"0"
-
+#define PI 3.14159265358979323846264338327950288
 
 @interface PubInfo : NSObject
 

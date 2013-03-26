@@ -30,4 +30,5 @@
 +(void) updateDown;
 +(NSMutableArray *) getTsFileinfoByType:(NSString *)type;
 +(void) deleteAll;
++(NSInteger)getUnDownloadNums:(NSString *)type;
 @end

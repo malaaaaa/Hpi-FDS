@@ -210,17 +210,22 @@ static int iDisplay=0;
 //    self.shipButton.titleLabel.text=All_SHIP;
 //    self.portButton.titleLabel.text=All_PORT;
 //    self.factoryButton.titleLabel.text=All_FCTRY;
+    
     //增加Badge显示
     self.badgeSuperView = [[UIImageView alloc] initWithFrame:CGRectIntegral(CGRectMake(infoBut.frame.origin.x+65,
                                                                                 infoBut.frame.origin.y-13,
                                                                                 16,
                                                                                 16))];
     self.badgeView = [[JSBadgeView alloc] initWithParentView:_badgeSuperView alignment:JSBadgeViewAlignmentBottomLeft];
-//    BadgeNumber=2;
+    BadgeNumber=[TsFileinfoDao getUnDownloadNums:@"NOTICE"];
     _badgeView.badgeText = [NSString stringWithFormat:@"%d", BadgeNumber];
-
+    if (BadgeNumber<=0) {
+        self.badgeView.hidden=YES;
+    }
+    else{
+        self.badgeView.hidden=NO;
+    }
     [self.view addSubview:_badgeSuperView];
-//    [self.view sendSubviewToBack:rectangle];
 }
 
 - (void)viewDidUnload
@@ -379,7 +384,7 @@ static int iDisplay=0;
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:memoirListVC];
     memoirListVC.popover = pop;
-    
+    memoirListVC.parentMapView=self;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -387,6 +392,8 @@ static int iDisplay=0;
     memoirListVC.stringType=@"NOTICE";
     [self.popover presentPopoverFromRect:CGRectMake(980, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
+    //自动刷新
+    [memoirListVC ViewFrashData];
     [pop release];
     //先加载  webView
     
@@ -1460,7 +1467,8 @@ static int iDisplay=0;
     }
 }
 */
-#pragma mark SetSelectValue  Method
+#pragma mark -
+#pragma mark Delegate SetSelectValue  Method
 -(void)setLableValue:(NSString *)currentSelectValue
 {
     
@@ -1498,7 +1506,21 @@ static int iDisplay=0;
     }
     
 }
+#pragma mark Delegate setControllerText  Method
+-(void)setControllerText:(NSString *)Text
+{
 
+    //-1为计算出错
+    if ([Text isEqualToString:@"0"]||[Text isEqualToString:@"-1"]) {
+        self.badgeView.hidden=YES;
+    }
+    else{
+        NSLog(@"setControllerText");
+        self.badgeView.hidden=NO;
+        self.badgeView.badgeText=Text;
+
+    }
+}
 - (IBAction)comButtonSelect:(id)sender {
     NSLog(@"abc");
 

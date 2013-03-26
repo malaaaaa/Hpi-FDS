@@ -64,16 +64,33 @@ static int cellNum =0;
 	
 }
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
-	
+
 	return _reloading; // should return if data source model is reloading
 	
 }
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
 	
+    NSLog(@"egoRefreshTableHeaderDataSourceLastUpdated");
+    BadgeNumber=[TsFileinfoDao getUnDownloadNums:@"NOTICE"];
+    //更新MapView信息栏按钮图标未读显示数量
+    [self.parentMapView setControllerText:[NSString stringWithFormat:@"%d", BadgeNumber]];
+
 	return [NSDate date]; // should return date data source was last changed
 	
 }
+#pragma mark 手动触发刷新 EGORefreshTableHeaderDelegate 
+-(void) ViewFrashData{
+    NSLog(@"ViewFrashData");
+    [self.memoirTableView setContentOffset:CGPointMake(0, -75) animated:YES];
+    [self performSelector:@selector(doneManualRefresh) withObject:nil afterDelay:0.6];
+}
+-(void)doneManualRefresh{
+    NSLog(@"doneManualRefresh");
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:self.memoirTableView];
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:self.memoirTableView];
+}
 
+#pragma mark -
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -117,7 +134,7 @@ static int cellNum =0;
 {
 
     NSLog(@"viewWillAppear");//从 这个tableview 掉转到 另一个 view 时被调用
-
+    
     [self.listArray removeAllObjects];
     [self.cellArray removeAllObjects];
     cellNum=0;
@@ -177,11 +194,6 @@ static int cellNum =0;
     if ( fm == nil ) {
         fm =[ NSFileManager defaultManager ];
     }
-    
-    
-    
-    
-    
     
 }
 
@@ -307,13 +319,15 @@ static int cellNum =0;
         [memoirTableView reloadData];   
         
         //更新后台
-//        if (![self SendFILEIDToServer:[NSString stringWithFormat:@"%d",tsFile.fileId]]) {
-//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"服务器更新推送信息失败！\n请联系管理员!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
-//            [alert show];
-//            [alert release];
-//        }
-//        BadgeNumber=303;
+        if (![self SendFILEIDToServer:[NSString stringWithFormat:@"%d",tsFile.fileId]]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"服务器更新推送信息失败！\n请联系管理员!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+            [alert show];
+            [alert release];
+        }
         BadgeNumber--;
+        //更新MapView信息栏按钮图标未读显示数量
+        [self.parentMapView setControllerText:[NSString stringWithFormat:@"%d", BadgeNumber]];
+        
     }];
     // 使用 failed 块，在下载失败时做一些事情
     [request setFailedBlock :^( void ){
@@ -534,7 +548,7 @@ static int cellNum =0;
 #pragma mark 将FILEID发送至后台
 - (BOOL) SendFILEIDToServer:(NSString *)fileID{
     
-    NSString *reg=[[NSString  alloc] init];
+    NSString *reg;
     NSString *requestStr=[NSString stringWithFormat:@"<GetSendFILEIDinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
                           "<token>%@</token>\n"
                           "<fileid>%@</fileid>\n"
@@ -571,8 +585,8 @@ static int cellNum =0;
         [alert release];
         return FALSE;
     }
-    //    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    //    NSLog(@"%@",theXML);
+    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",theXML);
     NSString *element1=@"SendFILEID";
     NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
     NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];
@@ -586,19 +600,11 @@ static int cellNum =0;
         TBXMLElement * root = tbxml.rootXMLElement;
         //=======================================
         if (root) {// @"retinfo"
-            TBXMLElement *elementNoUsed = [TBXML childElementNamed: @"retinfo"  parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
-            //@"LoginResponse"
-            TBXMLElement *element = [TBXML childElementNamed:@"SendFILEID"    parentElement:elementNoUsed];
-            TBXMLElement * desc;
-            while (element != nil) {
-                desc = [TBXML childElementNamed:@"REG" parentElement:element];
-                if (desc != nil) {
-                    
-                    reg=[TBXML textForElement:desc] ;
-                }
-                
-                element = [TBXML nextSiblingNamed:@"SendFILEID"  searchFromElement:element];
+            TBXMLElement *element = [TBXML childElementNamed: @"retcode"  parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
+            if (element != nil) {
+                reg=[TBXML textForElement:element] ;
             }
+            NSLog(@"reg=%@",reg);
         }
         
     }
@@ -608,12 +614,11 @@ static int cellNum =0;
     //返回值为0代表正常
     if (![reg isEqualToString:@"0"]) {
         
-        [reg release];
         return FALSE;
     }
-    [reg release];
     
     return TRUE;
 }
+
 
 @end
