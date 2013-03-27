@@ -153,7 +153,19 @@ static sqlite3	*database;
     else 
         return (TmIndexinfo *)[array objectAtIndex:0];
 }
-
++(NSMutableArray *) getTmIndexinfoByName:(NSString *)indexName startDay:(NSDate*)startDay Days:(NSInteger)days
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *start=[dateFormatter stringFromDate:startDay];
+    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
+	NSString *query=[NSString stringWithFormat:@" indexName = '%@' AND recordTime >='%@' AND recordTime <='%@' order by recordTime ",indexName,start,end];
+	NSMutableArray * array=[TmIndexinfoDao getTmIndexinfoBySql:query];
+    //   NSLog(@"执行 getTmIndexinfo 数量[%d] ",[array count]);
+    [dateFormatter release];
+  
+    return array;
+}
 +(NSMutableArray *) getTmIndexinfoBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;

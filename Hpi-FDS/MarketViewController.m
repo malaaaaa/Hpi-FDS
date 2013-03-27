@@ -126,6 +126,7 @@ static NSString *stringType=@"BSPI";
     [marketOneController release];
     [super dealloc];
 }
+/*
 -(void)loadHpiGraphView{
     TmIndexdefine *tmdefine;
     NSDate *maxDate=[endDay laterDate:startDay];
@@ -388,17 +389,267 @@ static NSString *stringType=@"BSPI";
 
     [self.listView addSubview:graphView];
     
-    /****/
     CATransition *animation = [CATransition animation];
     animation.delegate = self;
     animation.duration = 0.8 ;  // 动画持续时间(秒)
     animation.timingFunction = UIViewAnimationCurveEaseInOut;
     animation.type=@"oglFlip";
      [[self.listView layer] addAnimation:animation forKey:@"animation"];
-    /****/
     
     [graphData release];
 }
+*/
+-(void)loadHpiGraphView{
+    TmIndexdefine *tmdefine;
+    NSDate *maxDate=[endDay laterDate:startDay];
+    NSDate *minDate=[endDay earlierDate:startDay];
+    HpiGraphData *graphData=[[HpiGraphData alloc] init];
+    graphData.pointArray = [[NSMutableArray alloc] init] ;
+    graphData.pointArray2 = [[NSMutableArray alloc] init] ;
+    graphData.pointArray3 = [[NSMutableArray alloc] init];
+    graphData.xtitles = [[NSMutableArray alloc] init];
+    graphData.ytitles = [[NSMutableArray alloc] init];
+ 
+    NSDate *date=minDate;
+    NSMutableArray *array=[TmIndexdefineDao getTmIndexdefineByName:stringType];
+    NSLog(@"查询[%d]",[array count]);
+    if ([array count]>0) {
+        tmdefine=(TmIndexdefine *)[array objectAtIndex:0];
+        NSLog(@"max=[%d] min=[%d]",tmdefine.maxiMum,tmdefine.miniMum);
+
+        if(tmdefine.maxiMum==0)
+            tmdefine.maxiMum=tmdefine.miniMum*2.5;
+        
+        if ([stringType isEqualToString: @"BDI"]) {
+            
+            tmdefine.miniMum=0;
+        }
+        if ([stringType isEqualToString:@"BJ_PRICE"]) {
+            tmdefine.miniMum=0;
+            tmdefine.maxiMum=600;
+        }
+        
+        if ([stringType isEqualToString:@"QHD_GZ"]) {
+            tmdefine.miniMum=0;
+            tmdefine.maxiMum=50;
+            
+        }
+        
+        if ([stringType isEqualToString:@"WTI"]) {
+            tmdefine.miniMum=0;
+            tmdefine.maxiMum=150;
+        }
+        if ([stringType isEqualToString:@"HPI4500"]) {
+            
+        }
+        
+        graphData.yNum=tmdefine.maxiMum-tmdefine.miniMum;
+        
+        //NSLog(@"max=[%d] min=[%d]",tmdefine.maxiMum,tmdefine.miniMum);
+
+        for(int i=0;i<6;i++)
+        {
+            //NSLog(@"tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5 [%d]",tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5);
+            if (i==0) {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",tmdefine.miniMum]];
+            }
+            else {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*i/5]];
+            }
+        }
+  
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        unsigned int unitFlags = NSDayCalendarUnit;
+        NSDateComponents *comps = [gregorian components:unitFlags fromDate:minDate  toDate:maxDate  options:0];
+        graphData.xNum = [comps day]+1;
+        [gregorian release];
+        int a,b,c;
+        a=graphData.xNum/9;
+        b=graphData.xNum%9;
+        NSLog(@"graphData.xNum/9 [%d] graphData.xNum 求余 9  [%d]",a,b);
+        if (a==0) {
+            c=1;
+            graphData.xNum=b;
+        }
+        else if (a>0 && b>0){
+            c=a+1;
+            graphData.xNum=(a+1)*9;
+        }
+        else {
+            c=a;
+            graphData.xNum=a*9;
+        }
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy/MM/dd"];
+        
+        for(int i=1;i<=graphData.xNum;i++)
+        {
+            if (i==1) {
+                [graphData.xtitles addObject:[dateFormatter stringFromDate:date]];
+            }
+            if(i%c==0)
+            {
+                [graphData.xtitles addObject:[dateFormatter stringFromDate:date]];
+            }
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
+        }
+        [dateFormatter release];
+    }
+    else{
+        [graphData release];
+        
+        return;
+    }
+    NSLog(@"%@ 统计共%d天",stringType,graphData.xNum);
+    date=minDate;
+    for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+        //NSLog(@"date %@",date);
+        TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:stringType:date];
+        if(tminfo == nil){
+        }
+        else{
+            HpiPoint *point=[[HpiPoint alloc]init];
+            point.x=i;
+            point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+            [graphData.pointArray  addObject:point];
+            [point release];
+        }
+        date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
+    }
+    date=minDate;
+    if([stringType isEqualToString: @"BJ_PRICE"])
+    {
+        for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+            // NSLog(@"date %@",date);
+            TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:@"BJ_INDEX":date];
+            if(tminfo == nil){
+            }
+            else{
+                HpiPoint *point=[[HpiPoint alloc]init];
+                point.x=i;
+                point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+                [graphData.pointArray2  addObject:point];
+                [point release];
+                
+            }
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
+        }
+    }
+    
+    
+    
+    
+    
+    date=minDate;
+    if([stringType isEqualToString: @"QHD_GZ"])
+    {
+        for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+            //NSLog(@"date %@",date);
+            TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:@"QHD_SH":date];
+            if(tminfo == nil){
+            }
+            else{
+                HpiPoint *point=[[HpiPoint alloc]init];
+                point.x=i;
+                point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+                [graphData.pointArray2  addObject:point];
+                [point release];
+                
+            }
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
+        }
+    }
+    date=minDate;
+    if([stringType isEqualToString: @"HPI4500"]){
+        for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+            //NSLog(@"date %@",date);
+            TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:@"HPI5000":date];
+            if(tminfo == nil){
+            }
+            else{
+                HpiPoint *point=[[HpiPoint alloc]init];
+                point.x=i;
+                point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+                [graphData.pointArray2  addObject:point];
+                [point release];
+                
+            }
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
+        }
+    }
+    date=minDate;
+    if([stringType isEqualToString: @"HPI4500"]){
+        for ( int i = 0 ; i < graphData.xNum ; i++ ) {
+            //NSLog(@"date %@",date);
+            TmIndexinfo *tminfo=[TmIndexinfoDao getTmIndexinfoOne:@"HPI5500":date];
+            if(tminfo == nil){
+            }
+            else{
+                HpiPoint *point=[[HpiPoint alloc]init];
+                point.x=i;
+                point.y=[tminfo.infoValue floatValue]-tmdefine.miniMum;
+                [graphData.pointArray3  addObject:point];
+                [point release];
+                
+            }
+            date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
+        }
+    }
+    if (graphView) {
+        [graphView removeFromSuperview];
+        [graphView release];
+        graphView =nil;
+    }
+    //NSLog(@"graphView $$$$$$$$ %d",[graphView retainCount]);
+    self.graphView=[[HpiGraphView alloc] initWithFrame:CGRectMake(50, 15, 924, 550) :graphData];
+    if([stringType isEqualToString:@"BSPI"]){
+        graphView.titleLabel.text=@"环渤海价格指数";
+    }
+    else if([stringType isEqualToString:@"BDI"]){
+        graphView.titleLabel.text=@"国际波罗的海综合运费指数";
+    }
+    else if([stringType isEqualToString:@"BJ_PRICE"]){
+        graphView.titleLabel.text=@"国际煤价指数 [ 红:价格 绿:指数 ]";
+    }
+    else if([stringType isEqualToString:@"QHD_GZ"]){
+        graphView.titleLabel.text=@"国内沿海煤炭运价指数 [ 红:秦皇岛-广州 绿:秦皇岛-上海 ]";
+    }
+    else if([stringType isEqualToString:@"WTI"]){
+        graphView.titleLabel.text=@"原油价格指数";
+    }
+    else if([stringType isEqualToString:@"HPI4500"]){
+        graphView.titleLabel.text=@"华能采购指导价 [ 红:4500大卡 绿:5000大卡 蓝:5500大卡 ]";
+    }
+    else if([stringType isEqualToString:@"NEWC"]){
+        graphView.titleLabel.text=@"纽卡斯尔港煤炭指数";
+    }
+    else if([stringType isEqualToString:@"RB"]){
+        graphView.titleLabel.text=@"南非理查德港指数";
+    }
+    else if([stringType isEqualToString:@"DESARA"]){
+        graphView.titleLabel.text=@"欧洲ARA煤炭市场指数";
+    }
+    
+    //    graphView.titleLabel.text=stringType;
+    graphView.marginRight=60;
+    graphView.marginBottom=60;
+    graphView.marginLeft=60;
+    graphView.marginTop=80;
+    [graphView setNeedsDisplay];
+    
+    
+    [self.listView addSubview:graphView];
+    
+    CATransition *animation = [CATransition animation];
+    animation.delegate = self;
+    animation.duration = 0.8 ;  // 动画持续时间(秒)
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type=@"oglFlip";
+    [[self.listView layer] addAnimation:animation forKey:@"animation"];
+    
+    [graphData release];
+}
+
 #pragma mark -
 #pragma mark buttion action
 -(IBAction)startDate:(id)sender

@@ -217,17 +217,9 @@ static int iDisplay=0;
                                                                                 16,
                                                                                 16))];
     self.badgeView = [[JSBadgeView alloc] initWithParentView:_badgeSuperView alignment:JSBadgeViewAlignmentBottomLeft];
-    BadgeNumber=[TsFileinfoDao getUnDownloadNums:@"NOTICE"];
-    _badgeView.badgeText = [NSString stringWithFormat:@"%d", BadgeNumber];
-    if (BadgeNumber<=0) {
-        self.badgeView.hidden=YES;
-    }
-    else{
-        self.badgeView.hidden=NO;
-    }
+    self.badgeView.badgeText=@"00";
     [self.view addSubview:_badgeSuperView];
 }
-
 - (void)viewDidUnload
 {
     
@@ -1590,6 +1582,25 @@ static int iDisplay=0;
     //定义显示范围
     //定义一个区域（使用设置的经度纬度加上一个范围)
     [mapViewBig setRegion:theRegion];
+}
+#pragma mark -
+#pragma mark 刷新BadgeNumber
+- (void)freshBadgeNumber{
+    NSInteger tmpInteger=[TsFileinfoDao getUnDownloadNums:@"NOTICE"];
+    NSLog(@"freshBadgeNumber=%d=%d",BadgeNumber,tmpInteger);
+    
+    //非初次未同步，更新为本地计算结果
+    if (-2!=tmpInteger) {
+        BadgeNumber=tmpInteger;
+    }
+    _badgeView.badgeText = [NSString stringWithFormat:@"%d", BadgeNumber];
+    if (BadgeNumber<=0) {
+        self.badgeView.hidden=YES;
+    }
+    else{
+        self.badgeView.hidden=NO;
+    }
+    
 }
 @end
 

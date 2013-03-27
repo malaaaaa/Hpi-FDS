@@ -135,4 +135,5 @@
 -(void)getShipCoordinateByChoose:(NSString *)shipName :(NSString *)companyName :(BOOL)move;
 - (void)reStoreMapRegion;
 - (void)reStoreBigMapRegion;
+- (void)freshBadgeNumber;
 @end

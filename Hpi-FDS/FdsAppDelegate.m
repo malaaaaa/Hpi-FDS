@@ -156,7 +156,7 @@ UIAlertView *RegistAlert;
         [self removeLoginPage];
     }
     
-    
+    [self.mapVC freshBadgeNumber];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -511,7 +511,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@" didReceiveRemoteNotification userInfo=%@",userInfo);
-    
+    BadgeNumber=[application applicationIconBadgeNumber];
     //    [PFPush handlePush:userInfo];
 }
 - (void)application:(UIApplication *)application

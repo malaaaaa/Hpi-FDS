@@ -250,7 +250,7 @@ static sqlite3	*database;
 #pragma mark 获取未下载数量
 +(NSInteger)getUnDownloadNums:(NSString *)type
 {
-    NSInteger *num;
+    NSInteger num=0;
     //增加 限制条件   7天以内
     NSDateFormatter *df=[[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyy-MM-dd"];
@@ -271,13 +271,34 @@ static sqlite3	*database;
 	if(sqlite3_prepare_v2(database,[query UTF8String],-1,&statement,nil)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {
 			char * rowData0=(char *)sqlite3_column_text(statement,0);
-			num=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease]intValue] ;
+			num=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease] integerValue] ;
 					}
 	}else {
         sqlite3_finalize(statement);
 		return -1;
 	}
     sqlite3_finalize(statement);
+    //判断是否是首次未更新状态
+    if (0==num) {
+        NSString *innerQuery=@"SELECT  count(*)  FROM  TsFileinfo ";
+        sqlite3_stmt	*innerStatement;
+        NSInteger count;
+        if(sqlite3_prepare_v2(database,[innerQuery UTF8String],-1,&innerStatement,nil)==SQLITE_OK){
+            while (sqlite3_step(innerStatement)==SQLITE_ROW) {
+                char * rowData0=(char *)sqlite3_column_text(innerStatement,0);
+                count=[[[[NSString alloc] initWithUTF8String:rowData0] autorelease]intValue] ;
+            }
+        }else {
+            sqlite3_finalize(innerStatement);
+            return -1;
+        }
+        if (0==count) {
+            sqlite3_finalize(innerStatement);
+             return -2;
+        }
+        sqlite3_finalize(innerStatement);
+
+    }
     return num;
 }
 
