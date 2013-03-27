@@ -494,13 +494,13 @@ return datej;
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *start=[dateFormatter stringFromDate:date];
     
-   // NSLog(@"start %@",start);
+    NSLog(@"start %@",start);
     
     [dateFormatter release];
     
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT f.FACTORYCODE,f.FACTORYNAME,F.CAPACITYSUM, f.description FROM  TfFactory F WHERE 1=1 %@ order by sort",tmpString];
-   //NSLog(@"执行 getVbFactoryTransState OuterSql[%@] ",sql);
+   NSLog(@"执行 getVbFactoryTransState OuterSql[%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
@@ -631,7 +631,7 @@ return datej;
                     NSLog(@"end%@",end);
                     [f release];
                     NSString *sql2=[NSString stringWithFormat:@"Select   date(max( recorddate),'-1 day')||'T00:00:00'         From TbFactoryState where recorddate<= '%@' and recorddate>='%@' and factorycode = '%@'  order by  recorddate  desc",end,start,vbFactoryTrans.FACTORYCODE];
-                 //   NSLog(@"执行 TbFactoryState 较昨日[%@] ",sql2);
+                    NSLog(@"执行 TbFactoryState 较昨日[%@] ",sql2);
                     if(sqlite3_prepare_v2(database,[sql2 UTF8String],-1,&statement2,NULL)==SQLITE_OK){
                         while (sqlite3_step(statement2)==SQLITE_ROW) {
                             
@@ -644,7 +644,7 @@ return datej;
                             /*******************获得较前日*********************************/
                             sqlite3_stmt *statement3;
                             NSString *sql3=[NSString stringWithFormat:@"SELECT STORAGE FROM TbFactoryState  where FACTORYCODE='%@'   AND  RECORDDATE='%@'",vbFactoryTrans.FACTORYCODE,datej];
-                         //   NSLog(@"执行 TbFactoryState 较昨日2[%@] ",sql3);
+                            NSLog(@"执行 TbFactoryState 较昨日2[%@] ",sql3);
                             if(sqlite3_prepare_v2(database,[sql3 UTF8String],-1,&statement3,NULL)==SQLITE_OK){
                                 while (sqlite3_step(statement3)==SQLITE_ROW) {
                                     ystSTORAGE=sqlite3_column_int(statement3, 0);
@@ -807,7 +807,7 @@ return datej;
                 
                 sqlite3_stmt *innerStatement;
                 NSString *innerSql=[NSString stringWithFormat:@"select count(*) from TH_SHIPTRANS_ORI where    FACTORYCODE ='%@'  AND strftime('%%Y-%%m-%%d',RECORDDATE) ='%@' %@",vbFactoryTrans.FACTORYCODE,start,innerTmpString];
-//                NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
+                NSLog(@"执行 getVbFactoryTransState InnerSql[%@] ",innerSql);
                 
                 if(sqlite3_prepare_v2(database,[innerSql UTF8String],-1,&innerStatement,NULL)==SQLITE_OK){
                     while (sqlite3_step(innerStatement)==SQLITE_ROW) {
