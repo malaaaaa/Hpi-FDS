@@ -150,7 +150,7 @@ static sqlite3 *database;
 
 -(NSString *)getTime
 {
-NSString *datej;
+NSString *datej=nil;
     /*===================================================*/
     sqlite3_stmt *statement2;
     

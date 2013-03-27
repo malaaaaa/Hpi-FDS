@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0450"
+   LastUpgradeVersion = "0460"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "057F6C281524490600E0E435"
-               BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
+               BuildableName = "FDS.app"
                BlueprintName = "Hpi-FDS"
                ReferencedContainer = "container:Hpi-FDS.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "057F6C281524490600E0E435"
-            BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
+            BuildableName = "FDS.app"
             BlueprintName = "Hpi-FDS"
             ReferencedContainer = "container:Hpi-FDS.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "057F6C281524490600E0E435"
-            BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
+            BuildableName = "FDS.app"
             BlueprintName = "Hpi-FDS"
             ReferencedContainer = "container:Hpi-FDS.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "057F6C281524490600E0E435"
-            BuildableName = "&#29123;&#26009;&#35843;&#36816;.app"
+            BuildableName = "FDS.app"
             BlueprintName = "Hpi-FDS"
             ReferencedContainer = "container:Hpi-FDS.xcodeproj">
          </BuildableReference>

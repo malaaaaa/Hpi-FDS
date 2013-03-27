@@ -1045,7 +1045,7 @@ static  NSMutableArray *ShipStageArray;
         }
         
     }
-    [cell setSelectionStyle:UITableViewCellAccessoryNone];
+    [cell setSelectionStyle:(UITableViewCellSelectionStyle)UITableViewCellAccessoryNone];
 
 //    cell.accessoryType = UITableViewCellAccessoryNone;
 //    cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];

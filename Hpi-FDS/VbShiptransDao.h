@@ -22,6 +22,5 @@
 +(NSMutableArray *) getVbShiptrans:(NSString *)dispatchNo;
 +(NSMutableArray *) getVbShiptrans:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(NSString *)stateName;
 +(NSMutableArray *) getVbShiptransBySql:(NSString *)sql;
-+(void) delete:(VbShiptrans*) vbShiptrans;
 +(void) deleteAll;
 @end

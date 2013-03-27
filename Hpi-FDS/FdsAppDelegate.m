@@ -526,7 +526,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 #pragma mark 将token发送至后台
 - (BOOL) SendTokenToServer{
     
-    NSString *reg;
+    NSString *reg=nil;
     NSString *requestStr=[NSString stringWithFormat:@"<GetSendTokeninfo xmlns=\"http://tempuri.org/\">\n <req>\n"
                           "<deviceid>%@</deviceid>\n"
                           "<token>%@</token>\n"
