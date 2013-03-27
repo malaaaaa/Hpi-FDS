@@ -12,6 +12,7 @@
 
 #import "PubInfo.h"
 
+@synthesize factoryFreightVolume=factoryFreightVolume;
 
 static int iSoap;
 static int iSoapTgPortDone=0;
@@ -186,7 +187,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</%@>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",RequestXMLMethodName,PubInfo.deviceID,version,PubInfo.currTime,RequestXMLMethodName];
+                             "</soap12:Envelope>\n",RequestXMLMethodName,PubInfo.deviceID,PubInfo.version,PubInfo.currTime,RequestXMLMethodName];
 
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
@@ -262,7 +263,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetTgPortInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     //NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     NSURL *url = [NSURL URLWithString:PubInfo.baseUrl];
@@ -332,7 +333,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetTgFactoryInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -405,7 +406,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetTgShipInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -477,7 +478,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetShipTrans>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"-------------------soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -548,7 +549,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetFactoryInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -618,7 +619,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetFactoryStateInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -687,7 +688,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetFactoryTransInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -755,7 +756,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetShipCompanyInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -821,7 +822,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetSupplierInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -891,7 +892,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetCoalTypeInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -960,7 +961,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetShipStageInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1017,7 +1018,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetTransPortsInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1072,7 +1073,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetYunLiInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1143,7 +1144,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetTmIndexDefineInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1209,7 +1210,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetTmIndexInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1274,7 +1275,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetTmIndexTypeInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1342,7 +1343,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetTsFileInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1409,7 +1410,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetTransPlan>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1476,7 +1477,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetCoalInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1569,7 +1570,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetShipInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1637,7 +1638,7 @@ NSString* alertMsg;
                              "</req>\n"
                              "</GetListInfo>\n"
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1713,7 +1714,7 @@ NSString* alertMsg;
                              "</GetThShipTransInfo>\n"
                              
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1791,7 +1792,7 @@ NSString* alertMsg;
                              "</GetLateFeeInfo>\n"
                              
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     NSLog(@"soapMessage[%@]",soapMessage);
     NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
     
@@ -1861,7 +1862,7 @@ NSString* alertMsg;
                              "</GetPortInfo>\n"
                              
                              "</soap12:Body>\n"
-                             "</soap12:Envelope>\n",PubInfo.deviceID,version,PubInfo.currTime];
+                             "</soap12:Envelope>\n",PubInfo.deviceID,PubInfo.version,PubInfo.currTime];
     
     
 

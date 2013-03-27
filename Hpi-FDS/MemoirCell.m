@@ -10,10 +10,11 @@
 
 @implementation MemoirCell
 @synthesize backimage;//,okimage;
+@synthesize okimage;
 @synthesize iconimage;
 @synthesize textlabel;
 @synthesize subtextlabel;
-//@synthesize	button;
+@synthesize	button;
 @synthesize delegate;
 @synthesize data;
 @synthesize processView,index;
@@ -33,20 +34,20 @@
 }
 
 
-/*
+
 -(IBAction)buttonAction:(id)sender
 {
 	NSLog(@"button action");
 	[self.delegate buttonAction:self];
-}*/
+}
 
 - (void)dealloc {
-    //self.okimage=nil;
+    self.okimage=nil;
     self.backimage=nil;
     self.iconimage=nil;
     self.textlabel=nil;
     self.subtextlabel=nil;
-    //self.button=nil;
+    self.button=nil;
     self.processView=nil;
     [super dealloc];
 }

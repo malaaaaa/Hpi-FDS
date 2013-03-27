@@ -34,12 +34,11 @@ static sqlite3  *database;
 	}
 	//NSLog(@"open  database succes ....");
 }
-+(NSMutableArray *)getTime:(NSString *)startTime:(NSString *)endTime
++(NSMutableArray *)getTime :(NSString *)startTime :(NSString *)endTime
 {
     NSMutableArray *d=[[[NSMutableArray alloc] init] autorelease];
     sqlite3_stmt *statement;
     NSString *sql= [NSString   stringWithFormat:@"select ( CAST(strftime('%@',VbShiptrans.tradetime) AS  VARCHAR(100)) || '-' || CAST(strftime('%@',VbShiptrans.tradetime) AS VARCHAR(100))) AS TRADETIME     from VbShiptrans inner join TF_PORT  on TF_PORT.PORTCODE=VbShiptrans.PORTCODE  where   ISCAL=1  and strftime('%@',VbShiptrans.P_ANCHORAGETIME)!='2000' and strftime('%@',VbShiptrans.P_DEPARTTIME)!='2000'  and NATIONALTYPE=0  AND VbShiptrans.tradetime >='%@' AND VbShiptrans.tradetime <='%@'  group by   TRADETIME order by     TRADETIME  ",@"%Y",@"%m",    @"%Y",@"%Y",    startTime,endTime];
-    
     
     
      //NSLog(@"执行 getTime [%@]",sql);

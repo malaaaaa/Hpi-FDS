@@ -21,7 +21,7 @@
 @property(nonatomic,retain)NSMutableArray *zxDate;
 
 
--(id)initInstense:(CGRect)frame:(NSMutableArray *)ZXDate;
+-(id)initInstense:(CGRect)frame :(NSMutableArray *)ZXDate;
 
 @end
 
@@ -85,7 +85,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
--(id)initInstence:(CGRect)frame:(NSMutableArray *)zxDate
+-(id)initInstence:(CGRect)frame :(NSMutableArray *)zxDate
 {
  
     zxdate=zxDate;
@@ -184,8 +184,8 @@
         [[UIColor whiteColor] setFill];
         [((NSString *)[dayTitles objectAtIndex:index]) drawInRect: dayHeaderFrame 
                                                          withFont: calendarFont 
-                                                    lineBreakMode: UILineBreakModeWordWrap
-                                                        alignment: UITextAlignmentCenter];
+                                                    lineBreakMode: NSLineBreakByCharWrapping
+                                                        alignment: NSTextAlignmentCenter];
         CGContextRestoreGState(context);
     }
     
@@ -206,8 +206,8 @@
     
     [monthTitle drawInRect: textFrame
                   withFont: monthFont
-             lineBreakMode: UILineBreakModeWordWrap 
-                 alignment: UITextAlignmentCenter];
+             lineBreakMode: NSLineBreakByCharWrapping
+                 alignment: NSTextAlignmentCenter];
     
     
     
@@ -680,7 +680,7 @@
     [self setNeedsDisplay];
 }
 
--(id)initInstense:(CGRect)frame:(NSMutableArray *)ZXDate
+-(id)initInstense:(CGRect)frame :(NSMutableArray *)ZXDate
 {
 
     zxDate=ZXDate;
@@ -732,8 +732,8 @@
         [color setFill];
         [string drawInRect: rect 
                   withFont: self.font
-             lineBreakMode: UILineBreakModeWordWrap
-                 alignment: UITextAlignmentCenter];
+             lineBreakMode: NSLineBreakByCharWrapping
+                 alignment: NSTextAlignmentCenter];
         CGContextRestoreGState(context);
     };
     

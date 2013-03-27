@@ -35,8 +35,10 @@ static DataGridComponentDataSource *dataSource;
     // Do any additional setup after loading the view from its nib.
     dataSource = [[DataGridComponentDataSource alloc] init];
     //(20.20.985.42)
-    dataSource.columnWidth = [NSArray arrayWithObjects:@"120",@"100",@"120",@"120",@"160",nil];
-    dataSource.titles = [NSArray arrayWithObjects:@"调度单号",@"状态",@"船名",@"载重（吨）",@"备注",nil];
+    VbFactoryTrans *factoryTrans = [iDArray objectAtIndex:0];
+    NSString *curFactory = [NSString stringWithFormat:@"(%@)调度单号",factoryTrans.FACTORYNAME];
+    dataSource.columnWidth = [NSArray arrayWithObjects:@"150",@"100",@"120",@"120",@"160",nil];
+    dataSource.titles = [NSArray arrayWithObjects:curFactory,@"状态",@"船名",@"载重（吨）",@"备注",nil];
     float columnOffset = 0.0;
     [labelView removeFromSuperview];
     //填冲标题数据
@@ -49,7 +51,7 @@ static DataGridComponentDataSource *dataSource;
 		l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-		l.textAlignment = UITextAlignmentCenter;
+		l.textAlignment = NSTextAlignmentCenter;
         [self.labelView addSubview:l];
 		[l release];
         columnOffset += columnWidth;
@@ -179,7 +181,7 @@ static DataGridComponentDataSource *dataSource;
             l.font = [UIFont systemFontOfSize:14.0f];
             NSLog(@"l.text=%@",[rowData objectAtIndex:column]);
             l.text = [rowData objectAtIndex:column];
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             l.tag = 40 + column + 1000;
             if(indexPath.row % 2 == 0)
                 l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];

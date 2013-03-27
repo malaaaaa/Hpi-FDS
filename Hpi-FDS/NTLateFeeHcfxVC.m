@@ -14,6 +14,7 @@
 @end
 
 @implementation NTLateFeeHcfxVC
+@synthesize parentVC;
 static BOOL ShipCompanyPop=NO;
 static  NSMutableArray *ShipCompanyArray;
 static WSChart *electionChart0=nil; //第一张航次图表

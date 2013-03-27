@@ -69,7 +69,7 @@ static sqlite3  *database;
     }
     return d;
 }
-+(NSMutableArray *)getFactoryName:(NSString *)cate:(NSString *)startTime:(NSString *)endTime{
++(NSMutableArray *)getFactoryName:(NSString *)cate :(NSString *)startTime :(NSString *)endTime{
    
     
     startTime=[startTime   stringByAppendingFormat:@"%@",@"T00:00:00"   ];
@@ -143,7 +143,7 @@ static sqlite3  *database;
     return a;
 }
 //根据 电厂名  获得 滞期费和月份
-+(NSMutableDictionary *)getMonthAndLatefee:(NSString *)cate:(NSString *)factoryName :(NSString *)startTime:(NSString *)endTime
++(NSMutableDictionary *)getMonthAndLatefee:(NSString *)cate :(NSString *)factoryName :(NSString *)startTime :(NSString *)endTime
 {
     
 

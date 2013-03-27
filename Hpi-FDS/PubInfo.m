@@ -24,6 +24,8 @@
 #import "TransPlanImpDao.h"
 #import "NT_TransPlanImpDao.h"
 @implementation PubInfo
+
+static NSString *version = @"1.2";
 //测试环境
 static NSString *hostName =@"http://10.2.17.121";
 static NSString *port =@":82";
@@ -44,6 +46,7 @@ static NSString *mmpUpdateTime;
 static NSString *reportUpdateTime;
 static NSString *isSucess;
 static NSString *deviceID;
+
 
 +(void)initdata
 {
@@ -257,6 +260,10 @@ static NSString *deviceID;
 {	
 	return port;
 }
++(NSString *)version
+{
+	return version;
+}
 +(void)setUserName:(NSString*) theName
 {
 	[userName release];
@@ -380,7 +387,7 @@ static NSString *deviceID;
 
 
 #pragma mark  计算两个时间段的和    [%d天%d小时%d分钟]  [%d天%d小时%d分钟]     string1/string2  [days,@"days",hours,@"hours",minutes,@"minutes"]
-+(NSString *)getTotalTime:(NSMutableDictionary *)string1:(NSMutableDictionary *)string2 
++(NSString *)getTotalTime:(NSMutableDictionary *)string1 :(NSMutableDictionary *)string2 
 {
     int hadd=0;
     int dadd=0;

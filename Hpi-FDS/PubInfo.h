@@ -66,7 +66,9 @@
 #import "TH_SHIPTRANS_ORIDAO.h"
 #import "PortBehaviour.h"
 
-static NSString *version = @"1.3";
+//static NSString *version = @"1.2";
+NSString *_token;
+NSInteger BadgeNumber;
 typedef enum{
     kPORT=0, //TG_PORT
     kFACTORY,
@@ -146,7 +148,7 @@ typedef enum{
 #define OFFLINE_SHIP    @"离线船舶"
 #define UYES    @"1"  //是否 存在该设备号
 #define UNO     @"0"
-
+#define PI 3.14159265358979323846264338327950288
 
 @interface PubInfo : NSObject
 
@@ -181,6 +183,7 @@ typedef enum{
 +(void)setReportUpdateTime:(NSString*) time;
 +(NSString *)deviceID;
 +(NSString *)currTime;
++(NSString *)version;
 
 /*!
  @method +(BOOL)checkDeviceRegisterInfo;
@@ -213,7 +216,7 @@ typedef enum{
 
 
 //计算两个 时间段[%d天%d小时%d分钟]  [%d天%d小时%d分钟]的和       返回[%d天%d小时%d分钟]字符串      string1/string2  [days,@"days",hours,@"hours",minutes,@"minutes"]  
-+(NSString *)getTotalTime:(NSMutableDictionary *)string1:(NSMutableDictionary *)string2 ;
++(NSString *)getTotalTime:(NSMutableDictionary *)string1 :(NSMutableDictionary *)string2 ;
 
 
 //从数据库时间（string）里格式化 字符串时间   返回formateStr @"yyyy/MM/dd"格式字符串  或  “未知”    

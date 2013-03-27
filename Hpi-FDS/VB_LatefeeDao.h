@@ -21,7 +21,7 @@
 
 +(NSMutableArray *) getVB_LateFee;
 //根据 搜索条件得到实体
-+(NSMutableArray *) getVB_LateFee:(NSString * )compoayId:(NSString *)shipId:(NSString *)factoryCode:(NSString *)Typeid:(NSString *)supid:(NSString *)startTime:(NSString *)endTime;
++(NSMutableArray *) getVB_LateFee:(NSString * )compoayId :(NSString *)shipId :(NSString *)factoryCode :(NSString *)Typeid :(NSString *)supid :(NSString *)startTime :(NSString *)endTime;
 
 +(NSMutableArray *) getVB_LateFeeBySql:(NSString *)sql1;
 

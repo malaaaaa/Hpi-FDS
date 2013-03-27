@@ -206,7 +206,7 @@
                                                         2.0*padding),
                                                        (nodeRect.size.height -
                                                         2.0*padding))];
-            [label setTextAlignment:UITextAlignmentCenter];
+            [label setTextAlignment:NSTextAlignmentCenter];
             [label setFont:[current labelFont]];
             [label setTextColor:[current labelColor]];
             [label setBackgroundColor:[UIColor clearColor]];

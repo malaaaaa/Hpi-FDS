@@ -209,7 +209,7 @@ int totalColument=0;
     l2.textColor = [UIColor whiteColor];
     l2.shadowColor = [UIColor blackColor];
     l2.shadowOffset = CGSizeMake(0, -0.5);
-    l2.textAlignment = UITextAlignmentCenter;
+    l2.textAlignment = NSTextAlignmentCenter;
     [TitleView addSubview:l2];
     [l2 release];
     //一层标题
@@ -225,7 +225,7 @@ int totalColument=0;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [TitleView addSubview:l];
         [l release];
         
@@ -241,7 +241,7 @@ int totalColument=0;
             l1.textColor = [UIColor whiteColor];
             l1.shadowColor = [UIColor blackColor];
             l1.shadowOffset = CGSizeMake(0, -0.5);
-            l1.textAlignment = UITextAlignmentCenter;
+            l1.textAlignment = NSTextAlignmentCenter;
             
             [TitleView addSubview:l1];
             set+=cdw;
@@ -1051,7 +1051,7 @@ int totalColument=0;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [detailView addSubview:l];
         [l release];
         //二层标题....
@@ -1064,7 +1064,7 @@ int totalColument=0;
             l.textColor = [UIColor whiteColor];
             l.shadowColor = [UIColor blackColor];
             l.shadowOffset = CGSizeMake(0, -0.5);
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             [detailView addSubview:l];
             [l release];
             
@@ -1093,7 +1093,7 @@ int totalColument=0;
                 l.textColor = [UIColor whiteColor];
                 l.shadowColor = [UIColor blackColor];
                 l.shadowOffset = CGSizeMake(0, -0.5);
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 [detailView addSubview:l];
                 [l release];
                 
@@ -1248,7 +1248,7 @@ int totalColument=0;
                                UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0  , columnWidth-1, cellHeight -1 )];
                                l.font = [UIFont systemFontOfSize:14.0f];
                                l.text =@"";
-                               l.textAlignment = UITextAlignmentCenter;
+                               l.textAlignment = NSTextAlignmentCenter;
                                l.tag = indexPath.row * cellHeight + column + 1000;
                                if(indexPath.row % 2 == 0)
                                    l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
@@ -1280,7 +1280,7 @@ int totalColument=0;
                     
                 }
 
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 l.tag = indexPath.row * cellHeight + column + 1000;
                 if(indexPath.row % 2 == 0)
                     l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
@@ -1800,14 +1800,14 @@ int totalColument=0;
     }
     if(!monthCV)
         monthCV=[[DateViewController alloc] init];
-    [monthCV .view setFrame:CGRectMake(0, 0, 175, 216)];
-    monthCV.contentSizeForViewInPopover=CGSizeMake(175, 216);
+    [monthCV .view setFrame:CGRectMake(0, 0, 260, 216)];
+    monthCV.contentSizeForViewInPopover=CGSizeMake(260, 216);
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover=pop;//没什么用？
     monthCV.selectedDate=self.month;//初始化  属性[[NSDate alloc] init];  也可以不用他来初始化
     self.poper=pop;
     self.poper.delegate=self;
-    self.poper.popoverContentSize=CGSizeMake(175, 216);
+    self.poper.popoverContentSize=CGSizeMake(260, 216);
     [self.poper presentPopoverFromRect:CGRectMake(587, 80, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 }
@@ -1822,15 +1822,15 @@ int totalColument=0;
     } 
     if(!monthCV)
         monthCV=[[DateViewController alloc] init];
-    [monthCV .view setFrame:CGRectMake(0, 0, 175, 216)];
-    monthCV.contentSizeForViewInPopover=CGSizeMake(175, 216);
+    [monthCV .view setFrame:CGRectMake(0, 0, 260, 216)];
+    monthCV.contentSizeForViewInPopover=CGSizeMake(260, 216);
     
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover=pop;//没什么用？
     monthCV.selectedDate=self.month;//初始化  属性[[NSDate alloc] init];  也可以不用他来初始化
     self.poper=pop;
     self.poper.delegate=self;
-    self.poper.popoverContentSize=CGSizeMake(175, 216);
+    self.poper.popoverContentSize=CGSizeMake(260, 216);
     [self.poper presentPopoverFromRect:CGRectMake(787, 80, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
 
@@ -2266,7 +2266,7 @@ int totalColument=0;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [detailView addSubview:l];
         [l release];
         //二层标题....
@@ -2279,7 +2279,7 @@ int totalColument=0;
             l.textColor = [UIColor whiteColor];
             l.shadowColor = [UIColor blackColor];
             l.shadowOffset = CGSizeMake(0, -0.5);
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             [detailView addSubview:l];
             [l release];
             
@@ -2309,7 +2309,7 @@ int totalColument=0;
                 l.textColor = [UIColor whiteColor];
                 l.shadowColor = [UIColor blackColor];
                 l.shadowOffset = CGSizeMake(0, -0.5);
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 [detailView addSubview:l];
                 [l release];
                 
@@ -2333,7 +2333,7 @@ int totalColument=0;
                 l.textColor = [UIColor whiteColor];
                 l.shadowColor = [UIColor blackColor];
                 l.shadowOffset = CGSizeMake(0, -0.5);
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 [detailView addSubview:l];
                 [l release];
                 //二层标题....
@@ -2347,7 +2347,7 @@ int totalColument=0;
                     l.textColor = [UIColor whiteColor];
                     l.shadowColor = [UIColor blackColor];
                     l.shadowOffset = CGSizeMake(0, -0.5);
-                    l.textAlignment = UITextAlignmentCenter;
+                    l.textAlignment = NSTextAlignmentCenter;
                     [detailView addSubview:l];
                     [l release];
                     
@@ -2371,7 +2371,7 @@ int totalColument=0;
                         l.textColor = [UIColor whiteColor];
                         l.shadowColor = [UIColor blackColor];
                         l.shadowOffset = CGSizeMake(0, -0.5);
-                        l.textAlignment = UITextAlignmentCenter;
+                        l.textAlignment = NSTextAlignmentCenter;
                         [detailView addSubview:l];
                         [l release];
                         columOffset+=columnWidth;

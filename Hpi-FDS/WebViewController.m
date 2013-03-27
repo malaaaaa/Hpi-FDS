@@ -179,6 +179,7 @@ static int a=0;
                 } 
             }
         }
+        
      }
    }
     
@@ -228,6 +229,15 @@ static int a=0;
    self.loadCount=0;//没执行一次viewloadRequest  为一次加载..
     
     NSURL *url=nil;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *docPath =
+    [documentsDirectory stringByAppendingString:[NSString stringWithFormat: @"/Files/%@",fileinfo.fileName]];
+      NSLog(@"####docPath# [%@]",docPath);
+    
+    url=[NSURL fileURLWithPath:docPath  ];
+
+    /*
     if (type==2) {//调用信息附件查看
         
       
@@ -248,7 +258,7 @@ static int a=0;
        
        
       // NSLog(@"fileUrl:%@",url );
-   }
+   }*/
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [webView1 setBackgroundColor:[UIColor whiteColor]];
     [webView1 loadRequest:request];
@@ -386,7 +396,7 @@ static NSDate *currentDateStr1;
     
     
       [pop release];
-    
+
 }
 
 
@@ -438,5 +448,9 @@ static NSDate *currentDateStr1;
     [pop release];
     
  }*/
-
+#pragma mark 刷新页面为空白
+-(void)FreshWebViewToBlank{
+    [webView1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    self.titleLable.text=@"";
+}
 @end

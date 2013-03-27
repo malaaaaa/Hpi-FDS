@@ -127,7 +127,7 @@ static int  whichButton=0;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         
         [dataQueryVC.labelView addSubview:l];
         [l release];
@@ -398,8 +398,8 @@ static int  whichButton=0;
     
     if(!monthCV)
     monthCV=[[DateViewController alloc] init];
-    [monthCV .view setFrame:CGRectMake(0, 0, 195, 216)];
-    monthCV.contentSizeForViewInPopover=CGSizeMake(195, 216);
+    [monthCV .view setFrame:CGRectMake(0, 0, 260, 216)];
+    monthCV.contentSizeForViewInPopover=CGSizeMake(260, 216);
     
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover=pop;//没什么用？
@@ -408,7 +408,7 @@ static int  whichButton=0;
     self.poper=pop;
     self.poper.delegate=self;
     
-    self.poper.popoverContentSize=CGSizeMake(195, 216);
+    self.poper.popoverContentSize=CGSizeMake(260, 216);
     
     [self.poper presentPopoverFromRect:CGRectMake(187, 76, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
@@ -434,8 +434,8 @@ static int  whichButton=0;
     
     if(!monthCV)
     monthCV=[[DateViewController alloc] init];
-    [monthCV .view setFrame:CGRectMake(0, 0, 195, 216)];
-    monthCV.contentSizeForViewInPopover=CGSizeMake(195, 216);
+    [monthCV .view setFrame:CGRectMake(0, 0, 260, 216)];
+    monthCV.contentSizeForViewInPopover=CGSizeMake(260, 216);
     
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover=pop;//没什么用？
@@ -444,7 +444,7 @@ static int  whichButton=0;
     self.poper=pop;
     self.poper.delegate=self;
     
-    self.poper.popoverContentSize=CGSizeMake(195, 216);
+    self.poper.popoverContentSize=CGSizeMake(260, 216);
     
     [self.poper presentPopoverFromRect:CGRectMake(387, 76, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     

@@ -64,16 +64,33 @@ static int cellNum =0;
 	
 }
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
-	
+
 	return _reloading; // should return if data source model is reloading
 	
 }
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
 	
+    NSLog(@"egoRefreshTableHeaderDataSourceLastUpdated");
+    BadgeNumber=[TsFileinfoDao getUnDownloadNums:@"NOTICE"];
+    //更新MapView信息栏按钮图标未读显示数量
+    [self.parentMapView setControllerText:[NSString stringWithFormat:@"%d", BadgeNumber]];
+
 	return [NSDate date]; // should return date data source was last changed
 	
 }
+#pragma mark 手动触发刷新 EGORefreshTableHeaderDelegate 
+-(void) ViewFrashData{
+    NSLog(@"ViewFrashData");
+    [self.memoirTableView setContentOffset:CGPointMake(0, -75) animated:YES];
+    [self performSelector:@selector(doneManualRefresh) withObject:nil afterDelay:0.6];
+}
+-(void)doneManualRefresh{
+    NSLog(@"doneManualRefresh");
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:self.memoirTableView];
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:self.memoirTableView];
+}
 
+#pragma mark -
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -117,7 +134,7 @@ static int cellNum =0;
 {
 
     NSLog(@"viewWillAppear");//从 这个tableview 掉转到 另一个 view 时被调用
-
+    
     [self.listArray removeAllObjects];
     [self.cellArray removeAllObjects];
     cellNum=0;
@@ -178,11 +195,6 @@ static int cellNum =0;
         fm =[ NSFileManager defaultManager ];
     }
     
-    
-    
-    
-    
-    
 }
 
 - (void)viewDidUnload
@@ -221,19 +233,19 @@ static int cellNum =0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TsFileinfo *tsFile=[listArray objectAtIndex:indexPath.row];
-  //  if ([tsFile.xzbz isEqualToString:@"1"]) {//1为 下载完成..
+    if ([tsFile.xzbz isEqualToString:@"1"]) {//1为 下载完成..
         
         
-            //在本地Documents下加载  下载到的文件
-            [WebViewController setFileName:tsFile  ];
+        //在本地Documents下加载  下载到的文件
+        [WebViewController setFileName:tsFile  ];
         //设置 加载状态.
-     WebViewController*wbs=   (WebViewController*)self.webVC;
-         
-         [wbs  viewloadRequest];
-            [self.popover dismissPopoverAnimated:YES];
-             
-       
-   // }
+        WebViewController*wbs=   (WebViewController*)self.webVC;
+        
+        [wbs  viewloadRequest];
+        [self.popover dismissPopoverAnimated:YES];
+        
+        
+    }
    
 }
 
@@ -254,19 +266,11 @@ static int cellNum =0;
 }
 
 
-/*取消下载.... 
 #pragma mark -
 #pragma mark action
 -(void) stratDownload:(MemoirCell *)cell
 {
     NSLog(@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
-    
-    
-    
-    
-    
-    
     NSLog(@"开始下载文件......");
      
     [cell retain];
@@ -314,6 +318,16 @@ static int cellNum =0;
         cell.backimage.backgroundColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1];
         [memoirTableView reloadData];   
         
+        //更新后台
+        if (![self SendFILEIDToServer:[NSString stringWithFormat:@"%d",tsFile.fileId]]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"服务器更新推送信息失败！\n请联系管理员!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+            [alert show];
+            [alert release];
+        }
+        BadgeNumber--;
+        //更新MapView信息栏按钮图标未读显示数量
+        [self.parentMapView setControllerText:[NSString stringWithFormat:@"%d", BadgeNumber]];
+        
     }];
     // 使用 failed 块，在下载失败时做一些事情
     [request setFailedBlock :^( void ){
@@ -342,19 +356,19 @@ static int cellNum =0;
     
       //[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateUI:) userInfo:cell repeats:NO];
     [cell release];
-}*/
+}
 //下载书籍
 -(void) buttonAction:(id)send
 {
 	NSLog(@"zhangcx buttonAction start");
     MemoirCell *cell=(MemoirCell *)send;
 	[cell retain];
-   //cell.button.hidden=YES;
+   cell.button.hidden=YES;
     TsFileinfo *tsFile=cell.data;
 	tsFile.xzbz=@"2";
     [TsFileinfoDao updateTsFileXzbz:tsFile.fileId :tsFile.xzbz];
     
-    //[self stratDownload:cell];
+    [self stratDownload:cell];
 }
 
 -(void)reloadTableView
@@ -486,7 +500,7 @@ static int cellNum =0;
     
     
     
-    /*
+    
     if ([tsFile.xzbz isEqualToString:@"1"]) {
         cell.button.enabled=FALSE;
         cell.button.hidden=YES;
@@ -502,7 +516,7 @@ static int cellNum =0;
         cell.button.enabled=TRUE;
         cell.button.hidden=NO;
         cell.okimage.hidden=YES;
-    }*/
+    }
     
     
     if([[tsFile.fileName pathExtension] isEqualToString:@"pdf"])
@@ -531,5 +545,80 @@ static int cellNum =0;
     cell.accessoryType = UITableViewCellAccessoryNone;
     return cell;
 }
+#pragma mark 将FILEID发送至后台
+- (BOOL) SendFILEIDToServer:(NSString *)fileID{
+    
+    NSString *reg;
+    NSString *requestStr=[NSString stringWithFormat:@"<GetSendFILEIDinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
+                          "<token>%@</token>\n"
+                          "<fileid>%@</fileid>\n"
+                          "</req>\n"
+                          "</GetSendFILEIDinfo>\n"
+                          , _token,fileID];
+    
+    NSString *soapMessage =[NSString stringWithFormat:
+                            @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                            "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n"
+                            "<soap12:Body>\n  %@ </soap12:Body>\n"
+                            "</soap12:Envelope>\n",requestStr ];
+    
+    NSLog(@"soapMessage[%@]",soapMessage);
+    
+    // 初始化请求
+    NSString *msgLength = [NSString stringWithFormat:@"%d", [soapMessage length]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request addValue: @"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // 设置URL
+    [request setURL:[NSURL URLWithString:PubInfo.baseUrl]];
+    // 设置HTTP方法
+    [request setHTTPMethod:@"POST"];
+    // 发送同步请求
+    NSError *connectError=nil;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request
+                                               returningResponse:nil error:&connectError];
+    if (connectError) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"后台服务器连接失败！\n请检查网络或修改服务器地址!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+        return FALSE;
+    }
+//    NSString *theXML = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@",theXML);
+    NSString *element1=@"SendFILEID";
+    NSString *elementString1= [NSString stringWithFormat:@"Get%@infoResult",element1];
+    NSString *elementString2= [NSString stringWithFormat:@"Get%@infoResponse",element1];
+    // char *errorMsg;
+    NSError *error = nil;
+    TBXML * tbxml = [TBXML newTBXMLWithXMLData:returnData error:&error];
+    if (error) {
+        NSLog(@"Error! %@ %@", [error localizedDescription], [error userInfo]);
+        
+    }else {
+        TBXMLElement * root = tbxml.rootXMLElement;
+        //=======================================
+        if (root) {// @"retinfo"
+            TBXMLElement *element = [TBXML childElementNamed: @"retcode"  parentElement:[TBXML childElementNamed:elementString1 parentElement:[TBXML childElementNamed:elementString2 parentElement:[TBXML childElementNamed:@"soap:Body" parentElement:root]]]];
+            if (element != nil) {
+                reg=[TBXML textForElement:element] ;
+            }
+            NSLog(@"reg=%@",reg);
+        }
+        
+    }
+    // 释放对象
+    [request release];
+    
+    //返回值为0代表正常
+    if (![reg isEqualToString:@"0"]) {
+        
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
 
 @end

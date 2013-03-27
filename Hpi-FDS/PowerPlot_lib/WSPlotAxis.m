@@ -363,7 +363,7 @@
                                     lineBreakMode:[cLabel lineBreakMode]];            
                 [cLabel setAutoresizingMask:(UIViewAutoresizingFlexibleWidth |
                                              UIViewAutoresizingFlexibleHeight)];
-                [cLabel setTextAlignment:UITextAlignmentCenter];
+                [cLabel setTextAlignment:NSTextAlignmentCenter];
 
 
                 [cLabel setFont:[[self axisX] labelFont]];
@@ -494,7 +494,7 @@
                 NAFloat angle = 0.25*M_PI;
                 NSString *labelString = [[self ticksY] labelAtIndex:i];
                 UILabel *cLabel = [_tickUILabelsY objectAtIndex:i];
-                [cLabel setTextAlignment:UITextAlignmentCenter];
+                [cLabel setTextAlignment:NSTextAlignmentCenter];
 
                 [cLabel setFont:[[self axisY] labelFont]];
                 [cLabel setTextColor:[[self axisY] labelColor]];
@@ -658,7 +658,7 @@
         
         // Configure the label, compute its size and position it as
         // requested.
-        [_axisUILabelX setTextAlignment:UITextAlignmentCenter];
+        [_axisUILabelX setTextAlignment:NSTextAlignmentCenter];
         [_axisUILabelX setFont:[[self axisX] labelFont]];
         [_axisUILabelX setTextColor:[[self axisX] labelColor]];
         [_axisUILabelX setBackgroundColor:[UIColor clearColor]];
@@ -711,7 +711,7 @@
         
         // Configure the label, compute its size and position it as
         // requested.
-        [_axisUILabelY setTextAlignment:UITextAlignmentCenter];
+        [_axisUILabelY setTextAlignment:NSTextAlignmentCenter];
         [_axisUILabelY setFont:[[self axisY] labelFont]];
         [_axisUILabelY setTextColor:[[self axisY] labelColor]];
         [_axisUILabelY setBackgroundColor:[UIColor clearColor]];

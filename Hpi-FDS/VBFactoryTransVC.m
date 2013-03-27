@@ -159,7 +159,7 @@ static  NSMutableArray *ShipStageArray;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [self.labelView addSubview:l];
         [l release];
         columnOffset += columnWidth;
@@ -895,8 +895,8 @@ static  NSMutableArray *ShipStageArray;
         factorytransDeitail = [[VBFactoryTransDetailVC alloc]init];
         factorytransDeitail.iDArray=detailArray;
         
-        [factorytransDeitail.view setFrame:CGRectMake(0,0, 125, 620)];
-        factorytransDeitail.contentSizeForViewInPopover = CGSizeMake(125, 620);
+        [factorytransDeitail.view setFrame:CGRectMake(0,0, 125, 650)];
+        factorytransDeitail.contentSizeForViewInPopover = CGSizeMake(125, 650);
 
         factorytransDeitail.parentView = self;
         
@@ -905,7 +905,7 @@ static  NSMutableArray *ShipStageArray;
         
         factorytransDeitail.popover = pop;
         
-        pop.popoverContentSize=CGSizeMake(620, 40+shipNum*40);
+        pop.popoverContentSize=CGSizeMake(650, 40+shipNum*40);
         [pop  presentPopoverFromRect:CGRectMake(500, 470, 5, 5) inView:self.view permittedArrowDirections:0 animated:YES];
         
         
@@ -1009,7 +1009,7 @@ static  NSMutableArray *ShipStageArray;
             UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1, 40 -1 )];
             l.font = [UIFont systemFontOfSize:14.0f];
             l.text = [rowData objectAtIndex:column];
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             l.tag = 40 + column + 1000;
             if(indexPath.row % 2 == 0)
                 l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
@@ -1031,8 +1031,8 @@ static  NSMutableArray *ShipStageArray;
             if (column==[rowData count]-2) {
                 l.text=@"";
                 if ([[rowData objectAtIndex:column] integerValue]>0) {
-                    UILabel *imageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, columnWidth-1, 40 -1 )];
-                     imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"xiangx"]];
+                    UILabel *imageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, columnWidth-10, 40 -1 )];
+                     imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"chuanxk"]];
                     [l addSubview:imageLabel];
                     [imageLabel release];
 
@@ -1045,9 +1045,11 @@ static  NSMutableArray *ShipStageArray;
         }
         
     }
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
-    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
+    [cell setSelectionStyle:UITableViewCellAccessoryNone];
+
+//    cell.accessoryType = UITableViewCellAccessoryNone;
+//    cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
+//    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
     return cell;
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

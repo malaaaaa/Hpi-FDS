@@ -99,7 +99,7 @@ UIAlertView *serverAlert;
                           "<emile>%@</emile>\n"
                           "</req>\n"
                           "</GetLoginRequestinfo>\n"
-                          ,requestData.strID, version,PubInfo.currTime,requestData.userName,requestData.partName,requestData.phone,requestData.emile ];
+                          ,requestData.strID, PubInfo.version,PubInfo.currTime,requestData.userName,requestData.partName,requestData.phone,requestData.emile ];
     
     method=@"LoginRequest";//@"LoginRequest";
     [self requestSoap:requestStr];

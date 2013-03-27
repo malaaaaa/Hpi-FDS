@@ -71,7 +71,7 @@
         sumStorage+=portBehaviour.storage;
         sumShipnum+=portBehaviour.shipNum;
         self.infoLabel.text=[NSString stringWithFormat:@"港口动态          %@",portBehaviour.date];
-        self.infoLabel.textAlignment=UITextAlignmentRight;
+        self.infoLabel.textAlignment=NSTextAlignmentRight;
     }
     //合计
     [ds.data addObject:[NSArray arrayWithObjects:

@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MemoirListVC.h"
+@class MemoirListVC;
 
 #import "PubInfo.h"
-
+#import "JSBadgeView/JSBadgeView.h"
 @interface WebViewController : UIViewController<UIWebViewDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate>{
     IBOutlet UIWebView *webView1;
     UIPopoverController *popover;
@@ -55,4 +56,6 @@
 
 
 - (void)viewloadRequest;
+-(void)FreshWebViewToBlank;
+
 @end

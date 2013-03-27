@@ -99,6 +99,9 @@ static int iDisplay=0;
     [infoBut release];
     [mainVW release];
     [fileShow release];
+    
+    self.badgeSuperView=nil;
+    self.badgeView=nil;
     [super dealloc];
 }
 
@@ -179,16 +182,7 @@ static int iDisplay=0;
     
     // Do any additional setup after loading the view from its nib.
     
-    CLLocationCoordinate2D theCoordinate;
-    theCoordinate.latitude=29.6955667121; //纬度
-    theCoordinate.longitude=122.0461133192; //经度
-    MKCoordinateSpan theSpan = MKCoordinateSpanMake(17,17);//显示比例
-    //定义显示范围
-    //定义一个区域（使用设置的经度纬度加上一个范围）
-    MKCoordinateRegion theRegion;
-    theRegion.center=theCoordinate;
-    theRegion.span=theSpan;
-    [mapView setRegion:theRegion];
+    [self reStoreMapRegion];
     [mapView setMapType:MKMapTypeStandard];
     mapView.delegate = self;
     mapView.showsUserLocation = YES;
@@ -198,19 +192,7 @@ static int iDisplay=0;
     mapViewBig.layer.shadowRadius =0.5;
     mapViewBig.layer.shadowColor =[UIColor blackColor].CGColor;
     
-    CLLocationCoordinate2D theCoordinate1;
-//    theCoordinate1.latitude=2.6955667122; //纬度
-//    theCoordinate1.longitude=111.0461133190; //经度
-    theCoordinate1.latitude=5.878332; //纬度
-    theCoordinate1.longitude=133.857422; //经度
-    MKCoordinateRegion theRegion1;
-    theRegion1.center=theCoordinate1;
-//    MKCoordinateSpan theSpan1 = MKCoordinateSpanMake(60,60);//显示比例
-    MKCoordinateSpan theSpan1 = MKCoordinateSpanMake(30,30);//显示比例
-    theRegion1.span=theSpan1;
-    //定义显示范围
-    //定义一个区域（使用设置的经度纬度加上一个范围)
-    [mapViewBig setRegion:theRegion1];
+    [self reStoreBigMapRegion];
     [mapViewBig setMapType:MKMapTypeStandard];
     [mapViewBig addSubview:closeButton];
     mapViewBig.delegate = self;
@@ -228,8 +210,16 @@ static int iDisplay=0;
 //    self.shipButton.titleLabel.text=All_SHIP;
 //    self.portButton.titleLabel.text=All_PORT;
 //    self.factoryButton.titleLabel.text=All_FCTRY;
+    
+    //增加Badge显示
+    self.badgeSuperView = [[UIImageView alloc] initWithFrame:CGRectIntegral(CGRectMake(infoBut.frame.origin.x+65,
+                                                                                infoBut.frame.origin.y-13,
+                                                                                16,
+                                                                                16))];
+    self.badgeView = [[JSBadgeView alloc] initWithParentView:_badgeSuperView alignment:JSBadgeViewAlignmentBottomLeft];
+    self.badgeView.badgeText=@"00";
+    [self.view addSubview:_badgeSuperView];
 }
-
 - (void)viewDidUnload
 {
     
@@ -237,10 +227,7 @@ static int iDisplay=0;
     infoBut=nil;
     mainVW=nil;
     wbvc=nil;
-    
-    
-    
-    
+  
     self.mapView=nil;
     self.mapViewBig=nil;
     self.activity=nil;
@@ -266,6 +253,8 @@ static int iDisplay=0;
     mainVW = nil;
     [fileShow release];
     fileShow = nil;
+    self.badgeSuperView=nil;
+    self.badgeView=nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -292,18 +281,13 @@ static int iDisplay=0;
     
     NSDateFormatter *formater=[[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd"];
-    
+
     TsFileinfo *tsf=[[TsFileinfo alloc] init] ;
     
-    
-    tsf.fileName=
-    //[[NSString alloc] initWithFormat:@"调运信息表(%@).xls",[formater stringFromDate:[NSDate date]]];//释放..
-    [NSString stringWithFormat:@"调运信息表(%@).xlsx",[formater stringFromDate:[NSDate date]]];
+    tsf.fileName=[NSString stringWithFormat:@"船舶调运动态表(%@).xls",[formater stringFromDate:[NSDate date]]];
     [formater release];
     
-    
-    
-    //调运信息表(2012-02-28).xls
+    //船舶调运动态表(2012-02-28).xls
     NSString * url=  [NSString stringWithFormat:@"%@%@/fileupload/IPAD_Factory/%@",  PubInfo.hostName, PubInfo.port,tsf.fileName ];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Files"];
@@ -383,7 +367,8 @@ static int iDisplay=0;
     }
     [self.mainVW addSubview:wbvc.view];
     [wbvc.view bringSubviewToFront:self.mainVW];
-  
+    [wbvc FreshWebViewToBlank];
+
     memoirListVC.webVC=self.wbvc;
     [memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
     //设置待显示控制器视图的尺寸
@@ -391,7 +376,7 @@ static int iDisplay=0;
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:memoirListVC];
     memoirListVC.popover = pop;
-    
+    memoirListVC.parentMapView=self;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
@@ -399,6 +384,8 @@ static int iDisplay=0;
     memoirListVC.stringType=@"NOTICE";
     [self.popover presentPopoverFromRect:CGRectMake(980, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
+    //自动刷新
+    [memoirListVC ViewFrashData];
     [pop release];
     //先加载  webView
     
@@ -406,6 +393,7 @@ static int iDisplay=0;
    
     
     [memoirListVC release];
+
 }
 
 
@@ -571,8 +559,6 @@ static int iDisplay=0;
           [self.wbvc.view removeFromSuperview];
     }
   
-    
-    
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -580,9 +566,9 @@ static int iDisplay=0;
     //初始化待显示控制器
     summaryInfoViewController=[[SummaryInfoViewController alloc]init];
     //设置待显示控制器的范围
-    [summaryInfoViewController.view setFrame:CGRectMake(0,0, 960, 300)];
+    [summaryInfoViewController.view setFrame:CGRectMake(0,0, 1010, 300)];
     //设置待显示控制器视图的尺寸
-    summaryInfoViewController.contentSizeForViewInPopover = CGSizeMake(960, 300);
+    summaryInfoViewController.contentSizeForViewInPopover = CGSizeMake(1010, 300);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:summaryInfoViewController];
     summaryInfoViewController.popover = pop;
@@ -590,7 +576,7 @@ static int iDisplay=0;
     self.popover.delegate = self;
     [summaryInfoViewController loadViewData];
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(960, 300);
+    self.popover.popoverContentSize = CGSizeMake(1010, 300);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(900, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [summaryInfoViewController release];
@@ -637,7 +623,11 @@ static int iDisplay=0;
 }
 */
 - (IBAction)portInfoView:(id)sender
-{    
+{
+    if (self.wbvc ) {
+        [self.wbvc.view removeFromSuperview];
+    }
+    
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
     }
@@ -1166,7 +1156,7 @@ static int iDisplay=0;
             }
             if(b==0)
             {
-                if(![companyName isEqualToString:port.company])
+                if(![companyName isEqualToString:@"全部离线船舶"]&&![companyName isEqualToString:port.company])
                 {
                     continue;
                 }
@@ -1412,7 +1402,7 @@ static int iDisplay=0;
         iDisplay=2;
     }
     //不刷新
-//        [self getShipCoordinateByChoose:shipButton.titleLabel.text  :factoryButton.titleLabel.text :NO];
+    [self getShipCoordinateByChoose:shipButton.titleLabel.text  :factoryButton.titleLabel.text :NO];
    
 }
 
@@ -1469,7 +1459,8 @@ static int iDisplay=0;
     }
 }
 */
-#pragma mark SetSelectValue  Method
+#pragma mark -
+#pragma mark Delegate SetSelectValue  Method
 -(void)setLableValue:(NSString *)currentSelectValue
 {
     
@@ -1507,7 +1498,21 @@ static int iDisplay=0;
     }
     
 }
+#pragma mark Delegate setControllerText  Method
+-(void)setControllerText:(NSString *)Text
+{
 
+    //-1为计算出错
+    if ([Text isEqualToString:@"0"]||[Text isEqualToString:@"-1"]) {
+        self.badgeView.hidden=YES;
+    }
+    else{
+        NSLog(@"setControllerText");
+        self.badgeView.hidden=NO;
+        self.badgeView.badgeText=Text;
+
+    }
+}
 - (IBAction)comButtonSelect:(id)sender {
     NSLog(@"abc");
 
@@ -1527,7 +1532,7 @@ static int iDisplay=0;
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:chooseView];
     chooseView.popover = pop;
-    chooseView.iDArray=[NSArray arrayWithObjects:OFFLINE_SHIP,@"时代",@"瑞宁",@"华鲁",nil];
+    chooseView.iDArray=[NSArray arrayWithObjects:@"全部离线船舶",@"时代",@"瑞宁",@"华鲁",nil];
     chooseView.parentMapView=self;
     chooseView.type=kSHIPCOMPANY;
     self.popover = pop;
@@ -1541,6 +1546,61 @@ static int iDisplay=0;
     [pop release];
     NSLog(@"edc");
 }
+#pragma mark -
+#pragma mark 恢复大地图视野范围
+- (void)reStoreMapRegion{
+    CLLocationCoordinate2D theCoordinate;
+//    theCoordinate.latitude=29.6955667121; //纬度
+//    theCoordinate.longitude=122.0461133192; //经度
+//    MKCoordinateSpan theSpan = MKCoordinateSpanMake(17,17);//显示比例
+      //高德地图调整
+    theCoordinate.latitude=29.6955667121; //纬度
+    theCoordinate.longitude=122.0461133192; //经度
+    MKCoordinateSpan theSpan = MKCoordinateSpanMake(32,32);//显示比例
 
+    //定义显示范围
+    //定义一个区域（使用设置的经度纬度加上一个范围）
+    MKCoordinateRegion theRegion;
+    theRegion.center=theCoordinate;
+    theRegion.span=theSpan;
+    [mapView setRegion:theRegion];
+}
+
+#pragma mark -
+#pragma mark 恢复小地图视野范围
+- (void)reStoreBigMapRegion{
+    CLLocationCoordinate2D theCoordinate;
+//    theCoordinate.latitude=5.878332; //纬度
+//    theCoordinate.longitude=133.857422; //经度
+    //高德地图调整
+    theCoordinate.latitude=5.878332; //纬度
+    theCoordinate.longitude=127.857422; //经度
+    MKCoordinateRegion theRegion;
+    theRegion.center=theCoordinate;
+    MKCoordinateSpan theSpan = MKCoordinateSpanMake(50,50);//显示比例
+    theRegion.span=theSpan;
+    //定义显示范围
+    //定义一个区域（使用设置的经度纬度加上一个范围)
+    [mapViewBig setRegion:theRegion];
+}
+#pragma mark -
+#pragma mark 刷新BadgeNumber
+- (void)freshBadgeNumber{
+    NSInteger tmpInteger=[TsFileinfoDao getUnDownloadNums:@"NOTICE"];
+    NSLog(@"freshBadgeNumber=%d=%d",BadgeNumber,tmpInteger);
+    
+    //非初次未同步，更新为本地计算结果
+    if (-2!=tmpInteger) {
+        BadgeNumber=tmpInteger;
+    }
+    _badgeView.badgeText = [NSString stringWithFormat:@"%d", BadgeNumber];
+    if (BadgeNumber<=0) {
+        self.badgeView.hidden=YES;
+    }
+    else{
+        self.badgeView.hidden=NO;
+    }
+    
+}
 @end
 

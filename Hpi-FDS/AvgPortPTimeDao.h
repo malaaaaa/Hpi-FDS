@@ -15,11 +15,11 @@
 
 
 
-+(NSMutableArray *)getTime:(NSString *)startTime:(NSString *)endTime;
++(NSMutableArray *)getTime:(NSString *)startTime :(NSString *)endTime;
 
-+(NSMutableArray *)getAvgPortDate:(NSString *)startTime:(NSString *)endTime:(NSMutableArray *)titleTime;
++(NSMutableArray *)getAvgPortDate:(NSString *)startTime :(NSString *)endTime :(NSMutableArray *)titleTime;
 
 
-+(NSMutableArray *)getAvgPortDateBySql:(NSString *)sql1:(NSString *)sql2 :(NSInteger)count;
++(NSMutableArray *)getAvgPortDateBySql:(NSString *)sql1 :(NSString *)sql2 :(NSInteger)count;
 
 @end

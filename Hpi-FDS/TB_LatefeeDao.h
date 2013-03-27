@@ -22,7 +22,7 @@
 
 +(NSMutableArray *) getTB_LateFee;
 //根据 搜索条件得到实体
-+(NSMutableArray *) getTB_LateFee:(NSString * )compoayId:(NSString *)shipId:(NSString *)factoryCode:(NSString *)Typeid:(NSString *)supid:(NSString *)startTime:(NSString *)endTime;
++(NSMutableArray *) getTB_LateFee:(NSString * )compoayId :(NSString *)shipId :(NSString *)factoryCode :(NSString *)Typeid :(NSString *)supid :(NSString *)startTime :(NSString *)endTime;
 
 +(NSMutableArray *) getTB_LateFeeBySql:(NSString *)sql1;
 

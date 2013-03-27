@@ -121,7 +121,7 @@ DataQueryVC *dataQueryVC;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [dataQueryVC.labelView addSubview:l];
         [l release];
         columnOffset += columnWidth;
@@ -421,9 +421,9 @@ DataQueryVC *dataQueryVC;
     
     
     //设置待显示控制器的范围
-    [monthCV.view setFrame:CGRectMake(0,0, 165, 216)];
+    [monthCV.view setFrame:CGRectMake(0,0, 260, 216)];
     //设置待显示控制器视图的尺寸
-    monthCV.contentSizeForViewInPopover = CGSizeMake(165, 216);
+    monthCV.contentSizeForViewInPopover = CGSizeMake(260, 216);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:monthCV];
     monthCV.popover = pop;
@@ -431,7 +431,7 @@ DataQueryVC *dataQueryVC;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(165, 216);
+    self.popover.popoverContentSize = CGSizeMake(260, 216);
     //显示，其中坐标为箭头的坐标以及尺寸
     [self.popover presentPopoverFromRect:CGRectMake(904, 30 , 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     [pop release];
@@ -482,7 +482,7 @@ DataQueryVC *dataQueryVC;
     
     
   //  NSLog(@"codeTextField=[%@]",codeTextField.text);
-    if (monthLabel.text!=All_) {
+    if (![monthLabel.text isEqualToString:All_]) {
         monthLabel.text=[f stringFromDate:self.month];
       
     }

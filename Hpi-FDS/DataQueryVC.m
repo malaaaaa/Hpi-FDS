@@ -372,7 +372,7 @@ static NSInteger menuSection;
             UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1, 40 -1 )];
             l.font = [UIFont systemFontOfSize:14.0f];
             l.text = [rowData objectAtIndex:column]; 
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             l.tag = 40 + column + 1000;
             if(indexPath.row % 2 == 0)
                 l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
@@ -398,7 +398,8 @@ static NSInteger menuSection;
     }
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
-    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
+    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:0.1];
+
     return cell;
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -417,7 +418,7 @@ static NSInteger menuSection;
 }
 
 //删除segment控件，模拟segmentChanged
--(void)setSegmentIndex:(NSInteger) index:(NSInteger )section
+-(void)setSegmentIndex:(NSInteger)index :(NSInteger )section
 {
     menuIndex=index;
     menuSection=section;

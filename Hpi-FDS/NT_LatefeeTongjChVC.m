@@ -119,7 +119,7 @@ NSDateFormatter *formater1;
         l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-        l.textAlignment = UITextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentCenter;
         [dataQueryVC.labelView addSubview:l];
         [l release];
         columnOffset += columnWidth;
@@ -169,14 +169,14 @@ NSDateFormatter *formater1;
     }
     if(!monthVC)
         monthVC=[[DateViewController alloc] init];
-    [monthVC .view setFrame:CGRectMake(0, 0, 195, 216)];
-   monthVC.contentSizeForViewInPopover=CGSizeMake(195, 216);
+    [monthVC .view setFrame:CGRectMake(0, 0, 260, 216)];
+   monthVC.contentSizeForViewInPopover=CGSizeMake(260, 216);
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthVC];
    monthVC.popover=pop;//没什么用？
   monthVC.selectedDate=self.month;//初始化  属性[[NSDate alloc] init];  也可以不用他来初始化
     self.popover=pop;
     self.popover.delegate=self;
-    self.popover.popoverContentSize=CGSizeMake(195, 216);
+    self.popover.popoverContentSize=CGSizeMake(260, 216);
     [self.popover presentPopoverFromRect:CGRectMake(587, 40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     //不能释放
    //[monthVC release];
@@ -193,8 +193,8 @@ NSDateFormatter *formater1;
     }
     if(!monthVC)
         monthVC=[[DateViewController alloc] init];
-    [monthVC .view setFrame:CGRectMake(0, 0, 195, 216)];
-   monthVC.contentSizeForViewInPopover=CGSizeMake(195, 216);
+    [monthVC .view setFrame:CGRectMake(0, 0, 260, 216)];
+   monthVC.contentSizeForViewInPopover=CGSizeMake(260, 216);
     
     UIPopoverController *pop=[[UIPopoverController alloc] initWithContentViewController:monthVC];
     monthVC.popover=pop;//没什么用？
@@ -203,7 +203,7 @@ NSDateFormatter *formater1;
     self.popover=pop;
     self.popover.delegate=self;
     
-    self.popover.popoverContentSize=CGSizeMake(195, 216);
+    self.popover.popoverContentSize=CGSizeMake(260, 216);
     
     [self.popover presentPopoverFromRect:CGRectMake(842,40, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 

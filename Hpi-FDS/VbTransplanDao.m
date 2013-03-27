@@ -174,7 +174,7 @@ static sqlite3	*database;
 }
 //:(NSString *)coalType    :(NSString *)planCode   去掉没种 和  计划单号 查询条件
 
-+(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName:(NSString *)dateTime
++(NSMutableArray *) getVbTransplan:(NSString *)shipCompany :(NSString *)shipName :(NSString *)portName :(NSString *)factoryName :(NSString *)dateTime
 {
     NSString *query=@" 1=1  ";
     

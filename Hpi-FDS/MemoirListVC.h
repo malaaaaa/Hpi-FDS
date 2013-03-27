@@ -13,6 +13,9 @@
 #import "XMLParser.h"
 #import "ASINetworkQueue.h"
 #import "ASIHTTPRequest.h"
+#import "TBXML.h"
+#import "MapViewController.h"
+#import "SuperViewDelegate.h"
 @interface MemoirListVC : UIViewController<
     UITableViewDataSource,
     UITableViewDelegate,
@@ -36,7 +39,7 @@
     
    
     NSFileManager * fm ;
-    
+     id<SuperViewDelegate> _parentMapView;
 }
 
 @property (nonatomic,retain) UITableView *memoirTableView;
@@ -52,6 +55,7 @@
 @property (nonatomic,retain) NSMutableArray *cellArray;
 @property (nonatomic,copy) NSString *stringType;
 @property (nonatomic,retain) EGORefreshTableHeaderView *refreshHeaderView;
-
+@property (nonatomic,assign) id<SuperViewDelegate> parentMapView;
 //-(void) stratDownload:(MemoirCell *)cell;
+-(void) ViewFrashData;
 @end

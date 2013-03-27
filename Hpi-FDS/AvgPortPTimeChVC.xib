@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<int key="IBDocument.SystemTarget">1552</int>
+		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1498</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -42,7 +42,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{242, 22}, {180, 35}}</string>
 						<reference key="NSSuperview" ref="754714693"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="298262362"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -77,7 +76,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{602, 22}, {180, 35}}</string>
 						<reference key="NSSuperview" ref="754714693"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1024559253"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -99,7 +97,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{272, 22}, {120, 35}}</string>
 						<reference key="NSSuperview" ref="754714693"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="904483040"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -134,7 +131,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{632, 22}, {120, 35}}</string>
 						<reference key="NSSuperview" ref="754714693"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="884063378"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -160,7 +156,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{342, 71}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="754714693"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="243489419"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -186,7 +181,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{472, 71}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="754714693"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="243947598"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -209,7 +203,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{602, 71}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="754714693"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="430771859"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -232,7 +225,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{708, 69}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="754714693"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -246,7 +238,6 @@
 				</array>
 				<string key="NSFrameSize">{1024, 121}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="475469973"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -462,57 +453,12 @@
 			<nil key="sourceID"/>
 			<int key="maxID">27</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">AvgPortPTimeChVC</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="activty">UIActivityIndicatorView</string>
-						<string key="endButton">UIButton</string>
-						<string key="endTime">UILabel</string>
-						<string key="reload">UIButton</string>
-						<string key="startButton">UIButton</string>
-						<string key="startTime">UILabel</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="activty">
-							<string key="name">activty</string>
-							<string key="candidateClassName">UIActivityIndicatorView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="endButton">
-							<string key="name">endButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="endTime">
-							<string key="name">endTime</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="reload">
-							<string key="name">reload</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="startButton">
-							<string key="name">startButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="startTime">
-							<string key="name">startTime</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/AvgPortPTimeChVC.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
+			<real value="1552" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
@@ -520,6 +466,6 @@
 			<string key="ann.png">{62, 29}</string>
 			<string key="xiala.png">{180, 35}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1498</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

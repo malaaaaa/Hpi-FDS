@@ -42,7 +42,7 @@ static sqlite3  *database;
 }
 
 //公共条件   电厂名  时间  来查询中间表数据
-+(NSMutableArray *)getMidDate:(NSDate *)stringTime:(NSString *)factoryName
++(NSMutableArray *)getMidDate:(NSDate *)stringTime :(NSString *)factoryName
 {
     NSDateFormatter *f=[[NSDateFormatter alloc] init];
     [f setDateFormat:@"yyyy-MM-dd"];

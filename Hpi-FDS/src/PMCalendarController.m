@@ -131,7 +131,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
     self.allowsLongPressYearChange = YES;
 }
 
--(void)reinitializeWithSize:(NSString *)a:(CGSize)size:(NSMutableArray *)zxDate
+-(void)reinitializeWithSize:(NSString *)a :(CGSize)size :(NSMutableArray *)zxDate
 {
     ZXDate=zxDate;
    NSLog(@" PMCalendarController  ZXDate=============[%d]",[ZXDate count]);

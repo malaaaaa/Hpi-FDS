@@ -64,10 +64,10 @@
     //    button.tag = 2000;
     //    [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
     //    [self.view addSubview:button];
-    self.scroll=[[DataGridScrollView alloc] initWithFrame:CGRectMake(0, 0, 1000, 300)];//960
+    self.scroll=[[DataGridScrollView alloc] initWithFrame:CGRectMake(0, 0, 1010, 300)];//960
     self.scroll.pagingEnabled=NO;
     self.scroll.delegate=self;
-    CGSize newSize=CGSizeMake(1200, 300);//1120
+    CGSize newSize=CGSizeMake(1010, 300);//1120
     [self.scroll setContentSize:newSize];
     
     
@@ -91,8 +91,8 @@
                             TiListinfo *tiListinfo=[array objectAtIndex:0];
                             NSLog(@"shuang");
                             NSLog(@"**%d**%d**",i+1,j+1);
-                            [self drawLabel:intX :intY :140-1 :60-1 :tiListinfo.title];
-                            intX += 140;
+                            [self drawLabel:intX :intY :130-1 :60-1 :tiListinfo.title];
+                            intX += 130;
                         }else
                         {
                         
@@ -152,8 +152,8 @@
                             TiListinfo *tiListinfo=[array objectAtIndex:0];
                             NSLog(@"shuang");
                             NSLog(@"**%d**%d**",i+1,j+1);
-                            [self drawLabel2:intX :intY :140-1 :60-1 :tiListinfo.title];
-                            intX += 140;
+                            [self drawLabel2:intX :intY :130-1 :60-1 :tiListinfo.title];
+                            intX += 130;
  
                             
                         }else{
@@ -274,7 +274,7 @@
     //设置标签文本字体和字体大小
     label.font = [UIFont fontWithName:@"Arial" size:18];
     //设置文本对其方式
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     //文本颜色
     label.textColor = [UIColor whiteColor];
     //文本文字自适应大小
@@ -301,7 +301,7 @@
     //设置标签文本字体和字体大小
     label.font = [UIFont fontWithName:@"Arial" size:18];
     //设置文本对其方式
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     //文本颜色
     label.textColor = [UIColor whiteColor];
     //文本文字自适应大小

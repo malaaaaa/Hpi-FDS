@@ -393,7 +393,7 @@ static bool parserFlag=FALSE;
                     break;
                 case 3	:
                     
-                    cell.textLabel.text=[NSString stringWithFormat:@"版本信息: 华能燃料调运系统 for iPad  V%@",version];
+                    cell.textLabel.text=[NSString stringWithFormat:@"版本信息: 华能燃料调运系统 for iPad  V%@",PubInfo.version];
                     break;
                     
             }

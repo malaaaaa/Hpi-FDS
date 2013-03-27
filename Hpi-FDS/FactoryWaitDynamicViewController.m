@@ -41,7 +41,7 @@
 @synthesize listTableview;
 @synthesize TitleView;
 @synthesize source;   ;
-
+@synthesize cView=cView;
 
 NSMutableArray *data1;
 NSMutableArray *columWidth1;
@@ -213,7 +213,7 @@ static  NSMutableArray *columnWidthFTitle;
     l2.textColor = [UIColor whiteColor];
     l2.shadowColor = [UIColor blackColor];
     l2.shadowOffset = CGSizeMake(0, -0.5);
-    l2.textAlignment = UITextAlignmentCenter;
+    l2.textAlignment = NSTextAlignmentCenter;
     [TitleView addSubview:l2];
     [l2 release];
     
@@ -231,7 +231,7 @@ static  NSMutableArray *columnWidthFTitle;
             l.textColor = [UIColor whiteColor];
             l.shadowColor = [UIColor blackColor];
             l.shadowOffset = CGSizeMake(0, -0.5);
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             
             [TitleView addSubview:l];
             [l release];
@@ -262,7 +262,7 @@ static  NSMutableArray *columnWidthFTitle;
             l.textColor = [UIColor whiteColor];
             l.shadowColor = [UIColor blackColor];
             l.shadowOffset = CGSizeMake(0, -0.5);
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             
             [TitleView addSubview:l];
             [l release];
@@ -283,7 +283,7 @@ static  NSMutableArray *columnWidthFTitle;
                     l1.textColor = [UIColor whiteColor];
                     l1.shadowColor = [UIColor blackColor];
                     l1.shadowOffset = CGSizeMake(0, -0.5);
-                    l1.textAlignment = UITextAlignmentCenter;
+                    l1.textAlignment = NSTextAlignmentCenter;
                     
                     [TitleView addSubview:l1];
                     set+=cdw;
@@ -786,11 +786,14 @@ static  NSMutableArray *columnWidthFTitle;
      //1  计划    7  实际
     int totalHeight=0;
     int cellHeight=30;
-   
+
     NSMutableArray *Dataildate_p=[[NSMutableArray alloc] init];
     NSMutableArray *Dataildate_sj=[[NSMutableArray alloc] init];
     NSMutableArray *DatailWidth=[[NSMutableArray alloc] init];
-    [Dataildate_p  addObject:[[NSMutableArray alloc] initWithObjects:@"计划抵厂船舶", nil]];
+    NSString *PlanTitle = [NSString stringWithFormat:@"%@日 计划抵厂船舶",[rowDate objectAtIndex:0]];
+    NSString *ActualTitle = [NSString stringWithFormat:@"%@日 实际抵厂船舶",[rowDate objectAtIndex:0]];
+
+    [Dataildate_p  addObject:[[NSMutableArray alloc] initWithObjects:PlanTitle, nil]];
     [DatailWidth  addObject:[[NSMutableArray alloc] initWithObjects:@"910", nil]];
     [Dataildate_p  addObject:[[NSMutableArray alloc] initWithObjects:@"船名",@"载量(万吨)", @"热值/硫分",@"吃水(m)",@"供货方",@"煤种", nil]];
     [DatailWidth  addObject:[[NSMutableArray alloc] initWithObjects:@"160",@"100" ,@"180",@"155",@"155",@"160",nil]];
@@ -800,7 +803,7 @@ static  NSMutableArray *columnWidthFTitle;
             [Dataildate_p    addObject:[arr_P objectAtIndex:i]];   
         }
     }
-    [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:@"实际抵厂船舶", nil]];
+    [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:ActualTitle, nil]];
     [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:@"抵达长江口",@"锚地",@"靠卸",@"完货",@"离港",nil]];
      [DatailWidth  addObject:[[NSMutableArray alloc] initWithObjects:@"198",@"198" ,@"198",@"158",@"158",nil]];
       [Dataildate_sj  addObject:[[NSMutableArray alloc] initWithObjects:@"船名",@"载重",@"时间",@"船名",@"载重",@"时间",@"船名",@"载重",@"时间",@"船名",@"时间",@"船名",@"时间",nil]];
@@ -942,7 +945,7 @@ static  NSMutableArray *columnWidthFTitle;
                 l.textColor = [UIColor whiteColor];
                 l.shadowColor = [UIColor blackColor];
                 l.shadowOffset = CGSizeMake(0, -0.5);
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 [detailView addSubview:l];
                 [l release];
                 
@@ -965,7 +968,7 @@ static  NSMutableArray *columnWidthFTitle;
                     l.textColor = [UIColor whiteColor];
                     l.shadowColor = [UIColor blackColor];
                     l.shadowOffset = CGSizeMake(0, -0.5);
-                    l.textAlignment = UITextAlignmentCenter;
+                    l.textAlignment = NSTextAlignmentCenter;
                     [detailView addSubview:l];
                     [l release];
                     widthSet+=columnWidth;
@@ -995,7 +998,7 @@ static  NSMutableArray *columnWidthFTitle;
                 l.textColor = [UIColor whiteColor];
                 l.shadowColor = [UIColor blackColor];
                 l.shadowOffset = CGSizeMake(0, -0.5);
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 [detailView addSubview:l];
                 [l release];
             }else{
@@ -1021,7 +1024,7 @@ static  NSMutableArray *columnWidthFTitle;
                     l.textColor = [UIColor whiteColor];
                     l.shadowColor = [UIColor blackColor];
                     l.shadowOffset = CGSizeMake(0, -0.5);
-                    l.textAlignment = UITextAlignmentCenter;
+                    l.textAlignment = NSTextAlignmentCenter;
                     [detailView addSubview:l];
                     [l release];
                     widthSet+=columnWidth; 
@@ -1078,6 +1081,7 @@ static  NSMutableArray *columnWidthFTitle;
     NSMutableArray *ARR_tbFactory=[rowData1 objectAtIndex:2];
     NSMutableArray *ARR_cd=[rowData1 objectAtIndex:3];
      NSMutableArray *ARR_note=[rowData1 objectAtIndex:4];
+    NSLog(@"mawp=%@",[rowData1 objectAtIndex:0]);
     [rowData    addObject:[rowData1 objectAtIndex:0]];
     if ([ARR_P count]>0) {
       
@@ -1107,6 +1111,7 @@ static  NSMutableArray *columnWidthFTitle;
             float columnWidth = [[source.columnWidth objectAtIndex:column] floatValue];;
             UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, 0, columnWidth-1, 40 -1 )];
             l.font = [UIFont systemFontOfSize:14.0f];
+            l.textColor=[UIColor whiteColor];
         
         if ( [[rowData objectAtIndex:column] isEqualToString:@"YES"] ) {
             UILabel *imageLabel;
@@ -1116,7 +1121,7 @@ static  NSMutableArray *columnWidthFTitle;
             {
              imageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, columnWidth-1, 40 -1 )];
             }
-            imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"xiangx"]];
+            imageLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"chuanxk"]];
             [l addSubview:imageLabel];
             [imageLabel release];
             l.text =@"";
@@ -1124,7 +1129,7 @@ static  NSMutableArray *columnWidthFTitle;
             l.text =[rowData objectAtIndex:column];
         
         
-            l.textAlignment = UITextAlignmentCenter;
+            l.textAlignment = NSTextAlignmentCenter;
             l.tag = 40 + column + 1000;
             if(indexPath.row % 2 == 0)
                 l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
@@ -1135,10 +1140,11 @@ static  NSMutableArray *columnWidthFTitle;
             columnOffset += columnWidth;
             [l release];
         }
-
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
-    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
+    
+    [cell setSelectionStyle:UITableViewCellAccessoryNone];
+//    cell.accessoryType = UITableViewCellAccessoryNone;
+//    cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
+//    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
     
     
     [rowData release];
@@ -1154,7 +1160,7 @@ static  NSMutableArray *columnWidthFTitle;
 }
 
 
--(void)getHeadTable:(NSMutableArray *)data1:(NSMutableArray *)columWidth1
+-(void)getHeadTable:(NSMutableArray *)data1 :(NSMutableArray *)columWidth1
 {
   float cellHeight=30.0;  
     NSMutableArray *data=[[NSMutableArray alloc] initWithObjects:[[NSMutableArray alloc] initWithObjects:@"机组运行情况",@"机组台数(台)",@"机组构成(台*容量)",@"煤场最大储量(万吨)",@"码头最大吃水(米)", nil],[[NSMutableArray alloc]initWithObjects:@"日发电量(万千瓦时)",@"月累计调进量(万吨)",@"年累计调进量(万吨)",@"月累计耗用煤量(万吨)",@"年累计耗用煤量",nil ],[[NSMutableArray alloc] initWithObjects:@"预计十日后库存",@"封航情况",nil], [[NSMutableArray  alloc] initWithObjects:@"备注",nil],nil];
@@ -1207,8 +1213,8 @@ static  NSMutableArray *columnWidthFTitle;
                     l.font = [UIFont systemFontOfSize:15.0f];
                     l.textColor=[UIColor whiteColor];
                     l.shadowColor=[UIColor blackColor   ];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
-                    l.textAlignment = UITextAlignmentLeft;
+                    l.lineBreakMode=NSLineBreakByCharWrapping;
+                    l.textAlignment = NSTextAlignmentLeft;
                     l.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
                     //[UIColor blackColor];//设置颜色...
                     
@@ -1254,8 +1260,8 @@ static  NSMutableArray *columnWidthFTitle;
                         l.font = [UIFont systemFontOfSize:15.0f];
                         l.textColor=[UIColor whiteColor];
                         l.shadowColor=[UIColor blackColor   ];
-                        l.lineBreakMode = UILineBreakModeCharacterWrap;
-                        l.textAlignment = UITextAlignmentLeft;
+                        l.lineBreakMode = NSLineBreakByCharWrapping;
+                        l.textAlignment = NSTextAlignmentLeft;
                          l.backgroundColor=[UIColor colorWithRed:49.0/255 green:49.0/255 blue:49.0/255 alpha:1];
                         //[UIColor blackColor];
                         
@@ -1282,8 +1288,8 @@ static  NSMutableArray *columnWidthFTitle;
                      l.font = [UIFont systemFontOfSize:15.0f];
                     l.textColor=[UIColor whiteColor];
                     l.shadowColor=[UIColor blackColor   ];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
-                    l.textAlignment = UITextAlignmentLeft;
+                    l.lineBreakMode = NSLineBreakByCharWrapping;
+                    l.textAlignment = NSTextAlignmentLeft;
                     
                     
                     
@@ -1301,10 +1307,10 @@ static  NSMutableArray *columnWidthFTitle;
                     
                     
                     
-                    l.textAlignment = UITextAlignmentLeft;
+                    l.textAlignment = NSTextAlignmentLeft;
                     l.textColor=[UIColor redColor];
                     l.shadowColor=[UIColor blackColor   ];
-                    l.lineBreakMode = UILineBreakModeCharacterWrap;
+                    l.lineBreakMode = NSLineBreakByCharWrapping;
                     l.font = [UIFont systemFontOfSize:15.0f];
                     
                     
@@ -1425,22 +1431,17 @@ static  NSMutableArray *columnWidthFTitle;
         
         [activty startAnimating];
         
-        [tbxmlParser setISoapNum:5];
-    
-       [tbxmlParser requestSOAP:@"FactoryState"];
-       //电厂 
-      [tbxmlParser requestSOAP:@"Factory"];
+        [tbxmlParser setISoapNum:6];
         
+        [tbxmlParser requestSOAP:@"FactoryState"];
+        //电厂
+        [tbxmlParser requestSOAP:@"Factory"];
         //获取电厂机组运行信息    FactoryCapacity
-      [tbxmlParser requestSOAP:@"FactoryCapacity"];
-        
-        
-        
-       [ tbxmlParser  requestSOAP:@"OffLoadShip"];
-      [ tbxmlParser  requestSOAP:@"OffLoadFactory"];
+        [tbxmlParser requestSOAP:@"FactoryCapacity"];
+        [tbxmlParser requestSOAP:@"TfShip"];
+        [ tbxmlParser  requestSOAP:@"OffLoadShip"];
+        [ tbxmlParser  requestSOAP:@"OffLoadFactory"];
    
-
-
         [self runActivity];
     }
 	

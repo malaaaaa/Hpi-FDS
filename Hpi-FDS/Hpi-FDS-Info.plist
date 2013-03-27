@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>燃料调运</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
@@ -16,6 +16,10 @@
 		<string>Default-Landscape@2x~ipad.png</string>
 		<string>hpilogo3@2x.png</string>
 		<string>hpilogo3.png</string>
+		<string>Default-Portrait@2x~ipad.png</string>
+		<string>Default-Portrait~ipad.png</string>
+		<string>Default-Landscape@2x~ipad.png</string>
+		<string>Default-Landscape~ipad.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -29,6 +33,10 @@
 				<string>Default-Landscape@2x~ipad.png</string>
 				<string>hpilogo3@2x.png</string>
 				<string>hpilogo3.png</string>
+				<string>Default-Portrait@2x~ipad.png</string>
+				<string>Default-Portrait~ipad.png</string>
+				<string>Default-Landscape@2x~ipad.png</string>
+				<string>Default-Landscape~ipad.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>

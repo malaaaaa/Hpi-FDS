@@ -78,14 +78,15 @@ static sqlite3	*database;
 }
 /******************电厂靠泊动态 ******************/
 //处理时间  //前一天所在月份的第二天  5/2   5/10
-+(NSString  *)getTime:(NSDate *)time:(NSString *)s
++(NSString  *)getTime:(NSDate *)time :(NSString *)s
 {
     NSDateFormatter *f=[[NSDateFormatter alloc] init];
     //处理时间  //前一天所在月份的第二天  5/2   5/10
     NSDate *time1=[[NSDate alloc] initWithTimeInterval:-(24*60*60) sinceDate:time];
     NSDateComponents *comp = [[NSDateComponents alloc]init];
     
-    if (s==@"M") {
+//    if (s==@"M") {
+    if ([s isEqualToString:@"M"]){
         [f setDateFormat:@"MM"];
         [comp setMonth:[[f stringFromDate:time1] integerValue]];
         [comp setDay:1];
@@ -93,7 +94,9 @@ static sqlite3	*database;
         [comp setYear:[[f stringFromDate:time1] integerValue]];
         
     }
-    if (s==@"Y") {
+//    if (s==@"Y") {
+    if ([s isEqualToString:@"Y"]){
+
         [f setDateFormat:@"yyyy"];
         [comp setYear:[[f stringFromDate:time1] integerValue]];
         [comp setMonth:1];
@@ -261,7 +264,7 @@ static sqlite3	*database;
 }
 
 // 获得  factoryState 实体  根据电厂名 和时间
-+(TbFactoryState *)getStateBySql:(NSString *)facN:(NSDate *)time
++(TbFactoryState *)getStateBySql:(NSString *)facN :(NSDate *)time
 {
     TbFactoryState * tbFactoryState=[[[TbFactoryState   alloc] init] autorelease];
     
@@ -339,7 +342,7 @@ static sqlite3	*database;
     return tbFactoryState;
     
 }
-+(TbFactoryState *)getStateMode:(NSString *)factoryName:(NSString *)time
++(TbFactoryState *)getStateMode:(NSString *)factoryName :(NSString *)time
 {
     
     TbFactoryState *tbFactoryState=[[[TbFactoryState alloc] init] autorelease]; 

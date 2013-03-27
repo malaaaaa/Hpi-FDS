@@ -160,7 +160,7 @@
 		l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-		l.textAlignment = UITextAlignmentCenter;
+		l.textAlignment = NSTextAlignmentCenter;
         
 
         if( 0 == column){
@@ -209,7 +209,7 @@
 //                else {
 //                    l.textAlignment = UITextAlignmentCenter;
 //                }
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 l.tag = i * cellHeight + column + 1000;
                 if(i % 2 == 0)
                     l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];

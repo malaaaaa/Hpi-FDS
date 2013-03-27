@@ -20,7 +20,7 @@
 
 
 
-+(NSMutableArray *)SelectAllByFactoryCode:(NSString *)factoryName:(NSString *)time;
++(NSMutableArray *)SelectAllByFactoryCode:(NSString *)factoryName :(NSString *)time;
 
 
 

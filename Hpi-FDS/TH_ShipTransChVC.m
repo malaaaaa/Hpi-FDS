@@ -119,7 +119,7 @@ DataQueryVC *dataQueryVC;
          l.textColor = [UIColor whiteColor];
          l.shadowColor = [UIColor blackColor];
          l.shadowOffset = CGSizeMake(0, -0.5);
-         l.textAlignment = UITextAlignmentCenter;
+         l.textAlignment = NSTextAlignmentCenter;
          
          [dataQueryVC.labelView addSubview:l];
          
@@ -319,7 +319,8 @@ self.popover.popoverContentSize = CGSizeMake(125, 400);
         monthLabel.text=monthButton.titleLabel.text;
     }
     
-    if (monthLabel.text!=All_) {
+//    if (monthLabel.text!=All_) {
+    if (![monthLabel.text isEqualToString:All_]) {
         monthLabel.text=[formater stringFromDate:month];
        
     }

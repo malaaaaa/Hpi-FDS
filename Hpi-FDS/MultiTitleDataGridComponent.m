@@ -144,7 +144,7 @@ int count=1;
     l2.textColor = [UIColor whiteColor];
     l2.shadowColor = [UIColor blackColor];
     l2.shadowOffset = CGSizeMake(0, -0.5);
-    l2.textAlignment = UITextAlignmentCenter;
+    l2.textAlignment = NSTextAlignmentCenter;
     [vTopLeft addSubview:l2];
     [l2 release];
     
@@ -163,7 +163,7 @@ int count=1;
 		l.textColor = [UIColor whiteColor];
         l.shadowColor = [UIColor blackColor];
         l.shadowOffset = CGSizeMake(0, -0.5);
-		l.textAlignment = UITextAlignmentCenter;
+		l.textAlignment = NSTextAlignmentCenter;
         
         [vTopRight addSubview:l];
         [l release];
@@ -184,7 +184,7 @@ int count=1;
             l1.textColor = [UIColor whiteColor];
             l1.shadowColor = [UIColor blackColor];
             l1.shadowOffset = CGSizeMake(0, -0.5);
-            l1.textAlignment = UITextAlignmentCenter;
+            l1.textAlignment = NSTextAlignmentCenter;
             
             [vTopRight addSubview:l1];
             set+=columnWidth;
@@ -225,7 +225,7 @@ int count=1;
                 UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(columnOffset, i * cellHeight  , columnWidth-1, cellHeight -1 )];
                 l.font = [UIFont systemFontOfSize:14.0f];
                 l.text = [rowData objectAtIndex:column];
-                l.textAlignment = UITextAlignmentCenter;
+                l.textAlignment = NSTextAlignmentCenter;
                 l.tag = i * cellHeight + column + 1000;
                 if(i % 2 == 0)
                     l.backgroundColor = [UIColor colorWithRed:59.0/255 green:59.0/255 blue:59.0/255 alpha:1];
