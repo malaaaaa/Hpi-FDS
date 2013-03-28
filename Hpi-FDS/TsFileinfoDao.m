@@ -156,7 +156,7 @@ static sqlite3	*database;
     
     
     
-	NSString *query=[NSString stringWithFormat:@" fileType = '%@' and   recordTime <='%@T00:00:00'   and     recordTime >='%@T00:00:00'  ",type,startTime,endTime];
+	NSString *query=[NSString stringWithFormat:@" fileType = '%@' and   recordTime <='%@TT23:59:59'   and     recordTime >='%@T00:00:00'  ",type,startTime,endTime];
 	NSMutableArray * array=[TsFileinfoDao getTsFileinfoBySql:query];
 	return array;
 }

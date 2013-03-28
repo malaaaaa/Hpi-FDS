@@ -2492,7 +2492,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = FDS;
+				PRODUCT_NAME = dvt;
 				PROVISIONING_PROFILE = "6961585A-74DA-4744-8D2C-46D355FD6384";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6961585A-74DA-4744-8D2C-46D355FD6384";
 				WRAPPER_EXTENSION = app;
@@ -2513,7 +2513,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = FDS;
+				PRODUCT_NAME = dvt;
 				PROVISIONING_PROFILE = "4BE09614-40CF-4F55-890E-7A0D9039A282";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4BE09614-40CF-4F55-890E-7A0D9039A282";
 				WRAPPER_EXTENSION = app;
@@ -2545,7 +2545,7 @@
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-ObjC",
 					"-all_load",
-					"-lCorePlo",
+					"-lCorePlot",
 				);
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04605538-5841-46D3-8C82-B108CCC22F9A";
@@ -2572,7 +2572,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = FDS;
+				PRODUCT_NAME = dvt;
 				PROVISIONING_PROFILE = "4BE09614-40CF-4F55-890E-7A0D9039A282";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4BE09614-40CF-4F55-890E-7A0D9039A282";
 				WRAPPER_EXTENSION = app;

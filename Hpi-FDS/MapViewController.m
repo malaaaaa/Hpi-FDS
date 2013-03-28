@@ -268,6 +268,7 @@ static int iDisplay=0;
 
 #pragma mark -
 #pragma mark Actions
+#pragma mark 电厂动态表
 /*++++++++++++++++++++++++++++新添 文件查看 按钮++++++++++++++++++++++++++++++*/
 - (IBAction)FileShowAction:(id)sender {
     
@@ -360,6 +361,8 @@ static int iDisplay=0;
 }
 /*++++++++++++++++++++++++++++新添  文件查看  按钮++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++新添 信息栏 按钮++++++++++++++++++++++++++++++*/
+
+#pragma mark 信息栏按钮
 - (IBAction)infoButAction:(id)sender {
     MemoirListVC *memoirListVC=[[MemoirListVC alloc]init];
     if (!self.wbvc){
@@ -370,9 +373,9 @@ static int iDisplay=0;
     [wbvc FreshWebViewToBlank];
 
     memoirListVC.webVC=self.wbvc;
-    [memoirListVC.view setFrame:CGRectMake(0,0, 320, 484)];
+    [memoirListVC.view setFrame:CGRectMake(0,0, 320, 350)];
     //设置待显示控制器视图的尺寸
-    memoirListVC.contentSizeForViewInPopover = CGSizeMake(320, 484);
+    memoirListVC.contentSizeForViewInPopover = CGSizeMake(320, 750);
     //初始化弹出窗口
     UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:memoirListVC];
     memoirListVC.popover = pop;
@@ -380,7 +383,7 @@ static int iDisplay=0;
     self.popover = pop;
     self.popover.delegate = self;
     //设置弹出窗口尺寸
-    self.popover.popoverContentSize = CGSizeMake(320, 484);
+    self.popover.popoverContentSize = CGSizeMake(320, 350);
     memoirListVC.stringType=@"NOTICE";
     [self.popover presentPopoverFromRect:CGRectMake(980, 30, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     

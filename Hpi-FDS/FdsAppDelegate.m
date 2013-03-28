@@ -497,7 +497,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
               ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
               ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
     NSLog(@"My token is: %@", _token);
-    //     [application setApplicationIconBadgeNumber:101];
+     BadgeNumber=[application applicationIconBadgeNumber];
     //发送Token至后台服务器
     
     if (![self SendTokenToServer]) {
@@ -512,6 +512,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@" didReceiveRemoteNotification userInfo=%@",userInfo);
     BadgeNumber=[application applicationIconBadgeNumber];
+    NSLog(@"BadgeNumber=%d",BadgeNumber);
     //    [PFPush handlePush:userInfo];
 }
 - (void)application:(UIApplication *)application
