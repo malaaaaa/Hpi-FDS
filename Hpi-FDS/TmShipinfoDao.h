@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 #import "TmShipinfo.h"
+#import "TmShipinfoMore.h"
 @interface TmShipinfoDao : NSObject{
 
 }
@@ -23,5 +24,5 @@
 +(NSMutableArray *) getTmShipinfoBySql:(NSString *)sql;
 +(TmShipinfo *) getTmShipinfoOne:(NSString *)portCode :(NSDate*)day;
 +(void) deleteAll;
-
++(NSMutableArray *) getTmShipinfoByPort:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days;
 @end

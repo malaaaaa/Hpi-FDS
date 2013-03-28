@@ -31,6 +31,9 @@ static NSInteger mmpRequestNum=0;
 //查询统计总同步报文数量
 static NSInteger reportRequestNum=0;
 
+//基础数据同步标示
+static bool baseParserFlag=FALSE;
+//非基础数据同步标示
 static bool parserFlag=FALSE;
 - (void)dealloc {
 	if (tableView) {
@@ -144,24 +147,32 @@ static bool parserFlag=FALSE;
                     break;
                 case 3:
                     //基础数据同步
-                    
-                    [cell addSubview:baseProgressview];
-                    [baseProgressview setFrame:CGRectMake(31, 32, 362, 3)];
-                    
-                    //        [cell addSubview:activity];
-                    //        [activity startAnimating];
-                    if (!xmlParser) {
-                        self.xmlParser=[[[XMLParser alloc]init] autorelease];
-                        //            self.xmlParser=[[XMLParser alloc]init];
+                    if (!baseParserFlag) {
+                        [cell addSubview:baseProgressview];
+                        baseParserFlag=TRUE;
+
+                        [baseProgressview setFrame:CGRectMake(31, 32, 362, 3)];
+                        
+                        //        [cell addSubview:activity];
+                        //        [activity startAnimating];
+                        if (!xmlParser) {
+                            self.xmlParser=[[[XMLParser alloc]init] autorelease];
+                            //            self.xmlParser=[[XMLParser alloc]init];
+                            
+                        }
+                        //        [xmlParser setISoapNum:11];
+                        baseRequestNum=8;
+                        [xmlParser setISoapNum:baseRequestNum];
+                        [self processBaseData];
+                        
+                        [self runActivity];
+                    }
+                    else{
+                        cellAlert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请等待当前数据同步结束..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+                        [cellAlert show];
+                        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(performDismiss:) userInfo:nil repeats:NO];
                         
                     }
-                    //        [xmlParser setISoapNum:11];
-                    baseRequestNum=8;
-                    [xmlParser setISoapNum:baseRequestNum];
-                    [self processBaseData];
-                    
-                    [self runActivity];
-                    
                     break;
                 case 4:
                     //地图市场港口数据同步
@@ -430,6 +441,8 @@ static bool parserFlag=FALSE;
             [activity stopAnimating];
             [activity removeFromSuperview];
             [baseProgressview removeFromSuperview];
+            baseParserFlag=FALSE;
+
             //实例化一个NSDateFormatter对象
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             //设定时间格式,这里可以设置成自己需要的格式

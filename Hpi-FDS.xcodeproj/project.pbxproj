@@ -326,6 +326,9 @@
 		D3A06E7615D0E93500963BA2 /* PortEfficiencyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A06E7415D0E93400963BA2 /* PortEfficiencyVC.xib */; };
 		D3B9EA9A1613F57C0099E0B1 /* VB_Latefee.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9EA991613F57C0099E0B1 /* VB_Latefee.m */; };
 		D3B9EA9E1613F6320099E0B1 /* VB_LatefeeDao.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9EA9D1613F6320099E0B1 /* VB_LatefeeDao.m */; };
+		D3BF223C1702E1A300CB30AB /* TmIndexinfoMore.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BF223B1702E1A300CB30AB /* TmIndexinfoMore.m */; };
+		D3BF223F1702F04600CB30AB /* TmCoalinfoMore.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BF223E1702F04600CB30AB /* TmCoalinfoMore.m */; };
+		D3BF22421702F50E00CB30AB /* TmShipinfoMore.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BF22411702F50D00CB30AB /* TmShipinfoMore.m */; };
 		D3E522F915F83CA2008756BD /* NTLateFeeDMFX.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */; };
 		D3E522FE15F87410008756BD /* NTLateFeeDmfxVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E522FC15F87410008756BD /* NTLateFeeDmfxVC.m */; };
 		D3E522FF15F87410008756BD /* NTLateFeeDmfxVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E522FD15F87410008756BD /* NTLateFeeDmfxVC.xib */; };
@@ -966,6 +969,12 @@
 		D3B9EA991613F57C0099E0B1 /* VB_Latefee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VB_Latefee.m; sourceTree = "<group>"; };
 		D3B9EA9C1613F6320099E0B1 /* VB_LatefeeDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VB_LatefeeDao.h; sourceTree = "<group>"; };
 		D3B9EA9D1613F6320099E0B1 /* VB_LatefeeDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VB_LatefeeDao.m; sourceTree = "<group>"; };
+		D3BF223A1702E1A300CB30AB /* TmIndexinfoMore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmIndexinfoMore.h; sourceTree = "<group>"; };
+		D3BF223B1702E1A300CB30AB /* TmIndexinfoMore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TmIndexinfoMore.m; sourceTree = "<group>"; };
+		D3BF223D1702F04500CB30AB /* TmCoalinfoMore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmCoalinfoMore.h; sourceTree = "<group>"; };
+		D3BF223E1702F04600CB30AB /* TmCoalinfoMore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TmCoalinfoMore.m; sourceTree = "<group>"; };
+		D3BF22401702F50D00CB30AB /* TmShipinfoMore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmShipinfoMore.h; sourceTree = "<group>"; };
+		D3BF22411702F50D00CB30AB /* TmShipinfoMore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TmShipinfoMore.m; sourceTree = "<group>"; };
 		D3D9489716F2B68B00373A24 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		D3E522F715F83CA2008756BD /* NTLateFeeDMFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTLateFeeDMFX.h; sourceTree = "<group>"; };
 		D3E522F815F83CA2008756BD /* NTLateFeeDMFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTLateFeeDMFX.m; sourceTree = "<group>"; };
@@ -1429,6 +1438,8 @@
 				D9DDDDCE159063780023D88A /* TiListinfo.m */,
 				D9DDDDCF159063780023D88A /* TiListinfoDao.h */,
 				D9DDDDD0159063780023D88A /* TiListinfoDao.m */,
+				D3BF223D1702F04500CB30AB /* TmCoalinfoMore.h */,
+				D3BF223E1702F04600CB30AB /* TmCoalinfoMore.m */,
 				14DFBD4C155A6D9A0084E7F9 /* TmCoalinfo.h */,
 				14DFBD4D155A6D9A0084E7F9 /* TmCoalinfo.m */,
 				14DFBD50155A6DC40084E7F9 /* TmCoalinfoDao.h */,
@@ -1437,6 +1448,8 @@
 				05687D8D152E800800ABC7EC /* TmIndexdefine.m */,
 				05687D8E152E800800ABC7EC /* TmIndexdefineDao.h */,
 				05687D8F152E800800ABC7EC /* TmIndexdefineDao.m */,
+				D3BF223A1702E1A300CB30AB /* TmIndexinfoMore.h */,
+				D3BF223B1702E1A300CB30AB /* TmIndexinfoMore.m */,
 				05687D90152E800800ABC7EC /* TmIndexinfo.h */,
 				05687D91152E800800ABC7EC /* TmIndexinfo.m */,
 				05687D92152E800800ABC7EC /* TmIndexinfoDao.h */,
@@ -1445,6 +1458,8 @@
 				05687D95152E800800ABC7EC /* TmIndextype.m */,
 				05687D96152E800800ABC7EC /* TmIndextypeDao.h */,
 				05687D97152E800800ABC7EC /* TmIndextypeDao.m */,
+				D3BF22401702F50D00CB30AB /* TmShipinfoMore.h */,
+				D3BF22411702F50D00CB30AB /* TmShipinfoMore.m */,
 				14DFBD53155A6DE90084E7F9 /* TmShipinfo.h */,
 				14DFBD54155A6DE90084E7F9 /* TmShipinfo.m */,
 				14DFBD56155A6E060084E7F9 /* TmShipinfoDao.h */,
@@ -2360,6 +2375,9 @@
 				D33442C116F1A92D003A8A1C /* PortInfoBehaviourVC.m in Sources */,
 				D33442C216F1A92D003A8A1C /* VBTransChVCDetail.m in Sources */,
 				D361B41016FB0C85000AC961 /* JSBadgeView.m in Sources */,
+				D3BF223C1702E1A300CB30AB /* TmIndexinfoMore.m in Sources */,
+				D3BF223F1702F04600CB30AB /* TmCoalinfoMore.m in Sources */,
+				D3BF22421702F50E00CB30AB /* TmShipinfoMore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

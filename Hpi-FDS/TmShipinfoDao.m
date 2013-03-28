@@ -220,4 +220,50 @@ static sqlite3	*database;
 	}
 	return array;
 }
+
++(NSMutableArray *) getTmShipinfoByPort:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *start=[dateFormatter stringFromDate:startDay];
+    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
+	sqlite3_stmt *statement;
+    NSString *sql=[NSString stringWithFormat:@"SELECT infoId,portCode,recordDate,waitShip,transactShip,loadShip,(strftime('%%s',recordDate)-strftime('%%s','%@'))/60/60/24 FROM  TmShipinfo WHERE portCode = '%@' AND recordDate >='%@' AND recordDate <='%@' ",start,portCode,start,end];
+    //NSLog(@"执行 getTmShipinfoBySql [%@] ",sql);
+    
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+			
+            TmShipinfoMore *tmShipinfo=[[TmShipinfoMore alloc] init];
+            
+            tmShipinfo.infoId = sqlite3_column_int(statement,0);
+            
+            char * rowData1=(char *)sqlite3_column_text(statement,1);
+            if (rowData1 == NULL)
+                tmShipinfo.portCode = nil;
+            else
+                tmShipinfo.portCode = [NSString stringWithUTF8String: rowData1];
+            
+            char * rowData2=(char *)sqlite3_column_text(statement,2);
+            if (rowData2 == NULL)
+                tmShipinfo.recordDate = nil;
+            else
+                tmShipinfo.recordDate = [NSString stringWithUTF8String: rowData2];
+            
+            tmShipinfo.waitShip = sqlite3_column_int(statement,3);
+            
+            tmShipinfo.transactShip = sqlite3_column_int(statement,4);
+            
+            tmShipinfo.loadShip = sqlite3_column_int(statement,5);
+            tmShipinfo.days = sqlite3_column_int(statement,6);
+
+			[array addObject:tmShipinfo];
+            [tmShipinfo release];
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+	return array;
+}
 @end

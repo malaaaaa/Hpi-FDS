@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 #import "TmIndexinfo.h"
+#import "TmIndexinfoMore.h"
 
 @interface TmIndexinfoDao : NSObject{
 
@@ -24,5 +25,5 @@
 +(NSMutableArray *) getTmIndexinfoBySql:(NSString *)sql;
 +(TmIndexinfo *) getTmIndexinfoOne:(NSString *)indexName :(NSDate*)day;
 +(void) deleteAll;
-+(TmIndexinfo *) getTmIndexinfoByName:(NSString *)indexName startDay:(NSDate*)startDay Days:(NSInteger)days;
++(NSMutableArray *) getTmIndexinfoByName:(NSString *)indexName startDay:(NSDate*)startDay Days:(NSInteger)days;
 @end

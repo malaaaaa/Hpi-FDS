@@ -160,22 +160,6 @@ static sqlite3	*database;
 	return array;
 }
 
-+(TmCoalinfo *) getTmCoalinfoOne:(NSString *)portCode :(NSDate*)day
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *start=[dateFormatter stringFromDate:day];
-    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([day timeIntervalSinceReferenceDate] + 24*60*60)] autorelease]];
-	NSString *query=[NSString stringWithFormat:@" portCode = '%@' AND recordDate >='%@' AND recordDate <='%@' Limit 1 ",portCode,start,end];
-	NSMutableArray * array=[TmCoalinfoDao getTmCoalinfoBySql:query];
-    //NSLog(@"执行 getTmCoalinfo 数量[%d] ",[array count]);
-    [dateFormatter release];
-    if ([array count]==0) {
-        return nil;
-    }
-    else 
-        return (TmCoalinfo *)[array objectAtIndex:0];
-}
 
 +(NSMutableArray *) getTmCoalinfoBySql:(NSString *)sql1
 {
@@ -207,6 +191,50 @@ static sqlite3	*database;
             tmCoalinfo.Export = sqlite3_column_int(statement,4);
             
             tmCoalinfo.storage = sqlite3_column_int(statement,5);
+            
+			[array addObject:tmCoalinfo];
+            [tmCoalinfo release];
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+	return array;
+}
++(NSMutableArray *) getTmCoalinfoByPort:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *start=[dateFormatter stringFromDate:startDay];
+    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
+	sqlite3_stmt *statement;
+    NSString *sql=[NSString stringWithFormat:@"SELECT infoId,portCode,recordDate,import,Export,storage,(strftime('%%s',recordDate)-strftime('%%s','%@'))/60/60/24 FROM  TmCoalinfo WHERE portCode = '%@' AND recordDate >='%@' AND recordDate <='%@'    ",start,portCode,start,end];
+//        NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+			
+            TmCoalinfoMore *tmCoalinfo=[[TmCoalinfoMore alloc] init];
+            
+            tmCoalinfo.infoId = sqlite3_column_int(statement,0);
+            
+            char * rowData1=(char *)sqlite3_column_text(statement,1);
+            if (rowData1 == NULL)
+                tmCoalinfo.portCode = nil;
+            else
+                tmCoalinfo.portCode = [NSString stringWithUTF8String: rowData1];
+            
+            char * rowData2=(char *)sqlite3_column_text(statement,2);
+            if (rowData2 == NULL)
+                tmCoalinfo.recordDate = nil;
+            else
+                tmCoalinfo.recordDate = [NSString stringWithUTF8String: rowData2];
+            
+            tmCoalinfo.import = sqlite3_column_int(statement,3);
+            
+            tmCoalinfo.Export = sqlite3_column_int(statement,4);
+            
+            tmCoalinfo.storage = sqlite3_column_int(statement,5);
+            tmCoalinfo.days = sqlite3_column_int(statement,6);
             
 			[array addObject:tmCoalinfo];
             [tmCoalinfo release];
