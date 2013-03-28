@@ -141,7 +141,7 @@ static sqlite3 *database;
     [PortEfficiencyDao deleteAll];
     sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"Select FACTORYCODE,FACTORYNAME, IfNULL(avgXG,0) as avgXG, IfNULL(FLw,0) as lw, case when IfNULL(avgXG,0) != 0 then     round(IfNULL(FLw,0)/IfNULL(avgXG,0),0)       else 0 end  as xiaolv from ( select FACTORYNAME,FACTORYCODE, (select sum((strftime('%%s',F_FINISHTIME)-strftime('%%s',F_ANCHORAGETIME))/3600.0) as avgXG from vbshiptrans where FACTORYCODE = tf.FACTORYCODE AND iscal = 1 and strftime('%%Y-%%m-%%d',f_anchoragetime)!='2000-01-01' and strftime('%%Y-%%m-%%d', F_FINISHTIME)!='2000-01-01' and strftime('%%Y-%%m-%%d',tradetime)>='%@' and  strftime('%%Y-%%m-%%d',tradetime)<='%@' %@) as avgXG, (Select SUM(LW) as FLw From vbshiptrans where FACTORYCODE = tf.FACTORYCODE and STAGE=4 and strftime('%%Y-%%m-%%d',f_anchoragetime)!='2000-01-01' and strftime('%%Y-%%m-%%d', F_FINISHTIME)!='2000-01-01'  and strftime('%%Y-%%m-%%d',tradetime)>='%@' and  strftime('%%Y-%%m-%%d',tradetime)<='%@' %@) as FLw from TFFACTORY tf where 1=1 %@) ",startDate,endDate,shiptransSubSql,startDate,endDate,shiptransSubSql,factorySubSql];
-    NSLog(@"执行 InsertByCompany Sql[%@] ",sql);
+   // NSLog(@"执行 InsertByCompany Sql[%@] ",sql);
     
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
         while (sqlite3_step(statement)==SQLITE_ROW) {
@@ -177,7 +177,7 @@ static sqlite3 *database;
     NSString *sql=@"select  factory||'('||efficiency||')',efficiency from PortEfficiency order by efficiency asc";
     //    NSString *sql=@"select  factory,efficiency from PortEfficiency order by efficiency asc";
     
-    NSLog(@"执行 getPortEfficiency [%@] ",sql);
+    //NSLog(@"执行 getPortEfficiency [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
     

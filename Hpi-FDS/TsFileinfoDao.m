@@ -265,7 +265,7 @@ static sqlite3	*database;
     [df release];
     [end release];
     
-    NSString *query=[NSString stringWithFormat:@"SELECT  count(fileId)  FROM  TsFileinfo WHERE fileType = '%@' and   recordTime <='%@T00:00:00'   and     recordTime >='%@T00:00:00' and  xzbz='0' ",type,startTime,endTime];
+    NSString *query=[NSString stringWithFormat:@"SELECT  count(fileId)  FROM  TsFileinfo WHERE fileType = '%@' and   recordTime <='%@T23:59:59'   and     recordTime >='%@T00:00:00' and  xzbz='0' ",type,startTime,endTime];
     //	NSLog(@"isExist [%@]",query);
 	sqlite3_stmt	*statement;
 	if(sqlite3_prepare_v2(database,[query UTF8String],-1,&statement,nil)==SQLITE_OK){
@@ -307,7 +307,7 @@ static sqlite3	*database;
 {
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT fileId,fileType,title,filePath,fileName,userName,recordTime,xzbz FROM  TsFileinfo WHERE %@ ORDER BY recordTime DESC",sql1];
-   // NSLog(@"执行 getTsFileinfoBySql [%@] ",sql);
+    NSLog(@"执行 getTsFileinfoBySql [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
     

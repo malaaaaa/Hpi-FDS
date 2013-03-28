@@ -136,7 +136,7 @@ sqlite3_bind_text(statement,6, [tfprot.NATIONALTYPE UTF8String], -1,SQLITE_TRANS
   sqlite3_stmt *statement;
     NSString *sql=[NSString  stringWithFormat:@"select portname from TF_Port where portcode='%@' ",portcode];
     //NSLog(@"执行 getPortName [%@]",sql);
-    NSString *portName;
+    NSString *portName=nil;
     if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL)==SQLITE_OK) {
         
         while (sqlite3_step(statement)==SQLITE_ROW) {

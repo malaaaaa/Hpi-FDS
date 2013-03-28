@@ -286,7 +286,7 @@ static int cellNum =0;
 
     
 
-    NSFileHandle *fh2;
+    NSFileHandle *fh2=nil;
     __block uint fSize2= 0 ; // 以 B 为单位，记录已下载的文件大小 , 需要声明为块可写
     if ( [ fm createFileAtPath :path contents : nil attributes : nil ]){
         fh2=[ NSFileHandle fileHandleForWritingAtPath :path];
@@ -548,7 +548,7 @@ static int cellNum =0;
 #pragma mark 将FILEID发送至后台
 - (BOOL) SendFILEIDToServer:(NSString *)fileID{
     
-    NSString *reg;
+    NSString *reg=nil;
     NSString *requestStr=[NSString stringWithFormat:@"<GetSendFILEIDinfo xmlns=\"http://tempuri.org/\">\n <req>\n"
                           "<token>%@</token>\n"
                           "<fileid>%@</fileid>\n"

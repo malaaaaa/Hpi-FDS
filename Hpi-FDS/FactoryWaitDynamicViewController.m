@@ -1141,7 +1141,7 @@ static  NSMutableArray *columnWidthFTitle;
             [l release];
         }
     
-    [cell setSelectionStyle:UITableViewCellAccessoryNone];
+    [cell setSelectionStyle:(UITableViewCellSelectionStyle)UITableViewCellAccessoryNone];
 //    cell.accessoryType = UITableViewCellAccessoryNone;
 //    cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
 //    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
