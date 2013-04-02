@@ -133,7 +133,7 @@ static NSString *stringType=@"GKDJL";
     if([stringType isEqualToString: @"GKDJL"])
     {
         minY = 0;
-        maxY = 180;
+        maxY = 100;
         NSLog(@"max=[%d] min=[%d]",maxY,minY);
         graphData.yNum=maxY-minY;
         for(int i=0;i<6;i++)
@@ -150,7 +150,7 @@ static NSString *stringType=@"GKDJL";
     if([stringType isEqualToString: @"GKDCL"])
     {
         minY = 0;
-        maxY = 180;
+        maxY = 100;
         //NSLog(@"max=[%d] min=[%d]",maxY,minY);
         graphData.yNum=maxY-minY;
         for(int i=0;i<6;i++)
@@ -166,7 +166,7 @@ static NSString *stringType=@"GKDJL";
     }
     if([stringType isEqualToString: @"GKCML"])
     {
-        minY = 0;
+        minY = 400;
         maxY = 1000;
         //NSLog(@"max=[%d] min=[%d]",maxY,minY);
         graphData.yNum=maxY-minY;

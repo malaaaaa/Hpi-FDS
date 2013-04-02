@@ -147,25 +147,29 @@ static NSString *stringType=@"BSPI";
 
         if(tmdefine.maxiMum==0)
             tmdefine.maxiMum=tmdefine.miniMum*2.5;
-        
+        if ([stringType isEqualToString: @"BSPI"]) {
+            
+            tmdefine.miniMum=550;
+            tmdefine.maxiMum=900;
+        }
         if ([stringType isEqualToString: @"BDI"]) {
             
             tmdefine.miniMum=0;
         }
         if ([stringType isEqualToString:@"BJ_PRICE"]) {
-            tmdefine.miniMum=0;
-            tmdefine.maxiMum=600;
+            tmdefine.miniMum=50;
+            tmdefine.maxiMum=450;
         }
         
         if ([stringType isEqualToString:@"QHD_GZ"]) {
-            tmdefine.miniMum=0;
-            tmdefine.maxiMum=50;
+            tmdefine.miniMum=20;
+            tmdefine.maxiMum=45;
             
         }
         
         if ([stringType isEqualToString:@"WTI"]) {
-            tmdefine.miniMum=0;
-            tmdefine.maxiMum=150;
+            tmdefine.miniMum=70;
+            tmdefine.maxiMum=120;
         }
         if ([stringType isEqualToString:@"HPI4500"]) {
             
