@@ -60,6 +60,13 @@ static NSString *stringType=@"GKDJL";
     _buttonView.layer.borderWidth=2.0;
     _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
     _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
+    
+    stringType=@"GKDJL";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+
+    
 }
 
 - (void)viewDidUnload

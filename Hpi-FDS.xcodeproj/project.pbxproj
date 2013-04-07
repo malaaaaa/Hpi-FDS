@@ -401,7 +401,7 @@
 		05687D9F152E800800ABC7EC /* VbShiptransDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VbShiptransDao.m; sourceTree = "<group>"; };
 		05687DAA152E8AA500ABC7EC /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
 		05687DAB152E8AA500ABC7EC /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
-		057F6C291524490600E0E435 /* FDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FDS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		057F6C291524490600E0E435 /* dvt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dvt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		057F6C2D1524490600E0E435 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		057F6C2F1524490600E0E435 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		057F6C311524490600E0E435 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1019,7 +1019,7 @@
 		057F6C2A1524490600E0E435 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				057F6C291524490600E0E435 /* FDS.app */,
+				057F6C291524490600E0E435 /* dvt.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1827,7 +1827,7 @@
 			);
 			name = "Hpi-FDS";
 			productName = "Hpi-FDS";
-			productReference = 057F6C291524490600E0E435 /* FDS.app */;
+			productReference = 057F6C291524490600E0E435 /* dvt.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2332,7 +2332,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = FDS;
+				PRODUCT_NAME = dvt;
 				PROVISIONING_PROFILE = "6961585A-74DA-4744-8D2C-46D355FD6384";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6961585A-74DA-4744-8D2C-46D355FD6384";
 				WRAPPER_EXTENSION = app;
@@ -2353,7 +2353,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = FDS;
+				PRODUCT_NAME = dvt;
 				PROVISIONING_PROFILE = "4BE09614-40CF-4F55-890E-7A0D9039A282";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4BE09614-40CF-4F55-890E-7A0D9039A282";
 				WRAPPER_EXTENSION = app;
@@ -2412,7 +2412,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = FDS;
+				PRODUCT_NAME = dvt;
 				PROVISIONING_PROFILE = "4BE09614-40CF-4F55-890E-7A0D9039A282";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4BE09614-40CF-4F55-890E-7A0D9039A282";
 				WRAPPER_EXTENSION = app;

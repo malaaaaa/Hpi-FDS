@@ -25,7 +25,7 @@
 #import "NT_TransPlanImpDao.h"
 @implementation PubInfo
 
-static NSString *version = @"1.2";
+static NSString *version = @"1.3";
 //测试环境
 static NSString *hostName =@"http://10.2.17.121";
 static NSString *port =@":82";

@@ -381,7 +381,6 @@ UIAlertView *RegistAlert;
 -(void) tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
     
-    NSLog(@"mala selected %d",self.tabBarController.selectedIndex);
     switch (self.tabBarController.selectedIndex) {
             //处理“地图展示”模块
         case 0:
