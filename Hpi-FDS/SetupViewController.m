@@ -347,7 +347,6 @@ static bool parserFlag=FALSE;
                 case 1	:
                     cell.textLabel.text=@"删除本地文件";
                     cell.selectionStyle = UITableViewCellSelectionStyleGray;
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 case 2	:
                     
@@ -372,19 +371,16 @@ static bool parserFlag=FALSE;
                         self.activity=[[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(400, 8.5, 20, 20)] autorelease];
                         
                     }
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 					break;
                 case 4	:
 					cell.textLabel.text=[NSString stringWithFormat:@"更新地图市场港口数据  上次更新:%@",PubInfo.mmpUpdateTime];
                     [cell.textLabel setFont:[UIFont systemFontOfSize:14.0] ];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 					break;
                 case 5	:
 					cell.textLabel.text=[NSString stringWithFormat:@"更新数据查询模块数据  上次更新:%@",PubInfo.reportUpdateTime];
                     [cell.textLabel setFont:[UIFont systemFontOfSize:14.0] ];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 					break;
 			}
 		}
