@@ -288,6 +288,10 @@ static NSInteger menuSection;
           
       }
 
+    
+   //  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
 
     
     
@@ -401,9 +405,11 @@ static NSInteger menuSection;
         }
     }
     cell.accessoryType = UITableViewCellAccessoryNone;
-   // cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
-   cell.selectionStyle=UITableViewCellSelectionStyleBlue;
-   // cell.selectedBackgroundView.backgroundColor=[UIColor   blueColor];
+    //cell.selectionStyle=UITableViewCellSelectionStyleBlue;
+    
+    cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];
+    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:15.0/255 green:43.0/255 blue:64.0/255 alpha:1];
+   
     return cell;
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
