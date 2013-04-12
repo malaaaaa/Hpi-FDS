@@ -60,6 +60,13 @@ static NSString *stringType=@"GKDJL";
     _buttonView.layer.borderWidth=2.0;
     _buttonView.layer.borderColor=[UIColor blackColor].CGColor;
     _buttonView.backgroundColor=[UIColor colorWithRed:35.0/255 green:35.0/255 blue:35.0/255 alpha:1];
+    
+    stringType=@"GKDJL";
+    [self loadHpiGraphView];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+
+    
 }
 
 - (void)viewDidUnload
@@ -117,6 +124,7 @@ static NSString *stringType=@"GKDJL";
     [marketOneController release];
     [super dealloc];
 }
+
 -(void)loadHpiGraphView{
     NSDate *maxDate=[endDay laterDate:startDay];
     NSDate *minDate=[endDay earlierDate:startDay];
@@ -132,7 +140,7 @@ static NSString *stringType=@"GKDJL";
     if([stringType isEqualToString: @"GKDJL"])
     {
         minY = 0;
-        maxY = 180;
+        maxY = 100;
         NSLog(@"max=[%d] min=[%d]",maxY,minY);
         graphData.yNum=maxY-minY;
         for(int i=0;i<6;i++)
@@ -149,12 +157,12 @@ static NSString *stringType=@"GKDJL";
     if([stringType isEqualToString: @"GKDCL"])
     {
         minY = 0;
-        maxY = 180;
+        maxY = 100;
         //NSLog(@"max=[%d] min=[%d]",maxY,minY);
         graphData.yNum=maxY-minY;
         for(int i=0;i<6;i++)
         {
-           //NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
+            //NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
             if (i==0) {
                 [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
             }
@@ -165,13 +173,13 @@ static NSString *stringType=@"GKDJL";
     }
     if([stringType isEqualToString: @"GKCML"])
     {
-        minY = 0;
+        minY = 400;
         maxY = 1000;
         //NSLog(@"max=[%d] min=[%d]",maxY,minY);
         graphData.yNum=maxY-minY;
         for(int i=0;i<6;i++)
         {
-         //  NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
+            //  NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
             if (i==0) {
                 [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
             }
@@ -198,18 +206,7 @@ static NSString *stringType=@"GKDJL";
         }
     }
     
-    //    NSLog(@"max=[%d] min=[%d]",10000000,0);
-    //    graphData.yNum=10000000-0;
-    //    for(int i=0;i<6;i++)
-    //    {
-    //        NSLog(@"tmdefine.miniMum+(tmdefine.maxiMum-tmdefine.miniMum)*(i+1)/6) [%d]",0+(10000000-0)*i/5);
-    //        if (i==0) {
-    //            [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",0]];
-    //        }
-    //        else {
-    //            [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",0+(10000000-0)*i/5]];
-    //        }
-    //    }
+    
     NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease    ];
     unsigned int unitFlags = NSDayCalendarUnit;
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:minDate  toDate:maxDate  options:0];
@@ -254,76 +251,53 @@ static NSString *stringType=@"GKDJL";
         
         TgPort *tgPort=(TgPort *)[array objectAtIndex:0];
         date=minDate;
-        if([stringType isEqualToString: @"GKDJL"])
-        {
-            for ( int i = 0 ; i < graphData.xNum ; i++ ) {
-                //NSLog(@"date %@",date);
-                TmCoalinfo *tmCoalinfo=[TmCoalinfoDao getTmCoalinfoOne :tgPort.portCode:date];
-                if(tmCoalinfo == nil){
-                }
-                else{
-                    HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
-                    point.x=i;
-                    point.y=tmCoalinfo.import/10000-minY;
-                    [graphData.pointArray  addObject:point];
-                }
-                date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
+        
+        
+        if([stringType isEqualToString: @"GKDJL"]){
+            NSMutableArray *resultArray=[TmCoalinfoDao getTmCoalinfoByPort:tgPort.portCode startDay:date Days:graphData.xNum];
+            for (int i=0; i<[resultArray count]; i++) {
+                TmCoalinfoMore *tmCoalinfo= [resultArray objectAtIndex:i];
+                HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
+                point.x=tmCoalinfo.days;
+                point.y=tmCoalinfo.import/10000-minY;
+                
+                [graphData.pointArray  addObject:point];
+            }
+        }
+        if([stringType isEqualToString: @"GKDCL"]){
+            NSMutableArray *resultArray=[TmCoalinfoDao getTmCoalinfoByPort:tgPort.portCode startDay:date Days:graphData.xNum];
+            for (int i=0; i<[resultArray count]; i++) {
+                TmCoalinfoMore *tmCoalinfo= [resultArray objectAtIndex:i];
+                HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
+                point.x=tmCoalinfo.days;
+                point.y=tmCoalinfo.Export/10000-minY;
+                
+                [graphData.pointArray  addObject:point];
+            }
+        }
+        if([stringType isEqualToString: @"GKCML"]){
+            NSMutableArray *resultArray=[TmCoalinfoDao getTmCoalinfoByPort:tgPort.portCode startDay:date Days:graphData.xNum];
+            for (int i=0; i<[resultArray count]; i++) {
+                TmCoalinfoMore *tmCoalinfo= [resultArray objectAtIndex:i];
+                HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
+                point.x=tmCoalinfo.days;
+                point.y=tmCoalinfo.storage/10000-minY;
+                
+                [graphData.pointArray  addObject:point];
+            }
+        }
+        if([stringType isEqualToString: @"ZGCS"]){
+            NSMutableArray *resultArray=[TmShipinfoDao getTmShipinfoByPort:tgPort.portCode startDay:date Days:graphData.xNum];
+            for (int i=0; i<[resultArray count]; i++) {
+                TmShipinfoMore *tmShipinfo= [resultArray objectAtIndex:i];
+                HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
+                point.x=tmShipinfo.days;
+                point.y=tmShipinfo.waitShip-minY;
+                
+                [graphData.pointArray  addObject:point];
             }
         }
         
-        date=minDate;
-        if([stringType isEqualToString: @"GKDCL"])
-        {
-            for ( int i = 0 ; i < graphData.xNum ; i++ ) {
-                //NSLog(@"date %@",date);
-                TmCoalinfo *tmCoalinfo=[TmCoalinfoDao getTmCoalinfoOne :tgPort.portCode:date];
-                if(tmCoalinfo == nil){
-                }
-                else{
-                    HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
-                    point.x=i;
-                    point.y=tmCoalinfo.Export/10000-minY;
-                    [graphData.pointArray  addObject:point];
-                }
-                date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
-            }
-        }
-        
-        date=minDate;
-        if([stringType isEqualToString: @"GKCML"])
-        {
-            for ( int i = 0 ; i < graphData.xNum ; i++ ) {
-                //NSLog(@"date %@",date);
-                TmCoalinfo *tmCoalinfo=[TmCoalinfoDao getTmCoalinfoOne :tgPort.portCode:date];
-                if(tmCoalinfo == nil){
-                }
-                else{
-                    HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
-                    point.x=i;
-                    point.y=tmCoalinfo.storage/10000-minY;
-                    [graphData.pointArray  addObject:point];
-                }
-                date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
-            }
-        }
-        
-        date=minDate;
-        if([stringType isEqualToString: @"ZGCS"])
-        {
-            for ( int i = 0 ; i < graphData.xNum ; i++ ) {
-                //NSLog(@"date %@",date);
-                TmShipinfo *tmShipinfo=[TmShipinfoDao getTmShipinfoOne :tgPort.portCode:date];
-                if(tmShipinfo == nil){
-                }
-                else{
-                    HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
-                    point.x=i;
-                    point.y=tmShipinfo.waitShip-minY;
-                    [graphData.pointArray  addObject:point];
-                }
-                date = [[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([date timeIntervalSinceReferenceDate] + 24*60*60)] autorelease];
-            }
-        }
     }
     if (graphView) {
         [graphView removeFromSuperview];
@@ -353,14 +327,12 @@ static NSString *stringType=@"GKDJL";
     [graphView setNeedsDisplay];
     [self.listView addSubview:graphView];
     
-    /****/
     CATransition *animation = [CATransition animation];
     animation.delegate = self;
     animation.duration = 0.8 ;  // 动画持续时间(秒)
     animation.timingFunction = UIViewAnimationCurveEaseInOut;
     animation.type=@"oglFlip";
     [[self.listView layer] addAnimation:animation forKey:@"animation"];
-    /****/
     
     [graphData release];
     [stringType release];

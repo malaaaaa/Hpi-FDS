@@ -153,19 +153,7 @@ static sqlite3	*database;
     else 
         return (TmIndexinfo *)[array objectAtIndex:0];
 }
-+(NSMutableArray *) getTmIndexinfoByName:(NSString *)indexName startDay:(NSDate*)startDay Days:(NSInteger)days
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *start=[dateFormatter stringFromDate:startDay];
-    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
-	NSString *query=[NSString stringWithFormat:@" indexName = '%@' AND recordTime >='%@' AND recordTime <='%@' order by recordTime ",indexName,start,end];
-	NSMutableArray * array=[TmIndexinfoDao getTmIndexinfoBySql:query];
-    //   NSLog(@"执行 getTmIndexinfo 数量[%d] ",[array count]);
-    [dateFormatter release];
-  
-    return array;
-}
+
 +(NSMutableArray *) getTmIndexinfoBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
@@ -207,5 +195,52 @@ static sqlite3	*database;
 
 	return array;
 }
++(NSMutableArray *) getTmIndexinfoByName:(NSString *)indexName startDay:(NSDate*)startDay Days:(NSInteger)days
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *start=[dateFormatter stringFromDate:startDay];
+    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
+	sqlite3_stmt *statement;
+    NSString *sql=[NSString stringWithFormat:@"SELECT infoId,indexName,recordTime,infoValue,(strftime('%%s',recordTime)-strftime('%%s','%@'))/60/60/24 FROM  TmIndexinfo WHERE indexName = '%@' AND recordTime >='%@' AND recordTime <='%@' order by recordTime  ",start,indexName,start,end];
+//    NSLog(@"执行 getTmIndexinfoBySql [%@] ",sql);
+	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+			
+            TmIndexinfoMore *tmIndexinfo=[[TmIndexinfoMore alloc] init];
+            
+            tmIndexinfo.infoId = sqlite3_column_int(statement,0);
+            
+            char * rowData1=(char *)sqlite3_column_text(statement,1);
+            if (rowData1 == NULL)
+                tmIndexinfo.indexName = nil;
+            else
+                tmIndexinfo.indexName = [NSString stringWithUTF8String: rowData1];
+            
+            char * rowData2=(char *)sqlite3_column_text(statement,2);
+            if (rowData2 == NULL)
+                tmIndexinfo.recordTime = nil;
+            else
+                tmIndexinfo.recordTime = [NSString stringWithUTF8String: rowData2];
+            
+            char * rowData3=(char *)sqlite3_column_text(statement,3);
+            if (rowData3 == NULL)
+                tmIndexinfo.infoValue = nil;
+            else
+                tmIndexinfo.infoValue = [NSString stringWithUTF8String: rowData3];
+            
+            //计算当前纪录第几天
+            tmIndexinfo.days = sqlite3_column_int(statement,4);
 
+			[array addObject:tmIndexinfo];
+            [tmIndexinfo release];
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+    sqlite3_finalize(statement);
+    
+	return array;
+}
 @end

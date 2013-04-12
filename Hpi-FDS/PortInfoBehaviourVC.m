@@ -57,7 +57,7 @@
     
     ds.data=[[[NSMutableArray alloc]init] autorelease];
     for (i=0;i<[portarray count];i++) {
-        PortBehaviour *portBehaviour= [portarray objectAtIndex:i];
+        PortBehaviour *portBehaviour= [portarray objectAtIndex:i];  
         [ds.data addObject:[NSArray arrayWithObjects:
                             kBLACK,
                             portBehaviour.portName,

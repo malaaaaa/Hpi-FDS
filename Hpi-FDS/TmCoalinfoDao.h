@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 #import "TmCoalinfo.h"
+#import "TmCoalinfoMore.h"
 @interface TmCoalinfoDao : NSObject{
 }
 
@@ -20,7 +21,7 @@
 +(NSMutableArray *) getTmCoalinfo:(NSInteger)infoId;
 +(NSMutableArray *) getTmCoalinfo:(NSString *)portCode :(NSDate*)startDay :(NSDate *)endDay;
 +(NSMutableArray *) getTmCoalinfoBySql:(NSString *)sql;
-+(TmCoalinfo *) getTmCoalinfoOne:(NSString *)portCode :(NSDate*)day;
+//+(TmCoalinfo *) getTmCoalinfoOne:(NSString *)portCode :(NSDate*)day;
 +(void) deleteAll;
-
++(NSMutableArray *) getTmCoalinfoByPort:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days;
 @end

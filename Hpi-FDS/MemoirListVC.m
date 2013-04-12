@@ -74,7 +74,8 @@ static int cellNum =0;
     BadgeNumber=[TsFileinfoDao getUnDownloadNums:@"NOTICE"];
     //更新MapView信息栏按钮图标未读显示数量
     [self.parentMapView setControllerText:[NSString stringWithFormat:@"%d", BadgeNumber]];
-
+    //重设视图高度
+    self.contentSizeForViewInPopover=CGSizeMake(320, [self.listArray count]*50);
 	return [NSDate date]; // should return date data source was last changed
 	
 }
