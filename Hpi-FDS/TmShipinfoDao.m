@@ -221,6 +221,32 @@ static sqlite3	*database;
 	return array;
 }
 
+
++(int) getZGShipAVG:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days ColumName:(NSString *)name
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *start=[dateFormatter stringFromDate:startDay];
+    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
+	sqlite3_stmt *statement;
+
+    NSString *sql=[NSString stringWithFormat:@"SELECT      round(avg( %@ )/100.0+0.5 ,0)*100 FROM  TmShipinfo WHERE portCode = '%@' AND recordDate >='%@' AND recordDate <='%@' ",name,portCode,start,end];
+    NSLog(@"执行 getZGShipAVG [%@] ",sql);
+    int avg=0;
+    if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+            avg=sqlite3_column_int(statement,0);
+            
+        }
+    }else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+    return  avg;
+
+}
+
+
+
 +(NSMutableArray *) getTmShipinfoByPort:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -229,7 +255,7 @@ static sqlite3	*database;
     NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT infoId,portCode,recordDate,waitShip,transactShip,loadShip,(strftime('%%s',recordDate)-strftime('%%s','%@'))/60/60/24 FROM  TmShipinfo WHERE portCode = '%@' AND recordDate >='%@' AND recordDate <='%@' ",start,portCode,start,end];
-    //NSLog(@"执行 getTmShipinfoBySql [%@] ",sql);
+  //s  NSLog(@"执行 getTmShipinfoBySql [%@] ",sql);
     
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

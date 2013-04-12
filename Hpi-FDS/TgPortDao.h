@@ -17,6 +17,7 @@
 +(NSString *) dataFilePath;
 +(void) openDataBase;
 +(void) initDb;
++(NSMutableArray *) getTgPortSort;//得到排序后的港口信息
 +(void)insert:(TgPort*) tgPort;
 +(void)delete:(TgPort*) tgPort;
 +(NSMutableArray *) getTgPort:(NSString *)portCode;
@@ -24,5 +25,5 @@
 +(NSMutableArray *) getTgPort;
 +(NSMutableArray *) getTgPortBySql:(NSString *)sql;
 +(void) deleteAll;
-
++(NSMutableArray *) getTgPortSortBySql:(NSString *)sql1;//得到排序后的港口信息
 @end

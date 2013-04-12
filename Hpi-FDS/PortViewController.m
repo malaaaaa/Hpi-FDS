@@ -124,7 +124,8 @@ static NSString *stringType=@"GKDJL";
     [marketOneController release];
     [super dealloc];
 }
-
+#pragma mark-----
+#pragma 修改为动态Y轴
 -(void)loadHpiGraphView{
     NSDate *maxDate=[endDay laterDate:startDay];
     NSDate *minDate=[endDay earlierDate:startDay];
@@ -135,78 +136,8 @@ static NSString *stringType=@"GKDJL";
     graphData.xtitles = [[NSMutableArray alloc]init] ;
     graphData.ytitles = [[NSMutableArray alloc]init] ;
     NSDate *date=minDate;
-    int minY = 0;
-    int maxY = 1000;
-    if([stringType isEqualToString: @"GKDJL"])
-    {
-        minY = 0;
-        maxY = 100;
-        NSLog(@"max=[%d] min=[%d]",maxY,minY);
-        graphData.yNum=maxY-minY;
-        for(int i=0;i<6;i++)
-        {
-            NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
-            if (i==0) {
-                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
-            }
-            else {
-                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
-            }
-        }
-    }
-    if([stringType isEqualToString: @"GKDCL"])
-    {
-        minY = 0;
-        maxY = 100;
-        //NSLog(@"max=[%d] min=[%d]",maxY,minY);
-        graphData.yNum=maxY-minY;
-        for(int i=0;i<6;i++)
-        {
-            //NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
-            if (i==0) {
-                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
-            }
-            else {
-                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
-            }
-        }
-    }
-    if([stringType isEqualToString: @"GKCML"])
-    {
-        minY = 400;
-        maxY = 1000;
-        //NSLog(@"max=[%d] min=[%d]",maxY,minY);
-        graphData.yNum=maxY-minY;
-        for(int i=0;i<6;i++)
-        {
-            //  NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
-            if (i==0) {
-                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
-            }
-            else {
-                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
-            }
-        }
-    }
-    if([stringType isEqualToString: @"ZGCS"])
-    {
-        minY = 0;
-        maxY = 200;
-        NSLog(@"max=[%d] min=[%d]",maxY,minY);
-        graphData.yNum=maxY-minY;
-        for(int i=0;i<6;i++)
-        {
-            NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
-            if (i==0) {
-                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
-            }
-            else {
-                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
-            }
-        }
-    }
-    
-    
+
+     /*＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊计算x轴＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
     NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease    ];
     unsigned int unitFlags = NSDayCalendarUnit;
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:minDate  toDate:maxDate  options:0];
@@ -228,6 +159,8 @@ static NSString *stringType=@"GKDJL";
         c=a;
         graphData.xNum=a*9;
     }
+    
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy/MM/dd"];
     
@@ -244,9 +177,118 @@ static NSString *stringType=@"GKDJL";
     }
     [dateFormatter release];
     
+      /*＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊计算x轴＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
     NSMutableArray *array=[TgPortDao getTgPortByPortName:portLabel.text];
-    
-    NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
+   //NSLog(@"查询 %@ 详细信息 %d条记录",stringType,[array count]);
+     /*＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊计算y轴＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
+    int minY = 0;
+    int maxY = 1000;
+
+    if([stringType isEqualToString: @"GKDJL"])//调进量
+    {
+        
+        //NSLog(@"portLabel.text------------%@",portLabel.text);
+        //NSLog(@"minDate------------%@",minDate);
+        //NSLog(@"graphData.xNum------------%d",graphData.xNum);
+        
+        
+        
+        int avg=0;
+        if ([array count]>0) {
+             TgPort *tgPort=(TgPort *)[array objectAtIndex:0];
+             avg=[TmCoalinfoDao getAVGValues:tgPort.portCode startDay:minDate Days:graphData.xNum  ColumName:[NSString stringWithFormat:@"%@",@"import"]];
+            NSLog(@"avg==============%d",avg);
+        }
+        minY = 0;
+        maxY = avg==0?100:avg*2;//平均值的两倍
+        
+        NSLog(@"max=[%d] min=[%d]",maxY,minY);
+        graphData.yNum=maxY-minY;
+        for(int i=0;i<6;i++)
+        {
+            NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
+            if (i==0) {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
+            }
+            else {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
+            }
+        }
+    }
+    if([stringType isEqualToString: @"GKDCL"])//调出量
+    {
+        int avg=0;
+        if ([array count]>0) {
+            TgPort *tgPort=(TgPort *)[array objectAtIndex:0];
+            avg=[TmCoalinfoDao getAVGValues:tgPort.portCode startDay:minDate Days:graphData.xNum  ColumName:[NSString stringWithFormat:@"%@",@"Export"]];
+            NSLog(@"avg==============%d",avg);
+        }
+        minY = 0;
+        maxY = avg==0?100:avg*2;//平均值的两倍
+        //NSLog(@"max=[%d] min=[%d]",maxY,minY);
+        graphData.yNum=maxY-minY;
+        for(int i=0;i<6;i++)
+        {
+            //NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
+            if (i==0) {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
+            }
+            else {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
+            }
+        }
+    }
+    if([stringType isEqualToString: @"GKCML"])
+    {
+        int avg=0;
+        if ([array count]>0) {
+            TgPort *tgPort=(TgPort *)[array objectAtIndex:0];
+            avg=[TmCoalinfoDao getAVGValues:tgPort.portCode startDay:minDate Days:graphData.xNum  ColumName:[NSString stringWithFormat:@"%@",@"storage"]];
+            NSLog(@"avg==============%d",avg);
+        }
+        minY = 0;
+        maxY = avg==0?100:avg*2;//平均值的两倍
+        //NSLog(@"max=[%d] min=[%d]",maxY,minY);
+        graphData.yNum=maxY-minY;
+        for(int i=0;i<6;i++)
+        {
+            //  NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
+            if (i==0) {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
+            }
+            else {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
+            }
+        }
+    }
+    if([stringType isEqualToString: @"ZGCS"])
+    {
+        int avg=0;
+        if ([array count]>0) {
+            TgPort *tgPort=(TgPort *)[array objectAtIndex:0];
+            avg=[TmShipinfoDao getZGShipAVG:tgPort.portCode startDay:minDate Days:graphData.xNum  ColumName:[NSString stringWithFormat:@"%@",@"waitShip"]];
+            NSLog(@"avg==============%d",avg);
+        }
+        minY = 0;
+        maxY = avg==0?100:avg*2;//平均值的两倍
+        
+        
+        NSLog(@"max=[%d] min=[%d]",maxY,minY);
+        graphData.yNum=maxY-minY;
+        for(int i=0;i<6;i++)
+        {
+            NSLog(@"minY+(maxY-minY)*(i+1)/6) [%d]",minY+(maxY-minY)*i/5);
+            if (i==0) {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY]];
+            }
+            else {
+                [graphData.ytitles addObject:[NSString stringWithFormat:@"%d",minY+(maxY-minY)*i/5]];
+            }
+        }
+    }
+    /*＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊计算y轴＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/ 
+ 
+  
     if ([array count]>0) {
         
         TgPort *tgPort=(TgPort *)[array objectAtIndex:0];
@@ -255,6 +297,11 @@ static NSString *stringType=@"GKDJL";
         
         if([stringType isEqualToString: @"GKDJL"]){
             NSMutableArray *resultArray=[TmCoalinfoDao getTmCoalinfoByPort:tgPort.portCode startDay:date Days:graphData.xNum];
+            
+          //  NSLog(@"tgPort.portCode-------------%@",tgPort.portCode);
+            //NSLog(@"startdate-------------%@",date);
+            //NSLog(@"graphData.xNum-------------%d",graphData.xNum);
+            
             for (int i=0; i<[resultArray count]; i++) {
                 TmCoalinfoMore *tmCoalinfo= [resultArray objectAtIndex:i];
                 HpiPoint *point=[[[HpiPoint alloc]init] autorelease];
@@ -339,6 +386,8 @@ static NSString *stringType=@"GKDJL";
 }
 #pragma mark -
 #pragma mark buttion action
+#pragma mark---portAction修改---
+#pragma mark portAction  tgport和tfport关联,以tgport数据为准.以tfport离的sort排序。
 - (IBAction)portAction:(id)sender {
     if (self.popover.popoverVisible) {
         [self.popover dismissPopoverAnimated:YES];
@@ -355,7 +404,7 @@ static NSString *stringType=@"GKDJL";
     chooseView.popover = pop;
     NSMutableArray *Array=[[NSMutableArray alloc]init];
     chooseView.iDArray=Array;
-    NSMutableArray *array=[TgPortDao getTgPort];
+    NSMutableArray *array=[TgPortDao getTgPortSort];
     for(int i=0;i<[array count];i++){
         TgPort *tgPort=[array objectAtIndex:i];
         [chooseView.iDArray addObject:tgPort.portName];

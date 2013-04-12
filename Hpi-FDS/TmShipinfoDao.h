@@ -25,4 +25,7 @@
 +(TmShipinfo *) getTmShipinfoOne:(NSString *)portCode :(NSDate*)day;
 +(void) deleteAll;
 +(NSMutableArray *) getTmShipinfoByPort:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days;
+
+
++(int) getZGShipAVG:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days ColumName:(NSString *)name;
 @end

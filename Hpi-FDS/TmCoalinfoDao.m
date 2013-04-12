@@ -161,6 +161,46 @@ static sqlite3	*database;
 }
 
 
+
+
++(int )getAVGValues:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days  ColumName:(NSString *)name
+{
+    
+    
+    
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *start=[dateFormatter stringFromDate:startDay];
+    NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
+    
+	sqlite3_stmt *statement;
+   
+    int integer=0;
+    
+    NSString *sql=[NSString stringWithFormat:@"SELECT round(avg( %@ )/100000.0+0.5,0)*10 FROM  TmCoalinfo WHERE portCode = '%@' AND recordDate >='%@' AND recordDate <='%@'        ",name,portCode,start,end];
+   NSLog(@"执行 getAVGValues [%@] ",sql);
+   if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+            
+               integer=sqlite3_column_int(statement,0);
+           
+            
+        }
+    }else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+
+
+    return integer;
+}
+
+
+
+
+
+
+
 +(NSMutableArray *) getTmCoalinfoBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
@@ -208,7 +248,7 @@ static sqlite3	*database;
     NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
 	sqlite3_stmt *statement;
     NSString *sql=[NSString stringWithFormat:@"SELECT infoId,portCode,recordDate,import,Export,storage,(strftime('%%s',recordDate)-strftime('%%s','%@'))/60/60/24 FROM  TmCoalinfo WHERE portCode = '%@' AND recordDate >='%@' AND recordDate <='%@'    ",start,portCode,start,end];
-//        NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
+      //NSLog(@"执行 getTmCoalinfoBySql [%@] ",sql);
 	NSMutableArray *array=[[[NSMutableArray alloc]init] autorelease];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
 		while (sqlite3_step(statement)==SQLITE_ROW) {

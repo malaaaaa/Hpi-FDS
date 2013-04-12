@@ -140,6 +140,7 @@ static sqlite3	*database;
 	NSMutableArray * array=[TgPortDao getTgPortBySql:query];
 	return array;
 }
+
 +(NSMutableArray *) getTgPort
 {
     
@@ -148,11 +149,87 @@ static sqlite3	*database;
   //  NSLog(@"执行 getTgPort 数量[%d] ",[array count]);
 	return array;
 }
+
++(NSMutableArray *) getTgPortSort
+{
+    
+	NSString *query=@" lon <> 0 ";
+	NSMutableArray * array=[TgPortDao getTgPortSortBySql:query];
+    //  NSLog(@"执行 getTgPortSortBySql 数量[%d] ",[array count]);
+	return array;
+}
+
+#pragma mark---getTgPortSortBySql添加---
+#pragma mark getTgPortSortBySql  tgport和tfport关联,以tgport数据为准.以tfport离的sort排序。
+
++(NSMutableArray *) getTgPortSortBySql:(NSString *)sql1
+{
+
+    sqlite3_stmt *statement;
+    NSString *sql=[NSString stringWithFormat:@"select  a.portCode,a.shipNum,a.handleShip,a.loadShip,a.transactShip,a.waitShip,a.portName,a.lon,a.lat    from   TgPort   as a   left  join TF_Port    as  b  on  a.portCode=b.portcode  WHERE %@   order by   cast( b.sort  as INTEGER )  desc",sql1];
+    //NSLog(@"执行 getTgPortSortBySql [%@] ",sql);
+    
+    /*select  a.portCode,a.shipNum,a.handleShip,a.loadShip,a.transactShip,a.waitShip,a.portName,a.lon,a.lat    from   TgPort   as a   left  join TF_Port    as  b  on  a.portCode=b.portcode  WHERE %@   order by   cast( b.sort  as INTEGER )  desc*/
+    
+	NSMutableArray *array=[[NSMutableArray alloc]init];
+	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
+		while (sqlite3_step(statement)==SQLITE_ROW) {
+			
+            TgPort *tgPort=[[TgPort alloc] init];
+			char * rowData0=(char *)sqlite3_column_text(statement,0);
+            if (rowData0 == NULL)
+                tgPort.portCode = nil;
+            else
+                tgPort.portCode = [NSString stringWithUTF8String: rowData0];
+            
+            tgPort.shipNum = sqlite3_column_int(statement,1);
+            tgPort.handleShip = sqlite3_column_int(statement,2);
+            tgPort.loadShip = sqlite3_column_int(statement,3);
+            tgPort.transactShip = sqlite3_column_int(statement,4);
+            tgPort.waitShip = sqlite3_column_int(statement,5);
+            
+            char * rowData6=(char *)sqlite3_column_text(statement,6);
+            if (rowData6 == NULL)
+                tgPort.portName = nil;
+            else
+                tgPort.portName = [NSString stringWithUTF8String: rowData6];
+            
+            char * rowData7=(char *)sqlite3_column_text(statement,7);
+            if (rowData7 == NULL)
+                tgPort.lon = nil;
+            else
+                tgPort.lon = [NSString stringWithUTF8String: rowData7];
+            
+            char * rowData8=(char *)sqlite3_column_text(statement,8);
+            if (rowData8 == NULL)
+                tgPort.lat = nil;
+            else
+                tgPort.lat = [NSString stringWithUTF8String: rowData8];
+            
+			[array addObject:tgPort];
+            [tgPort release];
+		}
+	}else {
+		NSLog( @"Error: select  error message [%s]  sql[%@]", sqlite3_errmsg(database),sql);
+	}
+	//zhangcx add
+	[array autorelease];
+	return array;
+
+
+
+}
+
+
+
+
 +(NSMutableArray *) getTgPortBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"SELECT portCode,shipNum,handleShip,loadShip,transactShip,waitShip,portName,lon,lat FROM  TgPort WHERE %@ ",sql1];
-  //  NSLog(@"执行 getTgPortBySql [%@] ",sql);
+    NSString *sql=[NSString stringWithFormat:@"select  portCode,shipNum,handleShip,loadShip,transactShip,waitShip,portName,lon,lat    from   TgPort     WHERE %@   ",sql1];
+    //NSLog(@"执行 getTgPortBySql [%@] ",sql);
+    
+    /*select  a.portCode,a.shipNum,a.handleShip,a.loadShip,a.transactShip,a.waitShip,a.portName,a.lon,a.lat    from   TgPort   as a   left  join TF_Port    as  b  on  a.portCode=b.portcode  WHERE %@   order by   cast( b.sort  as INTEGER )  desc*/
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
 	if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){

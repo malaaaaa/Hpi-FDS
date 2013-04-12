@@ -13,7 +13,7 @@
 @interface TmCoalinfoDao : NSObject{
 }
 
-+(NSString *) dataFilePath;
++(NSString *) dataFilePath; 
 +(void) openDataBase;
 +(void) initDb;
 +(void)insert:(TmCoalinfo*) tmCoalinfo;
@@ -22,6 +22,10 @@
 +(NSMutableArray *) getTmCoalinfo:(NSString *)portCode :(NSDate*)startDay :(NSDate *)endDay;
 +(NSMutableArray *) getTmCoalinfoBySql:(NSString *)sql;
 //+(TmCoalinfo *) getTmCoalinfoOne:(NSString *)portCode :(NSDate*)day;
+
+
++(int )getAVGValues:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days  ColumName:(NSString *)name;
+
 +(void) deleteAll;
 +(NSMutableArray *) getTmCoalinfoByPort:(NSString *)portCode startDay:(NSDate*)startDay Days:(NSInteger)days;
 @end
