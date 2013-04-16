@@ -261,7 +261,7 @@ static NSString *stringType=@"GKDJL";
             }
         }
     }
-    if([stringType isEqualToString: @"ZGCS"])
+    if([stringType isEqualToString: @"ZGCS"])//取最大值..
     {
         int avg=0;
         if ([array count]>0) {
@@ -270,7 +270,7 @@ static NSString *stringType=@"GKDJL";
             NSLog(@"avg==============%d",avg);
         }
         minY = 0;
-        maxY = avg==0?100:avg*2;//平均值的两倍
+        maxY = avg==0?100:avg;//平均值的两倍
         
         
         NSLog(@"max=[%d] min=[%d]",maxY,minY);

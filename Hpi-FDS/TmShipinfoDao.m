@@ -230,7 +230,7 @@ static sqlite3	*database;
     NSString *end=[dateFormatter stringFromDate:[[[NSDate alloc]  initWithTimeIntervalSinceReferenceDate:([startDay timeIntervalSinceReferenceDate] + days*24*60*60)] autorelease]];
 	sqlite3_stmt *statement;
 
-    NSString *sql=[NSString stringWithFormat:@"SELECT      round(avg( %@ )/100.0+0.5 ,0)*100 FROM  TmShipinfo WHERE portCode = '%@' AND recordDate >='%@' AND recordDate <='%@' ",name,portCode,start,end];
+    NSString *sql=[NSString stringWithFormat:@"SELECT       round(  max(%@)/10+0.5  ,0)*10 FROM  TmShipinfo WHERE portCode = '%@' AND recordDate >='%@' AND recordDate <='%@' ",name,portCode,start,end];
     NSLog(@"执行 getZGShipAVG [%@] ",sql);
     int avg=0;
     if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)==SQLITE_OK){
