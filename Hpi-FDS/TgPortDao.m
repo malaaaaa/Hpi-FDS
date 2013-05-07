@@ -166,7 +166,7 @@ static sqlite3	*database;
 {
 
     sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"select  a.portCode,a.shipNum,a.handleShip,a.loadShip,a.transactShip,a.waitShip,a.portName,a.lon,a.lat    from   TgPort   as a   left  join TF_Port    as  b  on  a.portCode=b.portcode  WHERE %@   order by   cast( b.sort  as INTEGER )  desc",sql1];
+    NSString *sql=[NSString stringWithFormat:@"select  a.portCode,a.shipNum,a.handleShip,a.loadShip,a.transactShip,a.waitShip,a.portName,a.lon,a.lat    from   TgPort   as a   left  join TF_Port    as  b  on  a.portCode=b.portcode  WHERE %@   order by   cast( b.sort  as INTEGER )  asc",sql1];
     //NSLog(@"执行 getTgPortSortBySql [%@] ",sql);
     
     /*select  a.portCode,a.shipNum,a.handleShip,a.loadShip,a.transactShip,a.waitShip,a.portName,a.lon,a.lat    from   TgPort   as a   left  join TF_Port    as  b  on  a.portCode=b.portcode  WHERE %@   order by   cast( b.sort  as INTEGER )  desc*/
