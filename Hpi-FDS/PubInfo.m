@@ -23,16 +23,17 @@
 #import "TF_FACTORYCAPACITYDao.h"
 #import "TransPlanImpDao.h"
 #import "NT_TransPlanImpDao.h"
+#import "TBXMLParser.h"
 @implementation PubInfo
 
-static NSString *version = @"1.3";
+static NSString *version = @"1.4";
 //测试环境
-//static NSString *hostName =@"http://10.2.17.121";
-//static NSString *port =@":82";
+static NSString *hostName =@"http://10.2.17.121";
+static NSString *port =@":82";
 
 //正式环境
-static NSString *hostName =@"http://cds.hpi.com.cn";
-static NSString *port =@"";
+//static NSString *hostName =@"http://cds.hpi.com.cn";
+//static NSString *port =@"";
 static NSString *autoUpdate;
 static NSString *baseUrl;
 static NSString *url;
@@ -47,6 +48,7 @@ static NSString *reportUpdateTime;
 static NSString *isSucess;
 static NSString *deviceID;
 
+static sqlite3  *database;
 
 +(void)initdata
 {
@@ -195,6 +197,48 @@ static NSString *deviceID;
   
 //    [tempArray release];
     [fileName release];
+}
+#pragma mark -
+#pragma mark 数据库升级方法
++(void)UpdateDB
+{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"database.db"];
+    
+    
+    if(sqlite3_open([path UTF8String],&database)!=SQLITE_OK)
+    {
+        sqlite3_close(database);
+        NSLog(@"open UpdateDB  error");
+        return;
+    }
+    NSLog(@"open UpdateDB database succes ....");
+    
+    sqlite3_stmt *statement;
+    NSString *sql= @"select dynamic from tgship Limit 1";
+    NSLog(@"result=%d",sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL));
+    //检查dynamic字段来判断1.4版本是全新安装还是升级安装
+    if(sqlite3_prepare_v2(database,[sql UTF8String],-1,&statement,NULL)!=SQLITE_OK){
+		//字段不存在，说明是升级安装
+        char * errorMsg;
+        NSString *updateSql=@"alter table tgship add  DYNAMIC TEXT";
+        if(sqlite3_exec(database,[updateSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
+        {
+            sqlite3_close(database);
+            NSLog(@"alter table tgship error");
+            return;
+        }
+        //增加字段后自动同步
+        
+        TBXMLParser *tbxmlParser =[[TBXMLParser alloc] init];
+        [tbxmlParser requestSOAP:@"TgShip"];
+        [tbxmlParser release];
+    }
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
 }
 +(void)save
 {

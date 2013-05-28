@@ -30,6 +30,8 @@
     UILabel *destination;
     UILabel *infoTime;
     UILabel *stageName;
+    UILabel *dynamic;
+
 }
 @property (retain, nonatomic) IBOutlet UILabel *labelShipName;
 @property (retain, nonatomic) IBOutlet UILabel *company;
@@ -49,6 +51,7 @@
 @property (retain, nonatomic) IBOutlet UILabel *destination;
 @property (retain, nonatomic) IBOutlet UILabel *infoTime;
 @property (retain, nonatomic) IBOutlet UILabel *stageName;
+@property (retain, nonatomic) IBOutlet UILabel *dynamic;
 @property (nonatomic,retain) UILabel *infoLabel;
 @property (nonatomic,retain) UIPopoverController *popover;
 @property (nonatomic,copy) NSString *shipName;

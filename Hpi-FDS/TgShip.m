@@ -13,7 +13,7 @@
 @synthesize company,factoryCode,factoryName,portCode,eta,lat,lon,sog;
 @synthesize draft,stage,width,length,online,tripNo,infoTime,naviStat,portName;
 @synthesize shipName,stateCode,stateName,supplier,stageName,destination,isOwn;
-@synthesize didSelected;
+@synthesize didSelected,dynamic;
 - (void)dealloc {
     [shipName release];
     [company release];
@@ -39,6 +39,7 @@
     [stateCode release];
     [stateName release];
     [isOwn release];
+    [dynamic release];
     [super dealloc];
 }
 

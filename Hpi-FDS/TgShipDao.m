@@ -34,7 +34,7 @@ static sqlite3	*database;
 +(void) initDb
 {	
 	char *errorMsg;
-	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",
+	NSString *createSql=[NSString  stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",
 						 @"CREATE TABLE IF NOT EXISTS TgShip  (shipID INTEGER PRIMARY KEY ",
                          @",shipName TEXT ",
 						 @",comID INTEGER ",
@@ -63,7 +63,8 @@ static sqlite3	*database;
                          @",stageName TEXT ",
                          @",stateCode TEXT ",
                           @",stateName TEXT ",
-						 @",isOwn TEXT )"];
+                           @",isOwn TEXT ",
+						 @",dynamic TEXT )"];
 	if(sqlite3_exec(database,[createSql UTF8String],NULL,NULL,&errorMsg)!=SQLITE_OK)
 	{
 		sqlite3_close(database);
@@ -78,7 +79,7 @@ static sqlite3	*database;
 {
 //	NSLog(@"Insert begin tgShip");
 	const char *insert=
-    "INSERT INTO TgShip (shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,stateCode,stateName,isOwn) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    "INSERT INTO TgShip (shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,stateCode,stateName,isOwn,dynamic) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	sqlite3_stmt *statement;
 	
 	int re=sqlite3_prepare_v2(database, insert, -1, &statement, NULL);
@@ -144,7 +145,8 @@ static sqlite3	*database;
     sqlite3_bind_text(statement, 27,[tgShip.stateCode UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 28,[tgShip.stateName UTF8String], -1, SQLITE_TRANSIENT);
 	sqlite3_bind_text(statement, 29,[tgShip.isOwn UTF8String], -1, SQLITE_TRANSIENT);
-    
+    sqlite3_bind_text(statement, 30,[tgShip.dynamic UTF8String], -1, SQLITE_TRANSIENT);
+
 	re = sqlite3_step(statement);
 	if(re!=SQLITE_DONE)
     {
@@ -269,7 +271,7 @@ static sqlite3	*database;
 +(NSMutableArray *) getTgShipBySql:(NSString *)sql1
 {
 	sqlite3_stmt *statement;
-    NSString *sql=[NSString stringWithFormat:@"SELECT shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,stateCode,stateName,isOwn FROM  TgShip WHERE %@ ",sql1];
+    NSString *sql=[NSString stringWithFormat:@"SELECT shipID,shipName,comID,company,portCode,portName,factoryCode,factoryName,tripNo,supID,supplier,heatValue,lw,length,width,draft,eta,lat,lon,sog,destination,infoTime,naviStat,online,stage,stageName,stateCode,stateName,isOwn,dynamic FROM  TgShip WHERE %@ ",sql1];
    // NSLog(@"执行 getTgShipBySql [%@] ",sql);
     
 	NSMutableArray *array=[[NSMutableArray alloc]init];
@@ -429,6 +431,12 @@ static sqlite3	*database;
                 tgShip.isOwn = nil;
             else
                 tgShip.isOwn = [NSString stringWithUTF8String: rowData28];
+
+            char * rowData29=(char *)sqlite3_column_text(statement,29);
+            if (rowData29 == NULL)
+                tgShip.dynamic = nil;
+            else
+                tgShip.dynamic = [NSString stringWithUTF8String: rowData29];
 
 			[array addObject:tgShip];
             [tgShip release];

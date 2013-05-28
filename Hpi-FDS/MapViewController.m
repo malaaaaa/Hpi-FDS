@@ -1009,9 +1009,9 @@ static int iDisplay=0;
         //初始化待显示控制器
         infoShipViewController=[[InfoShipViewController alloc]init];
         //设置待显示控制器的范围
-        [infoShipViewController.view setFrame:CGRectMake(0,0, 600, 400)];
+        [infoShipViewController.view setFrame:CGRectMake(0,0, 600, 442)];
         //设置待显示控制器视图的尺寸
-        infoShipViewController.contentSizeForViewInPopover = CGSizeMake(600, 400);
+        infoShipViewController.contentSizeForViewInPopover = CGSizeMake(600, 442);
         //初始化弹出窗口
         UIPopoverController* pop = [[UIPopoverController alloc] initWithContentViewController:infoShipViewController];
         infoShipViewController.popover = pop;
@@ -1022,9 +1022,9 @@ static int iDisplay=0;
         self.popover = pop;
         self.popover.delegate = self;
         //设置弹出窗口尺寸
-        self.popover.popoverContentSize = CGSizeMake(600, 400);
+        self.popover.popoverContentSize = CGSizeMake(600, 442);
         //显示，其中坐标为箭头的坐标以及尺寸
-        [self.popover presentPopoverFromRect:CGRectMake(512, 450, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+        [self.popover presentPopoverFromRect:CGRectMake(512, 550, 5, 5) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
         [infoShipViewController release];
         [pop release];
     }

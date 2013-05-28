@@ -71,14 +71,8 @@
     NSString *stageName;    //阶段说明
     NSString *stateCode;     //状态编码
     NSString *stateName;     //状态说明
-    
-    
-    
-    
     NSString *isOwn;
-    
-    
-    
+    NSString *dynamic; //船舶动态  
     BOOL    didSelected;
 }
 @property (nonatomic,retain) NSString *shipName;
@@ -105,6 +99,7 @@
 @property (nonatomic,retain) NSString *stateCode;
 @property (nonatomic,retain) NSString *stateName;
 @property (nonatomic,retain) NSString *isOwn;
+@property (nonatomic,retain) NSString *dynamic;
 
 @property NSInteger shipID;
 @property NSInteger comID;

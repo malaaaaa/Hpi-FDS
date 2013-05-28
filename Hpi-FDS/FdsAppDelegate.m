@@ -52,6 +52,7 @@ UIAlertView *RegistAlert;
 {
     deviceUID = [[NSString alloc] initWithString:[[UIDevice currentDevice] uniqueDeviceIdentifier]] ;
     [PubInfo initdata];
+    [PubInfo UpdateDB];
     self.logr=[[[LoginResponse alloc] init] autorelease];
     
     [self showMainPage];

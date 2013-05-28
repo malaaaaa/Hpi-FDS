@@ -184,7 +184,7 @@ typedef enum{
 +(NSString *)deviceID;
 +(NSString *)currTime;
 +(NSString *)version;
-
++(void)UpdateDB;
 /*!
  @method +(BOOL)checkDeviceRegisterInfo;
  @author 马文培

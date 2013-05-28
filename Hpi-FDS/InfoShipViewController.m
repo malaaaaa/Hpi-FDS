@@ -29,7 +29,7 @@
 @synthesize destination;
 @synthesize infoTime;
 @synthesize stageName;
-@synthesize infoLabel, popover, shipName;
+@synthesize infoLabel, popover, shipName,dynamic;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,6 +76,7 @@
     [self setDestination:nil];
     [self setInfoTime:nil];
     [self setStageName:nil];
+    [self setDynamic:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -108,6 +109,7 @@
     [destination release];
     [infoTime release];
     [stageName release];
+    [dynamic release];
     [super dealloc];
 }
 
@@ -165,8 +167,9 @@
     self.destination.text = [NSString stringWithFormat:@"%@", tgShip.destination];
     self.infoTime.text = [NSString stringWithFormat:@"%@", tgShip.infoTime];
     self.stageName.text = [NSString stringWithFormat:@"%@", tgShip.stageName];
+    self.dynamic.text=[NSString stringWithFormat:@"%@", tgShip.dynamic];
     
-	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 281, 600, 154) data:ds];
+	DataGridComponent *grid = [[DataGridComponent alloc] initWithFrame:CGRectMake(0, 349, 600, 154) data:ds];
 
 //    [ds.data release];
 
