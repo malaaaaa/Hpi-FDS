@@ -2318,12 +2318,12 @@
 		057F6C561524490600E0E435 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: wenpei ma (A7EB3445LE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: wenpei ma (A7EB3445LE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2333,8 +2333,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = dvt;
-				PROVISIONING_PROFILE = "C54C2A07-7497-4E82-ACFF-BCEA46FD4A0C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ABE6CED9-8C92-487D-9B66-C4E40C2CC454";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2348,7 +2348,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2403,7 +2403,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hpi-FDS/Hpi-FDS-Prefix.pch";
 				INFOPLIST_FILE = "Hpi-FDS/Hpi-FDS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
